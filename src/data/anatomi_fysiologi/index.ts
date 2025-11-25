@@ -1,5 +1,5 @@
 import { bevaegeapparatetCards } from "./bevaegeapparatet";
-import { cellerVaevCards } from "./celler_vaev";
+import { cellerVaevCards } from "./celler_vev";
 import { endokrinCards } from "./endokrin";
 import { fordøjelseCards } from "./fordojelse";
 import { kredslobCards } from "./kredslob";
