@@ -251,17 +251,17 @@ export default function Index() {
       case "Anatomi og fysiologi":
         return ["#4c6ef5", "#7950f2"]; // blå → lilla
       case "Farmakologi":
-        return ["#12b886", "#20c997"]; // grøn/turkis
+        return ["#12b886", "#20b0c9ff"]; // grøn/turkis
       case "Kliniske parametre":
-        return ["#364fc7", "#4dabf7"]; // kølig blå
+        return ["#868824ff", "#4dabf7"]; // kølig blå
       case "Mikrobiologi":
-        return ["#0ca678", "#37b24d"]; // grøn
+        return ["#a6160cff", "#37b24d"]; // grøn
       case "Sygdomslære":
         return ["#fd7e14", "#f76707"]; // orange
       case "EKG":
         return ["#e64980", "#be4bdb"]; // pink/lilla
       case "Traumatologi og ITLS":
-        return ["#fa5252", "#e03131"]; // rød
+        return ["#d6fa52ff", "#e03131"]; // rød
       default:
         return ["#4c6ef5", "#364fc7"]; // fallback
     }
@@ -996,11 +996,11 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   primaryButton: { backgroundColor: "#12b886" },
-  secondaryButton: { backgroundColor: "#4c6ef5" },
+  secondaryButton: { backgroundColor: "#000000ff" },
   bigButtonText: {
     color: "#fff",
     fontWeight: "800",
-    fontSize: 18,            // ↓ from 24
+    fontSize: 22,            // ↓ from 24
   },
 
   smallButton: {
