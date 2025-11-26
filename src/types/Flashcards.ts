@@ -1,18 +1,13 @@
 export type Difficulty = "easy" | "medium" | "hard";
 
-export interface Flashcard {
+export type Flashcard = {
   id: string;
-  subject: string;   // e.g. "Cardiology", "Respiratory"
-  topic: string;     // e.g. "ACS", "COPD"
-  subtopic?: string;
-
   question: string;
   answer: string;
-
-  difficulty: Difficulty;
-
-  language?: "da" | "en" | "mix";
-  sourceType?: string;
-  sourceRef?: string;
+  difficulty: "easy" | "medium" | "hard";
+  subject: string;      // fx "Sygdomslære", "EKG", "Farmakologi"
+  topic: string;        // fx "Akut medicin", "Arytmier"
   tags?: string[];
-}
+  image?: string;       // optional – path eller nøgle til EKG-billede
+};
+

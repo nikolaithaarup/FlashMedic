@@ -1,6 +1,6 @@
 import type { Flashcard } from "../../types/Flashcard";
 
-export const cellerVaevCards: Flashcard[] = [
+export const cellervevCards: Flashcard[] = [
   {
     id: "cell_001",
     subject: "Anatomi og fysiologi",

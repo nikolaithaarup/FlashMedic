@@ -1,19 +1,21 @@
+import type { Flashcard } from "../../types/Flashcard";
+
 import { bevaegeapparatetCards } from "./bevaegeapparatet";
-import { cellerVaevCards } from "./celler_vev";
+import { cellervevCards } from "./celler_vev";
 import { endokrinCards } from "./endokrin";
-import { fordøjelseCards } from "./fordojelse";
+import { fordojelseCards } from "./fordojelse";
 import { kredslobCards } from "./kredslob";
 import { nervesystemetCards } from "./nervesystemet";
 import { nyrefunktionCards } from "./nyrefunktion";
 import { respirationCards } from "./respiration";
 
-export const anatomiFysCards = [
-  ...cellerVaevCards,
+export const anatomiFysiologiCards: Flashcard[] = [
+  ...bevaegeapparatetCards,
+  ...cellervevCards,
+  ...endokrinCards,
+  ...fordojelseCards,
   ...kredslobCards,
-  ...respirationCards,
   ...nervesystemetCards,
   ...nyrefunktionCards,
-  ...endokrinCards,
-  ...fordøjelseCards,
-  ...bevaegeapparatetCards,
+  ...respirationCards,
 ];
