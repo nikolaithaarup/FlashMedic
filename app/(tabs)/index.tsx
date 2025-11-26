@@ -358,53 +358,46 @@ export default function Index() {
     setUpcoming([]);
   };
 
-  const handleReportError = async () => {
-    if (!currentCard) return;
+const handleReportError = async () => {
+  if (!currentCard) return;
 
-    const subject = encodeURIComponent(
-      `FlashMedic fejl i kort: ${currentCard.id}`
+  const subject = encodeURIComponent(
+    `FlashMedic fejl i kort: ${currentCard.id}`
+  );
+
+  const bodyLines = [
+    "Hej, jeg vil gerne rapportere en fejl i FlashMedic.",
+    "",
+    `Kort-ID: ${currentCard.id}`,
+    `Fag: ${currentCard.subject}`,
+    `Emne: ${currentCard.topic}${
+      currentCard.subtopic ? " · " + currentCard.subtopic : ""
+    }`,
+    "",
+    "Spørgsmål:",
+    currentCard.question,
+    "",
+    "Svar:",
+    currentCard.answer,
+    "",
+    "Beskriv fejlen her:",
+    "",
+  ];
+
+  const body = encodeURIComponent(bodyLines.join("\n"));
+  const url = `mailto:nikolai_91@live.com?subject=${subject}&body=${body}`;
+
+  const canOpen = await Linking.canOpenURL(url);
+  if (canOpen) {
+    Linking.openURL(url);
+  } else {
+    Alert.alert(
+      "Ingen mailapp fundet",
+      "Det ser ud til, at din enhed ikke har en mailapp installeret eller konfigureret."
     );
+  }
+};
 
-    const bodyLines = [
-      "Hej, jeg vil gerne rapportere en fejl i FlashMedic.",
-      "",
-      `Kort-ID: ${currentCard.id}`,
-      `Fag: ${currentCard.subject}`,
-      `Emne: ${currentCard.topic}${
-        currentCard.subtopic ? " · " + currentCard.subtopic : ""
-      }`,
-      "",
-      "Spørgsmål:",
-      currentCard.question,
-      "",
-      "Svar:",
-      currentCard.answer,
-      "",
-      "Beskriv fejlen her:",
-      "",
-    ];
-
-    const body = encodeURIComponent(bodyLines.join("\n"));
-
-    const mailto = `mailto:nikolai_91@live.com?subject=${subject}&body=${body}`;
-
-    try {
-      const canOpen = await Linking.canOpenURL(mailto);
-      if (canOpen) {
-        Linking.openURL(mailto);
-      } else {
-        Alert.alert(
-          "Kan ikke åbne mail",
-          "Tjek at du har en mail-app installeret."
-        );
-      }
-    } catch (e) {
-      Alert.alert(
-        "Fejl",
-        "Der opstod en fejl ved forsøget på at åbne mail."
-      );
-    }
-  };
 
   const handleMarkKnown = () => {
     if (!currentCard) return;
