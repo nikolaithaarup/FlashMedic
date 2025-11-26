@@ -1,6 +1,6 @@
-import { StatusBar } from "expo-status-bar";
 import { LinearGradient } from "expo-linear-gradient";
 import * as Linking from "expo-linking";
+import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useMemo, useState } from "react";
 import {
   Alert,
@@ -13,12 +13,12 @@ import {
 } from "react-native";
 
 import { allFlashcards } from "../../src/data/flashcards";
-import type { Flashcard, Difficulty } from "../../src/types/Flashcard";
 import {
   loadStats,
   saveStats,
   updateStatsForCard,
 } from "../../src/storage/stats";
+import type { Difficulty, Flashcard } from "../../src/types/Flashcard";
 
 // ---------- Types & helper functions ----------
 
@@ -386,7 +386,7 @@ export default function Index() {
 
     const body = encodeURIComponent(bodyLines.join("\n"));
 
-    const mailto = `mailto:n.kleftas@gmail.com?subject=${subject}&body=${body}`;
+    const mailto = `mailto:nikolai_91@live.com?subject=${subject}&body=${body}`;
 
     try {
       const canOpen = await Linking.canOpenURL(mailto);
@@ -531,7 +531,7 @@ export default function Index() {
                 <Text style={styles.answerText}>{currentCard.answer}</Text>
               ) : (
                 <Text style={styles.placeholderText}>
-                  Tryk på 'Vis svar' for at se svaret.
+                  Tryk på "Vis svar" for at se svaret.
                 </Text>
               )}
             </View>
