@@ -34,6 +34,7 @@ import { respirationCards } from "./anatomi_fysiologi/respiration";
 // EKG
 import { ekgAvanceretCards } from "./ekg/avancerede_diagnoser";
 import { ekgGenereltCards } from "./ekg/generelt";
+import { ekgBillederCards } from "./ekg/billeder";
 
 // Farmakologi
 import { administrationCards } from "./farmakologi/administration";
@@ -167,6 +168,7 @@ const decks: DeckMap = {
   // EKG
   ekgGenereltCards,
   ekgAvanceretCards,
+  ekgBillederCards,
 
   // Traumatologi og ITLS
   traumeHjertestopCards,

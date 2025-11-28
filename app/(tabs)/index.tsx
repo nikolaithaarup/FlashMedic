@@ -1,9 +1,15 @@
 import { LinearGradient } from "expo-linear-gradient";
 import * as Linking from "expo-linking";
 import * as MailComposer from "expo-mail-composer";
-import React, { useEffect, useMemo, useState } from "react";
+import React, {
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import {
   Alert,
+  Image,
+  Modal,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -31,7 +37,7 @@ type CardStats = {
 };
 type StatsMap = Record<string, CardStats>;
 
-type Screen = "home" | "quiz";
+type Screen = "home" | "quiz" | "stats";
 
 type TopicGroup = {
   topic: string;
@@ -94,8 +100,39 @@ export default function Index() {
   const [upcoming, setUpcoming] = useState<Flashcard[]>([]);
   const [showAnswer, setShowAnswer] = useState(false);
 
+  // -------- Image modal state --------
+  const [imageModalVisible, setImageModalVisible] = useState(false);
+
+  const openImageModal = () => {
+    if (!currentCard?.image) return;
+    setImageModalVisible(true);
+  };
+
+  const closeImageModal = () => {
+    setImageModalVisible(false);
+  };
+
   // -------- Spaced repetition stats --------
   const [stats, setStats] = useState<StatsMap>({});
+
+  // Derived total stats for stats screen
+  const { totalSeen, totalCorrect, totalIncorrect, accuracy } = useMemo(() => {
+    let seen = 0;
+    let correct = 0;
+    let incorrect = 0;
+    for (const s of Object.values(stats)) {
+      seen += s.seen;
+      correct += s.correct;
+      incorrect += s.incorrect;
+    }
+    const acc = seen > 0 ? (correct / seen) * 100 : 0;
+    return {
+      totalSeen: seen,
+      totalCorrect: correct,
+      totalIncorrect: incorrect,
+      accuracy: acc,
+    };
+  }, [stats]);
 
   // -------- Responsive typography --------
   const { width } = useWindowDimensions();
@@ -219,22 +256,16 @@ export default function Index() {
   // ---------- Subject / theme colors ----------
 
   const getSubjectGradient = (subject: string) => {
-    // Blue/grey/olive palette for everything
+    // Blue/grey palette for everything (your custom scheme preserved)
     switch (subject) {
       case "Anatomi og fysiologi":
-        return ["#343a40", "#1c7ed6"]; // blue
       case "Farmakologi":
-        return ["#343a40", "#1c7ed6"]; // blue → grey
       case "Kliniske parametre":
-        return ["#343a40", "#1c7ed6"]; // teal → dark grey
       case "Mikrobiologi":
-        return ["#343a40", "#1c7ed6"]; // blue → desaturated green
       case "Sygdomslære":
-        return ["#343a40", "#1c7ed6"]; // dark → medium grey
       case "EKG":
-        return ["#343a40", "#1c7ed6"]; // teal → blue
       case "Traumatologi og ITLS":
-        return ["#343a40", "#1c7ed6"]; // dark grey → blue
+        return ["#343a40", "#1c7ed6"];
       default:
         return ["#343a40", "#1c7ed6"];
     }
@@ -265,7 +296,6 @@ export default function Index() {
       return;
     }
 
-    // Score cards so weaker/newer ones come earlier
     const scored = effectiveCardsForQuiz.map((card) => ({
       card,
       score: scoreCardForQuiz(card, stats),
@@ -325,6 +355,7 @@ export default function Index() {
     setCurrentCard(upcoming[0]);
     setUpcoming((prev) => prev.slice(1));
     setShowAnswer(false);
+    setImageModalVisible(false);
   };
 
   const handlePreviousQuestion = () => {
@@ -337,6 +368,7 @@ export default function Index() {
     setUpcoming((prev) => [currentCard, ...prev]);
     setCurrentCard(previous);
     setShowAnswer(true);
+    setImageModalVisible(false);
   };
 
   const handleHome = () => {
@@ -345,70 +377,67 @@ export default function Index() {
     setShowAnswer(false);
     setHistory([]);
     setUpcoming([]);
+    setImageModalVisible(false);
   };
 
   // ---------- Report error via MailComposer ----------
 
-const handleReportError = async () => {
-  if (!currentCard) return;
+  const handleReportError = async () => {
+    if (!currentCard) return;
 
-  // Subject: [FlashMedic] + kort-id + kortet's question (truncated)
-  const subject = `[FlashMedic] Fejl i kort ${currentCard.id} – ${currentCard.question.slice(
-    0,
-    80
-  )}`;
+    const subject = `[${APP_ID}] Fejl i kort ${currentCard.id} – ${currentCard.question.slice(
+      0,
+      80
+    )}`;
 
-  const bodyLines = [
-    "Hej Nikolai,",
-    "",
-    "Jeg vil gerne rapportere en fejl i FlashMedic.",
-    "",
-    `Kort-ID: ${currentCard.id}`,
-    `Fag: ${currentCard.subject ?? "Ukendt"}`,
-    `Emne: ${currentCard.topic ?? "Ukendt"}${
-      currentCard.subtopic ? " · " + currentCard.subtopic : ""
-    }`,
-    "",
-    "Spørgsmål:",
-    currentCard.question,
-    "",
-    "Svar:",
-    currentCard.answer,
-    "",
-    "Min kommentar til fejlen / forbedringsforslag:",
-    "",
-    "",
-    "— Automatisk sendt fra FlashMedic appen",
-  ];
+    const bodyLines = [
+      "Hej Nikolai,",
+      "",
+      "Jeg vil gerne rapportere en fejl i FlashMedic.",
+      "",
+      `Kort-ID: ${currentCard.id}`,
+      `Fag: ${currentCard.subject ?? "Ukendt"}`,
+      `Emne: ${currentCard.topic ?? "Ukendt"}${
+        currentCard.subtopic ? " · " + currentCard.subtopic : ""
+      }`,
+      "",
+      "Spørgsmål:",
+      currentCard.question,
+      "",
+      "Svar:",
+      currentCard.answer,
+      "",
+      "Min kommentar til fejlen / forbedringsforslag:",
+      "",
+      "",
+      "— Automatisk sendt fra FlashMedic appen",
+    ];
 
-  const body = bodyLines.join("\n");
+    const body = bodyLines.join("\n");
 
-  try {
-    const isAvailable = await MailComposer.isAvailableAsync();
+    try {
+      const isAvailable = await MailComposer.isAvailableAsync();
 
-    if (isAvailable) {
-      // ✅ This opens the system mail composer with the user's preferred mail app
-      await MailComposer.composeAsync({
-        recipients: ["nikolai_91@live.com"],
-        subject,
-        body,
-      });
-      return;
+      if (isAvailable) {
+        await MailComposer.composeAsync({
+          recipients: [SUPPORT_EMAIL],
+          subject,
+          body,
+        });
+        return;
+      }
+    } catch (err) {
+      console.warn("MailComposer failed, falling back to mailto:", err);
     }
-  } catch (err) {
-    console.warn("MailComposer failed, falling back to mailto:", err);
-  }
 
-  // Fallback: basic mailto-link
-  const mailtoSubject = encodeURIComponent(subject);
-  const mailtoBody = encodeURIComponent(body);
-  const url = `mailto:nikolai_91@live.com?subject=${mailtoSubject}&body=${mailtoBody}`;
+    const mailtoSubject = encodeURIComponent(subject);
+    const mailtoBody = encodeURIComponent(body);
+    const url = `mailto:${SUPPORT_EMAIL}?subject=${mailtoSubject}&body=${mailtoBody}`;
 
-  Linking.openURL(url);
-};
+    Linking.openURL(url);
+  };
 
-
-  // ---------- Spaced repetition actions (no dedicated "Næste" button) ----------
+  // ---------- Spaced repetition actions ----------
 
   const handleMarkKnown = () => {
     if (!currentCard) return;
@@ -419,7 +448,6 @@ const handleReportError = async () => {
       return updated;
     });
 
-    // Gå automatisk videre til næste spørgsmål
     handleNextQuestion();
   };
 
@@ -432,16 +460,119 @@ const handleReportError = async () => {
       return updated;
     });
 
-    // Læg kortet bagerst i køen og gå videre
     setUpcoming((prev) => [...prev, currentCard]);
     handleNextQuestion();
   };
+
+  const handleResetStats = () => {
+    Alert.alert(
+      "Nulstil statistik",
+      "Er du sikker på, at du vil slette al statistik?",
+      [
+        { text: "Annuller", style: "cancel" },
+        {
+          text: "Ja, nulstil",
+          style: "destructive",
+          onPress: () => {
+            const empty: StatsMap = {};
+            setStats(empty);
+            saveStats(empty);
+          },
+        },
+      ]
+    );
+  };
+
+  // ------------------ STATS SCREEN --------------------
+  if (screen === "stats") {
+    return (
+      <LinearGradient
+        colors={["#0e91a8ff", "#5e6e7eff"]}
+        style={styles.homeBackground}
+      >
+        <StatusBar style="light" />
+        <ScrollView contentContainerStyle={styles.homeContainer}>
+          <View style={styles.headerRow}>
+            <Text
+              style={[
+                styles.appTitle,
+                { fontSize: headingFont, color: "#f8f9fa" },
+              ]}
+            >
+              Statistik
+            </Text>
+            <Pressable
+              style={[styles.smallButton, { borderColor: "#fff" }]}
+              onPress={() => setScreen("home")}
+              hitSlop={8}
+            >
+              <Text
+                style={[
+                  styles.smallButtonText,
+                  { color: "#fff", fontSize: buttonFont * 0.9 },
+                ]}
+              >
+                Home
+              </Text>
+            </Pressable>
+          </View>
+
+          <View style={styles.statsCard}>
+            <Text style={styles.statsLabel}>Antal besvarede spørgsmål</Text>
+            <Text style={styles.statsValue}>{totalSeen}</Text>
+
+            <View style={styles.statsRow}>
+              <View style={{ flex: 1 }}>
+                <Text style={styles.statsLabel}>Korrekte</Text>
+                <Text style={styles.statsGood}>{totalCorrect}</Text>
+              </View>
+              <View style={{ flex: 1 }}>
+                <Text style={styles.statsLabel}>Forkerte</Text>
+                <Text style={styles.statsBad}>{totalIncorrect}</Text>
+              </View>
+            </View>
+
+            <Text style={[styles.statsLabel, { marginTop: 16 }]}>
+              Samlet træfsikkerhed
+            </Text>
+            <Text style={styles.statsAccuracy}>
+              {isNaN(accuracy) ? "0%" : `${accuracy.toFixed(1)}%`}
+            </Text>
+          </View>
+
+          <Pressable
+            style={[
+              styles.bigButton,
+              {
+                backgroundColor: "#c92a2a",
+                alignSelf: "stretch",
+                marginTop: 24,
+              },
+            ]}
+            onPress={handleResetStats}
+          >
+            <Text
+              style={[
+                styles.bigButtonText,
+                { fontSize: buttonFont, color: "#fff" },
+              ]}
+            >
+              Nulstil statistik
+            </Text>
+          </Pressable>
+        </ScrollView>
+      </LinearGradient>
+    );
+  }
 
   // ------------------ QUIZ SCREEN --------------------
   if (screen === "quiz" && currentCard) {
     const primaryColor = getSubjectPrimaryColor(currentCard.subject);
     const difficultyText = difficultyTextMap[currentCard.difficulty];
     const gradient = getSubjectGradient(currentCard.subject);
+
+    const totalQuestions = history.length + 1 + upcoming.length;
+    const currentIndex = history.length + 1;
 
     return (
       <LinearGradient colors={gradient} style={styles.quizBackground}>
@@ -491,7 +622,7 @@ const handleReportError = async () => {
             </View>
           </View>
 
-          {/* Subject + topic under each other + difficulty pill */}
+          {/* Subject + topic + difficulty + progress */}
           <View style={styles.metaRow}>
             <View>
               <Text
@@ -510,6 +641,14 @@ const handleReportError = async () => {
               >
                 {currentCard.topic}
                 {currentCard.subtopic ? ` · ${currentCard.subtopic}` : ""}
+              </Text>
+              <Text
+                style={[
+                  styles.progressText,
+                  { color: "#e9ecef", fontSize: metaFont },
+                ]}
+              >
+                Spørgsmål {currentIndex} af {totalQuestions}
               </Text>
             </View>
             <View
@@ -532,6 +671,16 @@ const handleReportError = async () => {
           {/* Question + answer cards */}
           <View style={styles.cardContainer}>
             <View style={styles.cardBox}>
+              {currentCard.image && (
+                <Pressable onPress={openImageModal}>
+                  <Image
+                    source={currentCard.image}
+                    style={styles.questionImage}
+                    resizeMode="contain"
+                  />
+                  <Text style={styles.tapToZoomText}>Tryk for at se stort</Text>
+                </Pressable>
+              )}
               <Text
                 style={[
                   styles.questionText,
@@ -623,6 +772,33 @@ const handleReportError = async () => {
             <Text style={styles.outlineButtonText}>Rapportér fejl</Text>
           </Pressable>
         </View>
+
+        {/* Fullscreen image modal (no pinch zoom for now) */}
+        {currentCard.image && (
+          <Modal
+            visible={imageModalVisible}
+            transparent
+            animationType="fade"
+            onRequestClose={closeImageModal}
+          >
+            <View style={styles.modalBackdrop}>
+              <View style={styles.modalContent}>
+                <Image
+                  source={currentCard.image}
+                  style={styles.zoomImage}
+                  resizeMode="contain"
+                />
+
+                <Pressable
+                  style={styles.modalCloseButton}
+                  onPress={closeImageModal}
+                >
+                  <Text style={styles.modalCloseText}>Luk</Text>
+                </Pressable>
+              </View>
+            </View>
+          </Modal>
+        )}
       </LinearGradient>
     );
   }
@@ -704,6 +880,28 @@ const handleReportError = async () => {
             ]}
           >
             QUIZ I ALLE FAG
+          </Text>
+        </Pressable>
+
+        {/* Statistik-knap */}
+        <Pressable
+          style={[
+            styles.bigButton,
+            {
+              marginTop: 8,
+              alignSelf: "stretch",
+              backgroundColor: "#495057",
+            },
+          ]}
+          onPress={() => setScreen("stats")}
+        >
+          <Text
+            style={[
+              styles.bigButtonText,
+              { color: "#ffffff", fontSize: buttonFont },
+            ]}
+          >
+            Se statistik
           </Text>
         </Pressable>
 
@@ -1105,5 +1303,94 @@ const styles = StyleSheet.create({
   topicChipTextSelected: {
     color: "#ffffff",
     fontWeight: "600",
+  },
+  // --- New styles for progress + images + stats + modal ---
+  progressText: {
+    marginTop: 4,
+    fontWeight: "500",
+  },
+  questionImage: {
+    width: 260,
+    height: 160,
+    marginBottom: 8,
+  },
+  tapToZoomText: {
+    fontSize: 12,
+    color: "#868e96",
+    textAlign: "center",
+    marginBottom: 8,
+  },
+  modalBackdrop: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.9)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalContent: {
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  zoomImage: {
+    width: "100%",
+    height: "80%",
+  },
+  modalCloseButton: {
+    position: "absolute",
+    top: 48,
+    right: 24,
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    borderRadius: 999,
+    borderWidth: 1,
+    borderColor: "#fff",
+    backgroundColor: "transparent",
+  },
+  modalCloseText: {
+    color: "#fff",
+    fontWeight: "600",
+    fontSize: 14,
+  },
+  statsCard: {
+    width: "100%",
+    padding: 20,
+    borderRadius: 16,
+    backgroundColor: "rgba(255,255,255,0.95)",
+    shadowColor: "#000",
+    shadowOpacity: 0.15,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 6,
+  },
+  statsRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 12,
+  },
+  statsLabel: {
+    fontSize: 14,
+    color: "#495057",
+    marginBottom: 2,
+  },
+  statsValue: {
+    fontSize: 28,
+    fontWeight: "800",
+    color: "#212529",
+  },
+  statsGood: {
+    fontSize: 20,
+    fontWeight: "700",
+    color: "#12b886",
+  },
+  statsBad: {
+    fontSize: 20,
+    fontWeight: "700",
+    color: "#fa5252",
+  },
+  statsAccuracy: {
+    fontSize: 26,
+    fontWeight: "800",
+    color: "#1c7ed6",
   },
 });
