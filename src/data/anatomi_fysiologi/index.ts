@@ -4,6 +4,7 @@ import { bevaegeapparatetCards } from "./bevaegeapparatet";
 import { cellervevCards } from "./celler_vev";
 import { endokrinCards } from "./endokrin";
 import { fordojelseCards } from "./fordojelse";
+import { graviditetCards } from "./graviditet";
 import { kredslobCards } from "./kredslob";
 import { nervesystemetCards } from "./nervesystemet";
 import { nyrefunktionCards } from "./nyrefunktion";
@@ -14,6 +15,7 @@ export const anatomiFysiologiCards: Flashcard[] = [
   ...cellervevCards,
   ...endokrinCards,
   ...fordojelseCards,
+  ...graviditetCards,
   ...kredslobCards,
   ...nervesystemetCards,
   ...nyrefunktionCards,

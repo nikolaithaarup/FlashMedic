@@ -2,17 +2,36 @@ console.log("FLASHCARDS FILE LOADED");
 
 import type { Flashcard } from "../types/Flashcard";
 
+// Akutte tilstande
+import { akutAbdomenCards } from "./akutte tilstande/akut_abdomen";
+import { akutBinyrebarkinsufficiensCards } from "./akutte tilstande/akut_binyrebarkinsufficiens";
+import { akutKoronarSyndromCards } from "./akutte tilstande/akut_koronar_syndrom";
+import { akutteObstetriskeTilstandeCards } from "./akutte tilstande/akutte_obstetriske_tilstande";
+import { anafylaksiCards } from "./akutte tilstande/anafylaksi";
+import { aortaaneurismeCards } from "./akutte tilstande/aortaaneurisme";
+import { akutCerebralApopleksiCards } from "./akutte tilstande/cerebral_apopleksi";
+import { akutDiabetesMellitusCards } from "./akutte tilstande/diabetes_mellitus";
+import { ebolaBlodningsfebervirusCards } from "./akutte tilstande/ebola_blodningsfebervirus";
+import { forgiftningerCards } from "./akutte tilstande/forgiftninger";
+import { grovreponeringCards } from "./akutte tilstande/grovreponering";
+import { akuthjertestopCards } from "./akutte tilstande/hjertestop";
+import { hovedtraumeCards } from "./akutte tilstande/hovedtraume";
+import { kramperCards } from "./akutte tilstande/kramper";
+import { meningitisMeningokoksyndromCards } from "./akutte tilstande/meningitis_meningokoksyndrom";
+import { tonsillektomiEfterblodningCards } from "./akutte tilstande/tonsillektomi";
+
 // Anatomi og Fysiologi
 import { bevaegeapparatetCards } from "./anatomi_fysiologi/bevaegeapparatet";
 import { cellervevCards } from "./anatomi_fysiologi/celler_vev";
 import { endokrinCards } from "./anatomi_fysiologi/endokrin";
 import { fordojelseCards } from "./anatomi_fysiologi/fordojelse";
+import { graviditetCards } from "./anatomi_fysiologi/graviditet";
 import { kredslobCards } from "./anatomi_fysiologi/kredslob";
 import { nervesystemetCards } from "./anatomi_fysiologi/nervesystemet";
 import { nyrefunktionCards } from "./anatomi_fysiologi/nyrefunktion";
 import { respirationCards } from "./anatomi_fysiologi/respiration";
 
-// EKG 
+// EKG
 import { ekgAvanceretCards } from "./ekg/avancerede_diagnoser";
 import { ekgGenereltCards } from "./ekg/generelt";
 
@@ -68,72 +87,110 @@ import { ShockTraumeCards } from "./traumatologi og itls/shock_cirkulation";
 import { MOICards } from "./traumatologi og itls/skademekanisme";
 import { ThoraxTraumeCards } from "./traumatologi og itls/thoraxtraumer";
 
+// ---------- Combine everything with a small safety layer ----------
 
-// Combine everything:
-export const allFlashcards: Flashcard[] = [
+type DeckMap = { [name: string]: Flashcard[] | undefined };
+
+const decks: DeckMap = {
+  // Akutte tilstande
+  akutAbdomenCards,
+  akutBinyrebarkinsufficiensCards,
+  akutKoronarSyndromCards,
+  akutteObstetriskeTilstandeCards,
+  anafylaksiCards,
+  aortaaneurismeCards,
+  akutCerebralApopleksiCards,
+  akutDiabetesMellitusCards,
+  ebolaBlodningsfebervirusCards,
+  forgiftningerCards,
+  grovreponeringCards,
+  akuthjertestopCards,
+  hovedtraumeCards,
+  kramperCards,
+  meningitisMeningokoksyndromCards,
+  tonsillektomiEfterblodningCards,
+
   // Anatomi og Fysiologi
-  ...cellervevCards,
-  ...respirationCards,
-  ...nervesystemetCards,
-  ...nyrefunktionCards,
-  ...kredslobCards,
-  ...endokrinCards,
-  ...fordojelseCards,
-  ...bevaegeapparatetCards,
+  cellervevCards,
+  respirationCards,
+  nervesystemetCards,
+  nyrefunktionCards,
+  kredslobCards,
+  endokrinCards,
+  fordojelseCards,
+  graviditetCards,
+  bevaegeapparatetCards,
 
   // Farmakologi
-  ...administrationCards,
-  ...bivirkningerCards,
-  ...farmakodynamikCards,
-  ...farmakokinetikCards,
-  ...laegemiddelregningCards,
+  administrationCards,
+  bivirkningerCards,
+  farmakodynamikCards,
+  farmakokinetikCards,
+  laegemiddelregningCards,
 
   // Kliniske Parametre
-  ...klinikCirkulationAcidoseCards,
-  ...klinikDifferentialDiagnoserCards,
-  ...klinikInfektionNeurologiCards,
-  ...kliniskIntegrationCards,
-  ...klinikFarmakoSepsisCards,
-  ...klinikShockCards,
+  klinikCirkulationAcidoseCards,
+  klinikDifferentialDiagnoserCards,
+  klinikInfektionNeurologiCards,
+  kliniskIntegrationCards,
+  klinikFarmakoSepsisCards,
+  klinikShockCards,
 
   // Mikrobiologi
-  ...mikroBakterierCards,
-  ...mikroSvampeParasitterCards,
-  ...mikroSepsisCards,
-  ...mikroSmitteCards,
-  ...mikroVirusCards,
+  mikroBakterierCards,
+  mikroSvampeParasitterCards,
+  mikroSepsisCards,
+  mikroSmitteCards,
+  mikroVirusCards,
 
   // Sygdomslære
-  ...introduktionCards,
-  ...karsygdommeCards,
-  ...akutMedicinCards,
-  ...endokrinologiCards,
-  ...gastroCards,
-  ...geriatriCards,
-  ...haematologiCards,
-  ...infektionCards,
-  ...lungesygdommeCards,
-  ...neurologiCards,
-  ...nyrerCards,
-  ...paediatriCards,
+  introduktionCards,
+  karsygdommeCards,
+  akutMedicinCards,
+  endokrinologiCards,
+  gastroCards,
+  geriatriCards,
+  haematologiCards,
+  infektionCards,
+  lungesygdommeCards,
+  neurologiCards,
+  nyrerCards,
+  paediatriCards,
 
   // Hjertesygdomme
-  ...amiCards,
-  ...anginaCards,
-  ...arytmierCards,
-  ...hjertestopCards,
-  ...hjertesvigtCards,
+  amiCards,
+  anginaCards,
+  arytmierCards,
+  hjertestopCards,
+  hjertesvigtCards,
 
   // EKG
-  ...ekgGenereltCards,
-  ...ekgAvanceretCards,
+  ekgGenereltCards,
+  ekgAvanceretCards,
 
   // Traumatologi og ITLS
-  ...traumeHjertestopCards,
-  ...tbiNeurologiCards,
-  ...ITLSPrimaryCards,
-  ...traumeSekundaerCards,
-  ...ShockTraumeCards,
-  ...MOICards,
-  ...ThoraxTraumeCards,
-];
+  traumeHjertestopCards,
+  tbiNeurologiCards,
+  ITLSPrimaryCards,
+  traumeSekundaerCards,
+  ShockTraumeCards,
+  MOICards,
+  ThoraxTraumeCards,
+};
+
+// Log any broken decks clearly instead of cryptic "arraySpread" errors
+Object.entries(decks).forEach(([name, deck]) => {
+  if (!Array.isArray(deck)) {
+    console.warn(`❗ Deck "${name}" is NOT an array:`, deck);
+  }
+});
+
+export const allFlashcards: Flashcard[] = Object.entries(decks).flatMap(
+  ([name, deck]) => {
+    if (!Array.isArray(deck)) {
+      // Skip broken decks so the app still loads
+      return [];
+    }
+    return deck;
+  }
+);

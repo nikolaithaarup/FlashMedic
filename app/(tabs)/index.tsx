@@ -1,28 +1,28 @@
 import { LinearGradient } from "expo-linear-gradient";
 import * as Linking from "expo-linking";
-import { StatusBar } from "expo-status-bar";
+import * as MailComposer from "expo-mail-composer";
 import React, { useEffect, useMemo, useState } from "react";
 import {
   Alert,
-  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
   Text,
   View,
+  useWindowDimensions,
 } from "react-native";
+import { StatusBar } from "expo-status-bar";
 
 import { allFlashcards } from "../../src/data/flashcards";
+import type { Flashcard, Difficulty } from "../../src/types/Flashcard";
 import {
   loadStats,
   saveStats,
   updateStatsForCard,
 } from "../../src/storage/stats";
-import type { Difficulty, Flashcard } from "../../src/types/Flashcard";
 
-// ---------- Types & helper functions ----------
+// ---------- Simple types for spaced repetition stats ----------
 
-// Local copy of types so this file compiles even if you didn't make a types/Stats.ts
 type CardStats = {
   seen: number;
   correct: number;
@@ -31,16 +31,21 @@ type CardStats = {
 };
 type StatsMap = Record<string, CardStats>;
 
-type Screen = "home" | "quiz" | "stats";
+type Screen = "home" | "quiz";
 
 type TopicGroup = {
   topic: string;
   subtopics: string[];
 };
 
-type ShuffleMode = "random" | "ordered";
+// ---------- App identity (for mail subject etc.) ----------
 
-// Simple Fisher–Yates shuffle
+const APP_ID = "FlashMedic";
+const SUPPORT_EMAIL = "nikolai_91@live.com";
+
+// ---------- Small helpers ----------
+
+// Fisher–Yates shuffle
 function shuffle<T>(arr: T[]): T[] {
   const copy = [...arr];
   for (let i = copy.length - 1; i > 0; i--) {
@@ -74,70 +79,38 @@ function scoreCardForQuiz(card: Flashcard, stats: StatsMap): number {
   return accuracy + s.seen * 0.05;
 }
 
-// Build deck with scoring + optional shuffle
-function buildDeck(
-  cards: Flashcard[],
-  stats: StatsMap,
-  mode: ShuffleMode
-): Flashcard[] {
-  const scored = cards.map((card) => ({
-    card,
-    score: scoreCardForQuiz(card, stats),
-  }));
-  scored.sort((a, b) => a.score - b.score);
-  const ordered = scored.map((x) => x.card);
-  return mode === "random" ? shuffle(ordered) : ordered;
-}
-
-// Simple global stats
-function computeGlobalStats(stats: StatsMap) {
-  let totalSeen = 0;
-  let totalCorrect = 0;
-  let totalIncorrect = 0;
-
-  Object.values(stats).forEach((s) => {
-    totalSeen += s.seen;
-    totalCorrect += s.correct;
-    totalIncorrect += s.incorrect;
-  });
-
-  const accuracy = totalSeen ? totalCorrect / totalSeen : 0;
-
-  return { totalSeen, totalCorrect, totalIncorrect, accuracy };
-}
-
-// ---------- Fonts (cross-platform) ----------
-
-const headingFont = Platform.OS === "android" ? "sans-serif" : "System";
-const bodyFont = "System";
-
-// ---------- Component ----------
+// ---------- Main component ----------
 
 export default function Index() {
+  // -------- Screen & selection state --------
   const [screen, setScreen] = useState<Screen>("home");
   const [selectedSubject, setSelectedSubject] = useState<string | null>(null);
-
   // selection keys: "topic::<ALL>" or "topic::subtopic"
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
 
+  // -------- Quiz state --------
   const [currentCard, setCurrentCard] = useState<Flashcard | null>(null);
   const [history, setHistory] = useState<Flashcard[]>([]);
   const [upcoming, setUpcoming] = useState<Flashcard[]>([]);
   const [showAnswer, setShowAnswer] = useState(false);
 
-  // Stats for spaced repetition
+  // -------- Spaced repetition stats --------
   const [stats, setStats] = useState<StatsMap>({});
 
-  // Shuffle mode
-  const [shuffleMode, setShuffleMode] =
-    useState<ShuffleMode>("random");
+  // -------- Responsive typography --------
+  const { width } = useWindowDimensions();
+  const baseWidth = 375; // iPhone 11-ish
+  const scale = Math.min(width / baseWidth, 1.2);
 
-  const globalStats = useMemo(
-    () => computeGlobalStats(stats),
-    [stats]
-  );
+  const headingFont = 40 * scale;
+  const subtitleFont = 20 * scale;
+  const buttonFont = 18 * scale;
+  const subjectFont = 18 * scale;
+  const metaFont = 15 * scale;
+  const questionFont = 22 * scale;
+  const answerFont = 17 * scale;
 
-  // Load stats once on mount
+  // -------- Load stats once on mount --------
   useEffect(() => {
     (async () => {
       const loaded = await loadStats();
@@ -145,8 +118,7 @@ export default function Index() {
     })();
   }, []);
 
-  // -------- Subject list (automatically from flashcards) ------
-
+  // -------- Subject list (automatically from flashcards) --------
   const subjects = useMemo(
     () => Array.from(new Set(allFlashcards.map((c) => c.subject))),
     []
@@ -228,7 +200,7 @@ export default function Index() {
     }
   };
 
-  // Cards that actually will be used in the quiz (subject + topic/subtopic filters)
+  // Cards that will be used in the quiz (subject + topic/subtopic filters)
   const effectiveCardsForQuiz = useMemo(() => {
     if (!selectedSubject) return [];
     if (selectedKeys.length === 0) return cardsForSelectedSubject; // no filters => all
@@ -244,31 +216,32 @@ export default function Index() {
     });
   }, [selectedSubject, selectedKeys, cardsForSelectedSubject]);
 
-  // --------- Subject / theme colors ---------
+  // ---------- Subject / theme colors ----------
 
   const getSubjectGradient = (subject: string) => {
+    // Blue/grey/olive palette for everything
     switch (subject) {
       case "Anatomi og fysiologi":
-        return ["#4c6ef5", "#7950f2"]; // blå → lilla
+        return ["#343a40", "#1c7ed6"]; // blue
       case "Farmakologi":
-        return ["#12b886", "#20b0c9ff"]; // grøn/turkis
+        return ["#343a40", "#1c7ed6"]; // blue → grey
       case "Kliniske parametre":
-        return ["#868824ff", "#4dabf7"]; // kølig blå
+        return ["#343a40", "#1c7ed6"]; // teal → dark grey
       case "Mikrobiologi":
-        return ["#a6160cff", "#37b24d"]; // grøn
+        return ["#343a40", "#1c7ed6"]; // blue → desaturated green
       case "Sygdomslære":
-        return ["#fd7e14", "#f76707"]; // orange
+        return ["#343a40", "#1c7ed6"]; // dark → medium grey
       case "EKG":
-        return ["#e64980", "#be4bdb"]; // pink/lilla
+        return ["#343a40", "#1c7ed6"]; // teal → blue
       case "Traumatologi og ITLS":
-        return ["#d6fa52ff", "#e03131"]; // rød
+        return ["#343a40", "#1c7ed6"]; // dark grey → blue
       default:
-        return ["#4c6ef5", "#364fc7"]; // fallback
+        return ["#343a40", "#1c7ed6"];
     }
   };
 
   const getSubjectPrimaryColor = (subject?: string | null) => {
-    if (!subject) return "#12b886";
+    if (!subject) return "#1c7ed6";
     const [primary] = getSubjectGradient(subject);
     return primary;
   };
@@ -276,7 +249,7 @@ export default function Index() {
   const getDifficultyColor = (difficulty: Difficulty) =>
     difficultyColorMap[difficulty] ?? "#868e96";
 
-  // --------------- Quiz control logic ----------------
+  // ---------- Quiz control logic ----------
 
   const handleStartQuiz = () => {
     if (!selectedSubject) {
@@ -292,7 +265,16 @@ export default function Index() {
       return;
     }
 
-    const deck = buildDeck(effectiveCardsForQuiz, stats, shuffleMode);
+    // Score cards so weaker/newer ones come earlier
+    const scored = effectiveCardsForQuiz.map((card) => ({
+      card,
+      score: scoreCardForQuiz(card, stats),
+    }));
+
+    scored.sort((a, b) => a.score - b.score); // lower = earlier
+    const orderedCards = scored.map((x) => x.card);
+
+    const deck = shuffle(orderedCards);
     const [first, ...rest] = deck;
 
     setHistory([]);
@@ -302,14 +284,21 @@ export default function Index() {
     setScreen("quiz");
   };
 
-  // Quiz in ALL subjects
+  // 🔥 Quiz i ALLE fag
   const handleStartAllSubjectsQuiz = () => {
     if (allFlashcards.length === 0) {
       Alert.alert("Ingen kort", "Der er ingen flashcards at quizze i endnu.");
       return;
     }
 
-    const deck = buildDeck(allFlashcards, stats, shuffleMode);
+    const scored = allFlashcards.map((card) => ({
+      card,
+      score: scoreCardForQuiz(card, stats),
+    }));
+
+    scored.sort((a, b) => a.score - b.score);
+    const orderedCards = scored.map((x) => x.card);
+    const deck = shuffle(orderedCards);
     const [first, ...rest] = deck;
 
     setSelectedSubject(null);
@@ -358,19 +347,25 @@ export default function Index() {
     setUpcoming([]);
   };
 
+  // ---------- Report error via MailComposer ----------
+
 const handleReportError = async () => {
   if (!currentCard) return;
 
-  const subject = encodeURIComponent(
-    `FlashMedic fejl i kort: ${currentCard.id}`
-  );
+  // Subject: [FlashMedic] + kort-id + kortet's question (truncated)
+  const subject = `[FlashMedic] Fejl i kort ${currentCard.id} – ${currentCard.question.slice(
+    0,
+    80
+  )}`;
 
   const bodyLines = [
-    "Hej, jeg vil gerne rapportere en fejl i FlashMedic.",
+    "Hej Nikolai,",
+    "",
+    "Jeg vil gerne rapportere en fejl i FlashMedic.",
     "",
     `Kort-ID: ${currentCard.id}`,
-    `Fag: ${currentCard.subject}`,
-    `Emne: ${currentCard.topic}${
+    `Fag: ${currentCard.subject ?? "Ukendt"}`,
+    `Emne: ${currentCard.topic ?? "Ukendt"}${
       currentCard.subtopic ? " · " + currentCard.subtopic : ""
     }`,
     "",
@@ -380,24 +375,40 @@ const handleReportError = async () => {
     "Svar:",
     currentCard.answer,
     "",
-    "Beskriv fejlen her:",
+    "Min kommentar til fejlen / forbedringsforslag:",
     "",
+    "",
+    "— Automatisk sendt fra FlashMedic appen",
   ];
 
-  const body = encodeURIComponent(bodyLines.join("\n"));
-  const url = `mailto:nikolai_91@live.com?subject=${subject}&body=${body}`;
+  const body = bodyLines.join("\n");
 
-  const canOpen = await Linking.canOpenURL(url);
-  if (canOpen) {
-    Linking.openURL(url);
-  } else {
-    Alert.alert(
-      "Ingen mailapp fundet",
-      "Det ser ud til, at din enhed ikke har en mailapp installeret eller konfigureret."
-    );
+  try {
+    const isAvailable = await MailComposer.isAvailableAsync();
+
+    if (isAvailable) {
+      // ✅ This opens the system mail composer with the user's preferred mail app
+      await MailComposer.composeAsync({
+        recipients: ["nikolai_91@live.com"],
+        subject,
+        body,
+      });
+      return;
+    }
+  } catch (err) {
+    console.warn("MailComposer failed, falling back to mailto:", err);
   }
+
+  // Fallback: basic mailto-link
+  const mailtoSubject = encodeURIComponent(subject);
+  const mailtoBody = encodeURIComponent(body);
+  const url = `mailto:nikolai_91@live.com?subject=${mailtoSubject}&body=${mailtoBody}`;
+
+  Linking.openURL(url);
 };
 
+
+  // ---------- Spaced repetition actions (no dedicated "Næste" button) ----------
 
   const handleMarkKnown = () => {
     if (!currentCard) return;
@@ -421,30 +432,9 @@ const handleReportError = async () => {
       return updated;
     });
 
-    // Læg kortet bagerst i køen
+    // Læg kortet bagerst i køen og gå videre
     setUpcoming((prev) => [...prev, currentCard]);
-
-    // Gå videre til næste kort
     handleNextQuestion();
-  };
-
-  const handleResetStats = () => {
-    Alert.alert(
-      "Nulstil statistik",
-      "Er du sikker på, at du vil nulstille al læringsstatistik?",
-      [
-        { text: "Annuller", style: "cancel" },
-        {
-          text: "Ja, nulstil",
-          style: "destructive",
-          onPress: async () => {
-            const empty: StatsMap = {};
-            setStats(empty);
-            await saveStats(empty);
-          },
-        },
-      ]
-    );
   };
 
   // ------------------ QUIZ SCREEN --------------------
@@ -453,15 +443,18 @@ const handleReportError = async () => {
     const difficultyText = difficultyTextMap[currentCard.difficulty];
     const gradient = getSubjectGradient(currentCard.subject);
 
-    const currentIndex = history.length + 1;
-    const totalCards = history.length + 1 + upcoming.length;
-
     return (
       <LinearGradient colors={gradient} style={styles.quizBackground}>
         <StatusBar style="light" />
         <View style={styles.quizContainer}>
+          {/* Top header: logo + navigation */}
           <View style={styles.headerRow}>
-            <Text style={[styles.appTitle, { color: "#fff", marginBottom: 0 }]}>
+            <Text
+              style={[
+                styles.appTitle,
+                { color: "#fff", marginBottom: 0, fontSize: headingFont },
+              ]}
+            >
               FlashMedic
             </Text>
             <View style={styles.headerButtons}>
@@ -469,9 +462,14 @@ const handleReportError = async () => {
                 <Pressable
                   style={[styles.smallButton, { borderColor: "#fff" }]}
                   onPress={handlePreviousQuestion}
-                  hitSlop={10}
+                  hitSlop={8}
                 >
-                  <Text style={[styles.smallButtonText, { color: "#fff" }]}>
+                  <Text
+                    style={[
+                      styles.smallButtonText,
+                      { color: "#fff", fontSize: buttonFont * 0.9 },
+                    ]}
+                  >
                     Tilbage
                   </Text>
                 </Pressable>
@@ -479,21 +477,37 @@ const handleReportError = async () => {
               <Pressable
                 style={[styles.smallButton, { borderColor: "#fff" }]}
                 onPress={handleHome}
-                hitSlop={10}
+                hitSlop={8}
               >
-                <Text style={[styles.smallButtonText, { color: "#fff" }]}>
+                <Text
+                  style={[
+                    styles.smallButtonText,
+                    { color: "#fff", fontSize: buttonFont * 0.9 },
+                  ]}
+                >
                   Home
                 </Text>
               </Pressable>
             </View>
           </View>
 
+          {/* Subject + topic under each other + difficulty pill */}
           <View style={styles.metaRow}>
             <View>
-              <Text style={[styles.subjectLabel, { color: "#f8f9fa" }]}>
+              <Text
+                style={[
+                  styles.subjectLabel,
+                  { color: "#f8f9fa", fontSize: subjectFont },
+                ]}
+              >
                 {currentCard.subject}
               </Text>
-              <Text style={[styles.topicLabel, { color: "#f8f9fa" }]}>
+              <Text
+                style={[
+                  styles.topicLabel,
+                  { color: "#e9ecef", fontSize: metaFont },
+                ]}
+              >
                 {currentCard.topic}
                 {currentCard.subtopic ? ` · ${currentCard.subtopic}` : ""}
               </Text>
@@ -504,69 +518,107 @@ const handleReportError = async () => {
                 { backgroundColor: getDifficultyColor(currentCard.difficulty) },
               ]}
             >
-              <Text style={styles.difficultyText}>{difficultyText}</Text>
+              <Text
+                style={[
+                  styles.difficultyText,
+                  { fontSize: buttonFont * 0.9 },
+                ]}
+              >
+                {difficultyText}
+              </Text>
             </View>
           </View>
 
-          <View style={styles.progressRow}>
-            <Text style={styles.progressText}>
-              Spørgsmål {currentIndex} / {totalCards}
-            </Text>
-          </View>
-
+          {/* Question + answer cards */}
           <View style={styles.cardContainer}>
             <View style={styles.cardBox}>
-              <Text style={styles.questionText}>{currentCard.question}</Text>
+              <Text
+                style={[
+                  styles.questionText,
+                  { fontSize: questionFont },
+                ]}
+              >
+                {currentCard.question}
+              </Text>
             </View>
 
             <View style={styles.cardBox}>
               {showAnswer ? (
-                <Text style={styles.answerText}>{currentCard.answer}</Text>
+                <Text
+                  style={[
+                    styles.answerText,
+                    { fontSize: answerFont },
+                  ]}
+                >
+                  {currentCard.answer}
+                </Text>
               ) : (
                 <Text style={styles.placeholderText}>
-                  Tryk på "Vis svar" for at se svaret.
+                  Tryk på &apos;Vis svar&apos; for at se svaret.
                 </Text>
               )}
             </View>
           </View>
 
-<View style={styles.buttonRow}>
-  {!showAnswer && (
-    <Pressable
-      style={[
-        styles.bigButton,
-        styles.primaryButton,
-        { backgroundColor: primaryColor },
-      ]}
-      onPress={() => setShowAnswer(true)}
-    >
-      <Text style={styles.bigButtonText}>Vis svar</Text>
-    </Pressable>
-  )}
-</View>
+          {/* Big primary button: show answer */}
+          {!showAnswer && (
+            <View style={styles.buttonRow}>
+              <Pressable
+                style={[
+                  styles.bigButton,
+                  styles.primaryButton,
+                  { backgroundColor: primaryColor },
+                ]}
+                onPress={() => setShowAnswer(true)}
+              >
+                <Text
+                  style={[
+                    styles.bigButtonText,
+                    { fontSize: buttonFont },
+                  ]}
+                >
+                  Vis svar
+                </Text>
+              </Pressable>
+            </View>
+          )}
 
+          {/* Rating buttons – only visible after answer is shown */}
+          {showAnswer && (
+            <View style={styles.ratingRow}>
+              <Pressable
+                style={[styles.ratingButton, styles.knownButton]}
+                onPress={handleMarkKnown}
+              >
+                <Text
+                  style={[
+                    styles.ratingButtonText,
+                    { fontSize: buttonFont },
+                  ]}
+                >
+                  Jeg kunne den
+                </Text>
+              </Pressable>
+              <Pressable
+                style={[styles.ratingButton, styles.unknownButton]}
+                onPress={handleMarkUnknown}
+              >
+                <Text
+                  style={[
+                    styles.ratingButtonText,
+                    { fontSize: buttonFont },
+                  ]}
+                >
+                  Jeg kunne den ikke
+                </Text>
+              </Pressable>
+            </View>
+          )}
 
-          <View style={styles.ratingRow}>
-            <Pressable
-              style={[styles.decisionButton, { backgroundColor: "#2ecc71" }]}
-              onPress={handleMarkKnown}
-              hitSlop={8}
-            >
-              <Text style={styles.smallTagText}>Jeg kunne den</Text>
-            </Pressable>
-            <Pressable
-              style={[styles.decisionButton, { backgroundColor: "#e74c3c" }]}
-              onPress={handleMarkUnknown}
-              hitSlop={8}
-            >
-              <Text style={styles.smallTagText}>Jeg kunne den ikke</Text>
-            </Pressable>
-          </View>
-
+          {/* Report error */}
           <Pressable
             style={[styles.bigButton, styles.outlineButton]}
             onPress={handleReportError}
-            hitSlop={8}
           >
             <Text style={styles.outlineButtonText}>Rapportér fejl</Text>
           </Pressable>
@@ -575,85 +627,33 @@ const handleReportError = async () => {
     );
   }
 
-  // ------------------ STATS SCREEN --------------------
-  if (screen === "stats") {
-    const { totalSeen, totalCorrect, totalIncorrect, accuracy } =
-      globalStats;
-
-    return (
-      <LinearGradient
-        colors={["#117fec", "#dee2e6", "#ced4da"]}
-        style={styles.homeBackground}
-      >
-        <StatusBar style="dark" />
-        <ScrollView contentContainerStyle={styles.homeContainer}>
-          <Text style={styles.appTitle}>FlashMedic</Text>
-          <Text style={styles.subtitle}>Læringsstatistik</Text>
-
-          <View style={styles.statsCard}>
-            <Text style={styles.statsNumber}>{totalSeen}</Text>
-            <Text style={styles.statsLabel}>Kort set i alt</Text>
-          </View>
-
-          <View style={styles.statsRow}>
-            <View style={styles.statsSmallCard}>
-              <Text style={styles.statsNumber}>{totalCorrect}</Text>
-              <Text style={styles.statsLabel}>Rigtige</Text>
-            </View>
-            <View style={styles.statsSmallCard}>
-              <Text style={styles.statsNumber}>{totalIncorrect}</Text>
-              <Text style={styles.statsLabel}>Forkerte</Text>
-            </View>
-          </View>
-
-          <View style={styles.statsCard}>
-            <Text style={styles.statsNumber}>
-              {totalSeen ? `${Math.round(accuracy * 100)}%` : "–"}
-            </Text>
-            <Text style={styles.statsLabel}>Samlet træfsikkerhed</Text>
-          </View>
-
-          <Pressable
-            style={[
-              styles.bigButton,
-              styles.secondaryButton,
-              { marginTop: 24, alignSelf: "stretch" },
-            ]}
-            onPress={() => setScreen("home")}
-            hitSlop={8}
-          >
-            <Text style={styles.bigButtonText}>Tilbage til forsiden</Text>
-          </Pressable>
-
-          <Pressable
-            style={[
-              styles.bigButton,
-              styles.outlineDangerButton,
-              { marginTop: 12, alignSelf: "stretch" },
-            ]}
-            onPress={handleResetStats}
-            hitSlop={8}
-          >
-            <Text style={styles.outlineDangerText}>Nulstil statistik</Text>
-          </Pressable>
-        </ScrollView>
-      </LinearGradient>
-    );
-  }
-
   // ------------------ HOME SCREEN --------------------
   return (
     <LinearGradient
-      colors={["#117fec", "#dee2e6", "#ced4da"]}
+      colors={["#0e91a8ff", "#5e6e7eff"]}
       style={styles.homeBackground}
     >
-      <StatusBar style="dark" />
+      <StatusBar style="light" />
       <ScrollView contentContainerStyle={styles.homeContainer}>
-        <Text style={styles.appTitle}>FlashMedic</Text>
-        <Text style={styles.subtitle}>
+        {/* App title + subtitle */}
+        <Text
+          style={[
+            styles.appTitle,
+            { fontSize: headingFont, color: "#f8f9fa" },
+          ]}
+        >
+          FlashMedic
+        </Text>
+        <Text
+          style={[
+            styles.subtitle,
+            { fontSize: subtitleFont, color: "#e9ecef" },
+          ]}
+        >
           Vælg et fag for at træne din medicinske viden.
         </Text>
 
+        {/* Subject tiles */}
         <View style={styles.subjectGrid}>
           {subjects.map((subject) => (
             <Pressable
@@ -662,9 +662,8 @@ const handleReportError = async () => {
                 setSelectedSubject((prev) =>
                   prev === subject ? null : subject
                 );
-                setSelectedKeys([]); // ryd valg, når du skifter/lukker et fag
+                setSelectedKeys([]); // ryd altid valg, når du skifter/lukker et fag
               }}
-              hitSlop={8}
             >
               <LinearGradient
                 colors={getSubjectGradient(subject)}
@@ -673,83 +672,53 @@ const handleReportError = async () => {
                   selectedSubject === subject && styles.subjectTileSelected,
                 ]}
               >
-                <Text style={styles.subjectTileText}>{subject}</Text>
+                <Text
+                  style={[
+                    styles.subjectTileText,
+                    { fontSize: subjectFont },
+                  ]}
+                >
+                  {subject}
+                </Text>
               </LinearGradient>
             </Pressable>
           ))}
         </View>
 
-        {/* Quiz i alle fag */}
+        {/* Quiz i alle fag – sort knap */}
         <Pressable
           style={[
             styles.bigButton,
-            styles.secondaryButton,
-            { marginTop: 24, alignSelf: "stretch" },
+            {
+              marginTop: 24,
+              alignSelf: "stretch",
+              backgroundColor: "#000000",
+            },
           ]}
           onPress={handleStartAllSubjectsQuiz}
-          hitSlop={8}
         >
-          <Text style={styles.bigButtonText}>QUIZ I ALLE FAG</Text>
+          <Text
+            style={[
+              styles.bigButtonText,
+              { color: "#ffffff", fontSize: buttonFont },
+            ]}
+          >
+            QUIZ I ALLE FAG
+          </Text>
         </Pressable>
 
-        {/* Se statistik */}
-        <Pressable
-          style={[
-            styles.bigButton,
-            styles.outlineSecondaryButton,
-            { marginTop: 12, alignSelf: "stretch" },
-          ]}
-          onPress={() => setScreen("stats")}
-          hitSlop={8}
-        >
-          <Text style={styles.outlineSecondaryText}>Se statistik</Text>
-        </Pressable>
-
-        {/* Shuffle toggle */}
-        <View style={styles.toggleRow}>
-          <Text style={styles.toggleLabel}>Rækkefølge:</Text>
-          <Pressable
-            style={[
-              styles.toggleOption,
-              shuffleMode === "random" && styles.toggleOptionActive,
-            ]}
-            onPress={() => setShuffleMode("random")}
-            hitSlop={8}
-          >
-            <Text
-              style={[
-                styles.toggleOptionText,
-                shuffleMode === "random" &&
-                  styles.toggleOptionTextActive,
-              ]}
-            >
-              Randomiseret
-            </Text>
-          </Pressable>
-          <Pressable
-            style={[
-              styles.toggleOption,
-              shuffleMode === "ordered" && styles.toggleOptionActive,
-            ]}
-            onPress={() => setShuffleMode("ordered")}
-            hitSlop={8}
-          >
-            <Text
-              style={[
-                styles.toggleOptionText,
-                shuffleMode === "ordered" &&
-                  styles.toggleOptionTextActive,
-              ]}
-            >
-              I rækkefølge
-            </Text>
-          </Pressable>
-        </View>
-
+        {/* Topic / subtopic selector for selected subject */}
         {selectedSubject && (
           <View style={styles.topicSection}>
             <View style={styles.topicHeaderRow}>
-              <Text style={styles.topicTitle}>Emner i {selectedSubject}</Text>
+              <Text
+                style={[
+                  styles.topicTitle,
+                  { fontSize: metaFont },
+                ]}
+              >
+                Emner i {selectedSubject}
+              </Text>
               {topicGroupsForSelectedSubject.length > 0 && (
                 <Pressable onPress={toggleAllTopics} hitSlop={8}>
                   <Text style={styles.topicLink}>
@@ -778,6 +747,7 @@ const handleReportError = async () => {
 
                   return (
                     <View key={group.topic} style={styles.topicGroup}>
+                      {/* Kun overskrift hvis der faktisk er subemner */}
                       {group.subtopics.length > 0 && (
                         <Text
                           style={[
@@ -792,6 +762,7 @@ const handleReportError = async () => {
 
                       <View style={styles.subtopicRow}>
                         {group.subtopics.length === 0 ? (
+                          // Ingen subtopics → kun én klikbar chip
                           <Pressable
                             onPress={() =>
                               toggleTopicKey(`${group.topic}::<ALL>`)
@@ -802,7 +773,6 @@ const handleReportError = async () => {
                                 `${group.topic}::<ALL>`
                               ) && styles.topicChipSelected,
                             ]}
-                            hitSlop={8}
                           >
                             <Text
                               style={[
@@ -836,12 +806,12 @@ const handleReportError = async () => {
                                     backgroundColor: "#f1f3f5",
                                   },
                                 ]}
-                                hitSlop={8}
                               >
                                 <Text
                                   style={[
                                     styles.topicChipText,
-                                    selected && styles.topicChipTextSelected,
+                                    selected &&
+                                      styles.topicChipTextSelected,
                                     isNested && {
                                       fontSize: 13,
                                       color: "#495057",
@@ -861,15 +831,20 @@ const handleReportError = async () => {
               </View>
             )}
 
+            {/* Start quiz button for selected subject/emner */}
             <Pressable
               style={[
                 styles.bigButton,
-                { backgroundColor: "#12b886", marginTop: 20 },
+                { backgroundColor: "#1c7ed6", marginTop: 20 },
               ]}
               onPress={handleStartQuiz}
-              hitSlop={8}
             >
-              <Text style={styles.bigButtonText}>
+              <Text
+                style={[
+                  styles.bigButtonText,
+                  { fontSize: buttonFont },
+                ]}
+              >
                 {selectedKeys.length === 0
                   ? "Start quiz i alle emner"
                   : "Start quiz i valgte emner"}
@@ -900,18 +875,16 @@ const styles = StyleSheet.create({
   quizContainer: {
     flex: 1,
     padding: 24,
-    paddingTop: 40,
+    paddingTop: 48,
     alignItems: "center",
   },
   appTitle: {
-    fontSize: 32,            // ↓ from 48
     fontWeight: "800",
     marginBottom: 12,
     fontFamily: "sans-serif",
     letterSpacing: 0.5,
   },
   subtitle: {
-    fontSize: 18,            // ↓ from 24
     color: "#495057",
     marginBottom: 20,
     fontFamily: "System",
@@ -924,37 +897,35 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   subjectTile: {
-    paddingVertical: 16,
-    paddingHorizontal: 18,
+    paddingVertical: 18,
+    paddingHorizontal: 20,
     borderRadius: 18,
-    minWidth: 130,
+    minWidth: 140,
     alignItems: "center",
     justifyContent: "center",
   },
   subjectTileSelected: {
     borderWidth: 3,
-    borderColor: "#212529",
+    borderColor: "#f8f9fa",
   },
   subjectTileText: {
-    fontSize: 18,            // ↓ from 20
     color: "#fff",
     fontWeight: "800",
     textAlign: "center",
     fontFamily: "System",
   },
-
   cardContainer: {
     width: "100%",
     flex: 1,
     justifyContent: "center",
   },
   cardBox: {
-    minHeight: 110,
-    padding: 18,
+    minHeight: 120,
+    padding: 20,
     borderRadius: 16,
     backgroundColor: "#ffffff",
     borderWidth: 0,
-    marginVertical: 10,
+    marginVertical: 12,
     justifyContent: "center",
     alignItems: "center",
     shadowColor: "#000",
@@ -964,90 +935,68 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   questionText: {
-    fontSize: 20,            // ↓ from 24
     fontWeight: "800",
     textAlign: "center",
     fontFamily: "System",
   },
   answerText: {
-    fontSize: 16,            // ↓ from 18
     textAlign: "center",
     fontFamily: "serif",
   },
   placeholderText: {
-    fontSize: 14,
-    color: "#868e96",
+    fontSize: 15,
+    color: "#dee2e6",
     textAlign: "center",
   },
-
   bigButton: {
-    paddingVertical: 12,
-    paddingHorizontal: 18,
+    paddingVertical: 14,
+    paddingHorizontal: 20,
     borderRadius: 16,
     minWidth: 150,
     alignItems: "center",
-    marginVertical: 8,
+    marginVertical: 10,
   },
-  primaryButton: { backgroundColor: "#12b886" },
-  secondaryButton: { backgroundColor: "#000000ff" },
-  bigButtonText: {
-    color: "#fff",
-    fontWeight: "800",
-    fontSize: 22,            // ↓ from 24
-  },
-
+  primaryButton: { backgroundColor: "#1c7ed6" },
+  secondaryButton: { backgroundColor: "#495057" },
+  bigButtonText: { color: "#fff", fontWeight: "800" },
   smallButton: {
     borderWidth: 1,
     borderColor: "#343a40",
-    paddingVertical: 6,
-    paddingHorizontal: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 14,
     borderRadius: 999,
     marginLeft: 8,
-    marginTop: 4,
   },
-  smallButtonText: {
-    color: "#343a40",
-    fontWeight: "500",
-    fontSize: 14,            // ↓ from 20
-  },
-
+  smallButtonText: { color: "#343a40", fontWeight: "500" },
   outlineButton: {
     borderWidth: 1,
     borderColor: "#f1f3f5",
     backgroundColor: "transparent",
+    marginTop: 8,
   },
-  outlineButtonText: {
-    color: "#f1f3f5",
-    fontWeight: "600",
-    fontSize: 14,
-  },
-
+  outlineButtonText: { color: "#f1f3f5", fontWeight: "600" },
   headerRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
-    marginBottom: 16,
+    marginBottom: 20,
     alignItems: "center",
-    flexWrap: "wrap",        // ✅ lets buttons wrap instead of vanishing
-    gap: 8,
   },
   headerButtons: {
     flexDirection: "row",
     alignItems: "center",
   },
-
-  subjectLabel: {
-    fontSize: 16,            // ↓ from 20
-    fontWeight: "600",
+  subjectLabel: { fontWeight: "700" },
+  topicLabel: {
+    marginTop: 2,
   },
   metaRow: {
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 12,
+    marginBottom: 16,
   },
-
   difficultyPill: {
     paddingVertical: 4,
     paddingHorizontal: 10,
@@ -1056,40 +1005,27 @@ const styles = StyleSheet.create({
   difficultyText: {
     color: "#fff",
     fontWeight: "600",
-    fontSize: 14,            // ↓ from 20
   },
-
   buttonRow: {
     flexDirection: "row",
     justifyContent: "center",
     gap: 12,
-    marginVertical: 8,
+    marginVertical: 10,
   },
-
   ratingRow: {
     flexDirection: "row",
-    width: "100%",
-    marginTop: 20,
+    justifyContent: "center",
+    gap: 12,
     marginBottom: 10,
+    marginTop: 4,
   },
-decisionButton: {
-  flex: 1,
-  paddingVertical: 18,
-  paddingHorizontal: 24,
-  borderRadius: 16,
-  marginHorizontal: 6,
-  alignItems: "center",
-  justifyContent: "center",
-  elevation: 3,
-},
-
-decisionText: {
-  fontSize: 22,
-  fontWeight: "800",
-  color: "#fff",
-  textAlign: "center",
-},
-
+  ratingButton: {
+    flex: 1,
+    paddingVertical: 14,
+    paddingHorizontal: 16,
+    borderRadius: 14,
+    alignItems: "center",
+  },
   knownButton: {
     backgroundColor: "#e6fcf5",
     borderWidth: 1,
@@ -1100,12 +1036,10 @@ decisionText: {
     borderWidth: 1,
     borderColor: "#f08c00",
   },
-  smallTagText: {
-    fontSize: 13,
-    fontWeight: "500",
+  ratingButtonText: {
+    fontWeight: "600",
     color: "#212529",
   },
-
   topicSection: {
     marginTop: 24,
     width: "100%",
@@ -1117,17 +1051,17 @@ decisionText: {
     marginBottom: 8,
   },
   topicTitle: {
-    fontSize: 15,
     fontWeight: "600",
+    color: "#f8f9fa",
   },
   topicLink: {
     fontSize: 14,
-    color: "#4c6ef5",
+    color: "#e9ecef",
     fontWeight: "500",
   },
   topicEmptyText: {
     fontSize: 14,
-    color: "#868e96",
+    color: "#dee2e6",
     marginTop: 4,
   },
   topicGroupList: {
@@ -1140,16 +1074,17 @@ decisionText: {
   topicGroupTitle: {
     fontSize: 15,
     fontWeight: "600",
+    color: "#f8f9fa",
   },
   topicGroupTitleSelected: {
-    color: "#4c6ef5",
+    color: "#4dabf7",
   },
   subtopicRow: {
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 8,
     marginTop: 4,
-    marginLeft: 12,
+    marginLeft: 12, // indent
   },
   topicChip: {
     paddingVertical: 6,
@@ -1168,91 +1103,6 @@ decisionText: {
     color: "#343a40",
   },
   topicChipTextSelected: {
-    color: "#ffffff",
-    fontWeight: "600",
-  },
-
-
-
-  // Stats
-  statsCard: {
-    width: "100%",
-    paddingVertical: 24,
-    paddingHorizontal: 16,
-    borderRadius: 16,
-    backgroundColor: "#ffffff",
-    marginTop: 16,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOpacity: 0.08,
-    shadowRadius: 6,
-    shadowOffset: { width: 0, height: 3 },
-    elevation: 3,
-  },
-  statsRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
-    marginTop: 16,
-  },
-  statsSmallCard: {
-    flex: 1,
-    marginHorizontal: 4,
-    paddingVertical: 20,
-    borderRadius: 16,
-    backgroundColor: "#ffffff",
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOpacity: 0.08,
-    shadowRadius: 6,
-    shadowOffset: { width: 0, height: 3 },
-    elevation: 3,
-  },
-  statsNumber: {
-    fontSize: 28,
-    fontWeight: "800",
-    marginBottom: 4,
-    fontFamily: bodyFont,
-  },
-  statsLabel: {
-    fontSize: 14,
-    color: "#495057",
-    fontFamily: bodyFont,
-  },
-
-  // Shuffle toggle
-  toggleRow: {
-    marginTop: 16,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-    alignSelf: "stretch",
-    justifyContent: "center",
-    flexWrap: "wrap",
-  },
-  toggleLabel: {
-    fontSize: 14,
-    color: "#495057",
-    fontFamily: bodyFont,
-  },
-  toggleOption: {
-    paddingVertical: 6,
-    paddingHorizontal: 10,
-    borderRadius: 999,
-    borderWidth: 1,
-    borderColor: "#ced4da",
-    backgroundColor: "#ffffff",
-  },
-  toggleOptionActive: {
-    backgroundColor: "#4c6ef5",
-    borderColor: "#4c6ef5",
-  },
-  toggleOptionText: {
-    fontSize: 13,
-    color: "#343a40",
-    fontFamily: bodyFont,
-  },
-  toggleOptionTextActive: {
     color: "#ffffff",
     fontWeight: "600",
   },
