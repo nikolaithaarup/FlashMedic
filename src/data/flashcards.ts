@@ -1,5 +1,3 @@
-console.log("FLASHCARDS FILE LOADED");
-
 import type { Flashcard } from "../types/Flashcard";
 
 // Akutte tilstande
@@ -33,8 +31,8 @@ import { respirationCards } from "./anatomi_fysiologi/respiration";
 
 // EKG
 import { ekgAvanceretCards } from "./ekg/avancerede_diagnoser";
-import { ekgGenereltCards } from "./ekg/generelt";
 import { ekgBillederCards } from "./ekg/billeder";
+import { ekgGenereltCards } from "./ekg/generelt";
 
 // Farmakologi
 import { administrationCards } from "./farmakologi/administration";
@@ -59,13 +57,13 @@ import { mikroSmitteCards } from "./mikrobiologi/smitteveje_og_isolation";
 import { mikroVirusCards } from "./mikrobiologi/virus";
 
 // Sygdomslære
-import { introduktionCards } from "./sygdomslaere/introduktion";
 import { akutMedicinCards } from "./sygdomslaere/akut_medicin";
 import { endokrinologiCards } from "./sygdomslaere/endokrinologi";
 import { gastroCards } from "./sygdomslaere/gastro";
 import { geriatriCards } from "./sygdomslaere/geriatri";
 import { haematologiCards } from "./sygdomslaere/haematologi";
 import { infektionCards } from "./sygdomslaere/infektion";
+import { introduktionCards } from "./sygdomslaere/introduktion";
 import { karsygdommeCards } from "./sygdomslaere/karsygdomme";
 import { lungesygdommeCards } from "./sygdomslaere/lungesygdomme";
 import { neurologiCards } from "./sygdomslaere/neurologi";
@@ -87,6 +85,8 @@ import { traumeSekundaerCards } from "./traumatologi og itls/secondary_survery";
 import { ShockTraumeCards } from "./traumatologi og itls/shock_cirkulation";
 import { MOICards } from "./traumatologi og itls/skademekanisme";
 import { ThoraxTraumeCards } from "./traumatologi og itls/thoraxtraumer";
+
+console.log("FLASHCARDS FILE LOADED");
 
 // ---------- Combine everything with a small safety layer ----------
 
@@ -187,6 +187,10 @@ Object.entries(decks).forEach(([name, deck]) => {
   }
 });
 
+// NEW: export the deck map so the exporter can attach deckId to each card
+export const allDecks = decks;
+
+// Existing: flat list used by the app
 export const allFlashcards: Flashcard[] = Object.entries(decks).flatMap(
   ([name, deck]) => {
     if (!Array.isArray(deck)) {

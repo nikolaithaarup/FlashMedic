@@ -572,8 +572,15 @@ const ekgImageDefs: EkgImageDef[] = [
 
 // Eksportér som rigtige Flashcards
 export const ekgBillederCards: Flashcard[] = ekgImageDefs.map((base) => ({
-  ...base,
+  id: base.id,
   subject: "EKG",
-  // Ingen tekst – spørgsmålet er kun billedet.
-  question: "",
+  topic: base.topic,
+  subtopic: base.subtopic,
+  question: "Hvilken rytme/tilstand ses på dette EKG?",
+  answer: base.answer,
+  difficulty: base.difficulty,
+  tags: ["ekg", "billede", base.subtopic ?? ""].filter(Boolean),
+  imageKey: base.id,          // this is what we’ll store in JSON later
+  image: base.image,          // still used in the app right now
+  imageCaption: base.answer,
 }));

@@ -1,6 +1,6 @@
 import { LinearGradient } from "expo-linear-gradient";
-import * as Linking from "expo-linking";
 import * as MailComposer from "expo-mail-composer";
+import { StatusBar } from "expo-status-bar";
 import React, {
   useEffect,
   useMemo,
@@ -12,20 +12,20 @@ import {
   Modal,
   Pressable,
   ScrollView,
-  StyleSheet,
   Text,
   View,
-  useWindowDimensions,
+  useWindowDimensions
 } from "react-native";
-import { StatusBar } from "expo-status-bar";
 
-import { allFlashcards } from "../../src/data/flashcards";
-import type { Flashcard, Difficulty } from "../../src/types/Flashcard";
 import {
   loadStats,
   saveStats,
   updateStatsForCard,
 } from "../../src/storage/stats";
+import type { Difficulty, Flashcard } from "../../src/types/Flashcard";
+
+// EKG lookup
+import { ekgImageLookup } from "../../src/data/ekg/imageLookup";
 
 // ---------- Simple types for spaced repetition stats ----------
 
@@ -49,8 +49,6 @@ type TopicGroup = {
 const APP_ID = "FlashMedic";
 const SUPPORT_EMAIL = "nikolai_91@live.com";
 
-// ---------- Small helpers ----------
-
 // Fisher–Yates shuffle
 function shuffle<T>(arr: T[]): T[] {
   const copy = [...arr];
@@ -73,25 +71,26 @@ const difficultyColorMap: Record<Difficulty, string> = {
   hard: "#fa5252",
 };
 
-// Lower score = should be shown earlier
+// Lower score = higher priority
 function scoreCardForQuiz(card: Flashcard, stats: StatsMap): number {
   const s = stats[card.id];
-  if (!s || s.seen === 0) {
-    // Never seen → highest priority
-    return 0;
-  }
-  const accuracy = s.correct / s.seen; // 0–1
-  // Higher accuracy & more repetitions → higher score (less urgent)
+  if (!s || s.seen === 0) return 0;
+
+  const accuracy = s.correct / s.seen;
   return accuracy + s.seen * 0.05;
 }
 
-// ---------- Main component ----------
+// ---------- MAIN COMPONENT ----------
 
 export default function Index() {
+  // -------- Flashcards loaded from backend --------
+  const [cards, setCards] = useState<Flashcard[]>([]);
+  const [loadingCards, setLoadingCards] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
+
   // -------- Screen & selection state --------
   const [screen, setScreen] = useState<Screen>("home");
   const [selectedSubject, setSelectedSubject] = useState<string | null>(null);
-  // selection keys: "topic::<ALL>" or "topic::subtopic"
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
 
   // -------- Quiz state --------
@@ -112,31 +111,27 @@ export default function Index() {
     setImageModalVisible(false);
   };
 
-  // -------- Spaced repetition stats --------
+  // -------- Stats --------
   const [stats, setStats] = useState<StatsMap>({});
 
-  // Derived total stats for stats screen
   const { totalSeen, totalCorrect, totalIncorrect, accuracy } = useMemo(() => {
-    let seen = 0;
-    let correct = 0;
-    let incorrect = 0;
+    let seen = 0, correct = 0, incorrect = 0;
     for (const s of Object.values(stats)) {
       seen += s.seen;
       correct += s.correct;
       incorrect += s.incorrect;
     }
-    const acc = seen > 0 ? (correct / seen) * 100 : 0;
     return {
       totalSeen: seen,
       totalCorrect: correct,
       totalIncorrect: incorrect,
-      accuracy: acc,
+      accuracy: seen > 0 ? (correct / seen) * 100 : 0,
     };
   }, [stats]);
 
   // -------- Responsive typography --------
   const { width } = useWindowDimensions();
-  const baseWidth = 375; // iPhone 11-ish
+  const baseWidth = 375;
   const scale = Math.min(width / baseWidth, 1.2);
 
   const headingFont = 40 * scale;
@@ -147,7 +142,7 @@ export default function Index() {
   const questionFont = 22 * scale;
   const answerFont = 17 * scale;
 
-  // -------- Load stats once on mount --------
+  // -------- Load STATS on mount --------
   useEffect(() => {
     (async () => {
       const loaded = await loadStats();
@@ -155,26 +150,114 @@ export default function Index() {
     })();
   }, []);
 
-  // -------- Subject list (automatically from flashcards) --------
+  // -------- Load CARDS from backend once --------
+  useEffect(() => {
+    async function loadFromBackend() {
+      try {
+        setLoadError(null);
+        setLoadingCards(true);
+
+        const res = await fetch("http://100.98.54.18:3002/flashcards/all");
+        const data = await res.json();
+
+        const hydrated: Flashcard[] = data.cards.map((c: any) => {
+          if (c.imageKey) {
+            const image = ekgImageLookup[c.imageKey];
+            return { ...c, image };
+          }
+          return c;
+        });
+
+        setCards(hydrated);
+      } catch (err) {
+        console.error("Failed to fetch flashcards", err);
+        setLoadError("Kunne ikke hente kort fra serveren.");
+      } finally {
+        setLoadingCards(false);
+      }
+    }
+
+    loadFromBackend();
+  }, []);
+
+  // -------- Loading UI --------
+  if (loadingCards) {
+    return (
+      <LinearGradient
+        colors={["#0e91a8ff", "#5e6e7eff"]}
+        style={styles.homeBackground}
+      >
+        <StatusBar style="light" />
+        <View style={[styles.homeContainer, { justifyContent: "center" }]}>
+          <Text style={{ color: "#fff", fontSize: 18 }}>Henter kort…</Text>
+        </View>
+      </LinearGradient>
+    );
+  }
+
+  // -------- Error UI --------
+  if (loadError) {
+    return (
+      <LinearGradient
+        colors={["#0e91a8ff", "#5e6e7eff"]}
+        style={styles.homeBackground}
+      >
+        <StatusBar style="light" />
+        <View style={[styles.homeContainer, { justifyContent: "center" }]}>
+          <Text style={{ color: "#fff", fontSize: 18, marginBottom: 8 }}>
+            {loadError}
+          </Text>
+          <Pressable
+            style={[styles.bigButton, { backgroundColor: "#000" }]}
+            onPress={() => {
+              // re-trigger loading
+              setLoadingCards(true);
+              setLoadError(null);
+              (async () => {
+                try {
+                  const res = await fetch("http://100.98.54.18:3002/flashcards/all");
+                  const data = await res.json();
+                  const hydrated: Flashcard[] = data.cards.map((c: any) => {
+                    if (c.imageKey) return { ...c, image: ekgImageLookup[c.imageKey] };
+                    return c;
+                  });
+                  setCards(hydrated);
+                } catch {
+                  setLoadError("Kunne ikke hente kort fra serveren.");
+                } finally {
+                  setLoadingCards(false);
+                }
+              })();
+            }}
+          >
+            <Text style={styles.bigButtonText}>Prøv igen</Text>
+          </Pressable>
+        </View>
+      </LinearGradient>
+    );
+  }
+
+  // -------- SUBJECTS --------
   const subjects = useMemo(
-    () => Array.from(new Set(allFlashcards.map((c) => c.subject))),
-    []
+    () => Array.from(new Set(cards.map((c) => c.subject))),
+    [cards]
   );
 
-  // Flashcards filtered by selected subject
+  // -------- CARDS for selected subject --------
   const cardsForSelectedSubject = useMemo(() => {
     if (!selectedSubject) return [];
-    return allFlashcards.filter((c) => c.subject === selectedSubject);
-  }, [selectedSubject]);
+    return cards.filter((c) => c.subject === selectedSubject);
+  }, [selectedSubject, cards]);
 
-  // Build topic + subtopic groups for the subject
+  // -------- Topic groups --------
   const topicGroupsForSelectedSubject: TopicGroup[] = useMemo(() => {
     if (!selectedSubject) return [];
-    const map = new Map<string, Set<string>>();
 
+    const map = new Map<string, Set<string>>();
     for (const c of cardsForSelectedSubject) {
       const topic = c.topic ?? "Ukendt";
       const sub = c.subtopic ?? "";
+
       if (!map.has(topic)) map.set(topic, new Set());
       if (sub) map.get(topic)!.add(sub);
     }
@@ -187,7 +270,6 @@ export default function Index() {
       .sort((a, b) => a.topic.localeCompare(b.topic));
   }, [selectedSubject, cardsForSelectedSubject]);
 
-  // All selectable keys for "Vælg alle"
   const allSelectableKeys = useMemo(() => {
     const keys: string[] = [];
     for (const group of topicGroupsForSelectedSubject) {
@@ -207,11 +289,8 @@ export default function Index() {
     selectedKeys.length === allSelectableKeys.length;
 
   const toggleAllTopics = () => {
-    if (allTopicsSelected) {
-      setSelectedKeys([]);
-    } else {
-      setSelectedKeys(allSelectableKeys);
-    }
+    if (allTopicsSelected) setSelectedKeys([]);
+    else setSelectedKeys(allSelectableKeys);
   };
 
   const toggleTopicKey = (key: string) => {
@@ -226,49 +305,32 @@ export default function Index() {
         ? [`${group.topic}::<ALL>`]
         : group.subtopics.map((sub) => `${group.topic}::${sub}`);
 
-    const groupSelected = groupKeys.every((k) => selectedKeys.includes(k));
+    const selected = groupKeys.every((k) => selectedKeys.includes(k));
 
-    if (groupSelected) {
+    if (selected)
       setSelectedKeys((prev) => prev.filter((k) => !groupKeys.includes(k)));
-    } else {
-      setSelectedKeys((prev) =>
-        Array.from(new Set([...prev, ...groupKeys]))
-      );
-    }
+    else
+      setSelectedKeys((prev) => Array.from(new Set([...prev, ...groupKeys])));
   };
 
-  // Cards that will be used in the quiz (subject + topic/subtopic filters)
+  // Cards included in the quiz
   const effectiveCardsForQuiz = useMemo(() => {
     if (!selectedSubject) return [];
-    if (selectedKeys.length === 0) return cardsForSelectedSubject; // no filters => all
+    if (selectedKeys.length === 0) return cardsForSelectedSubject;
 
     return cardsForSelectedSubject.filter((card) => {
       const topic = card.topic ?? "";
       const sub = card.subtopic ?? "";
-
-      const topicKey = `${topic}::<ALL>`;
-      const subKey = `${topic}::${sub}`;
-
-      return selectedKeys.includes(subKey) || selectedKeys.includes(topicKey);
+      return (
+        selectedKeys.includes(`${topic}::<ALL>`) ||
+        selectedKeys.includes(`${topic}::${sub}`)
+      );
     });
   }, [selectedSubject, selectedKeys, cardsForSelectedSubject]);
 
-  // ---------- Subject / theme colors ----------
-
+  // ---------- SUBJECT COLORS ----------
   const getSubjectGradient = (subject: string) => {
-    // Blue/grey palette for everything (your custom scheme preserved)
-    switch (subject) {
-      case "Anatomi og fysiologi":
-      case "Farmakologi":
-      case "Kliniske parametre":
-      case "Mikrobiologi":
-      case "Sygdomslære":
-      case "EKG":
-      case "Traumatologi og ITLS":
-        return ["#343a40", "#1c7ed6"];
-      default:
-        return ["#343a40", "#1c7ed6"];
-    }
+    return ["#343a40", "#1c7ed6"];
   };
 
   const getSubjectPrimaryColor = (subject?: string | null) => {
@@ -280,8 +342,7 @@ export default function Index() {
   const getDifficultyColor = (difficulty: Difficulty) =>
     difficultyColorMap[difficulty] ?? "#868e96";
 
-  // ---------- Quiz control logic ----------
-
+  // ---------- QUIZ CONTROL ----------
   const handleStartQuiz = () => {
     if (!selectedSubject) {
       Alert.alert("Vælg fag", "Du skal vælge et fag først.");
@@ -291,20 +352,17 @@ export default function Index() {
     if (effectiveCardsForQuiz.length === 0) {
       Alert.alert(
         "Ingen spørgsmål",
-        "Der er ingen kort i de valgte emner. Prøv at vælge et andet emne eller alle emner."
+        "Der er ingen kort i de valgte emner."
       );
       return;
     }
 
-    const scored = effectiveCardsForQuiz.map((card) => ({
-      card,
-      score: scoreCardForQuiz(card, stats),
-    }));
+    const scored = effectiveCardsForQuiz
+      .map((card) => ({ card, score: scoreCardForQuiz(card, stats) }))
+      .sort((a, b) => a.score - b.score)
+      .map((x) => x.card);
 
-    scored.sort((a, b) => a.score - b.score); // lower = earlier
-    const orderedCards = scored.map((x) => x.card);
-
-    const deck = shuffle(orderedCards);
+    const deck = shuffle(scored);
     const [first, ...rest] = deck;
 
     setHistory([]);
@@ -314,21 +372,18 @@ export default function Index() {
     setScreen("quiz");
   };
 
-  // 🔥 Quiz i ALLE fag
   const handleStartAllSubjectsQuiz = () => {
-    if (allFlashcards.length === 0) {
-      Alert.alert("Ingen kort", "Der er ingen flashcards at quizze i endnu.");
+    if (cards.length === 0) {
+      Alert.alert("Ingen kort", "Der er ingen flashcards endnu.");
       return;
     }
 
-    const scored = allFlashcards.map((card) => ({
-      card,
-      score: scoreCardForQuiz(card, stats),
-    }));
+    const scored = cards
+      .map((card) => ({ card, score: scoreCardForQuiz(card, stats) }))
+      .sort((a, b) => a.score - b.score)
+      .map((x) => x.card);
 
-    scored.sort((a, b) => a.score - b.score);
-    const orderedCards = scored.map((x) => x.card);
-    const deck = shuffle(orderedCards);
+    const deck = shuffle(scored);
     const [first, ...rest] = deck;
 
     setSelectedSubject(null);
@@ -340,232 +395,7 @@ export default function Index() {
     setScreen("quiz");
   };
 
-  const handleNextQuestion = () => {
-    if (!currentCard) return;
-
-    if (upcoming.length === 0) {
-      Alert.alert(
-        "Slut",
-        "Du har været igennem alle spørgsmål i denne runde."
-      );
-      return;
-    }
-
-    setHistory((prev) => [...prev, currentCard]);
-    setCurrentCard(upcoming[0]);
-    setUpcoming((prev) => prev.slice(1));
-    setShowAnswer(false);
-    setImageModalVisible(false);
-  };
-
-  const handlePreviousQuestion = () => {
-    if (!currentCard || history.length === 0) return;
-
-    const newHistory = [...history];
-    const previous = newHistory.pop()!;
-
-    setHistory(newHistory);
-    setUpcoming((prev) => [currentCard, ...prev]);
-    setCurrentCard(previous);
-    setShowAnswer(true);
-    setImageModalVisible(false);
-  };
-
-  const handleHome = () => {
-    setScreen("home");
-    setCurrentCard(null);
-    setShowAnswer(false);
-    setHistory([]);
-    setUpcoming([]);
-    setImageModalVisible(false);
-  };
-
-  // ---------- Report error via MailComposer ----------
-
-  const handleReportError = async () => {
-    if (!currentCard) return;
-
-    const subject = `[${APP_ID}] Fejl i kort ${currentCard.id} – ${currentCard.question.slice(
-      0,
-      80
-    )}`;
-
-    const bodyLines = [
-      "Hej Nikolai,",
-      "",
-      "Jeg vil gerne rapportere en fejl i FlashMedic.",
-      "",
-      `Kort-ID: ${currentCard.id}`,
-      `Fag: ${currentCard.subject ?? "Ukendt"}`,
-      `Emne: ${currentCard.topic ?? "Ukendt"}${
-        currentCard.subtopic ? " · " + currentCard.subtopic : ""
-      }`,
-      "",
-      "Spørgsmål:",
-      currentCard.question,
-      "",
-      "Svar:",
-      currentCard.answer,
-      "",
-      "Min kommentar til fejlen / forbedringsforslag:",
-      "",
-      "",
-      "— Automatisk sendt fra FlashMedic appen",
-    ];
-
-    const body = bodyLines.join("\n");
-
-    try {
-      const isAvailable = await MailComposer.isAvailableAsync();
-
-      if (isAvailable) {
-        await MailComposer.composeAsync({
-          recipients: [SUPPORT_EMAIL],
-          subject,
-          body,
-        });
-        return;
-      }
-    } catch (err) {
-      console.warn("MailComposer failed, falling back to mailto:", err);
-    }
-
-    const mailtoSubject = encodeURIComponent(subject);
-    const mailtoBody = encodeURIComponent(body);
-    const url = `mailto:${SUPPORT_EMAIL}?subject=${mailtoSubject}&body=${mailtoBody}`;
-
-    Linking.openURL(url);
-  };
-
-  // ---------- Spaced repetition actions ----------
-
-  const handleMarkKnown = () => {
-    if (!currentCard) return;
-
-    setStats((prev) => {
-      const updated = updateStatsForCard(prev, currentCard.id, true);
-      saveStats(updated);
-      return updated;
-    });
-
-    handleNextQuestion();
-  };
-
-  const handleMarkUnknown = () => {
-    if (!currentCard) return;
-
-    setStats((prev) => {
-      const updated = updateStatsForCard(prev, currentCard.id, false);
-      saveStats(updated);
-      return updated;
-    });
-
-    setUpcoming((prev) => [...prev, currentCard]);
-    handleNextQuestion();
-  };
-
-  const handleResetStats = () => {
-    Alert.alert(
-      "Nulstil statistik",
-      "Er du sikker på, at du vil slette al statistik?",
-      [
-        { text: "Annuller", style: "cancel" },
-        {
-          text: "Ja, nulstil",
-          style: "destructive",
-          onPress: () => {
-            const empty: StatsMap = {};
-            setStats(empty);
-            saveStats(empty);
-          },
-        },
-      ]
-    );
-  };
-
-  // ------------------ STATS SCREEN --------------------
-  if (screen === "stats") {
-    return (
-      <LinearGradient
-        colors={["#0e91a8ff", "#5e6e7eff"]}
-        style={styles.homeBackground}
-      >
-        <StatusBar style="light" />
-        <ScrollView contentContainerStyle={styles.homeContainer}>
-          <View style={styles.headerRow}>
-            <Text
-              style={[
-                styles.appTitle,
-                { fontSize: headingFont, color: "#f8f9fa" },
-              ]}
-            >
-              Statistik
-            </Text>
-            <Pressable
-              style={[styles.smallButton, { borderColor: "#fff" }]}
-              onPress={() => setScreen("home")}
-              hitSlop={8}
-            >
-              <Text
-                style={[
-                  styles.smallButtonText,
-                  { color: "#fff", fontSize: buttonFont * 0.9 },
-                ]}
-              >
-                Home
-              </Text>
-            </Pressable>
-          </View>
-
-          <View style={styles.statsCard}>
-            <Text style={styles.statsLabel}>Antal besvarede spørgsmål</Text>
-            <Text style={styles.statsValue}>{totalSeen}</Text>
-
-            <View style={styles.statsRow}>
-              <View style={{ flex: 1 }}>
-                <Text style={styles.statsLabel}>Korrekte</Text>
-                <Text style={styles.statsGood}>{totalCorrect}</Text>
-              </View>
-              <View style={{ flex: 1 }}>
-                <Text style={styles.statsLabel}>Forkerte</Text>
-                <Text style={styles.statsBad}>{totalIncorrect}</Text>
-              </View>
-            </View>
-
-            <Text style={[styles.statsLabel, { marginTop: 16 }]}>
-              Samlet træfsikkerhed
-            </Text>
-            <Text style={styles.statsAccuracy}>
-              {isNaN(accuracy) ? "0%" : `${accuracy.toFixed(1)}%`}
-            </Text>
-          </View>
-
-          <Pressable
-            style={[
-              styles.bigButton,
-              {
-                backgroundColor: "#c92a2a",
-                alignSelf: "stretch",
-                marginTop: 24,
-              },
-            ]}
-            onPress={handleResetStats}
-          >
-            <Text
-              style={[
-                styles.bigButtonText,
-                { fontSize: buttonFont, color: "#fff" },
-              ]}
-            >
-              Nulstil statistik
-            </Text>
-          </Pressable>
-        </ScrollView>
-      </LinearGradient>
-    );
-  }
-
-  // ------------------ QUIZ SCREEN --------------------
+  // ---------- QUIZ SCREEN ----------
   if (screen === "quiz" && currentCard) {
     const primaryColor = getSubjectPrimaryColor(currentCard.subject);
     const difficultyText = difficultyTextMap[currentCard.difficulty];
@@ -577,7 +407,9 @@ export default function Index() {
     return (
       <LinearGradient colors={gradient} style={styles.quizBackground}>
         <StatusBar style="light" />
+
         <View style={styles.quizContainer}>
+          {/* continues in Part 2 */}
           {/* Top header: logo + navigation */}
           <View style={styles.headerRow}>
             <Text
@@ -588,12 +420,22 @@ export default function Index() {
             >
               FlashMedic
             </Text>
+
             <View style={styles.headerButtons}>
               {history.length > 0 && (
                 <Pressable
                   style={[styles.smallButton, { borderColor: "#fff" }]}
-                  onPress={handlePreviousQuestion}
-                  hitSlop={8}
+                  onPress={() => {
+                    if (!currentCard || history.length === 0) return;
+
+                    const newHistory = [...history];
+                    const previous = newHistory.pop()!;
+                    setHistory(newHistory);
+                    setUpcoming((prev) => [currentCard, ...prev]);
+                    setCurrentCard(previous);
+                    setShowAnswer(true);
+                    setImageModalVisible(false);
+                  }}
                 >
                   <Text
                     style={[
@@ -605,10 +447,17 @@ export default function Index() {
                   </Text>
                 </Pressable>
               )}
+
               <Pressable
                 style={[styles.smallButton, { borderColor: "#fff" }]}
-                onPress={handleHome}
-                hitSlop={8}
+                onPress={() => {
+                  setScreen("home");
+                  setCurrentCard(null);
+                  setShowAnswer(false);
+                  setHistory([]);
+                  setUpcoming([]);
+                  setImageModalVisible(false);
+                }}
               >
                 <Text
                   style={[
@@ -622,7 +471,7 @@ export default function Index() {
             </View>
           </View>
 
-          {/* Subject + topic + difficulty + progress */}
+          {/* Meta section */}
           <View style={styles.metaRow}>
             <View>
               <Text
@@ -633,6 +482,7 @@ export default function Index() {
               >
                 {currentCard.subject}
               </Text>
+
               <Text
                 style={[
                   styles.topicLabel,
@@ -642,6 +492,7 @@ export default function Index() {
                 {currentCard.topic}
                 {currentCard.subtopic ? ` · ${currentCard.subtopic}` : ""}
               </Text>
+
               <Text
                 style={[
                   styles.progressText,
@@ -651,10 +502,11 @@ export default function Index() {
                 Spørgsmål {currentIndex} af {totalQuestions}
               </Text>
             </View>
+
             <View
               style={[
                 styles.difficultyPill,
-                { backgroundColor: getDifficultyColor(currentCard.difficulty) },
+                { backgroundColor: difficultyColorMap[currentCard.difficulty] },
               ]}
             >
               <Text
@@ -668,7 +520,7 @@ export default function Index() {
             </View>
           </View>
 
-          {/* Question + answer cards */}
+          {/* Question + Answer boxes */}
           <View style={styles.cardContainer}>
             <View style={styles.cardBox}>
               {currentCard.image && (
@@ -681,6 +533,7 @@ export default function Index() {
                   <Text style={styles.tapToZoomText}>Tryk for at se stort</Text>
                 </Pressable>
               )}
+
               <Text
                 style={[
                   styles.questionText,
@@ -709,7 +562,7 @@ export default function Index() {
             </View>
           </View>
 
-          {/* Big primary button: show answer */}
+          {/* Show Answer */}
           {!showAnswer && (
             <View style={styles.buttonRow}>
               <Pressable
@@ -732,12 +585,29 @@ export default function Index() {
             </View>
           )}
 
-          {/* Rating buttons – only visible after answer is shown */}
+          {/* Rating buttons */}
           {showAnswer && (
             <View style={styles.ratingRow}>
               <Pressable
                 style={[styles.ratingButton, styles.knownButton]}
-                onPress={handleMarkKnown}
+                onPress={() => {
+                  setStats((prev) => {
+                    const updated = updateStatsForCard(prev, currentCard.id, true);
+                    saveStats(updated);
+                    return updated;
+                  });
+
+                  if (upcoming.length === 0) {
+                    Alert.alert("Slut", "Du har været igennem alle spørgsmål.");
+                    return;
+                  }
+
+                  setHistory((prev) => [...prev, currentCard]);
+                  setCurrentCard(upcoming[0]);
+                  setUpcoming((prev) => prev.slice(1));
+                  setShowAnswer(false);
+                  setImageModalVisible(false);
+                }}
               >
                 <Text
                   style={[
@@ -748,9 +618,30 @@ export default function Index() {
                   Jeg kunne den
                 </Text>
               </Pressable>
+
               <Pressable
                 style={[styles.ratingButton, styles.unknownButton]}
-                onPress={handleMarkUnknown}
+                onPress={() => {
+                  setStats((prev) => {
+                    const updated = updateStatsForCard(prev, currentCard.id, false);
+                    saveStats(updated);
+                    return updated;
+                  });
+
+                  // add again to end
+                  setUpcoming((prev) => [...prev, currentCard]);
+
+                  if (upcoming.length === 0) {
+                    Alert.alert("Slut", "Du har været igennem alle spørgsmål.");
+                    return;
+                  }
+
+                  setHistory((prev) => [...prev, currentCard]);
+                  setCurrentCard(upcoming[0]);
+                  setUpcoming((prev) => prev.slice(1));
+                  setShowAnswer(false);
+                  setImageModalVisible(false);
+                }}
               >
                 <Text
                   style={[
@@ -767,13 +658,36 @@ export default function Index() {
           {/* Report error */}
           <Pressable
             style={[styles.bigButton, styles.outlineButton]}
-            onPress={handleReportError}
+            onPress={() => {
+              if (!currentCard) return;
+
+              const subject = `[${APP_ID}] Fejl i kort ${currentCard.id}`;
+              const body = `
+Kort-ID: ${currentCard.id}
+Fag: ${currentCard.subject}
+Emne: ${currentCard.topic}${currentCard.subtopic ? " · " + currentCard.subtopic : ""}
+
+Spørgsmål:
+${currentCard.question}
+
+Svar:
+${currentCard.answer}
+
+Kommentar:
+`;
+
+              MailComposer.composeAsync({
+                recipients: [SUPPORT_EMAIL],
+                subject,
+                body,
+              });
+            }}
           >
             <Text style={styles.outlineButtonText}>Rapportér fejl</Text>
           </Pressable>
         </View>
 
-        {/* Fullscreen image modal (no pinch zoom for now) */}
+        {/* Fullscreen Image Modal */}
         {currentCard.image && (
           <Modal
             visible={imageModalVisible}
@@ -810,8 +724,8 @@ export default function Index() {
       style={styles.homeBackground}
     >
       <StatusBar style="light" />
+
       <ScrollView contentContainerStyle={styles.homeContainer}>
-        {/* App title + subtitle */}
         <Text
           style={[
             styles.appTitle,
@@ -820,6 +734,7 @@ export default function Index() {
         >
           FlashMedic
         </Text>
+
         <Text
           style={[
             styles.subtitle,
@@ -829,7 +744,7 @@ export default function Index() {
           Vælg et fag for at træne din medicinske viden.
         </Text>
 
-        {/* Subject tiles */}
+        {/* SUBJECT GRID */}
         <View style={styles.subjectGrid}>
           {subjects.map((subject) => (
             <Pressable
@@ -838,7 +753,7 @@ export default function Index() {
                 setSelectedSubject((prev) =>
                   prev === subject ? null : subject
                 );
-                setSelectedKeys([]); // ryd altid valg, når du skifter/lukker et fag
+                setSelectedKeys([]);
               }}
             >
               <LinearGradient
@@ -861,7 +776,7 @@ export default function Index() {
           ))}
         </View>
 
-        {/* Quiz i alle fag – sort knap */}
+        {/* QUIZ ALL */}
         <Pressable
           style={[
             styles.bigButton,
@@ -883,7 +798,7 @@ export default function Index() {
           </Text>
         </Pressable>
 
-        {/* Statistik-knap */}
+        {/* STATISTICS */}
         <Pressable
           style={[
             styles.bigButton,
@@ -905,7 +820,7 @@ export default function Index() {
           </Text>
         </Pressable>
 
-        {/* Topic / subtopic selector for selected subject */}
+        {/* TOPIC SELECTOR */}
         {selectedSubject && (
           <View style={styles.topicSection}>
             <View style={styles.topicHeaderRow}>
@@ -917,8 +832,9 @@ export default function Index() {
               >
                 Emner i {selectedSubject}
               </Text>
+
               {topicGroupsForSelectedSubject.length > 0 && (
-                <Pressable onPress={toggleAllTopics} hitSlop={8}>
+                <Pressable onPress={toggleAllTopics}>
                   <Text style={styles.topicLink}>
                     {allTopicsSelected ? "Fravælg alle" : "Vælg alle"}
                   </Text>
@@ -936,16 +852,14 @@ export default function Index() {
                   const groupKeys =
                     group.subtopics.length === 0
                       ? [`${group.topic}::<ALL>`]
-                      : group.subtopics.map(
-                          (sub) => `${group.topic}::${sub}`
-                        );
+                      : group.subtopics.map((sub) => `${group.topic}::${sub}`);
+
                   const groupSelected = groupKeys.every((k) =>
                     selectedKeys.includes(k)
                   );
 
                   return (
                     <View key={group.topic} style={styles.topicGroup}>
-                      {/* Kun overskrift hvis der faktisk er subemner */}
                       {group.subtopics.length > 0 && (
                         <Text
                           style={[
@@ -960,16 +874,14 @@ export default function Index() {
 
                       <View style={styles.subtopicRow}>
                         {group.subtopics.length === 0 ? (
-                          // Ingen subtopics → kun én klikbar chip
                           <Pressable
                             onPress={() =>
                               toggleTopicKey(`${group.topic}::<ALL>`)
                             }
                             style={[
                               styles.topicChip,
-                              selectedKeys.includes(
-                                `${group.topic}::<ALL>`
-                              ) && styles.topicChipSelected,
+                              selectedKeys.includes(`${group.topic}::<ALL>`) &&
+                                styles.topicChipSelected,
                             ]}
                           >
                             <Text
@@ -987,10 +899,8 @@ export default function Index() {
                           group.subtopics.map((sub) => {
                             const key = `${group.topic}::${sub}`;
                             const selected = selectedKeys.includes(key);
-                            const isNested = sub.includes("::");
-                            const displayName = isNested
-                              ? sub.split("::")[1]
-                              : sub;
+                            const nested = sub.includes("::");
+                            const name = nested ? sub.split("::")[1] : sub;
 
                             return (
                               <Pressable
@@ -999,7 +909,7 @@ export default function Index() {
                                 style={[
                                   styles.topicChip,
                                   selected && styles.topicChipSelected,
-                                  isNested && {
+                                  nested && {
                                     marginLeft: 24,
                                     backgroundColor: "#f1f3f5",
                                   },
@@ -1008,15 +918,14 @@ export default function Index() {
                                 <Text
                                   style={[
                                     styles.topicChipText,
-                                    selected &&
-                                      styles.topicChipTextSelected,
-                                    isNested && {
+                                    selected && styles.topicChipTextSelected,
+                                    nested && {
                                       fontSize: 13,
                                       color: "#495057",
                                     },
                                   ]}
                                 >
-                                  {displayName}
+                                  {name}
                                 </Text>
                               </Pressable>
                             );
@@ -1029,7 +938,7 @@ export default function Index() {
               </View>
             )}
 
-            {/* Start quiz button for selected subject/emner */}
+            {/* Start quiz */}
             <Pressable
               style={[
                 styles.bigButton,
@@ -1054,7 +963,6 @@ export default function Index() {
     </LinearGradient>
   );
 }
-
 // ------------------ STYLES --------------------
 
 const styles = StyleSheet.create({
@@ -1067,6 +975,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     alignItems: "center",
   },
+
   quizBackground: {
     flex: 1,
   },
@@ -1076,6 +985,7 @@ const styles = StyleSheet.create({
     paddingTop: 48,
     alignItems: "center",
   },
+
   appTitle: {
     fontWeight: "800",
     marginBottom: 12,
@@ -1088,6 +998,7 @@ const styles = StyleSheet.create({
     fontFamily: "System",
     textAlign: "center",
   },
+
   subjectGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -1112,6 +1023,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontFamily: "System",
   },
+
   cardContainer: {
     width: "100%",
     flex: 1,
@@ -1122,7 +1034,6 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 16,
     backgroundColor: "#ffffff",
-    borderWidth: 0,
     marginVertical: 12,
     justifyContent: "center",
     alignItems: "center",
@@ -1146,6 +1057,7 @@ const styles = StyleSheet.create({
     color: "#dee2e6",
     textAlign: "center",
   },
+
   bigButton: {
     paddingVertical: 14,
     paddingHorizontal: 20,
@@ -1157,6 +1069,7 @@ const styles = StyleSheet.create({
   primaryButton: { backgroundColor: "#1c7ed6" },
   secondaryButton: { backgroundColor: "#495057" },
   bigButtonText: { color: "#fff", fontWeight: "800" },
+
   smallButton: {
     borderWidth: 1,
     borderColor: "#343a40",
@@ -1166,6 +1079,7 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   smallButtonText: { color: "#343a40", fontWeight: "500" },
+
   outlineButton: {
     borderWidth: 1,
     borderColor: "#f1f3f5",
@@ -1173,6 +1087,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   outlineButtonText: { color: "#f1f3f5", fontWeight: "600" },
+
   headerRow: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -1184,6 +1099,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+
   subjectLabel: { fontWeight: "700" },
   topicLabel: {
     marginTop: 2,
@@ -1195,6 +1111,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 16,
   },
+
   difficultyPill: {
     paddingVertical: 4,
     paddingHorizontal: 10,
@@ -1204,6 +1121,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "600",
   },
+
   buttonRow: {
     flexDirection: "row",
     justifyContent: "center",
@@ -1238,6 +1156,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "#212529",
   },
+
   topicSection: {
     marginTop: 24,
     width: "100%",
@@ -1277,12 +1196,13 @@ const styles = StyleSheet.create({
   topicGroupTitleSelected: {
     color: "#4dabf7",
   },
+
   subtopicRow: {
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 8,
     marginTop: 4,
-    marginLeft: 12, // indent
+    marginLeft: 12,
   },
   topicChip: {
     paddingVertical: 6,
@@ -1304,11 +1224,12 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     fontWeight: "600",
   },
-  // --- New styles for progress + images + stats + modal ---
+
   progressText: {
     marginTop: 4,
     fontWeight: "500",
   },
+
   questionImage: {
     width: 260,
     height: 160,
@@ -1320,6 +1241,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 8,
   },
+
+  // Modal & zoomed image
   modalBackdrop: {
     flex: 1,
     backgroundColor: "rgba(0,0,0,0.9)",
@@ -1352,6 +1275,8 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 14,
   },
+
+  // Statistics
   statsCard: {
     width: "100%",
     padding: 20,
