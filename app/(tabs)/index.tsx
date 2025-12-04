@@ -1,32 +1,40 @@
 import { LinearGradient } from "expo-linear-gradient";
 import * as MailComposer from "expo-mail-composer";
 import { StatusBar } from "expo-status-bar";
-import React, {
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Alert,
   Image,
   Modal,
   Pressable,
   ScrollView,
+  StyleSheet,
   Text,
   View,
-  useWindowDimensions
+  useWindowDimensions,
 } from "react-native";
 
-import {
-  loadStats,
-  saveStats,
-  updateStatsForCard,
-} from "../../src/storage/stats";
+import { loadStats, saveStats, updateStatsForCard } from "../../src/storage/stats";
 import type { Difficulty, Flashcard } from "../../src/types/Flashcard";
-
+import { ekgImageLookup } from "../data/ekg/imageLookup";
 // EKG lookup
-import { ekgImageLookup } from "../../src/data/ekg/imageLookup";
+export default function Index() {
+    const [cards, setCards] = useState<Flashcard[]>([]);
+    
+    useEffect(() => {
+        async function loadFromBackend() {
+            const res = await fetch("http://100.98.54.18:3002/flashcards/all");
+            const data = await res.json();
 
+            const hydrated = data.cards.map(c => 
+                c.imageKey ? { ...c, image: ekgImageLookup[c.imageKey] } : c
+            );
+
+            setCards(hydrated);
+        }
+
+        loadFromBackend();
+    }, []);
 // ---------- Simple types for spaced repetition stats ----------
 
 type CardStats = {
@@ -148,36 +156,6 @@ export default function Index() {
       const loaded = await loadStats();
       setStats(loaded);
     })();
-  }, []);
-
-  // -------- Load CARDS from backend once --------
-  useEffect(() => {
-    async function loadFromBackend() {
-      try {
-        setLoadError(null);
-        setLoadingCards(true);
-
-        const res = await fetch("http://100.98.54.18:3002/flashcards/all");
-        const data = await res.json();
-
-        const hydrated: Flashcard[] = data.cards.map((c: any) => {
-          if (c.imageKey) {
-            const image = ekgImageLookup[c.imageKey];
-            return { ...c, image };
-          }
-          return c;
-        });
-
-        setCards(hydrated);
-      } catch (err) {
-        console.error("Failed to fetch flashcards", err);
-        setLoadError("Kunne ikke hente kort fra serveren.");
-      } finally {
-        setLoadingCards(false);
-      }
-    }
-
-    loadFromBackend();
   }, []);
 
   // -------- Loading UI --------
