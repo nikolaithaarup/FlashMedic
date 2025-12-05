@@ -37,6 +37,9 @@ type Screen =
   | "stats"
   | "profile"
   | "weeklyHome"
+  | "weeklyMcq"
+  | "weeklyMatch"
+  | "weeklyWord"
   | "contact"
   | "drugCalcHome"
   | "drugCalcPractice"
@@ -103,6 +106,46 @@ function scoreCardForQuiz(card: Flashcard, stats: StatsMap): number {
 const BEHANDLER_CLASSES = Array.from({ length: 30 - 14 + 1 }, (_, i) => 14 + i).map(
   (n) => `Behandler ${n}`,
 );
+const WORD_OF_WEEK_WORDS = [
+  "sepsis",
+  "respiration",
+  "intubation",
+  "cerebrum",
+  "ventrikel",
+  "infusion",
+  "anaphylaksi",
+  "hypotension",
+  "kapillær",
+  "arterioler",
+];
+
+function scrambleWord(word: string): string {
+  const arr = word.split("");
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  const scrambled = arr.join("");
+  // Hvis den (mod forventning) bliver identisk, prøv igen:
+  if (scrambled.toLowerCase() === word.toLowerCase()) {
+    return scrambleWord(word);
+  }
+  return scrambled;
+}
+
+function pickRandomWordOfWeek(): string {
+  const candidates = WORD_OF_WEEK_WORDS.filter((w) => w.length >= 6);
+  const idx = Math.floor(Math.random() * candidates.length);
+  return candidates[idx];
+}
+
+function formatSeconds(totalSeconds: number): string {
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  const mm = minutes.toString().padStart(2, "0");
+  const ss = seconds.toString().padStart(2, "0");
+  return `${mm}:${ss}`;
+}
 
 // ---------- Drug calc question generator ----------
 
@@ -205,6 +248,16 @@ export default function Index() {
   const [contactEmail, setContactEmail] = useState("");
   const [contactMessage, setContactMessage] = useState("");
 
+  // -------- Weekly challenge / game state --------
+  const [weeklyGameRunning, setWeeklyGameRunning] = useState(false);
+  const [weeklyTimerSeconds, setWeeklyTimerSeconds] = useState(0);
+
+  // Word of the Week state
+  const [wordOfWeekOriginal, setWordOfWeekOriginal] = useState("");
+  const [wordOfWeekScrambled, setWordOfWeekScrambled] = useState("");
+  const [wordOfWeekGuess, setWordOfWeekGuess] = useState("");
+  const [wordOfWeekResult, setWordOfWeekResult] = useState<"idle" | "correct" | "wrong">("idle");
+
   // -------- Responsive typography --------
   const { width } = useWindowDimensions();
   const baseWidth = 375;
@@ -263,10 +316,14 @@ export default function Index() {
         setLoadError(null);
         setLoadingCards(true);
 
-        const API_BASE_URL = "https://flashmedic-backend.onrender.com/";
+        const API_BASE_URL = "https://flashmedic-backend.onrender.com";
 
         const res = await fetch(`${API_BASE_URL}/flashcards/all`);
-        const data = await res.json();
+
+        const text = await res.text(); // read raw text first
+        console.log("FLASHCARDS RAW RESPONSE", text);
+
+        const data = JSON.parse(text);
 
         const rawCards = Array.isArray(data) ? data : data.cards ?? [];
 
@@ -297,6 +354,17 @@ export default function Index() {
       cancelled = true;
     };
   }, []);
+
+  // -------- Weekly game timer --------
+  useEffect(() => {
+    if (!weeklyGameRunning) return;
+
+    const interval = setInterval(() => {
+      setWeeklyTimerSeconds((prev) => prev + 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [weeklyGameRunning]);
 
   // -------- Derived stats --------
   const { totalSeen, totalCorrect, totalIncorrect, accuracy } = useMemo(() => {
@@ -1223,33 +1291,247 @@ export default function Index() {
           <View style={styles.homeButtonsContainer}>
             <Pressable
               style={styles.homeNavButton}
-              onPress={() =>
-                Alert.alert(
-                  "Multiple Choice Game",
-                  "MCQ Weekly Challenge kommer, når backend er klar.",
-                )
-              }
+              onPress={() => {
+                setWeeklyGameRunning(false);
+                setWeeklyTimerSeconds(0);
+                setScreen("weeklyMcq");
+              }}
             >
               <Text style={styles.homeNavButtonText}>Multiple Choice Game</Text>
             </Pressable>
 
             <Pressable
               style={styles.homeNavButton}
-              onPress={() =>
-                Alert.alert("Match Game", "Match Weekly Challenge kommer, når backend er klar.")
-              }
+              onPress={() => {
+                setWeeklyGameRunning(false);
+                setWeeklyTimerSeconds(0);
+                setScreen("weeklyMatch");
+              }}
             >
               <Text style={styles.homeNavButtonText}>Match Game</Text>
             </Pressable>
 
             <Pressable
               style={styles.homeNavButton}
-              onPress={() =>
-                Alert.alert("Word of The Week", "Word of The Week kommer, når backend er klar.")
-              }
+              onPress={() => {
+                setWeeklyGameRunning(false);
+                setWeeklyTimerSeconds(0);
+                setScreen("weeklyWord");
+              }}
             >
               <Text style={styles.homeNavButtonText}>Word of The Week</Text>
             </Pressable>
+          </View>
+        </ScrollView>
+      </LinearGradient>
+    );
+  }
+
+  // WEEKLY – MULTIPLE CHOICE GAME
+  if (screen === "weeklyMcq") {
+    const handleStart = () => {
+      setWeeklyTimerSeconds(0);
+      setWeeklyGameRunning(true);
+      // TODO: her kan du senere loade spørgsmål fra backend
+    };
+
+    const handleBack = () => {
+      setWeeklyGameRunning(false);
+      setScreen("weeklyHome");
+    };
+
+    return (
+      <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
+        <StatusBar style="light" />
+        <ScrollView contentContainerStyle={styles.homeContainer}>
+          <View style={styles.headerRow}>
+            <Text style={[styles.appTitle, { fontSize: headingFont, color: "#f8f9fa" }]}>
+              Weekly – Multiple Choice
+            </Text>
+            <Pressable
+              style={[styles.smallButton, { borderColor: "#fff" }]}
+              onPress={handleBack}
+              hitSlop={8}
+            >
+              <Text style={[styles.smallButtonText, { color: "#fff", fontSize: buttonFont * 0.9 }]}>
+                Tilbage
+              </Text>
+            </Pressable>
+          </View>
+
+          <View style={styles.weeklyTimerBar}>
+            <Text style={styles.weeklyTimerText}>Tid: {formatSeconds(weeklyTimerSeconds)}</Text>
+          </View>
+
+          <View style={styles.weeklyGameCenter}>
+            <Text style={styles.weeklyGameTitle}>Multiple Choice Game</Text>
+
+            <Pressable style={[styles.bigButton, styles.weeklyStartButton]} onPress={handleStart}>
+              <Text style={[styles.bigButtonText, styles.weeklyStartButtonText]}>START</Text>
+            </Pressable>
+
+            <Text style={styles.weeklyPlaceholderText}>
+              Spillet kommer – lige nu tester vi layout og timer.
+            </Text>
+          </View>
+        </ScrollView>
+      </LinearGradient>
+    );
+  }
+
+  // WEEKLY – MATCH GAME
+  if (screen === "weeklyMatch") {
+    const handleStart = () => {
+      setWeeklyTimerSeconds(0);
+      setWeeklyGameRunning(true);
+      // TODO: senere kan vi starte match-logik her
+    };
+
+    const handleBack = () => {
+      setWeeklyGameRunning(false);
+      setScreen("weeklyHome");
+    };
+
+    return (
+      <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
+        <StatusBar style="light" />
+        <ScrollView contentContainerStyle={styles.homeContainer}>
+          <View style={styles.headerRow}>
+            <Text style={[styles.appTitle, { fontSize: headingFont, color: "#f8f9fa" }]}>
+              Weekly – Match Game
+            </Text>
+            <Pressable
+              style={[styles.smallButton, { borderColor: "#fff" }]}
+              onPress={handleBack}
+              hitSlop={8}
+            >
+              <Text style={[styles.smallButtonText, { color: "#fff", fontSize: buttonFont * 0.9 }]}>
+                Tilbage
+              </Text>
+            </Pressable>
+          </View>
+
+          <View style={styles.weeklyTimerBar}>
+            <Text style={styles.weeklyTimerText}>Tid: {formatSeconds(weeklyTimerSeconds)}</Text>
+          </View>
+
+          <View style={styles.weeklyGameCenter}>
+            <Text style={styles.weeklyGameTitle}>Match Game</Text>
+
+            <Pressable style={[styles.bigButton, styles.weeklyStartButton]} onPress={handleStart}>
+              <Text style={[styles.bigButtonText, styles.weeklyStartButtonText]}>START</Text>
+            </Pressable>
+
+            <Text style={styles.weeklyPlaceholderText}>
+              Her kommer match-spillet – par fx præparat og virkning.
+            </Text>
+          </View>
+        </ScrollView>
+      </LinearGradient>
+    );
+  }
+
+  // WEEKLY – WORD OF THE WEEK
+  if (screen === "weeklyWord") {
+    const handleStart = () => {
+      const word = pickRandomWordOfWeek();
+      setWordOfWeekOriginal(word);
+      setWordOfWeekScrambled(scrambleWord(word));
+      setWordOfWeekGuess("");
+      setWordOfWeekResult("idle");
+      setWeeklyTimerSeconds(0);
+      setWeeklyGameRunning(true);
+    };
+
+    const handleBack = () => {
+      setWeeklyGameRunning(false);
+      setScreen("weeklyHome");
+    };
+
+    const handleCheckWord = () => {
+      if (!wordOfWeekOriginal) return;
+      if (wordOfWeekGuess.trim().toLowerCase() === wordOfWeekOriginal.toLowerCase()) {
+        setWordOfWeekResult("correct");
+        setWeeklyGameRunning(false);
+      } else {
+        setWordOfWeekResult("wrong");
+      }
+    };
+
+    return (
+      <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
+        <StatusBar style="light" />
+        <ScrollView contentContainerStyle={styles.homeContainer}>
+          <View style={styles.headerRow}>
+            <Text style={[styles.appTitle, { fontSize: headingFont, color: "#f8f9fa" }]}>
+              Weekly – Word of The Week
+            </Text>
+            <Pressable
+              style={[styles.smallButton, { borderColor: "#fff" }]}
+              onPress={handleBack}
+              hitSlop={8}
+            >
+              <Text style={[styles.smallButtonText, { color: "#fff", fontSize: buttonFont * 0.9 }]}>
+                Tilbage
+              </Text>
+            </Pressable>
+          </View>
+
+          <View style={styles.weeklyTimerBar}>
+            <Text style={styles.weeklyTimerText}>Tid: {formatSeconds(weeklyTimerSeconds)}</Text>
+          </View>
+
+          <View style={styles.weeklyGameCenter}>
+            <Text style={styles.weeklyGameTitle}>Word of The Week</Text>
+
+            <Pressable style={[styles.bigButton, styles.weeklyStartButton]} onPress={handleStart}>
+              <Text style={[styles.bigButtonText, styles.weeklyStartButtonText]}>START</Text>
+            </Pressable>
+
+            <View style={{ marginTop: 24, width: "100%", alignItems: "center" }}>
+              <Text style={styles.weeklyWordScrambled}>
+                {wordOfWeekScrambled || "Tryk START for at se ordet"}
+              </Text>
+
+              {wordOfWeekScrambled ? (
+                <>
+                  <Text style={[styles.statsLabel, { marginTop: 16 }]}>
+                    Skriv det rigtige medicinske ord:
+                  </Text>
+                  <TextInput
+                    value={wordOfWeekGuess}
+                    onChangeText={(text) => {
+                      setWordOfWeekGuess(text);
+                      setWordOfWeekResult("idle");
+                    }}
+                    placeholder="Fx respiration"
+                    placeholderTextColor="#adb5bd"
+                    autoCapitalize="none"
+                    style={[styles.textInput, { marginTop: 8 }]}
+                  />
+
+                  <Pressable
+                    style={[
+                      styles.bigButton,
+                      styles.primaryButton,
+                      { backgroundColor: "#1c7ed6", marginTop: 12 },
+                    ]}
+                    onPress={handleCheckWord}
+                  >
+                    <Text style={styles.bigButtonText}>TJEK SVAR</Text>
+                  </Pressable>
+
+                  {wordOfWeekResult === "correct" && (
+                    <Text style={styles.weeklyWordFeedbackCorrect}>
+                      Korrekt! Ordet var "{wordOfWeekOriginal}".
+                    </Text>
+                  )}
+                  {wordOfWeekResult === "wrong" && (
+                    <Text style={styles.weeklyWordFeedbackWrong}>Ikke helt – prøv igen.</Text>
+                  )}
+                </>
+              ) : null}
+            </View>
           </View>
         </ScrollView>
       </LinearGradient>
@@ -1693,6 +1975,7 @@ const styles = StyleSheet.create({
   },
   homeContainer: {
     flexGrow: 1,
+    paddingTop: 56,
     paddingVertical: 32,
     paddingHorizontal: 24,
     alignItems: "center",
@@ -2185,5 +2468,61 @@ const styles = StyleSheet.create({
   subHeaderText: {
     color: "#e9ecef",
     fontWeight: "500",
+  },
+  weeklyTimerBar: {
+    width: "100%",
+    alignItems: "center",
+    marginBottom: 16,
+  },
+  weeklyTimerText: {
+    fontSize: 16,
+    fontWeight: "700",
+    color: "#f8f9fa",
+  },
+  weeklyGameCenter: {
+    width: "100%",
+    alignItems: "center",
+    marginTop: 32,
+  },
+  weeklyGameTitle: {
+    fontSize: 22,
+    fontWeight: "800",
+    color: "#f8f9fa",
+    marginBottom: 24,
+    textAlign: "center",
+  },
+  weeklyStartButton: {
+    paddingHorizontal: 40,
+  },
+  weeklyStartButtonText: {
+    fontSize: 22,
+  },
+  weeklyPlaceholderText: {
+    marginTop: 16,
+    fontSize: 14,
+    color: "#e9ecef",
+    textAlign: "center",
+  },
+  weeklyWordScrambled: {
+    fontSize: 26,
+    letterSpacing: 2,
+    fontWeight: "800",
+    color: "#212529",
+    marginBottom: 8,
+    textAlign: "center",
+  },
+  weeklyWordFeedbackCorrect: {
+    marginTop: 12,
+    fontSize: 14,
+    color: "#12b886",
+    textAlign: "center",
+    fontWeight: "700",
+  },
+  weeklyWordFeedbackWrong: {
+    marginTop: 12,
+    fontSize: 14,
+    color: "#fa5252",
+    textAlign: "center",
+    fontWeight: "700",
   },
 });

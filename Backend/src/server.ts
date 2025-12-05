@@ -8,7 +8,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Helper to load ALL cards from data/subjects
+// ---------- Helpers ----------
+
+// Load ALL cards from data/subjects
 function loadAllCards() {
   const subjectsDir = path.join(__dirname, "..", "data", "subjects");
   const files = fs.readdirSync(subjectsDir).filter((f) => f.endsWith(".json"));
@@ -26,9 +28,19 @@ function loadAllCards() {
   return allCards;
 }
 
-// ---- ROUTES ----
+// Load current weekly challenge from JSON file (if present)
+function loadCurrentWeeklyChallenge() {
+  const filePath = path.join(__dirname, "..", "data", "weekly-challenge.json");
+  if (!fs.existsSync(filePath)) {
+    return null;
+  }
+  const raw = fs.readFileSync(filePath, "utf8");
+  return JSON.parse(raw);
+}
 
-// Test route
+// ---------- Routes ----------
+
+// Simple health check
 app.get("/", (_req, res) => {
   res.send("FlashMedic backend running");
 });
@@ -39,7 +51,7 @@ app.get("/flashcards/all", (_req, res) => {
   res.json(cards);
 });
 
-// Single subject by slug (e.g. /flashcards/anatomi_og_fysiologi)
+// Flashcards for single subject by slug (e.g. /flashcards/anatomi_og_fysiologi)
 app.get("/flashcards/:subject", (req, res) => {
   const slug = req.params.subject;
   const filePath = path.join(__dirname, "..", "data", "subjects", `${slug}.json`);
@@ -52,7 +64,42 @@ app.get("/flashcards/:subject", (req, res) => {
   res.json(cards);
 });
 
-// ---- START SERVER ----
+// ---------- Contact endpoint ----------
+// For now: just logs to console + returns OK.
+// Later we can plug in real email sending with env vars.
+
+app.post("/contact", (req, res) => {
+  const { name, email, message } = req.body || {};
+
+  if (!message || typeof message !== "string") {
+    return res.status(400).json({ error: "Besked (message) er påkrævet." });
+  }
+
+  const payload = {
+    name: typeof name === "string" ? name : null,
+    email: typeof email === "string" ? email : null,
+    message,
+    receivedAt: new Date().toISOString(),
+  };
+
+  console.log("CONTACT MESSAGE FROM APP:", payload);
+
+  // Later: send email to you using SMTP / SendGrid etc.
+  return res.json({ ok: true });
+});
+
+// ---------- Weekly challenges ----------
+// Read-only JSON for now. You edit the JSON file, push, Render redeploys.
+
+app.get("/weekly-challenges/current", (_req, res) => {
+  const weekly = loadCurrentWeeklyChallenge();
+  if (!weekly) {
+    return res.status(404).json({ error: "Ingen weekly challenge sat endnu." });
+  }
+  return res.json(weekly);
+});
+
+// ---------- Start server ----------
 
 const PORT = process.env.PORT || 3002;
 
