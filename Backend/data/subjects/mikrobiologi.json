@@ -1,0 +1,1280 @@
+[
+  {
+    "id": "mikro_bakt_001",
+    "subject": "Mikrobiologi",
+    "topic": "Bakterier",
+    "question": "Hvad er forskellen på gram-positive og gram-negative bakterier?",
+    "answer": "Gram-positive har tyk cellevæg med peptidoglycan og bliver violette i farvning. Gram-negative har tyndere cellevæg, ydre membran med endotoksin og bliver røde.",
+    "difficulty": "medium",
+    "tags": [
+      "gram",
+      "cellevæg"
+    ],
+    "deckId": "mikroBakterierCards"
+  },
+  {
+    "id": "mikro_bakt_002",
+    "subject": "Mikrobiologi",
+    "topic": "Bakterier",
+    "question": "Hvorfor er gram-negative bakterier ofte mere farlige ved sepsis?",
+    "answer": "De indeholder endotoksin (LPS) i cellevæggen, som udløser stærk immunreaktion og øger risiko for septisk shock.",
+    "difficulty": "hard",
+    "tags": [
+      "LPS",
+      "sepsis"
+    ],
+    "deckId": "mikroBakterierCards"
+  },
+  {
+    "id": "mikro_bakt_003",
+    "subject": "Mikrobiologi",
+    "topic": "Bakterier",
+    "question": "Hvad er bakteriel sepsis?",
+    "answer": "Livstruende organpåvirkning forårsaget af en dysreguleret immunrespons på infektion.",
+    "difficulty": "medium",
+    "tags": [
+      "sepsis"
+    ],
+    "deckId": "mikroBakterierCards"
+  },
+  {
+    "id": "mikro_bakt_004",
+    "subject": "Mikrobiologi",
+    "topic": "Bakterier",
+    "question": "Hvilke kliniske tegn tyder på sepsis præhospitalt?",
+    "answer": "RF >22, BT <100, påvirket mental status, febril eller hypoterm, tachykardi og påvirket perifer perfusion.",
+    "difficulty": "medium",
+    "tags": [
+      "sepsis",
+      "vitalparametre"
+    ],
+    "deckId": "mikroBakterierCards"
+  },
+  {
+    "id": "mikro_bakt_005",
+    "subject": "Mikrobiologi",
+    "topic": "Bakterier",
+    "question": "Hvilken bakterie er hyppigste årsag til meningitis og sepsis hos voksne?",
+    "answer": "Streptococcus pneumoniae.",
+    "difficulty": "hard",
+    "tags": [
+      "pneumokok",
+      "meningitis"
+    ],
+    "deckId": "mikroBakterierCards"
+  },
+  {
+    "id": "mikro_bakt_006",
+    "subject": "Mikrobiologi",
+    "topic": "Bakterier",
+    "question": "Hvilke symptomer tyder præhospitalt på meningitis?",
+    "answer": "Feber, hovedpine, nakkestivhed, petekkier, påvirket bevidsthed, evt. kramper.",
+    "difficulty": "hard",
+    "tags": [
+      "meningitis",
+      "nakkestiv"
+    ],
+    "deckId": "mikroBakterierCards"
+  },
+  {
+    "id": "mikro_bakt_007",
+    "subject": "Mikrobiologi",
+    "topic": "Bakterier",
+    "question": "Hvilken bakterie kan give flesh-eating disease (nekrotiserende fasciitis)?",
+    "answer": "Streptococcus pyogenes (gruppe A streptokok).",
+    "difficulty": "hard",
+    "tags": [
+      "streptokok",
+      "nekrotiserende"
+    ],
+    "deckId": "mikroBakterierCards"
+  },
+  {
+    "id": "mikro_bakt_008",
+    "subject": "Mikrobiologi",
+    "topic": "Bakterier",
+    "question": "Hvad er cellulitis, og hvilke bakterier giver det?",
+    "answer": "Dybere hudinfektion med rødme, varme og hævelse. Ofte Staphylococcus aureus eller Streptococcus pyogenes.",
+    "difficulty": "medium",
+    "tags": [
+      "hudinfektion"
+    ],
+    "deckId": "mikroBakterierCards"
+  },
+  {
+    "id": "mikro_bakt_009",
+    "subject": "Mikrobiologi",
+    "topic": "Bakterier",
+    "question": "Hvilke bakterier giver typisk lungebetændelse?",
+    "answer": "Streptococcus pneumoniae, Haemophilus influenzae og Staphylococcus aureus.",
+    "difficulty": "medium",
+    "tags": [
+      "pneumoni"
+    ],
+    "deckId": "mikroBakterierCards"
+  },
+  {
+    "id": "mikro_bakt_010",
+    "subject": "Mikrobiologi",
+    "topic": "Bakterier",
+    "question": "Hvilke symptomer ses ved pneumoni præhospitalt?",
+    "answer": "Hoste, feber, kulderystelser, dyspnø, unilateral krepitation, påvirket AT og evt. cyanose.",
+    "difficulty": "easy",
+    "tags": [
+      "pneumoni",
+      "respiration"
+    ],
+    "deckId": "mikroBakterierCards"
+  },
+  {
+    "id": "mikro_bakt_011",
+    "subject": "Mikrobiologi",
+    "topic": "Bakterier",
+    "question": "Hvilken bakterie er klassisk årsag til UVI og urosepsis?",
+    "answer": "Escherichia coli (E. coli).",
+    "difficulty": "easy",
+    "tags": [
+      "urosepsis"
+    ],
+    "deckId": "mikroBakterierCards"
+  },
+  {
+    "id": "mikro_bakt_012",
+    "subject": "Mikrobiologi",
+    "topic": "Bakterier",
+    "question": "Hvad tyder på pyelonefritis præhospitalt?",
+    "answer": "Feber, smerter i flankerne, kvalme, påvirket AT og evt. sepsistegn.",
+    "difficulty": "medium",
+    "tags": [
+      "nyrebetændelse"
+    ],
+    "deckId": "mikroBakterierCards"
+  },
+  {
+    "id": "mikro_bakt_013",
+    "subject": "Mikrobiologi",
+    "topic": "Bakterier",
+    "question": "Hvad står MRSA for, og hvorfor er det vigtigt præhospitalt?",
+    "answer": "Methicillin-resistent Staphylococcus aureus – smittefare og begrænset antibiotikaval.",
+    "difficulty": "hard",
+    "tags": [
+      "MRSA",
+      "resistens"
+    ],
+    "deckId": "mikroBakterierCards"
+  },
+  {
+    "id": "mikro_bakt_014",
+    "subject": "Mikrobiologi",
+    "topic": "Bakterier",
+    "question": "Hvad er typiske symptomer ved Clostridium difficile infektion?",
+    "answer": "Svære diarréer, mavesmerter, feber og risiko for dehydrering og sepsis.",
+    "difficulty": "hard",
+    "tags": [
+      "clostridium",
+      "diarre"
+    ],
+    "deckId": "mikroBakterierCards"
+  },
+  {
+    "id": "mikro_bakt_015",
+    "subject": "Mikrobiologi",
+    "topic": "Bakterier",
+    "question": "Hvad er endotoksiner i bakterier?",
+    "answer": "Giftstoffer i den gram-negative cellevæg (LPS), som kan udløse systemisk inflammation og shock.",
+    "difficulty": "hard",
+    "tags": [
+      "LPS",
+      "endotoksin"
+    ],
+    "deckId": "mikroBakterierCards"
+  },
+  {
+    "id": "mikro_bakt_016",
+    "subject": "Mikrobiologi",
+    "topic": "Bakterier",
+    "question": "Hvad er eksotoksiner?",
+    "answer": "Proteiner udskilt af bakterier, som kan skade væv, fx tetanus og botulisme.",
+    "difficulty": "hard",
+    "tags": [
+      "eksotoksin"
+    ],
+    "deckId": "mikroBakterierCards"
+  },
+  {
+    "id": "mikro_bakt_017",
+    "subject": "Mikrobiologi",
+    "topic": "Bakterier",
+    "question": "Hvilke bakterier kan give nekrotiserende fasciitis?",
+    "answer": "Særligt Streptococcus pyogenes og Staphylococcus aureus.",
+    "difficulty": "hard",
+    "tags": [
+      "fasciitis"
+    ],
+    "deckId": "mikroBakterierCards"
+  },
+  {
+    "id": "mikro_bakt_018",
+    "subject": "Mikrobiologi",
+    "topic": "Bakterier",
+    "question": "Hvilken bakterie giver ofte erysipelas (rosen)?",
+    "answer": "Streptococcus pyogenes.",
+    "difficulty": "easy",
+    "tags": [
+      "erysipelas"
+    ],
+    "deckId": "mikroBakterierCards"
+  },
+  {
+    "id": "mikro_bakt_019",
+    "subject": "Mikrobiologi",
+    "topic": "Bakterier",
+    "question": "Hvad er typiske fund ved septisk shock?",
+    "answer": "Hypotension, tachykardi, varm eller kold shocktype, påvirket mental status og organsvigt.",
+    "difficulty": "hard",
+    "tags": [
+      "shock",
+      "sepsis"
+    ],
+    "deckId": "mikroBakterierCards"
+  },
+  {
+    "id": "mikro_bakt_020",
+    "subject": "Mikrobiologi",
+    "topic": "Bakterier",
+    "question": "Hvad betyder SIRS, og hvorfor bruges det mindre i dag?",
+    "answer": "Systemic Inflammatory Response Syndrome; var for følsomt og fangede mange ikke-infektiøse tilstande.",
+    "difficulty": "hard",
+    "tags": [
+      "SIRS",
+      "diagnostik"
+    ],
+    "deckId": "mikroBakterierCards"
+  },
+  {
+    "id": "mikro_svamp_001",
+    "subject": "Mikrobiologi",
+    "topic": "Svampe og parasitter",
+    "question": "Hvad adskiller svampe fra bakterier?",
+    "answer": "Svampe er eukaryote celler med cellekerne og kan være både encellede (gær) og multicellulære. Bakterier er prokaryote uden cellekerne.",
+    "difficulty": "medium",
+    "tags": [
+      "svamp",
+      "bakterie"
+    ],
+    "deckId": "mikroSvampeParasitterCards"
+  },
+  {
+    "id": "mikro_svamp_002",
+    "subject": "Mikrobiologi",
+    "topic": "Svampe og parasitter",
+    "question": "Hvad er opportunistisk svampeinfektion?",
+    "answer": "Infektion der især rammer immunsvækkede patienter, fx ved cancer, HIV eller steroidbehandling.",
+    "difficulty": "medium",
+    "tags": [
+      "opportunistisk",
+      "immunsvækkede"
+    ],
+    "deckId": "mikroSvampeParasitterCards"
+  },
+  {
+    "id": "mikro_svamp_003",
+    "subject": "Mikrobiologi",
+    "topic": "Svampe og parasitter",
+    "question": "Hvilken svamp er hyppigst årsag til infektion hos immunsvækkede?",
+    "answer": "Candida albicans.",
+    "difficulty": "easy",
+    "tags": [
+      "candida"
+    ],
+    "deckId": "mikroSvampeParasitterCards"
+  },
+  {
+    "id": "mikro_svamp_004",
+    "subject": "Mikrobiologi",
+    "topic": "Svampe og parasitter",
+    "question": "Hvad kan invasiv candida-infektion føre til?",
+    "answer": "Sepsis, feber, shock og multiorgansvigt – især hos immunsvækkede eller intensivpatienter.",
+    "difficulty": "hard",
+    "tags": [
+      "candida",
+      "sepsis"
+    ],
+    "deckId": "mikroSvampeParasitterCards"
+  },
+  {
+    "id": "mikro_svamp_005",
+    "subject": "Mikrobiologi",
+    "topic": "Svampe og parasitter",
+    "question": "Hvad er Aspergillus, og hvorfor er den farlig?",
+    "answer": "En skimmelsvamp, der kan give alvorlig lungeinfektion og sepsis ved immunsvækkelse.",
+    "difficulty": "hard",
+    "tags": [
+      "aspergillus",
+      "lunge"
+    ],
+    "deckId": "mikroSvampeParasitterCards"
+  },
+  {
+    "id": "mikro_svamp_006",
+    "subject": "Mikrobiologi",
+    "topic": "Svampe og parasitter",
+    "question": "Hvordan kan svampeinfektion ligne bakteriel pneumoni præhospitalt?",
+    "answer": "Hoste, feber, dyspnø, infiltrater på røntgen og påvirket AT.",
+    "difficulty": "medium",
+    "tags": [
+      "pneumoni",
+      "aspiration"
+    ],
+    "deckId": "mikroSvampeParasitterCards"
+  },
+  {
+    "id": "mikro_svamp_007",
+    "subject": "Mikrobiologi",
+    "topic": "Svampe og parasitter",
+    "question": "Nævn et nøglesignal på parasit-infektion efter udlandsrejse.",
+    "answer": "Vedvarende diarré, feber, anæmi, vægttab eller gulfarvning (malaria/hepatitis).",
+    "difficulty": "medium",
+    "tags": [
+      "rejse",
+      "parasitter"
+    ],
+    "deckId": "mikroSvampeParasitterCards"
+  },
+  {
+    "id": "mikro_svamp_008",
+    "subject": "Mikrobiologi",
+    "topic": "Svampe og parasitter",
+    "question": "Hvilken parasit er klassisk årsag til malaria?",
+    "answer": "Plasmodium falciparum (mest alvorlig form).",
+    "difficulty": "hard",
+    "tags": [
+      "malaria",
+      "plasmodium"
+    ],
+    "deckId": "mikroSvampeParasitterCards"
+  },
+  {
+    "id": "mikro_svamp_009",
+    "subject": "Mikrobiologi",
+    "topic": "Svampe og parasitter",
+    "question": "Hvad er typiske symptomer på malaria?",
+    "answer": "Intermitterende feber, kulderystelser, hovedpine, anæmi og evt. shock og CNS-påvirkning.",
+    "difficulty": "hard",
+    "tags": [
+      "malaria",
+      "feber"
+    ],
+    "deckId": "mikroSvampeParasitterCards"
+  },
+  {
+    "id": "mikro_svamp_010",
+    "subject": "Mikrobiologi",
+    "topic": "Svampe og parasitter",
+    "question": "Hvilken parasit kan give alvorlig diarré og dehydrering?",
+    "answer": "Giardia lamblia.",
+    "difficulty": "medium",
+    "tags": [
+      "giardia",
+      "diarre"
+    ],
+    "deckId": "mikroSvampeParasitterCards"
+  },
+  {
+    "id": "mikro_svamp_011",
+    "subject": "Mikrobiologi",
+    "topic": "Svampe og parasitter",
+    "question": "Hvorfor kan parasitter give anæmi?",
+    "answer": "Nogle parasitter nedbryder røde blodlegemer eller optager næring fra værten.",
+    "difficulty": "hard",
+    "tags": [
+      "anæmi"
+    ],
+    "deckId": "mikroSvampeParasitterCards"
+  },
+  {
+    "id": "mikro_svamp_012",
+    "subject": "Mikrobiologi",
+    "topic": "Svampe og parasitter",
+    "question": "Hvad er vigtig præhospital observation ved mistanke om malaria?",
+    "answer": "Mentalt status, febercyklus, BT, bevidsthed og tegn på shock eller organpåvirkning.",
+    "difficulty": "medium",
+    "tags": [
+      "malaria",
+      "triage"
+    ],
+    "deckId": "mikroSvampeParasitterCards"
+  },
+  {
+    "id": "mikro_svamp_013",
+    "subject": "Mikrobiologi",
+    "topic": "Svampe og parasitter",
+    "question": "Hvordan smitter parasitter typisk?",
+    "answer": "Via kontamineret vand, mad, jord eller dyrebid.",
+    "difficulty": "easy",
+    "tags": [
+      "smitteveje"
+    ],
+    "deckId": "mikroSvampeParasitterCards"
+  },
+  {
+    "id": "mikro_svamp_014",
+    "subject": "Mikrobiologi",
+    "topic": "Svampe og parasitter",
+    "question": "Hvilken parasit kan give hjernemalaria og koma?",
+    "answer": "Plasmodium falciparum.",
+    "difficulty": "hard",
+    "tags": [
+      "malaria",
+      "CNS"
+    ],
+    "deckId": "mikroSvampeParasitterCards"
+  },
+  {
+    "id": "mikro_svamp_015",
+    "subject": "Mikrobiologi",
+    "topic": "Svampe og parasitter",
+    "question": "Hvornår bør man mistænke parasitinfektion præhospitalt?",
+    "answer": "Ved diarré, feber, rejseanamnese, dehydrering, mental påvirkning eller anæmi.",
+    "difficulty": "medium",
+    "tags": [
+      "rejse",
+      "differentialdiagnose"
+    ],
+    "deckId": "mikroSvampeParasitterCards"
+  },
+  {
+    "id": "mikro_svamp_016",
+    "subject": "Mikrobiologi",
+    "topic": "Svampe og parasitter",
+    "question": "Hvorfor er svampeinfektion sjældent akut præhospitalt – men farlig når det sker?",
+    "answer": "Fordi den ofte rammer immunsvækkede og kan ligne almindelig sepsis og føre til multiorgansvigt.",
+    "difficulty": "hard",
+    "tags": [
+      "immun",
+      "sepsis"
+    ],
+    "deckId": "mikroSvampeParasitterCards"
+  },
+  {
+    "id": "mikro_svamp_017",
+    "subject": "Mikrobiologi",
+    "topic": "Svampe og parasitter",
+    "question": "Hvad kan Kryptokok-infektion føre til hos immunsvækkede?",
+    "answer": "Meningitis og CNS-påvirkning.",
+    "difficulty": "hard",
+    "tags": [
+      "kryptokok",
+      "meningitis"
+    ],
+    "deckId": "mikroSvampeParasitterCards"
+  },
+  {
+    "id": "mikro_svamp_018",
+    "subject": "Mikrobiologi",
+    "topic": "Svampe og parasitter",
+    "question": "Hvilken parasit kan smitte gennem katte og være farlig for gravide?",
+    "answer": "Toxoplasma gondii.",
+    "difficulty": "medium",
+    "tags": [
+      "toxoplasma",
+      "gravid"
+    ],
+    "deckId": "mikroSvampeParasitterCards"
+  },
+  {
+    "id": "mikro_svamp_019",
+    "subject": "Mikrobiologi",
+    "topic": "Svampe og parasitter",
+    "question": "Hvorfor er dehydrering ved parasitinfektion særlig farlig hos børn og ældre?",
+    "answer": "Manglende væskereserver og hurtigere påvirkning af kredsløb og bevidsthed.",
+    "difficulty": "medium",
+    "tags": [
+      "børn",
+      "dehydrering"
+    ],
+    "deckId": "mikroSvampeParasitterCards"
+  },
+  {
+    "id": "mikro_svamp_020",
+    "subject": "Mikrobiologi",
+    "topic": "Svampe og parasitter",
+    "question": "Hvad er den vigtigste præhospitale rolle ved mistanke om parasit- eller svampeinfektion?",
+    "answer": "Identificere sværhedsgrad, vurdere ABC, behandle symptomer (væske, ilt) og sikre hurtig transport.",
+    "difficulty": "easy",
+    "tags": [
+      "ambulance",
+      "ABC"
+    ],
+    "deckId": "mikroSvampeParasitterCards"
+  },
+  {
+    "id": "mikro_sepsis_001",
+    "subject": "Mikrobiologi",
+    "topic": "Sepsis og immunrespons",
+    "question": "Hvad er sepsis ifølge den moderne definition?",
+    "answer": "Livstruende organpåvirkning pga. en dysreguleret immunrespons på infektion.",
+    "difficulty": "medium",
+    "tags": [
+      "sepsis",
+      "definition"
+    ],
+    "deckId": "mikroSepsisCards"
+  },
+  {
+    "id": "mikro_sepsis_002",
+    "subject": "Mikrobiologi",
+    "topic": "Sepsis og immunrespons",
+    "question": "Hvilke tre vitale parametre indgår i qSOFA?",
+    "answer": "Respirationsfrekvens >22, systolisk BT <100 og påvirket bevidsthed (GCS <15).",
+    "difficulty": "medium",
+    "tags": [
+      "qSOFA"
+    ],
+    "deckId": "mikroSepsisCards"
+  },
+  {
+    "id": "mikro_sepsis_003",
+    "subject": "Mikrobiologi",
+    "topic": "Sepsis og immunrespons",
+    "question": "Hvornår mistænkes sepsis præhospitalt?",
+    "answer": "Ved infektion + ændret mental status, tachykardi, hypotension eller høj RF.",
+    "difficulty": "easy",
+    "tags": [
+      "infektion",
+      "vitalparametre"
+    ],
+    "deckId": "mikroSepsisCards"
+  },
+  {
+    "id": "mikro_sepsis_004",
+    "subject": "Mikrobiologi",
+    "topic": "Sepsis og immunrespons",
+    "question": "Hvad er septisk shock?",
+    "answer": "Sepsis med vedvarende hypotension trods væske og behov for vasopressor for at opretholde MAP ≥65 mmHg.",
+    "difficulty": "hard",
+    "tags": [
+      "shock",
+      "vasopressor"
+    ],
+    "deckId": "mikroSepsisCards"
+  },
+  {
+    "id": "mikro_sepsis_005",
+    "subject": "Mikrobiologi",
+    "topic": "Sepsis og immunrespons",
+    "question": "Hvad er SIRS?",
+    "answer": "Systemic Inflammatory Response Syndrome – bredt kriteriesæt ved inflammation, ikke specifikt for infektion.",
+    "difficulty": "hard",
+    "tags": [
+      "SIRS"
+    ],
+    "deckId": "mikroSepsisCards"
+  },
+  {
+    "id": "mikro_sepsis_006",
+    "subject": "Mikrobiologi",
+    "topic": "Sepsis og immunrespons",
+    "question": "Hvordan kan man klinisk kende septisk shock fra hypovolæmisk shock?",
+    "answer": "Ved septisk shock kan huden være varm og rød (vasodilatation), mens hypovolæmi giver kold og bleg hud.",
+    "difficulty": "hard",
+    "tags": [
+      "shock",
+      "vaskulært"
+    ],
+    "deckId": "mikroSepsisCards"
+  },
+  {
+    "id": "mikro_sepsis_007",
+    "subject": "Mikrobiologi",
+    "topic": "Sepsis og immunrespons",
+    "question": "Hvad udløser cytokinstorm ved sepsis?",
+    "answer": "Immunreaktion på patogener, især gram-negative bakteriers endotoksiner (LPS).",
+    "difficulty": "hard",
+    "tags": [
+      "cytokin",
+      "LPS"
+    ],
+    "deckId": "mikroSepsisCards"
+  },
+  {
+    "id": "mikro_sepsis_008",
+    "subject": "Mikrobiologi",
+    "topic": "Sepsis og immunrespons",
+    "question": "Hvad er de tidlige tegn på sepsis?",
+    "answer": "Feber, kulderystelser, tachykardi, tachypnø, påvirket AT og mental sløvhed.",
+    "difficulty": "medium",
+    "tags": [
+      "kliniske tegn"
+    ],
+    "deckId": "mikroSepsisCards"
+  },
+  {
+    "id": "mikro_sepsis_009",
+    "subject": "Mikrobiologi",
+    "topic": "Sepsis og immunrespons",
+    "question": "Hvad er det farlige ved sepsis på celleplan?",
+    "answer": "Kapillærlækage, vasodilatation og nedsat iltudnyttelse fører til hypoxi og organpåvirkning.",
+    "difficulty": "hard",
+    "tags": [
+      "hypoxi",
+      "celle"
+    ],
+    "deckId": "mikroSepsisCards"
+  },
+  {
+    "id": "mikro_sepsis_010",
+    "subject": "Mikrobiologi",
+    "topic": "Sepsis og immunrespons",
+    "question": "Hvilken infektion er hyppigst årsag til sepsis?",
+    "answer": "Luftvejsinfektioner, primært pneumoni.",
+    "difficulty": "medium",
+    "tags": [
+      "pneumoni"
+    ],
+    "deckId": "mikroSepsisCards"
+  },
+  {
+    "id": "mikro_sepsis_011",
+    "subject": "Mikrobiologi",
+    "topic": "Sepsis og immunrespons",
+    "question": "Hvad er petechier et faresignal for?",
+    "answer": "Meningokoksepsis med risiko for DIC og septisk shock.",
+    "difficulty": "hard",
+    "tags": [
+      "petechier",
+      "meningokok"
+    ],
+    "deckId": "mikroSepsisCards"
+  },
+  {
+    "id": "mikro_sepsis_012",
+    "subject": "Mikrobiologi",
+    "topic": "Sepsis og immunrespons",
+    "question": "Hvilket organ rammes oftest først ved sepsis?",
+    "answer": "Lungerne (ARDS), efterfulgt af nyrer og hjerne.",
+    "difficulty": "hard",
+    "tags": [
+      "ARDS",
+      "organsvigt"
+    ],
+    "deckId": "mikroSepsisCards"
+  },
+  {
+    "id": "mikro_sepsis_013",
+    "subject": "Mikrobiologi",
+    "topic": "Sepsis og immunrespons",
+    "question": "Hvorfor kan mentalt påvirket tilstand være et afgørende sepsistegn?",
+    "answer": "Reduceret cerebral perfusion og inflammation påvirker hjernen tidligt.",
+    "difficulty": "medium",
+    "tags": [
+      "GCS",
+      "mentalstatus"
+    ],
+    "deckId": "mikroSepsisCards"
+  },
+  {
+    "id": "mikro_sepsis_014",
+    "subject": "Mikrobiologi",
+    "topic": "Sepsis og immunrespons",
+    "question": "Hvad er DIC i forbindelse med sepsis?",
+    "answer": "Dissemineret intravaskulær koagulation – ukontrolleret blodpropdannelse og blødning.",
+    "difficulty": "hard",
+    "tags": [
+      "DIC",
+      "koagulation"
+    ],
+    "deckId": "mikroSepsisCards"
+  },
+  {
+    "id": "mikro_sepsis_015",
+    "subject": "Mikrobiologi",
+    "topic": "Sepsis og immunrespons",
+    "question": "Hvorfor bliver huden ofte kold og marmoreret ved fremskreden sepsis?",
+    "answer": "Mikrocirkulationen kollapser pga. kapillærlækage og vasodilatation.",
+    "difficulty": "medium",
+    "tags": [
+      "hud",
+      "shock"
+    ],
+    "deckId": "mikroSepsisCards"
+  },
+  {
+    "id": "mikro_sepsis_016",
+    "subject": "Mikrobiologi",
+    "topic": "Sepsis og immunrespons",
+    "question": "Hvilken rolle spiller leukocytter ved infektion?",
+    "answer": "De bekæmper patogener via fagocytose, antistoffer og cytokiner.",
+    "difficulty": "medium",
+    "tags": [
+      "leukocyt"
+    ],
+    "deckId": "mikroSepsisCards"
+  },
+  {
+    "id": "mikro_sepsis_017",
+    "subject": "Mikrobiologi",
+    "topic": "Sepsis og immunrespons",
+    "question": "Hvorfor kan sepsis ligne hypovolæmisk shock præhospitalt?",
+    "answer": "Ved sepsis opstår væskeudsivning til interstitiet, hvilket reducerer blodvolumen.",
+    "difficulty": "hard",
+    "tags": [
+      "væske",
+      "shocktype"
+    ],
+    "deckId": "mikroSepsisCards"
+  },
+  {
+    "id": "mikro_sepsis_018",
+    "subject": "Mikrobiologi",
+    "topic": "Sepsis og immunrespons",
+    "question": "Hvorfor hjælper væske intravenøst ofte kun midlertidigt ved septisk shock?",
+    "answer": "Kapillærlækage gør, at væsken hurtigt forlader blodbanen.",
+    "difficulty": "hard",
+    "tags": [
+      "væske",
+      "IV"
+    ],
+    "deckId": "mikroSepsisCards"
+  },
+  {
+    "id": "mikro_sepsis_019",
+    "subject": "Mikrobiologi",
+    "topic": "Sepsis og immunrespons",
+    "question": "Hvorfor må man ikke bare 'vente og se' ved mistanke om sepsis?",
+    "answer": "Organskade kan udvikles hurtigt, og tidlig behandling reducerer mortalitet betydeligt.",
+    "difficulty": "medium",
+    "tags": [
+      "behandlingstid",
+      "prognose"
+    ],
+    "deckId": "mikroSepsisCards"
+  },
+  {
+    "id": "mikro_sepsis_020",
+    "subject": "Mikrobiologi",
+    "topic": "Sepsis og immunrespons",
+    "question": "Hvad er paramedicinerens primære rolle ved mistanke om sepsis?",
+    "answer": "Identificere risiko, sikre vitale funktioner, iv-adgang, væske, ilt og hurtig transport.",
+    "difficulty": "easy",
+    "tags": [
+      "ambulance",
+      "behandling"
+    ],
+    "deckId": "mikroSepsisCards"
+  },
+  {
+    "id": "mikro_smitte_001",
+    "subject": "Mikrobiologi",
+    "topic": "Smitteveje og isolation",
+    "question": "Hvad er forskellen på kolonisation og infektion?",
+    "answer": "Kolonisation betyder at bakterier findes på kroppen uden symptomer. Infektion giver sygdomstegn som feber, smerte og inflammation.",
+    "difficulty": "medium",
+    "tags": [
+      "kolonisation",
+      "infektion"
+    ],
+    "deckId": "mikroSmitteCards"
+  },
+  {
+    "id": "mikro_smitte_002",
+    "subject": "Mikrobiologi",
+    "topic": "Smitteveje og isolation",
+    "question": "Hvad er kontaktsmitte?",
+    "answer": "Smitte via direkte berøring eller indirekte via overflader, udstyr eller hænder.",
+    "difficulty": "easy",
+    "tags": [
+      "kontakt",
+      "smitte"
+    ],
+    "deckId": "mikroSmitteCards"
+  },
+  {
+    "id": "mikro_smitte_003",
+    "subject": "Mikrobiologi",
+    "topic": "Smitteveje og isolation",
+    "question": "Nævn to sygdomme der smitter via kontaktsmitte.",
+    "answer": "MRSA og Clostridium difficile.",
+    "difficulty": "easy",
+    "tags": [
+      "MRSA",
+      "clostridium"
+    ],
+    "deckId": "mikroSmitteCards"
+  },
+  {
+    "id": "mikro_smitte_004",
+    "subject": "Mikrobiologi",
+    "topic": "Smitteveje og isolation",
+    "question": "Hvad er dråbesmitte?",
+    "answer": "Smitte via hoste og nys, hvor dråber transporterer patogener og lander inden for ca. 1-2 meter.",
+    "difficulty": "easy",
+    "tags": [
+      "dråber",
+      "hoste"
+    ],
+    "deckId": "mikroSmitteCards"
+  },
+  {
+    "id": "mikro_smitte_005",
+    "subject": "Mikrobiologi",
+    "topic": "Smitteveje og isolation",
+    "question": "Nævn tre sygdomme der smitter via dråbesmitte.",
+    "answer": "Influenza, pneumoni og COVID-19.",
+    "difficulty": "medium",
+    "tags": [
+      "influenza",
+      "pneumoni"
+    ],
+    "deckId": "mikroSmitteCards"
+  },
+  {
+    "id": "mikro_smitte_006",
+    "subject": "Mikrobiologi",
+    "topic": "Smitteveje og isolation",
+    "question": "Hvad er luftbåren smitte, og hvorfor er det særligt farligt?",
+    "answer": "Meget små partikler kan svæve i luften i lang tid og smitte over større afstande.",
+    "difficulty": "hard",
+    "tags": [
+      "luftbåren",
+      "aerosol"
+    ],
+    "deckId": "mikroSmitteCards"
+  },
+  {
+    "id": "mikro_smitte_007",
+    "subject": "Mikrobiologi",
+    "topic": "Smitteveje og isolation",
+    "question": "Nævn to sygdomme der smitter luftbårent.",
+    "answer": "Tuberkulose og mæslinger.",
+    "difficulty": "hard",
+    "tags": [
+      "TB",
+      "mæslinger"
+    ],
+    "deckId": "mikroSmitteCards"
+  },
+  {
+    "id": "mikro_smitte_008",
+    "subject": "Mikrobiologi",
+    "topic": "Smitteveje og isolation",
+    "question": "Hvad er vigtige værnemidler ved håndtering af Norovirus?",
+    "answer": "Handsker, kitler og sæbe-vand håndvask (håndsprit virker dårligt).",
+    "difficulty": "medium",
+    "tags": [
+      "norovirus",
+      "værnemidler"
+    ],
+    "deckId": "mikroSmitteCards"
+  },
+  {
+    "id": "mikro_smitte_009",
+    "subject": "Mikrobiologi",
+    "topic": "Smitteveje og isolation",
+    "question": "Hvorfor kan man ikke stole på håndsprit ved Clostridium difficile?",
+    "answer": "Den danner sporer som ikke dræbes af sprit – kræver sæbe og vand samt desinfektion med klor.",
+    "difficulty": "hard",
+    "tags": [
+      "sporer",
+      "clostridium"
+    ],
+    "deckId": "mikroSmitteCards"
+  },
+  {
+    "id": "mikro_smitte_010",
+    "subject": "Mikrobiologi",
+    "topic": "Smitteveje og isolation",
+    "question": "Hvordan kan ambulancepersonale bryde smitteveje effektivt?",
+    "answer": "Håndhygiejne, værnemidler, rengøring af udstyr og korrekt patientisolering.",
+    "difficulty": "medium",
+    "tags": [
+      "smitteforebyggelse"
+    ],
+    "deckId": "mikroSmitteCards"
+  },
+  {
+    "id": "mikro_smitte_011",
+    "subject": "Mikrobiologi",
+    "topic": "Smitteveje og isolation",
+    "question": "Hvad betyder 'airborne precautions'?",
+    "answer": "Isolation med maske (FFP3) og ventilation for at forhindre aerosolsmitte.",
+    "difficulty": "hard",
+    "tags": [
+      "FFP3",
+      "airborne"
+    ],
+    "deckId": "mikroSmitteCards"
+  },
+  {
+    "id": "mikro_smitte_012",
+    "subject": "Mikrobiologi",
+    "topic": "Smitteveje og isolation",
+    "question": "Hvornår skal ambulance isolere patient pretransport?",
+    "answer": "Ved mistanke om luftbåren, dråbe- eller kontaktsmitte med høj risiko eller alvorlig infektion.",
+    "difficulty": "medium",
+    "tags": [
+      "isolation",
+      "ambulance"
+    ],
+    "deckId": "mikroSmitteCards"
+  },
+  {
+    "id": "mikro_smitte_013",
+    "subject": "Mikrobiologi",
+    "topic": "Smitteveje og isolation",
+    "question": "Hvad forstås ved vektor-båren smitte?",
+    "answer": "Smitte via dyr eller insekter, fx flåter eller myg.",
+    "difficulty": "medium",
+    "tags": [
+      "vektor"
+    ],
+    "deckId": "mikroSmitteCards"
+  },
+  {
+    "id": "mikro_smitte_014",
+    "subject": "Mikrobiologi",
+    "topic": "Smitteveje og isolation",
+    "question": "Hvad er forskellen på desinfektion og sterilisation?",
+    "answer": "Desinfektion reducerer mikroorganismer. Sterilisation dræber alle, inkl. sporer.",
+    "difficulty": "hard",
+    "tags": [
+      "rengøring"
+    ],
+    "deckId": "mikroSmitteCards"
+  },
+  {
+    "id": "mikro_smitte_015",
+    "subject": "Mikrobiologi",
+    "topic": "Smitteveje og isolation",
+    "question": "Hvorfor skal ambulance spritte flader efter isolationstransport?",
+    "answer": "For at forhindre indirekte kontaktsmitte fra spyt, sved, blod eller sekreter.",
+    "difficulty": "easy",
+    "tags": [
+      "ambulance",
+      "desinfektion"
+    ],
+    "deckId": "mikroSmitteCards"
+  },
+  {
+    "id": "mikro_smitte_016",
+    "subject": "Mikrobiologi",
+    "topic": "Smitteveje og isolation",
+    "question": "Hvad skal man især være opmærksom på ved MRSA i ambulancen?",
+    "answer": "Undgå spredning via udstyr, uniform og hudkontakt; anvend handsker og kittel.",
+    "difficulty": "medium",
+    "tags": [
+      "MRSA",
+      "kontakt"
+    ],
+    "deckId": "mikroSmitteCards"
+  },
+  {
+    "id": "mikro_smitte_017",
+    "subject": "Mikrobiologi",
+    "topic": "Smitteveje og isolation",
+    "question": "Hvornår er kirurgisk maske tilstrækkelig?",
+    "answer": "Ved dråbesmitte som influenza, pneumoni og COVID-19 (basisniveau).",
+    "difficulty": "easy",
+    "tags": [
+      "maske",
+      "dråbe"
+    ],
+    "deckId": "mikroSmitteCards"
+  },
+  {
+    "id": "mikro_smitte_018",
+    "subject": "Mikrobiologi",
+    "topic": "Smitteveje og isolation",
+    "question": "Hvornår skal man bruge FFP3-maske fremfor kirurgisk?",
+    "answer": "Ved luftbåren smitte som tuberkulose, mæslinger og mistanke om aerosolgenererende procedurer.",
+    "difficulty": "hard",
+    "tags": [
+      "FFP3",
+      "luftbåren"
+    ],
+    "deckId": "mikroSmitteCards"
+  },
+  {
+    "id": "mikro_smitte_019",
+    "subject": "Mikrobiologi",
+    "topic": "Smitteveje og isolation",
+    "question": "Hvordan vurderer man tidskritisk infektion i ambulancen?",
+    "answer": "Infektion + ændret mentalstatus, hypotension, RF>22, cyanose eller tegn på organsvigt → sepsis mistanke.",
+    "difficulty": "medium",
+    "tags": [
+      "sepsis",
+      "triage"
+    ],
+    "deckId": "mikroSmitteCards"
+  },
+  {
+    "id": "mikro_smitte_020",
+    "subject": "Mikrobiologi",
+    "topic": "Smitteveje og isolation",
+    "question": "Hvad er paramedicinerens vigtigste handling ved potentielt smitsom patient?",
+    "answer": "Beskyt dig selv, begræns smitte, identificer alarmsymptomer og informer modtagende afdeling.",
+    "difficulty": "easy",
+    "tags": [
+      "beredskab",
+      "overlevering"
+    ],
+    "deckId": "mikroSmitteCards"
+  },
+  {
+    "id": "mikro_virus_001",
+    "subject": "Mikrobiologi",
+    "topic": "Virus",
+    "question": "Hvad adskiller virus fra bakterier?",
+    "answer": "Virus har ingen egen metabolisme, kan ikke formere sig uden værtsceller og påvirkes ikke af antibiotika.",
+    "difficulty": "medium",
+    "tags": [
+      "virus",
+      "bakterie"
+    ],
+    "deckId": "mikroVirusCards"
+  },
+  {
+    "id": "mikro_virus_002",
+    "subject": "Mikrobiologi",
+    "topic": "Virus",
+    "question": "Hvad er et nøglesymptom på viral infektion kontra bakteriel?",
+    "answer": "Myalgier, udtalt træthed og gradvis debut, ofte uden høj CRP.",
+    "difficulty": "medium",
+    "tags": [
+      "viral",
+      "bakteriel"
+    ],
+    "deckId": "mikroVirusCards"
+  },
+  {
+    "id": "mikro_virus_003",
+    "subject": "Mikrobiologi",
+    "topic": "Virus",
+    "question": "Hvorfor kan man ikke behandle virus med antibiotika?",
+    "answer": "Antibiotika virker på bakteriers cellevæg og metabolisme – virus har ingen af delene.",
+    "difficulty": "easy",
+    "tags": [
+      "antibiotika"
+    ],
+    "deckId": "mikroVirusCards"
+  },
+  {
+    "id": "mikro_virus_004",
+    "subject": "Mikrobiologi",
+    "topic": "Virus",
+    "question": "Hvilke tre virus kan give pneumoni?",
+    "answer": "Influenza, RSV og SARS-CoV-2.",
+    "difficulty": "medium",
+    "tags": [
+      "pneumoni",
+      "virus"
+    ],
+    "deckId": "mikroVirusCards"
+  },
+  {
+    "id": "mikro_virus_005",
+    "subject": "Mikrobiologi",
+    "topic": "Virus",
+    "question": "Hvilke symptomer kan tyde på viral encefalitis?",
+    "answer": "Feber, hovedpine, ændret mental status, kramper, fokale neurologiske udfald.",
+    "difficulty": "hard",
+    "tags": [
+      "encefalitis"
+    ],
+    "deckId": "mikroVirusCards"
+  },
+  {
+    "id": "mikro_virus_006",
+    "subject": "Mikrobiologi",
+    "topic": "Virus",
+    "question": "Hvordan kan COVID-19 præsentere sig atypisk præhospitalt?",
+    "answer": "Silent hypoxia med lav saturation uden dyspnø, udtalt træthed og konfusion.",
+    "difficulty": "hard",
+    "tags": [
+      "COVID",
+      "hypoxi"
+    ],
+    "deckId": "mikroVirusCards"
+  },
+  {
+    "id": "mikro_virus_007",
+    "subject": "Mikrobiologi",
+    "topic": "Virus",
+    "question": "Hvordan spredes influenza hovedsageligt?",
+    "answer": "Dråbesmitte og kontaktsmitte via hænder og overflader.",
+    "difficulty": "easy",
+    "tags": [
+      "influenza",
+      "smitte"
+    ],
+    "deckId": "mikroVirusCards"
+  },
+  {
+    "id": "mikro_virus_008",
+    "subject": "Mikrobiologi",
+    "topic": "Virus",
+    "question": "Nævn to virustyper, der kan give gastroenteritis og dehydrering.",
+    "answer": "Norovirus og rotavirus.",
+    "difficulty": "easy",
+    "tags": [
+      "gastro",
+      "dehydrering"
+    ],
+    "deckId": "mikroVirusCards"
+  },
+  {
+    "id": "mikro_virus_009",
+    "subject": "Mikrobiologi",
+    "topic": "Virus",
+    "question": "Hvad er serøs meningitis oftest forårsaget af?",
+    "answer": "Virus, især enterovirus og herpes simplex.",
+    "difficulty": "medium",
+    "tags": [
+      "meningitis",
+      "viral"
+    ],
+    "deckId": "mikroVirusCards"
+  },
+  {
+    "id": "mikro_virus_010",
+    "subject": "Mikrobiologi",
+    "topic": "Virus",
+    "question": "Hvilken virus giver helvedesild?",
+    "answer": "Varicella zoster virus (VZV).",
+    "difficulty": "easy",
+    "tags": [
+      "herpes",
+      "VZV"
+    ],
+    "deckId": "mikroVirusCards"
+  },
+  {
+    "id": "mikro_virus_011",
+    "subject": "Mikrobiologi",
+    "topic": "Virus",
+    "question": "Hvordan kan helvedesild være farligt præhospitalt?",
+    "answer": "Kan ramme øjet (zoster ophthalmicus), give neuropatiske smerter og være smitsom for immunsvækkede.",
+    "difficulty": "medium",
+    "tags": [
+      "VZV",
+      "smitte"
+    ],
+    "deckId": "mikroVirusCards"
+  },
+  {
+    "id": "mikro_virus_012",
+    "subject": "Mikrobiologi",
+    "topic": "Virus",
+    "question": "Hvad er karakteristisk for viral gastroenteritis?",
+    "answer": "Pludselig opkast, vandig diarré, tørst, takykardi og risiko for dehydrering.",
+    "difficulty": "easy",
+    "tags": [
+      "gastro",
+      "væske"
+    ],
+    "deckId": "mikroVirusCards"
+  },
+  {
+    "id": "mikro_virus_013",
+    "subject": "Mikrobiologi",
+    "topic": "Virus",
+    "question": "Hvad kendetegner viral hepatitis klinisk?",
+    "answer": "Træthed, kvalme, icterus, mørk urin og ømhed under højre ribbenskant.",
+    "difficulty": "medium",
+    "tags": [
+      "hepatitis",
+      "lever"
+    ],
+    "deckId": "mikroVirusCards"
+  },
+  {
+    "id": "mikro_virus_014",
+    "subject": "Mikrobiologi",
+    "topic": "Virus",
+    "question": "Hvorfor kan virale infektioner give høj puls præhospitalt?",
+    "answer": "Fever øger metabolisme og væsketab, hvilket giver tachykardi for at opretholde perfusion.",
+    "difficulty": "medium",
+    "tags": [
+      "tachykardi",
+      "feber"
+    ],
+    "deckId": "mikroVirusCards"
+  },
+  {
+    "id": "mikro_virus_015",
+    "subject": "Mikrobiologi",
+    "topic": "Virus",
+    "question": "Hvad er forskellen på viremi og septikæmi?",
+    "answer": "Viremi er virus i blodet, septikæmi er bakterier i blodet.",
+    "difficulty": "hard",
+    "tags": [
+      "viremi",
+      "sepsis"
+    ],
+    "deckId": "mikroVirusCards"
+  },
+  {
+    "id": "mikro_virus_016",
+    "subject": "Mikrobiologi",
+    "topic": "Virus",
+    "question": "Hvorfor kan virale infektioner ligne sepsis?",
+    "answer": "Hypotension, tachykardi, feber og påvirket bevidsthed kan forekomme i begge tilstande.",
+    "difficulty": "hard",
+    "tags": [
+      "sepsis",
+      "differentialdiagnose"
+    ],
+    "deckId": "mikroVirusCards"
+  },
+  {
+    "id": "mikro_virus_017",
+    "subject": "Mikrobiologi",
+    "topic": "Virus",
+    "question": "Hvad er viralt udslæt (exanthem) og hvornår ses det?",
+    "answer": "Hududslæt ved virusinfektioner som mæslinger, rubella og Varicella zoster.",
+    "difficulty": "medium",
+    "tags": [
+      "udslæt",
+      "exanthem"
+    ],
+    "deckId": "mikroVirusCards"
+  },
+  {
+    "id": "mikro_virus_018",
+    "subject": "Mikrobiologi",
+    "topic": "Virus",
+    "question": "Hvordan kan man præhospitalt mistænke encefalitis fremfor meningitis?",
+    "answer": "Ændret mental status og neurologiske udfald ses mere ved encefalitis.",
+    "difficulty": "hard",
+    "tags": [
+      "encefalitis",
+      "meningitis"
+    ],
+    "deckId": "mikroVirusCards"
+  },
+  {
+    "id": "mikro_virus_019",
+    "subject": "Mikrobiologi",
+    "topic": "Virus",
+    "question": "Hvorfor kan en viral infektion føre til dehydrering?",
+    "answer": "Feber, svedtab, diarré og opkast øger væsketab og reducerer intravaskulært volumen.",
+    "difficulty": "medium",
+    "tags": [
+      "væsketab"
+    ],
+    "deckId": "mikroVirusCards"
+  },
+  {
+    "id": "mikro_virus_020",
+    "subject": "Mikrobiologi",
+    "topic": "Virus",
+    "question": "Hvilken livstruende virusinfektion kan give hæmoragisk feber?",
+    "answer": "Ebola, Marburg, Lassa og Dengue i svære tilfælde.",
+    "difficulty": "hard",
+    "tags": [
+      "ebola",
+      "hæmoragisk"
+    ],
+    "deckId": "mikroVirusCards"
+  }
+]

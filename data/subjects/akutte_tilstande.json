@@ -1,0 +1,4054 @@
+[
+  {
+    "id": "akutabdo_001",
+    "subject": "Akutte tilstande",
+    "topic": "Akut abdomen",
+    "question": "Hvad menes der med begrebet 'akut abdomen'?",
+    "answer": "Pludseligt opståede, ofte kraftige mavesmerter med mistanke om alvorlig intraabdominal patologi, som kan kræve akut kirurgisk eller medicinsk behandling.",
+    "difficulty": "easy",
+    "tags": [
+      "definition"
+    ],
+    "deckId": "akutAbdomenCards"
+  },
+  {
+    "id": "akutabdo_002",
+    "subject": "Akutte tilstande",
+    "topic": "Akut abdomen",
+    "question": "Nævn tre potentielt livstruende årsager til akut abdomen.",
+    "answer": "Perforeret ulcus, tarmobstruktion med iskæmi, rumperet aortaaneurisme eller ruptureret ekstrauterin graviditet.",
+    "difficulty": "medium",
+    "tags": [
+      "livstruende",
+      "årsager"
+    ],
+    "deckId": "akutAbdomenCards"
+  },
+  {
+    "id": "akutabdo_003",
+    "subject": "Akutte tilstande",
+    "topic": "Akut abdomen",
+    "question": "Hvad er de typiske hovedsymptomer ved akut abdomen?",
+    "answer": "Akutte mavesmerter, kvalme/opkast, peritonealrejsning, abdominal distension og påvirkede vitalparametre.",
+    "difficulty": "easy",
+    "tags": [
+      "symptomer"
+    ],
+    "deckId": "akutAbdomenCards"
+  },
+  {
+    "id": "akutabdo_004",
+    "subject": "Akutte tilstande",
+    "topic": "Akut abdomen",
+    "question": "Hvad forstås ved peritonealrejsning, og hvordan ses det?",
+    "answer": "Irritation af peritoneum giver slipømhed, indirekte ømhed og bræthårdt abdomen. Patienten ligger ofte stille for at undgå smerter.",
+    "difficulty": "medium",
+    "tags": [
+      "peritoneum",
+      "objektive fund"
+    ],
+    "deckId": "akutAbdomenCards"
+  },
+  {
+    "id": "akutabdo_005",
+    "subject": "Akutte tilstande",
+    "topic": "Akut abdomen",
+    "question": "Hvorfor er smertevandring typisk ved appendicit vigtigt?",
+    "answer": "Smerter der starter diffust periumbilikalt og flytter sig til højre fossa iliaca tyder på udvikling fra visceral til parietal smerte med lokal peritonealrejsning.",
+    "difficulty": "hard",
+    "tags": [
+      "appendicit",
+      "smertevandring"
+    ],
+    "deckId": "akutAbdomenCards"
+  },
+  {
+    "id": "akutabdo_006",
+    "subject": "Akutte tilstande",
+    "topic": "Akut abdomen",
+    "question": "Forklar forskellen på viscerale og parietale smerter.",
+    "answer": "Viscerale smerter er diffuse og stammer fra organer. Parietale smerter er skarpe, velafgrænsede og forværres ved bevægelse pga. peritoneal påvirkning.",
+    "difficulty": "medium",
+    "tags": [
+      "smerte",
+      "visceral",
+      "parietal"
+    ],
+    "deckId": "akutAbdomenCards"
+  },
+  {
+    "id": "akutabdo_007",
+    "subject": "Akutte tilstande",
+    "topic": "Akut abdomen",
+    "question": "Hvilke vitalparametre er særligt vigtige ved akut abdomen?",
+    "answer": "Blodtryk, puls, RF, temperatur, saturation og bevidsthedsniveau (GCS).",
+    "difficulty": "easy",
+    "tags": [
+      "vitalparametre"
+    ],
+    "deckId": "akutAbdomenCards"
+  },
+  {
+    "id": "akutabdo_008",
+    "subject": "Akutte tilstande",
+    "topic": "Akut abdomen",
+    "question": "Hvorfor kan skuldersmerter ses ved perforation af ulcus?",
+    "answer": "Referred pain via n. phrenicus, når diafragma og peritoneum irriteres.",
+    "difficulty": "hard",
+    "tags": [
+      "referred pain",
+      "ulcus"
+    ],
+    "deckId": "akutAbdomenCards"
+  },
+  {
+    "id": "akutabdo_009",
+    "subject": "Akutte tilstande",
+    "topic": "Akut abdomen",
+    "question": "Nævn typiske symptomer ved tarmobstruktion (ileus).",
+    "answer": "Krampagtige smerter, oppustet abdomen, ophævet luft/afføring, kvalme og opkast med evt. fæceslugt.",
+    "difficulty": "medium",
+    "tags": [
+      "ileus"
+    ],
+    "deckId": "akutAbdomenCards"
+  },
+  {
+    "id": "akutabdo_010",
+    "subject": "Akutte tilstande",
+    "topic": "Akut abdomen",
+    "question": "Hvorfor spørg om tidligere abdominalkirurgi?",
+    "answer": "Tidligere kirurgi kan give adherencer og øge risiko for mekanisk ileus.",
+    "difficulty": "medium",
+    "tags": [
+      "anamnese",
+      "kirurgi"
+    ],
+    "deckId": "akutAbdomenCards"
+  },
+  {
+    "id": "akutabdo_011",
+    "subject": "Akutte tilstande",
+    "topic": "Akut abdomen",
+    "question": "Beskriv præhospital behandling af akut abdomen.",
+    "answer": "ABCDE, smertelindring, ilt ved behov, forsigtig væske efter retningslinjer, lejring med bøjede ben og hurtig transport.",
+    "difficulty": "medium",
+    "tags": [
+      "behandling",
+      "prehospital"
+    ],
+    "deckId": "akutAbdomenCards"
+  },
+  {
+    "id": "akutabdo_012",
+    "subject": "Akutte tilstande",
+    "topic": "Akut abdomen",
+    "question": "Hvorfor skal man være varsom med morfin?",
+    "answer": "Morfin kan sløre symptomer og komplicere den kirurgiske vurdering.",
+    "difficulty": "hard",
+    "tags": [
+      "morfin"
+    ],
+    "deckId": "akutAbdomenCards"
+  },
+  {
+    "id": "akutabdo_013",
+    "subject": "Akutte tilstande",
+    "topic": "Akut abdomen",
+    "question": "Hvordan kan man observere uden at palpere abdomen?",
+    "answer": "Kig på smerteadfærd, stilling, respiration, distension, hudfarve og svedtendens.",
+    "difficulty": "easy",
+    "tags": [
+      "observation"
+    ],
+    "deckId": "akutAbdomenCards"
+  },
+  {
+    "id": "akutabdo_014",
+    "subject": "Akutte tilstande",
+    "topic": "Akut abdomen",
+    "question": "Hvorfor er graviditetstest vigtigt hos unge kvinder?",
+    "answer": "For at udelukke ekstrauterin graviditet, som er livstruende.",
+    "difficulty": "medium",
+    "tags": [
+      "graviditet"
+    ],
+    "deckId": "akutAbdomenCards"
+  },
+  {
+    "id": "akutabdo_015",
+    "subject": "Akutte tilstande",
+    "topic": "Akut abdomen",
+    "question": "Typiske tegn på intraabdominal blødning?",
+    "answer": "Takykardi, hypotension, bleghed, koldsved, svimmelhed og bræthårdt abdomen.",
+    "difficulty": "medium",
+    "tags": [
+      "blødning",
+      "shock"
+    ],
+    "deckId": "akutAbdomenCards"
+  },
+  {
+    "id": "akutabdo_016",
+    "subject": "Akutte tilstande",
+    "topic": "Akut abdomen",
+    "question": "Hvad er forskellen på konstante og takvise smerter?",
+    "answer": "Takvise smerter → obstruktion. Konstante smerter → inflammation eller perforation.",
+    "difficulty": "medium",
+    "tags": [
+      "smertekarakter"
+    ],
+    "deckId": "akutAbdomenCards"
+  },
+  {
+    "id": "akutabdo_017",
+    "subject": "Akutte tilstande",
+    "topic": "Akut abdomen",
+    "question": "Hvordan kan AMI forveksles med akut abdomen?",
+    "answer": "Kan give epigastriske smerter, kvalme og opkast. EKG bør overvejes.",
+    "difficulty": "hard",
+    "tags": [
+      "AMI"
+    ],
+    "deckId": "akutAbdomenCards"
+  },
+  {
+    "id": "akutabdo_018",
+    "subject": "Akutte tilstande",
+    "topic": "Akut abdomen",
+    "question": "Hvordan vurderer du præhospitalt om patienten er cirkulatorisk truet?",
+    "answer": "BT, puls, kapillær respons, hudfarve, mental status, evt. urinproduktion.",
+    "difficulty": "medium",
+    "tags": [
+      "cirkulation"
+    ],
+    "deckId": "akutAbdomenCards"
+  },
+  {
+    "id": "akutabdo_019",
+    "subject": "Akutte tilstande",
+    "topic": "Akut abdomen",
+    "question": "Hvad er vigtigste præhospitale prioritet ved perforation?",
+    "answer": "ABCDE, minimal manipulation og hurtig transport til akut kirurgisk modtagelse.",
+    "difficulty": "hard",
+    "tags": [
+      "kirurgi",
+      "prioritering"
+    ],
+    "deckId": "akutAbdomenCards"
+  },
+  {
+    "id": "akutabdo_020",
+    "subject": "Akutte tilstande",
+    "topic": "Akut abdomen",
+    "question": "Hvilken lejring lindrer ofte smerter ved akut abdomen?",
+    "answer": "Rygleje med let eleverede knæ for at aflaste bugmuskulatur og peritoneum.",
+    "difficulty": "easy",
+    "tags": [
+      "lejring"
+    ],
+    "deckId": "akutAbdomenCards"
+  },
+  {
+    "id": "akutbinyre_001",
+    "subject": "Akutte tilstande",
+    "topic": "Akut binyrebarkinsufficiens",
+    "question": "Hvad forstås ved akut binyrebarkinsufficiens (Addison-krise)?",
+    "answer": "En akut, livstruende tilstand med svær mangel på binyrebarkhormoner (primært kortisol ± aldosteron), som medfører kredsløbskollaps og ofte påvirket bevidsthed.",
+    "difficulty": "easy",
+    "tags": [
+      "definition",
+      "addison-krise"
+    ],
+    "deckId": "akutBinyrebarkinsufficiensCards"
+  },
+  {
+    "id": "akutbinyre_002",
+    "subject": "Akutte tilstande",
+    "topic": "Akut binyrebarkinsufficiens",
+    "question": "Nævn to hovedårsager til akut binyrebarkinsufficiens.",
+    "answer": "1) Kendt binyrebarkinsufficiens hvor patienten ikke har øget sin steroid-dosis ved sygdom/traume. 2) Pludselig ophør med langvarig steroidbehandling. (Sjældnere: akut destruktion af binyrerne, fx blødning eller sepsis).",
+    "difficulty": "medium",
+    "tags": [
+      "årsager"
+    ],
+    "deckId": "akutBinyrebarkinsufficiensCards"
+  },
+  {
+    "id": "akutbinyre_003",
+    "subject": "Akutte tilstande",
+    "topic": "Akut binyrebarkinsufficiens",
+    "question": "Hvilken rolle spiller kortisol normalt i kroppen?",
+    "answer": "Kortisol er et stresshormon, der bl.a. opretholder blodtryk og kredsløb, regulerer blodsukker, hæmmer inflammation og påvirker elektrolyt- og væskebalancen.",
+    "difficulty": "medium",
+    "tags": [
+      "kortisol",
+      "fysiologi"
+    ],
+    "deckId": "akutBinyrebarkinsufficiensCards"
+  },
+  {
+    "id": "akutbinyre_004",
+    "subject": "Akutte tilstande",
+    "topic": "Akut binyrebarkinsufficiens",
+    "question": "Hvilke vitale parametre er typisk påvirket ved Addison-krise?",
+    "answer": "Hypotension, takykardi, ofte høj RF, evt. feber og påvirket bevidsthedsniveau.",
+    "difficulty": "easy",
+    "tags": [
+      "vitalparametre"
+    ],
+    "deckId": "akutBinyrebarkinsufficiensCards"
+  },
+  {
+    "id": "akutbinyre_005",
+    "subject": "Akutte tilstande",
+    "topic": "Akut binyrebarkinsufficiens",
+    "question": "Hvilke generelle symptomer kan patienten have før kollaps?",
+    "answer": "Udtræthed, svimmelhed, kvalme, opkast, abdominalsmerter, muskelsvaghed, hovedpine og generel sygdomsfølelse.",
+    "difficulty": "easy",
+    "tags": [
+      "symptomer"
+    ],
+    "deckId": "akutBinyrebarkinsufficiensCards"
+  },
+  {
+    "id": "akutbinyre_006",
+    "subject": "Akutte tilstande",
+    "topic": "Akut binyrebarkinsufficiens",
+    "question": "Hvordan kan hudforandringerne se ud ved kronisk binyrebarkinsufficiens?",
+    "answer": "Mørk pigmentering (bronzing) af hudfolder, knoer, ar og slimhinder pga. øget ACTH-produktion.",
+    "difficulty": "medium",
+    "tags": [
+      "hudforandringer",
+      "ACTH"
+    ],
+    "deckId": "akutBinyrebarkinsufficiensCards"
+  },
+  {
+    "id": "akutbinyre_007",
+    "subject": "Akutte tilstande",
+    "topic": "Akut binyrebarkinsufficiens",
+    "question": "Hvorfor kan patienten med Addison-krise have både kvalme, opkast og abdominalsmerter?",
+    "answer": "Kortisolmangel påvirker både kredsløb og mave-tarmfunktion, hvilket giver hypoperfusion, elektrolytforstyrrelser og irritation af GI-kanalen.",
+    "difficulty": "medium",
+    "tags": [
+      "GI-symptomer",
+      "patofysiologi"
+    ],
+    "deckId": "akutBinyrebarkinsufficiensCards"
+  },
+  {
+    "id": "akutbinyre_008",
+    "subject": "Akutte tilstande",
+    "topic": "Akut binyrebarkinsufficiens",
+    "question": "Hvilken elektrolytforstyrrelse er klassisk ved Addison-krise?",
+    "answer": "Hyponatriæmi og ofte hyperkaliæmi pga. mangel på aldosteron, som normalt holder på natrium og udskiller kalium.",
+    "difficulty": "hard",
+    "tags": [
+      "elektrolytter"
+    ],
+    "deckId": "akutBinyrebarkinsufficiensCards"
+  },
+  {
+    "id": "akutbinyre_009",
+    "subject": "Akutte tilstande",
+    "topic": "Akut binyrebarkinsufficiens",
+    "question": "Hvordan påvirker kortisolmangel blodtrykket?",
+    "answer": "Kortisol øger følsomheden for katekolaminer. Ved mangel falder den vasokonstriktoriske effekt, hvilket giver hypotension og risiko for kredsløbsshock.",
+    "difficulty": "hard",
+    "tags": [
+      "blodtryk",
+      "katekolaminer"
+    ],
+    "deckId": "akutBinyrebarkinsufficiensCards"
+  },
+  {
+    "id": "akutbinyre_010",
+    "subject": "Akutte tilstande",
+    "topic": "Akut binyrebarkinsufficiens",
+    "question": "Hvilke oplysninger i anamnesen er særligt vigtige at spørge til ved mistanke om Addison-krise?",
+    "answer": "Kendt binyrebarkinsufficiens, daglig steroidbehandling, nylig dosisreduktion/ophør, nylig infektion, traume, operation eller svær stress.",
+    "difficulty": "medium",
+    "tags": [
+      "anamnese"
+    ],
+    "deckId": "akutBinyrebarkinsufficiensCards"
+  },
+  {
+    "id": "akutbinyre_011",
+    "subject": "Akutte tilstande",
+    "topic": "Akut binyrebarkinsufficiens",
+    "question": "Hvad forstås ved at patienter med kendt binyrebarkinsufficiens skal 'stress-dosere'?",
+    "answer": "At de ved feber, infektion, traume eller anden belastning skal øge deres steroid-dosis markant for at efterligne kroppens normale øgede kortisolproduktion.",
+    "difficulty": "medium",
+    "tags": [
+      "stress-dosering",
+      "patientuddannelse"
+    ],
+    "deckId": "akutBinyrebarkinsufficiensCards"
+  },
+  {
+    "id": "akutbinyre_012",
+    "subject": "Akutte tilstande",
+    "topic": "Akut binyrebarkinsufficiens",
+    "question": "Hvordan kan en Addison-krise fejltolkes præhospitalt, hvis man ikke tænker på diagnosen?",
+    "answer": "Den kan ligne sepsis, gastroenteritis, dehydrering, hypovolæmisk shock eller anden form for cirkulatorisk kollaps.",
+    "difficulty": "hard",
+    "tags": [
+      "differentialdiagnoser"
+    ],
+    "deckId": "akutBinyrebarkinsufficiensCards"
+  },
+  {
+    "id": "akutbinyre_013",
+    "subject": "Akutte tilstande",
+    "topic": "Akut binyrebarkinsufficiens",
+    "question": "Hvilke typiske fund kan du gøre ved ABCDE-gennemgang hos patient med Addison-krise?",
+    "answer": "A: Fri luftvej. B: Øget RF, evt. dyspnø. C: Hypotension, takykardi, kold periferi, forlænget kapillærrespons. D: Konfusion, sløvhed eller agitation. E: Eventuel hyperpigmenteret hud, feber eller tegn på dehydrering.",
+    "difficulty": "medium",
+    "tags": [
+      "ABCDE",
+      "kliniske fund"
+    ],
+    "deckId": "akutBinyrebarkinsufficiensCards"
+  },
+  {
+    "id": "akutbinyre_014",
+    "subject": "Akutte tilstande",
+    "topic": "Akut binyrebarkinsufficiens",
+    "question": "Hvorfor er det vigtigt at spørge efter patientens 'steroidkort' eller medicinbrik?",
+    "answer": "Patienter med binyrebarkinsufficiens bærer ofte kort/armbånd med diagnose og instruktion om akut behandling, hvilket kan afklare situationen hurtigt.",
+    "difficulty": "easy",
+    "tags": [
+      "steroidkort",
+      "identifikation"
+    ],
+    "deckId": "akutBinyrebarkinsufficiensCards"
+  },
+  {
+    "id": "akutbinyre_015",
+    "subject": "Akutte tilstande",
+    "topic": "Akut binyrebarkinsufficiens",
+    "question": "Hvad er den overordnede præhospitale behandlingsstrategi ved mistanke om Addison-krise?",
+    "answer": "ABCDE, ilt efter behov, hurtig etablering af IV-adgang, isoton væskebehandling efter lokale retningslinjer, monitorering og hurtig transport til hospital.",
+    "difficulty": "medium",
+    "tags": [
+      "behandling",
+      "prehospital"
+    ],
+    "deckId": "akutBinyrebarkinsufficiensCards"
+  },
+  {
+    "id": "akutbinyre_016",
+    "subject": "Akutte tilstande",
+    "topic": "Akut binyrebarkinsufficiens",
+    "question": "Hvorfor skal man være ekstra opmærksom på blodsukkeret hos disse patienter?",
+    "answer": "Kortisolmangel kan give hypoglykæmi, især hos børn og slanke patienter, hvilket kan forværre bevidsthedspåvirkning og kramper.",
+    "difficulty": "medium",
+    "tags": [
+      "blodsukker",
+      "hypoglykæmi"
+    ],
+    "deckId": "akutBinyrebarkinsufficiensCards"
+  },
+  {
+    "id": "akutbinyre_017",
+    "subject": "Akutte tilstande",
+    "topic": "Akut binyrebarkinsufficiens",
+    "question": "Hvilken rolle spiller aldosteron, og hvordan forklarer det hypotensionen?",
+    "answer": "Aldosteron sørger normalt for natrium- og vandretention samt kaliumudskillelse i nyrerne. Ved mangel tabes natrium og vand, hvilket reducerer blodvolumen og blodtryk.",
+    "difficulty": "hard",
+    "tags": [
+      "aldosteron",
+      "nyrer"
+    ],
+    "deckId": "akutBinyrebarkinsufficiensCards"
+  },
+  {
+    "id": "akutbinyre_018",
+    "subject": "Akutte tilstande",
+    "topic": "Akut binyrebarkinsufficiens",
+    "question": "Hvad er den definitive behandling, som hospitalet vil give ved Addison-krise?",
+    "answer": "IV højdosis hydrokortison (steroid), aggressiv væsketerapi med isoton NaCl, korrektion af elektrolytforstyrrelser og behandling af udløsende årsag (fx infektion).",
+    "difficulty": "hard",
+    "tags": [
+      "hospital",
+      "definitiv behandling"
+    ],
+    "deckId": "akutBinyrebarkinsufficiensCards"
+  },
+  {
+    "id": "akutbinyre_019",
+    "subject": "Akutte tilstande",
+    "topic": "Akut binyrebarkinsufficiens",
+    "question": "Hvorfor er det farligt pludseligt at stoppe længerevarende systemisk steroidbehandling?",
+    "answer": "Langvarig behandling hæmmer hypofyse-binyre-aksen, så kroppens egen kortisolproduktion er nedreguleret. Ved pludseligt stop kan patienten ikke øge kortisol ved stress og risikerer Addison-krise.",
+    "difficulty": "hard",
+    "tags": [
+      "steroidbehandling",
+      "HPA-akse"
+    ],
+    "deckId": "akutBinyrebarkinsufficiensCards"
+  },
+  {
+    "id": "akutbinyre_020",
+    "subject": "Akutte tilstande",
+    "topic": "Akut binyrebarkinsufficiens",
+    "question": "Hvad er den vigtigste præhospitale prioritet ved mistanke om akut binyrebarkinsufficiens?",
+    "answer": "Tidlig mistanke og hurtig stabilisering af kredsløbet (ABCDE, væske, ilt, monitorering) samt hurtig transport til hospital, da tilstanden er potentielt fatal men reversibel ved korrekt behandling.",
+    "difficulty": "medium",
+    "tags": [
+      "prioritering",
+      "shock"
+    ],
+    "deckId": "akutBinyrebarkinsufficiensCards"
+  },
+  {
+    "id": "akutkoro_001",
+    "subject": "Akutte tilstande",
+    "topic": "Akut koronart syndrom",
+    "question": "Hvad dækker begrebet 'akut koronart syndrom' (AKS) over?",
+    "answer": "Samlebetegnelse for ustabil angina, non-ST-elevations AMI (NSTEMI) og ST-elevations AMI (STEMI), som alle skyldes akut iskæmi i hjertemusklen.",
+    "difficulty": "easy",
+    "tags": [
+      "definition",
+      "AKS"
+    ],
+    "deckId": "akutKoronarSyndromCards"
+  },
+  {
+    "id": "akutkoro_002",
+    "subject": "Akutte tilstande",
+    "topic": "Akut koronart syndrom",
+    "question": "Hvad er den hyppigste årsag til akut koronart syndrom?",
+    "answer": "Ruptur eller erosion af et aterosklerotisk plaque i en koronararterie med efterfølgende trombedannelse og nedsat blodflow til myokardiet.",
+    "difficulty": "medium",
+    "tags": [
+      "årsager",
+      "aterosklerose"
+    ],
+    "deckId": "akutKoronarSyndromCards"
+  },
+  {
+    "id": "akutkoro_003",
+    "subject": "Akutte tilstande",
+    "topic": "Akut koronart syndrom",
+    "question": "Beskriv de klassiske brystsmerter ved akut koronart syndrom.",
+    "answer": "Trykkende, klemmende eller strammende smerter midt i brystet, ofte med udstråling til venstre arm, begge arme, kæbe eller ryg og ledsaget af åndenød, kvalme eller koldsved.",
+    "difficulty": "easy",
+    "tags": [
+      "symptomer",
+      "brystsmerter"
+    ],
+    "deckId": "akutKoronarSyndromCards"
+  },
+  {
+    "id": "akutkoro_004",
+    "subject": "Akutte tilstande",
+    "topic": "Akut koronart syndrom",
+    "question": "Hvilke atypiske symptomer kan især ældre, diabetikere og kvinder have ved AKS?",
+    "answer": "Diffuse ubehag i bryst/epigastrium, åndenød, kvalme, træthed, svimmelhed eller blot generel utilpashed uden tydelige brystsmerter.",
+    "difficulty": "medium",
+    "tags": [
+      "atypiske symptomer",
+      "særlige grupper"
+    ],
+    "deckId": "akutKoronarSyndromCards"
+  },
+  {
+    "id": "akutkoro_005",
+    "subject": "Akutte tilstande",
+    "topic": "Akut koronart syndrom",
+    "question": "Nævn mindst fire klassiske risikofaktorer for udvikling af AKS.",
+    "answer": "Rygning, hypertension, hyperkolesterolæmi, diabetes, overvægt, fysisk inaktivitet, høj alder og familiær disposition.",
+    "difficulty": "easy",
+    "tags": [
+      "risikofaktorer"
+    ],
+    "deckId": "akutKoronarSyndromCards"
+  },
+  {
+    "id": "akutkoro_006",
+    "subject": "Akutte tilstande",
+    "topic": "Akut koronart syndrom",
+    "question": "Hvad er det primære formål med præhospital behandling af AKS?",
+    "answer": "Stabilisere patienten (ABCDE), lindre smerter og angst, begrænse myokardskaden og sikre hurtig transport til relevant PCI/hjertecenter.",
+    "difficulty": "medium",
+    "tags": [
+      "mål",
+      "behandling"
+    ],
+    "deckId": "akutKoronarSyndromCards"
+  },
+  {
+    "id": "akutkoro_007",
+    "subject": "Akutte tilstande",
+    "topic": "Akut koronart syndrom",
+    "question": "Hvilke vitale parametre er særligt vigtige at monitorere ved mistanke om AKS?",
+    "answer": "Blodtryk, puls, RF, saturation, temperatur og bevidsthedsniveau (GCS), samt kontinuerligt EKG-monitorering hvis muligt.",
+    "difficulty": "easy",
+    "tags": [
+      "vitalparametre",
+      "monitorering"
+    ],
+    "deckId": "akutKoronarSyndromCards"
+  },
+  {
+    "id": "akutkoro_008",
+    "subject": "Akutte tilstande",
+    "topic": "Akut koronart syndrom",
+    "question": "Hvad er den typiske EKG-forskel mellem STEMI og NSTEMI/ustabil angina?",
+    "answer": "STEMI: Vedvarende ST-segment-elevation og ofte senere Q-taks-dannelse. NSTEMI/ustabil angina: ST-depression og/eller T-taks-inversion uden vedvarende ST-elevation.",
+    "difficulty": "hard",
+    "tags": [
+      "EKG",
+      "STEMI",
+      "NSTEMI"
+    ],
+    "deckId": "akutKoronarSyndromCards"
+  },
+  {
+    "id": "akutkoro_009",
+    "subject": "Akutte tilstande",
+    "topic": "Akut koronart syndrom",
+    "question": "Hvorfor er 'time is muscle' et vigtigt princip ved STEMI?",
+    "answer": "Jo længere tid myokardiet er iskæmisk, desto mere irreversibel nekrose opstår. Hurtig reperfusion reducerer infarktstørrelse og forbedrer prognosen.",
+    "difficulty": "medium",
+    "tags": [
+      "patofysiologi",
+      "prognose"
+    ],
+    "deckId": "akutKoronarSyndromCards"
+  },
+  {
+    "id": "akutkoro_010",
+    "subject": "Akutte tilstande",
+    "topic": "Akut koronart syndrom",
+    "question": "Hvilke differentialdiagnoser til brystsmerter skal altid overvejes præhospitalt?",
+    "answer": "Lungeemboli, aortadissektion, pneumothorax, pneumoni, perikarditis, refluks/øsofagitis, muskuloskeletale smerter og angst/panik.",
+    "difficulty": "hard",
+    "tags": [
+      "differentialdiagnoser"
+    ],
+    "deckId": "akutKoronarSyndromCards"
+  },
+  {
+    "id": "akutkoro_011",
+    "subject": "Akutte tilstande",
+    "topic": "Akut koronart syndrom",
+    "question": "Hvordan kan du ved den objektive undersøgelse få indtryk af, om patienten er kredsløbstruet ved AKS?",
+    "answer": "Lavt BT, takykardi eller bradykardi, kold/klam hud, forlænget kapillærrespons, påvirket bevidsthed og evt. tegn på lungeødem (ralelyde, dyspnø).",
+    "difficulty": "medium",
+    "tags": [
+      "cirkulation",
+      "objektive fund"
+    ],
+    "deckId": "akutKoronarSyndromCards"
+  },
+  {
+    "id": "akutkoro_012",
+    "subject": "Akutte tilstande",
+    "topic": "Akut koronart syndrom",
+    "question": "Hvad er formålet med iltbehandling ved AKS, og gives det til alle?",
+    "answer": "Formålet er at sikre tilstrækkelig ilt til det iskæmiske myokardium, men ilt anbefales primært ved saturation < 94 %, dyspnø eller tegn på hjertesvigt/chok – ikke rutinemæssigt til alle.",
+    "difficulty": "hard",
+    "tags": [
+      "iltbehandling"
+    ],
+    "deckId": "akutKoronarSyndromCards"
+  },
+  {
+    "id": "akutkoro_013",
+    "subject": "Akutte tilstande",
+    "topic": "Akut koronart syndrom",
+    "question": "Hvorfor er smertebehandling med fx morfin vigtig ved svære brystsmerter?",
+    "answer": "Smertelindring reducerer sympatikusaktivering, sænker puls og blodtryk og mindsker myokardiets iltbehov samt patientens angst.",
+    "difficulty": "medium",
+    "tags": [
+      "smertebehandling",
+      "morfin"
+    ],
+    "deckId": "akutKoronarSyndromCards"
+  },
+  {
+    "id": "akutkoro_014",
+    "subject": "Akutte tilstande",
+    "topic": "Akut koronart syndrom",
+    "question": "Hvad er den vigtigste anamnese ved mistanke om AKS (OPQRST)?",
+    "answer": "Onset (debut og varighed), Provocation/Palliation (hvad udløser/lindrer), Quality (karakter), Region/Radiation (lokalisation/udstråling), Severity (intensitet), Time (forløb) samt ledsagesymptomer og risikofaktorer.",
+    "difficulty": "medium",
+    "tags": [
+      "anamnese",
+      "OPQRST"
+    ],
+    "deckId": "akutKoronarSyndromCards"
+  },
+  {
+    "id": "akutkoro_015",
+    "subject": "Akutte tilstande",
+    "topic": "Akut koronart syndrom",
+    "question": "Hvordan kan ubehandlet AMI påvirke hjertets pumpefunktion på celleniveau?",
+    "answer": "Langvarig iskæmi giver irreversibel celledød i kardiomyocytter, tab af kontraktile myofibriller og nedsat kontraktilitet, hvilket reducerer slagvolumen og minutvolumen.",
+    "difficulty": "hard",
+    "tags": [
+      "cellulær fysiologi",
+      "pumpefunktion"
+    ],
+    "deckId": "akutKoronarSyndromCards"
+  },
+  {
+    "id": "akutkoro_016",
+    "subject": "Akutte tilstande",
+    "topic": "Akut koronart syndrom",
+    "question": "Nævn tre alvorlige komplikationer til AMI, der kan opstå præ- eller tidligt intrahospitalt.",
+    "answer": "Ventrikulære arytmier (VT/VF), kardiogent shock, akut hjertesvigt/lungeødem, bradyarytmier/AV-blok eller mekaniske komplikationer som papillærmuskelruptur.",
+    "difficulty": "hard",
+    "tags": [
+      "komplikationer",
+      "arytmier",
+      "shock"
+    ],
+    "deckId": "akutKoronarSyndromCards"
+  },
+  {
+    "id": "akutkoro_017",
+    "subject": "Akutte tilstande",
+    "topic": "Akut koronart syndrom",
+    "question": "Hvordan kan AKS præsentere sig primært som dyspnø uden tydelige smerter?",
+    "answer": "Akut nedsat pumpefunktion kan give stase i lungerne med lungeødem, hvor patienten oplever udtalt åndenød, hoste og ortopnø, men kun diskrete eller ingen brystsmerter.",
+    "difficulty": "medium",
+    "tags": [
+      "dyspnø",
+      "hjertesvigt"
+    ],
+    "deckId": "akutKoronarSyndromCards"
+  },
+  {
+    "id": "akutkoro_018",
+    "subject": "Akutte tilstande",
+    "topic": "Akut koronart syndrom",
+    "question": "Hvad er den præhospitale prioritet, hvis patienten med AKS udvikler VT/VF?",
+    "answer": "Straks defibrilleringsbehandling efter gældende genoplivningsalgoritmer (ERC), samtidig med høj-kvalitets HLR og hurtig transport, hvis ROSC opnås.",
+    "difficulty": "medium",
+    "tags": [
+      "VT",
+      "VF",
+      "HLR"
+    ],
+    "deckId": "akutKoronarSyndromCards"
+  },
+  {
+    "id": "akutkoro_019",
+    "subject": "Akutte tilstande",
+    "topic": "Akut koronart syndrom",
+    "question": "Hvordan kan du som paramediciner bidrage til at reducere 'system delay' ved STEMI?",
+    "answer": "Tidlig mistanke, hurtig EKG-optagelse og -videre­sendelse, præhospital varsling af PCI-center, målrettet ABCDE-stabilisering og undgå unødvendige forsinkelser i transportkæden.",
+    "difficulty": "hard",
+    "tags": [
+      "STEMI",
+      "system delay",
+      "organisation"
+    ],
+    "deckId": "akutKoronarSyndromCards"
+  },
+  {
+    "id": "akutkoro_020",
+    "subject": "Akutte tilstande",
+    "topic": "Akut koronart syndrom",
+    "question": "Hvad er den vigtigste information at dokumentere og videre­give til hospitalet ved AKS?",
+    "answer": "Debut- og symptomtidspunkt, smertebeskrivelse, risikofaktorer, tidligere hjertesygdom, givne behandlinger (inkl. medicindoser og tidspunkter), EKG-fund og udvikling i vitalparametre.",
+    "difficulty": "medium",
+    "tags": [
+      "overlevering",
+      "dokumentation"
+    ],
+    "deckId": "akutKoronarSyndromCards"
+  },
+  {
+    "id": "obstetrisk_001",
+    "subject": "Akutte tilstande",
+    "topic": "Akutte obstetriske tilstande",
+    "question": "Hvad forstås ved begrebet 'akut obstetrisk tilstand'?",
+    "answer": "Akut medicinsk eller kirurgisk tilstand relateret til graviditet eller fødsel, der truer moderens, fosterets eller begge parters helbred og kræver hurtig behandling.",
+    "difficulty": "easy",
+    "tags": [
+      "definition"
+    ],
+    "deckId": "akutteObstetriskeTilstandeCards"
+  },
+  {
+    "id": "obstetrisk_002",
+    "subject": "Akutte tilstande",
+    "topic": "Akutte obstetriske tilstande",
+    "question": "Nævn tre potentielt livstruende obstetriske tilstande.",
+    "answer": "Eklampsi, uterusruptur, skulderdystoci, massiv postpartum blødning (PPH), abruptio placentae eller placenta praevia.",
+    "difficulty": "medium",
+    "tags": [
+      "årsager",
+      "livstruende"
+    ],
+    "deckId": "akutteObstetriskeTilstandeCards"
+  },
+  {
+    "id": "obstetrisk_003",
+    "subject": "Akutte tilstande",
+    "topic": "Akutte obstetriske tilstande",
+    "question": "Hvad er præeklampsi?",
+    "answer": "Graviditetsrelateret hypertension efter uge 20 med proteinuri og risiko for organskade. Kan udvikle sig til eklampsi.",
+    "difficulty": "medium",
+    "tags": [
+      "præeklampsi",
+      "hypertension"
+    ],
+    "deckId": "akutteObstetriskeTilstandeCards"
+  },
+  {
+    "id": "obstetrisk_004",
+    "subject": "Akutte tilstande",
+    "topic": "Akutte obstetriske tilstande",
+    "question": "Hvad er eklampsi, og hvad er det vigtigste præhospitale fokus?",
+    "answer": "Eklampsi er præeklampsi med kramper. Fokus: beskytte luftveje, give magnesiumsulfat hvis relevant, monitorering, ABCDE og hurtig transport.",
+    "difficulty": "hard",
+    "tags": [
+      "eklampsi",
+      "kramper"
+    ],
+    "deckId": "akutteObstetriskeTilstandeCards"
+  },
+  {
+    "id": "obstetrisk_005",
+    "subject": "Akutte tilstande",
+    "topic": "Akutte obstetriske tilstande",
+    "question": "Hvordan genkendes abruptio placentae (placentaløsning)?",
+    "answer": "Smertefuld vaginal blødning, abdominal ømhed, hård uterus og påvirket foster/mor – ofte livstruende.",
+    "difficulty": "medium",
+    "tags": [
+      "placentaløsning",
+      "blødning"
+    ],
+    "deckId": "akutteObstetriskeTilstandeCards"
+  },
+  {
+    "id": "obstetrisk_006",
+    "subject": "Akutte tilstande",
+    "topic": "Akutte obstetriske tilstande",
+    "question": "Hvordan adskiller placenta praevia sig fra abruptio placentae?",
+    "answer": "Placenta praevia: smertefri vaginal blødning hvor placenta dækker orificium internum. Abruptio: smertefuld blødning med hård uterus.",
+    "difficulty": "hard",
+    "tags": [
+      "placenta praevia",
+      "forskelle"
+    ],
+    "deckId": "akutteObstetriskeTilstandeCards"
+  },
+  {
+    "id": "obstetrisk_007",
+    "subject": "Akutte tilstande",
+    "topic": "Akutte obstetriske tilstande",
+    "question": "Hvad er skulderdystoci?",
+    "answer": "Tilstand under fødsel, hvor fosterets skuldre sidder fast bag symfysen efter hovedet er født. Potentielt livstruende for fosteret.",
+    "difficulty": "medium",
+    "tags": [
+      "skulderdystoci",
+      "obstetrik"
+    ],
+    "deckId": "akutteObstetriskeTilstandeCards"
+  },
+  {
+    "id": "obstetrisk_008",
+    "subject": "Akutte tilstande",
+    "topic": "Akutte obstetriske tilstande",
+    "question": "Hvad er den præhospitale håndtering ved skulderdystoci?",
+    "answer": "Forsøg ikke at trække i hovedet. Tilkald jordemoder/læge akut. Støt hovedet, lejring (McRoberts), evt. let suprapubisk tryk hvis trænet.",
+    "difficulty": "hard",
+    "tags": [
+      "skulderdystoci",
+      "behandling"
+    ],
+    "deckId": "akutteObstetriskeTilstandeCards"
+  },
+  {
+    "id": "obstetrisk_009",
+    "subject": "Akutte tilstande",
+    "topic": "Akutte obstetriske tilstande",
+    "question": "Hvornår defineres postpartum blødning (PPH)?",
+    "answer": "Vaginal fødsel: >500 ml blodtab. Sectio: >1000 ml blodtab. Eller enhver blødning med kredsløbsinstabilitet.",
+    "difficulty": "medium",
+    "tags": [
+      "PPH",
+      "definition"
+    ],
+    "deckId": "akutteObstetriskeTilstandeCards"
+  },
+  {
+    "id": "obstetrisk_010",
+    "subject": "Akutte tilstande",
+    "topic": "Akutte obstetriske tilstande",
+    "question": "Nævn de fire hovedårsager til postpartum blødning (de 4 T'er).",
+    "answer": "Tone (atoni), Tissue (retineret placenta), Trauma (læsioner), Thrombin (koagulationsforstyrrelser).",
+    "difficulty": "hard",
+    "tags": [
+      "PPH",
+      "årsager",
+      "4T"
+    ],
+    "deckId": "akutteObstetriskeTilstandeCards"
+  },
+  {
+    "id": "obstetrisk_011",
+    "subject": "Akutte tilstande",
+    "topic": "Akutte obstetriske tilstande",
+    "question": "Hvad er en uterusruptur, og hvornår mistænkes det?",
+    "answer": "Rivning af uterus' væg, typisk ved tidligere sectio eller multiparitet. Mistænkes ved pludselig smerte, shock og fosterpåvirkning.",
+    "difficulty": "hard",
+    "tags": [
+      "uterusruptur"
+    ],
+    "deckId": "akutteObstetriskeTilstandeCards"
+  },
+  {
+    "id": "obstetrisk_012",
+    "subject": "Akutte tilstande",
+    "topic": "Akutte obstetriske tilstande",
+    "question": "Hvorfor er gravide i højere risiko for hypovolæmisk shock ved blødning?",
+    "answer": "De har øget plasmavolumen, men kompensationen maskerer blødningsmængden. Fosteret kan være kompromitteret tidligt trods stabile værdier hos moderen.",
+    "difficulty": "hard",
+    "tags": [
+      "shock",
+      "fysiologi"
+    ],
+    "deckId": "akutteObstetriskeTilstandeCards"
+  },
+  {
+    "id": "obstetrisk_013",
+    "subject": "Akutte tilstande",
+    "topic": "Akutte obstetriske tilstande",
+    "question": "Hvorfor skal gravide lejres med venstresidig tilt i akutte situationer?",
+    "answer": "For at undgå vena cava-kompression fra uterus, som ellers reducerer venøst tilbageløb og kan give hypotension og kredsløbspåvirkning.",
+    "difficulty": "medium",
+    "tags": [
+      "lejring",
+      "vena cava"
+    ],
+    "deckId": "akutteObstetriskeTilstandeCards"
+  },
+  {
+    "id": "obstetrisk_014",
+    "subject": "Akutte tilstande",
+    "topic": "Akutte obstetriske tilstande",
+    "question": "Hvordan påvirkes ABCDE-vurdering hos gravide præhospitalt?",
+    "answer": "A: Risiko for ødem i luftveje. B: Øget RF og mindre lungevolumen. C: Øget plasmavolumen men risiko for skjult shock. D: Risiko for eklampsi. E: Vurder blødning, abdomen og foster.",
+    "difficulty": "hard",
+    "tags": [
+      "ABCDE",
+      "gravid"
+    ],
+    "deckId": "akutteObstetriskeTilstandeCards"
+  },
+  {
+    "id": "obstetrisk_015",
+    "subject": "Akutte tilstande",
+    "topic": "Akutte obstetriske tilstande",
+    "question": "Hvilke symptomer tyder på truende eklampsi?",
+    "answer": "Hovedpine, synsforstyrrelser (flimmer, slørede), kvalme, hyperrefleksi, forhøjet BT og ødem.",
+    "difficulty": "medium",
+    "tags": [
+      "eklampsi",
+      "symptomer"
+    ],
+    "deckId": "akutteObstetriskeTilstandeCards"
+  },
+  {
+    "id": "obstetrisk_016",
+    "subject": "Akutte tilstande",
+    "topic": "Akutte obstetriske tilstande",
+    "question": "Hvilke særlige forhold gælder ved hjertestop hos gravide?",
+    "answer": "CPR som normalt, men venstresidig tilt, overvej perimortem sectio (indenfor 5 min ved gestationsalder > 20 uger).",
+    "difficulty": "hard",
+    "tags": [
+      "hjertestop",
+      "gravid"
+    ],
+    "deckId": "akutteObstetriskeTilstandeCards"
+  },
+  {
+    "id": "obstetrisk_017",
+    "subject": "Akutte tilstande",
+    "topic": "Akutte obstetriske tilstande",
+    "question": "Hvordan kan man identificere truende for tidlig fødsel præhospitalt?",
+    "answer": "Regelmæssige veer (før uge 37), trykken nedad, fostervandafgang, evt. vaginal blødning og mavesmerter.",
+    "difficulty": "medium",
+    "tags": [
+      "præterm fødsel"
+    ],
+    "deckId": "akutteObstetriskeTilstandeCards"
+  },
+  {
+    "id": "obstetrisk_018",
+    "subject": "Akutte tilstande",
+    "topic": "Akutte obstetriske tilstande",
+    "question": "Hvorfor er præhospital fødsel ofte lavrisiko, hvis ABCDE er stabil?",
+    "answer": "De fleste fødsler forløber spontant og uden komplikationer; paramedicinerens rolle er at støtte, observere og transportere ved behov.",
+    "difficulty": "easy",
+    "tags": [
+      "fødsel",
+      "paramediciner"
+    ],
+    "deckId": "akutteObstetriskeTilstandeCards"
+  },
+  {
+    "id": "obstetrisk_019",
+    "subject": "Akutte tilstande",
+    "topic": "Akutte obstetriske tilstande",
+    "question": "Hvilke to patienter vurderer du altid ved obstetriske tilstande?",
+    "answer": "Både mor og foster – to patienter med forskellige behov og vitale risici.",
+    "difficulty": "easy",
+    "tags": [
+      "mor",
+      "foster"
+    ],
+    "deckId": "akutteObstetriskeTilstandeCards"
+  },
+  {
+    "id": "obstetrisk_020",
+    "subject": "Akutte tilstande",
+    "topic": "Akutte obstetriske tilstande",
+    "question": "Hvad er den vigtigste præhospitale prioritet ved obstetrisk nødsituation?",
+    "answer": "ABCDE-stabilisering af moderen først – fordi stabil mor giver det bedste grundlag for stabilt foster. Hurtig transport til relevant obstetrisk hospital.",
+    "difficulty": "medium",
+    "tags": [
+      "prioritering",
+      "ABCDE"
+    ],
+    "deckId": "akutteObstetriskeTilstandeCards"
+  },
+  {
+    "id": "anafy_001",
+    "subject": "Akutte tilstande",
+    "topic": "Anafylaksi",
+    "question": "Hvad er anafylaksi?",
+    "answer": "En akut, potentielt livstruende systemisk hypersensitivitetsreaktion, oftest IgE-medieret, hvor flere organsystemer påvirkes samtidig.",
+    "difficulty": "easy",
+    "tags": [
+      "definition"
+    ],
+    "deckId": "anafylaksiCards"
+  },
+  {
+    "id": "anafy_002",
+    "subject": "Akutte tilstande",
+    "topic": "Anafylaksi",
+    "question": "Nævn tre typiske udløsende årsager til anafylaksi.",
+    "answer": "Fødevarer (fx nødder, skaldyr), lægemidler (fx penicillin, NSAID) og insektstik (fx bi- og hvepsestik).",
+    "difficulty": "easy",
+    "tags": [
+      "årsager",
+      "triggere"
+    ],
+    "deckId": "anafylaksiCards"
+  },
+  {
+    "id": "anafy_003",
+    "subject": "Akutte tilstande",
+    "topic": "Anafylaksi",
+    "question": "Forklar kort den immunologiske mekanisme bag IgE-medieret anafylaksi.",
+    "answer": "Allergen krydsbinder IgE-antistoffer på mastceller og basofile, hvilket udløser degranulering med frigivelse af histamin og andre mediatorer, som giver vasodilatation, øget karkapacitet og bronkokonstriktion.",
+    "difficulty": "hard",
+    "tags": [
+      "patofysiologi",
+      "IgE",
+      "mastceller"
+    ],
+    "deckId": "anafylaksiCards"
+  },
+  {
+    "id": "anafy_004",
+    "subject": "Akutte tilstande",
+    "topic": "Anafylaksi",
+    "question": "Hvad er de tidlige hud- og slimhindesymptomer ved anafylaksi?",
+    "answer": "Klopruritus, urticaria (nældefeber), erytem, angioødem i ansigt, læber eller øjenlåg og evt. hævelse i mund/svælg.",
+    "difficulty": "easy",
+    "tags": [
+      "hud",
+      "symptomer"
+    ],
+    "deckId": "anafylaksiCards"
+  },
+  {
+    "id": "anafy_005",
+    "subject": "Akutte tilstande",
+    "topic": "Anafylaksi",
+    "question": "Hvilke luftvejssymptomer er alarmsymptomer ved anafylaksi?",
+    "answer": "Stridor, hæshed, inspiratorisk besvær, tung vejrtrækning, bronkospasme med hvæsende respiration og subjektiv følelse af at halsen snører sig sammen.",
+    "difficulty": "medium",
+    "tags": [
+      "luftveje",
+      "alarmsymptomer"
+    ],
+    "deckId": "anafylaksiCards"
+  },
+  {
+    "id": "anafy_006",
+    "subject": "Akutte tilstande",
+    "topic": "Anafylaksi",
+    "question": "Hvordan påvirker anafylaksi kredsløbet?",
+    "answer": "Systemisk vasodilatation og øget kapillærpermeabilitet giver hypotension, takykardi, svimmelhed, synkope og risiko for obstruktivt/de distributivt shock.",
+    "difficulty": "medium",
+    "tags": [
+      "cirkulation",
+      "shock"
+    ],
+    "deckId": "anafylaksiCards"
+  },
+  {
+    "id": "anafy_007",
+    "subject": "Akutte tilstande",
+    "topic": "Anafylaksi",
+    "question": "Hvad er forskellen på en mild allergisk reaktion og egentlig anafylaksi?",
+    "answer": "Ved anafylaksi er mindst to organsystemer påvirket (fx hud + luftveje eller kredsløb) og/eller der er tegn på respiratorisk eller cirkulatorisk påvirkning.",
+    "difficulty": "medium",
+    "tags": [
+      "klassifikation",
+      "diagnose"
+    ],
+    "deckId": "anafylaksiCards"
+  },
+  {
+    "id": "anafy_008",
+    "subject": "Akutte tilstande",
+    "topic": "Anafylaksi",
+    "question": "Hvorfor er anafylaksi tidskritisk?",
+    "answer": "Tilstanden kan progrediere meget hurtigt til fulminant luftvejsobstruktion og cirkulatorisk kollaps med hjertestop inden for få minutter.",
+    "difficulty": "easy",
+    "tags": [
+      "tidskritisk"
+    ],
+    "deckId": "anafylaksiCards"
+  },
+  {
+    "id": "anafy_009",
+    "subject": "Akutte tilstande",
+    "topic": "Anafylaksi",
+    "question": "Hvad er førstevalg og vigtigste lægemiddel ved anafylaksi?",
+    "answer": "Adrenalin intramuskulært i låret (m. vastus lateralis) i korrekt vægtjusteret dosis.",
+    "difficulty": "easy",
+    "tags": [
+      "adrenalin",
+      "behandling"
+    ],
+    "deckId": "anafylaksiCards"
+  },
+  {
+    "id": "anafy_010",
+    "subject": "Akutte tilstande",
+    "topic": "Anafylaksi",
+    "question": "Nævn mindst tre effekter af adrenalin, som er gavnlige ved anafylaksi.",
+    "answer": "Alfa-1: Vasokonstriktion og øget blodtryk, mindre ødem. Beta-1: Øget hjertets kontraktilitet og frekvens. Beta-2: Bronkodilatation og hæmning af mediatorfrigivelse.",
+    "difficulty": "hard",
+    "tags": [
+      "farmakodynamik",
+      "adrenalin"
+    ],
+    "deckId": "anafylaksiCards"
+  },
+  {
+    "id": "anafy_011",
+    "subject": "Akutte tilstande",
+    "topic": "Anafylaksi",
+    "question": "Hvordan skal patienten lejres ved anafylaktisk shock, hvis der ikke er respiratorisk kompromis?",
+    "answer": "Fladt på ryggen med benene eleveret for at fremme venøst tilbageløb, med løbende vurdering af luftveje og komfort.",
+    "difficulty": "medium",
+    "tags": [
+      "lejring",
+      "shock"
+    ],
+    "deckId": "anafylaksiCards"
+  },
+  {
+    "id": "anafy_012",
+    "subject": "Akutte tilstande",
+    "topic": "Anafylaksi",
+    "question": "Hvilke vitale parametre er særligt vigtige at monitorere kontinuerligt ved anafylaksi?",
+    "answer": "Blodtryk, puls, RF, saturation, bevidsthedsniveau (GCS) og evt. EKG-rytme.",
+    "difficulty": "easy",
+    "tags": [
+      "vitalparametre",
+      "monitorering"
+    ],
+    "deckId": "anafylaksiCards"
+  },
+  {
+    "id": "anafy_013",
+    "subject": "Akutte tilstande",
+    "topic": "Anafylaksi",
+    "question": "Hvilken rolle spiller antihistaminer og steroid i behandlingen af anafylaksi præhospitalt?",
+    "answer": "De dæmper den allergiske reaktion og kan reducere senfase-symptomer, men virker langsomt og må aldrig erstatte adrenalin.",
+    "difficulty": "medium",
+    "tags": [
+      "antihistamin",
+      "steroid"
+    ],
+    "deckId": "anafylaksiCards"
+  },
+  {
+    "id": "anafy_014",
+    "subject": "Akutte tilstande",
+    "topic": "Anafylaksi",
+    "question": "Hvorfor er høj-flow ilt en vigtig del af behandlingen ved moderat/svær anafylaksi?",
+    "answer": "Bronkokonstriktion og nedsat perfusion kan reducere ilttilbuddet til vævene; ilt maksimerer saturationen og modvirker hypoksi.",
+    "difficulty": "medium",
+    "tags": [
+      "iltbehandling"
+    ],
+    "deckId": "anafylaksiCards"
+  },
+  {
+    "id": "anafy_015",
+    "subject": "Akutte tilstande",
+    "topic": "Anafylaksi",
+    "question": "Hvilket ABCDE-fokus har særligt høj prioritet ved anafylaksi?",
+    "answer": "A og B: Sikring af frie luftveje og effektiv ventilation, da ødem og bronkospasme hurtigt kan kompromittere respirationen.",
+    "difficulty": "easy",
+    "tags": [
+      "ABCDE",
+      "luftveje"
+    ],
+    "deckId": "anafylaksiCards"
+  },
+  {
+    "id": "anafy_016",
+    "subject": "Akutte tilstande",
+    "topic": "Anafylaksi",
+    "question": "Hvorfor kan der være behov for gentagne doser adrenalin ved anafylaksi?",
+    "answer": "Effekten af intramuskulært adrenalin aftager efter 5–10 minutter, og symptomer kan persistere eller forværres, hvilket kræver gentagelse efter retningslinjer.",
+    "difficulty": "medium",
+    "tags": [
+      "adrenalin",
+      "dosering"
+    ],
+    "deckId": "anafylaksiCards"
+  },
+  {
+    "id": "anafy_017",
+    "subject": "Akutte tilstande",
+    "topic": "Anafylaksi",
+    "question": "Hvad forstås ved en bifasisk anafylaktisk reaktion?",
+    "answer": "En ny forværring af symptomer timer efter den initiale reaktion, selv om patienten først er blevet bedre. Kan opstå uden ny eksponering.",
+    "difficulty": "hard",
+    "tags": [
+      "bifasisk reaktion"
+    ],
+    "deckId": "anafylaksiCards"
+  },
+  {
+    "id": "anafy_018",
+    "subject": "Akutte tilstande",
+    "topic": "Anafylaksi",
+    "question": "Hvorfor skal alle patienter med moderat/svær anafylaksi observeres på hospital efter præhospital behandling?",
+    "answer": "På grund af risiko for bifasisk reaktion, sen forværring, behov for yderligere behandling og udredning for årsag og fremtidig profylakse.",
+    "difficulty": "medium",
+    "tags": [
+      "observation",
+      "prognose"
+    ],
+    "deckId": "anafylaksiCards"
+  },
+  {
+    "id": "anafy_019",
+    "subject": "Akutte tilstande",
+    "topic": "Anafylaksi",
+    "question": "Hvilken information er vigtig at få i anamnesen ved mistanke om anafylaksi?",
+    "answer": "Udløsende faktor og eksponeringstidspunkt, tidligere allergiske reaktioner, kendt anafylaksi, medicinbrug (fx beta-blokkere), og udvikling af symptomer over tid.",
+    "difficulty": "medium",
+    "tags": [
+      "anamnese"
+    ],
+    "deckId": "anafylaksiCards"
+  },
+  {
+    "id": "anafy_020",
+    "subject": "Akutte tilstande",
+    "topic": "Anafylaksi",
+    "question": "Hvad er den vigtigste præhospitale prioritet ved anafylaktisk shock?",
+    "answer": "Rask identifikation af tilstanden, straks intramuskulær adrenalin, ABCDE-stabilisering (luftveje, ilt, væske) og hurtig transport til hospital under tæt monitorering.",
+    "difficulty": "medium",
+    "tags": [
+      "prioritering",
+      "shock"
+    ],
+    "deckId": "anafylaksiCards"
+  },
+  {
+    "id": "aorta_001",
+    "subject": "Akutte tilstande",
+    "topic": "Aortaaneurisme",
+    "question": "Hvad er et aortaaneurisme?",
+    "answer": "En permanent udvidelse af aorta på mere end 50 % af normal diameter, ofte pga. svækkelse af karvæggen.",
+    "difficulty": "easy",
+    "tags": [
+      "definition"
+    ],
+    "deckId": "aortaaneurismeCards"
+  },
+  {
+    "id": "aorta_002",
+    "subject": "Akutte tilstande",
+    "topic": "Aortaaneurisme",
+    "question": "Hvad er den farligste komplikation ved et aortaaneurisme?",
+    "answer": "Ruptur, som kan føre til massiv indre blødning og hurtigt dødeligt kredsløbsshock.",
+    "difficulty": "easy",
+    "tags": [
+      "ruptur",
+      "komplikation"
+    ],
+    "deckId": "aortaaneurismeCards"
+  },
+  {
+    "id": "aorta_003",
+    "subject": "Akutte tilstande",
+    "topic": "Aortaaneurisme",
+    "question": "Nævn tre risikofaktorer for udvikling af aortaaneurisme.",
+    "answer": "Hypertension, rygning, aterosklerose, høj alder og mandligt køn.",
+    "difficulty": "medium",
+    "tags": [
+      "risikofaktorer"
+    ],
+    "deckId": "aortaaneurismeCards"
+  },
+  {
+    "id": "aorta_004",
+    "subject": "Akutte tilstande",
+    "topic": "Aortaaneurisme",
+    "question": "Hvorfor er aortaaneurisme ofte asymptomatisk, indtil det bliver akut?",
+    "answer": "Aorta har ingen smertereceptorer i karvæggen, og udvidelsen sker ofte langsomt og uden tryk på omliggende strukturer.",
+    "difficulty": "medium",
+    "tags": [
+      "symptomer"
+    ],
+    "deckId": "aortaaneurismeCards"
+  },
+  {
+    "id": "aorta_005",
+    "subject": "Akutte tilstande",
+    "topic": "Aortaaneurisme",
+    "question": "Hvad er de klassiske symptomer ved aortaruptur?",
+    "answer": "Pludselige, kraftige ryg- eller mavesmerter, hypotension, takykardi, koldsved, bleghed og angst.",
+    "difficulty": "easy",
+    "tags": [
+      "symptomer",
+      "ruptur"
+    ],
+    "deckId": "aortaaneurismeCards"
+  },
+  {
+    "id": "aorta_006",
+    "subject": "Akutte tilstande",
+    "topic": "Aortaaneurisme",
+    "question": "Hvorfor kan smerter ved aortaruptur stråle til ryggen?",
+    "answer": "Blod og irritation bag peritoneum påvirker nervebaner fra lumbale områder, hvilket giver rygsmerter.",
+    "difficulty": "medium",
+    "tags": [
+      "referred pain"
+    ],
+    "deckId": "aortaaneurismeCards"
+  },
+  {
+    "id": "aorta_007",
+    "subject": "Akutte tilstande",
+    "topic": "Aortaaneurisme",
+    "question": "Hvad er den farligste fysiologiske konsekvens af en aortaruptur?",
+    "answer": "Massiv intern blødning, der giver hurtigt progredierende hypovolæmisk shock og risiko for hjertestop.",
+    "difficulty": "easy",
+    "tags": [
+      "shock"
+    ],
+    "deckId": "aortaaneurismeCards"
+  },
+  {
+    "id": "aorta_008",
+    "subject": "Akutte tilstande",
+    "topic": "Aortaaneurisme",
+    "question": "Hvordan kan man som paramediciner mistænke aortaruptur præhospitalt?",
+    "answer": "Triade: Akut smerte i abdomen/ryg, hypotension og pulserende udfyldning i abdomen.",
+    "difficulty": "medium",
+    "tags": [
+      "diagnose",
+      "triade"
+    ],
+    "deckId": "aortaaneurismeCards"
+  },
+  {
+    "id": "aorta_009",
+    "subject": "Akutte tilstande",
+    "topic": "Aortaaneurisme",
+    "question": "Hvorfor skal man undgå aggressiv væskebehandling ved mistanke om ruptureret aneurisme?",
+    "answer": "For høj blodtryk kan øge blødningen; permissiv hypotension er ønsket for at bevare kredsløb uden at forværre lækagen.",
+    "difficulty": "hard",
+    "tags": [
+      "væske",
+      "permissiv hypotension"
+    ],
+    "deckId": "aortaaneurismeCards"
+  },
+  {
+    "id": "aorta_010",
+    "subject": "Akutte tilstande",
+    "topic": "Aortaaneurisme",
+    "question": "Hvordan vurderer du kredsløbsstatus ved mistanke om ruptur?",
+    "answer": "BT, puls, kapillærrespons, hudfarve, bevidsthedsniveau og tegn på shock.",
+    "difficulty": "easy",
+    "tags": [
+      "cirkulation",
+      "vitalparametre"
+    ],
+    "deckId": "aortaaneurismeCards"
+  },
+  {
+    "id": "aorta_011",
+    "subject": "Akutte tilstande",
+    "topic": "Aortaaneurisme",
+    "question": "Hvordan kan du understøtte patientens kredsløb præhospitalt uden at øge blødningen?",
+    "answer": "ABCDE, lejring med fladt rygleje, undgå unødig manipulation, minimal væske efter retningslinjer og hurtig transport.",
+    "difficulty": "medium",
+    "tags": [
+      "behandling"
+    ],
+    "deckId": "aortaaneurismeCards"
+  },
+  {
+    "id": "aorta_012",
+    "subject": "Akutte tilstande",
+    "topic": "Aortaaneurisme",
+    "question": "Hvorfor kan bevidsthedspåvirkning opstå ved aortaruptur?",
+    "answer": "Hypovolæmi og fald i cerebral perfusion reducerer hjernens ilttilførsel.",
+    "difficulty": "medium",
+    "tags": [
+      "bevidsthed",
+      "shock"
+    ],
+    "deckId": "aortaaneurismeCards"
+  },
+  {
+    "id": "aorta_013",
+    "subject": "Akutte tilstande",
+    "topic": "Aortaaneurisme",
+    "question": "Hvad er den vigtigste præhospitale prioritet ved mistanke om aortaruptur?",
+    "answer": "Hurtig transport til karkirurgisk center under ABCDE-stabilisering og minimal forsinkelse.",
+    "difficulty": "easy",
+    "tags": [
+      "prioritering",
+      "transport"
+    ],
+    "deckId": "aortaaneurismeCards"
+  },
+  {
+    "id": "aorta_014",
+    "subject": "Akutte tilstande",
+    "topic": "Aortaaneurisme",
+    "question": "Hvorfor bør patienten splintes/lejres med forsigtighed?",
+    "answer": "Unødige bevægelser og stigning i blodtryk kan forværre rupturen og blødningen.",
+    "difficulty": "medium",
+    "tags": [
+      "lejring",
+      "forsigtighed"
+    ],
+    "deckId": "aortaaneurismeCards"
+  },
+  {
+    "id": "aorta_015",
+    "subject": "Akutte tilstande",
+    "topic": "Aortaaneurisme",
+    "question": "Hvordan kan en aortaruptur fejltolkes præhospitalt?",
+    "answer": "Kan ligne nyresmerter, muskelrygsmerter, galdestensanfald, pancreatitis eller myocardieinfarkt.",
+    "difficulty": "hard",
+    "tags": [
+      "differentialdiagnoser"
+    ],
+    "deckId": "aortaaneurismeCards"
+  },
+  {
+    "id": "aorta_016",
+    "subject": "Akutte tilstande",
+    "topic": "Aortaaneurisme",
+    "question": "Hvordan påvirker alder og køn risikoen for aortaaneurisme?",
+    "answer": "Hyppigere hos mænd over 65 år, især hvis de ryger eller har hypertension.",
+    "difficulty": "easy",
+    "tags": [
+      "risiko",
+      "epidemiologi"
+    ],
+    "deckId": "aortaaneurismeCards"
+  },
+  {
+    "id": "aorta_017",
+    "subject": "Akutte tilstande",
+    "topic": "Aortaaneurisme",
+    "question": "Hvad sker der i karvæggen ved udviklingen af et aneurisme?",
+    "answer": "Degeneration af elastiske fibre og glatmuskelceller samt øget inflammation svækker karvæggen.",
+    "difficulty": "hard",
+    "tags": [
+      "patofysiologi",
+      "karvæg"
+    ],
+    "deckId": "aortaaneurismeCards"
+  },
+  {
+    "id": "aorta_018",
+    "subject": "Akutte tilstande",
+    "topic": "Aortaaneurisme",
+    "question": "Hvilken type shock ses typisk ved ruptureret aortaaneurisme?",
+    "answer": "Hypovolæmisk shock pga. massivt intravaskulært blodtab.",
+    "difficulty": "easy",
+    "tags": [
+      "shocktype"
+    ],
+    "deckId": "aortaaneurismeCards"
+  },
+  {
+    "id": "aorta_019",
+    "subject": "Akutte tilstande",
+    "topic": "Aortaaneurisme",
+    "question": "Hvad er den vigtigste kliniske indikator for indre blødning ved ruptur?",
+    "answer": "Akut BT-fald og takykardi hos patient med pludselige smerter.",
+    "difficulty": "medium",
+    "tags": [
+      "blødning",
+      "BT"
+    ],
+    "deckId": "aortaaneurismeCards"
+  },
+  {
+    "id": "aorta_020",
+    "subject": "Akutte tilstande",
+    "topic": "Aortaaneurisme",
+    "question": "Hvad er paramedicinerens rolle i håndtering af mistænkt aortaruptur?",
+    "answer": "Tidlig mistanke, ABCDE-stabilisering, undgå overbehandling med væske, monitorering, lejring og hurtig transport til karkirurgisk center.",
+    "difficulty": "medium",
+    "tags": [
+      "prehospital",
+      "rolle"
+    ],
+    "deckId": "aortaaneurismeCards"
+  },
+  {
+    "id": "apop_001",
+    "subject": "Akutte tilstande",
+    "topic": "Akut cerebral apopleksi",
+    "question": "Hvad dækker begrebet cerebral apopleksi over?",
+    "answer": "Akut opstået fokal neurologisk deficit, som skyldes enten iskæmi (blodprop) eller intracerebral blødning.",
+    "difficulty": "easy",
+    "tags": [
+      "definition"
+    ],
+    "deckId": "akutCerebralApopleksiCards"
+  },
+  {
+    "id": "apop_002",
+    "subject": "Akutte tilstande",
+    "topic": "Akut cerebral apopleksi",
+    "question": "Hvor stor en andel af apopleksier er iskæmiske blodpropper?",
+    "answer": "Ca. 85 % er iskæmiske og ca. 15 % er hæmoragiske.",
+    "difficulty": "easy",
+    "tags": [
+      "epidemiologi"
+    ],
+    "deckId": "akutCerebralApopleksiCards"
+  },
+  {
+    "id": "apop_003",
+    "subject": "Akutte tilstande",
+    "topic": "Akut cerebral apopleksi",
+    "question": "Hvorfor opstår fokale neurologiske udfald ved apopleksi?",
+    "answer": "Fordi blodforsyningen til et bestemt hjerneområde afbrydes, hvilket medfører celledød og funktionssvigt i det område.",
+    "difficulty": "medium",
+    "tags": [
+      "patofysiologi"
+    ],
+    "deckId": "akutCerebralApopleksiCards"
+  },
+  {
+    "id": "apop_004",
+    "subject": "Akutte tilstande",
+    "topic": "Akut cerebral apopleksi",
+    "question": "Hvad er 'penumbra'-zonen ved apopleksi?",
+    "answer": "Område af iskæmisk, men endnu ikke dødt hjernevæv, der kan reddes ved hurtig behandling.",
+    "difficulty": "hard",
+    "tags": [
+      "penumbra",
+      "fysiologi"
+    ],
+    "deckId": "akutCerebralApopleksiCards"
+  },
+  {
+    "id": "apop_005",
+    "subject": "Akutte tilstande",
+    "topic": "Akut cerebral apopleksi",
+    "question": "Hvad er de mest almindelige risikofaktorer for apopleksi?",
+    "answer": "Hypertension, atrieflimren, diabetes, rygning, hyperkolesterolæmi, tidligere TCI/AMI og høj alder.",
+    "difficulty": "easy",
+    "tags": [
+      "risikofaktorer"
+    ],
+    "deckId": "akutCerebralApopleksiCards"
+  },
+  {
+    "id": "apop_006",
+    "subject": "Akutte tilstande",
+    "topic": "Akut cerebral apopleksi",
+    "question": "Hvad står FAST-testen for, og hvad bruges den til?",
+    "answer": "Face (ansigtsparese), Arm (armkraft), Speech (sprog), Time (tid). Bruges til hurtig identifikation af apopleksi.",
+    "difficulty": "easy",
+    "tags": [
+      "FAST",
+      "diagnose"
+    ],
+    "deckId": "akutCerebralApopleksiCards"
+  },
+  {
+    "id": "apop_007",
+    "subject": "Akutte tilstande",
+    "topic": "Akut cerebral apopleksi",
+    "question": "Nævn tre almindelige neurologiske symptomer ved apopleksi.",
+    "answer": "Hemiparese, facialisparese, taleforstyrrelser (afasi/dysartri), synsfeltsutfald eller koordinationsbesvær.",
+    "difficulty": "easy",
+    "tags": [
+      "symptomer"
+    ],
+    "deckId": "akutCerebralApopleksiCards"
+  },
+  {
+    "id": "apop_008",
+    "subject": "Akutte tilstande",
+    "topic": "Akut cerebral apopleksi",
+    "question": "Hvordan kan en intracerebral blødning adskilles klinisk fra en blodprop?",
+    "answer": "Blødning har ofte akut svær hovedpine, kvalme, opkast, påvirket bevidsthed og hurtigt faldende tilstand.",
+    "difficulty": "hard",
+    "tags": [
+      "blødning",
+      "kliniske forskelle"
+    ],
+    "deckId": "akutCerebralApopleksiCards"
+  },
+  {
+    "id": "apop_009",
+    "subject": "Akutte tilstande",
+    "topic": "Akut cerebral apopleksi",
+    "question": "Hvorfor er tidsfaktoren kritisk ved apopleksi?",
+    "answer": "Neuroner dør hurtigt ved iskæmi. Effekt af trombolyse eller trombektomi afhænger af hurtig behandling: 'Time is brain'.",
+    "difficulty": "easy",
+    "tags": [
+      "time is brain"
+    ],
+    "deckId": "akutCerebralApopleksiCards"
+  },
+  {
+    "id": "apop_010",
+    "subject": "Akutte tilstande",
+    "topic": "Akut cerebral apopleksi",
+    "question": "Hvordan kan atrieflimren føre til apopleksi?",
+    "answer": "Stagneret blod i atrierne kan danne tromber, som kan embolisere til hjernen og skabe en arteriel okklusion.",
+    "difficulty": "medium",
+    "tags": [
+      "atrieflimren",
+      "emboli"
+    ],
+    "deckId": "akutCerebralApopleksiCards"
+  },
+  {
+    "id": "apop_011",
+    "subject": "Akutte tilstande",
+    "topic": "Akut cerebral apopleksi",
+    "question": "Hvad står ABCDE-fokus primært på ved apopleksi?",
+    "answer": "Sikring af luftveje, respiration og cirkulation samt vurdering af bevidsthed og neurologisk status.",
+    "difficulty": "easy",
+    "tags": [
+      "ABCDE"
+    ],
+    "deckId": "akutCerebralApopleksiCards"
+  },
+  {
+    "id": "apop_012",
+    "subject": "Akutte tilstande",
+    "topic": "Akut cerebral apopleksi",
+    "question": "Hvorfor må man ikke sænke blodtrykket præhospitalt ved apopleksi?",
+    "answer": "Et relativt højt blodtryk kan være nødvendigt for at opretholde cerebral perfusion i det iskæmiske område.",
+    "difficulty": "hard",
+    "tags": [
+      "blodtryk",
+      "cerebral perfusion"
+    ],
+    "deckId": "akutCerebralApopleksiCards"
+  },
+  {
+    "id": "apop_013",
+    "subject": "Akutte tilstande",
+    "topic": "Akut cerebral apopleksi",
+    "question": "Hvorfor kan hypoglykæmi ligne apopleksi?",
+    "answer": "Hypoglykæmi kan give fokale neurologiske udfald, kramper eller bevidsthedspåvirkning, som kan forveksles med apopleksi.",
+    "difficulty": "medium",
+    "tags": [
+      "differentialdiagnose"
+    ],
+    "deckId": "akutCerebralApopleksiCards"
+  },
+  {
+    "id": "apop_014",
+    "subject": "Akutte tilstande",
+    "topic": "Akut cerebral apopleksi",
+    "question": "Hvorfor er præhospital varsling af stroke-center vigtigt?",
+    "answer": "Reducerer 'door-to-needle' tid og sikrer at trombolyse/trombektomi-teamet er klar ved ankomst.",
+    "difficulty": "medium",
+    "tags": [
+      "varsling",
+      "stroke-team"
+    ],
+    "deckId": "akutCerebralApopleksiCards"
+  },
+  {
+    "id": "apop_015",
+    "subject": "Akutte tilstande",
+    "topic": "Akut cerebral apopleksi",
+    "question": "Hvad er TCI/transitorisk cerebral iskæmi?",
+    "answer": "Forbigående neurologisk udfald, der varer under 24 timer og skyldes midlertidig iskæmi uden infarkt.",
+    "difficulty": "easy",
+    "tags": [
+      "TCI",
+      "definition"
+    ],
+    "deckId": "akutCerebralApopleksiCards"
+  },
+  {
+    "id": "apop_016",
+    "subject": "Akutte tilstande",
+    "topic": "Akut cerebral apopleksi",
+    "question": "Hvordan kan du identificere påvirket tale ved apopleksi?",
+    "answer": "Afasi (problemer med sprogforståelse eller -produktion) eller dysartri (udtaleproblemer pga. motorisk kontrol).",
+    "difficulty": "medium",
+    "tags": [
+      "afasi",
+      "dysartri"
+    ],
+    "deckId": "akutCerebralApopleksiCards"
+  },
+  {
+    "id": "apop_017",
+    "subject": "Akutte tilstande",
+    "topic": "Akut cerebral apopleksi",
+    "question": "Hvordan kan cerebellar apopleksi adskille sig klinisk?",
+    "answer": "Ataksi, svimmelhed, kvalme, opkast, nystagmus, koordineringsbesvær – ofte uden hemiparese.",
+    "difficulty": "hard",
+    "tags": [
+      "cerebellum",
+      "ataksi"
+    ],
+    "deckId": "akutCerebralApopleksiCards"
+  },
+  {
+    "id": "apop_018",
+    "subject": "Akutte tilstande",
+    "topic": "Akut cerebral apopleksi",
+    "question": "Hvad er 'neglect'?",
+    "answer": "Manglende evne til at erkende ene side af kroppen eller rummet, typisk ved højresidig parietallapskade.",
+    "difficulty": "hard",
+    "tags": [
+      "neglect",
+      "neurologi"
+    ],
+    "deckId": "akutCerebralApopleksiCards"
+  },
+  {
+    "id": "apop_019",
+    "subject": "Akutte tilstande",
+    "topic": "Akut cerebral apopleksi",
+    "question": "Hvordan kan respirationsmønstret være ved alvorlig apopleksi?",
+    "answer": "Uregelmæssig respiration, Cheyne-Stokes vejrtrækning eller dyspnø pga. påvirket respirationscenter.",
+    "difficulty": "hard",
+    "tags": [
+      "respiration",
+      "brainstem"
+    ],
+    "deckId": "akutCerebralApopleksiCards"
+  },
+  {
+    "id": "apop_020",
+    "subject": "Akutte tilstande",
+    "topic": "Akut cerebral apopleksi",
+    "question": "Hvad er den vigtigste præhospitale prioritet ved apopleksi?",
+    "answer": "Tidlig mistanke, ABCDE-stabilisering, FAST-vurdering, præhospital varsling og hurtig transport til stroke-center.",
+    "difficulty": "medium",
+    "tags": [
+      "prioritering",
+      "transport"
+    ],
+    "deckId": "akutCerebralApopleksiCards"
+  },
+  {
+    "id": "akutdia_001",
+    "subject": "Akutte tilstande",
+    "topic": "Diabetes mellitus",
+    "question": "Hvad er typisk årsag til ketoacidose hos diabetespatienter?",
+    "answer": "Absolut insulinmangel, ofte udløst af infektion, stress, manglende insulin eller debut af type 1-diabetes.",
+    "difficulty": "medium",
+    "tags": [
+      "ketoacidose",
+      "årsager"
+    ],
+    "deckId": "akutDiabetesMellitusCards"
+  },
+  {
+    "id": "akutdia_002",
+    "subject": "Akutte tilstande",
+    "topic": "Diabetes mellitus",
+    "question": "Hvad er hovedforskellen mellem DKA og HHS?",
+    "answer": "DKA: Ketose, acidose, ofte type 1. HHS: Ingen ketose, meget høj glukose (>30 mmol/l), udtalt dehydrering, ofte type 2.",
+    "difficulty": "hard",
+    "tags": [
+      "DKA",
+      "HHS"
+    ],
+    "deckId": "akutDiabetesMellitusCards"
+  },
+  {
+    "id": "akutdia_003",
+    "subject": "Akutte tilstande",
+    "topic": "Diabetes mellitus",
+    "question": "Beskriv den klassiske triade af symptomer ved hyperglykæmi.",
+    "answer": "Polyuri, polydipsi og polyfagi (øget vandladning, tørst og sult).",
+    "difficulty": "easy",
+    "tags": [
+      "symptomer"
+    ],
+    "deckId": "akutDiabetesMellitusCards"
+  },
+  {
+    "id": "akutdia_004",
+    "subject": "Akutte tilstande",
+    "topic": "Diabetes mellitus",
+    "question": "Hvorfor kan diabetisk ketoacidose give dyb, sænket respirationsmønster (Kussmaul respiration)?",
+    "answer": "Respiratorisk kompensation for metabolisk acidose ved at udskille CO₂ og hæve pH.",
+    "difficulty": "hard",
+    "tags": [
+      "kussmaul",
+      "respiration"
+    ],
+    "deckId": "akutDiabetesMellitusCards"
+  },
+  {
+    "id": "akutdia_005",
+    "subject": "Akutte tilstande",
+    "topic": "Diabetes mellitus",
+    "question": "Hvorfor lugter patientens ånde ofte af acetone ved DKA?",
+    "answer": "Nedbrydning af fedtsyrer danner ketonstoffer inkl. acetone, som udåndes gennem lungerne.",
+    "difficulty": "easy",
+    "tags": [
+      "acetone",
+      "ketoner"
+    ],
+    "deckId": "akutDiabetesMellitusCards"
+  },
+  {
+    "id": "akutdia_006",
+    "subject": "Akutte tilstande",
+    "topic": "Diabetes mellitus",
+    "question": "Hvordan påvirker insulinmangel cellernes stofskifte?",
+    "answer": "Glukose kan ikke optages → cellerne skifter til fedtforbrænding → ketonstoffer, acidose og dehydrering.",
+    "difficulty": "hard",
+    "tags": [
+      "stofskifte",
+      "insulin"
+    ],
+    "deckId": "akutDiabetesMellitusCards"
+  },
+  {
+    "id": "akutdia_007",
+    "subject": "Akutte tilstande",
+    "topic": "Diabetes mellitus",
+    "question": "Hvilke vitalparametre kan være påvirket ved svær hyperglykæmi?",
+    "answer": "Hypotension, takykardi, øget RF (Kussmaul), evt. feber og påvirket bevidsthed.",
+    "difficulty": "medium",
+    "tags": [
+      "vitalparametre"
+    ],
+    "deckId": "akutDiabetesMellitusCards"
+  },
+  {
+    "id": "akutdia_008",
+    "subject": "Akutte tilstande",
+    "topic": "Diabetes mellitus",
+    "question": "Hvordan vurderer du dehydrering hos en patient med mistanke om HHS?",
+    "answer": "Tørre slimhinder, indsunken hud, takykardi, hypotension, nedsat hudturgor og påvirket bevidsthed.",
+    "difficulty": "medium",
+    "tags": [
+      "dehydrering"
+    ],
+    "deckId": "akutDiabetesMellitusCards"
+  },
+  {
+    "id": "akutdia_009",
+    "subject": "Akutte tilstande",
+    "topic": "Diabetes mellitus",
+    "question": "Hvorfor kan hyperglykæmi føre til bevidsthedspåvirkning?",
+    "answer": "Hyperosmolalitet og dehydrering reducerer hjernens perfusion og påvirker cerebrale celler.",
+    "difficulty": "hard",
+    "tags": [
+      "bevidsthed",
+      "osmolalitet"
+    ],
+    "deckId": "akutDiabetesMellitusCards"
+  },
+  {
+    "id": "akutdia_010",
+    "subject": "Akutte tilstande",
+    "topic": "Diabetes mellitus",
+    "question": "Hvordan kan hypoglykæmi fejltolkes præhospitalt?",
+    "answer": "Ligner alkohol- eller narkotikapåvirkning, stroke, epilepsi eller bevidsthedssvækkelse.",
+    "difficulty": "medium",
+    "tags": [
+      "differentialdiagnose"
+    ],
+    "deckId": "akutDiabetesMellitusCards"
+  },
+  {
+    "id": "akutdia_011",
+    "subject": "Akutte tilstande",
+    "topic": "Diabetes mellitus",
+    "question": "Nævn de klassiske symptomer på hypoglykæmi.",
+    "answer": "Sveden, tremor, uro, svimmelhed, sult, konfusion og i svære tilfælde kramper eller bevidstløshed.",
+    "difficulty": "easy",
+    "tags": [
+      "hypoglykæmi",
+      "symptomer"
+    ],
+    "deckId": "akutDiabetesMellitusCards"
+  },
+  {
+    "id": "akutdia_012",
+    "subject": "Akutte tilstande",
+    "topic": "Diabetes mellitus",
+    "question": "Hvordan behandles hypoglykæmi præhospitalt hos vågen patient?",
+    "answer": "Giv hurtigtvirkende kulhydrater, fx juice, glukosegel eller sukkerholdig drik.",
+    "difficulty": "easy",
+    "tags": [
+      "behandling",
+      "hypoglykæmi"
+    ],
+    "deckId": "akutDiabetesMellitusCards"
+  },
+  {
+    "id": "akutdia_013",
+    "subject": "Akutte tilstande",
+    "topic": "Diabetes mellitus",
+    "question": "Hvordan behandles hypoglykæmi hos bevidsthedspåvirket præhospitalt?",
+    "answer": "IV glukose (10–50 %) eller IM glucagon, hvis IV ikke muligt.",
+    "difficulty": "medium",
+    "tags": [
+      "glukose",
+      "glucagon"
+    ],
+    "deckId": "akutDiabetesMellitusCards"
+  },
+  {
+    "id": "akutdia_014",
+    "subject": "Akutte tilstande",
+    "topic": "Diabetes mellitus",
+    "question": "Hvorfor skal du altid måle blodsukker ved uklar bevidsthed?",
+    "answer": "Hypo- og hyperglykæmi kan være årsag og er relativt lette at identificere og behandle.",
+    "difficulty": "easy",
+    "tags": [
+      "vurdering",
+      "bevidsthed"
+    ],
+    "deckId": "akutDiabetesMellitusCards"
+  },
+  {
+    "id": "akutdia_015",
+    "subject": "Akutte tilstande",
+    "topic": "Diabetes mellitus",
+    "question": "Hvordan kan infektion udløse diabetisk ketoacidose?",
+    "answer": "Stressrespons med øget kortisol og adrenalin øger insulinbehovet og fremmer ketonproduktion.",
+    "difficulty": "hard",
+    "tags": [
+      "infektion",
+      "udløsere"
+    ],
+    "deckId": "akutDiabetesMellitusCards"
+  },
+  {
+    "id": "akutdia_016",
+    "subject": "Akutte tilstande",
+    "topic": "Diabetes mellitus",
+    "question": "Hvilken type shock kan ses ved DKA eller HHS?",
+    "answer": "Hypovolæmisk shock pga. dehydrering og osmotisk diurese.",
+    "difficulty": "medium",
+    "tags": [
+      "shocktype"
+    ],
+    "deckId": "akutDiabetesMellitusCards"
+  },
+  {
+    "id": "akutdia_017",
+    "subject": "Akutte tilstande",
+    "topic": "Diabetes mellitus",
+    "question": "Hvad er de vigtigste præhospitale tiltag ved mistanke om DKA?",
+    "answer": "ABCDE, måling af BS og vitalparametre, forsigtig IV-væske efter retningslinjer og hurtig transport.",
+    "difficulty": "medium",
+    "tags": [
+      "DKA",
+      "behandling"
+    ],
+    "deckId": "akutDiabetesMellitusCards"
+  },
+  {
+    "id": "akutdia_018",
+    "subject": "Akutte tilstande",
+    "topic": "Diabetes mellitus",
+    "question": "Hvorfor må man ikke korrigere hyperglykæmi for hurtigt?",
+    "answer": "Risiko for cerebralt ødem og neurologiske komplikationer ved for hastig osmotisk ændring.",
+    "difficulty": "hard",
+    "tags": [
+      "osmolalitet",
+      "komplikation"
+    ],
+    "deckId": "akutDiabetesMellitusCards"
+  },
+  {
+    "id": "akutdia_019",
+    "subject": "Akutte tilstande",
+    "topic": "Diabetes mellitus",
+    "question": "Hvordan kan du præhospitalt vurdere, om patienten har acidose?",
+    "answer": "Koordinationsbesvær, dyb Kussmaul-respiration, acetone-lugt, dehydrering og bevidsthedspåvirkning.",
+    "difficulty": "hard",
+    "tags": [
+      "acidose"
+    ],
+    "deckId": "akutDiabetesMellitusCards"
+  },
+  {
+    "id": "akutdia_020",
+    "subject": "Akutte tilstande",
+    "topic": "Diabetes mellitus",
+    "question": "Hvad er den vigtigste præhospitale prioritet ved diabetesrelateret akut tilstand?",
+    "answer": "Identificere hypo- eller hyperglykæmi, ABCDE-stabilisering, måling af blodsukker og hurtig transport ved svær påvirkning.",
+    "difficulty": "medium",
+    "tags": [
+      "prioritet",
+      "prehospital"
+    ],
+    "deckId": "akutDiabetesMellitusCards"
+  },
+  {
+    "id": "ebola_001",
+    "subject": "Akutte tilstande",
+    "topic": "Ebola og blødningsfebervirus",
+    "question": "Hvad er viral hæmoragisk feber (VHF)?",
+    "answer": "En gruppe alvorlige virusinfektioner (fx Ebola, Marburg, Lassa) karakteriseret ved feber, karvægsdestruktion, blødningstendens og multiorgansvigt.",
+    "difficulty": "easy",
+    "tags": [
+      "definition",
+      "VHF"
+    ],
+    "deckId": "ebolaBlodningsfebervirusCards"
+  },
+  {
+    "id": "ebola_002",
+    "subject": "Akutte tilstande",
+    "topic": "Ebola og blødningsfebervirus",
+    "question": "Hvordan smitter Ebola virus?",
+    "answer": "Via direkte kontakt med blod, kropsvæsker, væv fra syge eller døde personer eller dyr. Ikke luftbåren under normale forhold.",
+    "difficulty": "easy",
+    "tags": [
+      "smitte"
+    ],
+    "deckId": "ebolaBlodningsfebervirusCards"
+  },
+  {
+    "id": "ebola_003",
+    "subject": "Akutte tilstande",
+    "topic": "Ebola og blødningsfebervirus",
+    "question": "Hvorfor må en mistænkt VHF-patient ikke behandles som en almindelig infektionspatient?",
+    "answer": "På grund af høj smitsomhed, fatalitet og risiko for smitte via kontakt med væsker – kræver højt sikkerhedsniveau og isolation.",
+    "difficulty": "medium",
+    "tags": [
+      "isolation",
+      "sikkerhed"
+    ],
+    "deckId": "ebolaBlodningsfebervirusCards"
+  },
+  {
+    "id": "ebola_004",
+    "subject": "Akutte tilstande",
+    "topic": "Ebola og blødningsfebervirus",
+    "question": "Hvad er de tidligste symptomer på Ebola?",
+    "answer": "Feber, hovedpine, muskelsmerter, træthed, halspine og gastrointestinale symptomer som kvalme, opkast og diarré.",
+    "difficulty": "easy",
+    "tags": [
+      "symptomer",
+      "tidlige"
+    ],
+    "deckId": "ebolaBlodningsfebervirusCards"
+  },
+  {
+    "id": "ebola_005",
+    "subject": "Akutte tilstande",
+    "topic": "Ebola og blødningsfebervirus",
+    "question": "Hvorfor opstår blødninger ved blødningsfebervirus?",
+    "answer": "Virus ødelægger endotelceller i karvægge og forstyrrer koagulationssystemet, hvilket fører til øget permeabilitet, væsketab og blødninger.",
+    "difficulty": "hard",
+    "tags": [
+      "endotel",
+      "koagulation"
+    ],
+    "deckId": "ebolaBlodningsfebervirusCards"
+  },
+  {
+    "id": "ebola_006",
+    "subject": "Akutte tilstande",
+    "topic": "Ebola og blødningsfebervirus",
+    "question": "Hvordan kan kredsløbet påvirkes ved Ebola i fremskreden fase?",
+    "answer": "Massivt væsketab, hypotension, takykardi, hypovolæmisk shock og multiorgansvigt.",
+    "difficulty": "medium",
+    "tags": [
+      "cirkulation",
+      "shock"
+    ],
+    "deckId": "ebolaBlodningsfebervirusCards"
+  },
+  {
+    "id": "ebola_007",
+    "subject": "Akutte tilstande",
+    "topic": "Ebola og blødningsfebervirus",
+    "question": "Hvordan vurderes mistanke om VHF præhospitalt?",
+    "answer": "Feber + nylig ophold i endemisk område eller kontakt med syg/død person/dyr indenfor 21 dage.",
+    "difficulty": "medium",
+    "tags": [
+      "anamnese",
+      "risiko"
+    ],
+    "deckId": "ebolaBlodningsfebervirusCards"
+  },
+  {
+    "id": "ebola_008",
+    "subject": "Akutte tilstande",
+    "topic": "Ebola og blødningsfebervirus",
+    "question": "Hvorfor er diarré og opkast så farligt ved Ebola?",
+    "answer": "Det giver massivt væske- og elektrolyttab, risiko for shock og stor smitterisiko for sundhedspersonale ved kontakt med væskerne.",
+    "difficulty": "medium",
+    "tags": [
+      "væsketab",
+      "smitte"
+    ],
+    "deckId": "ebolaBlodningsfebervirusCards"
+  },
+  {
+    "id": "ebola_009",
+    "subject": "Akutte tilstande",
+    "topic": "Ebola og blødningsfebervirus",
+    "question": "Hvilke værnemidler skal bruges ved mistanke om VHF?",
+    "answer": "Handsker, væsketæt dragt, FFP3-maske, visir/briller, evt. overtrækskittel og dobbelt-handsker.",
+    "difficulty": "medium",
+    "tags": [
+      "værnemidler",
+      "PPE"
+    ],
+    "deckId": "ebolaBlodningsfebervirusCards"
+  },
+  {
+    "id": "ebola_010",
+    "subject": "Akutte tilstande",
+    "topic": "Ebola og blødningsfebervirus",
+    "question": "Hvorfor er korrekt af- og påtagning af PPE kritisk?",
+    "answer": "Største smitterisiko opstår ved fejl i afklædning, hvor kontaminerede overflader kan overføres til hud og slimhinder.",
+    "difficulty": "hard",
+    "tags": [
+      "PPE",
+      "sikkerhed"
+    ],
+    "deckId": "ebolaBlodningsfebervirusCards"
+  },
+  {
+    "id": "ebola_011",
+    "subject": "Akutte tilstande",
+    "topic": "Ebola og blødningsfebervirus",
+    "question": "Hvad er paramedicinerens vigtigste fokus ved VHF?",
+    "answer": "Egen sikkerhed, afstand, minimal kontakt, ABCDE-monitorering og varsling – ikke avanceret behandling i ambulancen.",
+    "difficulty": "medium",
+    "tags": [
+      "prehospital",
+      "rolle"
+    ],
+    "deckId": "ebolaBlodningsfebervirusCards"
+  },
+  {
+    "id": "ebola_012",
+    "subject": "Akutte tilstande",
+    "topic": "Ebola og blødningsfebervirus",
+    "question": "Hvordan kan blødningsfeber føre til organsvigt?",
+    "answer": "Karvægsskade → væske i væv → hypotension → iskæmi → multiorgansvigt i lever, nyrer, lunger og hjerne.",
+    "difficulty": "hard",
+    "tags": [
+      "organsvigt"
+    ],
+    "deckId": "ebolaBlodningsfebervirusCards"
+  },
+  {
+    "id": "ebola_013",
+    "subject": "Akutte tilstande",
+    "topic": "Ebola og blødningsfebervirus",
+    "question": "Hvorfor er det vigtigt at undgå nålestik og invasive procedurer ved VHF?",
+    "answer": "Høj risiko for smitte og blødning, samt minimal præhospital behandlingsgevinst, når ABCDE kan monitoreres uden nåle.",
+    "difficulty": "hard",
+    "tags": [
+      "invasive procedurer",
+      "risiko"
+    ],
+    "deckId": "ebolaBlodningsfebervirusCards"
+  },
+  {
+    "id": "ebola_014",
+    "subject": "Akutte tilstande",
+    "topic": "Ebola og blødningsfebervirus",
+    "question": "Hvad er inkubationstiden for Ebola?",
+    "answer": "Typisk 2–21 dage, afhængig af eksponeringsgrad og smittevej.",
+    "difficulty": "easy",
+    "tags": [
+      "inkubation"
+    ],
+    "deckId": "ebolaBlodningsfebervirusCards"
+  },
+  {
+    "id": "ebola_015",
+    "subject": "Akutte tilstande",
+    "topic": "Ebola og blødningsfebervirus",
+    "question": "Hvilke symptomer kan ses i den alvorlige fase?",
+    "answer": "Blødninger fra slimhinder, hæmatemese, blodig diarré, konfusion, shock og organsvigt.",
+    "difficulty": "medium",
+    "tags": [
+      "senfase"
+    ],
+    "deckId": "ebolaBlodningsfebervirusCards"
+  },
+  {
+    "id": "ebola_016",
+    "subject": "Akutte tilstande",
+    "topic": "Ebola og blødningsfebervirus",
+    "question": "Hvilken type shock ses typisk ved VHF?",
+    "answer": "Kombination af hypovolæmisk og septisk shock.",
+    "difficulty": "medium",
+    "tags": [
+      "shocktype"
+    ],
+    "deckId": "ebolaBlodningsfebervirusCards"
+  },
+  {
+    "id": "ebola_017",
+    "subject": "Akutte tilstande",
+    "topic": "Ebola og blødningsfebervirus",
+    "question": "Hvilke forholdsregler gælder for transport af VHF-patient?",
+    "answer": "Isoler patienten, minimer kontakt, brug PPE, informer modtagende hospital, og anvend dedikeret ambulance hvis muligt.",
+    "difficulty": "medium",
+    "tags": [
+      "transport"
+    ],
+    "deckId": "ebolaBlodningsfebervirusCards"
+  },
+  {
+    "id": "ebola_018",
+    "subject": "Akutte tilstande",
+    "topic": "Ebola og blødningsfebervirus",
+    "question": "Hvordan skal ambulance og udstyr håndteres efter mistanke om VHF?",
+    "answer": "Alt udstyr dekontamineres eller bortskaffes efter protokol, og ambulance desinficeres grundigt.",
+    "difficulty": "hard",
+    "tags": [
+      "desinfektion"
+    ],
+    "deckId": "ebolaBlodningsfebervirusCards"
+  },
+  {
+    "id": "ebola_019",
+    "subject": "Akutte tilstande",
+    "topic": "Ebola og blødningsfebervirus",
+    "question": "Hvorfor er væsketerapi centralt i behandlingen på hospital?",
+    "answer": "For at modvirke hypovolæmi, elektrolytforstyrrelser og shock, da patienten mister store væskemængder gennem opkast og diarré.",
+    "difficulty": "medium",
+    "tags": [
+      "væskebehandling"
+    ],
+    "deckId": "ebolaBlodningsfebervirusCards"
+  },
+  {
+    "id": "ebola_020",
+    "subject": "Akutte tilstande",
+    "topic": "Ebola og blødningsfebervirus",
+    "question": "Hvad er den præhospitale hovedprioritet ved VHF?",
+    "answer": "Beskyt dig selv, mistænk diagnosen via anamnese og symptomer, etabler minimal ABCDE overvågning, undgå kontakt og varsling af infektionsberedskab.",
+    "difficulty": "medium",
+    "tags": [
+      "prioritet"
+    ],
+    "deckId": "ebolaBlodningsfebervirusCards"
+  },
+  {
+    "id": "forgift_001",
+    "subject": "Akutte tilstande",
+    "topic": "Forgiftninger",
+    "question": "Hvad er de overordnede mål ved præhospital håndtering af forgiftninger?",
+    "answer": "ABCDE-stabilisering, identificering af giftstoffet, forebyggelse af yderligere optagelse og hurtig transport til relevant hospital.",
+    "difficulty": "easy",
+    "tags": [
+      "behandling",
+      "ABC"
+    ],
+    "deckId": "forgiftningerCards"
+  },
+  {
+    "id": "forgift_002",
+    "subject": "Akutte tilstande",
+    "topic": "Forgiftninger",
+    "question": "Hvad står 'Toxidrom' for?",
+    "answer": "Et karakteristisk sæt af symptomer og fund, som kan hjælpe med at identificere en bestemt type forgiftning.",
+    "difficulty": "medium",
+    "tags": [
+      "toxidrom",
+      "definition"
+    ],
+    "deckId": "forgiftningerCards"
+  },
+  {
+    "id": "forgift_003",
+    "subject": "Akutte tilstande",
+    "topic": "Forgiftninger",
+    "question": "Nævn tre typiske typer toxidromer.",
+    "answer": "Antikolinergt, kolinergt, opioidt, sympatikomimetisk og sedativt/hypnotisk.",
+    "difficulty": "medium",
+    "tags": [
+      "toxidrom",
+      "typer"
+    ],
+    "deckId": "forgiftningerCards"
+  },
+  {
+    "id": "forgift_004",
+    "subject": "Akutte tilstande",
+    "topic": "Forgiftninger",
+    "question": "Hvilke kliniske tegn ses typisk ved opioidt toxidrom?",
+    "answer": "Miose (små pupiller), respirationsdepression, CNS-depression, bradykardi og hypotension.",
+    "difficulty": "easy",
+    "tags": [
+      "opioid",
+      "toxidrom"
+    ],
+    "deckId": "forgiftningerCards"
+  },
+  {
+    "id": "forgift_005",
+    "subject": "Akutte tilstande",
+    "topic": "Forgiftninger",
+    "question": "Hvad er det vigtigste lægemiddel til behandling af opioidoverdosis?",
+    "answer": "Naloxon, en opioidantagonist, som ophæver virkningen på opioidreceptorerne.",
+    "difficulty": "easy",
+    "tags": [
+      "naloxon",
+      "behandling"
+    ],
+    "deckId": "forgiftningerCards"
+  },
+  {
+    "id": "forgift_006",
+    "subject": "Akutte tilstande",
+    "topic": "Forgiftninger",
+    "question": "Hvordan præsenterer et antikolinergt toxidrom sig?",
+    "answer": "Tør mund, varm og tør hud, dilaterede pupiller, agitation, takykardi og urinretention. 'Hot as a hare, dry as a bone, blind as a bat'.",
+    "difficulty": "hard",
+    "tags": [
+      "antikolinerg",
+      "toxidrom"
+    ],
+    "deckId": "forgiftningerCards"
+  },
+  {
+    "id": "forgift_007",
+    "subject": "Akutte tilstande",
+    "topic": "Forgiftninger",
+    "question": "Hvad er typiske symptomer ved kolinerg forgiftning (fx organofosfater)?",
+    "answer": "SLUDGE: Salivation, Lacrimation, Urination, Defecation, GI upset, Emesis + bronkospasme, miose og bradykardi.",
+    "difficulty": "hard",
+    "tags": [
+      "kolinerg",
+      "organofosfater"
+    ],
+    "deckId": "forgiftningerCards"
+  },
+  {
+    "id": "forgift_008",
+    "subject": "Akutte tilstande",
+    "topic": "Forgiftninger",
+    "question": "Hvilket antidot bruges ved organofosfatforgiftning?",
+    "answer": "Atropin og evt. Pralidoxim (2-PAM).",
+    "difficulty": "medium",
+    "tags": [
+      "atropin",
+      "antidot"
+    ],
+    "deckId": "forgiftningerCards"
+  },
+  {
+    "id": "forgift_009",
+    "subject": "Akutte tilstande",
+    "topic": "Forgiftninger",
+    "question": "Hvordan kan man præhospitalt vurdere cyanidforgiftning?",
+    "answer": "Pludselig bevidsthedspåvirkning, rødt iltmættet blod, hypotension, brændende lugt og evt. eksposition i brandmiljø.",
+    "difficulty": "hard",
+    "tags": [
+      "cyanid"
+    ],
+    "deckId": "forgiftningerCards"
+  },
+  {
+    "id": "forgift_010",
+    "subject": "Akutte tilstande",
+    "topic": "Forgiftninger",
+    "question": "Hvad er den primære præhospitale behandling ved mistanke om paracetamolforgiftning?",
+    "answer": "ABCDE, information om indtag (tid, mængde), kontakt til Giftlinjen og hurtig transport – antidot (N-acetylcystein) gives på hospital.",
+    "difficulty": "medium",
+    "tags": [
+      "paracetamol",
+      "anamnese"
+    ],
+    "deckId": "forgiftningerCards"
+  },
+  {
+    "id": "forgift_011",
+    "subject": "Akutte tilstande",
+    "topic": "Forgiftninger",
+    "question": "Hvad er den største risiko ved svær jernforgiftning?",
+    "answer": "Metabolisk acidose, hypovolæmisk shock og multiorgansvigt.",
+    "difficulty": "hard",
+    "tags": [
+      "jernforgiftning"
+    ],
+    "deckId": "forgiftningerCards"
+  },
+  {
+    "id": "forgift_012",
+    "subject": "Akutte tilstande",
+    "topic": "Forgiftninger",
+    "question": "Hvordan kan du identificere inhalationsforgiftning ved brand?",
+    "answer": "Sod i mund/næse, hæshed, hoste, dyspnø, brændt hår i næse, stridor og mental påvirkning.",
+    "difficulty": "medium",
+    "tags": [
+      "inhalation",
+      "brand"
+    ],
+    "deckId": "forgiftningerCards"
+  },
+  {
+    "id": "forgift_013",
+    "subject": "Akutte tilstande",
+    "topic": "Forgiftninger",
+    "question": "Hvorfor må man ikke fremprovokere opkast ved ukendt kemisk indtag?",
+    "answer": "Risiko for ætsningsskader, aspiration og yderligere skade på luftveje og GI-mucosa.",
+    "difficulty": "medium",
+    "tags": [
+      "opkast",
+      "fare"
+    ],
+    "deckId": "forgiftningerCards"
+  },
+  {
+    "id": "forgift_014",
+    "subject": "Akutte tilstande",
+    "topic": "Forgiftninger",
+    "question": "Hvad er de vigtigste præhospitale informationer til hospitalet ved forgiftning?",
+    "answer": "Tidspunkt, stofnavn, mængde, eksponeringsvej, symptomer, ABCDE-status og evt. pakning/bøtte medbringes.",
+    "difficulty": "easy",
+    "tags": [
+      "overlevering"
+    ],
+    "deckId": "forgiftningerCards"
+  },
+  {
+    "id": "forgift_015",
+    "subject": "Akutte tilstande",
+    "topic": "Forgiftninger",
+    "question": "Hvorfor er luftvejshåndtering særligt vigtigt ved forgiftninger?",
+    "answer": "Mange giftstoffer påvirker CNS og respiration → risiko for respirationsdepression, aspiration eller luftvejsødem.",
+    "difficulty": "medium",
+    "tags": [
+      "luftvej",
+      "CNS"
+    ],
+    "deckId": "forgiftningerCards"
+  },
+  {
+    "id": "forgift_016",
+    "subject": "Akutte tilstande",
+    "topic": "Forgiftninger",
+    "question": "Hvordan kan man præhospitalt vurdere fareniveau ved ukendt kemisk eksponering?",
+    "answer": "ABCDE + vurdering af symptomer, eksponeringsvej, miljø (gas, væske, pulver), og om andre omkringværende også er påvirkede.",
+    "difficulty": "medium",
+    "tags": [
+      "risikovurdering"
+    ],
+    "deckId": "forgiftningerCards"
+  },
+  {
+    "id": "forgift_017",
+    "subject": "Akutte tilstande",
+    "topic": "Forgiftninger",
+    "question": "Hvad er første prioritet hvis du ankommer til flere forgiftede personer?",
+    "answer": "Mistænk miljøforgiftning, hold afstand, brug værnemidler, tilkald relevant beredskab, og beskyt dig selv før behandling.",
+    "difficulty": "medium",
+    "tags": [
+      "scene safety",
+      "værnemidler"
+    ],
+    "deckId": "forgiftningerCards"
+  },
+  {
+    "id": "forgift_018",
+    "subject": "Akutte tilstande",
+    "topic": "Forgiftninger",
+    "question": "Hvilket toksisk syndrom kan give hypertermi, agitation, takykardi, hypertension, store pupiller og svedtendens?",
+    "answer": "Sympatikomimetisk toxidrom, typisk efter kokain, amfetamin eller MDMA.",
+    "difficulty": "hard",
+    "tags": [
+      "sympatikomimetisk"
+    ],
+    "deckId": "forgiftningerCards"
+  },
+  {
+    "id": "forgift_019",
+    "subject": "Akutte tilstande",
+    "topic": "Forgiftninger",
+    "question": "Hvilke vitale parametre er særligt vigtige ved forgiftninger?",
+    "answer": "Respiration, saturation, puls, blodtryk, temperatur, bevidsthedsniveau og pupilstørrelse.",
+    "difficulty": "easy",
+    "tags": [
+      "vitalparametre"
+    ],
+    "deckId": "forgiftningerCards"
+  },
+  {
+    "id": "forgift_020",
+    "subject": "Akutte tilstande",
+    "topic": "Forgiftninger",
+    "question": "Hvad er paramedicinerens vigtigste rolle ved forgiftning?",
+    "answer": "Beskyt dig selv, stabilisér ABCDE, indsamle oplysninger om giftstoffet og sikre hurtig transport til korrekt behandlingsfacilitet.",
+    "difficulty": "easy",
+    "tags": [
+      "prehospital",
+      "rolle"
+    ],
+    "deckId": "forgiftningerCards"
+  },
+  {
+    "id": "grovrep_001",
+    "subject": "Akutte tilstande",
+    "topic": "Grovreponering",
+    "question": "Hvad betyder grovreponering præhospitalt?",
+    "answer": "Tilnærmet korrektion af fejlstilling ved ledskred eller fraktur, når positionen truer neurovaskulære forhold eller hindrer transport. Ikke fuld anatomisk reposition. :contentReference[oaicite:1]{index=1}",
+    "difficulty": "easy",
+    "tags": [
+      "definition"
+    ],
+    "deckId": "grovreponeringCards"
+  },
+  {
+    "id": "grovrep_002",
+    "subject": "Akutte tilstande",
+    "topic": "Grovreponering",
+    "question": "Hvornår er grovreponering præhospitalt indiceret?",
+    "answer": "Når der er truede neurovaskulære forhold eller fejlstillingen forhindrer immobilisering og sikker transport. :contentReference[oaicite:2]{index=2}",
+    "difficulty": "medium",
+    "tags": [
+      "indikation"
+    ],
+    "deckId": "grovreponeringCards"
+  },
+  {
+    "id": "grovrep_003",
+    "subject": "Akutte tilstande",
+    "topic": "Grovreponering",
+    "question": "Hvilke tegn tyder på truede neurovaskulære forhold?",
+    "answer": "Manglende puls, nedsat følesans, motorisk udfald, bleg/cyanotisk ekstremitet eller forlænget kapillærrespons. :contentReference[oaicite:3]{index=3}",
+    "difficulty": "medium",
+    "tags": [
+      "neurovaskulær",
+      "vurdering"
+    ],
+    "deckId": "grovreponeringCards"
+  },
+  {
+    "id": "grovrep_004",
+    "subject": "Akutte tilstande",
+    "topic": "Grovreponering",
+    "question": "Hvorfor er det vigtigt at dokumentere før og efter grovreponering?",
+    "answer": "For at vurdere ændring i neurovaskulære forhold og sikre medicinsk ansvarlighed og sporbarhed af behandlingen. :contentReference[oaicite:4]{index=4}",
+    "difficulty": "medium",
+    "tags": [
+      "dokumentation"
+    ],
+    "deckId": "grovreponeringCards"
+  },
+  {
+    "id": "grovrep_005",
+    "subject": "Akutte tilstande",
+    "topic": "Grovreponering",
+    "question": "Hvorfor skal der ved grovreponering ofte påsættes SAT-måler på den reponerede ekstremitet?",
+    "answer": "For at vurdere perifer perfusion og tidligt opdage mangelfuld blodtilførsel. :contentReference[oaicite:5]{index=5}",
+    "difficulty": "easy",
+    "tags": [
+      "monitorering"
+    ],
+    "deckId": "grovreponeringCards"
+  },
+  {
+    "id": "grovrep_006",
+    "subject": "Akutte tilstande",
+    "topic": "Grovreponering",
+    "question": "Hvorfor skal skulderluksationer som hovedregel ikke grovreponeres præhospitalt?",
+    "answer": "Førstegangsluksationer og traumatiske tilfælde kan skjule fraktur og risiko for nerveskade; reponering bør ske på hospital. :contentReference[oaicite:6]{index=6}",
+    "difficulty": "medium",
+    "tags": [
+      "skulder",
+      "kontraindikation"
+    ],
+    "deckId": "grovreponeringCards"
+  },
+  {
+    "id": "grovrep_007",
+    "subject": "Akutte tilstande",
+    "topic": "Grovreponering",
+    "question": "Hvornår kan recidiverende skulderluksation reponeres præhospitalt?",
+    "answer": "Ved atraumatisk, anterior recidiverende luksation uden neurologisk udfald kan grovreponering forsøges, hvis patienten tidligere har fået det gjort. :contentReference[oaicite:7]{index=7}",
+    "difficulty": "hard",
+    "tags": [
+      "skulder",
+      "indikation"
+    ],
+    "deckId": "grovreponeringCards"
+  },
+  {
+    "id": "grovrep_008",
+    "subject": "Akutte tilstande",
+    "topic": "Grovreponering",
+    "question": "Hvorfor er tommel- og storetås-luksationer kontraindiceret for grovreponering præhospitalt?",
+    "answer": "Risiko for komplekse skader med ligament-, kar- og seneskader. Disse kræver billeddiagnostik og specialistbehandling. :contentReference[oaicite:8]{index=8}",
+    "difficulty": "medium",
+    "tags": [
+      "kontraindikation"
+    ],
+    "deckId": "grovreponeringCards"
+  },
+  {
+    "id": "grovrep_009",
+    "subject": "Akutte tilstande",
+    "topic": "Grovreponering",
+    "question": "Hvorfor skal åbne frakturer håndteres særligt forsigtigt?",
+    "answer": "Huden anses som perforeret adgang til frakturen; infektionsrisiko, behov for steril forbinding og hurtig kirurgisk behandling. :contentReference[oaicite:9]{index=9}",
+    "difficulty": "hard",
+    "tags": [
+      "åben fraktur"
+    ],
+    "deckId": "grovreponeringCards"
+  },
+  {
+    "id": "grovrep_010",
+    "subject": "Akutte tilstande",
+    "topic": "Grovreponering",
+    "question": "Hvad er de vigtigste trin ved håndtering af åbne frakturer?",
+    "answer": "Smertebehandling, fotodokumentation, overfladisk skylning, steril NaCl-forbinding, stabilisering og hurtig transport. :contentReference[oaicite:10]{index=10}",
+    "difficulty": "medium",
+    "tags": [
+      "åben fraktur"
+    ],
+    "deckId": "grovreponeringCards"
+  },
+  {
+    "id": "grovrep_011",
+    "subject": "Akutte tilstande",
+    "topic": "Grovreponering",
+    "question": "Hvorfor er sufficient smertebehandling afgørende før grovreponering?",
+    "answer": "Reducerer smerte, muskelspasmer og gør repositionering mulig og mere skånsom. :contentReference[oaicite:11]{index=11}",
+    "difficulty": "medium",
+    "tags": [
+      "smerte",
+      "analgesi"
+    ],
+    "deckId": "grovreponeringCards"
+  },
+  {
+    "id": "grovrep_012",
+    "subject": "Akutte tilstande",
+    "topic": "Grovreponering",
+    "question": "Hvilken rolle kan akutlægebilen (ALB) spille ved grovreponering?",
+    "answer": "Kan assistere med analgesi, sedation, ultralydsvurdering eller traction-spint, især ved fx lårbensfrakturer. :contentReference[oaicite:12]{index=12}",
+    "difficulty": "medium",
+    "tags": [
+      "akutlægebil"
+    ],
+    "deckId": "grovreponeringCards"
+  },
+  {
+    "id": "grovrep_013",
+    "subject": "Akutte tilstande",
+    "topic": "Grovreponering",
+    "question": "Hvorfor kan lårbensfrakturer kræve grovreponering præhospitalt?",
+    "answer": "Fejlstilling og smerter kan forhindre transport og truede kar/nerver kan kræve reposition. Traction-spint kan være nødvendig. :contentReference[oaicite:13]{index=13}",
+    "difficulty": "hard",
+    "tags": [
+      "lårben",
+      "reponering"
+    ],
+    "deckId": "grovreponeringCards"
+  },
+  {
+    "id": "grovrep_014",
+    "subject": "Akutte tilstande",
+    "topic": "Grovreponering",
+    "question": "Hvordan vurderes distale vs. midtskaftfrakturer i underarm og underben?",
+    "answer": "Midtskaftfrakturer kan grovreponeres ved truede neurovaskulære forhold. Distale frakturer bør stabiliseres i findestilling og ikke manipuleres. :contentReference[oaicite:14]{index=14}",
+    "difficulty": "hard",
+    "tags": [
+      "underarm",
+      "underben"
+    ],
+    "deckId": "grovreponeringCards"
+  },
+  {
+    "id": "grovrep_015",
+    "subject": "Akutte tilstande",
+    "topic": "Grovreponering",
+    "question": "Hvorfor er børn under 18 år relativ kontraindikation?",
+    "answer": "Risiko for vækstzonskader og fremtidig deformitet. Kræver specialistvurdering. :contentReference[oaicite:15]{index=15}",
+    "difficulty": "medium",
+    "tags": [
+      "børn",
+      "vækstzone"
+    ],
+    "deckId": "grovreponeringCards"
+  },
+  {
+    "id": "grovrep_016",
+    "subject": "Akutte tilstande",
+    "topic": "Grovreponering",
+    "question": "Hvad er paramedicinerens primære rolle ved grovreponering?",
+    "answer": "ABCDE-stabilisering, vurdering af neurovaskulære forhold, smertebehandling, immobilisering og korrekt visitation – ikke fuld ortopædisk behandling.",
+    "difficulty": "medium",
+    "tags": [
+      "paramedicinerrolle"
+    ],
+    "deckId": "grovreponeringCards"
+  },
+  {
+    "id": "grovrep_017",
+    "subject": "Akutte tilstande",
+    "topic": "Grovreponering",
+    "question": "Hvorfor er præhospital grovreponering aldrig kosmetisk?",
+    "answer": "Reponering udføres kun ved truede kar/nerver eller for transport, ikke for kosmetisk korrektion. :contentReference[oaicite:16]{index=16}",
+    "difficulty": "easy",
+    "tags": [
+      "indikation"
+    ],
+    "deckId": "grovreponeringCards"
+  },
+  {
+    "id": "grovrep_018",
+    "subject": "Akutte tilstande",
+    "topic": "Grovreponering",
+    "question": "Hvordan bør patienten transporteres efter grovreponering?",
+    "answer": "Med stabiliseret ekstremitet, smertedækning, SAT-monitorering og vurdering for behov af ALB eller akutmodtagelse. :contentReference[oaicite:17]{index=17}",
+    "difficulty": "medium",
+    "tags": [
+      "transport"
+    ],
+    "deckId": "grovreponeringCards"
+  },
+  {
+    "id": "grovrep_019",
+    "subject": "Akutte tilstande",
+    "topic": "Grovreponering",
+    "question": "Hvorfor er tid afgørende ved hoftefraktur?",
+    "answer": "Fald kan give kompression, vævsskade og øget mortalitet. Hurtig transport og smertelindring prioriteres frem for grovreponering. :contentReference[oaicite:18]{index=18}",
+    "difficulty": "medium",
+    "tags": [
+      "hofte"
+    ],
+    "deckId": "grovreponeringCards"
+  },
+  {
+    "id": "grovrep_020",
+    "subject": "Akutte tilstande",
+    "topic": "Grovreponering",
+    "question": "Hvad er den vigtigste præhospitale prioritet ved grovreponering?",
+    "answer": "Beskyttelse af neurovaskulære forhold, smertelindring, ABCDE-stabilisering og sikker transport – aldrig kosmetisk korrektion. :contentReference[oaicite:19]{index=19}",
+    "difficulty": "easy",
+    "tags": [
+      "prioritet"
+    ],
+    "deckId": "grovreponeringCards"
+  },
+  {
+    "id": "hjst_001",
+    "subject": "Akutte tilstande",
+    "topic": "Hjertestop",
+    "question": "Hvordan defineres klinisk hjertestop præhospitalt?",
+    "answer": "Patienten er bevidstløs, uden normal vejrtrækning (eller har agonal gasping), og der er ingen tegn på liv. :contentReference[oaicite:1]{index=1}",
+    "difficulty": "easy",
+    "tags": [
+      "definition",
+      "voksne"
+    ],
+    "deckId": "akuthjertestopCards"
+  },
+  {
+    "id": "hjst_002",
+    "subject": "Akutte tilstande",
+    "topic": "Hjertestop",
+    "question": "Hvad er agonal vejrtrækning?",
+    "answer": "Langsom, gispende eller støjende vejrtrækning, som kan forekomme de første minutter efter hjertestop. Ikke normal respiration. :contentReference[oaicite:2]{index=2}",
+    "difficulty": "easy",
+    "tags": [
+      "respiration",
+      "agonal"
+    ],
+    "deckId": "akuthjertestopCards"
+  },
+  {
+    "id": "hjst_003",
+    "subject": "Akutte tilstande",
+    "topic": "Hjertestop",
+    "question": "Hvordan prioriteres BLS og ALS i præhospital behandling?",
+    "answer": "BLS 'ejer' HLR. ALS foregår parallelt uden afbrydelse af igangværende basale HLR. :contentReference[oaicite:3]{index=3}",
+    "difficulty": "medium",
+    "tags": [
+      "BLS",
+      "ALS"
+    ],
+    "deckId": "akuthjertestopCards"
+  },
+  {
+    "id": "hjst_004",
+    "subject": "Akutte tilstande",
+    "topic": "Hjertestop",
+    "question": "Nævn de vigtigste principper for højkvalitets-HLR.",
+    "answer": "Frekvens 100–120/min, dybde 5–6 cm, fuld recoil, skift hver 2. minut, ventilation efter intubation 10/min, minimale pauser (<3–5 sek). :contentReference[oaicite:4]{index=4}",
+    "difficulty": "medium",
+    "tags": [
+      "HLR",
+      "kvalitet"
+    ],
+    "deckId": "akuthjertestopCards"
+  },
+  {
+    "id": "hjst_005",
+    "subject": "Akutte tilstande",
+    "topic": "Hjertestop",
+    "question": "Hvornår anvendes 3 'stacked shocks'?",
+    "answer": "Ved overvågede hjertestop med stødbare rytmer (VF/pVT) og monitor på fra starten. Tre stød uden HLR imellem. :contentReference[oaicite:5]{index=5}",
+    "difficulty": "hard",
+    "tags": [
+      "defibrillering",
+      "stødbare rytmer"
+    ],
+    "deckId": "akuthjertestopCards"
+  },
+  {
+    "id": "hjst_006",
+    "subject": "Akutte tilstande",
+    "topic": "Hjertestop",
+    "question": "Hvilken defibrilleringsenergi bruges hos voksne?",
+    "answer": "Bifasisk defibrillator: standard 200 J (kan variere efter model). Ved fortsat VF/pVT: samme eller stigende energi efter producentens anbefaling. :contentReference[oaicite:6]{index=6}",
+    "difficulty": "medium",
+    "tags": [
+      "defibrillering",
+      "energi"
+    ],
+    "deckId": "akuthjertestopCards"
+  },
+  {
+    "id": "hjst_007",
+    "subject": "Akutte tilstande",
+    "topic": "Hjertestop",
+    "question": "Hvornår gives første dosis adrenalin ved stødbare rytmer?",
+    "answer": "Efter tredje stød, samtidig med genoptagning af HLR. :contentReference[oaicite:7]{index=7}",
+    "difficulty": "medium",
+    "tags": [
+      "adrenalin",
+      "stødbare rytmer"
+    ],
+    "deckId": "akuthjertestopCards"
+  },
+  {
+    "id": "hjst_008",
+    "subject": "Akutte tilstande",
+    "topic": "Hjertestop",
+    "question": "Hvordan doseres adrenalin hos voksne i hjertestop?",
+    "answer": "1 mg IV/IO hvert 3.–5. minut (hver anden cyklus). :contentReference[oaicite:8]{index=8}",
+    "difficulty": "easy",
+    "tags": [
+      "medicin",
+      "adrenalin"
+    ],
+    "deckId": "akuthjertestopCards"
+  },
+  {
+    "id": "hjst_009",
+    "subject": "Akutte tilstande",
+    "topic": "Hjertestop",
+    "question": "Hvornår gives amiodaron ved ventrikelflimren/pVT?",
+    "answer": "Første dosis (300 mg IV/IO) gives efter tredje stød. Evt. ekstra 150 mg efter femte stød. :contentReference[oaicite:9]{index=9}",
+    "difficulty": "hard",
+    "tags": [
+      "amiodaron",
+      "rytmer"
+    ],
+    "deckId": "akuthjertestopCards"
+  },
+  {
+    "id": "hjst_010",
+    "subject": "Akutte tilstande",
+    "topic": "Hjertestop",
+    "question": "Hvad er de 4 H'er (reversible hjertestopårsager)?",
+    "answer": "Hypoksi, hypovolæmi, hypo-/hyperkaliæmi & metabolisk forstyrrelse, hypotermi. :contentReference[oaicite:10]{index=10}",
+    "difficulty": "medium",
+    "tags": [
+      "reversible årsager"
+    ],
+    "deckId": "akuthjertestopCards"
+  },
+  {
+    "id": "hjst_011",
+    "subject": "Akutte tilstande",
+    "topic": "Hjertestop",
+    "question": "Hvad er de 4 T'er (reversible hjertestopårsager)?",
+    "answer": "Trykpneumothorax, Tamponade (hjerte), Trombo-emboli, Toxicitet. :contentReference[oaicite:11]{index=11}",
+    "difficulty": "medium",
+    "tags": [
+      "reversible årsager"
+    ],
+    "deckId": "akuthjertestopCards"
+  },
+  {
+    "id": "hjst_012",
+    "subject": "Akutte tilstande",
+    "topic": "Hjertestop",
+    "question": "Hvordan håndteres hjertestop hos børn ifølge Region H?",
+    "answer": "Start med 5 ventilationer, derefter 15:2 ved to reddere. Ved intubation: kontinuerlige kompressioner 100–120/min og ventilation 10/min. :contentReference[oaicite:12]{index=12}",
+    "difficulty": "medium",
+    "tags": [
+      "børn",
+      "ventilation"
+    ],
+    "deckId": "akuthjertestopCards"
+  },
+  {
+    "id": "hjst_013",
+    "subject": "Akutte tilstande",
+    "topic": "Hjertestop",
+    "question": "Hvad er første defibrillering i pædiatrisk hjertestop?",
+    "answer": "4 J/kg legemsvægt, maks. 200 J. :contentReference[oaicite:13]{index=13}",
+    "difficulty": "medium",
+    "tags": [
+      "børn",
+      "defibrillering"
+    ],
+    "deckId": "akuthjertestopCards"
+  },
+  {
+    "id": "hjst_014",
+    "subject": "Akutte tilstande",
+    "topic": "Hjertestop",
+    "question": "Hvordan doseres adrenalin til børn ved hjertestop?",
+    "answer": "0,01 mg/kg IV/IO (0,1 ml/kg af 0,1 mg/ml), gentages hvert 3.–5. minut. :contentReference[oaicite:14]{index=14}",
+    "difficulty": "hard",
+    "tags": [
+      "børn",
+      "medicin"
+    ],
+    "deckId": "akuthjertestopCards"
+  },
+  {
+    "id": "hjst_015",
+    "subject": "Akutte tilstande",
+    "topic": "Hjertestop",
+    "question": "Hvordan vurderes effekten af HLR præhospitalt?",
+    "answer": "Kapnografi: ETCO₂ > 1,33 kPa tyder på effektiv HLR. Pludseligt fald under hjertemassage kan indikere ROSC. :contentReference[oaicite:15]{index=15}",
+    "difficulty": "hard",
+    "tags": [
+      "kapnografi",
+      "monitorering"
+    ],
+    "deckId": "akuthjertestopCards"
+  },
+  {
+    "id": "hjst_016",
+    "subject": "Akutte tilstande",
+    "topic": "Hjertestop",
+    "question": "Hvornår bør intubation under HLR overvejes?",
+    "answer": "Kun hvis det kan ske uden afbrydelse af kompressioner. Ellers udsættes til efter ROSC. :contentReference[oaicite:16]{index=16}",
+    "difficulty": "medium",
+    "tags": [
+      "intubation",
+      "luftvej"
+    ],
+    "deckId": "akuthjertestopCards"
+  },
+  {
+    "id": "hjst_017",
+    "subject": "Akutte tilstande",
+    "topic": "Hjertestop",
+    "question": "Hvordan håndteres traumatisk hjertestop anderledes?",
+    "answer": "ABC ændres til CABC, fokus på reversible årsager (hypovolæmi, trykpneumothorax, tamponade) og hæmostase frem for medicin. :contentReference[oaicite:17]{index=17}",
+    "difficulty": "hard",
+    "tags": [
+      "traumatisk",
+      "hjertestop"
+    ],
+    "deckId": "akuthjertestopCards"
+  },
+  {
+    "id": "hjst_018",
+    "subject": "Akutte tilstande",
+    "topic": "Hjertestop",
+    "question": "Hvordan håndteres ROSC præhospitalt?",
+    "answer": "Sikring af luftvej, iltning (SpO₂ 94–98%), mål-MAP ≥ 65 mmHg, 12-aflednings-EKG, temperaturkontrol og hurtig transport.",
+    "difficulty": "medium",
+    "tags": [
+      "ROSC"
+    ],
+    "deckId": "akuthjertestopCards"
+  },
+  {
+    "id": "hjst_019",
+    "subject": "Akutte tilstande",
+    "topic": "Hjertestop",
+    "question": "Hvornår afsluttes genoplivningsforsøg normalt?",
+    "answer": "Ved vedvarende asystoli uden reversible årsager og ingen respons på HLR/ALS efter langvarig indsats. ",
+    "difficulty": "medium",
+    "tags": [
+      "ophør",
+      "prognose"
+    ],
+    "deckId": "akuthjertestopCards"
+  },
+  {
+    "id": "hjst_020",
+    "subject": "Akutte tilstande",
+    "topic": "Hjertestop",
+    "question": "Hvad er paramedicinerens vigtigste rolle ved hjertestop?",
+    "answer": "Levere højkvalitets-HLR, teamledelse, ALS-interventioner, sikre kommunikation, identificere reversible årsager og forberede ROSC eller ophør. ",
+    "difficulty": "easy",
+    "tags": [
+      "paramediciner",
+      "team"
+    ],
+    "deckId": "akuthjertestopCards"
+  },
+  {
+    "id": "htraume_001",
+    "subject": "Akutte tilstande",
+    "topic": "Hovedtraume",
+    "question": "Hvordan defineres et hovedtraume præhospitalt?",
+    "answer": "Traume mod hovedet med mistanke om skade på ydre eller indre strukturer, herunder hjernen, kraniet eller blodkar. :contentReference[oaicite:1]{index=1}",
+    "difficulty": "easy",
+    "tags": [
+      "definition"
+    ],
+    "deckId": "hovedtraumeCards"
+  },
+  {
+    "id": "htraume_002",
+    "subject": "Akutte tilstande",
+    "topic": "Hovedtraume",
+    "question": "Hvad er forskellen på primær og sekundær hjerneskade?",
+    "answer": "Primær skade sker ved traumet. Sekundær skade skyldes hypoksi, hypotension, hypoglykæmi, eller forhøjet ICP, og kan forebygges præhospitalt. :contentReference[oaicite:2]{index=2}",
+    "difficulty": "medium",
+    "tags": [
+      "primær",
+      "sekundær"
+    ],
+    "deckId": "hovedtraumeCards"
+  },
+  {
+    "id": "htraume_003",
+    "subject": "Akutte tilstande",
+    "topic": "Hovedtraume",
+    "question": "Hvad er de vigtigste præhospitale mål ved hovedtraume?",
+    "answer": "Forebygge sekundær hjerneskade: sikring af luftvej, iltning, ventilation, cerebral perfusion og undgå øget ICP. :contentReference[oaicite:3]{index=3}",
+    "difficulty": "easy",
+    "tags": [
+      "mål",
+      "behandling"
+    ],
+    "deckId": "hovedtraumeCards"
+  },
+  {
+    "id": "htraume_004",
+    "subject": "Akutte tilstande",
+    "topic": "Hovedtraume",
+    "question": "Hvornår skal intubation overvejes ved hovedtraume?",
+    "answer": "Ved GCS < 9 eller fald i GCS ≥ 2, eller hvis ventilation/iltning ikke kan opretholdes. :contentReference[oaicite:4]{index=4}",
+    "difficulty": "medium",
+    "tags": [
+      "intubation",
+      "GCS"
+    ],
+    "deckId": "hovedtraumeCards"
+  },
+  {
+    "id": "htraume_005",
+    "subject": "Akutte tilstande",
+    "topic": "Hovedtraume",
+    "question": "Hvad er målet for endtidal CO₂ (ETCO₂) ved hovedtraume med intuberet patient?",
+    "answer": "ETCO₂ 4,0–5,0 kPa for at sikre normoventilation og stabil ICP. :contentReference[oaicite:5]{index=5}",
+    "difficulty": "medium",
+    "tags": [
+      "ETCO2",
+      "ICP"
+    ],
+    "deckId": "hovedtraumeCards"
+  },
+  {
+    "id": "htraume_006",
+    "subject": "Akutte tilstande",
+    "topic": "Hovedtraume",
+    "question": "Forklar begrebet CPP og dets betydning.",
+    "answer": "CPP = MAP - ICP. Det er det tryk, der driver blodet ind i hjernen. Skal holdes mellem ca. 60–70 mmHg. :contentReference[oaicite:6]{index=6}",
+    "difficulty": "hard",
+    "tags": [
+      "CPP",
+      "MAP",
+      "ICP"
+    ],
+    "deckId": "hovedtraumeCards"
+  },
+  {
+    "id": "htraume_007",
+    "subject": "Akutte tilstande",
+    "topic": "Hovedtraume",
+    "question": "Hvilke systoliske blodtryksmål gælder præhospitalt for hovedtraumer?",
+    "answer": "sBT > 90 mmHg ved massiv blødning, >100 mmHg (50–69 år), >110 mmHg (15–49 år), >120 mmHg (>70 år). :contentReference[oaicite:7]{index=7}",
+    "difficulty": "hard",
+    "tags": [
+      "MAP",
+      "BT"
+    ],
+    "deckId": "hovedtraumeCards"
+  },
+  {
+    "id": "htraume_008",
+    "subject": "Akutte tilstande",
+    "topic": "Hovedtraume",
+    "question": "Hvilke tegn tyder på truende inkarceration?",
+    "answer": "Pupildifferens, lysstive pupiller, hypertension, bradykardi og faldende bevidsthedsniveau. (Cushing-triade). :contentReference[oaicite:8]{index=8}",
+    "difficulty": "hard",
+    "tags": [
+      "inkarceration",
+      "neurologi"
+    ],
+    "deckId": "hovedtraumeCards"
+  },
+  {
+    "id": "htraume_009",
+    "subject": "Akutte tilstande",
+    "topic": "Hovedtraume",
+    "question": "Hvordan kan forhøjet ICP behandles præhospitalt?",
+    "answer": "Eleveret hovedgærde, frie halsvener, sedation, normoventilation, evt. bolus hyperton NaCl 2 mmol/kg efter lægeordination. :contentReference[oaicite:9]{index=9}",
+    "difficulty": "hard",
+    "tags": [
+      "ICP",
+      "behandling"
+    ],
+    "deckId": "hovedtraumeCards"
+  },
+  {
+    "id": "htraume_010",
+    "subject": "Akutte tilstande",
+    "topic": "Hovedtraume",
+    "question": "Hvorfor bør hyperventilation kun bruges kortvarigt og som 'rescue'?",
+    "answer": "Hyperventilation sænker ICP men kan reducere cerebral perfusion; bruges kun i maks. 15 min ved tegn på inkarceration. :contentReference[oaicite:10]{index=10}",
+    "difficulty": "hard",
+    "tags": [
+      "hyperventilation"
+    ],
+    "deckId": "hovedtraumeCards"
+  },
+  {
+    "id": "htraume_011",
+    "subject": "Akutte tilstande",
+    "topic": "Hovedtraume",
+    "question": "Hvorfor er ketamin et godt valg ved intubation af hovedtraumepatient?",
+    "answer": "Ketamin øger typisk ikke ICP og kan understøtte blodtryk og cerebral perfusion. :contentReference[oaicite:11]{index=11}",
+    "difficulty": "medium",
+    "tags": [
+      "ketamin"
+    ],
+    "deckId": "hovedtraumeCards"
+  },
+  {
+    "id": "htraume_012",
+    "subject": "Akutte tilstande",
+    "topic": "Hovedtraume",
+    "question": "Hvilke parametre skal monitoreres løbende ved hovedtraume?",
+    "answer": "GCS, pupilforhold, BT, puls, RF, SatO₂, ETCO₂, blodsukker. :contentReference[oaicite:12]{index=12}",
+    "difficulty": "easy",
+    "tags": [
+      "monitorering"
+    ],
+    "deckId": "hovedtraumeCards"
+  },
+  {
+    "id": "htraume_013",
+    "subject": "Akutte tilstande",
+    "topic": "Hovedtraume",
+    "question": "Hvorfor er normotermi vigtig ved hovedtraume?",
+    "answer": "Hypertermi øger metabolisme og intracranielt tryk; hypotermi kan forværre koagulation.",
+    "difficulty": "medium",
+    "tags": [
+      "temperatur"
+    ],
+    "deckId": "hovedtraumeCards"
+  },
+  {
+    "id": "htraume_014",
+    "subject": "Akutte tilstande",
+    "topic": "Hovedtraume",
+    "question": "Hvordan vurderes neurologiske udfald præhospitalt?",
+    "answer": "GCS, pupilreaktion, motorisk respons, sensitivitetsforstyrrelser og evt. fokale udfald.",
+    "difficulty": "medium",
+    "tags": [
+      "neurologi"
+    ],
+    "deckId": "hovedtraumeCards"
+  },
+  {
+    "id": "htraume_015",
+    "subject": "Akutte tilstande",
+    "topic": "Hovedtraume",
+    "question": "Hvornår skal spinal stabilisering overvejes ved hovedtraume?",
+    "answer": "Ved betydende traume mod hoved/rygsøjle, smerter over columna eller neurologiske udfald. :contentReference[oaicite:13]{index=13}",
+    "difficulty": "medium",
+    "tags": [
+      "spinal",
+      "stabilisering"
+    ],
+    "deckId": "hovedtraumeCards"
+  },
+  {
+    "id": "htraume_016",
+    "subject": "Akutte tilstande",
+    "topic": "Hovedtraume",
+    "question": "Hvordan kan blodsukker påvirke en hovedtraumepatient?",
+    "answer": "Hypoglykæmi kan forveksles med bevidsthedspåvirkning og forværre sekundær hjerneskade. Hyperglykæmi kan øge inflammatorisk respons.",
+    "difficulty": "medium",
+    "tags": [
+      "blodsukker"
+    ],
+    "deckId": "hovedtraumeCards"
+  },
+  {
+    "id": "htraume_017",
+    "subject": "Akutte tilstande",
+    "topic": "Hovedtraume",
+    "question": "Hvorfor er hypotension særligt farligt ved hovedtraume?",
+    "answer": "Selv kortvarigt BT-fald kan markant forværre outcome, da det reducerer cerebral perfusion og øger risiko for sekundær skade.",
+    "difficulty": "medium",
+    "tags": [
+      "BT",
+      "sekundær skade"
+    ],
+    "deckId": "hovedtraumeCards"
+  },
+  {
+    "id": "htraume_018",
+    "subject": "Akutte tilstande",
+    "topic": "Hovedtraume",
+    "question": "Hvilke visitationsregler gælder for hovedtraume i Region H?",
+    "answer": "Visitér i henhold til VIP Traumevisitation; svært hovedtraume til traume-/neurocenter. :contentReference[oaicite:14]{index=14}",
+    "difficulty": "medium",
+    "tags": [
+      "visitation"
+    ],
+    "deckId": "hovedtraumeCards"
+  },
+  {
+    "id": "htraume_019",
+    "subject": "Akutte tilstande",
+    "topic": "Hovedtraume",
+    "question": "Hvorfor er organdonation nævnt i hovedtraume-instruksen?",
+    "answer": "Ved udsigtsløs prognose skal sufficient præhospital behandling stadig gives mhp. eventuel organdonation. :contentReference[oaicite:15]{index=15}",
+    "difficulty": "hard",
+    "tags": [
+      "organdonation"
+    ],
+    "deckId": "hovedtraumeCards"
+  },
+  {
+    "id": "htraume_020",
+    "subject": "Akutte tilstande",
+    "topic": "Hovedtraume",
+    "question": "Hvad er paramedicinerens vigtigste mål ved hovedtraume?",
+    "answer": "Forebygge sekundære hjerneskader gennem ABCDE, sikring af luftvej, iltning, cirkulation, spinal stabilisering, korrekt visitation og løbende monitorering.",
+    "difficulty": "easy",
+    "tags": [
+      "paramedicinerrolle",
+      "ABCDE"
+    ],
+    "deckId": "hovedtraumeCards"
+  },
+  {
+    "id": "krampe_001",
+    "subject": "Akutte tilstande",
+    "topic": "Kramper",
+    "question": "Hvad er et krampeanfald?",
+    "answer": "En pludselig, ukontrolleret elektrisk aktivitet i hjernen, som kan påvirke motorik, bevidsthed og sensorik.",
+    "difficulty": "easy",
+    "tags": [
+      "definition"
+    ],
+    "deckId": "kramperCards"
+  },
+  {
+    "id": "krampe_002",
+    "subject": "Akutte tilstande",
+    "topic": "Kramper",
+    "question": "Hvad definerer status epilepticus præhospitalt?",
+    "answer": "Kramper der varer mere end 5 minutter, eller gentagne anfald uden tilbagevenden til normal bevidsthed.",
+    "difficulty": "medium",
+    "tags": [
+      "status epilepticus"
+    ],
+    "deckId": "kramperCards"
+  },
+  {
+    "id": "krampe_003",
+    "subject": "Akutte tilstande",
+    "topic": "Kramper",
+    "question": "Hvorfor er status epilepticus tidskritisk?",
+    "answer": "Risiko for hypoksi, hypertermi, acidose, hjerneskade og cirkulatorisk kollaps.",
+    "difficulty": "medium",
+    "tags": [
+      "tidskritisk",
+      "hypoksi"
+    ],
+    "deckId": "kramperCards"
+  },
+  {
+    "id": "krampe_004",
+    "subject": "Akutte tilstande",
+    "topic": "Kramper",
+    "question": "Nævn tre hyppige årsager til kramper hos voksne.",
+    "answer": "Epilepsi, hypoglykæmi, traume, alkoholabstinens, feber, stroke eller elektrolytforstyrrelser.",
+    "difficulty": "easy",
+    "tags": [
+      "årsager"
+    ],
+    "deckId": "kramperCards"
+  },
+  {
+    "id": "krampe_005",
+    "subject": "Akutte tilstande",
+    "topic": "Kramper",
+    "question": "Hvad er den vigtigste præhospitale prioritet ved aktivt krampeanfald?",
+    "answer": "Sikring af frie luftveje og forebyggelse af hypoksi – ABCDE vurdering.",
+    "difficulty": "easy",
+    "tags": [
+      "luftveje",
+      "ABCDE"
+    ],
+    "deckId": "kramperCards"
+  },
+  {
+    "id": "krampe_006",
+    "subject": "Akutte tilstande",
+    "topic": "Kramper",
+    "question": "Hvilken blodsukkerværdi kan udløse kramper ved hypoglykæmi?",
+    "answer": "Typisk ved blodglukose under 3,0 mmol/l.",
+    "difficulty": "medium",
+    "tags": [
+      "hypoglykæmi"
+    ],
+    "deckId": "kramperCards"
+  },
+  {
+    "id": "krampe_007",
+    "subject": "Akutte tilstande",
+    "topic": "Kramper",
+    "question": "Hvorfor må man aldrig forsøge at holde en krampende patient fast?",
+    "answer": "Det hjælper ikke og kan forårsage frakturer, luksationer eller blødningsskader.",
+    "difficulty": "easy",
+    "tags": [
+      "skader"
+    ],
+    "deckId": "kramperCards"
+  },
+  {
+    "id": "krampe_008",
+    "subject": "Akutte tilstande",
+    "topic": "Kramper",
+    "question": "Hvordan skal en patient med postiktal tilstand håndteres?",
+    "answer": "Sikr ABCDE, lejring med frie luftveje (sideleje), overvågning og tryghed.",
+    "difficulty": "easy",
+    "tags": [
+      "postiktal",
+      "behandling"
+    ],
+    "deckId": "kramperCards"
+  },
+  {
+    "id": "krampe_009",
+    "subject": "Akutte tilstande",
+    "topic": "Kramper",
+    "question": "Hvilket præhospitalt lægemiddel bruges til at stoppe kramper?",
+    "answer": "Diazepam IV/rectalt eller midazolam buccalt/nasalt, afhængigt af lokale retningslinjer.",
+    "difficulty": "easy",
+    "tags": [
+      "behandling",
+      "diazepam"
+    ],
+    "deckId": "kramperCards"
+  },
+  {
+    "id": "krampe_010",
+    "subject": "Akutte tilstande",
+    "topic": "Kramper",
+    "question": "Hvorfor øger alkoholabstinens risikoen for kramper?",
+    "answer": "Pludselig ophør af alkohol giver ubalance i GABA- og glutamat-systemet → hyperexcitabelt CNS.",
+    "difficulty": "hard",
+    "tags": [
+      "alkohol",
+      "patofysiologi"
+    ],
+    "deckId": "kramperCards"
+  },
+  {
+    "id": "krampe_011",
+    "subject": "Akutte tilstande",
+    "topic": "Kramper",
+    "question": "Hvad kan et fokalt anfald med bevarede bevidsthed vise sig som?",
+    "answer": "Rytmiske ryk i en ekstremitet, sensoriske symptomer eller taleforstyrrelser uden bevidsthedstab.",
+    "difficulty": "medium",
+    "tags": [
+      "fokalt anfald"
+    ],
+    "deckId": "kramperCards"
+  },
+  {
+    "id": "krampe_012",
+    "subject": "Akutte tilstande",
+    "topic": "Kramper",
+    "question": "Hvilke tegn tyder på hypoksisk hjerneskade efter langvarigt anfald?",
+    "answer": "Manglende bevidsthedssvækkelse efter anfald, pupildifference, abnormal respiration eller lav GCS.",
+    "difficulty": "hard",
+    "tags": [
+      "hypoksi",
+      "GCS"
+    ],
+    "deckId": "kramperCards"
+  },
+  {
+    "id": "krampe_013",
+    "subject": "Akutte tilstande",
+    "topic": "Kramper",
+    "question": "Hvorfor kan elektrolytforstyrrelser udløse kramper?",
+    "answer": "Kalium, calcium og natrium påvirker membranpotentialet og neuronal excitabilitet.",
+    "difficulty": "hard",
+    "tags": [
+      "elektrolytter"
+    ],
+    "deckId": "kramperCards"
+  },
+  {
+    "id": "krampe_014",
+    "subject": "Akutte tilstande",
+    "topic": "Kramper",
+    "question": "Hvad er succesen ved medicinsk behandling afhængig af ved status epilepticus?",
+    "answer": "Tidlig behandling – jo længere varighed før behandling, jo sværere er anfaldet at bryde.",
+    "difficulty": "medium",
+    "tags": [
+      "behandlingstid"
+    ],
+    "deckId": "kramperCards"
+  },
+  {
+    "id": "krampe_015",
+    "subject": "Akutte tilstande",
+    "topic": "Kramper",
+    "question": "Hvad er den fysiologiske årsag til muskelømhed efter kramper?",
+    "answer": "Langvarige muskelkontraktioner giver laktatopbygning, muskelnedbrydning og ømhed.",
+    "difficulty": "medium",
+    "tags": [
+      "laktat",
+      "muskel"
+    ],
+    "deckId": "kramperCards"
+  },
+  {
+    "id": "krampe_016",
+    "subject": "Akutte tilstande",
+    "topic": "Kramper",
+    "question": "Hvad kan være livstruende komplikation til langvarige kramper?",
+    "answer": "Rhabdomyolyse → nyresvigt, hypertermi og hypoksi.",
+    "difficulty": "hard",
+    "tags": [
+      "komplikationer"
+    ],
+    "deckId": "kramperCards"
+  },
+  {
+    "id": "krampe_017",
+    "subject": "Akutte tilstande",
+    "topic": "Kramper",
+    "question": "Hvorfor kan graviditet være en særlig risikofaktor for kramper?",
+    "answer": "Præeklampsi/eklampsi kan give hypertension, cerebralt ødem og kramper.",
+    "difficulty": "hard",
+    "tags": [
+      "eklampsi"
+    ],
+    "deckId": "kramperCards"
+  },
+  {
+    "id": "krampe_018",
+    "subject": "Akutte tilstande",
+    "topic": "Kramper",
+    "question": "Hvordan kan kramper relateres til hovedtraume?",
+    "answer": "Traume kan give blødning, ødem eller hjerneskade, som udløser epileptisk aktivitet.",
+    "difficulty": "medium",
+    "tags": [
+      "traume"
+    ],
+    "deckId": "kramperCards"
+  },
+  {
+    "id": "krampe_019",
+    "subject": "Akutte tilstande",
+    "topic": "Kramper",
+    "question": "Hvordan håndteres environment ved aktivt krampeanfald?",
+    "answer": "Fjern farlige genstande, sikr plads omkring patienten, hold hovedet blødt uden kraftig fastholdelse.",
+    "difficulty": "easy",
+    "tags": [
+      "miljø",
+      "sikkerhed"
+    ],
+    "deckId": "kramperCards"
+  },
+  {
+    "id": "krampe_020",
+    "subject": "Akutte tilstande",
+    "topic": "Kramper",
+    "question": "Hvad er paramedicinerens vigtigste præhospitale opgave ved kramper?",
+    "answer": "Stop anfaldet hvis muligt, sikre luftveje og respiration, monitorere vitalparametre og transportere til korrekt behandlingssted.",
+    "difficulty": "medium",
+    "tags": [
+      "prehospital",
+      "prioritet"
+    ],
+    "deckId": "kramperCards"
+  },
+  {
+    "id": "meningo_001",
+    "subject": "Akutte tilstande",
+    "topic": "Meningitis og meningokoksyndrom",
+    "question": "Hvad er bakteriel meningitis?",
+    "answer": "Purulent hjernehindebetændelse, hvor bakterier invaderer subaraknoidalrummet og giver inflammation i meninges. :contentReference[oaicite:1]{index=1}",
+    "difficulty": "easy",
+    "tags": [
+      "definition",
+      "meningitis"
+    ],
+    "deckId": "meningitisMeningokoksyndromCards"
+  },
+  {
+    "id": "meningo_002",
+    "subject": "Akutte tilstande",
+    "topic": "Meningitis og meningokoksyndrom",
+    "question": "Hvorfor er akut bakteriel meningitis tidskritisk?",
+    "answer": "Sygdommen kan udvikle sig hyperakut på få timer til sepsis, shock og hjerneskade – tidlig antibiotika og ABCDE-behandling forbedrer prognosen. :contentReference[oaicite:2]{index=2}",
+    "difficulty": "medium",
+    "tags": [
+      "tidskritisk"
+    ],
+    "deckId": "meningitisMeningokoksyndromCards"
+  },
+  {
+    "id": "meningo_003",
+    "subject": "Akutte tilstande",
+    "topic": "Meningitis og meningokoksyndrom",
+    "question": "Nævn tre klassiske symptomer på bakteriel meningitis hos voksne.",
+    "answer": "Feber, hovedpine, nakkestivhed. Andre hyppige: opkast, fotofobi, påvirket bevidsthed. :contentReference[oaicite:3]{index=3}",
+    "difficulty": "easy",
+    "tags": [
+      "symptomer"
+    ],
+    "deckId": "meningitisMeningokoksyndromCards"
+  },
+  {
+    "id": "meningo_004",
+    "subject": "Akutte tilstande",
+    "topic": "Meningitis og meningokoksyndrom",
+    "question": "Hvilke generelle kliniske fund kan støtte mistanke om meningitis/CNS-infektion?",
+    "answer": "Feber, hovedpine, opkast, fotofobi, influenzalignende symptomer, konfusion/ændret adfærd, kramper, nakkestivhed, hudblødninger og stærke ekstremitetssmerter. :contentReference[oaicite:4]{index=4}",
+    "difficulty": "medium",
+    "tags": [
+      "kliniske fund"
+    ],
+    "deckId": "meningitisMeningokoksyndromCards"
+  },
+  {
+    "id": "meningo_005",
+    "subject": "Akutte tilstande",
+    "topic": "Meningitis og meningokoksyndrom",
+    "question": "Hvordan kan spædbørn/mindre børn præsentere sig ved meningitis?",
+    "answer": "Irritabilitet, apnø, slaphed, spisevægring, bleghed og evt. spændt fontanelle – ofte uden tydelig nakkestivhed. :contentReference[oaicite:5]{index=5}",
+    "difficulty": "medium",
+    "tags": [
+      "pædiatri"
+    ],
+    "deckId": "meningitisMeningokoksyndromCards"
+  },
+  {
+    "id": "meningo_006",
+    "subject": "Akutte tilstande",
+    "topic": "Meningitis og meningokoksyndrom",
+    "question": "Hvad er petekkier, purpura og ekkymoser?",
+    "answer": "Petekkier: hudblødninger < 2 mm. Purpura: 2 mm–1 cm. Ekkymoser: > 1 cm. :contentReference[oaicite:6]{index=6}",
+    "difficulty": "easy",
+    "tags": [
+      "hudblødninger"
+    ],
+    "deckId": "meningitisMeningokoksyndromCards"
+  },
+  {
+    "id": "meningo_007",
+    "subject": "Akutte tilstande",
+    "topic": "Meningitis og meningokoksyndrom",
+    "question": "Hvorfor er purpura (>2 mm) med 'landkort-udseende' særlig alarmerende?",
+    "answer": "Det øger markant sandsynligheden for meningokoksygdom, især når udslættet er uregelmæssigt og udbredt. :contentReference[oaicite:7]{index=7}",
+    "difficulty": "medium",
+    "tags": [
+      "meningokok",
+      "purpura"
+    ],
+    "deckId": "meningitisMeningokoksyndromCards"
+  },
+  {
+    "id": "meningo_008",
+    "subject": "Akutte tilstande",
+    "topic": "Meningitis og meningokoksyndrom",
+    "question": "Hvordan tolkes petekkier kun over diaphragmaniveau (kranielt for papil)?",
+    "answer": "De ses ofte efter hoste/opkast og er typisk ikke associeret med meningokoksygdom. :contentReference[oaicite:8]{index=8}",
+    "difficulty": "hard",
+    "tags": [
+      "petekkier",
+      "differentialdiagnose"
+    ],
+    "deckId": "meningitisMeningokoksyndromCards"
+  },
+  {
+    "id": "meningo_009",
+    "subject": "Akutte tilstande",
+    "topic": "Meningitis og meningokoksyndrom",
+    "question": "Hvorfor kræver unge med petekkier særlig opmærksomhed?",
+    "answer": "Unge har øget forekomst af meningokoksygdom og sjældnere petekkier af andre årsager – risikoen er derfor relativt høj. :contentReference[oaicite:9]{index=9}",
+    "difficulty": "medium",
+    "tags": [
+      "unge",
+      "risiko"
+    ],
+    "deckId": "meningitisMeningokoksyndromCards"
+  },
+  {
+    "id": "meningo_010",
+    "subject": "Akutte tilstande",
+    "topic": "Meningitis og meningokoksyndrom",
+    "question": "Hvad er den overordnede præhospitale behandlingsstrategi ved mistanke om meningitis/meningokoksygdom?",
+    "answer": "ABCDE, minimere tidsforbrug, hurtig IV/IO-adgang, tidlig antibiotika ved meningokok-mistanke/medtaget patient, kørsel A til akuthospital og lægeledsagelse ved alvorlig tilstand. :contentReference[oaicite:10]{index=10}",
+    "difficulty": "medium",
+    "tags": [
+      "behandling",
+      "strategi"
+    ],
+    "deckId": "meningitisMeningokoksyndromCards"
+  },
+  {
+    "id": "meningo_011",
+    "subject": "Akutte tilstande",
+    "topic": "Meningitis og meningokoksyndrom",
+    "question": "Hvornår skal antibiotika gives præhospitalt ved mistanke om CNS-infektion?",
+    "answer": "Så hurtigt som muligt ved mistanke om meningokoksygdom eller medtaget klinisk tilstand. Ved stabil patient og transport < 30 min kan antibiotika vente til hospitalet. :contentReference[oaicite:11]{index=11}",
+    "difficulty": "hard",
+    "tags": [
+      "antibiotika",
+      "indikation"
+    ],
+    "deckId": "meningitisMeningokoksyndromCards"
+  },
+  {
+    "id": "meningo_012",
+    "subject": "Akutte tilstande",
+    "topic": "Meningitis og meningokoksyndrom",
+    "question": "Hvilke præhospitale antibiotikadoser anbefales til voksne ved meningokokmistanke?",
+    "answer": "Penicillin 5 mio. IE IV/IO (eller IM hvis ingen adgang). Ved penicillinallergi: Ceftriaxon 2 g. :contentReference[oaicite:12]{index=12}",
+    "difficulty": "hard",
+    "tags": [
+      "penicillin",
+      "ceftriaxon"
+    ],
+    "deckId": "meningitisMeningokoksyndromCards"
+  },
+  {
+    "id": "meningo_013",
+    "subject": "Akutte tilstande",
+    "topic": "Meningitis og meningokoksyndrom",
+    "question": "Hvilke kriterier kan udløse behov for sedation/intubation ved meningitis præhospitalt?",
+    "answer": "Kramper, GCS < 9, ukontrollerbar uro eller tegn på forhøjet ICP/truende inkarceration (progredierende neurologiske udfald, pupildifferens, lysstive pupiller). :contentReference[oaicite:13]{index=13}",
+    "difficulty": "hard",
+    "tags": [
+      "intubation",
+      "ICP"
+    ],
+    "deckId": "meningitisMeningokoksyndromCards"
+  },
+  {
+    "id": "meningo_014",
+    "subject": "Akutte tilstande",
+    "topic": "Meningitis og meningokoksyndrom",
+    "question": "Hvilke ventilationsmål stiles der efter ved intuberet meningitispatient?",
+    "answer": "Normo- til let hyperoxæmi, normoventilation (ETCO₂ ca. 4,0–4,7 kPa) og PEEP ≤ 5 cm H₂O, med højere PEEP kun ved iltningsproblemer. :contentReference[oaicite:14]{index=14}",
+    "difficulty": "hard",
+    "tags": [
+      "ventilation"
+    ],
+    "deckId": "meningitisMeningokoksyndromCards"
+  },
+  {
+    "id": "meningo_015",
+    "subject": "Akutte tilstande",
+    "topic": "Meningitis og meningokoksyndrom",
+    "question": "Hvilket blodtryk (MAP) tilstræbes ved meningitis uden kendt hypertension?",
+    "answer": "MAP 70–90 mmHg for at sikre tilstrækkelig cerebral perfusion. :contentReference[oaicite:15]{index=15}",
+    "difficulty": "medium",
+    "tags": [
+      "MAP",
+      "cirkulation"
+    ],
+    "deckId": "meningitisMeningokoksyndromCards"
+  },
+  {
+    "id": "meningo_016",
+    "subject": "Akutte tilstande",
+    "topic": "Meningitis og meningokoksyndrom",
+    "question": "Hvilke hygiejneregler gælder ved primær kontakt til patient med mistænkt meningitis?",
+    "answer": "Almindelig ansigtsmaske pga. dråbesmitte ved meningokok, plus standard håndhygiejne og basale forholdsregler. :contentReference[oaicite:16]{index=16}",
+    "difficulty": "easy",
+    "tags": [
+      "hygiejne",
+      "PPE"
+    ],
+    "deckId": "meningitisMeningokoksyndromCards"
+  },
+  {
+    "id": "meningo_017",
+    "subject": "Akutte tilstande",
+    "topic": "Meningitis og meningokoksyndrom",
+    "question": "Hvem skal have post-ekspositions profylakse efter kontakt med meningokoksygdom?",
+    "answer": "Nære kontakter til verificeret meningokoksygdom: kyssekærester og personer, der har sovet under samme tag de sidste 10 dage. Ikke ambulance- eller akutlægepersonale. :contentReference[oaicite:17]{index=17}",
+    "difficulty": "hard",
+    "tags": [
+      "profylakse",
+      "kontakter"
+    ],
+    "deckId": "meningitisMeningokoksyndromCards"
+  },
+  {
+    "id": "meningo_018",
+    "subject": "Akutte tilstande",
+    "topic": "Meningitis og meningokoksyndrom",
+    "question": "Hvordan visiteres voksne og børn med mistanke om meningitis i Region H?",
+    "answer": "Voksne → nærmeste akuthospital. Børn < 15 år med forventet intensivbehov → Rigshospitalet; øvrige børn → nærmeste akuthospital med pædiatrisk afdeling. :contentReference[oaicite:18]{index=18}",
+    "difficulty": "medium",
+    "tags": [
+      "visitation"
+    ],
+    "deckId": "meningitisMeningokoksyndromCards"
+  },
+  {
+    "id": "meningo_019",
+    "subject": "Akutte tilstande",
+    "topic": "Meningitis og meningokoksyndrom",
+    "question": "Hvorfor gives steroid (fx dexamethason) ikke præhospitalt ved meningitis i Region H?",
+    "answer": "Ifølge instruksen gives steroid ikke præhospitalt; vurdering og evt. behandling med steroid foretages på hospital. :contentReference[oaicite:19]{index=19}",
+    "difficulty": "medium",
+    "tags": [
+      "steroid",
+      "instruks"
+    ],
+    "deckId": "meningitisMeningokoksyndromCards"
+  },
+  {
+    "id": "meningo_020",
+    "subject": "Akutte tilstande",
+    "topic": "Meningitis og meningokoksyndrom",
+    "question": "Hvad er paramedicinerens vigtigste præhospitale fokus ved mistanke om meningokoksygdom?",
+    "answer": "Tidlig mistanke, ABCDE-stabilisering, hurtig IV/IO-adgang, tidlig antibiotika efter lægelig ordination, kørsel A til korrekt hospital og basal dråbehygiejne. :contentReference[oaicite:20]{index=20}",
+    "difficulty": "medium",
+    "tags": [
+      "paramedicinerrolle",
+      "meningokok"
+    ],
+    "deckId": "meningitisMeningokoksyndromCards"
+  },
+  {
+    "id": "tonsil_001",
+    "subject": "Akutte tilstande",
+    "topic": "Tonsillektomi efterblødning",
+    "question": "Hvad forstås ved tonsillektomi-efterblødning?",
+    "answer": "Blødning fra tonsillejet som komplikation efter fjernelse af mandler, og som kan opstå fra timer til op til ca. 2 uger postoperativt. :contentReference[oaicite:1]{index=1}",
+    "difficulty": "easy",
+    "tags": [
+      "definition"
+    ],
+    "deckId": "tonsillektomiEfterblodningCards"
+  },
+  {
+    "id": "tonsil_002",
+    "subject": "Akutte tilstande",
+    "topic": "Tonsillektomi efterblødning",
+    "question": "Hvorfor er tonsillektomi-efterblødning en potentielt livstruende tilstand?",
+    "answer": "Risiko for både hypovolæmisk shock og luftvejstruende blødning/aspiration hos især børn. Blodtab undervurderes ofte, da meget synkes.",
+    "difficulty": "medium",
+    "tags": [
+      "luftvej",
+      "shock"
+    ],
+    "deckId": "tonsillektomiEfterblodningCards"
+  },
+  {
+    "id": "tonsil_003",
+    "subject": "Akutte tilstande",
+    "topic": "Tonsillektomi efterblødning",
+    "question": "Hvilke alarmsymptomer tyder på klinisk betydende efterblødning?",
+    "answer": "Synlig frisk blødning fra munden, gentagen opspytning af blod, blodigt opkast, bleghed, takykardi, agitation eller svimmelhed.",
+    "difficulty": "medium",
+    "tags": [
+      "symptomer"
+    ],
+    "deckId": "tonsillektomiEfterblodningCards"
+  },
+  {
+    "id": "tonsil_004",
+    "subject": "Akutte tilstande",
+    "topic": "Tonsillektomi efterblødning",
+    "question": "Hvordan skal patienten lejres præhospitalt ved efterblødning?",
+    "answer": "Siddende med foroverbøjet hoved, så blod kan løbe ud af munden. Hvis ikke muligt: sideleje for at beskytte luftvejen. :contentReference[oaicite:2]{index=2}",
+    "difficulty": "easy",
+    "tags": [
+      "lejring",
+      "luftvej"
+    ],
+    "deckId": "tonsillektomiEfterblodningCards"
+  },
+  {
+    "id": "tonsil_005",
+    "subject": "Akutte tilstande",
+    "topic": "Tonsillektomi efterblødning",
+    "question": "Hvorfor bør patienten undgå at synke blodet?",
+    "answer": "Svært at vurdere blodtabet, øger risiko for kvalme, opkast og aspiration samt cirkulatorisk kompromis.",
+    "difficulty": "medium",
+    "tags": [
+      "aspiration",
+      "blodtab"
+    ],
+    "deckId": "tonsillektomiEfterblodningCards"
+  },
+  {
+    "id": "tonsil_006",
+    "subject": "Akutte tilstande",
+    "topic": "Tonsillektomi efterblødning",
+    "question": "Hvordan er responskategori typisk ved tonsillektomi-efterblødning i Region H?",
+    "answer": "Som udgangspunkt A3; ved kraftig, pågående blødning eller børn < 15 år disponeres A1. :contentReference[oaicite:3]{index=3}",
+    "difficulty": "medium",
+    "tags": [
+      "respons",
+      "A1",
+      "A3"
+    ],
+    "deckId": "tonsillektomiEfterblodningCards"
+  },
+  {
+    "id": "tonsil_007",
+    "subject": "Akutte tilstande",
+    "topic": "Tonsillektomi efterblødning",
+    "question": "Hvordan skal ABCDE anvendes i vurderingen af tonsillektomi-efterblødning?",
+    "answer": "A: Luftvej fri for koagler. B: RF, iltmætning. C: BT, puls, kapillærrespons, tegn på shock. D: Bevidsthed. E: Blødningsmængde og generel påvirkning.",
+    "difficulty": "medium",
+    "tags": [
+      "ABCDE"
+    ],
+    "deckId": "tonsillektomiEfterblodningCards"
+  },
+  {
+    "id": "tonsil_008",
+    "subject": "Akutte tilstande",
+    "topic": "Tonsillektomi efterblødning",
+    "question": "Hvilken iv-adgang anbefales ifølge VIP’en – uanset blødningsmængde?",
+    "answer": "Mindst én IV-adgang, helst i overekstremitet, anlægges hos alle patienter med efterblødning. :contentReference[oaicite:4]{index=4}",
+    "difficulty": "easy",
+    "tags": [
+      "IV-adgang"
+    ],
+    "deckId": "tonsillektomiEfterblodningCards"
+  },
+  {
+    "id": "tonsil_009",
+    "subject": "Akutte tilstande",
+    "topic": "Tonsillektomi efterblødning",
+    "question": "Hvornår skal akutlægebil (ALB) tilkaldes ved tonsillektomi-efterblødning?",
+    "answer": "Ved kraftig pågående blødning, tegn på kredsløbspåvirkning eller børn under 15 år – eller ved tvivl efter konferering med AMK-læge. :contentReference[oaicite:5]{index=5}",
+    "difficulty": "medium",
+    "tags": [
+      "ALB",
+      "indikation"
+    ],
+    "deckId": "tonsillektomiEfterblodningCards"
+  },
+  {
+    "id": "tonsil_010",
+    "subject": "Akutte tilstande",
+    "topic": "Tonsillektomi efterblødning",
+    "question": "Hvordan tolkes takykardi og påskyndet RF hos en patient med efterblødning?",
+    "answer": "Som mulige tidlige tegn på kredsløbspåvirkning og begyndende hypovolæmisk shock, også selv om BT endnu er normalt.",
+    "difficulty": "medium",
+    "tags": [
+      "tidlige shocktegn"
+    ],
+    "deckId": "tonsillektomiEfterblodningCards"
+  },
+  {
+    "id": "tonsil_011",
+    "subject": "Akutte tilstande",
+    "topic": "Tonsillektomi efterblødning",
+    "question": "Hvad er forskel på primær og sekundær efterblødning?",
+    "answer": "Primær: indenfor det første døgn post-op, ofte teknisk/karrelateret. Sekundær: typisk dag 5–10 pga. sårskorpe der løsner sig og infektion.",
+    "difficulty": "hard",
+    "tags": [
+      "primær",
+      "sekundær"
+    ],
+    "deckId": "tonsillektomiEfterblodningCards"
+  },
+  {
+    "id": "tonsil_012",
+    "subject": "Akutte tilstande",
+    "topic": "Tonsillektomi efterblødning",
+    "question": "Hvornår kan tranexamsyre overvejes præhospitalt?",
+    "answer": "Kun på lægelig ordination ved hæmodynamisk ustabile patienter; det er ikke standardbehandling for alle efterblødninger. :contentReference[oaicite:6]{index=6}",
+    "difficulty": "hard",
+    "tags": [
+      "tranexamsyre"
+    ],
+    "deckId": "tonsillektomiEfterblodningCards"
+  },
+  {
+    "id": "tonsil_013",
+    "subject": "Akutte tilstande",
+    "topic": "Tonsillektomi efterblødning",
+    "question": "Hvilke anamnestiske oplysninger er vigtige at få?",
+    "answer": "Operationsdato, tidligere blødningsepisoder, antikoagulans/ASA/NSAID, mængde og varighed af blødning, om patienten har synket blod eller kastet op.",
+    "difficulty": "medium",
+    "tags": [
+      "anamnese"
+    ],
+    "deckId": "tonsillektomiEfterblodningCards"
+  },
+  {
+    "id": "tonsil_014",
+    "subject": "Akutte tilstande",
+    "topic": "Tonsillektomi efterblødning",
+    "question": "Hvorfor skal alle tonsillektomi-efterblødninger transporteres med ambulance?",
+    "answer": "På grund af risiko for pludselig forværring, behov for overvågning/iv-væske og mulighed for ALB – anden transportform er kontraindiceret. :contentReference[oaicite:7]{index=7}",
+    "difficulty": "easy",
+    "tags": [
+      "transport"
+    ],
+    "deckId": "tonsillektomiEfterblodningCards"
+  },
+  {
+    "id": "tonsil_015",
+    "subject": "Akutte tilstande",
+    "topic": "Tonsillektomi efterblødning",
+    "question": "Hvilket hospital skal patienten indbringes til?",
+    "answer": "Til hospital med ØNH-speciale; patienten må ikke afsluttes på stedet og ikke visiteres til andet sygehus uden ØNH. :contentReference[oaicite:8]{index=8}",
+    "difficulty": "medium",
+    "tags": [
+      "visitation",
+      "ØNH"
+    ],
+    "deckId": "tonsillektomiEfterblodningCards"
+  },
+  {
+    "id": "tonsil_016",
+    "subject": "Akutte tilstande",
+    "topic": "Tonsillektomi efterblødning",
+    "question": "Hvad er anbefalet kørselsform ifølge VIP’en, hvis patienten ikke er kredsløbspåvirket?",
+    "answer": "Som udgangspunkt kørsel B, med opgradering og lægeledsagelse ved forværring eller kriterier for ALB. :contentReference[oaicite:9]{index=9}",
+    "difficulty": "easy",
+    "tags": [
+      "kørselsform"
+    ],
+    "deckId": "tonsillektomiEfterblodningCards"
+  },
+  {
+    "id": "tonsil_017",
+    "subject": "Akutte tilstande",
+    "topic": "Tonsillektomi efterblødning",
+    "question": "Hvorfor er børn særligt udsatte ved tonsillektomi-efterblødning?",
+    "answer": "Mindre blodvolumen, hurtigere dekompensation, sværere samarbejde, høj aspirationsrisiko og vanskeligere luftvejshåndtering.",
+    "difficulty": "medium",
+    "tags": [
+      "pædiatri",
+      "risiko"
+    ],
+    "deckId": "tonsillektomiEfterblodningCards"
+  },
+  {
+    "id": "tonsil_018",
+    "subject": "Akutte tilstande",
+    "topic": "Tonsillektomi efterblødning",
+    "question": "Hvilke tiltag kan støtte luftvejen under transporten?",
+    "answer": "Ilt på maske efter behov, sug klar til brug, korrekt lejring og tæt observation af RF, lyd på vejrtrækning og bevidsthedsniveau.",
+    "difficulty": "medium",
+    "tags": [
+      "luftvej",
+      "transport"
+    ],
+    "deckId": "tonsillektomiEfterblodningCards"
+  },
+  {
+    "id": "tonsil_019",
+    "subject": "Akutte tilstande",
+    "topic": "Tonsillektomi efterblødning",
+    "question": "Hvorfor bør man være forsigtig med peroral væske/medicin ved aktiv efterblødning?",
+    "answer": "Øger risiko for aspiration, især hvis patienten er kvalm, blodpåvirket eller kan forværres akut.",
+    "difficulty": "medium",
+    "tags": [
+      "aspiration",
+      "P.O."
+    ],
+    "deckId": "tonsillektomiEfterblodningCards"
+  },
+  {
+    "id": "tonsil_020",
+    "subject": "Akutte tilstande",
+    "topic": "Tonsillektomi efterblødning",
+    "question": "Hvad er paramedicinerens vigtigste mål ved tonsillektomi-efterblødning?",
+    "answer": "Stabilisere luftvej og kredsløb, etablere IV-adgang, vurdere blødningens sværhedsgrad, tilkalde ALB ved behov og sikre hurtig transport til ØNH-center. :contentReference[oaicite:10]{index=10}",
+    "difficulty": "medium",
+    "tags": [
+      "paramedicinerrolle",
+      "prioritet"
+    ],
+    "deckId": "tonsillektomiEfterblodningCards"
+  }
+]

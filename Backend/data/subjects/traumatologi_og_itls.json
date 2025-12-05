@@ -1,0 +1,1811 @@
+[
+  {
+    "id": "thj_001",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjertestop",
+    "question": "Hvad adskiller traumatisk hjertestop fra medicinsk hjertestop?",
+    "answer": "Traumatisk hjertestop skyldes oftest hypovolæmi, obstruktion eller hypoksi – ikke primær hjertesygdom.",
+    "difficulty": "medium",
+    "tags": [
+      "shock",
+      "årsag"
+    ],
+    "deckId": "traumeHjertestopCards"
+  },
+  {
+    "id": "thj_002",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjertestop",
+    "question": "Hvad er de tre hyppigste årsager til traumatisk hjertestop?",
+    "answer": "Hypovolæmisk shock fra blødning, tension pneumothorax og hjertetamponade.",
+    "difficulty": "medium",
+    "tags": [
+      "årsag",
+      "ABC"
+    ],
+    "deckId": "traumeHjertestopCards"
+  },
+  {
+    "id": "thj_003",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjertestop",
+    "question": "Hvorfor er traditionel HLR ofte ineffektiv ved traumatisk hjertestop?",
+    "answer": "Uden cirkulerende blod (hypovolæmi) kan hjertemassage ikke skabe perfusion.",
+    "difficulty": "hard",
+    "tags": [
+      "HLR",
+      "hypovolæmi"
+    ],
+    "deckId": "traumeHjertestopCards"
+  },
+  {
+    "id": "thj_004",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjertestop",
+    "question": "Hvordan genkendes traumatisk hjertestop klinisk?",
+    "answer": "Ingen puls, respirationsstop/bevidstløshed og kendt traume med potentielt livstruende skade.",
+    "difficulty": "easy",
+    "tags": [
+      "hjertestop"
+    ],
+    "deckId": "traumeHjertestopCards"
+  },
+  {
+    "id": "thj_005",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjertestop",
+    "question": "Hvad er primær behandling ved traumestop?",
+    "answer": "Stands blødning, korrigér luftvej, behandl tension pneumothorax og tamponade – ikke klassisk HLR alene.",
+    "difficulty": "medium",
+    "tags": [
+      "behandling",
+      "ABC"
+    ],
+    "deckId": "traumeHjertestopCards"
+  },
+  {
+    "id": "thj_006",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjertestop",
+    "question": "Hvornår skal du overveje at afstå fra HLR ved traumatisk hjertestop?",
+    "answer": "Ved manglende vitale tegn, ingen spontanrespiration, dødsstivhed eller inkompatible skader.",
+    "difficulty": "medium",
+    "tags": [
+      "termination",
+      "HLR"
+    ],
+    "deckId": "traumeHjertestopCards"
+  },
+  {
+    "id": "thj_007",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjertestop",
+    "question": "Hvad er tegn på inkompatible skader ved traume?",
+    "answer": "Kranieskader med hjernesubstans, halsoverskæring, torso-separation eller forrådnelse.",
+    "difficulty": "easy",
+    "tags": [
+      "termination"
+    ],
+    "deckId": "traumeHjertestopCards"
+  },
+  {
+    "id": "thj_008",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjertestop",
+    "question": "Hvordan adskiller beslutning om termination sig fra medicinsk hjertestop?",
+    "answer": "Traumatisk hjertestop kræver ikke 30 min HLR; afgøres ofte ud fra skade og udsigt til overlevelse.",
+    "difficulty": "hard",
+    "tags": [
+      "termination",
+      "regionH"
+    ],
+    "deckId": "traumeHjertestopCards"
+  },
+  {
+    "id": "thj_009",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjertestop",
+    "question": "Hvad er 'HOT’-H ved traumestop?",
+    "answer": "Hypoxi, Obstruktion, Tamponade og Tension pneumothorax – de reversible årsager.",
+    "difficulty": "medium",
+    "tags": [
+      "HOT-H",
+      "årsager"
+    ],
+    "deckId": "traumeHjertestopCards"
+  },
+  {
+    "id": "thj_010",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjertestop",
+    "question": "Hvorfor gives adrenalin ikke rutinemæssigt ved traumatisk hjertestop?",
+    "answer": "Adrenalin virker dårligt ved hypovolæmi og kan skabe vasokonstriktion, som forværrer vævsperfusion.",
+    "difficulty": "hard",
+    "tags": [
+      "adrenalin",
+      "farmakologi"
+    ],
+    "deckId": "traumeHjertestopCards"
+  },
+  {
+    "id": "thj_011",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjertestop",
+    "question": "Hvilken interventionsprocedure kan være livreddende ved penetrerende thoraxtraume?",
+    "answer": "Thoraxlempning eller nødthorakotomi (lægeindsats).",
+    "difficulty": "hard",
+    "tags": [
+      "thorakotomi",
+      "behandling"
+    ],
+    "deckId": "traumeHjertestopCards"
+  },
+  {
+    "id": "thj_012",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjertestop",
+    "question": "Hvad betyder “treat first what kills first” ved traumatisk hjertestop?",
+    "answer": "Behandl reversible årsager (HOT-H) før HLR og avancerede procedurer.",
+    "difficulty": "medium",
+    "tags": [
+      "prioritet"
+    ],
+    "deckId": "traumeHjertestopCards"
+  },
+  {
+    "id": "thj_013",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjertestop",
+    "question": "Hvilke rytmer ses hyppigst ved traumatisk hjertestop?",
+    "answer": "PEA og asystoli – sjældent VF/VT, medmindre det er elektrisk traume eller hypoksi.",
+    "difficulty": "medium",
+    "tags": [
+      "rytme",
+      "hjertestop"
+    ],
+    "deckId": "traumeHjertestopCards"
+  },
+  {
+    "id": "thj_014",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjertestop",
+    "question": "Hvornår skal der udføres bilateral thoraxdekompression ved traumestop?",
+    "answer": "Ved enhver mistanke om tension ptx, hvis pt. er pulsløs efter traume.",
+    "difficulty": "hard",
+    "tags": [
+      "thoraxlempning",
+      "tension ptx"
+    ],
+    "deckId": "traumeHjertestopCards"
+  },
+  {
+    "id": "thj_015",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjertestop",
+    "question": "Hvorfor er massiv ekstern blødning første prioritet ved traumestop?",
+    "answer": "Uden cirkulerende blod har hjertet intet at pumpe – og HLR bliver virkningsløs.",
+    "difficulty": "medium",
+    "tags": [
+      "blødning",
+      "tourniquet"
+    ],
+    "deckId": "traumeHjertestopCards"
+  },
+  {
+    "id": "thj_016",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjertestop",
+    "question": "Hvorfor vurderes pupiller ved traumestop?",
+    "answer": "Fast dilaterede pupiller kan indikere hjernestammepåvirkning og terminalt forløb.",
+    "difficulty": "easy",
+    "tags": [
+      "pupil",
+      "vurdering"
+    ],
+    "deckId": "traumeHjertestopCards"
+  },
+  {
+    "id": "thj_017",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjertestop",
+    "question": "Hvad betyder REBOA, og hvornår bruges det?",
+    "answer": "Ballonokklusion i aorta ved massiv torso-blødning — udføres af lægehold.",
+    "difficulty": "hard",
+    "tags": [
+      "REBOA",
+      "avanceret"
+    ],
+    "deckId": "traumeHjertestopCards"
+  },
+  {
+    "id": "thj_018",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjertestop",
+    "question": "Hvorfor er det vigtigt at beskytte mod hypotermi ved traumestop?",
+    "answer": "Hypotermi forværrer koagulation og øger mortalitet (del af lethal triad).",
+    "difficulty": "medium",
+    "tags": [
+      "hypotermi",
+      "triade"
+    ],
+    "deckId": "traumeHjertestopCards"
+  },
+  {
+    "id": "thj_019",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjertestop",
+    "question": "Hvad indgår i 'traumetriaden’ (lethal triad)?",
+    "answer": "Hypotermi, acidose og koagulopati.",
+    "difficulty": "medium",
+    "tags": [
+      "triade",
+      "lethal triad"
+    ],
+    "deckId": "traumeHjertestopCards"
+  },
+  {
+    "id": "thj_020",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjertestop",
+    "question": "Hvad er paramedicinerens primære mål ved traumatisk hjertestop?",
+    "answer": "Identificere og behandle reversible årsager (HOT-H), stabilisere ABC og prioritere hurtig læge/traumecenter.",
+    "difficulty": "easy",
+    "tags": [
+      "rolle",
+      "traume"
+    ],
+    "deckId": "traumeHjertestopCards"
+  },
+  {
+    "id": "tbi_001",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjerneskade og neurologi",
+    "question": "Hvad er forskellen på commotio cerebri og kontusion cerebri?",
+    "answer": "Commotio er kortvarig hjernerystelse uden synlig vævsskade; kontusion er egentlig hjerneskade med blødning eller vævsbeskadigelse.",
+    "difficulty": "medium",
+    "tags": [
+      "commotio",
+      "kontusion"
+    ],
+    "deckId": "tbiNeurologiCards"
+  },
+  {
+    "id": "tbi_002",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjerneskade og neurologi",
+    "question": "Hvilket klassisk tegn ses ved epiduralt hæmatom?",
+    "answer": "Lucid interval: kort bedring efter bevidsthedstab efterfulgt af hurtig forværring.",
+    "difficulty": "hard",
+    "tags": [
+      "epidural",
+      "lucid interval"
+    ],
+    "deckId": "tbiNeurologiCards"
+  },
+  {
+    "id": "tbi_003",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjerneskade og neurologi",
+    "question": "Hvilke patienter får oftest subduralt hæmatom?",
+    "answer": "Ældre og antikoagulationsbehandlede, fordi venerne er skrøbelige og hjernen har mere plads til at bevæge sig.",
+    "difficulty": "medium",
+    "tags": [
+      "subdural",
+      "geriatrisk"
+    ],
+    "deckId": "tbiNeurologiCards"
+  },
+  {
+    "id": "tbi_004",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjerneskade og neurologi",
+    "question": "Hvad er de klassiske tegn på stigende intrakranielt tryk (ICP)?",
+    "answer": "Hovedpine, opkastning uden kvalme, faldende GCS, pupilforandringer og Cushing triade.",
+    "difficulty": "hard",
+    "tags": [
+      "ICP",
+      "CNS"
+    ],
+    "deckId": "tbiNeurologiCards"
+  },
+  {
+    "id": "tbi_005",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjerneskade og neurologi",
+    "question": "Hvad består Cushing triade af?",
+    "answer": "Bradykardi, hypertension og uregelmæssig respiration — tegn på forhøjet ICP.",
+    "difficulty": "medium",
+    "tags": [
+      "Cushing",
+      "ICP"
+    ],
+    "deckId": "tbiNeurologiCards"
+  },
+  {
+    "id": "tbi_006",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjerneskade og neurologi",
+    "question": "Hvad betyder anisokori præhospitalt?",
+    "answer": "Forskellige pupilstørrelser som kan indikere alvorlig intrakraniel trykstigning eller blødning.",
+    "difficulty": "medium",
+    "tags": [
+      "anisokori",
+      "ICP"
+    ],
+    "deckId": "tbiNeurologiCards"
+  },
+  {
+    "id": "tbi_007",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjerneskade og neurologi",
+    "question": "Hvorfor skal man undgå hyperventilation hos TBI-patienter, medmindre der er tegn på herniering?",
+    "answer": "Hyperventilation trækker CO₂ ud af blodet og giver vasokonstriktion, som kan nedsætte cerebral blodflow.",
+    "difficulty": "hard",
+    "tags": [
+      "hyperventilation",
+      "TBI"
+    ],
+    "deckId": "tbiNeurologiCards"
+  },
+  {
+    "id": "tbi_008",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjerneskade og neurologi",
+    "question": "Hvad tyder gentagne opkastninger og sløvhed efter hovedtraume på?",
+    "answer": "Mistanke om intrakraniel blødning og stigende ICP — ikke simpel commotio.",
+    "difficulty": "medium",
+    "tags": [
+      "opkast",
+      "ICP"
+    ],
+    "deckId": "tbiNeurologiCards"
+  },
+  {
+    "id": "tbi_009",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjerneskade og neurologi",
+    "question": "Hvad skal du altid mistænke ved faldtraume hos ældre med let påvirket mentalt niveau?",
+    "answer": "Subduralt hæmatom — fordi det ofte udvikles langsomt og uden tydelige traumesymptomer.",
+    "difficulty": "medium",
+    "tags": [
+      "geriatrisk",
+      "subdural"
+    ],
+    "deckId": "tbiNeurologiCards"
+  },
+  {
+    "id": "tbi_010",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjerneskade og neurologi",
+    "question": "Hvad er formålet med GCS præhospitalt?",
+    "answer": "At vurdere niveau af bevidsthed og monitorere neurologisk udvikling over tid.",
+    "difficulty": "easy",
+    "tags": [
+      "GCS",
+      "neurologi"
+    ],
+    "deckId": "tbiNeurologiCards"
+  },
+  {
+    "id": "tbi_011",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjerneskade og neurologi",
+    "question": "Hvad betyder det, hvis en TBI-patient går fra GCS 15 til 13?",
+    "answer": "Neurologisk forværring og mulig intrakraniel blødning — skal vurderes akut.",
+    "difficulty": "medium",
+    "tags": [
+      "GCS",
+      "forværring"
+    ],
+    "deckId": "tbiNeurologiCards"
+  },
+  {
+    "id": "tbi_012",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjerneskade og neurologi",
+    "question": "Hvad betyder 'posttraumatisk amnesi'?",
+    "answer": "Manglende evne til at huske tiden omkring traumet — tegn på commotio eller moderat TBI.",
+    "difficulty": "easy",
+    "tags": [
+      "amnesi",
+      "kommocito"
+    ],
+    "deckId": "tbiNeurologiCards"
+  },
+  {
+    "id": "tbi_013",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjerneskade og neurologi",
+    "question": "Hvorfor kan ICP give lav puls og højt blodtryk?",
+    "answer": "Kroppen øger BT for at sikre cerebral perfusion; samtidig aktiveres baroreceptorer som sænker pulsen.",
+    "difficulty": "hard",
+    "tags": [
+      "ICP",
+      "fysiologi"
+    ],
+    "deckId": "tbiNeurologiCards"
+  },
+  {
+    "id": "tbi_014",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjerneskade og neurologi",
+    "question": "Hvad er hovedformålet med præhospital behandling af TBI?",
+    "answer": "Forebyg sekundær hjerneskade ved at sikre ilt, perfusion og stabil ventilation.",
+    "difficulty": "medium",
+    "tags": [
+      "behandling",
+      "ABC"
+    ],
+    "deckId": "tbiNeurologiCards"
+  },
+  {
+    "id": "tbi_015",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjerneskade og neurologi",
+    "question": "Hvilket respirationsmønster kan tyde på hjernestamme-påvirkning?",
+    "answer": "Uregelmæssig, dyb og langsom vejrtrækning eller helt apraktisk respirationsmønster.",
+    "difficulty": "hard",
+    "tags": [
+      "respiration",
+      "CNS"
+    ],
+    "deckId": "tbiNeurologiCards"
+  },
+  {
+    "id": "tbi_016",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjerneskade og neurologi",
+    "question": "Hvilken type hovedskade kan give 'Battle's sign' og 'panda eyes'?",
+    "answer": "Basis cranii fraktur — tegn på kraniefraktur ved knoglebasen.",
+    "difficulty": "medium",
+    "tags": [
+      "kraniebrud",
+      "neurologi"
+    ],
+    "deckId": "tbiNeurologiCards"
+  },
+  {
+    "id": "tbi_017",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjerneskade og neurologi",
+    "question": "Hvordan kan du vurdere cerebrale funktioner ved grov neurologisk undersøgelse?",
+    "answer": "Kontakt, pupiller, ekstremitetsmotorik, smerterespons og bevidsthedsniveau (AVPU/GCS).",
+    "difficulty": "medium",
+    "tags": [
+      "neurologi",
+      "motorik"
+    ],
+    "deckId": "tbiNeurologiCards"
+  },
+  {
+    "id": "tbi_018",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjerneskade og neurologi",
+    "question": "Hvorfor skal TBI-patienter holdes normoventilerede?",
+    "answer": "Hyper- eller hypoventilation kan enten reducere cerebralt blodflow eller give CO₂-retention og ICP-stigning.",
+    "difficulty": "hard",
+    "tags": [
+      "TBI",
+      "ventilation"
+    ],
+    "deckId": "tbiNeurologiCards"
+  },
+  {
+    "id": "tbi_019",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjerneskade og neurologi",
+    "question": "Hvad tyder stigende BT, faldende puls og påvirket RF på hos traumepatient?",
+    "answer": "Cushing triade — tegn på forhøjet ICP og risiko for hjernestammepåvirkning.",
+    "difficulty": "hard",
+    "tags": [
+      "Cushing",
+      "neuro"
+    ],
+    "deckId": "tbiNeurologiCards"
+  },
+  {
+    "id": "tbi_020",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Traumatisk hjerneskade og neurologi",
+    "question": "Hvad er paramedicinerens primære mål ved TBI?",
+    "answer": "At sikre iltning, perfusion og beskytte hjernen mod sekundær skade, samt prioritere hurtig transport til neurokirurgi.",
+    "difficulty": "easy",
+    "tags": [
+      "TBI",
+      "transport"
+    ],
+    "deckId": "tbiNeurologiCards"
+  },
+  {
+    "id": "itls_001",
+    "subject": "Traumatologi og ITLS",
+    "topic": "ITLS Primary Survey",
+    "question": "Hvad er hovedformålet med ITLS Primary Survey?",
+    "answer": "At identificere og behandle livstruende tilstande hurtigt ved hjælp af ABCDE.",
+    "difficulty": "easy",
+    "tags": [
+      "ITLS",
+      "ABCDE"
+    ],
+    "deckId": "ITLSPrimaryCards"
+  },
+  {
+    "id": "itls_002",
+    "subject": "Traumatologi og ITLS",
+    "topic": "ITLS Primary Survey",
+    "question": "Hvad betyder 'Life before limb' i traumevurdering?",
+    "answer": "Livstruende tilstande skal behandles før større men ikke-dødelige skader som frakturer.",
+    "difficulty": "medium",
+    "tags": [
+      "prioritering",
+      "traume"
+    ],
+    "deckId": "ITLSPrimaryCards"
+  },
+  {
+    "id": "itls_003",
+    "subject": "Traumatologi og ITLS",
+    "topic": "ITLS Primary Survey",
+    "question": "Hvornår skal cervikal immobilisering udføres?",
+    "answer": "Ved højenergitraume eller hvis patienten klager over smerter i nakke, ryg eller neurologiske udfald.",
+    "difficulty": "easy",
+    "tags": [
+      "C-spine",
+      "immobilisering"
+    ],
+    "deckId": "ITLSPrimaryCards"
+  },
+  {
+    "id": "itls_004",
+    "subject": "Traumatologi og ITLS",
+    "topic": "ITLS Primary Survey",
+    "question": "Hvad er tegn på truet luftvej (Airway A)?",
+    "answer": "Snorkende vejrtrækning, gurgling, stridor, hæshed eller manglende tale.",
+    "difficulty": "medium",
+    "tags": [
+      "airway",
+      "ABCDE"
+    ],
+    "deckId": "ITLSPrimaryCards"
+  },
+  {
+    "id": "itls_005",
+    "subject": "Traumatologi og ITLS",
+    "topic": "ITLS Primary Survey",
+    "question": "Hvorfor må head tilt-chin lift ikke bruges ved traume?",
+    "answer": "Det kan forværre cervikal rygskade. Brug kæbeløft (jaw thrust) i stedet.",
+    "difficulty": "hard",
+    "tags": [
+      "airway",
+      "C-spine"
+    ],
+    "deckId": "ITLSPrimaryCards"
+  },
+  {
+    "id": "itls_006",
+    "subject": "Traumatologi og ITLS",
+    "topic": "ITLS Primary Survey",
+    "question": "Nævn de fire livstruende thoraxskader, der skal findes i Primary Survey.",
+    "answer": "Tension pneumothorax, åben pneumothorax, massivt hæmothorax og flail chest.",
+    "difficulty": "medium",
+    "tags": [
+      "thorax",
+      "ABCDE"
+    ],
+    "deckId": "ITLSPrimaryCards"
+  },
+  {
+    "id": "itls_007",
+    "subject": "Traumatologi og ITLS",
+    "topic": "ITLS Primary Survey",
+    "question": "Hvordan kan tension pneumothorax erkendes præhospitalt?",
+    "answer": "Stigende RF, påvirket mental status, distenderede halsvener, unilateral nedsat respiration og hypotension.",
+    "difficulty": "hard",
+    "tags": [
+      "tension ptx",
+      "thorax"
+    ],
+    "deckId": "ITLSPrimaryCards"
+  },
+  {
+    "id": "itls_008",
+    "subject": "Traumatologi og ITLS",
+    "topic": "ITLS Primary Survey",
+    "question": "Hvad kendetegner flail chest (thoraxinstabilitet)?",
+    "answer": "Et område af thorax bevæger sig modsat resten af brystkassen ved respiration (paradox respiration).",
+    "difficulty": "hard",
+    "tags": [
+      "flail chest",
+      "thorax"
+    ],
+    "deckId": "ITLSPrimaryCards"
+  },
+  {
+    "id": "itls_009",
+    "subject": "Traumatologi og ITLS",
+    "topic": "ITLS Primary Survey",
+    "question": "Hvordan ser en åben pneumothorax ud præhospitalt?",
+    "answer": "Suge-/flap-lyd ved vejrtrækning, synlig hul i thorax med luftbobler, ofte hæmodynamisk ustabil.",
+    "difficulty": "hard",
+    "tags": [
+      "åben ptx",
+      "thorax"
+    ],
+    "deckId": "ITLSPrimaryCards"
+  },
+  {
+    "id": "itls_010",
+    "subject": "Traumatologi og ITLS",
+    "topic": "ITLS Primary Survey",
+    "question": "Hvorfor er massiv ekstern blødning rangeret som C-0 i ITLS?",
+    "answer": "Fordi massiv blødning dræber hurtigere end luftvejs- og ventilationsproblemer.",
+    "difficulty": "medium",
+    "tags": [
+      "blødning",
+      "shock"
+    ],
+    "deckId": "ITLSPrimaryCards"
+  },
+  {
+    "id": "itls_011",
+    "subject": "Traumatologi og ITLS",
+    "topic": "ITLS Primary Survey",
+    "question": "Hvad betyder 'Load and go' i ITLS?",
+    "answer": "Patienten har kritiske livstruende tilstande og skal hurtigst muligt transporteres til hospital.",
+    "difficulty": "easy",
+    "tags": [
+      "transport",
+      "trauma"
+    ],
+    "deckId": "ITLSPrimaryCards"
+  },
+  {
+    "id": "itls_012",
+    "subject": "Traumatologi og ITLS",
+    "topic": "ITLS Primary Survey",
+    "question": "Hvad er Becks triade, og hvad indikerer den?",
+    "answer": "Lavt BT, halsvenestase og dæmpede hjertelyde. Indikerer hjertetamponade.",
+    "difficulty": "hard",
+    "tags": [
+      "tamponade",
+      "thorax"
+    ],
+    "deckId": "ITLSPrimaryCards"
+  },
+  {
+    "id": "itls_013",
+    "subject": "Traumatologi og ITLS",
+    "topic": "ITLS Primary Survey",
+    "question": "Hvilken tilstand mistænkes ved neurogent shock?",
+    "answer": "Varm hud, lav puls, lavt BT og skade over C-spine niveau.",
+    "difficulty": "hard",
+    "tags": [
+      "neurogent shock",
+      "C-spine"
+    ],
+    "deckId": "ITLSPrimaryCards"
+  },
+  {
+    "id": "itls_014",
+    "subject": "Traumatologi og ITLS",
+    "topic": "ITLS Primary Survey",
+    "question": "Hvilken enkel klinisk observation kan afsløre kompromitteret Cirkulation (C)?",
+    "answer": "Kapillærrespons over 2 sekunder og kold/klam hud.",
+    "difficulty": "easy",
+    "tags": [
+      "CRT",
+      "shock"
+    ],
+    "deckId": "ITLSPrimaryCards"
+  },
+  {
+    "id": "itls_015",
+    "subject": "Traumatologi og ITLS",
+    "topic": "ITLS Primary Survey",
+    "question": "Hvad indgår i Disability (D) ved ITLS?",
+    "answer": "GCS, pupilforhold og grov neurologisk motorisk respons.",
+    "difficulty": "medium",
+    "tags": [
+      "D",
+      "neurologi"
+    ],
+    "deckId": "ITLSPrimaryCards"
+  },
+  {
+    "id": "itls_016",
+    "subject": "Traumatologi og ITLS",
+    "topic": "ITLS Primary Survey",
+    "question": "Hvorfor er hypotermi farlig i traume (Exposure E)?",
+    "answer": "Hypotermi forværrer koagulation, øger syreproduktion og nedsætter perfusion.",
+    "difficulty": "hard",
+    "tags": [
+      "hypotermi",
+      "koagulation"
+    ],
+    "deckId": "ITLSPrimaryCards"
+  },
+  {
+    "id": "itls_017",
+    "subject": "Traumatologi og ITLS",
+    "topic": "ITLS Primary Survey",
+    "question": "Hvad er meningen med Golden Hour i traume?",
+    "answer": "De første 60 minutter efter skade er afgørende for overlevelse og outcomes.",
+    "difficulty": "easy",
+    "tags": [
+      "golden hour"
+    ],
+    "deckId": "ITLSPrimaryCards"
+  },
+  {
+    "id": "itls_018",
+    "subject": "Traumatologi og ITLS",
+    "topic": "ITLS Primary Survey",
+    "question": "Hvorfor skal nogle patienter i ‘load and go’, også selvom de virker stabile?",
+    "answer": "Høj risiko for skjult indre blødning eller thorax-/hovedskader baseret på MOI.",
+    "difficulty": "medium",
+    "tags": [
+      "MOI",
+      "triage"
+    ],
+    "deckId": "ITLSPrimaryCards"
+  },
+  {
+    "id": "itls_019",
+    "subject": "Traumatologi og ITLS",
+    "topic": "ITLS Primary Survey",
+    "question": "Hvad betyder 'treat as you go' i ITLS?",
+    "answer": "Livstruende problemer behandles straks under ABCDE, ikke kun efter vurdering.",
+    "difficulty": "easy",
+    "tags": [
+      "ABCDE",
+      "behandling"
+    ],
+    "deckId": "ITLSPrimaryCards"
+  },
+  {
+    "id": "itls_020",
+    "subject": "Traumatologi og ITLS",
+    "topic": "ITLS Primary Survey",
+    "question": "Hvad er paramedicinerens primære formål i ITLS Primary Survey?",
+    "answer": "At opdage og stabilisere livstruende tilstande hurtigt og prioritere transport.",
+    "difficulty": "easy",
+    "tags": [
+      "rolle",
+      "ITLS"
+    ],
+    "deckId": "ITLSPrimaryCards"
+  },
+  {
+    "id": "sektraume_001",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Sekundær vurdering og kliniske beslutninger",
+    "question": "Hvad er formålet med sekundær traumevurdering?",
+    "answer": "At finde alle ikke-livstruende, men relevante skader gennem systematisk helkropsundersøgelse.",
+    "difficulty": "easy",
+    "tags": [
+      "sekundær",
+      "undersøgelse"
+    ],
+    "deckId": "traumeSekundaerCards"
+  },
+  {
+    "id": "sektraume_002",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Sekundær vurdering og kliniske beslutninger",
+    "question": "Hvad står DCAP-BTLS for?",
+    "answer": "Deformity, Contusion, Abrasion, Puncture/Penetration, Burns, Tenderness, Laceration, Swelling.",
+    "difficulty": "medium",
+    "tags": [
+      "DCAP-BTLS",
+      "undersøgelse"
+    ],
+    "deckId": "traumeSekundaerCards"
+  },
+  {
+    "id": "sektraume_003",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Sekundær vurdering og kliniske beslutninger",
+    "question": "Hvordan bruges SAMPLE-anamnese i traumevurdering?",
+    "answer": "Til at indsamle relevante oplysninger om pt.'s sygehistorie, allergier, medicin, sidste måltid og traumehændelse.",
+    "difficulty": "easy",
+    "tags": [
+      "SAMPLE",
+      "anamnese"
+    ],
+    "deckId": "traumeSekundaerCards"
+  },
+  {
+    "id": "sektraume_004",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Sekundær vurdering og kliniske beslutninger",
+    "question": "Hvordan kan MIST bruges ved overlevering til sygehus?",
+    "answer": "Mechanism of injury, Injuries found, Signs (vitalparametre), Treatment given.",
+    "difficulty": "easy",
+    "tags": [
+      "MIST",
+      "kommunikation"
+    ],
+    "deckId": "traumeSekundaerCards"
+  },
+  {
+    "id": "sektraume_005",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Sekundær vurdering og kliniske beslutninger",
+    "question": "Hvad betyder ‘load and go’ i ITLS?",
+    "answer": "At pt. har livstruende tilstande, som kræver øjeblikkelig transport, behandling gives undervejs.",
+    "difficulty": "easy",
+    "tags": [
+      "transport",
+      "kritisk"
+    ],
+    "deckId": "traumeSekundaerCards"
+  },
+  {
+    "id": "sektraume_006",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Sekundær vurdering og kliniske beslutninger",
+    "question": "Hvad er karakteristisk for en transportindikation baseret på mekanisme alene?",
+    "answer": "Højenergitraume, som kan give skjulte indre skader, selv ved stabile vitale værdier.",
+    "difficulty": "medium",
+    "tags": [
+      "MOI",
+      "transport"
+    ],
+    "deckId": "traumeSekundaerCards"
+  },
+  {
+    "id": "sektraume_007",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Sekundær vurdering og kliniske beslutninger",
+    "question": "Hvad indikerer en 'time-critical' patient i traume?",
+    "answer": "Pt. med livstruende ABC-problem, aktiv blødning, shock eller faldende GCS.",
+    "difficulty": "medium",
+    "tags": [
+      "prioritet",
+      "traume"
+    ],
+    "deckId": "traumeSekundaerCards"
+  },
+  {
+    "id": "sektraume_008",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Sekundær vurdering og kliniske beslutninger",
+    "question": "Hvorfor laver man top-to-toe undersøgelse kun efter Primary Survey?",
+    "answer": "Fordi livstruende skader først skal stabiliseres, inden man undersøger resten.",
+    "difficulty": "easy",
+    "tags": [
+      "prioritet",
+      "ABCDE"
+    ],
+    "deckId": "traumeSekundaerCards"
+  },
+  {
+    "id": "sektraume_009",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Sekundær vurdering og kliniske beslutninger",
+    "question": "Hvad skal man være særligt opmærksom på ved bækkenundersøgelse?",
+    "answer": "Bækken skal kun undersøges én gang, da manipulation kan forværre blødning.",
+    "difficulty": "hard",
+    "tags": [
+      "bækken",
+      "blødning"
+    ],
+    "deckId": "traumeSekundaerCards"
+  },
+  {
+    "id": "sektraume_010",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Sekundær vurdering og kliniske beslutninger",
+    "question": "Hvad afgør, om patient skal til Traumecenter og ikke almindeligt sygehus?",
+    "answer": "Livstruende tilstand, major traume, høj energi-MOI, ustabil ABC eller faldende GCS.",
+    "difficulty": "medium",
+    "tags": [
+      "traumecenter",
+      "visitation"
+    ],
+    "deckId": "traumeSekundaerCards"
+  },
+  {
+    "id": "sektraume_011",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Sekundær vurdering og kliniske beslutninger",
+    "question": "Hvordan kan man genkende multitraume præhospitalt?",
+    "answer": "Ved skader i flere kropsregioner eller potentielt livstruende belastning af ABC.",
+    "difficulty": "medium",
+    "tags": [
+      "multitraume"
+    ],
+    "deckId": "traumeSekundaerCards"
+  },
+  {
+    "id": "sektraume_012",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Sekundær vurdering og kliniske beslutninger",
+    "question": "Hvad er vigtigste formål med triage i traume?",
+    "answer": "At prioritere ressourcer og transport efter alvorlighedsgrad og tidskritikalitet.",
+    "difficulty": "easy",
+    "tags": [
+      "triage",
+      "prioritering"
+    ],
+    "deckId": "traumeSekundaerCards"
+  },
+  {
+    "id": "sektraume_013",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Sekundær vurdering og kliniske beslutninger",
+    "question": "Hvad betyder ‘stay and play’?",
+    "answer": "At man først færdigbehandler pt. på stedet, fordi stabilisering er kritisk inden transport.",
+    "difficulty": "medium",
+    "tags": [
+      "stay and play",
+      "transport"
+    ],
+    "deckId": "traumeSekundaerCards"
+  },
+  {
+    "id": "sektraume_014",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Sekundær vurdering og kliniske beslutninger",
+    "question": "Hvorfor kan en tilsyneladende stabil traume pt. stadig være kritisk?",
+    "answer": "Der kan være skjult indre blødning, lungekontusion eller forsinket ICP-stigning.",
+    "difficulty": "hard",
+    "tags": [
+      "skjult skade",
+      "monitorering"
+    ],
+    "deckId": "traumeSekundaerCards"
+  },
+  {
+    "id": "sektraume_015",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Sekundær vurdering og kliniske beslutninger",
+    "question": "Hvordan vurderer man mentalt status hurtigt i sekundær undersøgelse?",
+    "answer": "Med AVPU eller GCS — især hvis der er ændring over tid.",
+    "difficulty": "easy",
+    "tags": [
+      "GCS",
+      "neurologi"
+    ],
+    "deckId": "traumeSekundaerCards"
+  },
+  {
+    "id": "sektraume_016",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Sekundær vurdering og kliniske beslutninger",
+    "question": "Hvad er paramedicinerens vigtigste opgave ved klinisk beslutning i traume?",
+    "answer": "At identificere kritiske skader, prioritere ABC og visitere til korrekt behandlingssted.",
+    "difficulty": "easy",
+    "tags": [
+      "rolle",
+      "beslutning"
+    ],
+    "deckId": "traumeSekundaerCards"
+  },
+  {
+    "id": "sektraume_017",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Sekundær vurdering og kliniske beslutninger",
+    "question": "Hvordan kan du bruge mekanisme til at forudsige behov for traumecenter?",
+    "answer": "Højenergi-hændelser som fald >3 m, trafikulykke >60 km/t eller ped. mod bil kræver ofte traumecenter.",
+    "difficulty": "medium",
+    "tags": [
+      "MOI",
+      "traumecenter"
+    ],
+    "deckId": "traumeSekundaerCards"
+  },
+  {
+    "id": "sektraume_018",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Sekundær vurdering og kliniske beslutninger",
+    "question": "Hvad er tegn på progressivt shock under sekundær vurdering?",
+    "answer": "Faldende GCS, svag puls, kold hud, stigende RF og senere faldende BT.",
+    "difficulty": "medium",
+    "tags": [
+      "shock",
+      "overvågning"
+    ],
+    "deckId": "traumeSekundaerCards"
+  },
+  {
+    "id": "sektraume_019",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Sekundær vurdering og kliniske beslutninger",
+    "question": "Hvilken information er vigtigst at få med til traumemodtagelsen?",
+    "answer": "MOI, vitalparametre, mistænkte skader, behandling og tidsforløb.",
+    "difficulty": "easy",
+    "tags": [
+      "rapport",
+      "MIST"
+    ],
+    "deckId": "traumeSekundaerCards"
+  },
+  {
+    "id": "sektraume_020",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Sekundær vurdering og kliniske beslutninger",
+    "question": "Hvorfor er tidslinje og ændringer i tilstand vigtigere end en enkelt måling?",
+    "answer": "Fordi klinisk udvikling afslører indre blødning, ICP-stigning eller dekompensering tidligere end tal.",
+    "difficulty": "hard",
+    "tags": [
+      "trend",
+      "udvikling"
+    ],
+    "deckId": "traumeSekundaerCards"
+  },
+  {
+    "id": "shocktraume_001",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Shock og cirkulation i traume",
+    "question": "Hvad er den primære årsag til hypovolæmisk shock i traume?",
+    "answer": "Blødning, enten synlig ydre blødning eller skjult indre blødning.",
+    "difficulty": "easy",
+    "tags": [
+      "hypovolæmi",
+      "blødning"
+    ],
+    "deckId": "ShockTraumeCards"
+  },
+  {
+    "id": "shocktraume_002",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Shock og cirkulation i traume",
+    "question": "Hvorfor falder blodtrykket ofte sent ved hypovolæmisk shock?",
+    "answer": "Kroppen kompenserer via sympatikus, så puls og vasokonstriktion holder BT normalt indtil dekompensation.",
+    "difficulty": "medium",
+    "tags": [
+      "kompensation",
+      "sympatikus"
+    ],
+    "deckId": "ShockTraumeCards"
+  },
+  {
+    "id": "shocktraume_003",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Shock og cirkulation i traume",
+    "question": "Hvilke kliniske tegn ses ofte før blodtryksfald i traumerelateret shock?",
+    "answer": "Tachykardi, perifer kulde, bleg og klam hud, forlænget CRT og uro/konfusion.",
+    "difficulty": "medium",
+    "tags": [
+      "CRT",
+      "hud",
+      "kompensation"
+    ],
+    "deckId": "ShockTraumeCards"
+  },
+  {
+    "id": "shocktraume_004",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Shock og cirkulation i traume",
+    "question": "Hvad adskiller neurogent shock fra hypovolæmisk shock?",
+    "answer": "Neurogent shock giver varm hud, lav puls og lavt BT uden perifer vasokonstriktion.",
+    "difficulty": "hard",
+    "tags": [
+      "neurogent",
+      "hud"
+    ],
+    "deckId": "ShockTraumeCards"
+  },
+  {
+    "id": "shocktraume_005",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Shock og cirkulation i traume",
+    "question": "Hvordan adskiller obstruktivt shock sig fysiologisk?",
+    "answer": "Det skyldes mekanisk hindring af blodets cirkulation, fx tension pneumothorax eller tamponade.",
+    "difficulty": "hard",
+    "tags": [
+      "obstruktivt",
+      "thorax"
+    ],
+    "deckId": "ShockTraumeCards"
+  },
+  {
+    "id": "shocktraume_006",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Shock og cirkulation i traume",
+    "question": "Hvad er klassiske tegn på tension pneumothorax?",
+    "answer": "Stigende RF, hypotension, distenderede halsvener, ensidig nedsat respiration og påvirket mental status.",
+    "difficulty": "hard",
+    "tags": [
+      "tension ptx",
+      "obstruktivt shock"
+    ],
+    "deckId": "ShockTraumeCards"
+  },
+  {
+    "id": "shocktraume_007",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Shock og cirkulation i traume",
+    "question": "Hvorfor ses ofte distenderede halsvener ved obstruktivt shock?",
+    "answer": "Blod returnerer ikke normalt til hjertet, så det staser i de centrale vener.",
+    "difficulty": "hard",
+    "tags": [
+      "halsvener",
+      "tamponade"
+    ],
+    "deckId": "ShockTraumeCards"
+  },
+  {
+    "id": "shocktraume_008",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Shock og cirkulation i traume",
+    "question": "Hvad er Becks triade, og hvad indikerer den?",
+    "answer": "Lavt BT, halsvenestase og dæmpede hjertelyde → indikerer hjertetamponade (obstruktivt shock).",
+    "difficulty": "hard",
+    "tags": [
+      "tamponade",
+      "BT"
+    ],
+    "deckId": "ShockTraumeCards"
+  },
+  {
+    "id": "shocktraume_009",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Shock og cirkulation i traume",
+    "question": "Hvordan kan man klinisk vurdere graden af blodtab i traume?",
+    "answer": "Hud, puls, mentalstatus og RF er bedre indikatorer end BT alene.",
+    "difficulty": "medium",
+    "tags": [
+      "shock",
+      "vitalparametre"
+    ],
+    "deckId": "ShockTraumeCards"
+  },
+  {
+    "id": "shocktraume_010",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Shock og cirkulation i traume",
+    "question": "Hvilke shocktyper har varm hud?",
+    "answer": "Neurogent shock og tidlig septisk shock.",
+    "difficulty": "medium",
+    "tags": [
+      "neurogent",
+      "hud"
+    ],
+    "deckId": "ShockTraumeCards"
+  },
+  {
+    "id": "shocktraume_011",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Shock og cirkulation i traume",
+    "question": "Hvorfor kan traume og hypovolæmi føre til metabolisk acidose?",
+    "answer": "Utilstrækkelig perfusion giver anaerob metabolisme og laktatproduktion.",
+    "difficulty": "hard",
+    "tags": [
+      "acidose",
+      "perfusion"
+    ],
+    "deckId": "ShockTraumeCards"
+  },
+  {
+    "id": "shocktraume_012",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Shock og cirkulation i traume",
+    "question": "Hvorfor kan hypovolæmisk shock give hurtig RF (tachypnø)?",
+    "answer": "Kroppen forsøger at udlufte CO₂ og kompensere for metabolisk acidose.",
+    "difficulty": "medium",
+    "tags": [
+      "RF",
+      "acidose"
+    ],
+    "deckId": "ShockTraumeCards"
+  },
+  {
+    "id": "shocktraume_013",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Shock og cirkulation i traume",
+    "question": "Hvad er et tidligt tegn på progressivt shock?",
+    "answer": "Patienten bliver urolig, ængstelig og mentalt påvirket.",
+    "difficulty": "easy",
+    "tags": [
+      "GCS",
+      "shock"
+    ],
+    "deckId": "ShockTraumeCards"
+  },
+  {
+    "id": "shocktraume_014",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Shock og cirkulation i traume",
+    "question": "Hvordan vurderes perfusion præhospitalt uden udstyr?",
+    "answer": "Hudfarve, temperatur, fugtighed, CRT og mentalstatus.",
+    "difficulty": "medium",
+    "tags": [
+      "perfusion",
+      "CRT"
+    ],
+    "deckId": "ShockTraumeCards"
+  },
+  {
+    "id": "shocktraume_015",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Shock og cirkulation i traume",
+    "question": "Hvordan kendes neurogent shock klinisk?",
+    "answer": "Varm, tør hud, lav puls, lavt BT og mulig neurologisk skade over T6-niveau.",
+    "difficulty": "hard",
+    "tags": [
+      "neurogent",
+      "BT"
+    ],
+    "deckId": "ShockTraumeCards"
+  },
+  {
+    "id": "shocktraume_016",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Shock og cirkulation i traume",
+    "question": "Hvordan kan man adskille hypovolæmisk og obstruktivt shock ved traume?",
+    "answer": "Obstruktivt har ofte halsvenestase og thoraxsymptomer. Hypovolæmi har flad halsvene og bleg/kold hud.",
+    "difficulty": "hard",
+    "tags": [
+      "halsvener",
+      "thorax"
+    ],
+    "deckId": "ShockTraumeCards"
+  },
+  {
+    "id": "shocktraume_017",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Shock og cirkulation i traume",
+    "question": "Hvad er kliniske tegn på dekompenseret shock?",
+    "answer": "Lavt BT, svag puls, sløvhed, cyanose og meget hurtig RF.",
+    "difficulty": "medium",
+    "tags": [
+      "dekompenseret",
+      "GCS"
+    ],
+    "deckId": "ShockTraumeCards"
+  },
+  {
+    "id": "shocktraume_018",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Shock og cirkulation i traume",
+    "question": "Hvorfor kan for aggressiv væskebehandling være farlig ved traume?",
+    "answer": "Kan øge blødning ved at forstyrre koagulation og øge blodtryk i skadet kar.",
+    "difficulty": "hard",
+    "tags": [
+      "væske",
+      "traume"
+    ],
+    "deckId": "ShockTraumeCards"
+  },
+  {
+    "id": "shocktraume_019",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Shock og cirkulation i traume",
+    "question": "Hvad betyder permissiv hypotension i traume?",
+    "answer": "At man accepterer lavere BT for at undgå at øge blødning ved væsketerapi ved ubehandlet blødningskilde.",
+    "difficulty": "hard",
+    "tags": [
+      "væske",
+      "BT"
+    ],
+    "deckId": "ShockTraumeCards"
+  },
+  {
+    "id": "shocktraume_020",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Shock og cirkulation i traume",
+    "question": "Hvad er paramedicinerens vigtigste opgave ved shock i traume?",
+    "answer": "Identificere shocktype, standse blødning, støtte ABC og prioritere hurtig transport.",
+    "difficulty": "easy",
+    "tags": [
+      "rolle",
+      "traume"
+    ],
+    "deckId": "ShockTraumeCards"
+  },
+  {
+    "id": "moi_001",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Skademekanisme & energi",
+    "question": "Hvad betyder MOI (Mechanism of Injury) i traumatologi?",
+    "answer": "MOI beskriver, hvordan energi overføres til kroppen og hjælper med at forudsige skjulte skader.",
+    "difficulty": "easy",
+    "tags": [
+      "MOI",
+      "energi"
+    ],
+    "deckId": "MOICards"
+  },
+  {
+    "id": "moi_002",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Skademekanisme & energi",
+    "question": "Hvordan beregnes kinetisk energi i traumer?",
+    "answer": "Kinetic energy = 1/2 × masse × hastighed². Hastighed har derfor størst betydning for skade.",
+    "difficulty": "hard",
+    "tags": [
+      "energi",
+      "fysik"
+    ],
+    "deckId": "MOICards"
+  },
+  {
+    "id": "moi_003",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Skademekanisme & energi",
+    "question": "Hvorfor er et biluheld ved 80 km/t farligere end ved 40 km/t – selv med samme bil og patient?",
+    "answer": "Fordi kinetisk energi firedobles, når hastigheden fordobles (E ∝ v²).",
+    "difficulty": "medium",
+    "tags": [
+      "energi",
+      "hastighed"
+    ],
+    "deckId": "MOICards"
+  },
+  {
+    "id": "moi_004",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Skademekanisme & energi",
+    "question": "Hvorfor kan en patient uden smerter stadig have livstruende indre blødning?",
+    "answer": "Energioverførsel kan give organ- eller karruptur uden ydre tegn eller smerteinitialt.",
+    "difficulty": "hard",
+    "tags": [
+      "indre blødning",
+      "MOI"
+    ],
+    "deckId": "MOICards"
+  },
+  {
+    "id": "moi_005",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Skademekanisme & energi",
+    "question": "Hvilke tre ‘force pathways’ mistænkes ved frontal kollision?",
+    "answer": "1. Down-and-under (knæ, femur, bækken, organer) 2. Up-and-over (hoved, nakke, thorax) 3. Whiplash (halsrygsøjle).",
+    "difficulty": "hard",
+    "tags": [
+      "force pathways",
+      "bilulykke"
+    ],
+    "deckId": "MOICards"
+  },
+  {
+    "id": "moi_006",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Skademekanisme & energi",
+    "question": "Hvilke to organer er hyppigst skadet ved direkte stumpe traumer mod abdomen?",
+    "answer": "Milt og lever – pga. deres position og blodfyldte væv.",
+    "difficulty": "medium",
+    "tags": [
+      "abdomen",
+      "indre skade"
+    ],
+    "deckId": "MOICards"
+  },
+  {
+    "id": "moi_007",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Skademekanisme & energi",
+    "question": "Hvorfor kan et lille, præcist penetrerende traume være farligere end et stort stumpt?",
+    "answer": "Fordi energi koncentreres på et lille område og kan penetrere vitale strukturer.",
+    "difficulty": "medium",
+    "tags": [
+      "penetrerende",
+      "energi"
+    ],
+    "deckId": "MOICards"
+  },
+  {
+    "id": "moi_008",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Skademekanisme & energi",
+    "question": "Hvorfor er fald >3 meter særligt risikofyldt, selv uden smerter?",
+    "answer": "Høj vertikal energi kan give aksiale knoglebrud, rygmarvsskader og organruptur.",
+    "difficulty": "hard",
+    "tags": [
+      "fald",
+      "aksial belastning"
+    ],
+    "deckId": "MOICards"
+  },
+  {
+    "id": "moi_009",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Skademekanisme & energi",
+    "question": "Hvilke skader skal man mistænke ved styrt over cykelstyr eller motorcykel?",
+    "answer": "Thorax- og abdominalskader, milt/leverruptur, ribbensfrakturer og lungekontusion.",
+    "difficulty": "medium",
+    "tags": [
+      "cykel",
+      "motorcykel"
+    ],
+    "deckId": "MOICards"
+  },
+  {
+    "id": "moi_010",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Skademekanisme & energi",
+    "question": "Hvordan kan man ud fra en knæ-airbag kontakt (down-and-under) forudsige skader?",
+    "answer": "Mistænk knæfrakturer, femurbrud, bækkenfrakturer og indre blødninger.",
+    "difficulty": "hard",
+    "tags": [
+      "bilulykke",
+      "bækken"
+    ],
+    "deckId": "MOICards"
+  },
+  {
+    "id": "moi_011",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Skademekanisme & energi",
+    "question": "Hvad skal man altid tænke ved deformering af rat eller tab af tonstungt køretøj?",
+    "answer": "Høj energi → thoraxtraume, hjertekontusion, flail chest eller aortaruptur.",
+    "difficulty": "hard",
+    "tags": [
+      "høj energi",
+      "thorax"
+    ],
+    "deckId": "MOICards"
+  },
+  {
+    "id": "moi_012",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Skademekanisme & energi",
+    "question": "Hvordan kan man præhospitalt mistænke aortaruptur?",
+    "answer": "Højenergitraume + smerter i ryg eller thorax, hypotension, tegn på shock uden ydre skade.",
+    "difficulty": "hard",
+    "tags": [
+      "aortaruptur",
+      "MOI"
+    ],
+    "deckId": "MOICards"
+  },
+  {
+    "id": "moi_013",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Skademekanisme & energi",
+    "question": "Hvilke traumer bør altid give mistanke om cervikal rygskade?",
+    "answer": "Højenergitraumer, fald >3 meter, trafikulykker, dykkerulykker og axial belastning.",
+    "difficulty": "medium",
+    "tags": [
+      "column",
+      "faldtraume"
+    ],
+    "deckId": "MOICards"
+  },
+  {
+    "id": "moi_014",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Skademekanisme & energi",
+    "question": "Hvorfor er sidekollisioner ofte mere skadelige end frontale?",
+    "answer": "Der er kortere afstand fra impact til vitale organer og mindre beskyttelse.",
+    "difficulty": "hard",
+    "tags": [
+      "trafik",
+      "MOI"
+    ],
+    "deckId": "MOICards"
+  },
+  {
+    "id": "moi_015",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Skademekanisme & energi",
+    "question": "Hvorfor kan et 'lavenergi-traume' (f.eks. fald hjemme) være alvorligt hos ældre?",
+    "answer": "Skrøbelige kar, osteoporose og tyndt væv → høj risiko for intracerebral blødning og frakturer.",
+    "difficulty": "medium",
+    "tags": [
+      "geriatrisk",
+      "lavenergi"
+    ],
+    "deckId": "MOICards"
+  },
+  {
+    "id": "moi_016",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Skademekanisme & energi",
+    "question": "Hvilke skader er typiske ved cykelstyrt med styret mod abdomen?",
+    "answer": "Lever- eller pankreasskader og indre blødninger.",
+    "difficulty": "hard",
+    "tags": [
+      "abdomen",
+      "styrt"
+    ],
+    "deckId": "MOICards"
+  },
+  {
+    "id": "moi_017",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Skademekanisme & energi",
+    "question": "Hvordan kan du bruge skademekanisme til at prioritere transport?",
+    "answer": "Højenergitraumer skal vurderes som potentielt kritiske, selv med stabile vitale værdier.",
+    "difficulty": "medium",
+    "tags": [
+      "triage",
+      "MOI"
+    ],
+    "deckId": "MOICards"
+  },
+  {
+    "id": "moi_018",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Skademekanisme & energi",
+    "question": "Hvorfor må du aldrig lade MOI overskygge ABC?",
+    "answer": "MOI forudsiger skader, men ABC-afvigelser dræber her og nu og skal prioriteres først.",
+    "difficulty": "medium",
+    "tags": [
+      "ABC",
+      "prioritet"
+    ],
+    "deckId": "MOICards"
+  },
+  {
+    "id": "moi_019",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Skademekanisme & energi",
+    "question": "Hvad betyder 'index of suspicion'?",
+    "answer": "Din mistanke om skjulte skader baseret på energi og mekanisme – før symptomerne ses.",
+    "difficulty": "hard",
+    "tags": [
+      "mistanke",
+      "ITLS"
+    ],
+    "deckId": "MOICards"
+  },
+  {
+    "id": "moi_020",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Skademekanisme & energi",
+    "question": "Hvad er paramedicinerens vigtigste opgave ifølge ITLS i forhold til skademekanisme?",
+    "answer": "At bruge energivurdering til at forudsige skjulte skader og prioritere hurtig transport.",
+    "difficulty": "easy",
+    "tags": [
+      "ITLS",
+      "beslutning"
+    ],
+    "deckId": "MOICards"
+  },
+  {
+    "id": "thorax_001",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Thoraxtraumer",
+    "question": "Hvorfor er thoraxtraumer særligt farlige præhospitalt?",
+    "answer": "Fordi de kan kompromittere både ventilation og cirkulation hurtigt gennem pneumothorax, hæmothorax og hjertetamponade.",
+    "difficulty": "medium",
+    "tags": [
+      "thorax",
+      "traume"
+    ],
+    "deckId": "ThoraxTraumeCards"
+  },
+  {
+    "id": "thorax_002",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Thoraxtraumer",
+    "question": "Hvad er et ribbensbrud klinisk tegn på i traume?",
+    "answer": "Stumpt thoraxtraume med risiko for pneumothorax, hæmothorax og lungekontusion.",
+    "difficulty": "easy",
+    "tags": [
+      "ribbensfraktur"
+    ],
+    "deckId": "ThoraxTraumeCards"
+  },
+  {
+    "id": "thorax_003",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Thoraxtraumer",
+    "question": "Hvad kendetegner tension pneumothorax?",
+    "answer": "Luft i pleurahulen under tryk, som kollapser lungen og komprimerer mediastinum og vena cava, hvilket giver shock.",
+    "difficulty": "hard",
+    "tags": [
+      "tension ptx"
+    ],
+    "deckId": "ThoraxTraumeCards"
+  },
+  {
+    "id": "thorax_004",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Thoraxtraumer",
+    "question": "Hvilke kliniske tegn tyder på tension pneumothorax?",
+    "answer": "Stigende RF, unilateral nedsat/ophævet respirationslyde, hypotension, halsvenestase og påvirket mental status.",
+    "difficulty": "hard",
+    "tags": [
+      "tension ptx",
+      "halsvener"
+    ],
+    "deckId": "ThoraxTraumeCards"
+  },
+  {
+    "id": "thorax_005",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Thoraxtraumer",
+    "question": "Hvad er en simpel pneumothorax?",
+    "answer": "Luft i pleurahulen uden betydeligt tryk, som kan give dyspnø og nedsat respirationslyd på afficeret side.",
+    "difficulty": "medium",
+    "tags": [
+      "pneumothorax"
+    ],
+    "deckId": "ThoraxTraumeCards"
+  },
+  {
+    "id": "thorax_006",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Thoraxtraumer",
+    "question": "Hvordan adskilles tension pneumothorax fra simpel pneumothorax klinisk?",
+    "answer": "Tension ptx har kredsløbspåvirkning med hypotension og halsvenestase; simpel ptx giver dyspnø men ofte stabil cirkulation.",
+    "difficulty": "hard",
+    "tags": [
+      "pneumothorax",
+      "shock"
+    ],
+    "deckId": "ThoraxTraumeCards"
+  },
+  {
+    "id": "thorax_007",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Thoraxtraumer",
+    "question": "Hvad kendetegner en åben pneumothorax?",
+    "answer": "Åbning i thoraxvæggen, hvor luft frit kan passere ind og ud af pleurahulen under respiration.",
+    "difficulty": "medium",
+    "tags": [
+      "åben ptx"
+    ],
+    "deckId": "ThoraxTraumeCards"
+  },
+  {
+    "id": "thorax_008",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Thoraxtraumer",
+    "question": "Hvordan ser en åben pneumothorax typisk ud præhospitalt?",
+    "answer": "Synligt sår i thorax, evt. med sugende/flappende lyd, skummende blod og svær dyspnø.",
+    "difficulty": "medium",
+    "tags": [
+      "åben ptx",
+      "sår"
+    ],
+    "deckId": "ThoraxTraumeCards"
+  },
+  {
+    "id": "thorax_009",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Thoraxtraumer",
+    "question": "Hvad er et massivt hæmothorax?",
+    "answer": "Stor mængde blod i pleurahulen, som komprimerer lunge og reducerer venøst tilbageløb til hjertet.",
+    "difficulty": "hard",
+    "tags": [
+      "hæmothorax"
+    ],
+    "deckId": "ThoraxTraumeCards"
+  },
+  {
+    "id": "thorax_010",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Thoraxtraumer",
+    "question": "Hvilke kliniske tegn tyder på massivt hæmothorax?",
+    "answer": "Dyspnø, dæmpede respirationslyde, dæmpet perkussionstoner, hypotension og tegn på hypovolæmisk shock.",
+    "difficulty": "hard",
+    "tags": [
+      "hæmothorax",
+      "shock"
+    ],
+    "deckId": "ThoraxTraumeCards"
+  },
+  {
+    "id": "thorax_011",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Thoraxtraumer",
+    "question": "Hvad er flail chest (thoraxinstabilitet)?",
+    "answer": "Mindst to frakturer i mindst tre nabo-ribben, som skaber et frit bevægeligt segment af thoraxvæggen.",
+    "difficulty": "medium",
+    "tags": [
+      "flail chest"
+    ],
+    "deckId": "ThoraxTraumeCards"
+  },
+  {
+    "id": "thorax_012",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Thoraxtraumer",
+    "question": "Hvordan genkendes flail chest klinisk?",
+    "answer": "Paradox respiration, hvor et segment af thorax bevæger sig indad ved inspiration og udad ved ekspiration.",
+    "difficulty": "hard",
+    "tags": [
+      "paradox",
+      "flail"
+    ],
+    "deckId": "ThoraxTraumeCards"
+  },
+  {
+    "id": "thorax_013",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Thoraxtraumer",
+    "question": "Hvad er hjertetamponade i traumesammenhæng?",
+    "answer": "Blod i perikardiet, som hæmmer hjertets fyldning og reducerer minutvolumen.",
+    "difficulty": "hard",
+    "tags": [
+      "tamponade"
+    ],
+    "deckId": "ThoraxTraumeCards"
+  },
+  {
+    "id": "thorax_014",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Thoraxtraumer",
+    "question": "Hvad er Becks triade ved hjertetamponade?",
+    "answer": "Lavt blodtryk, distenderede halsvener og dæmpede hjertelyde.",
+    "difficulty": "hard",
+    "tags": [
+      "Becks triade",
+      "tamponade"
+    ],
+    "deckId": "ThoraxTraumeCards"
+  },
+  {
+    "id": "thorax_015",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Thoraxtraumer",
+    "question": "Hvad er lungekontusion?",
+    "answer": "Knusningsskade på lungevævet, ofte efter stumpt thoraxtraume, som giver blødning og ødem i lungen.",
+    "difficulty": "medium",
+    "tags": [
+      "kontusion",
+      "lunge"
+    ],
+    "deckId": "ThoraxTraumeCards"
+  },
+  {
+    "id": "thorax_016",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Thoraxtraumer",
+    "question": "Hvilke symptomer kan ses ved lungekontusion?",
+    "answer": "Tiltagende dyspnø, hypoksi, evt. skummende blodigt opspyt og krepitation ved st.p.",
+    "difficulty": "hard",
+    "tags": [
+      "kontusion",
+      "respiration"
+    ],
+    "deckId": "ThoraxTraumeCards"
+  },
+  {
+    "id": "thorax_017",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Thoraxtraumer",
+    "question": "Hvilke basale undersøgelser er vigtigst ved thoraxtraume præhospitalt?",
+    "answer": "Inspektion af thorax, palpation for ømhed og instabilitet, auskultation af respirationslyde og vurdering af RF og saturation.",
+    "difficulty": "medium",
+    "tags": [
+      "undersøgelse",
+      "ABC"
+    ],
+    "deckId": "ThoraxTraumeCards"
+  },
+  {
+    "id": "thorax_018",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Thoraxtraumer",
+    "question": "Hvordan kan thoraxtraume påvirke cirkulationen uden åbenlys blødning?",
+    "answer": "Ved trykpneumothorax, tamponade eller massiv hæmothorax, som reducerer venøst tilbageløb og minutvolumen.",
+    "difficulty": "hard",
+    "tags": [
+      "obstruktivt shock",
+      "thorax"
+    ],
+    "deckId": "ThoraxTraumeCards"
+  },
+  {
+    "id": "thorax_019",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Thoraxtraumer",
+    "question": "Hvorfor er thoraxtraumer ofte forbundet med betydelig smerte og hypoventilation?",
+    "answer": "Smerter fra ribbensfrakturer og bløddelsskader gør det svært at tage dybe vejrtrækninger, hvilket kan give hypoksi og atelektaser.",
+    "difficulty": "medium",
+    "tags": [
+      "smerte",
+      "hypoventilation"
+    ],
+    "deckId": "ThoraxTraumeCards"
+  },
+  {
+    "id": "thorax_020",
+    "subject": "Traumatologi og ITLS",
+    "topic": "Thoraxtraumer",
+    "question": "Hvad er paramedicinerens primære fokus ved thoraxtraume?",
+    "answer": "Identificere livstruende thoraxskader, støtte ventilation og cirkulation og sikre hurtig transport til traumehospital.",
+    "difficulty": "easy",
+    "tags": [
+      "rolle",
+      "traume"
+    ],
+    "deckId": "ThoraxTraumeCards"
+  }
+]

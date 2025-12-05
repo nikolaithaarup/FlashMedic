@@ -1,0 +1,1592 @@
+[
+  {
+    "id": "ekg_001",
+    "subject": "EKG",
+    "topic": "Grundlæggende EKG",
+    "question": "Hvad repræsenterer P-takken på EKG?",
+    "answer": "Depolarisation af atrierne.",
+    "difficulty": "easy",
+    "tags": [
+      "P-tak",
+      "basis"
+    ],
+    "deckId": "ekgGenereltCards"
+  },
+  {
+    "id": "ekg_002",
+    "subject": "EKG",
+    "topic": "Grundlæggende EKG",
+    "question": "Hvad repræsenterer QRS-komplekset?",
+    "answer": "Depolarisation af ventriklerne.",
+    "difficulty": "easy",
+    "tags": [
+      "QRS"
+    ],
+    "deckId": "ekgGenereltCards"
+  },
+  {
+    "id": "ekg_003",
+    "subject": "EKG",
+    "topic": "Grundlæggende EKG",
+    "question": "Hvad er normal varighed af QRS-komplekset?",
+    "answer": "Normalt < 0,12 sekunder (under 3 små tern).",
+    "difficulty": "medium",
+    "tags": [
+      "QRS",
+      "normalværdier"
+    ],
+    "deckId": "ekgGenereltCards"
+  },
+  {
+    "id": "ekg_004",
+    "subject": "EKG",
+    "topic": "Grundlæggende EKG",
+    "question": "Hvorfor er ST-elevation centralt ved STEMI-diagnose?",
+    "answer": "ST-elevation tyder på transmural iskæmi i et specifikt koronarområde og bruges til at identificere STEMI og behov for akut PCI.",
+    "difficulty": "medium",
+    "tags": [
+      "ST-elevation",
+      "STEMI"
+    ],
+    "deckId": "ekgGenereltCards"
+  },
+  {
+    "id": "ekg_005",
+    "subject": "EKG",
+    "topic": "Grundlæggende EKG",
+    "question": "Hvordan ser atrieflimren typisk ud på EKG?",
+    "answer": "Uregelmæssig uregelmæssig rytme, fravær af tydelige P-takker, varierende RR-interval.",
+    "difficulty": "medium",
+    "tags": [
+      "AFLI"
+    ],
+    "deckId": "ekgGenereltCards"
+  },
+  {
+    "id": "ekg_006",
+    "subject": "EKG",
+    "topic": "Grundlæggende EKG",
+    "question": "Hvad er forskellen på monofasisk og bifasisk defibrillator?",
+    "answer": "Monofasisk sender strøm i én retning; bifasisk sender frem og tilbage. Bifasisk kræver typisk lavere energi og er mere skånsom for myokardiet.",
+    "difficulty": "hard",
+    "tags": [
+      "defibrillator"
+    ],
+    "deckId": "ekgGenereltCards"
+  },
+  {
+    "id": "ekg_007",
+    "subject": "EKG",
+    "topic": "Grundlæggende EKG",
+    "question": "Hvad beskriver P-takken på et EKG?",
+    "answer": "Depolarisation af atrierne, dvs. elektrisk aktivitet når atrierne trækker sig sammen.",
+    "difficulty": "easy",
+    "tags": [
+      "P-tak",
+      "atrium"
+    ],
+    "deckId": "ekgGenereltCards"
+  },
+  {
+    "id": "ekg_008",
+    "subject": "EKG",
+    "topic": "Grundlæggende EKG",
+    "question": "Hvad repræsenterer QRS-komplekset?",
+    "answer": "Ventriklernes depolarisation og dermed elektrisk udløsning af ventrikelkontraktionen.",
+    "difficulty": "easy",
+    "tags": [
+      "QRS",
+      "ventrikel"
+    ],
+    "deckId": "ekgGenereltCards"
+  },
+  {
+    "id": "ekg_009",
+    "subject": "EKG",
+    "topic": "Grundlæggende EKG",
+    "question": "Hvor lang bør et normalt PR-interval være?",
+    "answer": "Mellem 0,12 og 0,20 sekunder (3–5 små EKG-kvadrater).",
+    "difficulty": "medium",
+    "tags": [
+      "PR-interval"
+    ],
+    "deckId": "ekgGenereltCards"
+  },
+  {
+    "id": "ekg_010",
+    "subject": "EKG",
+    "topic": "Grundlæggende EKG",
+    "question": "Hvad kan et forlænget PR-interval tyde på?",
+    "answer": "AV-blok (1. grads), hvor der er forsinket ledning gennem AV-knuden.",
+    "difficulty": "medium",
+    "tags": [
+      "AV-blok",
+      "PR-interval"
+    ],
+    "deckId": "ekgGenereltCards"
+  },
+  {
+    "id": "ekg_011",
+    "subject": "EKG",
+    "topic": "Grundlæggende EKG",
+    "question": "Hvordan kan man genkende atrieflimren (AFLI) på EKG?",
+    "answer": "Uregelmæssigt uregelmæssig rytme, ingen P-takker, flimren i baseline og varierende RR-intervaller.",
+    "difficulty": "medium",
+    "tags": [
+      "AFLI",
+      "arytmi"
+    ],
+    "deckId": "ekgGenereltCards"
+  },
+  {
+    "id": "ekg_012",
+    "subject": "EKG",
+    "topic": "Grundlæggende EKG",
+    "question": "Hvad er de klassiske EKG-tegn på atrieflagren (AFLA)?",
+    "answer": "Savtaks-mønster (F-bølger), ofte regelmæssig rytme med fast AV-overledning (2:1 eller 3:1).",
+    "difficulty": "hard",
+    "tags": [
+      "AFLA",
+      "savtak"
+    ],
+    "deckId": "ekgGenereltCards"
+  },
+  {
+    "id": "ekg_013",
+    "subject": "EKG",
+    "topic": "Grundlæggende EKG",
+    "question": "Hvordan ser ventrikulær takykardi typisk ud på EKG?",
+    "answer": "Breddeøget QRS-kompleks (> 120 ms), regelmæssig rytme, høj ventrikulær frekvens (120–250 bpm), ingen P-takker.",
+    "difficulty": "hard",
+    "tags": [
+      "VT",
+      "takykardi"
+    ],
+    "deckId": "ekgGenereltCards"
+  },
+  {
+    "id": "ekg_014",
+    "subject": "EKG",
+    "topic": "Grundlæggende EKG",
+    "question": "Hvad er forskellen på ventrikelflimren og ventrikulær takykardi?",
+    "answer": "VF er kaotisk elektrisk aktivitet uden cirkulation. VT er hurtig, bred QRS-rytme, som kan være med eller uden puls.",
+    "difficulty": "hard",
+    "tags": [
+      "VF",
+      "VT",
+      "hjertestop"
+    ],
+    "deckId": "ekgGenereltCards"
+  },
+  {
+    "id": "ekg_015",
+    "subject": "EKG",
+    "topic": "Grundlæggende EKG",
+    "question": "Hvordan ser STEMI typisk ud på et EKG?",
+    "answer": "ST-elevation i mindst 2 sammenhængende afledninger i samme kargebist.",
+    "difficulty": "medium",
+    "tags": [
+      "STEMI",
+      "iskæmi"
+    ],
+    "deckId": "ekgGenereltCards"
+  },
+  {
+    "id": "ekg_016",
+    "subject": "EKG",
+    "topic": "Grundlæggende EKG",
+    "question": "Hvilket fund skelner NSTEMI fra STEMI på EKG?",
+    "answer": "NSTEMI har ingen ST-elevation, men kan have ST-depression eller T-inversion.",
+    "difficulty": "easy",
+    "tags": [
+      "NSTEMI",
+      "T-inversion"
+    ],
+    "deckId": "ekgGenereltCards"
+  },
+  {
+    "id": "ekg_017",
+    "subject": "EKG",
+    "topic": "Grundlæggende EKG",
+    "question": "Hvad er tegn på hyperkaliæmi på EKG?",
+    "answer": "Spidse T-takker, bred QRS og flade P-takker. Ved svær hyperkaliæmi asystoli eller VF.",
+    "difficulty": "hard",
+    "tags": [
+      "hyperkaliæmi"
+    ],
+    "deckId": "ekgGenereltCards"
+  },
+  {
+    "id": "ekg_018",
+    "subject": "EKG",
+    "topic": "Grundlæggende EKG",
+    "question": "Hvad tyder en forlænget QT-interval på?",
+    "answer": "Risiko for Torsades de Pointes og ventrikulær arytmi. Kan skyldes elektrolytmangel eller medicin.",
+    "difficulty": "hard",
+    "tags": [
+      "QT-forlængelse"
+    ],
+    "deckId": "ekgGenereltCards"
+  },
+  {
+    "id": "ekg_019",
+    "subject": "EKG",
+    "topic": "Grundlæggende EKG",
+    "question": "Hvad ses på EKG ved 3. grads AV-blok?",
+    "answer": "Total blokering mellem atrier og ventrikler. P-takker og QRS uafhængige af hinanden.",
+    "difficulty": "hard",
+    "tags": [
+      "AV-blok",
+      "blok"
+    ],
+    "deckId": "ekgGenereltCards"
+  },
+  {
+    "id": "ekg_020",
+    "subject": "EKG",
+    "topic": "Grundlæggende EKG",
+    "question": "Hvordan kan du præhospitalt hurtigt vurdere rytme på EKG ved hjertestop?",
+    "answer": "Tjek om rytmen er stødbar (VF/VT) eller ikke-stødbar (PEA/asystoli). Det styrer behandlingsalgoritmen.",
+    "difficulty": "medium",
+    "tags": [
+      "hjertestop",
+      "algoritme",
+      "rytmevurdering"
+    ],
+    "deckId": "ekgGenereltCards"
+  },
+  {
+    "id": "ekg_adv_001",
+    "subject": "EKG",
+    "topic": "Avancerede diagnoser",
+    "question": "Hvordan ser et Brugada type 1 mønster ud på EKG?",
+    "answer": "Coved ST-elevation ≥2 mm i V1–V3 med negativ T-tak og pseudo-RBBB udseende.",
+    "difficulty": "hard",
+    "tags": [
+      "Brugada",
+      "ST-elevation",
+      "V1-V3"
+    ],
+    "deckId": "ekgAvanceretCards"
+  },
+  {
+    "id": "ekg_adv_002",
+    "subject": "EKG",
+    "topic": "Avancerede diagnoser",
+    "question": "Hvilken type hjertesygdom forbindes Brugada syndrom med?",
+    "answer": "Ionkanaldysfunktion i hjertet (natriumkanal mutation), som øger risikoen for pludselig hjertedød.",
+    "difficulty": "medium",
+    "tags": [
+      "Brugada",
+      "kanalopati"
+    ],
+    "deckId": "ekgAvanceretCards"
+  },
+  {
+    "id": "ekg_adv_003",
+    "subject": "EKG",
+    "topic": "Avancerede diagnoser",
+    "question": "Hvordan ser perikarditis typisk ud på EKG?",
+    "answer": "Diffus ST-elevation i mange afledninger med PR-depression, især i V5, V6, II, III og aVF.",
+    "difficulty": "medium",
+    "tags": [
+      "perikarditis",
+      "PR-depression"
+    ],
+    "deckId": "ekgAvanceretCards"
+  },
+  {
+    "id": "ekg_adv_004",
+    "subject": "EKG",
+    "topic": "Avancerede diagnoser",
+    "question": "Hvordan adskiller perikarditis sig fra STEMI på EKG?",
+    "answer": "Perikarditis har diffus ST-elevation og PR-depression, STEMI har regional ST-elevation og ofte reciprocal ST-depression.",
+    "difficulty": "hard",
+    "tags": [
+      "perikarditis",
+      "STEMI"
+    ],
+    "deckId": "ekgAvanceretCards"
+  },
+  {
+    "id": "ekg_adv_005",
+    "subject": "EKG",
+    "topic": "Avancerede diagnoser",
+    "question": "Hvad er typisk EKG-fund ved WPW (Wolff-Parkinson-White)?",
+    "answer": "Kort PR-interval (<120 ms), delta-bølge og bredt QRS-kompleks.",
+    "difficulty": "medium",
+    "tags": [
+      "WPW",
+      "delta"
+    ],
+    "deckId": "ekgAvanceretCards"
+  },
+  {
+    "id": "ekg_adv_006",
+    "subject": "EKG",
+    "topic": "Avancerede diagnoser",
+    "question": "Hvad er risikoen ved WPW og atrieflimren?",
+    "answer": "Impulser kan ledes hurtigt gennem accessorisk bane, hvilket kan føre til ventrikelflimren og hjertestop.",
+    "difficulty": "hard",
+    "tags": [
+      "WPW",
+      "AFLI",
+      "VF"
+    ],
+    "deckId": "ekgAvanceretCards"
+  },
+  {
+    "id": "ekg_adv_007",
+    "subject": "EKG",
+    "topic": "Avancerede diagnoser",
+    "question": "Hvilket EKG-fund ses ved hyperkalcæmi?",
+    "answer": "Forkortet QT-interval, evt. ST-segment forkortelse.",
+    "difficulty": "medium",
+    "tags": [
+      "hypercalciæmi",
+      "QT"
+    ],
+    "deckId": "ekgAvanceretCards"
+  },
+  {
+    "id": "ekg_adv_008",
+    "subject": "EKG",
+    "topic": "Avancerede diagnoser",
+    "question": "Hvilket EKG-fund ses klassisk ved hypokalæmi?",
+    "answer": "Flade T-takker, prominente U-takker og ST-depression.",
+    "difficulty": "hard",
+    "tags": [
+      "hypokaliæmi",
+      "U-tak"
+    ],
+    "deckId": "ekgAvanceretCards"
+  },
+  {
+    "id": "ekg_adv_009",
+    "subject": "EKG",
+    "topic": "Avancerede diagnoser",
+    "question": "Hvordan ser lungeemboli ofte ud på EKG?",
+    "answer": "Sinus takykardi, evt. S1Q3T3-mønster, inkomplet RBBB og T-inversion i V1–V4.",
+    "difficulty": "hard",
+    "tags": [
+      "LE",
+      "S1Q3T3"
+    ],
+    "deckId": "ekgAvanceretCards"
+  },
+  {
+    "id": "ekg_adv_010",
+    "subject": "EKG",
+    "topic": "Avancerede diagnoser",
+    "question": "Hvilket EKG-tegn forbindes med perikardietamponade?",
+    "answer": "Electrical alternans: skiftende QRS amplitude pga. hjertets bevægelse i perikardiehæmatom.",
+    "difficulty": "hard",
+    "tags": [
+      "tamponade",
+      "alternans"
+    ],
+    "deckId": "ekgAvanceretCards"
+  },
+  {
+    "id": "ekg_adv_011",
+    "subject": "EKG",
+    "topic": "Avancerede diagnoser",
+    "question": "Hvad er typiske EKG-fund ved hypoksi?",
+    "answer": "Sinus takykardi, ST-depression, T-inversion og evt. ventrikulære ekstrasystoler.",
+    "difficulty": "medium",
+    "tags": [
+      "hypoksi",
+      "depression"
+    ],
+    "deckId": "ekgAvanceretCards"
+  },
+  {
+    "id": "ekg_adv_012",
+    "subject": "EKG",
+    "topic": "Avancerede diagnoser",
+    "question": "Hvilket mønster ses på EKG ved digitalis-intoksikation?",
+    "answer": "Scooped ST-segment (hockey-stick), arytmier og AV-blok.",
+    "difficulty": "hard",
+    "tags": [
+      "digitalis",
+      "intoksikation"
+    ],
+    "deckId": "ekgAvanceretCards"
+  },
+  {
+    "id": "ekg_adv_013",
+    "subject": "EKG",
+    "topic": "Avancerede diagnoser",
+    "question": "Hvad er det diagnostiske tegn på højresidig belastning ved LE?",
+    "answer": "T-inversion i V1–V4 og høje R-takker i V1 (< RV strain).",
+    "difficulty": "hard",
+    "tags": [
+      "RV strain",
+      "LE"
+    ],
+    "deckId": "ekgAvanceretCards"
+  },
+  {
+    "id": "ekg_adv_014",
+    "subject": "EKG",
+    "topic": "Avancerede diagnoser",
+    "question": "Hvordan ser perikardietamponade ud ift. puls og EKG?",
+    "answer": "Electrical alternans og lavt voltage EKG.",
+    "difficulty": "hard",
+    "tags": [
+      "tamponade",
+      "voltage"
+    ],
+    "deckId": "ekgAvanceretCards"
+  },
+  {
+    "id": "ekg_adv_015",
+    "subject": "EKG",
+    "topic": "Avancerede diagnoser",
+    "question": "Hvad er typisk ved elektiv pacemarkerytme?",
+    "answer": "Spike før QRS eller T-tak, bredt QRS hvis ventrikelpace.",
+    "difficulty": "medium",
+    "tags": [
+      "pacemaker",
+      "spike"
+    ],
+    "deckId": "ekgAvanceretCards"
+  },
+  {
+    "id": "ekg_adv_016",
+    "subject": "EKG",
+    "topic": "Avancerede diagnoser",
+    "question": "Hvordan genkender man perikarditis vs tidlig repolarisation?",
+    "answer": "Perikarditis har PR-depression og diffust ST-elevation, tidlig repolarisation har J-point elevation og normal PR.",
+    "difficulty": "hard",
+    "tags": [
+      "ST-elevation",
+      "PR-depression"
+    ],
+    "deckId": "ekgAvanceretCards"
+  },
+  {
+    "id": "ekg_adv_017",
+    "subject": "EKG",
+    "topic": "Avancerede diagnoser",
+    "question": "Hvad tyder ST-depression i V4–V6 på?",
+    "answer": "Lateral iskæmi i a. circumflex’ forsyningsområde.",
+    "difficulty": "medium",
+    "tags": [
+      "lateral iskæmi",
+      "ST-depression"
+    ],
+    "deckId": "ekgAvanceretCards"
+  },
+  {
+    "id": "ekg_adv_018",
+    "subject": "EKG",
+    "topic": "Avancerede diagnoser",
+    "question": "Hvordan ser hypertrofisk kardiomyopati (HCM) ud på EKG?",
+    "answer": "Dybe Q-takker (dagger Q-waves) i laterale afledninger samt venstresidig hypertrofitegn.",
+    "difficulty": "hard",
+    "tags": [
+      "HCM",
+      "Q-tak"
+    ],
+    "deckId": "ekgAvanceretCards"
+  },
+  {
+    "id": "ekg_adv_019",
+    "subject": "EKG",
+    "topic": "Avancerede diagnoser",
+    "question": "Hvordan ser perikardietamponade ud i præhospital sammenhæng?",
+    "answer": "Electrical alternans, lav voltage og mulig pulsus paradoxus.",
+    "difficulty": "hard",
+    "tags": [
+      "tamponade",
+      "voltage"
+    ],
+    "deckId": "ekgAvanceretCards"
+  },
+  {
+    "id": "ekg_adv_020",
+    "subject": "EKG",
+    "topic": "Avancerede diagnoser",
+    "question": "Hvad betyder J-tak på EKG ved hypotermi?",
+    "answer": "J-bølge (Osborne wave) ved svær hypotermi, især i V2–V5.",
+    "difficulty": "hard",
+    "tags": [
+      "J-wave",
+      "hypotermi"
+    ],
+    "deckId": "ekgAvanceretCards"
+  },
+  {
+    "id": "ekg_img_af_rvr",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Rytmer",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "AF with rapid ventricular response",
+    "difficulty": "medium",
+    "tags": [
+      "ekg",
+      "billede",
+      "Rytmer"
+    ],
+    "imageKey": "ekg_img_af_rvr",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_af_slow_vr",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Rytmer",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "AF with slow ventricular response",
+    "difficulty": "medium",
+    "tags": [
+      "ekg",
+      "billede",
+      "Rytmer"
+    ],
+    "imageKey": "ekg_img_af_slow_vr",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_atrial_fib_1",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Rytmer",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Atrial fibrillation 1",
+    "difficulty": "medium",
+    "tags": [
+      "ekg",
+      "billede",
+      "Rytmer"
+    ],
+    "imageKey": "ekg_img_atrial_fib_1",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_atrial_fib_2",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Rytmer",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Atrial fibrillation 2",
+    "difficulty": "medium",
+    "tags": [
+      "ekg",
+      "billede",
+      "Rytmer"
+    ],
+    "imageKey": "ekg_img_atrial_fib_2",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_atrial_fib_3",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Rytmer",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Atrial fibrillation 3",
+    "difficulty": "medium",
+    "tags": [
+      "ekg",
+      "billede",
+      "Rytmer"
+    ],
+    "imageKey": "ekg_img_atrial_fib_3",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_aflutter_2_1",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Rytmer",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Atrial Flutter 2-1 Blok",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "Rytmer"
+    ],
+    "imageKey": "ekg_img_aflutter_2_1",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_aflutter_4_1",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Rytmer",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Atrial flutter with 4-1 block",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "Rytmer"
+    ],
+    "imageKey": "ekg_img_aflutter_4_1",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_aflutter_variable",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Rytmer",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Atrial flutter with variable block",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "Rytmer"
+    ],
+    "imageKey": "ekg_img_aflutter_variable",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_normal_sinus_1deg_av",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Rytmer",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Normal sinus rhythm with 1st degree AV block",
+    "difficulty": "easy",
+    "tags": [
+      "ekg",
+      "billede",
+      "Rytmer"
+    ],
+    "imageKey": "ekg_img_normal_sinus_1deg_av",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_sinus_brady_1deg_av",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Rytmer",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Sinus bradycardia with 1st degree AV block",
+    "difficulty": "medium",
+    "tags": [
+      "ekg",
+      "billede",
+      "Rytmer"
+    ],
+    "imageKey": "ekg_img_sinus_brady_1deg_av",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_sinus_tachy_1",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Rytmer",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Sinus tachycardia 1",
+    "difficulty": "easy",
+    "tags": [
+      "ekg",
+      "billede",
+      "Rytmer"
+    ],
+    "imageKey": "ekg_img_sinus_tachy_1",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_svt_1",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Rytmer",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Supraventricular tachycardia 1",
+    "difficulty": "medium",
+    "tags": [
+      "ekg",
+      "billede",
+      "Rytmer"
+    ],
+    "imageKey": "ekg_img_svt_1",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_svt_avnrt_1",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Rytmer",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Supraventricular tachycardia AVNRT 1",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "Rytmer"
+    ],
+    "imageKey": "ekg_img_svt_avnrt_1",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_svt_avnrt_2",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Rytmer",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Supraventricular tachycardia AVNRT 2",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "Rytmer"
+    ],
+    "imageKey": "ekg_img_svt_avnrt_2",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_svt_avnrt_adenosin",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Rytmer",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Supraventricular tachycardia AVNRT med adenosin",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "Rytmer"
+    ],
+    "imageKey": "ekg_img_svt_avnrt_adenosin",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_monomorphic_vt_1",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Rytmer",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Monomorphic VT 1",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "Rytmer"
+    ],
+    "imageKey": "ekg_img_monomorphic_vt_1",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_monomorphic_vt_2",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Rytmer",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Monomorphic VT 2",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "Rytmer"
+    ],
+    "imageKey": "ekg_img_monomorphic_vt_2",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_monomorphic_vt_3",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Rytmer",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Monomorphic VT 3",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "Rytmer"
+    ],
+    "imageKey": "ekg_img_monomorphic_vt_3",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_vf_1",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Rytmer",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "VF 1",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "Rytmer"
+    ],
+    "imageKey": "ekg_img_vf_1",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_vf_2",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Rytmer",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "VF 2",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "Rytmer"
+    ],
+    "imageKey": "ekg_img_vf_2",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_vf_tdp",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Rytmer",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "VF TdP",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "Rytmer"
+    ],
+    "imageKey": "ekg_img_vf_tdp",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_tdp_hypokalaemia",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Rytmer",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "TdP secondary to hypokalaemia",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "Rytmer"
+    ],
+    "imageKey": "ekg_img_tdp_hypokalaemia",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_wpw",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Rytmer",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "WPW",
+    "difficulty": "medium",
+    "tags": [
+      "ekg",
+      "billede",
+      "Rytmer"
+    ],
+    "imageKey": "ekg_img_wpw",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_wpw_2",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Rytmer",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "WPW 2",
+    "difficulty": "medium",
+    "tags": [
+      "ekg",
+      "billede",
+      "Rytmer"
+    ],
+    "imageKey": "ekg_img_wpw_2",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_wpw_3",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Rytmer",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "WPW 3",
+    "difficulty": "medium",
+    "tags": [
+      "ekg",
+      "billede",
+      "Rytmer"
+    ],
+    "imageKey": "ekg_img_wpw_3",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_chb_2",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Blokke og ledning",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Complete Heart Block 2",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "Blokke og ledning"
+    ],
+    "imageKey": "ekg_img_chb_2",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_chb_3",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Blokke og ledning",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Complete Heart Block 3",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "Blokke og ledning"
+    ],
+    "imageKey": "ekg_img_chb_3",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_chb_4",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Blokke og ledning",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Complete Heart Block 4",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "Blokke og ledning"
+    ],
+    "imageKey": "ekg_img_chb_4",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_chb_isorhythmic",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Blokke og ledning",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Complete Heart Block with Isorhythmic AV Dissociation",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "Blokke og ledning"
+    ],
+    "imageKey": "ekg_img_chb_isorhythmic",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_complete_heart_block",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Blokke og ledning",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Complete heart block",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "Blokke og ledning"
+    ],
+    "imageKey": "ekg_img_complete_heart_block",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_lbbb_1",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Blokke og ledning",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "LBBB 1",
+    "difficulty": "medium",
+    "tags": [
+      "ekg",
+      "billede",
+      "Blokke og ledning"
+    ],
+    "imageKey": "ekg_img_lbbb_1",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_lbbb_2",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Blokke og ledning",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "LBBB 2",
+    "difficulty": "medium",
+    "tags": [
+      "ekg",
+      "billede",
+      "Blokke og ledning"
+    ],
+    "imageKey": "ekg_img_lbbb_2",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_lbbb_3",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Blokke og ledning",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "LBBB 3",
+    "difficulty": "medium",
+    "tags": [
+      "ekg",
+      "billede",
+      "Blokke og ledning"
+    ],
+    "imageKey": "ekg_img_lbbb_3",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_lbbb_af",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Blokke og ledning",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "LBBB with AF",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "Blokke og ledning"
+    ],
+    "imageKey": "ekg_img_lbbb_af",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_rbbb",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Blokke og ledning",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "RBBB",
+    "difficulty": "medium",
+    "tags": [
+      "ekg",
+      "billede",
+      "Blokke og ledning"
+    ],
+    "imageKey": "ekg_img_rbbb",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_rbbb_2",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Blokke og ledning",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "RBBB 2",
+    "difficulty": "medium",
+    "tags": [
+      "ekg",
+      "billede",
+      "Blokke og ledning"
+    ],
+    "imageKey": "ekg_img_rbbb_2",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_rbbb_lafb",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Blokke og ledning",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "RBBB with LAFB",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "Blokke og ledning"
+    ],
+    "imageKey": "ekg_img_rbbb_lafb",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_mobitz1_1",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Blokke og ledning",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Mobitz I AV block 1",
+    "difficulty": "medium",
+    "tags": [
+      "ekg",
+      "billede",
+      "Blokke og ledning"
+    ],
+    "imageKey": "ekg_img_mobitz1_1",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_mobitz1_2",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Blokke og ledning",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Mobitz I AV block 2",
+    "difficulty": "medium",
+    "tags": [
+      "ekg",
+      "billede",
+      "Blokke og ledning"
+    ],
+    "imageKey": "ekg_img_mobitz1_2",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_mobitz1_inferior_stemi_rv",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Blokke og ledning",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Mobitz I AV block associated with inferior STEMI and RV infarction",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "Blokke og ledning"
+    ],
+    "imageKey": "ekg_img_mobitz1_inferior_stemi_rv",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_mobitz2_hay",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Blokke og ledning",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Mobitz II Hay block",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "Blokke og ledning"
+    ],
+    "imageKey": "ekg_img_mobitz2_hay",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_mobitz2",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Blokke og ledning",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Mobitz type II",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "Blokke og ledning"
+    ],
+    "imageKey": "ekg_img_mobitz2",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_anterolateral_stemi",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "STEMI/iskæmi",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Anterolateral STEMI",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "STEMI/iskæmi"
+    ],
+    "imageKey": "ekg_img_anterolateral_stemi",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_high_lateral_stemi_1",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "STEMI/iskæmi",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "High Lateral STEMI 1",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "STEMI/iskæmi"
+    ],
+    "imageKey": "ekg_img_high_lateral_stemi_1",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_high_lateral_stemi_2",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "STEMI/iskæmi",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "High Lateral STEMI 2",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "STEMI/iskæmi"
+    ],
+    "imageKey": "ekg_img_high_lateral_stemi_2",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_hyperacute_anteroseptal_1",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "STEMI/iskæmi",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Hyperacute Anteroseptal STEMI 1",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "STEMI/iskæmi"
+    ],
+    "imageKey": "ekg_img_hyperacute_anteroseptal_1",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_hyperacute_anteroseptal_2",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "STEMI/iskæmi",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Hyperacute Anteroseptal STEMI 2",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "STEMI/iskæmi"
+    ],
+    "imageKey": "ekg_img_hyperacute_anteroseptal_2",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_hyperacute_anteroseptal_3",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "STEMI/iskæmi",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Hyperacute Anteroseptal STEMI 3",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "STEMI/iskæmi"
+    ],
+    "imageKey": "ekg_img_hyperacute_anteroseptal_3",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_hyperacute_anteroseptal_4",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "STEMI/iskæmi",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Hyperacute Anteroseptal STEMI 4",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "STEMI/iskæmi"
+    ],
+    "imageKey": "ekg_img_hyperacute_anteroseptal_4",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_hyperacute_anteroseptal_5",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "STEMI/iskæmi",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Hyperacute Anteroseptal STEMI 5",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "STEMI/iskæmi"
+    ],
+    "imageKey": "ekg_img_hyperacute_anteroseptal_5",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_inferior_stemi_1",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "STEMI/iskæmi",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Inferior STEMI 1",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "STEMI/iskæmi"
+    ],
+    "imageKey": "ekg_img_inferior_stemi_1",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_inferior_stemi_2",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "STEMI/iskæmi",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Inferior STEMI 2",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "STEMI/iskæmi"
+    ],
+    "imageKey": "ekg_img_inferior_stemi_2",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_inferior_stemi_3",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "STEMI/iskæmi",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Inferior STEMI 3",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "STEMI/iskæmi"
+    ],
+    "imageKey": "ekg_img_inferior_stemi_3",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_inferior_stemi_4",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "STEMI/iskæmi",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Inferior STEMI 4",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "STEMI/iskæmi"
+    ],
+    "imageKey": "ekg_img_inferior_stemi_4",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_inferior_stemi_5",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "STEMI/iskæmi",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Inferior STEMI 5",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "STEMI/iskæmi"
+    ],
+    "imageKey": "ekg_img_inferior_stemi_5",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_inferolateral_stemi_1",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "STEMI/iskæmi",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Inferolateral STEMI 1",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "STEMI/iskæmi"
+    ],
+    "imageKey": "ekg_img_inferolateral_stemi_1",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_inferolateral_stemi_2",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "STEMI/iskæmi",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Inferolateral STEMI 2",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "STEMI/iskæmi"
+    ],
+    "imageKey": "ekg_img_inferolateral_stemi_2",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_posterior_stemi",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "STEMI/iskæmi",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Posterior STEMI",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "STEMI/iskæmi"
+    ],
+    "imageKey": "ekg_img_posterior_stemi",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_posterior_stemi_2",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "STEMI/iskæmi",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Posterior STEMI 2",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "STEMI/iskæmi"
+    ],
+    "imageKey": "ekg_img_posterior_stemi_2",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_digoxin_1",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Elektrolyt/medicin",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Digoxin effect 1",
+    "difficulty": "medium",
+    "tags": [
+      "ekg",
+      "billede",
+      "Elektrolyt/medicin"
+    ],
+    "imageKey": "ekg_img_digoxin_1",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_digoxin_2",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Elektrolyt/medicin",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Digoxin effect 2",
+    "difficulty": "medium",
+    "tags": [
+      "ekg",
+      "billede",
+      "Elektrolyt/medicin"
+    ],
+    "imageKey": "ekg_img_digoxin_2",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_digoxin_3",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Elektrolyt/medicin",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Digoxin effect 3",
+    "difficulty": "medium",
+    "tags": [
+      "ekg",
+      "billede",
+      "Elektrolyt/medicin"
+    ],
+    "imageKey": "ekg_img_digoxin_3",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_hyperk_serum_7",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Elektrolyt/medicin",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Hyperkalemia serum K+ 7.0",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "Elektrolyt/medicin"
+    ],
+    "imageKey": "ekg_img_hyperk_serum_7",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_hyperk_serum_9_3",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Elektrolyt/medicin",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Hyperkalemia serum K+ 9.3",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "Elektrolyt/medicin"
+    ],
+    "imageKey": "ekg_img_hyperk_serum_9_3",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_hyperk",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Elektrolyt/medicin",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Hyperkalemia",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "Elektrolyt/medicin"
+    ],
+    "imageKey": "ekg_img_hyperk",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_osborn_wave",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Andre",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Osborn-Wave hypothermia temp-30°C",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "Andre"
+    ],
+    "imageKey": "ekg_img_osborn_wave",
+    "deckId": "ekgBillederCards"
+  },
+  {
+    "id": "ekg_img_takotsubu",
+    "subject": "EKG",
+    "topic": "Billeder",
+    "subtopic": "Andre",
+    "question": "Hvilken rytme/tilstand ses på dette EKG?",
+    "answer": "Takotsubu Cardiomyopathy",
+    "difficulty": "hard",
+    "tags": [
+      "ekg",
+      "billede",
+      "Andre"
+    ],
+    "imageKey": "ekg_img_takotsubu",
+    "deckId": "ekgBillederCards"
+  }
+]

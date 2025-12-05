@@ -1,0 +1,2251 @@
+[
+  {
+    "id": "cell_001",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Celler og væv",
+    "question": "Hvad forstås ved homeostase?",
+    "answer": "Homeostase er kroppens evne til at opretholde et stabilt indre miljø, fx temperatur, pH og væskebalance.",
+    "difficulty": "easy",
+    "tags": [
+      "homeostase"
+    ],
+    "deckId": "cellervevCards"
+  },
+  {
+    "id": "cell_002",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Celler og væv",
+    "question": "Hvad er cellens tre vigtigste grundbestanddele?",
+    "answer": "Cellemembran, cytoplasma og cellekerne.",
+    "difficulty": "easy",
+    "tags": [
+      "celle"
+    ],
+    "deckId": "cellervevCards"
+  },
+  {
+    "id": "cell_003",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Celler og væv",
+    "question": "Hvad er mitokondriers funktion?",
+    "answer": "Mitokondrier producerer energi i form af ATP via aerob respiration.",
+    "difficulty": "medium",
+    "tags": [
+      "energi",
+      "ATP"
+    ],
+    "deckId": "cellervevCards"
+  },
+  {
+    "id": "cell_004",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Celler og væv",
+    "question": "Hvordan adskiller nervevæv sig funktionelt fra muskelvæv?",
+    "answer": "Nervevæv leder elektriske signaler, mens muskelvæv kan trække sig sammen og skabe bevægelse.",
+    "difficulty": "medium",
+    "tags": [
+      "væv",
+      "funktion"
+    ],
+    "deckId": "cellervevCards"
+  },
+  {
+    "id": "cell_005",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Celler og væv",
+    "question": "Forklar diffusion.",
+    "answer": "Diffusion er passiv transport af molekyler fra et område med høj koncentration til lav koncentration.",
+    "difficulty": "easy",
+    "tags": [
+      "transport"
+    ],
+    "deckId": "cellervevCards"
+  },
+  {
+    "id": "cell_006",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Celler og væv",
+    "question": "Hvad indebærer osmose?",
+    "answer": "Osmose er diffusion af vand over en semipermeabel membran fra lav til høj koncentration af opløste stoffer.",
+    "difficulty": "medium",
+    "tags": [
+      "osmose",
+      "væske"
+    ],
+    "deckId": "cellervevCards"
+  },
+  {
+    "id": "cell_007",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Celler og væv",
+    "question": "Nævn tre typer muskelvæv.",
+    "answer": "Skeletmuskulatur, hjertemuskulatur og glat muskulatur.",
+    "difficulty": "easy",
+    "tags": [
+      "væv",
+      "muskel"
+    ],
+    "deckId": "cellervevCards"
+  },
+  {
+    "id": "cell_008",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Celler og væv",
+    "question": "Hvad adskiller hvidt og rødt muskelvæv?",
+    "answer": "Røde fibre har flere mitokondrier og bruges til udholdenhed; hvide fibre er stærkere og hurtigere men udtrættes hurtigere.",
+    "difficulty": "medium",
+    "tags": [
+      "muskelfiber"
+    ],
+    "deckId": "cellervevCards"
+  },
+  {
+    "id": "cell_009",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Celler og væv",
+    "question": "Hvordan er blodplasma vigtigt for celler?",
+    "answer": "Blodplasma transporterer næring, hormoner og elektrolytter til cellerne og fører affaldsstoffer væk.",
+    "difficulty": "medium",
+    "tags": [
+      "transport"
+    ],
+    "deckId": "cellervevCards"
+  },
+  {
+    "id": "cell_010",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Celler og væv",
+    "question": "Hvad er en semipermeabel membran?",
+    "answer": "En membran der tillader nogle molekyler at passere frit, mens andre tilbageholdes.",
+    "difficulty": "easy",
+    "tags": [
+      "cellemembran"
+    ],
+    "deckId": "cellervevCards"
+  },
+  {
+    "id": "cell_011",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Celler og væv",
+    "question": "Hvad er apoptose?",
+    "answer": "Programmeret celledød – cellen nedbryder sig selv kontrolleret for at beskytte organismen.",
+    "difficulty": "hard",
+    "tags": [
+      "celledød"
+    ],
+    "deckId": "cellervevCards"
+  },
+  {
+    "id": "cell_012",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Celler og væv",
+    "question": "Hvad er forskellen på anaerob og aerob energiomsætning?",
+    "answer": "Aerob energiomsætning sker med ilt og producerer meget ATP, mens anaerob sker uden ilt og producerer laktat og mindre ATP.",
+    "difficulty": "medium",
+    "tags": [
+      "ATP",
+      "metabolisme"
+    ],
+    "deckId": "cellervevCards"
+  },
+  {
+    "id": "cell_013",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Celler og væv",
+    "question": "Hvad kaldes cellens kontrolcenter?",
+    "answer": "Cellekernen – indeholder DNA og styrer proteinsyntesen.",
+    "difficulty": "easy",
+    "tags": [
+      "cellekerne"
+    ],
+    "deckId": "cellervevCards"
+  },
+  {
+    "id": "cell_014",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Celler og væv",
+    "question": "Hvilken væskefordeling er typisk for en voksen person?",
+    "answer": "Ca. ⅔ intracellulært og ⅓ ekstracellulært (plasma + interstitiel væske).",
+    "difficulty": "medium",
+    "tags": [
+      "væske",
+      "fordeling"
+    ],
+    "deckId": "cellervevCards"
+  },
+  {
+    "id": "cell_015",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Celler og væv",
+    "question": "Hvordan regulerer kroppen syre-base balancen?",
+    "answer": "Via lunger (CO₂), nyrer (H+ og HCO₃-) og buffer-systemer i blodet.",
+    "difficulty": "hard",
+    "tags": [
+      "pH",
+      "acidose"
+    ],
+    "deckId": "cellervevCards"
+  },
+  {
+    "id": "resp_001",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Respiration",
+    "question": "Hvad er forskellen på ventilation og respiration?",
+    "answer": "Ventilation er luftens bevægelse ind og ud af lungerne. Respiration er gasudvekslingen i alveoler og ude i vævene.",
+    "difficulty": "easy",
+    "tags": [
+      "ventilation",
+      "respiration",
+      "definition"
+    ],
+    "deckId": "respirationCards"
+  },
+  {
+    "id": "resp_002",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Respiration",
+    "question": "Forklar kort, hvordan gasudvekslingen foregår i alveolerne.",
+    "answer": "I alveolerne diffunderer O₂ fra luften til blodet og CO₂ fra blodet til alveoleluften, styret af partialtryk.",
+    "difficulty": "easy",
+    "tags": [
+      "gasudveksling",
+      "alveoler"
+    ],
+    "deckId": "respirationCards"
+  },
+  {
+    "id": "resp_003",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Respiration",
+    "question": "Forklar begrebet partialtryk (pO2 og pCO2).",
+    "answer": "Partialtryk beskriver koncentrationen af en gas i en blanding. pO₂ og pCO₂ afgør diffusion mellem blod og alveole.",
+    "difficulty": "medium",
+    "tags": [
+      "partialtryk",
+      "gasudveksling"
+    ],
+    "deckId": "respirationCards"
+  },
+  {
+    "id": "resp_004",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Respiration",
+    "question": "Hvordan transporteres størstedelen af ilt i blodet?",
+    "answer": "Omkring 98% binder til hæmoglobin, mens kun 2% transporteres frit opløst i plasma.",
+    "difficulty": "easy",
+    "tags": [
+      "ilttransport",
+      "hæmoglobin"
+    ],
+    "deckId": "respirationCards"
+  },
+  {
+    "id": "resp_005",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Respiration",
+    "question": "Hvad er oxyhæmoglobin-dissociationskurven?",
+    "answer": "En kurve der viser forholdet mellem pO₂ og hæmoglobins iltmætning (SaO₂). Forklarer hvorfor ilt afgives lettere i væv med lav pO₂.",
+    "difficulty": "medium",
+    "tags": [
+      "kurve",
+      "hæmoglobin"
+    ],
+    "deckId": "respirationCards"
+  },
+  {
+    "id": "resp_006",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Respiration",
+    "question": "Hvad betyder høj resp.frekvens (takypnø) fysiologisk?",
+    "answer": "Øget RF kan være et tegn på hypoxi, acidose, smerte, angst eller kompensation for metabolisk acidose.",
+    "difficulty": "medium",
+    "tags": [
+      "rf",
+      "kompensation"
+    ],
+    "deckId": "respirationCards"
+  },
+  {
+    "id": "resp_007",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Respiration",
+    "question": "Hvorfor får KOL-patienter nedsat gasudveksling?",
+    "answer": "Ødelagte alveoler og tab af elastic recoil medfører mindre diffusionsoverflade og luftfangst.",
+    "difficulty": "medium",
+    "tags": [
+      "kol",
+      "alveoler"
+    ],
+    "deckId": "respirationCards"
+  },
+  {
+    "id": "resp_008",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Respiration",
+    "question": "Hvad er forskellen på hypoxi og hypoxæmi?",
+    "answer": "Hypoxi: utilstrækkelig ilt til kroppens væv. Hypoxæmi: nedsat iltindhold i blodet (lav pO₂/SaO₂).",
+    "difficulty": "medium",
+    "tags": [
+      "iltmangel"
+    ],
+    "deckId": "respirationCards"
+  },
+  {
+    "id": "resp_009",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Respiration",
+    "question": "Hvad sker ved respiratorisk acidose?",
+    "answer": "CO₂ ophobes i blodet pga. hypoventilation, hvilket sænker pH og giver acidose.",
+    "difficulty": "hard",
+    "tags": [
+      "acidose",
+      "co2"
+    ],
+    "deckId": "respirationCards"
+  },
+  {
+    "id": "resp_010",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Respiration",
+    "question": "Beskriv kort kroppens pH-regulering ved hyperventilation.",
+    "answer": "Ved hyperventilation udskilles ekstra CO₂, hvilket reducerer syre og øger pH (respiratorisk alkalose).",
+    "difficulty": "hard",
+    "tags": [
+      "alkalose"
+    ],
+    "deckId": "respirationCards"
+  },
+  {
+    "id": "resp_011",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Respiration",
+    "question": "Hvordan påvirkes respirationen af sympatikusaktivering?",
+    "answer": "RF øges, bronkier dilateres og vejrtrækningen bliver dybere for at forbedre ilttilførsel.",
+    "difficulty": "medium",
+    "tags": [
+      "sympaticus",
+      "respiration"
+    ],
+    "deckId": "respirationCards"
+  },
+  {
+    "id": "resp_012",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Respiration",
+    "question": "Hvad er tidalvolumen (VT)?",
+    "answer": "Den mængde luft, man normalt indånder eller udånder ved hver vejrtrækning (~500 ml hos voksne).",
+    "difficulty": "easy",
+    "tags": [
+      "VT",
+      "volumen"
+    ],
+    "deckId": "respirationCards"
+  },
+  {
+    "id": "resp_013",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Respiration",
+    "question": "Hvordan beregnes minutventilation?",
+    "answer": "RF × tidalvolumen (VT). Fx 12 vejrtrækninger/min × 500 ml = 6 liter/min.",
+    "difficulty": "medium",
+    "tags": [
+      "minutventilation"
+    ],
+    "deckId": "respirationCards"
+  },
+  {
+    "id": "resp_014",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Respiration",
+    "question": " Hvordan ændres respirationen ved metabolisk acidose?",
+    "answer": "Man hyperventilerer for at udskille CO₂ og kompensere, fx ved ketoacidose.",
+    "difficulty": "hard",
+    "tags": [
+      "DKA",
+      "kompensation"
+    ],
+    "deckId": "respirationCards"
+  },
+  {
+    "id": "resp_015",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Respiration",
+    "question": "Hvorfor kan pneumothorax give respirationssvigt?",
+    "answer": "Luft i pleurahulen trykker på lungen og reducerer ventilation og gasudveksling.",
+    "difficulty": "medium",
+    "tags": [
+      "trauma",
+      "pneumothorax"
+    ],
+    "deckId": "respirationCards"
+  },
+  {
+    "id": "resp_016",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Respiration",
+    "question": "Hvorfor er surfaktant vigtig for lungerne?",
+    "answer": "Surfaktant nedsætter overfladespændingen i alveolerne og forhindrer sammenklapning ved udånding.",
+    "difficulty": "medium",
+    "tags": [
+      "alveoler",
+      "surfaktant"
+    ],
+    "deckId": "respirationCards"
+  },
+  {
+    "id": "resp_017",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Respiration",
+    "question": "Hvad sker der ved respiratorisk insufficiens?",
+    "answer": "Utilstrækkelig gasudveksling medfører hypoxæmi og/eller hyperkapni.",
+    "difficulty": "hard",
+    "tags": [
+      "insufficiens",
+      "respiration"
+    ],
+    "deckId": "respirationCards"
+  },
+  {
+    "id": "resp_018",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Respiration",
+    "question": "Hvad er dead space?",
+    "answer": "Den del af luftvejene hvor der ikke foregår gasudveksling (mund, trachea, bronkier).",
+    "difficulty": "medium",
+    "tags": [
+      "ventilation"
+    ],
+    "deckId": "respirationCards"
+  },
+  {
+    "id": "resp_019",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Respiration",
+    "question": "Hvordan påvirker højre og venstresidig hjertesvigt respirationen?",
+    "answer": "Venstresidig svigt → lungeødem. Højresidig svigt → væskeophobning og nedsat lungeperfusion.",
+    "difficulty": "hard",
+    "tags": [
+      "hjertesvigt",
+      "respiration"
+    ],
+    "deckId": "respirationCards"
+  },
+  {
+    "id": "resp_020",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Respiration",
+    "question": "Hvorfor kan hyperventilation føre til svimmelhed og paræstesier?",
+    "answer": "CO₂ tab sænker ionkoncentrationer i blodet (respiratorisk alkalose), hvilket påvirker nervefunktion.",
+    "difficulty": "medium",
+    "tags": [
+      "hyperventilation",
+      "nerve"
+    ],
+    "deckId": "respirationCards"
+  },
+  {
+    "id": "neuro_001",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nervesystemet",
+    "question": "Hvad er hovedforskellen på CNS og PNS?",
+    "answer": "CNS består af hjernen og rygmarven. PNS består af alle nerver udenfor CNS og leder signaler til og fra CNS.",
+    "difficulty": "easy",
+    "tags": [
+      "CNS",
+      "PNS"
+    ],
+    "deckId": "nervesystemetCards"
+  },
+  {
+    "id": "neuro_002",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nervesystemet",
+    "question": "Hvad er det autonome nervesystem?",
+    "answer": "Det autonome nervesystem styrer kroppens ubevidste funktioner som BT, RF, puls, fordøjelse og pupilreaktioner.",
+    "difficulty": "easy",
+    "tags": [
+      "ANS",
+      "autonom"
+    ],
+    "deckId": "nervesystemetCards"
+  },
+  {
+    "id": "neuro_003",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nervesystemet",
+    "question": "Hvad er forskellen på sympatikus og parasympatikus?",
+    "answer": "Sympatikus aktiverer 'fight or flight', øger puls og RF. Parasympatikus aktiverer 'rest and digest', sænker puls og fremmer fordøjelse og restitution.",
+    "difficulty": "medium",
+    "tags": [
+      "sympatikus",
+      "parasympatikus"
+    ],
+    "deckId": "nervesystemetCards"
+  },
+  {
+    "id": "neuro_004",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nervesystemet",
+    "question": "Hvad er et neuron?",
+    "answer": "En nervecelle der sender elektriske signaler gennem aktionspotentialer. Modtager, bearbejder og overfører information.",
+    "difficulty": "easy",
+    "tags": [
+      "neuron",
+      "celle"
+    ],
+    "deckId": "nervesystemetCards"
+  },
+  {
+    "id": "neuro_005",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nervesystemet",
+    "question": "Hvad er myelin, og hvorfor er det vigtigt?",
+    "answer": "Myelin er et fedtlag rundt om nervefibrene, som øger ledningshastigheden for elektriske signaler.",
+    "difficulty": "medium",
+    "tags": [
+      "myelin",
+      "ledning"
+    ],
+    "deckId": "nervesystemetCards"
+  },
+  {
+    "id": "neuro_006",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nervesystemet",
+    "question": "Forklar kort et aktionspotentiale.",
+    "answer": "Et elektrisk signal i neuronet skabt af ændringer i spænding via Na+ og K+ ionkanaler. Bruges til signaloverførsel.",
+    "difficulty": "hard",
+    "tags": [
+      "aktionspotentiale",
+      "ioner"
+    ],
+    "deckId": "nervesystemetCards"
+  },
+  {
+    "id": "neuro_007",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nervesystemet",
+    "question": "Hvad er en synapse?",
+    "answer": "Kontaktpunkt mellem to neuroner, hvor neurotransmittere overfører signalet kemisk.",
+    "difficulty": "easy",
+    "tags": [
+      "synapse",
+      "signal"
+    ],
+    "deckId": "nervesystemetCards"
+  },
+  {
+    "id": "neuro_008",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nervesystemet",
+    "question": "Hvad er funktionen af neurotransmitteren dopamin?",
+    "answer": "Dopamin hjælper med bevægelseskontrol, belønning, motivation og opmærksomhed.",
+    "difficulty": "medium",
+    "tags": [
+      "dopamin"
+    ],
+    "deckId": "nervesystemetCards"
+  },
+  {
+    "id": "neuro_009",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nervesystemet",
+    "question": "Hvorfor kan hypoglykæmi påvirke bevidsthedsniveauet?",
+    "answer": "Hjernen er meget afhængig af glukose. Ved hypoglykæmi kan neuroner ikke fungere → nedsat bevidsthed, evt. bevidstløshed.",
+    "difficulty": "hard",
+    "tags": [
+      "glukose",
+      "bevidsthed"
+    ],
+    "deckId": "nervesystemetCards"
+  },
+  {
+    "id": "neuro_010",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nervesystemet",
+    "question": "Hvordan vurderes bevidsthed præhospitalt?",
+    "answer": "Typisk med AVPU eller Glasgow Coma Scale (GCS). GCS vurderer øjenåbning, verbalt og motorisk respons.",
+    "difficulty": "easy",
+    "tags": [
+      "GCS",
+      "AVPU"
+    ],
+    "deckId": "nervesystemetCards"
+  },
+  {
+    "id": "neuro_011",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nervesystemet",
+    "question": "Hvad måler en GCS-score?",
+    "answer": "GCS vurderer hjernens funktion baseret på øjenåbning, motorisk respons og verbalt respons. Score 3-15.",
+    "difficulty": "medium",
+    "tags": [
+      "GCS"
+    ],
+    "deckId": "nervesystemetCards"
+  },
+  {
+    "id": "neuro_012",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nervesystemet",
+    "question": "Hvad er et dermatom?",
+    "answer": "Et hudområde der innerveres af én spinalnerve. Bruges til at lokalisere nervesystemskade.",
+    "difficulty": "hard",
+    "tags": [
+      "dermatom",
+      "spinal"
+    ],
+    "deckId": "nervesystemetCards"
+  },
+  {
+    "id": "neuro_013",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nervesystemet",
+    "question": "Hvorfor kan højt intrakranielt tryk påvirke blodtryk og puls?",
+    "answer": "Øget ICP giver Cushing-refleks: hypertension, bradykardi, uregelmæssig respiration pga. tryk på hjernestammen.",
+    "difficulty": "hard",
+    "tags": [
+      "ICP",
+      "Cushing"
+    ],
+    "deckId": "nervesystemetCards"
+  },
+  {
+    "id": "neuro_014",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nervesystemet",
+    "question": "Forklar parasympatikus' effekt på hjertet.",
+    "answer": "Parasympatikus (via vagusnerven) sænker puls og hæmmer AV-knuden, men påvirker ikke kontraktiliteten.",
+    "difficulty": "medium",
+    "tags": [
+      "Vagus",
+      "puls"
+    ],
+    "deckId": "nervesystemetCards"
+  },
+  {
+    "id": "neuro_015",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nervesystemet",
+    "question": "Hvad er fight-or-flight responsen?",
+    "answer": "Aktivering af sympatikus → øget puls, RF, BT, bronkodilatation, pupil dilation, glucosefrisættelse.",
+    "difficulty": "easy",
+    "tags": [
+      "sympatikus",
+      "stressrespons"
+    ],
+    "deckId": "nervesystemetCards"
+  },
+  {
+    "id": "neuro_016",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nervesystemet",
+    "question": "Hvad forstås ved nervernes saltatoriske ledning?",
+    "answer": "Elektriske signaler springer mellem myeliniserede knudepunkter → hurtigere signalledning.",
+    "difficulty": "hard",
+    "tags": [
+      "myelin",
+      "ledning"
+    ],
+    "deckId": "nervesystemetCards"
+  },
+  {
+    "id": "neuro_017",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nervesystemet",
+    "question": "Hvad er nociceptorer?",
+    "answer": "Smertereceptorer der registrerer vævsskade og sender signaler til CNS.",
+    "difficulty": "easy",
+    "tags": [
+      "smerte",
+      "nociception"
+    ],
+    "deckId": "nervesystemetCards"
+  },
+  {
+    "id": "neuro_018",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nervesystemet",
+    "question": "Hvad er forskel på bevidst og ikke-bevidst smerteregistrering?",
+    "answer": "Ikke-bevidst: refleksive, automatiske signaler (fx tilbagetrækning). Bevidst: når signalet bearbejdes i hjernen og opleves som smerte.",
+    "difficulty": "medium",
+    "tags": [
+      "smerteregistrering"
+    ],
+    "deckId": "nervesystemetCards"
+  },
+  {
+    "id": "neuro_019",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nervesystemet",
+    "question": "Hvad er rygmarvens funktion?",
+    "answer": "Overfører signaler mellem hjerne og krop og styrer refleksbevægelser.",
+    "difficulty": "easy",
+    "tags": [
+      "refleks",
+      "rygmarv"
+    ],
+    "deckId": "nervesystemetCards"
+  },
+  {
+    "id": "neuro_020",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nervesystemet",
+    "question": "Hvorfor kan patienter med rygmarvsskade have normal respiration, men lav puls?",
+    "answer": "Skade højt i medulla spinalis kan afbryde sympatikus, men ikke diafragmas funktion (styres via phrenicus C3-C5).",
+    "difficulty": "hard",
+    "tags": [
+      "spinalskade",
+      "phrenicus"
+    ],
+    "deckId": "nervesystemetCards"
+  },
+  {
+    "id": "nyrer_001",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nyrer og væskebalance",
+    "question": "Hvad er nyrernes tre vigtigste funktioner?",
+    "answer": "Filtration af affaldsstoffer, regulering af væske- og elektrolytbalance, samt syre-base regulering.",
+    "difficulty": "easy",
+    "tags": [
+      "nyrer",
+      "funktion"
+    ],
+    "deckId": "nyrefunktionCards"
+  },
+  {
+    "id": "nyrer_002",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nyrer og væskebalance",
+    "question": "Hvad er glomerulus?",
+    "answer": "Glomerulus er et kapillærnøgle i nyren, som filtrerer blodet for affaldsstoffer og væske.",
+    "difficulty": "medium",
+    "tags": [
+      "glomerulus",
+      "filtration"
+    ],
+    "deckId": "nyrefunktionCards"
+  },
+  {
+    "id": "nyrer_003",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nyrer og væskebalance",
+    "question": "Hvordan regulerer nyrerne kroppens pH?",
+    "answer": "Nyrerne udskiller H+ og reabsorberer HCO3−, hvilket hjælper med at regulere syre-base balancen.",
+    "difficulty": "hard",
+    "tags": [
+      "pH",
+      "syre-base"
+    ],
+    "deckId": "nyrefunktionCards"
+  },
+  {
+    "id": "nyrer_004",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nyrer og væskebalance",
+    "question": "Beskriv kort RAAS-systemet.",
+    "answer": "Renin-frisættelse fra nyrerne aktiverer angiotensin og aldosteron → øget blodtryk og væskeretention.",
+    "difficulty": "medium",
+    "tags": [
+      "RAAS",
+      "blodtryk"
+    ],
+    "deckId": "nyrefunktionCards"
+  },
+  {
+    "id": "nyrer_005",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nyrer og væskebalance",
+    "question": "Hvad er aldosterons rolle i væskebalance?",
+    "answer": "Aldosteron øger reabsorption af natrium (og dermed vand) i nyrerne, hvilket øger blodvolumen og blodtryk.",
+    "difficulty": "medium",
+    "tags": [
+      "aldosteron",
+      "væske"
+    ],
+    "deckId": "nyrefunktionCards"
+  },
+  {
+    "id": "nyrer_006",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nyrer og væskebalance",
+    "question": "Hvad gør antidiuretisk hormon (ADH)?",
+    "answer": "ADH øger vandreabsorption i nyrernes samlerør, hvilket mindsker urinproduktion og øger blodvolumen.",
+    "difficulty": "easy",
+    "tags": [
+      "ADH",
+      "vand"
+    ],
+    "deckId": "nyrefunktionCards"
+  },
+  {
+    "id": "nyrer_007",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nyrer og væskebalance",
+    "question": "Hvordan påvirker dehydrering blodtryk og nyrer?",
+    "answer": "Blodvolumen falder → BT falder → nedsat nyreperfusion → aktivering af RAAS og ADH for at bevare væske.",
+    "difficulty": "medium",
+    "tags": [
+      "dehydrering",
+      "BT"
+    ],
+    "deckId": "nyrefunktionCards"
+  },
+  {
+    "id": "nyrer_008",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nyrer og væskebalance",
+    "question": "Hvad sker der med urinproduktionen ved shock?",
+    "answer": "Kroppen prioriterer vitale organer → nyreperfusion falder → nyrerne skruer ned for diurese.",
+    "difficulty": "hard",
+    "tags": [
+      "shock",
+      "oliguri"
+    ],
+    "deckId": "nyrefunktionCards"
+  },
+  {
+    "id": "nyrer_009",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nyrer og væskebalance",
+    "question": "Hvad betyder oliguri?",
+    "answer": "Nedsat urinproduktion (<400 ml/døgn), ofte tegn på nedsat perfusion eller nyresvigt.",
+    "difficulty": "medium",
+    "tags": [
+      "oliguri",
+      "urin"
+    ],
+    "deckId": "nyrefunktionCards"
+  },
+  {
+    "id": "nyrer_010",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nyrer og væskebalance",
+    "question": "Hvorfor kan nyresvigt føre til hyperkaliæmi?",
+    "answer": "Ved nyresvigt udskilles kalium ikke effektivt, hvilket kan give livstruende arytmier.",
+    "difficulty": "hard",
+    "tags": [
+      "hyperkaliæmi",
+      "nyresvigt"
+    ],
+    "deckId": "nyrefunktionCards"
+  },
+  {
+    "id": "nyrer_011",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nyrer og væskebalance",
+    "question": "Hvad er glomerulær filtrationsrate (GFR)?",
+    "answer": "Et mål for hvor godt nyrerne filtrerer blodet. Lav GFR tyder på nedsat nyrefunktion.",
+    "difficulty": "hard",
+    "tags": [
+      "GFR",
+      "nyresvigt"
+    ],
+    "deckId": "nyrefunktionCards"
+  },
+  {
+    "id": "nyrer_012",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nyrer og væskebalance",
+    "question": "Hvorfor kan sepsis give akut nyresvigt?",
+    "answer": "Inflammation og lavt blodtryk reducerer nyreperfusion, hvilket kan føre til akut nyreskade.",
+    "difficulty": "hard",
+    "tags": [
+      "sepsis",
+      "nyresvigt"
+    ],
+    "deckId": "nyrefunktionCards"
+  },
+  {
+    "id": "nyrer_013",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nyrer og væskebalance",
+    "question": "Hvad er forskellen på intracellulær og ekstracellulær væske?",
+    "answer": "Intracellulær er inde i celler (2/3 af kropsvæske), ekstracellulær er plasma og interstitiel væske (1/3).",
+    "difficulty": "medium",
+    "tags": [
+      "væskefordeling"
+    ],
+    "deckId": "nyrefunktionCards"
+  },
+  {
+    "id": "nyrer_014",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nyrer og væskebalance",
+    "question": "Hvordan kan man kende dehydrering præhospitalt?",
+    "answer": "Tørre slimhinder, træthed, takykardi, hypotension, mørk urin, nedsat hudturgor.",
+    "difficulty": "medium",
+    "tags": [
+      "dehydrering"
+    ],
+    "deckId": "nyrefunktionCards"
+  },
+  {
+    "id": "nyrer_015",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nyrer og væskebalance",
+    "question": "Hvilket hormon frigives fra hjertet ved volumenoverbelastning?",
+    "answer": "ANP (Atrie Natriuretisk Peptid), øger udskillelse af natrium og vand.",
+    "difficulty": "hard",
+    "tags": [
+      "ANP",
+      "væske"
+    ],
+    "deckId": "nyrefunktionCards"
+  },
+  {
+    "id": "nyrer_016",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nyrer og væskebalance",
+    "question": "Hvordan kan du klinisk vurdere om en patient har væskeophobning?",
+    "answer": "Vedrørende ødemer, vægtøgning, jugular venestase, dyspnø og evt. lungestase.",
+    "difficulty": "medium",
+    "tags": [
+      "væskeophobning"
+    ],
+    "deckId": "nyrefunktionCards"
+  },
+  {
+    "id": "nyrer_017",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nyrer og væskebalance",
+    "question": "Nævn tre konsekvenser af ubehandlet alvorlig dehydrering.",
+    "answer": "Hypotension, nedsat urinproduktion, shock, nedsat organperfusion, konfusion.",
+    "difficulty": "medium",
+    "tags": [
+      "dehydrering",
+      "shock"
+    ],
+    "deckId": "nyrefunktionCards"
+  },
+  {
+    "id": "nyrer_018",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nyrer og væskebalance",
+    "question": "Hvorfor kan nyresvigt give acidose?",
+    "answer": "Nyrerne kan ikke udskille H+ og reabsorb HCO3−, hvilket medfører metabolisk acidose.",
+    "difficulty": "hard",
+    "tags": [
+      "acidose",
+      "nyresvigt"
+    ],
+    "deckId": "nyrefunktionCards"
+  },
+  {
+    "id": "nyrer_019",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nyrer og væskebalance",
+    "question": "Hvordan påvirker nyresvigt medicindosering præhospitalt?",
+    "answer": "Nedsat udskillelse kan øge risiko for ophobning og toksicitet. Der skal doseres forsigtigt.",
+    "difficulty": "hard",
+    "tags": [
+      "farmakologi",
+      "nyresvigt"
+    ],
+    "deckId": "nyrefunktionCards"
+  },
+  {
+    "id": "nyrer_020",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Nyrer og væskebalance",
+    "question": "Hvad betyder 'prærenal nyreskade'?",
+    "answer": "Nyreskade pga. nedsat blodtilførsel til nyrerne, fx hypovolæmi, dehydrering eller shock.",
+    "difficulty": "hard",
+    "tags": [
+      "nyresvigt",
+      "shock"
+    ],
+    "deckId": "nyrefunktionCards"
+  },
+  {
+    "id": "kredslob_001",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Kredsløb",
+    "question": "Hvad forstås ved perfusion i en præhospital kontekst?",
+    "answer": "Perfusion er levering af ilt og næringsstoffer til kroppens væv gennem blodets cirkulation. Utilstrækkelig perfusion ses ved shock.",
+    "difficulty": "easy",
+    "tags": [
+      "perfusion",
+      "shock"
+    ],
+    "deckId": "kredslobCards"
+  },
+  {
+    "id": "kredslob_002",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Kredsløb",
+    "question": "Forklar forskellen på systemisk og pulmonal kredsløb.",
+    "answer": "Systemisk kredsløb sender blod ud i kroppen via aorta. Pulmonal kredsløb fører iltfattigt blod til lungerne og iltet blod tilbage til venstre atrium.",
+    "difficulty": "easy",
+    "tags": [
+      "systemisk",
+      "pulmonal"
+    ],
+    "deckId": "kredslobCards"
+  },
+  {
+    "id": "kredslob_003",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Kredsløb",
+    "question": "Hvordan defineres blodtryk (BT)?",
+    "answer": "Blodtryk er det tryk, blodet udøver på karvæggen. BT = Cardiac Output × Perifer Modstand.",
+    "difficulty": "medium",
+    "tags": [
+      "BT",
+      "CO"
+    ],
+    "deckId": "kredslobCards"
+  },
+  {
+    "id": "kredslob_004",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Kredsløb",
+    "question": "Hvad er cardiac output (CO), og hvordan beregnes det?",
+    "answer": "Cardiac output er hjertets minutvolumen og beregnes: CO = HR × Slagvolumen.",
+    "difficulty": "medium",
+    "tags": [
+      "CO",
+      "puls",
+      "slagvolumen"
+    ],
+    "deckId": "kredslobCards"
+  },
+  {
+    "id": "kredslob_005",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Kredsløb",
+    "question": "Forklar preload, afterload og kontraktilitet kort.",
+    "answer": "Preload: fyldning af ventriklen før kontraktion. Afterload: modstanden hjertet skal pumpe imod. Kontraktilitet: hjertemusklens evne til at trække sig sammen.",
+    "difficulty": "hard",
+    "tags": [
+      "preload",
+      "afterload"
+    ],
+    "deckId": "kredslobCards"
+  },
+  {
+    "id": "kredslob_006",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Kredsløb",
+    "question": "Hvordan påvirker dehydrering preload og blodtryk?",
+    "answer": "Dehydrering reducerer blodvolumen og preload, hvilket mindsker slagvolumen og BT.",
+    "difficulty": "medium",
+    "tags": [
+      "BT",
+      "dehydrering"
+    ],
+    "deckId": "kredslobCards"
+  },
+  {
+    "id": "kredslob_007",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Kredsløb",
+    "question": "Hvorfor kan venstresidig hjertesvigt føre til lungeødem?",
+    "answer": "Ved venstresidig hjertesvigt stiger trykket i lungekapillærerne, og væske presses ud i alveolerne → lungeødem.",
+    "difficulty": "hard",
+    "tags": [
+      "hjertesvigt",
+      "lungeødem"
+    ],
+    "deckId": "kredslobCards"
+  },
+  {
+    "id": "kredslob_008",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Kredsløb",
+    "question": "Hvad forstås ved mean arterial pressure (MAP)?",
+    "answer": "MAP er det gennemsnitlige arterielle tryk gennem hele hjerteslaget og er afgørende for organperfusion. MAP <65 mmHg er kritisk.",
+    "difficulty": "medium",
+    "tags": [
+      "MAP",
+      "perfusion"
+    ],
+    "deckId": "kredslobCards"
+  },
+  {
+    "id": "kredslob_009",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Kredsløb",
+    "question": "Hvad er forskellen på systolisk og diastolisk BT?",
+    "answer": "Systolisk: tryk under hjertets kontraktion. Diastolisk: tryk når hjertet hviler.",
+    "difficulty": "easy",
+    "tags": [
+      "BT"
+    ],
+    "deckId": "kredslobCards"
+  },
+  {
+    "id": "kredslob_010",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Kredsløb",
+    "question": "Hvorfor kan septisk shock give lavt blodtryk trods høj puls?",
+    "answer": "Ved sepsis dilateres blodkar pga. inflammation og tab af tonus → lavt BT trods kompensatorisk høj puls.",
+    "difficulty": "hard",
+    "tags": [
+      "shock",
+      "sepsis"
+    ],
+    "deckId": "kredslobCards"
+  },
+  {
+    "id": "kredslob_011",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Kredsløb",
+    "question": "Hvad er hæmatokrit (HCT)?",
+    "answer": "Andelen af blodvolumen, der udgøres af røde blodlegemer. Lav HCT → anæmi, høj HCT → dehydrering eller polycytæmi.",
+    "difficulty": "medium",
+    "tags": [
+      "hæmatokrit"
+    ],
+    "deckId": "kredslobCards"
+  },
+  {
+    "id": "kredslob_012",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Kredsløb",
+    "question": "Hvordan transporteres CO₂ i blodet?",
+    "answer": "70% som bikarbonat (HCO₃−), 23% bundet til hæmoglobin og 7% frit opløst i plasma.",
+    "difficulty": "medium",
+    "tags": [
+      "co2",
+      "transport"
+    ],
+    "deckId": "kredslobCards"
+  },
+  {
+    "id": "kredslob_013",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Kredsløb",
+    "question": "Hvad er Starling-loven (Frank-Starling)?",
+    "answer": "Jo mere ventriklen fyldes under diastole (preload), desto kraftigere kontraktion og større slagvolumen.",
+    "difficulty": "medium",
+    "tags": [
+      "Frank-Starling"
+    ],
+    "deckId": "kredslobCards"
+  },
+  {
+    "id": "kredslob_014",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Kredsløb",
+    "question": "Hvilken betydning har albumin for kredsløbet?",
+    "answer": "Albumin hjælper med at opretholde det kolloidosmotiske tryk og forhindrer væske i at lække ud i vævet.",
+    "difficulty": "hard",
+    "tags": [
+      "albumin",
+      "væske"
+    ],
+    "deckId": "kredslobCards"
+  },
+  {
+    "id": "kredslob_015",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Kredsløb",
+    "question": "Hvorfor er venetryk vigtigt for preload?",
+    "answer": "Højt venetryk øger blodets tilbageløb til hjertet og dermed preload, slagvolumen og BT.",
+    "difficulty": "medium",
+    "tags": [
+      "preload",
+      "venetryk"
+    ],
+    "deckId": "kredslobCards"
+  },
+  {
+    "id": "kredslob_016",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Kredsløb",
+    "question": "Hvad er DO₂ i præhospital sammenhæng?",
+    "answer": "Delivery of Oxygen: det samlede ilttilbud til vævet. DO₂ afhænger af Hgb, SaO₂ og CO.",
+    "difficulty": "hard",
+    "tags": [
+      "ilttransport"
+    ],
+    "deckId": "kredslobCards"
+  },
+  {
+    "id": "kredslob_017",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Kredsløb",
+    "question": "Hvad forstås ved perifer modstand?",
+    "answer": "Modstanden blodet møder i arterier og arterioler. Påvirkes bl.a. af kar-diameter og vasokonstriktion.",
+    "difficulty": "medium",
+    "tags": [
+      "modstand",
+      "BT"
+    ],
+    "deckId": "kredslobCards"
+  },
+  {
+    "id": "kredslob_018",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Kredsløb",
+    "question": "Hvad er årsagen til ortostatisk hypotension?",
+    "answer": "Når man stiller sig op, samler blodet sig i benene. Hvis kroppen ikke kompenserer via sympatikus → fald i BT og svimmelhed.",
+    "difficulty": "medium",
+    "tags": [
+      "BT",
+      "svimmelhed"
+    ],
+    "deckId": "kredslobCards"
+  },
+  {
+    "id": "kredslob_019",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Kredsløb",
+    "question": "Hvad er forskellen på arterier og vener?",
+    "answer": "Arterier fører blod fra hjertet (højt tryk), vener fører blod tilbage til hjertet (lavt tryk, indeholder klapper).",
+    "difficulty": "easy",
+    "tags": [
+      "arterier",
+      "vener"
+    ],
+    "deckId": "kredslobCards"
+  },
+  {
+    "id": "kredslob_020",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Kredsløb",
+    "question": "Hvorfor kan patienter med hjertesvigt opleve kuldefornemmelse i ekstremiteterne?",
+    "answer": "Nedsat cardiac output → kroppen prioriterer vitale organer og reducerer blodflow til arme og ben.",
+    "difficulty": "medium",
+    "tags": [
+      "hjertesvigt",
+      "perfusion"
+    ],
+    "deckId": "kredslobCards"
+  },
+  {
+    "id": "endo_001",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Endokrine system",
+    "question": "Hvad er forskellen på hormoner og neurotransmittere?",
+    "answer": "Hormoner transporteres via blodet og virker langsomt, mens neurotransmittere virker hurtigt og lokalt mellem nerveceller.",
+    "difficulty": "medium",
+    "tags": [
+      "hormoner",
+      "signal"
+    ],
+    "deckId": "endokrinCards"
+  },
+  {
+    "id": "endo_002",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Endokrine system",
+    "question": "Hvilket organ producerer insulin og glukagon?",
+    "answer": "Bugspytkirtlen (pancreas). Insulin sænker blodsukkeret, glukagon øger det.",
+    "difficulty": "easy",
+    "tags": [
+      "insulin",
+      "glukagon"
+    ],
+    "deckId": "endokrinCards"
+  },
+  {
+    "id": "endo_003",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Endokrine system",
+    "question": "Hvordan virker insulin?",
+    "answer": "Insulin hjælper glukose med at komme ind i cellerne og sænker dermed blodsukkeret.",
+    "difficulty": "easy",
+    "tags": [
+      "insulin",
+      "glukose"
+    ],
+    "deckId": "endokrinCards"
+  },
+  {
+    "id": "endo_004",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Endokrine system",
+    "question": "Hvorfor kan hypoglykæmi påvirke bevidstheden?",
+    "answer": "Hjernen er meget afhængig af glukose og kan ikke selv lagre det. Lavt glukose → nedsat bevidsthed eller bevidstløshed.",
+    "difficulty": "medium",
+    "tags": [
+      "hypoglykæmi",
+      "bevidsthed"
+    ],
+    "deckId": "endokrinCards"
+  },
+  {
+    "id": "endo_005",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Endokrine system",
+    "question": "Hvilke tre hormoner udgør kroppens primære stressrespons?",
+    "answer": "Adrenalin, noradrenalin og kortisol.",
+    "difficulty": "easy",
+    "tags": [
+      "stress",
+      "kortisol",
+      "adrenalin"
+    ],
+    "deckId": "endokrinCards"
+  },
+  {
+    "id": "endo_006",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Endokrine system",
+    "question": "Hvordan påvirker adrenalin kredsløbet?",
+    "answer": "Øger puls, BT, kontraktilitet og bronkodilatation samt frigiver glukose til blodet.",
+    "difficulty": "medium",
+    "tags": [
+      "adrenalin",
+      "sympatikus"
+    ],
+    "deckId": "endokrinCards"
+  },
+  {
+    "id": "endo_007",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Endokrine system",
+    "question": "Hvordan påvirker kortisol kroppen?",
+    "answer": "Øger glukoseproduktion, dæmper inflammation og understøtter langvarig stressrespons.",
+    "difficulty": "medium",
+    "tags": [
+      "kortisol"
+    ],
+    "deckId": "endokrinCards"
+  },
+  {
+    "id": "endo_008",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Endokrine system",
+    "question": "Forklar kort RAAS-systemet.",
+    "answer": "Renin → Angiotensin → Aldosteron. Øger blodtryk, blodvolumen og salt/vand reabsorption.",
+    "difficulty": "hard",
+    "tags": [
+      "RAAS",
+      "blodtryk"
+    ],
+    "deckId": "endokrinCards"
+  },
+  {
+    "id": "endo_009",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Endokrine system",
+    "question": "Hvad stimulerer udskillelsen af ADH?",
+    "answer": "Lavt blodtryk, høj plasma-osmolaritet eller dehydrering.",
+    "difficulty": "medium",
+    "tags": [
+      "ADH",
+      "væskebalance"
+    ],
+    "deckId": "endokrinCards"
+  },
+  {
+    "id": "endo_010",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Endokrine system",
+    "question": "Hvordan påvirker aldosteron nyrefunktionen?",
+    "answer": "Øger reabsorption af natrium og vand → øger blodvolumen og BT.",
+    "difficulty": "medium",
+    "tags": [
+      "aldosteron"
+    ],
+    "deckId": "endokrinCards"
+  },
+  {
+    "id": "endo_011",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Endokrine system",
+    "question": "Hvordan påvirker langvarig stress kroppen?",
+    "answer": "Langvarig kortisolpåvirkning → forhøjet blodsukker, svækket immunforsvar, hypertension og øget risiko for sygdom.",
+    "difficulty": "hard",
+    "tags": [
+      "stress"
+    ],
+    "deckId": "endokrinCards"
+  },
+  {
+    "id": "endo_012",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Endokrine system",
+    "question": "Hvorfor kan Addison-krise være livstruende?",
+    "answer": "Man mangler aldosteron og kortisol → alvorlig hypotension, shock, elektrolytforstyrrelser og hypoglykæmi.",
+    "difficulty": "hard",
+    "tags": [
+      "Addison",
+      "shock"
+    ],
+    "deckId": "endokrinCards"
+  },
+  {
+    "id": "endo_013",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Endokrine system",
+    "question": "Hvilket hormon produceres i hypothalamus og lagres i hypofysen?",
+    "answer": "ADH og oxytocin.",
+    "difficulty": "medium",
+    "tags": [
+      "hypothalamus",
+      "hypofyse"
+    ],
+    "deckId": "endokrinCards"
+  },
+  {
+    "id": "endo_014",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Endokrine system",
+    "question": "Hvad er forskellen på type 1 og type 2 diabetes?",
+    "answer": "Type 1: kroppen producerer slet ikke insulin. Type 2: kroppen producerer insulin, men cellerne er resistente.",
+    "difficulty": "medium",
+    "tags": [
+      "diabetes"
+    ],
+    "deckId": "endokrinCards"
+  },
+  {
+    "id": "endo_015",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Endokrine system",
+    "question": "Hvorfor kan insulinshock være mere akut end hyperglykæmi?",
+    "answer": "Hjernen mangler glukose og kan hurtigt miste funktion, mens hyperglykæmi udvikler sig langsommere.",
+    "difficulty": "hard",
+    "tags": [
+      "hypoglykæmi",
+      "insulinshock"
+    ],
+    "deckId": "endokrinCards"
+  },
+  {
+    "id": "endo_016",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Endokrine system",
+    "question": "Hvordan påvirker adrenalin luftvejene?",
+    "answer": "Adrenalin giver bronkodilatation og øger iltoptagelsen.",
+    "difficulty": "medium",
+    "tags": [
+      "adrenalin",
+      "bronkodilatation"
+    ],
+    "deckId": "endokrinCards"
+  },
+  {
+    "id": "endo_017",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Endokrine system",
+    "question": "Hvilken rolle spiller thyroidea (skjoldbruskkirtlen)?",
+    "answer": "Producerer T3 og T4, der regulerer stofskifte, BT, temperatur og energiomsætning.",
+    "difficulty": "medium",
+    "tags": [
+      "thyroidea",
+      "stofskifte"
+    ],
+    "deckId": "endokrinCards"
+  },
+  {
+    "id": "endo_018",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Endokrine system",
+    "question": "Hvorfor kan hypothyreose give bradykardi?",
+    "answer": "Lavt stofskifte sænker metabolismen og reducerer sympatikusaktivitet → langsommere puls og træthed.",
+    "difficulty": "hard",
+    "tags": [
+      "thyroidea",
+      "bradykardi"
+    ],
+    "deckId": "endokrinCards"
+  },
+  {
+    "id": "endo_019",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Endokrine system",
+    "question": "Hvad sker i kroppen ved anafylaktisk shock hormonelt?",
+    "answer": "Histamin frigives → vasodilatation, BT-fald, ødem. Adrenalin modvirker disse effekter.",
+    "difficulty": "hard",
+    "tags": [
+      "histamin",
+      "anafylaksi"
+    ],
+    "deckId": "endokrinCards"
+  },
+  {
+    "id": "endo_020",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Endokrine system",
+    "question": "Hvordan påvirker væske og hormoner blodtryk i kroppen?",
+    "answer": "ADH og aldosteron øger væskeretention → højere BT. ANP sænker volumen ved væskeoverskud.",
+    "difficulty": "medium",
+    "tags": [
+      "væskebalance",
+      "hormoner",
+      "BT"
+    ],
+    "deckId": "endokrinCards"
+  },
+  {
+    "id": "fordoj_001",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Fordøjelse",
+    "question": "Hvad er fordøjelsessystemets primære funktioner?",
+    "answer": "Nedbrydning af føde, absorption af næringsstoffer, væske og elektrolytter samt udskillelse af affaldsstoffer.",
+    "difficulty": "easy",
+    "tags": [
+      "fordøjelse",
+      "funktion"
+    ],
+    "deckId": "fordojelseCards"
+  },
+  {
+    "id": "fordoj_002",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Fordøjelse",
+    "question": "Hvorfor starter fordøjelsen allerede i munden?",
+    "answer": "Tygning mekanisk nedbryder maden, og spyt indeholder enzymet amylase, der begynder nedbrydning af kulhydrater.",
+    "difficulty": "easy",
+    "tags": [
+      "mund",
+      "amylase"
+    ],
+    "deckId": "fordojelseCards"
+  },
+  {
+    "id": "fordoj_003",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Fordøjelse",
+    "question": "Hvad er leverens vigtigste funktioner?",
+    "answer": "Afgiftning, produktion af galde, produktion af koagulationsfaktorer, lagring af glukose og regulering af stofskifte.",
+    "difficulty": "medium",
+    "tags": [
+      "lever",
+      "afgiftning"
+    ],
+    "deckId": "fordojelseCards"
+  },
+  {
+    "id": "fordoj_004",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Fordøjelse",
+    "question": "Hvorfor kan alkohol påvirke blodsukkeret?",
+    "answer": "Leveren prioriterer alkoholnedbrydning og stopper midlertidigt glukoseproduktion → risiko for hypoglykæmi.",
+    "difficulty": "hard",
+    "tags": [
+      "lever",
+      "alkohol",
+      "glukose"
+    ],
+    "deckId": "fordojelseCards"
+  },
+  {
+    "id": "fordoj_005",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Fordøjelse",
+    "question": "Hvor foregår størstedelen af næringsstofoptagelsen?",
+    "answer": "I tyndtarmen (jejunum og ileum), hvor villi og mikrovilli øger overfladen.",
+    "difficulty": "easy",
+    "tags": [
+      "tyndtarm",
+      "optagelse"
+    ],
+    "deckId": "fordojelseCards"
+  },
+  {
+    "id": "fordoj_006",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Fordøjelse",
+    "question": "Hvad er funktionen af galde?",
+    "answer": "Galde nedbryder fedt til mindre dråber (emulgering), så lipase kan spalte det effektivt.",
+    "difficulty": "medium",
+    "tags": [
+      "galde",
+      "fedt"
+    ],
+    "deckId": "fordojelseCards"
+  },
+  {
+    "id": "fordoj_007",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Fordøjelse",
+    "question": "Hvordan kan diarré føre til metabolisk acidose?",
+    "answer": "Diarré medfører tab af bicarbonat fra tarmen, hvilket sænker pH → metabolisk acidose.",
+    "difficulty": "hard",
+    "tags": [
+      "acidose",
+      "diarré"
+    ],
+    "deckId": "fordojelseCards"
+  },
+  {
+    "id": "fordoj_008",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Fordøjelse",
+    "question": "Hvorfor giver gentagen opkastning metabolisk alkalose?",
+    "answer": "Man mister mavesaft, som indeholder meget saltsyre (HCl) → øget pH → metabolisk alkalose.",
+    "difficulty": "hard",
+    "tags": [
+      "alkalose",
+      "opkast"
+    ],
+    "deckId": "fordojelseCards"
+  },
+  {
+    "id": "fordoj_009",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Fordøjelse",
+    "question": "Hvad er forskellen på mekanisk og kemisk fordøjelse?",
+    "answer": "Mekanisk: tygning, peristaltik. Kemisk: enzymatisk nedbrydning af føde.",
+    "difficulty": "easy",
+    "tags": [
+      "fordøjelse"
+    ],
+    "deckId": "fordojelseCards"
+  },
+  {
+    "id": "fordoj_010",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Fordøjelse",
+    "question": "Hvad er peristaltik, og hvorfor er det vigtigt?",
+    "answer": "Rytmiske muskelsammentrækninger, der transporterer føden gennem fordøjelseskanalen.",
+    "difficulty": "easy",
+    "tags": [
+      "peristaltik"
+    ],
+    "deckId": "fordojelseCards"
+  },
+  {
+    "id": "fordoj_011",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Fordøjelse",
+    "question": "Hvordan hjælper leveren ved central shock?",
+    "answer": "Leveren frigiver glukose fra glykogenlagre for at støtte energiforsyning og fastholde perfusion.",
+    "difficulty": "medium",
+    "tags": [
+      "lever",
+      "shock"
+    ],
+    "deckId": "fordojelseCards"
+  },
+  {
+    "id": "fordoj_012",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Fordøjelse",
+    "question": "Hvad er proteiner primært byggesten for?",
+    "answer": "Enzymer, hormoner, muskler, immunforsvar og vævsreparation.",
+    "difficulty": "easy",
+    "tags": [
+      "protein"
+    ],
+    "deckId": "fordojelseCards"
+  },
+  {
+    "id": "fordoj_013",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Fordøjelse",
+    "question": "Hvorfor kan svært leversvigt give blødning?",
+    "answer": "Leveren producerer koagulationsfaktorer. Ved svigt dannes færre → øget blødningstendens.",
+    "difficulty": "hard",
+    "tags": [
+      "koagulation",
+      "lever"
+    ],
+    "deckId": "fordojelseCards"
+  },
+  {
+    "id": "fordoj_014",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Fordøjelse",
+    "question": "Hvad sker der i kroppen ved underernæring (malnutrition)?",
+    "answer": "Fald i muskelmasse, svækket immunforsvar, lav energi, dårlig sårheling og øget infektionsrisiko.",
+    "difficulty": "medium",
+    "tags": [
+      "malnutrition"
+    ],
+    "deckId": "fordojelseCards"
+  },
+  {
+    "id": "fordoj_015",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Fordøjelse",
+    "question": "Hvordan fungerer glukagons virkning på leveren?",
+    "answer": "Glukagon stimulerer leveren til at nedbryde glykogen til glukose og frigive det til blodet.",
+    "difficulty": "medium",
+    "tags": [
+      "glukagon",
+      "lever"
+    ],
+    "deckId": "fordojelseCards"
+  },
+  {
+    "id": "fordoj_016",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Fordøjelse",
+    "question": "Hvorfor er fordøjelse vigtig i shockbehandling?",
+    "answer": "Nedsat perfusion lukker for blod til tarmene først → risiko for iskæmi, acidose og organsvigt.",
+    "difficulty": "hard",
+    "tags": [
+      "shock",
+      "iskæmi"
+    ],
+    "deckId": "fordojelseCards"
+  },
+  {
+    "id": "fordoj_017",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Fordøjelse",
+    "question": "Hvad gør lipase?",
+    "answer": "Et enzym, der nedbryder fedtstoffer til glycerol og fedtsyrer.",
+    "difficulty": "easy",
+    "tags": [
+      "lipase",
+      "fordøjelse"
+    ],
+    "deckId": "fordojelseCards"
+  },
+  {
+    "id": "fordoj_018",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Fordøjelse",
+    "question": "Hvordan påvirker stress hormoner fordøjelsen?",
+    "answer": "Sympatikus og kortisol hæmmer peristaltik, nedsætter fordøjelse og øger blodsukkeret.",
+    "difficulty": "medium",
+    "tags": [
+      "stress",
+      "kortisol"
+    ],
+    "deckId": "fordojelseCards"
+  },
+  {
+    "id": "fordoj_019",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Fordøjelse",
+    "question": "Hvorfor kan pancreatitis være livstruende?",
+    "answer": "Inflammation i pancreas kan frigive fordøjelsesenzymer, som nedbryder eget væv og kan føre til multiorgansvigt.",
+    "difficulty": "hard",
+    "tags": [
+      "pancreas",
+      "inflammation"
+    ],
+    "deckId": "fordojelseCards"
+  },
+  {
+    "id": "fordoj_020",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Fordøjelse",
+    "question": "Hvad er hovedårsagen til ascites ved levercirrose?",
+    "answer": "Manglende albuminproduktion og portal hypertension giver væskeophobning i bughulen.",
+    "difficulty": "hard",
+    "tags": [
+      "lever",
+      "ascites"
+    ],
+    "deckId": "fordojelseCards"
+  },
+  {
+    "id": "grav_001",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Graviditet",
+    "question": "Hvad betyder begrebet graviditet fysiologisk?",
+    "answer": "En tilstand hvor et befrugtet æg har implanteret sig i endometriet og udvikler sig til et foster i uterus.",
+    "difficulty": "easy",
+    "tags": [
+      "definition",
+      "graviditet"
+    ],
+    "deckId": "graviditetCards"
+  },
+  {
+    "id": "grav_002",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Graviditet",
+    "question": "Hvad er placentaens primære funktioner?",
+    "answer": "Gasudveksling (O₂/CO₂), næringsstof- og affaldsudveksling, hormonproduktion (fx hCG, progesteron, østrogen) og barriere mod visse infektioner.",
+    "difficulty": "medium",
+    "tags": [
+      "placenta",
+      "foster-mor udveksling"
+    ],
+    "deckId": "graviditetCards"
+  },
+  {
+    "id": "grav_003",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Graviditet",
+    "question": "Hvordan ændres blodvolumen hos en gravid kvinde?",
+    "answer": "Blodvolumen stiger ca. 30–50 %, primært i plasmavolumen, hvilket giver fysiologisk hæmodilution (lavere Hb).",
+    "difficulty": "medium",
+    "tags": [
+      "blodvolumen",
+      "cirkulation"
+    ],
+    "deckId": "graviditetCards"
+  },
+  {
+    "id": "grav_004",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Graviditet",
+    "question": "Hvorfor er gravide mere tilbøjelige til at udvikle hypotension i rygleje?",
+    "answer": "Den tunge uterus kan komprimere vena cava inferior i rygleje → nedsat venøst tilbageløb → fald i minutvolumen og BT (supine hypotension syndrome).",
+    "difficulty": "hard",
+    "tags": [
+      "vena cava",
+      "hypotension",
+      "leje"
+    ],
+    "deckId": "graviditetCards"
+  },
+  {
+    "id": "grav_005",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Graviditet",
+    "question": "Hvorfor bliver mange gravide lettere dyspnøiske?",
+    "answer": "Øget iltbehov, øget metabolisme, progesteron-stimuleret respirationsdrive og mekanisk påvirkning fra uterus, der løfter diafragma.",
+    "difficulty": "medium",
+    "tags": [
+      "respiration",
+      "dyspnø"
+    ],
+    "deckId": "graviditetCards"
+  },
+  {
+    "id": "grav_006",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Graviditet",
+    "question": "Hvad sker der med hjertets minutvolumen under graviditet?",
+    "answer": "Minutvolumen øges med ca. 30–50 % pga. både øget slagvolumen og øget puls.",
+    "difficulty": "medium",
+    "tags": [
+      "minutvolumen",
+      "kredsløb"
+    ],
+    "deckId": "graviditetCards"
+  },
+  {
+    "id": "grav_007",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Graviditet",
+    "question": "Hvorfor er gravide øget risiko for trombose?",
+    "answer": "Graviditet er en hyperkoagulabel tilstand: øget koagulationsfaktorer, nedsat fibrinolyse og venestase i underekstremiteterne.",
+    "difficulty": "hard",
+    "tags": [
+      "trombose",
+      "koagulation"
+    ],
+    "deckId": "graviditetCards"
+  },
+  {
+    "id": "grav_008",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Graviditet",
+    "question": "Hvordan påvirkes blodtrykket typisk i 2. trimester?",
+    "answer": "BT falder ofte lidt i 2. trimester pga. vasodilatation og lavere perifer modstand, men normaliseres igen mod slutningen af graviditeten.",
+    "difficulty": "medium",
+    "tags": [
+      "blodtryk",
+      "perifer modstand"
+    ],
+    "deckId": "graviditetCards"
+  },
+  {
+    "id": "grav_009",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Graviditet",
+    "question": "Hvad er formålet med hormonet hCG tidligt i graviditeten?",
+    "answer": "hCG opretholder corpus luteum, som producerer progesteron og østrogen, indtil placenta selv kan overtage hormonproduktionen.",
+    "difficulty": "hard",
+    "tags": [
+      "hCG",
+      "hormoner"
+    ],
+    "deckId": "graviditetCards"
+  },
+  {
+    "id": "grav_010",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Graviditet",
+    "question": "Hvorfor får mange gravide halsbrand og refluks?",
+    "answer": "Progesteron afslapper den nedre esofagussfinkter og den gravide uterus presser på ventriklen → øget refluks og halsbrand.",
+    "difficulty": "easy",
+    "tags": [
+      "GI",
+      "refluks"
+    ],
+    "deckId": "graviditetCards"
+  },
+  {
+    "id": "grav_011",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Graviditet",
+    "question": "Hvad forstås ved begrebet uteroplacental perfusion?",
+    "answer": "Blodgennemstrømningen gennem uterus og placenta, som sikrer ilt og næring til fosteret. Den er afhængig af moderens BT og uterine kar.",
+    "difficulty": "medium",
+    "tags": [
+      "perfusions",
+      "placenta"
+    ],
+    "deckId": "graviditetCards"
+  },
+  {
+    "id": "grav_012",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Graviditet",
+    "question": "Hvorfor er traumer hos gravide særligt alvorlige for fosteret?",
+    "answer": "Små ændringer i moderens kredsløb kan kraftigt reducere uteroplacental perfusion, og fosteret har ingen egne reserver. Desuden risiko for placentaabruptio.",
+    "difficulty": "hard",
+    "tags": [
+      "traume",
+      "placentaabruptio"
+    ],
+    "deckId": "graviditetCards"
+  },
+  {
+    "id": "grav_013",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Graviditet",
+    "question": "Hvilke respiratoriske ændringer ses typisk hos gravide?",
+    "answer": "Øget tidalvolumen og minutventilation, let respiratorisk alkalose og løftet diafragma, men relativt uændret respirationsfrekvens.",
+    "difficulty": "hard",
+    "tags": [
+      "respiration",
+      "alkalose"
+    ],
+    "deckId": "graviditetCards"
+  },
+  {
+    "id": "grav_014",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Graviditet",
+    "question": "Hvordan påvirkes nyrefunktionen under graviditet?",
+    "answer": "GFR (glomerulær filtrationsrate) stiger, og der er øget gennemblødning af nyrerne, hvilket kan give øget diurese og lettere proteinuri.",
+    "difficulty": "medium",
+    "tags": [
+      "nyrer",
+      "GFR"
+    ],
+    "deckId": "graviditetCards"
+  },
+  {
+    "id": "grav_015",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Graviditet",
+    "question": "Hvad betyder begrebet paritet og gravitet?",
+    "answer": "Gravitet = antal graviditeter en kvinde har haft. Paritet = antal fødsler efter levedygtig gestationsalder (typisk ≥ uge 22–24, afhængigt af definition).",
+    "difficulty": "medium",
+    "tags": [
+      "paritet",
+      "gravitet",
+      "obstetrik"
+    ],
+    "deckId": "graviditetCards"
+  },
+  {
+    "id": "grav_016",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Graviditet",
+    "question": "Hvorfor kan gravide opleve svimmelhed ved hurtig stillingsskift?",
+    "answer": "Kombination af øget blodvolumen, venøs stase og ændret autonom regulering gør dem mere sårbare for ortostatisk hypotension.",
+    "difficulty": "easy",
+    "tags": [
+      "ortostatisk hypotension",
+      "svimmelhed"
+    ],
+    "deckId": "graviditetCards"
+  },
+  {
+    "id": "grav_017",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Graviditet",
+    "question": "Hvad er den fysiologiske forklaring på pitting-ødem i ben hos gravide?",
+    "answer": "Øget blodvolumen, venestase pga. tryk fra uterus og hormonelt betinget væskeretention → væske presses ud i interstitset.",
+    "difficulty": "medium",
+    "tags": [
+      "ødem",
+      "væskeretention"
+    ],
+    "deckId": "graviditetCards"
+  },
+  {
+    "id": "grav_018",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Graviditet",
+    "question": "Hvad er de vigtigste strukturer i det føtale kredsløb, som adskiller sig fra det voksne?",
+    "answer": "Ductus venosus, foramen ovale og ductus arteriosus, som omdirigerer blodet uden om lungerne og delvist uden om leveren.",
+    "difficulty": "hard",
+    "tags": [
+      "føtalt kredsløb",
+      "foramen ovale",
+      "ductus arteriosus"
+    ],
+    "deckId": "graviditetCards"
+  },
+  {
+    "id": "grav_019",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Graviditet",
+    "question": "Hvorfor er iltning af moderen kritisk ved præhospital behandling af gravide?",
+    "answer": "Fosterets ilttilførsel er helt afhængig af moderens iltmætning og uteroplacental perfusion; moderens hypoxi → hurtig føtal hypoxi.",
+    "difficulty": "medium",
+    "tags": [
+      "iltning",
+      "føtal hypoxi"
+    ],
+    "deckId": "graviditetCards"
+  },
+  {
+    "id": "grav_020",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Graviditet",
+    "question": "Hvorfor anbefales venstresidigt leje eller manuel uterusforskydning ved gravide i shock eller hjertestop?",
+    "answer": "For at aflaste vena cava og aorta fra tryk fra uterus, øge venøst tilbageløb og forbedre perfusion til både mor og foster.",
+    "difficulty": "hard",
+    "tags": [
+      "uterusforskydning",
+      "hjertestop",
+      "shock"
+    ],
+    "deckId": "graviditetCards"
+  },
+  {
+    "id": "bev_001",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Bevægeapparatet",
+    "question": "Hvad er forskellen på ossøse (knogle) og bløde vævsskader?",
+    "answer": "Knoglelæsioner involverer frakturer, mens bløddelsskader rammer muskler, sener, ledbånd og brusk.",
+    "difficulty": "easy",
+    "tags": [
+      "fraktur",
+      "bløddel"
+    ],
+    "deckId": "bevaegeapparatetCards"
+  },
+  {
+    "id": "bev_002",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Bevægeapparatet",
+    "question": "Hvad består en knogle primært af?",
+    "answer": "Knogle består af calcium, fosfat, kollagen og levende celler (osteoblaster, osteoklaster og osteocytter).",
+    "difficulty": "medium",
+    "tags": [
+      "knogle",
+      "calcium"
+    ],
+    "deckId": "bevaegeapparatetCards"
+  },
+  {
+    "id": "bev_003",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Bevægeapparatet",
+    "question": "Hvad er osteoporose?",
+    "answer": "En tilstand med reduceret knoglemasse og svækket knoglestruktur, hvilket øger risiko for frakturer.",
+    "difficulty": "medium",
+    "tags": [
+      "osteoporose"
+    ],
+    "deckId": "bevaegeapparatetCards"
+  },
+  {
+    "id": "bev_004",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Bevægeapparatet",
+    "question": "Hvorfor kan frakturer give stærke smerter?",
+    "answer": "Knogle er rigt innerveret, og bløddele omkring knoglen kan også blive beskadiget og give inflammation og hævelse.",
+    "difficulty": "medium",
+    "tags": [
+      "smerte",
+      "fraktur"
+    ],
+    "deckId": "bevaegeapparatetCards"
+  },
+  {
+    "id": "bev_005",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Bevægeapparatet",
+    "question": "Hvorfor kan ubehandlet kompartment syndrom føre til amputation?",
+    "answer": "Øget tryk i muskelloge stopper blodtilførsel, hvilket kan føre til nekrose og permanent vævsdød.",
+    "difficulty": "hard",
+    "tags": [
+      "kompartment",
+      "perfusion"
+    ],
+    "deckId": "bevaegeapparatetCards"
+  },
+  {
+    "id": "bev_006",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Bevægeapparatet",
+    "question": "Hvordan dannes ATP i muskelceller?",
+    "answer": "ATP produceres via aerob respiration, anaerob respiration og kreatinfosfat-systemet.",
+    "difficulty": "hard",
+    "tags": [
+      "ATP",
+      "energi"
+    ],
+    "deckId": "bevaegeapparatetCards"
+  },
+  {
+    "id": "bev_007",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Bevægeapparatet",
+    "question": "Hvad er forskellen på glat, skelet- og hjertemuskulatur?",
+    "answer": "Skeletmuskulatur: viljestyret. Hjertemuskulatur: ufrivillig, rytmisk. Glat muskulatur: ufrivillig i organer og kar.",
+    "difficulty": "easy",
+    "tags": [
+      "muskeltyper"
+    ],
+    "deckId": "bevaegeapparatetCards"
+  },
+  {
+    "id": "bev_008",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Bevægeapparatet",
+    "question": "Forklar inflammationens klassiske symptomer (latin).",
+    "answer": "Rubor (rødme), calor (varme), tumor (hævelse), dolor (smerte), functio laesa (nedsat funktion).",
+    "difficulty": "medium",
+    "tags": [
+      "inflammation"
+    ],
+    "deckId": "bevaegeapparatetCards"
+  },
+  {
+    "id": "bev_009",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Bevægeapparatet",
+    "question": "Hvordan vurderes perifer cirkulation ved ekstremitetskade præhospitalt?",
+    "answer": "Kontrol af puls distalt, motorisk funktion, sensorik og kapillærrespons (PMS/CSM).",
+    "difficulty": "medium",
+    "tags": [
+      "assessment",
+      "PMS"
+    ],
+    "deckId": "bevaegeapparatetCards"
+  },
+  {
+    "id": "bev_010",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Bevægeapparatet",
+    "question": "Hvad er ligamenter, og hvordan adskiller de sig fra sener?",
+    "answer": "Ligamenter forbinder knogle til knogle, sener forbinder muskel til knogle.",
+    "difficulty": "easy",
+    "tags": [
+      "ligament",
+      "sene"
+    ],
+    "deckId": "bevaegeapparatetCards"
+  },
+  {
+    "id": "bev_011",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Bevægeapparatet",
+    "question": "Hvorfor kan immobilisering reducere smerter ved frakturer?",
+    "answer": "Det forhindrer bevægelse af knogleender og minimerer irritation af nerver og bløddele.",
+    "difficulty": "easy",
+    "tags": [
+      "immobilisering",
+      "fraktur"
+    ],
+    "deckId": "bevaegeapparatetCards"
+  },
+  {
+    "id": "bev_012",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Bevægeapparatet",
+    "question": "Hvad sker ved muskelkramper fysiologisk?",
+    "answer": "Ufrivillig muskelkontraktion pga. elektrolytforstyrrelser, udtrætning eller utilstrækkelig ATP.",
+    "difficulty": "medium",
+    "tags": [
+      "kramper",
+      "elektrolytter"
+    ],
+    "deckId": "bevaegeapparatetCards"
+  },
+  {
+    "id": "bev_013",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Bevægeapparatet",
+    "question": "Hvordan påvirker calcium både knogler og muskler?",
+    "answer": "Calcium styrker knoglestruktur og er nødvendigt for muskelkontraktion og nerveledning.",
+    "difficulty": "hard",
+    "tags": [
+      "calcium",
+      "muskel"
+    ],
+    "deckId": "bevaegeapparatetCards"
+  },
+  {
+    "id": "bev_014",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Bevægeapparatet",
+    "question": "Hvorfor kan en hoftenær fraktur være livstruende hos ældre?",
+    "answer": "Risiko for blødning, immobilisering, infektion, tromber og nedsat organfunktion pga. inaktivitet.",
+    "difficulty": "hard",
+    "tags": [
+      "fraktur",
+      "geriatrisk"
+    ],
+    "deckId": "bevaegeapparatetCards"
+  },
+  {
+    "id": "bev_015",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Bevægeapparatet",
+    "question": "Hvad er en grønpindsfraktur?",
+    "answer": "En ufuldstændig fraktur der ses hos børn, hvor knoglen bøjer uden at brække helt.",
+    "difficulty": "medium",
+    "tags": [
+      "fraktur",
+      "børn"
+    ],
+    "deckId": "bevaegeapparatetCards"
+  },
+  {
+    "id": "bev_016",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Bevægeapparatet",
+    "question": "Hvordan kan muskelceller producere energi uden ilt?",
+    "answer": "Ved anaerob respiration dannes ATP og laktat fra glukose uden brug af ilt.",
+    "difficulty": "medium",
+    "tags": [
+      "anaerob",
+      "laktat"
+    ],
+    "deckId": "bevaegeapparatetCards"
+  },
+  {
+    "id": "bev_017",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Bevægeapparatet",
+    "question": "Hvad sker der fysiologisk ved immobilisering over længere tid?",
+    "answer": "Muskelsvind, nedsat kredsløb, risiko for trombose og tab af bevægelighed.",
+    "difficulty": "hard",
+    "tags": [
+      "immobilisering",
+      "atrofi"
+    ],
+    "deckId": "bevaegeapparatetCards"
+  },
+  {
+    "id": "bev_018",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Bevægeapparatet",
+    "question": "Hvordan opstår compartment syndrom?",
+    "answer": "Blødning eller hævelse i en muskelloge øger trykket og blokerer blodtilførsel → iskæmi.",
+    "difficulty": "hard",
+    "tags": [
+      "kompartment"
+    ],
+    "deckId": "bevaegeapparatetCards"
+  },
+  {
+    "id": "bev_019",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Bevægeapparatet",
+    "question": "Hvad er forskellen på en lukket og en åben fraktur?",
+    "answer": "Lukket: huden er intakt. Åben: knoglen bryder huden, med risiko for infektion og massiv blødning.",
+    "difficulty": "medium",
+    "tags": [
+      "åben fraktur"
+    ],
+    "deckId": "bevaegeapparatetCards"
+  },
+  {
+    "id": "bev_020",
+    "subject": "Anatomi og fysiologi",
+    "topic": "Bevægeapparatet",
+    "question": "Hvordan kan elektrolytforstyrrelser påvirke muskelfunktionen?",
+    "answer": "Forstyrrelser i natrium, kalium eller calcium kan føre til kramper, svaghed eller lammelse.",
+    "difficulty": "hard",
+    "tags": [
+      "elektrolytter",
+      "muskel"
+    ],
+    "deckId": "bevaegeapparatetCards"
+  }
+]

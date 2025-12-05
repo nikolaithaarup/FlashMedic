@@ -1,0 +1,1269 @@
+[
+  {
+    "id": "administration_001",
+    "subject": "Farmakologi",
+    "topic": "Administration",
+    "question": "Hvad betyder administreringsvej?",
+    "answer": "Den måde et lægemiddel gives på, fx IV, PO, IM, IN eller SC.",
+    "difficulty": "easy",
+    "tags": [
+      "administrationsvej"
+    ],
+    "deckId": "administrationCards"
+  },
+  {
+    "id": "administration_002",
+    "subject": "Farmakologi",
+    "topic": "Administration",
+    "question": "Hvad er forskellen på enteral og parenteral administration?",
+    "answer": "Enteral sker via mave-tarm-systemet, parenteral udenom GI, fx injektion eller inhalation.",
+    "difficulty": "easy",
+    "tags": [
+      "enteral",
+      "parenteral"
+    ],
+    "deckId": "administrationCards"
+  },
+  {
+    "id": "administration_003",
+    "subject": "Farmakologi",
+    "topic": "Administration",
+    "question": "Hvad betyder IV-administration, og hvad er fordelen?",
+    "answer": "Intravenøs administration giver 100% biotilgængelighed og hurtig effekt.",
+    "difficulty": "medium",
+    "tags": [
+      "IV",
+      "biotilgængelighed"
+    ],
+    "deckId": "administrationCards"
+  },
+  {
+    "id": "administration_004",
+    "subject": "Farmakologi",
+    "topic": "Administration",
+    "question": "Hvad er ulempen ved IV-administration?",
+    "answer": "Kræver adgang til vene, risiko for infektion, luftemboli og hurtig toksicitet.",
+    "difficulty": "medium",
+    "tags": [
+      "IV",
+      "komplikation"
+    ],
+    "deckId": "administrationCards"
+  },
+  {
+    "id": "administration_005",
+    "subject": "Farmakologi",
+    "topic": "Administration",
+    "question": "Hvad betyder IM-administration, og hvornår bruges det præhospitalt?",
+    "answer": "Intramuskulær injektion, fx ved adrenalin til anafylaksi når IV ikke er muligt.",
+    "difficulty": "easy",
+    "tags": [
+      "IM",
+      "anafylaksi"
+    ],
+    "deckId": "administrationCards"
+  },
+  {
+    "id": "administration_006",
+    "subject": "Farmakologi",
+    "topic": "Administration",
+    "question": "Hvad er en fordel ved intranasal administration (IN)?",
+    "answer": "Giver hurtig absorption via slimhinder og kræver ingen kanyle.",
+    "difficulty": "medium",
+    "tags": [
+      "IN",
+      "slimhinde"
+    ],
+    "deckId": "administrationCards"
+  },
+  {
+    "id": "administration_007",
+    "subject": "Farmakologi",
+    "topic": "Administration",
+    "question": "Nævn et eksempel på medicin, der kan gives intranasalt præhospitalt.",
+    "answer": "Naloxon, midazolam eller fentanyl.",
+    "difficulty": "easy",
+    "tags": [
+      "IN",
+      "naloxon"
+    ],
+    "deckId": "administrationCards"
+  },
+  {
+    "id": "administration_008",
+    "subject": "Farmakologi",
+    "topic": "Administration",
+    "question": "Hvad betyder subkutan administration (SC)?",
+    "answer": "Injektion i underhudens fedtvæv, langsom og længerevarende effekt.",
+    "difficulty": "medium",
+    "tags": [
+      "SC"
+    ],
+    "deckId": "administrationCards"
+  },
+  {
+    "id": "administration_009",
+    "subject": "Farmakologi",
+    "topic": "Administration",
+    "question": "Hvorfor bør man ofte undgå peroral administration præhospitalt?",
+    "answer": "Langsom absorption, kan ikke bruges ved kvalme, bevidstløshed eller shock.",
+    "difficulty": "medium",
+    "tags": [
+      "PO",
+      "shock"
+    ],
+    "deckId": "administrationCards"
+  },
+  {
+    "id": "administration_010",
+    "subject": "Farmakologi",
+    "topic": "Administration",
+    "question": "Hvad er fordelene ved inhalationsmedicin?",
+    "answer": "Direkte virkning i luftvejene, hurtig effekt og lille systemisk påvirkning.",
+    "difficulty": "easy",
+    "tags": [
+      "inhalation",
+      "bronkodilator"
+    ],
+    "deckId": "administrationCards"
+  },
+  {
+    "id": "administration_011",
+    "subject": "Farmakologi",
+    "topic": "Administration",
+    "question": "Forklar hvad rektal administration er, og hvornår det bruges.",
+    "answer": "Medicin gives i endetarmen, fx ved kramper hos børn eller hvis IV ikke er muligt.",
+    "difficulty": "medium",
+    "tags": [
+      "rektal"
+    ],
+    "deckId": "administrationCards"
+  },
+  {
+    "id": "administration_012",
+    "subject": "Farmakologi",
+    "topic": "Administration",
+    "question": "Hvad er risici ved IM-administration?",
+    "answer": "Ujævn absorption, smerte, risiko for at ramme kar eller nerve.",
+    "difficulty": "hard",
+    "tags": [
+      "IM",
+      "komplikation"
+    ],
+    "deckId": "administrationCards"
+  },
+  {
+    "id": "administration_013",
+    "subject": "Farmakologi",
+    "topic": "Administration",
+    "question": "Hvorfor virker IV-medicin hurtigere end SC eller IM?",
+    "answer": "Fordi det ikke kræver absorption og gives direkte i blodbanen.",
+    "difficulty": "easy",
+    "tags": [
+      "IV",
+      "absorption"
+    ],
+    "deckId": "administrationCards"
+  },
+  {
+    "id": "administration_014",
+    "subject": "Farmakologi",
+    "topic": "Administration",
+    "question": "Hvad betyder 'titrering' af medicin?",
+    "answer": "Gradvis øgning af dosis indtil ønsket effekt opnås uden bivirkninger.",
+    "difficulty": "hard",
+    "tags": [
+      "titrering"
+    ],
+    "deckId": "administrationCards"
+  },
+  {
+    "id": "administration_015",
+    "subject": "Farmakologi",
+    "topic": "Administration",
+    "question": "Hvorfor gives nitroglycerin sublingualt?",
+    "answer": "Slimhinden under tungen optager stoffet hurtigt og undgår first-pass metabolisme.",
+    "difficulty": "medium",
+    "tags": [
+      "sublingual",
+      "nitro"
+    ],
+    "deckId": "administrationCards"
+  },
+  {
+    "id": "administration_016",
+    "subject": "Farmakologi",
+    "topic": "Administration",
+    "question": "Hvornår bør man vælge intraossøs adgang præhospitalt?",
+    "answer": "Når IV-adgang ikke kan etableres hurtigt hos kritisk patient, fx hjertestop eller shock.",
+    "difficulty": "medium",
+    "tags": [
+      "IO",
+      "akut"
+    ],
+    "deckId": "administrationCards"
+  },
+  {
+    "id": "administration_017",
+    "subject": "Farmakologi",
+    "topic": "Administration",
+    "question": "Hvad er fordelen ved depotpræparater?",
+    "answer": "Langsom og vedvarende frigivelse af lægemidlet over timer eller dage.",
+    "difficulty": "hard",
+    "tags": [
+      "depot",
+      "langtidsvirkning"
+    ],
+    "deckId": "administrationCards"
+  },
+  {
+    "id": "administration_018",
+    "subject": "Farmakologi",
+    "topic": "Administration",
+    "question": "Hvad er en bolusinjektion?",
+    "answer": "En hurtig injektion af en mindre mængde medicin med øjeblikkelig effekt.",
+    "difficulty": "medium",
+    "tags": [
+      "bolus"
+    ],
+    "deckId": "administrationCards"
+  },
+  {
+    "id": "administration_019",
+    "subject": "Farmakologi",
+    "topic": "Administration",
+    "question": "Hvad er en infusion, og hvornår bruges det?",
+    "answer": "Kontinuerlig administration af medicin i blodbanen, fx væske, Noradrenalin eller insulin.",
+    "difficulty": "medium",
+    "tags": [
+      "infusion"
+    ],
+    "deckId": "administrationCards"
+  },
+  {
+    "id": "administration_020",
+    "subject": "Farmakologi",
+    "topic": "Administration",
+    "question": "Hvad skal kontrolleres før IV-administration præhospitalt?",
+    "answer": "Let adgang, korrekt medicin og dosis, kompatibilitet, aspiration og observation for reaktion.",
+    "difficulty": "hard",
+    "tags": [
+      "IV",
+      "sikkerhed"
+    ],
+    "deckId": "administrationCards"
+  },
+  {
+    "id": "bivirkning_001",
+    "subject": "Farmakologi",
+    "topic": "Bivirkninger",
+    "question": "Hvad er en bivirkning?",
+    "answer": "Uønsket effekt af et lægemiddel, der opstår ved korrekt dosering.",
+    "difficulty": "easy",
+    "tags": [
+      "definition"
+    ],
+    "deckId": "bivirkningerCards"
+  },
+  {
+    "id": "bivirkning_002",
+    "subject": "Farmakologi",
+    "topic": "Bivirkninger",
+    "question": "Hvad er forskellen på bivirkning og toksisk effekt?",
+    "answer": "Bivirkning opstår ved korrekt dosering, toksisk effekt skyldes overdosering.",
+    "difficulty": "medium",
+    "tags": [
+      "toksicitet"
+    ],
+    "deckId": "bivirkningerCards"
+  },
+  {
+    "id": "bivirkning_003",
+    "subject": "Farmakologi",
+    "topic": "Bivirkninger",
+    "question": "Hvad er en type A-bivirkning?",
+    "answer": "Forudsigelig og dosisafhængig bivirkning, ofte relateret til kendt farmakologisk effekt.",
+    "difficulty": "medium",
+    "tags": [
+      "type A",
+      "dosisafhængig"
+    ],
+    "deckId": "bivirkningerCards"
+  },
+  {
+    "id": "bivirkning_004",
+    "subject": "Farmakologi",
+    "topic": "Bivirkninger",
+    "question": "Hvad er en type B-bivirkning?",
+    "answer": "Uforudsigelig og ikke dosisafhængig, ofte allergisk eller immunologisk reaktion.",
+    "difficulty": "hard",
+    "tags": [
+      "type B",
+      "allergi"
+    ],
+    "deckId": "bivirkningerCards"
+  },
+  {
+    "id": "bivirkning_005",
+    "subject": "Farmakologi",
+    "topic": "Bivirkninger",
+    "question": "Hvilken type bivirkning er anafylaksi?",
+    "answer": "Type B-bivirkning, akut immunologisk reaktion der kan være livstruende.",
+    "difficulty": "easy",
+    "tags": [
+      "anafylaksi",
+      "type B"
+    ],
+    "deckId": "bivirkningerCards"
+  },
+  {
+    "id": "bivirkning_006",
+    "subject": "Farmakologi",
+    "topic": "Bivirkninger",
+    "question": "Hvilke symptomer kan ses ved opioid-induceret respirationsdepression?",
+    "answer": "Langsom RF, lav saturation, miose og nedsat bevidsthed.",
+    "difficulty": "medium",
+    "tags": [
+      "opioid",
+      "respiration"
+    ],
+    "deckId": "bivirkningerCards"
+  },
+  {
+    "id": "bivirkning_007",
+    "subject": "Farmakologi",
+    "topic": "Bivirkninger",
+    "question": "Hvorfor kan ACE-hæmmere give tør hoste?",
+    "answer": "De øger bradykinin, som irriterer luftvejene.",
+    "difficulty": "hard",
+    "tags": [
+      "ACE",
+      "hoste"
+    ],
+    "deckId": "bivirkningerCards"
+  },
+  {
+    "id": "bivirkning_008",
+    "subject": "Farmakologi",
+    "topic": "Bivirkninger",
+    "question": "Hvad er QT-forlængelse, og hvorfor er det farligt?",
+    "answer": "Forlænget repolarisering i hjertet, som kan føre til torsades de pointes og hjertestop.",
+    "difficulty": "hard",
+    "tags": [
+      "QT",
+      "torsades"
+    ],
+    "deckId": "bivirkningerCards"
+  },
+  {
+    "id": "bivirkning_009",
+    "subject": "Farmakologi",
+    "topic": "Bivirkninger",
+    "question": "Hvilken bivirkning kan beta-2 agonister som Salbutamol give?",
+    "answer": "Tremor og tachykardi pga. stimulation af beta-2 og beta-1 receptorer.",
+    "difficulty": "easy",
+    "tags": [
+      "salbutamol",
+      "tachykardi"
+    ],
+    "deckId": "bivirkningerCards"
+  },
+  {
+    "id": "bivirkning_010",
+    "subject": "Farmakologi",
+    "topic": "Bivirkninger",
+    "question": "Hvorfor kan NSAID give nyrepåvirkning?",
+    "answer": "Hæmning af prostaglandiner reducerer blodgennemstrømning i nyrerne.",
+    "difficulty": "medium",
+    "tags": [
+      "NSAID",
+      "nyre"
+    ],
+    "deckId": "bivirkningerCards"
+  },
+  {
+    "id": "bivirkning_011",
+    "subject": "Farmakologi",
+    "topic": "Bivirkninger",
+    "question": "Hvad er en allergisk bivirkning?",
+    "answer": "Immunologisk reaktion på et lægemiddel, fx urticaria, angioødem eller anafylaksi.",
+    "difficulty": "medium",
+    "tags": [
+      "allergi"
+    ],
+    "deckId": "bivirkningerCards"
+  },
+  {
+    "id": "bivirkning_012",
+    "subject": "Farmakologi",
+    "topic": "Bivirkninger",
+    "question": "Hvad er tolerance i forbindelse med bivirkninger?",
+    "answer": "Når kroppen tilpasser sig, og der kræves højere dosis for samme effekt eller bivirkning.",
+    "difficulty": "hard",
+    "tags": [
+      "tolerance"
+    ],
+    "deckId": "bivirkningerCards"
+  },
+  {
+    "id": "bivirkning_013",
+    "subject": "Farmakologi",
+    "topic": "Bivirkninger",
+    "question": "Hvad er en 'black box warning'?",
+    "answer": "Advarsel fra myndigheder om alvorlige eller livstruende bivirkninger.",
+    "difficulty": "hard",
+    "tags": [
+      "black box"
+    ],
+    "deckId": "bivirkningerCards"
+  },
+  {
+    "id": "bivirkning_014",
+    "subject": "Farmakologi",
+    "topic": "Bivirkninger",
+    "question": "Hvilken bivirkning kan opioider, jern og morfin give i GI-systemet?",
+    "answer": "Forstoppelse pga. nedsat tarmmotilitet.",
+    "difficulty": "easy",
+    "tags": [
+      "forstoppelse",
+      "GI"
+    ],
+    "deckId": "bivirkningerCards"
+  },
+  {
+    "id": "bivirkning_015",
+    "subject": "Farmakologi",
+    "topic": "Bivirkninger",
+    "question": "Hvordan kan medicin give fotosensitivitet?",
+    "answer": "Lægemiddel reagerer med UV-lys i huden og skaber inflammation.",
+    "difficulty": "medium",
+    "tags": [
+      "hud",
+      "lysreaktion"
+    ],
+    "deckId": "bivirkningerCards"
+  },
+  {
+    "id": "bivirkning_016",
+    "subject": "Farmakologi",
+    "topic": "Bivirkninger",
+    "question": "Hvad er en idiosynkratisk bivirkning?",
+    "answer": "Uforudsigelig bivirkning uden kendt immunologisk forklaring.",
+    "difficulty": "hard",
+    "tags": [
+      "idiosynkrasi"
+    ],
+    "deckId": "bivirkningerCards"
+  },
+  {
+    "id": "bivirkning_017",
+    "subject": "Farmakologi",
+    "topic": "Bivirkninger",
+    "question": "Hvad menes med dosis-uafhængige bivirkninger?",
+    "answer": "Reaktioner der ikke afhænger af dosis, ofte immunologiske eller genetiske.",
+    "difficulty": "hard",
+    "tags": [
+      "dosis-uafhængig"
+    ],
+    "deckId": "bivirkningerCards"
+  },
+  {
+    "id": "bivirkning_018",
+    "subject": "Farmakologi",
+    "topic": "Bivirkninger",
+    "question": "Hvad er krydsallergi?",
+    "answer": "Når man reagerer på lignende lægemidler pga. fælles kemisk struktur.",
+    "difficulty": "medium",
+    "tags": [
+      "krydsallergi"
+    ],
+    "deckId": "bivirkningerCards"
+  },
+  {
+    "id": "bivirkning_019",
+    "subject": "Farmakologi",
+    "topic": "Bivirkninger",
+    "question": "Hvorfor kan benzodiazepiner øge fald- og forvirringsrisiko hos ældre?",
+    "answer": "De påvirker CNS med sedation, svimmelhed og kognitiv svækkelse.",
+    "difficulty": "medium",
+    "tags": [
+      "ældre",
+      "benzodiazepin"
+    ],
+    "deckId": "bivirkningerCards"
+  },
+  {
+    "id": "bivirkning_020",
+    "subject": "Farmakologi",
+    "topic": "Bivirkninger",
+    "question": "Forklar kort hvad serotonin syndrom er.",
+    "answer": "Potentielt livstruende tilstand med hypertermi, agitation, muskelstivhed og autonom dysfunktion pga. for meget serotonin.",
+    "difficulty": "hard",
+    "tags": [
+      "serotonin",
+      "akut"
+    ],
+    "deckId": "bivirkningerCards"
+  },
+  {
+    "id": "farmakodynamik_001",
+    "subject": "Farmakologi",
+    "topic": "Farmakodynamik",
+    "question": "Hvad betyder farmakodynamik helt grundlæggende?",
+    "answer": "Hvordan lægemidler påvirker kroppen, dvs. deres virkningsmekanismer og effekter.",
+    "difficulty": "easy",
+    "tags": [
+      "definition",
+      "virkningsmekanisme"
+    ],
+    "deckId": "farmakodynamikCards"
+  },
+  {
+    "id": "farmakodynamik_002",
+    "subject": "Farmakologi",
+    "topic": "Farmakodynamik",
+    "question": "Hvad er en receptor i farmakodynamisk sammenhæng?",
+    "answer": "Et protein, som et lægemiddel kan binde sig til for at udløse eller blokere en effekt.",
+    "difficulty": "easy",
+    "tags": [
+      "receptor",
+      "protein"
+    ],
+    "deckId": "farmakodynamikCards"
+  },
+  {
+    "id": "farmakodynamik_003",
+    "subject": "Farmakologi",
+    "topic": "Farmakodynamik",
+    "question": "Hvad er forskellen på en agonist og en antagonist?",
+    "answer": "Agonist aktiverer receptoren og skaber effekt. Antagonist blokerer receptoren og hæmmer effekt.",
+    "difficulty": "easy",
+    "tags": [
+      "agonist",
+      "antagonist"
+    ],
+    "deckId": "farmakodynamikCards"
+  },
+  {
+    "id": "farmakodynamik_004",
+    "subject": "Farmakologi",
+    "topic": "Farmakodynamik",
+    "question": "Hvad menes med 'affinitet'?",
+    "answer": "Et lægemiddels evne til at binde sig til en receptor.",
+    "difficulty": "medium",
+    "tags": [
+      "affinitet",
+      "receptorbinding"
+    ],
+    "deckId": "farmakodynamikCards"
+  },
+  {
+    "id": "farmakodynamik_005",
+    "subject": "Farmakologi",
+    "topic": "Farmakodynamik",
+    "question": "Hvad menes med 'intrinsisk aktivitet'?",
+    "answer": "Et lægemiddels evne til at aktivere receptoren og skabe biologisk respons.",
+    "difficulty": "medium",
+    "tags": [
+      "intrinsisk aktivitet"
+    ],
+    "deckId": "farmakodynamikCards"
+  },
+  {
+    "id": "farmakodynamik_006",
+    "subject": "Farmakologi",
+    "topic": "Farmakodynamik",
+    "question": "Hvad karakteriserer en partiel agonist?",
+    "answer": "Den binder til receptoren men giver kun delvis maksimal effekt, selv ved fuld receptorbesættelse.",
+    "difficulty": "hard",
+    "tags": [
+      "partiel agonist"
+    ],
+    "deckId": "farmakodynamikCards"
+  },
+  {
+    "id": "farmakodynamik_007",
+    "subject": "Farmakologi",
+    "topic": "Farmakodynamik",
+    "question": "Hvad er en kompetitiv antagonist?",
+    "answer": "Et stof, der konkurrerer med agonisten om samme receptorbindingssted og kan fortrænge den.",
+    "difficulty": "hard",
+    "tags": [
+      "kompetitiv",
+      "antagonist"
+    ],
+    "deckId": "farmakodynamikCards"
+  },
+  {
+    "id": "farmakodynamik_008",
+    "subject": "Farmakologi",
+    "topic": "Farmakodynamik",
+    "question": "Hvad er en non-kompetitiv antagonist?",
+    "answer": "Et stof, der binder et andet sted på receptoren og hæmmer virkningen uafhængigt af agonistens koncentration.",
+    "difficulty": "hard",
+    "tags": [
+      "non-kompetitiv",
+      "antagonist"
+    ],
+    "deckId": "farmakodynamikCards"
+  },
+  {
+    "id": "farmakodynamik_009",
+    "subject": "Farmakologi",
+    "topic": "Farmakodynamik",
+    "question": "Hvad viser en dosis-respons-kurve?",
+    "answer": "Forholdet mellem dosis og den målbare effekt af et lægemiddel.",
+    "difficulty": "medium",
+    "tags": [
+      "dosis-respons"
+    ],
+    "deckId": "farmakodynamikCards"
+  },
+  {
+    "id": "farmakodynamik_010",
+    "subject": "Farmakologi",
+    "topic": "Farmakodynamik",
+    "question": "Hvad er ED50?",
+    "answer": "Den dosis hvor 50% af maksimal effekt opnås.",
+    "difficulty": "medium",
+    "tags": [
+      "ED50"
+    ],
+    "deckId": "farmakodynamikCards"
+  },
+  {
+    "id": "farmakodynamik_011",
+    "subject": "Farmakologi",
+    "topic": "Farmakodynamik",
+    "question": "Hvad er forskellen på potency og efficacy?",
+    "answer": "Potency handler om hvor meget der skal til for at give effekt. Efficacy handler om maksimal effekt, et lægemiddel kan opnå.",
+    "difficulty": "hard",
+    "tags": [
+      "potency",
+      "efficacy"
+    ],
+    "deckId": "farmakodynamikCards"
+  },
+  {
+    "id": "farmakodynamik_012",
+    "subject": "Farmakologi",
+    "topic": "Farmakodynamik",
+    "question": "Hvordan virker beta-1 receptor agonister farmakodynamisk?",
+    "answer": "De øger hjertets kontraktilitet og frekvens ved at stimulere beta-1 receptorer.",
+    "difficulty": "medium",
+    "tags": [
+      "beta-1",
+      "agonist"
+    ],
+    "deckId": "farmakodynamikCards"
+  },
+  {
+    "id": "farmakodynamik_013",
+    "subject": "Farmakologi",
+    "topic": "Farmakodynamik",
+    "question": "Hvordan virker beta-2 agonister?",
+    "answer": "De afslapper glat muskulatur i bronkierne og giver bronkodilatation.",
+    "difficulty": "easy",
+    "tags": [
+      "beta-2",
+      "bronkodilatation"
+    ],
+    "deckId": "farmakodynamikCards"
+  },
+  {
+    "id": "farmakodynamik_014",
+    "subject": "Farmakologi",
+    "topic": "Farmakodynamik",
+    "question": "Hvordan virker en ACE-hæmmer farmakodynamisk?",
+    "answer": "Den hæmmer omdannelsen af angiotensin I til angiotensin II og dermed sænker blodtrykket.",
+    "difficulty": "medium",
+    "tags": [
+      "ACE-hæmmer",
+      "blodtryk"
+    ],
+    "deckId": "farmakodynamikCards"
+  },
+  {
+    "id": "farmakodynamik_015",
+    "subject": "Farmakologi",
+    "topic": "Farmakodynamik",
+    "question": "Hvad forårsager bivirkninger farmakodynamisk?",
+    "answer": "Når lægemidlet påvirker andre receptorer eller væv end de tilsigtede mål.",
+    "difficulty": "medium",
+    "tags": [
+      "bivirkninger"
+    ],
+    "deckId": "farmakodynamikCards"
+  },
+  {
+    "id": "farmakodynamik_016",
+    "subject": "Farmakologi",
+    "topic": "Farmakodynamik",
+    "question": "Hvad er 'terapeutisk vindue'?",
+    "answer": "Intervallet mellem effektiv dosis og toksisk dosis.",
+    "difficulty": "medium",
+    "tags": [
+      "terapeutisk vindue"
+    ],
+    "deckId": "farmakodynamikCards"
+  },
+  {
+    "id": "farmakodynamik_017",
+    "subject": "Farmakologi",
+    "topic": "Farmakodynamik",
+    "question": "Hvad forstås ved receptor-tolerance?",
+    "answer": "Når kroppen nedregulerer receptorfølsomhed efter gentagen stimulering.",
+    "difficulty": "hard",
+    "tags": [
+      "tolerance"
+    ],
+    "deckId": "farmakodynamikCards"
+  },
+  {
+    "id": "farmakodynamik_018",
+    "subject": "Farmakologi",
+    "topic": "Farmakodynamik",
+    "question": "Hvordan kan man forklare tachyphylaksi?",
+    "answer": "En hurtig udvikling af tolerance efter få doser på grund af receptorudmattelse.",
+    "difficulty": "hard",
+    "tags": [
+      "tachyphylaksi"
+    ],
+    "deckId": "farmakodynamikCards"
+  },
+  {
+    "id": "farmakodynamik_019",
+    "subject": "Farmakologi",
+    "topic": "Farmakodynamik",
+    "question": "Hvad er en 'invers agonist'?",
+    "answer": "Et stof der binder til en receptor og mindsker dens basale aktivitet.",
+    "difficulty": "hard",
+    "tags": [
+      "invers agonist"
+    ],
+    "deckId": "farmakodynamikCards"
+  },
+  {
+    "id": "farmakodynamik_020",
+    "subject": "Farmakologi",
+    "topic": "Farmakodynamik",
+    "question": "Forklar kort hvordan Naloxon virker farmakodynamisk.",
+    "answer": "Naloxon er en kompetitiv opioid-antagonist, der blokerer opioidreceptorer og ophæver effekten af opioider.",
+    "difficulty": "medium",
+    "tags": [
+      "naloxon",
+      "antagonist"
+    ],
+    "deckId": "farmakodynamikCards"
+  },
+  {
+    "id": "farmakokinetik_001",
+    "subject": "Farmakologi",
+    "topic": "Farmakokinetik",
+    "question": "Hvad handler farmakokinetik grundlæggende om?",
+    "answer": "Hvordan kroppen påvirker lægemidlet gennem absorption, distribution, metabolisme og elimination (ADME).",
+    "difficulty": "easy",
+    "tags": [
+      "ADME",
+      "definition"
+    ],
+    "deckId": "farmakokinetikCards"
+  },
+  {
+    "id": "farmakokinetik_002",
+    "subject": "Farmakologi",
+    "topic": "Farmakokinetik",
+    "question": "Hvad betyder absorption?",
+    "answer": "Processen hvor et lægemiddel optages fra administrationsstedet og over i blodbanen.",
+    "difficulty": "easy",
+    "tags": [
+      "absorption"
+    ],
+    "deckId": "farmakokinetikCards"
+  },
+  {
+    "id": "farmakokinetik_003",
+    "subject": "Farmakologi",
+    "topic": "Farmakokinetik",
+    "question": "Hvad er biotilgængelighed?",
+    "answer": "Den andel af et givet lægemiddel, der når frem til den systemiske cirkulation i aktiv form.",
+    "difficulty": "medium",
+    "tags": [
+      "biotilgængelighed"
+    ],
+    "deckId": "farmakokinetikCards"
+  },
+  {
+    "id": "farmakokinetik_004",
+    "subject": "Farmakologi",
+    "topic": "Farmakokinetik",
+    "question": "Hvad er first-pass metabolisme?",
+    "answer": "Nedbrydning af et oralt lægemiddel i leveren, før det når blodbanen i aktiv form.",
+    "difficulty": "medium",
+    "tags": [
+      "first-pass",
+      "lever"
+    ],
+    "deckId": "farmakokinetikCards"
+  },
+  {
+    "id": "farmakokinetik_005",
+    "subject": "Farmakologi",
+    "topic": "Farmakokinetik",
+    "question": "Hvorfor har intravenøs administration 100% biotilgængelighed?",
+    "answer": "Fordi lægemidlet gives direkte i blodbanen uden absorptionstab eller first-pass effekt.",
+    "difficulty": "easy",
+    "tags": [
+      "IV",
+      "biotilgængelighed"
+    ],
+    "deckId": "farmakokinetikCards"
+  },
+  {
+    "id": "farmakokinetik_006",
+    "subject": "Farmakologi",
+    "topic": "Farmakokinetik",
+    "question": "Hvad betyder distribution i farmakokinetik?",
+    "answer": "Hvordan lægemidlet fordeles fra blodbanen ud i væv og organer.",
+    "difficulty": "medium",
+    "tags": [
+      "distribution"
+    ],
+    "deckId": "farmakokinetikCards"
+  },
+  {
+    "id": "farmakokinetik_007",
+    "subject": "Farmakologi",
+    "topic": "Farmakokinetik",
+    "question": "Hvad betyder plasmaproteinbinding?",
+    "answer": "Når lægemidlet binder til proteiner i plasma (fx albumin), hvilket gør det inaktivt, men transportabelt.",
+    "difficulty": "hard",
+    "tags": [
+      "albumin",
+      "binding"
+    ],
+    "deckId": "farmakokinetikCards"
+  },
+  {
+    "id": "farmakokinetik_008",
+    "subject": "Farmakologi",
+    "topic": "Farmakokinetik",
+    "question": "Hvorfor kan hypoalbuminæmi øge bivirkninger fra visse lægemidler?",
+    "answer": "Mindre albumin betyder mere frit aktivt lægemiddel, hvilket øger risikoen for toksicitet.",
+    "difficulty": "hard",
+    "tags": [
+      "albumin",
+      "toksicitet"
+    ],
+    "deckId": "farmakokinetikCards"
+  },
+  {
+    "id": "farmakokinetik_009",
+    "subject": "Farmakologi",
+    "topic": "Farmakokinetik",
+    "question": "Hvad betyder fordelingsvolumen (Vd)?",
+    "answer": "Forholdet mellem mængden af lægemiddel i kroppen og koncentrationen i plasma – et mål for, hvor stoffet fordeler sig.",
+    "difficulty": "hard",
+    "tags": [
+      "Vd",
+      "fordeling"
+    ],
+    "deckId": "farmakokinetikCards"
+  },
+  {
+    "id": "farmakokinetik_010",
+    "subject": "Farmakologi",
+    "topic": "Farmakokinetik",
+    "question": "Hvad er forskellen på fase-1 og fase-2 metabolisme?",
+    "answer": "Fase 1: kemisk ændring (fx oxidation). Fase 2: konjugering, så lægemidlet bliver vandopløseligt.",
+    "difficulty": "hard",
+    "tags": [
+      "fase-1",
+      "fase-2",
+      "CYP450"
+    ],
+    "deckId": "farmakokinetikCards"
+  },
+  {
+    "id": "farmakokinetik_011",
+    "subject": "Farmakologi",
+    "topic": "Farmakokinetik",
+    "question": "Hvilket organ står primært for lægemiddelmetabolisme?",
+    "answer": "Leveren via enzymsystemer som CYP450.",
+    "difficulty": "easy",
+    "tags": [
+      "lever",
+      "CYP450"
+    ],
+    "deckId": "farmakokinetikCards"
+  },
+  {
+    "id": "farmakokinetik_012",
+    "subject": "Farmakologi",
+    "topic": "Farmakokinetik",
+    "question": "Hvilket organ er vigtigst for elimination af lægemidler?",
+    "answer": "Nyrerne gennem filtration, sekretion og reabsorption.",
+    "difficulty": "easy",
+    "tags": [
+      "nyrer",
+      "elimination"
+    ],
+    "deckId": "farmakokinetikCards"
+  },
+  {
+    "id": "farmakokinetik_013",
+    "subject": "Farmakologi",
+    "topic": "Farmakokinetik",
+    "question": "Hvad betyder clearance?",
+    "answer": "Den volumen plasma, der renses for lægemiddel per tidsenhed.",
+    "difficulty": "hard",
+    "tags": [
+      "clearance"
+    ],
+    "deckId": "farmakokinetikCards"
+  },
+  {
+    "id": "farmakokinetik_014",
+    "subject": "Farmakologi",
+    "topic": "Farmakokinetik",
+    "question": "Hvad betyder halveringstid (T½)?",
+    "answer": "Den tid det tager for koncentrationen af lægemiddel i plasma at halveres.",
+    "difficulty": "medium",
+    "tags": [
+      "T½",
+      "tidsforløb"
+    ],
+    "deckId": "farmakokinetikCards"
+  },
+  {
+    "id": "farmakokinetik_015",
+    "subject": "Farmakologi",
+    "topic": "Farmakokinetik",
+    "question": "Hvordan påvirker leverinsufficiens farmakokinetik?",
+    "answer": "Nedsat metabolisme, hvilket kan føre til ophobning og øget toksicitet.",
+    "difficulty": "hard",
+    "tags": [
+      "lever",
+      "toksicitet"
+    ],
+    "deckId": "farmakokinetikCards"
+  },
+  {
+    "id": "farmakokinetik_016",
+    "subject": "Farmakologi",
+    "topic": "Farmakokinetik",
+    "question": "Hvordan påvirker nyreinsufficiens eliminationen?",
+    "answer": "Nedsat udskillelse af lægemidler og deres metabolitter, hvilket kan kræve dosisjustering.",
+    "difficulty": "medium",
+    "tags": [
+      "nyresvigt",
+      "dosis"
+    ],
+    "deckId": "farmakokinetikCards"
+  },
+  {
+    "id": "farmakokinetik_017",
+    "subject": "Farmakologi",
+    "topic": "Farmakokinetik",
+    "question": "Hvad er enterohepatisk recirkulation?",
+    "answer": "Når lægemiddel udskilles i galden, optages igen i tarmen og cirkulerer tilbage til leveren.",
+    "difficulty": "hard",
+    "tags": [
+      "galde",
+      "recirkulation"
+    ],
+    "deckId": "farmakokinetikCards"
+  },
+  {
+    "id": "farmakokinetik_018",
+    "subject": "Farmakologi",
+    "topic": "Farmakokinetik",
+    "question": "Hvordan kan et lægemiddel krydse blod-hjerne-barrieren?",
+    "answer": "Det skal være lipofilt og småt, eller bruge aktiv transport.",
+    "difficulty": "hard",
+    "tags": [
+      "BBB",
+      "lipofilt"
+    ],
+    "deckId": "farmakokinetikCards"
+  },
+  {
+    "id": "farmakokinetik_019",
+    "subject": "Farmakologi",
+    "topic": "Farmakokinetik",
+    "question": "Hvorfor kan alderen påvirke farmakokinetikken?",
+    "answer": "Ældre har ofte nedsat lever- og nyrefunktion, ændret fedt/vand-forhold og mindre albumin.",
+    "difficulty": "hard",
+    "tags": [
+      "ældre",
+      "dosis",
+      "organfunktion"
+    ],
+    "deckId": "farmakokinetikCards"
+  },
+  {
+    "id": "farmakokinetik_020",
+    "subject": "Farmakologi",
+    "topic": "Farmakokinetik",
+    "question": "Forklar kort hvad steady state betyder.",
+    "answer": "Når tilført dosis per tidsenhed svarer til elimination per tidsenhed, så koncentrationen bliver stabil.",
+    "difficulty": "hard",
+    "tags": [
+      "steady-state",
+      "koncentration"
+    ],
+    "deckId": "farmakokinetikCards"
+  },
+  {
+    "id": "lægemiddelregning_001",
+    "subject": "Farmakologi",
+    "topic": "Lægemiddelregning",
+    "question": "Hvad betyder formlen: dosis = (koncentration × volumen)?",
+    "answer": "Den bruges til at beregne hvor meget aktivt stof der er i en given mængde opløsning.",
+    "difficulty": "easy",
+    "tags": [
+      "formel",
+      "grundlæggende"
+    ],
+    "deckId": "laegemiddelregningCards"
+  },
+  {
+    "id": "lægemiddelregning_002",
+    "subject": "Farmakologi",
+    "topic": "Lægemiddelregning",
+    "question": "Hvordan omregnes mg til mikrogram?",
+    "answer": "1 mg = 1000 mikrogram.",
+    "difficulty": "easy",
+    "tags": [
+      "enheder"
+    ],
+    "deckId": "laegemiddelregningCards"
+  },
+  {
+    "id": "lægemiddelregning_003",
+    "subject": "Farmakologi",
+    "topic": "Lægemiddelregning",
+    "question": "Du skal give 0,4 mg Nitroglycerin. Ampullen indeholder 0,2 mg pr. spray. Hvor mange pust?",
+    "answer": "2 pust.",
+    "difficulty": "easy",
+    "tags": [
+      "nitro"
+    ],
+    "deckId": "laegemiddelregningCards"
+  },
+  {
+    "id": "lægemiddelregning_004",
+    "subject": "Farmakologi",
+    "topic": "Lægemiddelregning",
+    "question": "Et lægemiddel indeholder 5 mg/ml. Du skal give 10 mg. Hvor mange ml?",
+    "answer": "2 ml.",
+    "difficulty": "easy",
+    "tags": [
+      "ml",
+      "mg"
+    ],
+    "deckId": "laegemiddelregningCards"
+  },
+  {
+    "id": "lægemiddelregning_005",
+    "subject": "Farmakologi",
+    "topic": "Lægemiddelregning",
+    "question": "Du skal give 50 mikrogram Fentanyl. Ampullen indeholder 50 mikrogram/ml. Hvor meget skal du trække op?",
+    "answer": "1 ml.",
+    "difficulty": "easy",
+    "tags": [
+      "fentanyl",
+      "mikrogram"
+    ],
+    "deckId": "laegemiddelregningCards"
+  },
+  {
+    "id": "lægemiddelregning_006",
+    "subject": "Farmakologi",
+    "topic": "Lægemiddelregning",
+    "question": "Hvordan beregnes vægtbaseret dosering?",
+    "answer": "Dosis (mg) = dosis per kg × patientens vægt (kg).",
+    "difficulty": "medium",
+    "tags": [
+      "vægtbaseret",
+      "formel"
+    ],
+    "deckId": "laegemiddelregningCards"
+  },
+  {
+    "id": "lægemiddelregning_007",
+    "subject": "Farmakologi",
+    "topic": "Lægemiddelregning",
+    "question": "Barn vejer 18 kg og skal have 0,1 mg/kg Diazepam rektalt. Hvor meget gives?",
+    "answer": "1,8 mg.",
+    "difficulty": "medium",
+    "tags": [
+      "børn",
+      "rektal"
+    ],
+    "deckId": "laegemiddelregningCards"
+  },
+  {
+    "id": "lægemiddelregning_008",
+    "subject": "Farmakologi",
+    "topic": "Lægemiddelregning",
+    "question": "Du giver Adrenalin 1 mg/10 ml ved hjertestop. Hvor mange mg er der pr. ml?",
+    "answer": "0,1 mg/ml.",
+    "difficulty": "medium",
+    "tags": [
+      "adrenalin",
+      "hjertestop"
+    ],
+    "deckId": "laegemiddelregningCards"
+  },
+  {
+    "id": "lægemiddelregning_009",
+    "subject": "Farmakologi",
+    "topic": "Lægemiddelregning",
+    "question": "Hvordan omregnes ml/t til dråber/min ved infusionssæt med 20 dråber/ml?",
+    "answer": "dråber/min = (ml/t ÷ 3).",
+    "difficulty": "hard",
+    "tags": [
+      "dråber",
+      "infusion"
+    ],
+    "deckId": "laegemiddelregningCards"
+  },
+  {
+    "id": "lægemiddelregning_010",
+    "subject": "Farmakologi",
+    "topic": "Lægemiddelregning",
+    "question": "Hvad betyder koncentrationen 1:1000 på Adrenalin?",
+    "answer": "1 gram pr. 1000 ml = 1 mg/ml.",
+    "difficulty": "hard",
+    "tags": [
+      "koncentration",
+      "adrenalin"
+    ],
+    "deckId": "laegemiddelregningCards"
+  },
+  {
+    "id": "lægemiddelregning_011",
+    "subject": "Farmakologi",
+    "topic": "Lægemiddelregning",
+    "question": "Du skal give 5 mg Morfin IV. Ampullen er 10 mg/ml. Hvor meget trækker du op?",
+    "answer": "0,5 ml.",
+    "difficulty": "easy",
+    "tags": [
+      "morfin"
+    ],
+    "deckId": "laegemiddelregningCards"
+  },
+  {
+    "id": "lægemiddelregning_012",
+    "subject": "Farmakologi",
+    "topic": "Lægemiddelregning",
+    "question": "Hvad skal man altid kontrollere før medicinregning og administration?",
+    "answer": "Korrekt lægemiddel, styrke, dosis, administrationsvej, patient og udløbsdato.",
+    "difficulty": "medium",
+    "tags": [
+      "sikkerhed"
+    ],
+    "deckId": "laegemiddelregningCards"
+  },
+  {
+    "id": "lægemiddelregning_013",
+    "subject": "Farmakologi",
+    "topic": "Lægemiddelregning",
+    "question": "Du skal give 0,125 mg Digoxin. Tabletterne er 250 mikrogram. Hvor meget giver du?",
+    "answer": "En halv tablet.",
+    "difficulty": "easy",
+    "tags": [
+      "digoxin"
+    ],
+    "deckId": "laegemiddelregningCards"
+  },
+  {
+    "id": "lægemiddelregning_014",
+    "subject": "Farmakologi",
+    "topic": "Lægemiddelregning",
+    "question": "Et barn vejer 25 kg. Du skal give 0,01 mg/kg Adrenalin IM ved anafylaksi. Hvor meget gives?",
+    "answer": "0,25 mg.",
+    "difficulty": "medium",
+    "tags": [
+      "anafy",
+      "børn"
+    ],
+    "deckId": "laegemiddelregningCards"
+  },
+  {
+    "id": "lægemiddelregning_015",
+    "subject": "Farmakologi",
+    "topic": "Lægemiddelregning",
+    "question": "Hvad er formålet med at fortynde et lægemiddel før administration?",
+    "answer": "Bedre kontrol over dosis, langsommere injektion og mindre lokal irritation.",
+    "difficulty": "medium",
+    "tags": [
+      "fortynding"
+    ],
+    "deckId": "laegemiddelregningCards"
+  },
+  {
+    "id": "lægemiddelregning_016",
+    "subject": "Farmakologi",
+    "topic": "Lægemiddelregning",
+    "question": "Du giver 2 ml Furosemid. Koncentrationen er 10 mg/ml. Hvor mange mg får patienten?",
+    "answer": "20 mg.",
+    "difficulty": "easy",
+    "tags": [
+      "furosemid"
+    ],
+    "deckId": "laegemiddelregningCards"
+  },
+  {
+    "id": "lægemiddelregning_017",
+    "subject": "Farmakologi",
+    "topic": "Lægemiddelregning",
+    "question": "Hvordan kontrollerer du, om du må knuse en tablet?",
+    "answer": "Tjek om den er depottablet eller enterotablet; de må normalt ikke knuses.",
+    "difficulty": "hard",
+    "tags": [
+      "tabletter"
+    ],
+    "deckId": "laegemiddelregningCards"
+  },
+  {
+    "id": "lægemiddelregning_018",
+    "subject": "Farmakologi",
+    "topic": "Lægemiddelregning",
+    "question": "Hvorfor kan det være risikabelt at give 2 mg IV i stedet for IM?",
+    "answer": "Effekten bliver hurtigere og kraftigere, og risikoen for toksicitet øges.",
+    "difficulty": "medium",
+    "tags": [
+      "IV",
+      "IM"
+    ],
+    "deckId": "laegemiddelregningCards"
+  },
+  {
+    "id": "lægemiddelregning_019",
+    "subject": "Farmakologi",
+    "topic": "Lægemiddelregning",
+    "question": "Hvordan sikrer du korrekt fortynding af Noradrenalin infusion?",
+    "answer": "Brug standardblanding (fx 4 mg i 50 ml NaCl), og dobbelttjek koncentration og pumpeindstilling.",
+    "difficulty": "hard",
+    "tags": [
+      "noradrenalin",
+      "infusion"
+    ],
+    "deckId": "laegemiddelregningCards"
+  },
+  {
+    "id": "lægemiddelregning_020",
+    "subject": "Farmakologi",
+    "topic": "Lægemiddelregning",
+    "question": "Hvad betyder 'mg/kg vedligeholdelsesdosis'?",
+    "answer": "Dosis der gentages over tid for at holde lægemiddelniveau stabilt efter initial dosis.",
+    "difficulty": "hard",
+    "tags": [
+      "vedligeholdelse",
+      "dosis"
+    ],
+    "deckId": "laegemiddelregningCards"
+  }
+]

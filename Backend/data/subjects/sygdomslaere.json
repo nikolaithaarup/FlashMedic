@@ -1,0 +1,4427 @@
+[
+  {
+    "id": "intro_001",
+    "subject": "Sygdomslære",
+    "topic": "Introduktion",
+    "question": "Hvad er forskellen på symptomer og kliniske fund?",
+    "answer": "Symptomer er patientens subjektive oplevelser (fx smerte), mens fund er objektive observationer (fx BT, hudfarve).",
+    "difficulty": "easy",
+    "tags": [
+      "symptomer",
+      "fund"
+    ],
+    "deckId": "introduktionCards"
+  },
+  {
+    "id": "intro_002",
+    "subject": "Sygdomslære",
+    "topic": "Introduktion",
+    "question": "Hvad betyder akut kontra kronisk sygdom?",
+    "answer": "Akut: pludselig opstået og kortvarig. Kronisk: udviklet over tid og varer typisk over 3 måneder.",
+    "difficulty": "easy",
+    "tags": [
+      "akut",
+      "kronisk"
+    ],
+    "deckId": "introduktionCards"
+  },
+  {
+    "id": "intro_003",
+    "subject": "Sygdomslære",
+    "topic": "Introduktion",
+    "question": "Forklar begreberne ætiologi og patogenese.",
+    "answer": "Ætiologi er årsagen til sygdommen. Patogenese beskriver, hvordan sygdommen udvikler sig i kroppen.",
+    "difficulty": "medium",
+    "tags": [
+      "ætiologi",
+      "patogenese"
+    ],
+    "deckId": "introduktionCards"
+  },
+  {
+    "id": "intro_004",
+    "subject": "Sygdomslære",
+    "topic": "Introduktion",
+    "question": "Hvad beskriver patofysiologi?",
+    "answer": "Patofysiologi beskriver, hvordan normale fysiologiske processer ændres ved sygdom.",
+    "difficulty": "medium",
+    "tags": [
+      "patofysiologi"
+    ],
+    "deckId": "introduktionCards"
+  },
+  {
+    "id": "intro_005",
+    "subject": "Sygdomslære",
+    "topic": "Introduktion",
+    "question": "Hvorfor er ABCDE-modellen central i sygdomslære og præhospital vurdering?",
+    "answer": "ABCDE sikrer systematisk vurdering og behandling af livstruende tilstande i prioriteret rækkefølge.",
+    "difficulty": "easy",
+    "tags": [
+      "ABCDE",
+      "akut"
+    ],
+    "deckId": "introduktionCards"
+  },
+  {
+    "id": "intro_006",
+    "subject": "Sygdomslære",
+    "topic": "Introduktion",
+    "question": "Hvad er forskellen på diagnose og differentialdiagnose?",
+    "answer": "Diagnosen er den mest sandsynlige sygdom. Differentialdiagnoser er andre mulige forklaringer.",
+    "difficulty": "easy",
+    "tags": [
+      "diagnose",
+      "differentialdiagnose"
+    ],
+    "deckId": "introduktionCards"
+  },
+  {
+    "id": "intro_007",
+    "subject": "Sygdomslære",
+    "topic": "Introduktion",
+    "question": "Hvad betyder præhospital triage?",
+    "answer": "Sortering af patienter efter alvorlighedsgrad for at prioritere behandling og transport.",
+    "difficulty": "medium",
+    "tags": [
+      "triage"
+    ],
+    "deckId": "introduktionCards"
+  },
+  {
+    "id": "intro_008",
+    "subject": "Sygdomslære",
+    "topic": "Introduktion",
+    "question": "Hvad er homeostase, og hvorfor er det vigtigt i sygdomslære?",
+    "answer": "Homeostase er kroppens evne til at opretholde stabile indre forhold. Sygdom er ofte brud på homeostase.",
+    "difficulty": "easy",
+    "tags": [
+      "homeostase"
+    ],
+    "deckId": "introduktionCards"
+  },
+  {
+    "id": "intro_009",
+    "subject": "Sygdomslære",
+    "topic": "Introduktion",
+    "question": "Hvad forstås ved multimorbiditet?",
+    "answer": "At en patient har to eller flere kroniske sygdomme samtidig.",
+    "difficulty": "medium",
+    "tags": [
+      "kronisk",
+      "geriatrisk"
+    ],
+    "deckId": "introduktionCards"
+  },
+  {
+    "id": "intro_010",
+    "subject": "Sygdomslære",
+    "topic": "Introduktion",
+    "question": "Hvad er komorbiditet?",
+    "answer": "En samtidig eller følgesygdom, der påvirker behandling og prognose.",
+    "difficulty": "medium",
+    "tags": [
+      "komorbiditet"
+    ],
+    "deckId": "introduktionCards"
+  },
+  {
+    "id": "intro_011",
+    "subject": "Sygdomslære",
+    "topic": "Introduktion",
+    "question": "Hvad er klinisk ræsonnering?",
+    "answer": "Evnen til at indsamle data, fortolke symptomer og planlægge behandling ud fra patientens tilstand.",
+    "difficulty": "hard",
+    "tags": [
+      "ræsonnering"
+    ],
+    "deckId": "introduktionCards"
+  },
+  {
+    "id": "intro_012",
+    "subject": "Sygdomslære",
+    "topic": "Introduktion",
+    "question": "Hvad betyder præhospital observation af trends?",
+    "answer": "Fokus på udvikling over tid (fx stigende RF) i stedet for kun enkelmålinger.",
+    "difficulty": "medium",
+    "tags": [
+      "observation"
+    ],
+    "deckId": "introduktionCards"
+  },
+  {
+    "id": "intro_013",
+    "subject": "Sygdomslære",
+    "topic": "Introduktion",
+    "question": "Hvad indebærer begrebet 'kæden der redder liv'?",
+    "answer": "Tidlig genkendelse, tidlig 112-alarmering, tidlig førstehjælp, tidlig avanceret behandling og efterbehandling.",
+    "difficulty": "easy",
+    "tags": [
+      "genoplivning"
+    ],
+    "deckId": "introduktionCards"
+  },
+  {
+    "id": "intro_014",
+    "subject": "Sygdomslære",
+    "topic": "Introduktion",
+    "question": "Hvad betyder prognose?",
+    "answer": "Forventet sygdomsforløb og sandsynligt udfald, fx helbredelse, kronisk forløb eller død.",
+    "difficulty": "easy",
+    "tags": [
+      "prognose"
+    ],
+    "deckId": "introduktionCards"
+  },
+  {
+    "id": "intro_015",
+    "subject": "Sygdomslære",
+    "topic": "Introduktion",
+    "question": "Hvordan kan social- og miljøfaktorer påvirke sygdom?",
+    "answer": "Livsstil, arbejdsmiljø, rygning, kost og stress kan både udløse og forværre sygdom.",
+    "difficulty": "medium",
+    "tags": [
+      "ICF",
+      "livsstil"
+    ],
+    "deckId": "introduktionCards"
+  },
+  {
+    "id": "intro_016",
+    "subject": "Sygdomslære",
+    "topic": "Introduktion",
+    "question": "Hvad beskriver ICF-modellen?",
+    "answer": "ICF vurderer sygdoms konsekvenser for funktionsevne, ikke kun diagnosen.",
+    "difficulty": "hard",
+    "tags": [
+      "ICF"
+    ],
+    "deckId": "introduktionCards"
+  },
+  {
+    "id": "intro_017",
+    "subject": "Sygdomslære",
+    "topic": "Introduktion",
+    "question": "Hvad betyder eksacerbation?",
+    "answer": "Akut forværring af kronisk sygdom, fx KOL, hjertesvigt eller diabetes.",
+    "difficulty": "medium",
+    "tags": [
+      "eksacerbation"
+    ],
+    "deckId": "introduktionCards"
+  },
+  {
+    "id": "intro_018",
+    "subject": "Sygdomslære",
+    "topic": "Introduktion",
+    "question": "Hvad forstås ved vitalparametre, og hvorfor er de centrale?",
+    "answer": "Puls, RF, BT, temperatur, bevidsthed, iltmætning — bruges til at vurdere stabilitet og udvikling.",
+    "difficulty": "easy",
+    "tags": [
+      "vitalparametre"
+    ],
+    "deckId": "introduktionCards"
+  },
+  {
+    "id": "intro_019",
+    "subject": "Sygdomslære",
+    "topic": "Introduktion",
+    "question": "Hvad er klinisk forværring, og hvordan opdages det tidligt?",
+    "answer": "Når patientens vitale parametre begynder at ændre sig, før en egentlig akut tilstand udvikles.",
+    "difficulty": "hard",
+    "tags": [
+      "forværring"
+    ],
+    "deckId": "introduktionCards"
+  },
+  {
+    "id": "intro_020",
+    "subject": "Sygdomslære",
+    "topic": "Introduktion",
+    "question": "Hvorfor er trends vigtigere end enkeltmålinger i præhospital vurdering?",
+    "answer": "Fordi ændring over tid afslører forværring eller stabilisering og dermed behandlingsbehov.",
+    "difficulty": "medium",
+    "tags": [
+      "trends"
+    ],
+    "deckId": "introduktionCards"
+  },
+  {
+    "id": "kar_001",
+    "subject": "Sygdomslære",
+    "topic": "Karsygdomme",
+    "question": "Hvad er forskellen på arterier og vener, og hvorfor er det vigtigt i karsygdomme?",
+    "answer": "Arterier fører blod væk fra hjertet med højt tryk, vener fører det tilbage med klapper og lavt tryk. Sygdomme rammer dem forskelligt, fx aterosklerose i arterier og DVT i vener.",
+    "difficulty": "easy",
+    "tags": [
+      "arterie",
+      "vene"
+    ],
+    "deckId": "karsygdommeCards"
+  },
+  {
+    "id": "kar_002",
+    "subject": "Sygdomslære",
+    "topic": "Karsygdomme",
+    "question": "Hvad er dyb venetrombose (DVT), og hvorfor er det farligt?",
+    "answer": "Blodprop i en dyb vene, ofte i benet, kan løsne sig og vandre til lungerne og give lungeemboli.",
+    "difficulty": "medium",
+    "tags": [
+      "DVT",
+      "emboli"
+    ],
+    "deckId": "karsygdommeCards"
+  },
+  {
+    "id": "kar_003",
+    "subject": "Sygdomslære",
+    "topic": "Karsygdomme",
+    "question": "Nævn tre typiske symptomer på DVT.",
+    "answer": "Hævet læg, ømhed, varme, rødme og spændt hud.",
+    "difficulty": "easy",
+    "tags": [
+      "DVT",
+      "symptomer"
+    ],
+    "deckId": "karsygdommeCards"
+  },
+  {
+    "id": "kar_004",
+    "subject": "Sygdomslære",
+    "topic": "Karsygdomme",
+    "question": "Hvad er en lungeemboli?",
+    "answer": "En løsrevet venøs blodprop, som sætter sig fast i lungearterierne og blokerer blodflow → respirations- og kredsløbspåvirkning.",
+    "difficulty": "medium",
+    "tags": [
+      "emboli",
+      "respiration"
+    ],
+    "deckId": "karsygdommeCards"
+  },
+  {
+    "id": "kar_005",
+    "subject": "Sygdomslære",
+    "topic": "Karsygdomme",
+    "question": "Hvilke symptomer ses ved lungeemboli præhospitalt?",
+    "answer": "Pludselig dyspnø, takykardi, brystsmerter, evt. cyanose, lav saturation, åndenød og angst.",
+    "difficulty": "medium",
+    "tags": [
+      "emboli",
+      "dyspnø"
+    ],
+    "deckId": "karsygdommeCards"
+  },
+  {
+    "id": "kar_006",
+    "subject": "Sygdomslære",
+    "topic": "Karsygdomme",
+    "question": "Hvad er arteriosklerose, og hvad kan det føre til?",
+    "answer": "Fortykkelse af karvæg med fedt og kalk → nedsat blodflow, risiko for infarkt, PAV eller stroke.",
+    "difficulty": "medium",
+    "tags": [
+      "arteriosklerose"
+    ],
+    "deckId": "karsygdommeCards"
+  },
+  {
+    "id": "kar_007",
+    "subject": "Sygdomslære",
+    "topic": "Karsygdomme",
+    "question": "Forklar PAV (Perifer Arteriel Vaskulær sygdom).",
+    "answer": "Aterosklerose i benenes arterier → nedsat blodforsyning, smerter ved gang (claudicatio) og risiko for gangræn.",
+    "difficulty": "medium",
+    "tags": [
+      "PAV"
+    ],
+    "deckId": "karsygdommeCards"
+  },
+  {
+    "id": "kar_008",
+    "subject": "Sygdomslære",
+    "topic": "Karsygdomme",
+    "question": "Hvordan kan du præhospitalt vurdere perifer cirkulation i benene?",
+    "answer": "Hudtemperatur, kapillærrespons, farve, puls (dorsalis pedis), sensorik og motorik.",
+    "difficulty": "medium",
+    "tags": [
+      "CSM",
+      "circulation"
+    ],
+    "deckId": "karsygdommeCards"
+  },
+  {
+    "id": "kar_009",
+    "subject": "Sygdomslære",
+    "topic": "Karsygdomme",
+    "question": "Hvad er et aneurisme?",
+    "answer": "Lokal udposning på en arterie, ofte aorta. Risiko for ruptur og massiv blødning.",
+    "difficulty": "medium",
+    "tags": [
+      "aneurisme"
+    ],
+    "deckId": "karsygdommeCards"
+  },
+  {
+    "id": "kar_010",
+    "subject": "Sygdomslære",
+    "topic": "Karsygdomme",
+    "question": "Hvad er symptomerne på rumperet aortaaneurisme?",
+    "answer": "Akut mavesmerte/rygsmerte, hypotension, sved, takykardi, shock og kollaps.",
+    "difficulty": "hard",
+    "tags": [
+      "aneurisme",
+      "shock"
+    ],
+    "deckId": "karsygdommeCards"
+  },
+  {
+    "id": "kar_011",
+    "subject": "Sygdomslære",
+    "topic": "Karsygdomme",
+    "question": "Hvorfor kan PAV føre til amputation?",
+    "answer": "Manglende blodforsyning kan føre til nekrose, infektion og gangræn.",
+    "difficulty": "hard",
+    "tags": [
+      "nekrose",
+      "PAV"
+    ],
+    "deckId": "karsygdommeCards"
+  },
+  {
+    "id": "kar_012",
+    "subject": "Sygdomslære",
+    "topic": "Karsygdomme",
+    "question": "Hvad kendetegner venøs insufficiens?",
+    "answer": "Nedsat vene-funktion med dårlig klapfunktion → hævede ben, misfarvning, tyngdefornemmelse og evt. sår.",
+    "difficulty": "medium",
+    "tags": [
+      "venøs insufficiens"
+    ],
+    "deckId": "karsygdommeCards"
+  },
+  {
+    "id": "kar_013",
+    "subject": "Sygdomslære",
+    "topic": "Karsygdomme",
+    "question": "Hvornår mistænker man akut arteriel okklusion?",
+    "answer": "Pludselig smerte, manglende puls distal for blokering, bleghed, kulde og følelsesløshed.",
+    "difficulty": "hard",
+    "tags": [
+      "okklusion",
+      "ischemi"
+    ],
+    "deckId": "karsygdommeCards"
+  },
+  {
+    "id": "kar_014",
+    "subject": "Sygdomslære",
+    "topic": "Karsygdomme",
+    "question": "Hvad er forskellen på trombe og embolus?",
+    "answer": "Trombe = blodprop dannet lokalt. Embolus = løsrevet prop, der transporteres til et andet sted.",
+    "difficulty": "medium",
+    "tags": [
+      "embolus",
+      "trombe"
+    ],
+    "deckId": "karsygdommeCards"
+  },
+  {
+    "id": "kar_015",
+    "subject": "Sygdomslære",
+    "topic": "Karsygdomme",
+    "question": "Hvordan kan immobilisering føre til DVT?",
+    "answer": "Manglende muskelaktivitet → blodstagnation → øget risiko for venetromber.",
+    "difficulty": "easy",
+    "tags": [
+      "DVT",
+      "immobilisering"
+    ],
+    "deckId": "karsygdommeCards"
+  },
+  {
+    "id": "kar_016",
+    "subject": "Sygdomslære",
+    "topic": "Karsygdomme",
+    "question": "Hvordan kan man klinisk skelne arteriel fra venøs insufficiens?",
+    "answer": "Arteriel: smerter, bleg, kolde, manglende puls. Venøs: varme, hævede, misfarvede ben.",
+    "difficulty": "hard",
+    "tags": [
+      "arteriel",
+      "venøs"
+    ],
+    "deckId": "karsygdommeCards"
+  },
+  {
+    "id": "kar_017",
+    "subject": "Sygdomslære",
+    "topic": "Karsygdomme",
+    "question": "Hvilke vitalparametre overvåges præhospitalt ved karsygdomme?",
+    "answer": "BP, puls, RF, saturation, temperatur, hudfarve, sensorisk og motorisk funktion, smertevurdering.",
+    "difficulty": "medium",
+    "tags": [
+      "vitalparametre"
+    ],
+    "deckId": "karsygdommeCards"
+  },
+  {
+    "id": "kar_018",
+    "subject": "Sygdomslære",
+    "topic": "Karsygdomme",
+    "question": "Hvordan kan diabetes øge risikoen for karsygdomme?",
+    "answer": "Højt blodsukker beskadiger karvægge og øger risiko for aterosklerose, neuropati og dårlig sårheling.",
+    "difficulty": "hard",
+    "tags": [
+      "diabetes",
+      "aterosklerose"
+    ],
+    "deckId": "karsygdommeCards"
+  },
+  {
+    "id": "kar_019",
+    "subject": "Sygdomslære",
+    "topic": "Karsygdomme",
+    "question": "Hvad er farligst: venøs eller arteriel blødning?",
+    "answer": "Arteriel pga. højt tryk og hurtigere blodtab. Begge kan dog være livstruende.",
+    "difficulty": "medium",
+    "tags": [
+      "blødning"
+    ],
+    "deckId": "karsygdommeCards"
+  },
+  {
+    "id": "kar_020",
+    "subject": "Sygdomslære",
+    "topic": "Karsygdomme",
+    "question": "Hvilke præhospitale tiltag ved mistanke om karlæsion?",
+    "answer": "ABCDE, lejring, ilt, BT, puls, CSM, smertelindring, immobilisering, hurtig transport.",
+    "difficulty": "medium",
+    "tags": [
+      "prehospital",
+      "karskade"
+    ],
+    "deckId": "karsygdommeCards"
+  },
+  {
+    "id": "akut_001",
+    "subject": "Sygdomslære",
+    "topic": "Akut medicin",
+    "question": "Hvad er formålet med ABCDE-princippet i akut medicin?",
+    "answer": "At sikre struktureret vurdering og behandling, hvor de mest livstruende problemer (airway, breathing, circulation osv.) håndteres først.",
+    "difficulty": "easy",
+    "tags": [
+      "ABCDE",
+      "struktur"
+    ],
+    "deckId": "akutMedicinCards"
+  },
+  {
+    "id": "akut_002",
+    "subject": "Sygdomslære",
+    "topic": "Akut medicin",
+    "question": "Hvad er forskellen på et primært og et sekundært survey?",
+    "answer": "Primært survey (ABCDE) fokuserer på livstruende tilstande. Sekundært survey er en mere detaljeret helkropsundersøgelse og anamnese, når patienten er stabiliseret.",
+    "difficulty": "medium",
+    "tags": [
+      "survey",
+      "vurdering"
+    ],
+    "deckId": "akutMedicinCards"
+  },
+  {
+    "id": "akut_003",
+    "subject": "Sygdomslære",
+    "topic": "Akut medicin",
+    "question": "Hvad forstås ved 'time critical' patient i præhospital sammenhæng?",
+    "answer": "En patient med tilstand hvor forsinkelse i behandling eller transport markant øger risiko for død eller alvorlig skade, fx STEMI, stroke, sepsis, alvorligt traume.",
+    "difficulty": "medium",
+    "tags": [
+      "tidkritisk",
+      "prioritering"
+    ],
+    "deckId": "akutMedicinCards"
+  },
+  {
+    "id": "akut_004",
+    "subject": "Sygdomslære",
+    "topic": "Akut medicin",
+    "question": "Nævn mindst 4 typiske tegn på kredsløbsshock.",
+    "answer": "Takykardi, hypotension, kold/klam hud, forlænget kapillærrespons, mental påvirkning (uro, konfusion), oliguri.",
+    "difficulty": "easy",
+    "tags": [
+      "shock",
+      "kredsløb"
+    ],
+    "deckId": "akutMedicinCards"
+  },
+  {
+    "id": "akut_005",
+    "subject": "Sygdomslære",
+    "topic": "Akut medicin",
+    "question": "Hvad er forskellen på hypovolæmisk og distributivt shock?",
+    "answer": "Hypovolæmisk: tab af blod/væske → nedsat preload. Distributivt (fx sepsis, anafylaksi): perifer vasodilatation og omfordeling af blod trods normal/blodvolumen.",
+    "difficulty": "hard",
+    "tags": [
+      "shocktyper"
+    ],
+    "deckId": "akutMedicinCards"
+  },
+  {
+    "id": "akut_006",
+    "subject": "Sygdomslære",
+    "topic": "Akut medicin",
+    "question": "Hvilke ABC-tiltag er centrale ved anafylaktisk reaktion?",
+    "answer": "A: sikring af luftvej, evt. lejring. B: høj-flow ilt, vurdering af stridor/bronkokonstriktion. C: adrenalin i.m., væskebehandling, monitorering.",
+    "difficulty": "medium",
+    "tags": [
+      "anafylaksi",
+      "ABC"
+    ],
+    "deckId": "akutMedicinCards"
+  },
+  {
+    "id": "akut_007",
+    "subject": "Sygdomslære",
+    "topic": "Akut medicin",
+    "question": "Hvordan adskiller sepsis sig fra ukompliceret infektion?",
+    "answer": "Sepsis er livstruende organdysfunktion forårsaget af dysreguleret værtsrespons på infektion, ofte med påvirkede vitalparametre og mental tilstand.",
+    "difficulty": "hard",
+    "tags": [
+      "sepsis",
+      "infektion"
+    ],
+    "deckId": "akutMedicinCards"
+  },
+  {
+    "id": "akut_008",
+    "subject": "Sygdomslære",
+    "topic": "Akut medicin",
+    "question": "Nævn mindst 3 tegn, der kan give mistanke om sepsis præhospitalt.",
+    "answer": "Feber eller hypotermi, takykardi, takypnø, hypotension, påvirket bevidsthed, kulderystelser, marmorering/kold periferi.",
+    "difficulty": "medium",
+    "tags": [
+      "sepsis",
+      "vitalparametre"
+    ],
+    "deckId": "akutMedicinCards"
+  },
+  {
+    "id": "akut_009",
+    "subject": "Sygdomslære",
+    "topic": "Akut medicin",
+    "question": "Hvad er målet med præhospital behandling af stroke (AKS)?",
+    "answer": "At identificere symptomer hurtigt, sikre ABC, måle vitale værdier, tage blodsukker/EKG og transportere hurtigt til stroke-center for evt. trombolyse/trombektomi.",
+    "difficulty": "medium",
+    "tags": [
+      "stroke",
+      "tid"
+    ],
+    "deckId": "akutMedicinCards"
+  },
+  {
+    "id": "akut_010",
+    "subject": "Sygdomslære",
+    "topic": "Akut medicin",
+    "question": "Hvilke symptomer indgår typisk i en stroke-screening (fx FAST)?",
+    "answer": "Ansigtsasymmetri, nedsat kraft i arm/ben, påvirket tale, pludselig opståen.",
+    "difficulty": "easy",
+    "tags": [
+      "FAST",
+      "neurologi"
+    ],
+    "deckId": "akutMedicinCards"
+  },
+  {
+    "id": "akut_011",
+    "subject": "Sygdomslære",
+    "topic": "Akut medicin",
+    "question": "Hvad er vigtigste første tiltag ved hypoglykæmi med bevidsthedspåvirkning præhospitalt?",
+    "answer": "ABCDE, verificere lavt blodsukker, give glukose i.v. eller glukagon i.m., monitorering og revurdering.",
+    "difficulty": "medium",
+    "tags": [
+      "hypoglykæmi"
+    ],
+    "deckId": "akutMedicinCards"
+  },
+  {
+    "id": "akut_012",
+    "subject": "Sygdomslære",
+    "topic": "Akut medicin",
+    "question": "Hvad er forskellen på respirationssvigt type 1 og type 2?",
+    "answer": "Type 1: hypoksæmi uden hyperkapni (fx pneumoni, lungeødem). Type 2: hypoksæmi med hyperkapni pga. ventilationssvigt (fx KOL, neuromuskulær sygdom).",
+    "difficulty": "hard",
+    "tags": [
+      "respiration",
+      "svigt"
+    ],
+    "deckId": "akutMedicinCards"
+  },
+  {
+    "id": "akut_013",
+    "subject": "Sygdomslære",
+    "topic": "Akut medicin",
+    "question": "Hvilke farlige årsager skal overvejes ved pludselig brystsmerte?",
+    "answer": "AMI, lungeemboli, aortadissektion, pneumothorax, perikardtamponade, øvre GI-perforation.",
+    "difficulty": "hard",
+    "tags": [
+      "brystsmerter",
+      "differentialdiagnoser"
+    ],
+    "deckId": "akutMedicinCards"
+  },
+  {
+    "id": "akut_014",
+    "subject": "Sygdomslære",
+    "topic": "Akut medicin",
+    "question": "Hvad er målet med smertebehandling i akutmedicin præhospitalt?",
+    "answer": "At reducere smerte og stressrespons, forbedre respiration og samarbejde, uden at kompromittere kredsløb og bevidsthed unødigt.",
+    "difficulty": "medium",
+    "tags": [
+      "smertebehandling"
+    ],
+    "deckId": "akutMedicinCards"
+  },
+  {
+    "id": "akut_015",
+    "subject": "Sygdomslære",
+    "topic": "Akut medicin",
+    "question": "Hvorfor er lejring vigtig ved akut dyspnø?",
+    "answer": "Oprejst eller høj-Fowler-leje mindsker venøst tilbageløb, letter diaphragmas arbejde og forbedrer respirationsmekanik.",
+    "difficulty": "easy",
+    "tags": [
+      "dyspnø",
+      "lejring"
+    ],
+    "deckId": "akutMedicinCards"
+  },
+  {
+    "id": "akut_016",
+    "subject": "Sygdomslære",
+    "topic": "Akut medicin",
+    "question": "Hvad forstås ved 'red flags' i akutmedicin?",
+    "answer": "Symptomer eller fund, der tyder på alvorlig eller livstruende sygdom, fx blod i afføring, pludselig svær hovedpine, nakketilpasning, brystsmerter med trykken.",
+    "difficulty": "medium",
+    "tags": [
+      "red flags"
+    ],
+    "deckId": "akutMedicinCards"
+  },
+  {
+    "id": "akut_017",
+    "subject": "Sygdomslære",
+    "topic": "Akut medicin",
+    "question": "Hvordan kan en NEWS- eller tidlig warning score bruges præhospitalt?",
+    "answer": "Ved at kombinere vitalparametre til en samlet score, som hjælper med at identificere klinisk forværring og behov for højere behandlingsniveau.",
+    "difficulty": "medium",
+    "tags": [
+      "NEWS",
+      "scoringssystem"
+    ],
+    "deckId": "akutMedicinCards"
+  },
+  {
+    "id": "akut_018",
+    "subject": "Sygdomslære",
+    "topic": "Akut medicin",
+    "question": "Hvorfor er gentagen ABCDE-vurdering vigtig under transport?",
+    "answer": "Patientens tilstand kan ændre sig hurtigt; løbende revurdering fanger forværring og sikrer rettidig intervention.",
+    "difficulty": "easy",
+    "tags": [
+      "monitorering",
+      "revurdering"
+    ],
+    "deckId": "akutMedicinCards"
+  },
+  {
+    "id": "akut_019",
+    "subject": "Sygdomslære",
+    "topic": "Akut medicin",
+    "question": "Hvilke elementer indgår i en god præhospital overlevering på akutstuen?",
+    "answer": "Kort, struktureret SBAR/ISBAR med årsag til kontakt, ABCDE-fund, vitalparametre, tidsforløb, behandlinger og respons på behandling.",
+    "difficulty": "medium",
+    "tags": [
+      "overlevering",
+      "kommunikation"
+    ],
+    "deckId": "akutMedicinCards"
+  },
+  {
+    "id": "akut_020",
+    "subject": "Sygdomslære",
+    "topic": "Akut medicin",
+    "question": "Hvorfor er tidlig ilt ikke altid gavnligt i akutmedicin?",
+    "answer": "Overiltning kan være skadelig ved fx KOL, AMI og post-ROSC; målet er ofte Sat 94–98 % fremfor 100 %.",
+    "difficulty": "hard",
+    "tags": [
+      "ilt",
+      "sat"
+    ],
+    "deckId": "akutMedicinCards"
+  },
+  {
+    "id": "end_001",
+    "subject": "Sygdomslære",
+    "topic": "Endokrinologi",
+    "question": "Hvad er det endokrine systems primære funktion?",
+    "answer": "At regulere kroppens funktioner via hormoner, som transporteres i blodet og påvirker målorganer.",
+    "difficulty": "easy",
+    "tags": [
+      "definition",
+      "hormoner"
+    ],
+    "deckId": "endokrinologiCards"
+  },
+  {
+    "id": "end_002",
+    "subject": "Sygdomslære",
+    "topic": "Endokrinologi",
+    "question": "Hvilken kirtel styrer det meste af det endokrine system?",
+    "answer": "Hypofysen. Den regulerer andre endokrine kirtler via hormonproduktion.",
+    "difficulty": "easy",
+    "tags": [
+      "hypofyse"
+    ],
+    "deckId": "endokrinologiCards"
+  },
+  {
+    "id": "end_003",
+    "subject": "Sygdomslære",
+    "topic": "Endokrinologi",
+    "question": "Hvordan adskiller hormoner sig fra nervesignaler?",
+    "answer": "Hormoner virker langsommere, men har længerevarende og mere diffuse effekter end nervesignaler.",
+    "difficulty": "medium",
+    "tags": [
+      "hormoner",
+      "nervesystem"
+    ],
+    "deckId": "endokrinologiCards"
+  },
+  {
+    "id": "end_004",
+    "subject": "Sygdomslære",
+    "topic": "Endokrinologi",
+    "question": "Hvad er forskellen på type 1 og type 2 diabetes?",
+    "answer": "Type 1: autoimmun destruktion af beta-celler, ingen insulin. Type 2: insulinresistens og relativ insulinmangel.",
+    "difficulty": "easy",
+    "tags": [
+      "diabetes"
+    ],
+    "deckId": "endokrinologiCards"
+  },
+  {
+    "id": "end_005",
+    "subject": "Sygdomslære",
+    "topic": "Endokrinologi",
+    "question": "Hvad er normalværdien for blodsukker (fastende) hos voksne?",
+    "answer": "4–7 mmol/L.",
+    "difficulty": "easy",
+    "tags": [
+      "blodsukker"
+    ],
+    "deckId": "endokrinologiCards"
+  },
+  {
+    "id": "end_006",
+    "subject": "Sygdomslære",
+    "topic": "Endokrinologi",
+    "question": "Hvad er definitionen på hypoglykæmi?",
+    "answer": "Blodsukker under 3,5 mmol/L med symptomer.",
+    "difficulty": "easy",
+    "tags": [
+      "hypoglykæmi"
+    ],
+    "deckId": "endokrinologiCards"
+  },
+  {
+    "id": "end_007",
+    "subject": "Sygdomslære",
+    "topic": "Endokrinologi",
+    "question": "Hvilke symptomer ses ved hypoglykæmi?",
+    "answer": "Sved, rysten, sult, konfusion, irritabilitet, kramper og evt. bevidsthedstab.",
+    "difficulty": "medium",
+    "tags": [
+      "hypoglykæmi",
+      "symptomer"
+    ],
+    "deckId": "endokrinologiCards"
+  },
+  {
+    "id": "end_008",
+    "subject": "Sygdomslære",
+    "topic": "Endokrinologi",
+    "question": "Hvordan behandles hypoglykæmi præhospitalt?",
+    "answer": "Giv glukose i.v., eller glukagon i.m. hvis i.v. ikke er muligt. Sikring af ABC og monitorering.",
+    "difficulty": "medium",
+    "tags": [
+      "hypoglykæmi",
+      "behandling"
+    ],
+    "deckId": "endokrinologiCards"
+  },
+  {
+    "id": "end_009",
+    "subject": "Sygdomslære",
+    "topic": "Endokrinologi",
+    "question": "Hvad kendetegner diabetisk ketoacidose (DKA)?",
+    "answer": "Hyperglykæmi, ketonstoffer i blod/urin, metabolisk acidose, dehydrering, evt. Kussmaul-respiration.",
+    "difficulty": "hard",
+    "tags": [
+      "DKA"
+    ],
+    "deckId": "endokrinologiCards"
+  },
+  {
+    "id": "end_010",
+    "subject": "Sygdomslære",
+    "topic": "Endokrinologi",
+    "question": "Hvorfor får patienter med DKA en karakteristisk acetone-agtig ånde?",
+    "answer": "Fordi kroppen danner ketonstoffer (acetone) under fedtforbrænding ved insulinmangel.",
+    "difficulty": "medium",
+    "tags": [
+      "ketoacidose"
+    ],
+    "deckId": "endokrinologiCards"
+  },
+  {
+    "id": "end_011",
+    "subject": "Sygdomslære",
+    "topic": "Endokrinologi",
+    "question": "Hvad er Kussmaul-respiration, og hvornår ses det?",
+    "answer": "Dybe, langsomme og kompensatoriske respirationsbevægelser ved metabolisk acidose, fx DKA.",
+    "difficulty": "hard",
+    "tags": [
+      "Kussmaul"
+    ],
+    "deckId": "endokrinologiCards"
+  },
+  {
+    "id": "end_012",
+    "subject": "Sygdomslære",
+    "topic": "Endokrinologi",
+    "question": "Hvorfor er væskebehandling vigtig ved DKA?",
+    "answer": "DKA medfører osmotisk diurese og svær dehydrering, som kan true kredsløbet og perfusionen.",
+    "difficulty": "medium",
+    "tags": [
+      "DKA",
+      "væske"
+    ],
+    "deckId": "endokrinologiCards"
+  },
+  {
+    "id": "end_013",
+    "subject": "Sygdomslære",
+    "topic": "Endokrinologi",
+    "question": "Hvad er hyperglykæmisk hyperosmolært syndrom (HHS)?",
+    "answer": "Svær hyperglykæmi med dehydrering og høj serum-osmolaritet, uden ketoacidose. Ses især hos ældre type 2 diabetikere.",
+    "difficulty": "hard",
+    "tags": [
+      "HHS"
+    ],
+    "deckId": "endokrinologiCards"
+  },
+  {
+    "id": "end_014",
+    "subject": "Sygdomslære",
+    "topic": "Endokrinologi",
+    "question": "Hvilke hormoner udskilles af binyremarven?",
+    "answer": "Adrenalin og noradrenalin — kroppens stress- og kamp-flugt-hormoner.",
+    "difficulty": "easy",
+    "tags": [
+      "adrenalin",
+      "binyre"
+    ],
+    "deckId": "endokrinologiCards"
+  },
+  {
+    "id": "end_015",
+    "subject": "Sygdomslære",
+    "topic": "Endokrinologi",
+    "question": "Hvad er symptomer på akut binyrebarkinsufficiens (Addison-krise)?",
+    "answer": "Hypotension, kvalme, mavesmerter, træthed, dehydrering og evt. shock.",
+    "difficulty": "hard",
+    "tags": [
+      "Addison",
+      "shock"
+    ],
+    "deckId": "endokrinologiCards"
+  },
+  {
+    "id": "end_016",
+    "subject": "Sygdomslære",
+    "topic": "Endokrinologi",
+    "question": "Hvorfor kan Addison-patienter blive kritisk syge ved infektion eller stress?",
+    "answer": "De kan ikke øge kortisolproduktionen, hvilket er nødvendigt ved stress, infektion og kredsløbsregulering.",
+    "difficulty": "hard",
+    "tags": [
+      "kortisol",
+      "stress"
+    ],
+    "deckId": "endokrinologiCards"
+  },
+  {
+    "id": "end_017",
+    "subject": "Sygdomslære",
+    "topic": "Endokrinologi",
+    "question": "Hvad er symptomer på hyperthyreose (forhøjet stofskifte)?",
+    "answer": "Hjertebanken, vægttab, varmeintolerance, sved, rastløshed, takykardi og evt. tremor.",
+    "difficulty": "medium",
+    "tags": [
+      "thyroidea",
+      "hyper"
+    ],
+    "deckId": "endokrinologiCards"
+  },
+  {
+    "id": "end_018",
+    "subject": "Sygdomslære",
+    "topic": "Endokrinologi",
+    "question": "Hvordan kan hyperthyreose føre til atrieflimren?",
+    "answer": "Overskud af thyreoideahormoner øger sympatikus-aktivitet og irritabilitet i myokardiet, hvilket kan udløse AFLI.",
+    "difficulty": "hard",
+    "tags": [
+      "hyperthyreose",
+      "AFLI"
+    ],
+    "deckId": "endokrinologiCards"
+  },
+  {
+    "id": "end_019",
+    "subject": "Sygdomslære",
+    "topic": "Endokrinologi",
+    "question": "Hvad er myksødemkoma?",
+    "answer": "Livstruende hypometabolsk tilstand ved ubehandlet hypothyreose med hypotermi, bevidsthedspåvirkning og kredsløbssvigt.",
+    "difficulty": "hard",
+    "tags": [
+      "hypothyreose",
+      "koma"
+    ],
+    "deckId": "endokrinologiCards"
+  },
+  {
+    "id": "end_020",
+    "subject": "Sygdomslære",
+    "topic": "Endokrinologi",
+    "question": "Hvad er præhospitalt vigtigt ved endokrine krisetilstande?",
+    "answer": "ABCDE, vitalparametre, måling af blodsukker og temperatur, iv-adgang, væskebehandling, transport til hospital.",
+    "difficulty": "medium",
+    "tags": [
+      "præhospital",
+      "vurdering"
+    ],
+    "deckId": "endokrinologiCards"
+  },
+  {
+    "id": "gastro_001",
+    "subject": "Sygdomslære",
+    "topic": "Gastroenterologi",
+    "question": "Hvad er de klassiske symptomer på appendicitis?",
+    "answer": "Smertevandring fra epigastriet til højre fossa, slipømhed, feber, kvalme og nedsat appetit.",
+    "difficulty": "easy",
+    "tags": [
+      "appendicitis",
+      "mavesmerter"
+    ],
+    "deckId": "gastroCards"
+  },
+  {
+    "id": "gastro_002",
+    "subject": "Sygdomslære",
+    "topic": "Gastroenterologi",
+    "question": "Hvorfor opstår smertevandring ved appendicitis?",
+    "answer": "Fordi smerten starter visceral (om navlen) og bliver somatisk lokaliseret, når peritoneum irriteres.",
+    "difficulty": "medium",
+    "tags": [
+      "appendicitis",
+      "peritoneum"
+    ],
+    "deckId": "gastroCards"
+  },
+  {
+    "id": "gastro_003",
+    "subject": "Sygdomslære",
+    "topic": "Gastroenterologi",
+    "question": "Hvad er peritonitis, og hvordan kan det præhospitalt genkendes?",
+    "answer": "Inflammation af bughinden. Ses som brætspændt abdomen, stærke smerter, feber og påvirket almen tilstand.",
+    "difficulty": "hard",
+    "tags": [
+      "peritonitis",
+      "akut abdomen"
+    ],
+    "deckId": "gastroCards"
+  },
+  {
+    "id": "gastro_004",
+    "subject": "Sygdomslære",
+    "topic": "Gastroenterologi",
+    "question": "Hvad er forskellen på melæna og hæmatemese?",
+    "answer": "Melæna er sort, tjæreagtig afføring. Hæmatemese er opkast af blod.",
+    "difficulty": "easy",
+    "tags": [
+      "GI-blødning"
+    ],
+    "deckId": "gastroCards"
+  },
+  {
+    "id": "gastro_005",
+    "subject": "Sygdomslære",
+    "topic": "Gastroenterologi",
+    "question": "Hvorfor bliver afføring sort ved melæna?",
+    "answer": "Blod nedbrydes af mavesyre og enzymer i tarmen, hvilket giver en sort, tjæreagtig farve.",
+    "difficulty": "medium",
+    "tags": [
+      "melæna",
+      "blødning"
+    ],
+    "deckId": "gastroCards"
+  },
+  {
+    "id": "gastro_006",
+    "subject": "Sygdomslære",
+    "topic": "Gastroenterologi",
+    "question": "Hvordan præsenterer øvre GI-blødning sig præhospitalt?",
+    "answer": "Hæmatemese, melæna, svimmelhed, hypotension, tachykardi og shock ved større blodtab.",
+    "difficulty": "medium",
+    "tags": [
+      "GI-blødning",
+      "shock"
+    ],
+    "deckId": "gastroCards"
+  },
+  {
+    "id": "gastro_007",
+    "subject": "Sygdomslære",
+    "topic": "Gastroenterologi",
+    "question": "Hvad er forskellen på øvre og nedre GI-blødning?",
+    "answer": "Øvre: blødning fra mund til ligamentum Treitz. Nedre: blødning distalt herfor.",
+    "difficulty": "medium",
+    "tags": [
+      "GI-blødning"
+    ],
+    "deckId": "gastroCards"
+  },
+  {
+    "id": "gastro_008",
+    "subject": "Sygdomslære",
+    "topic": "Gastroenterologi",
+    "question": "Hvad kendetegner akut pancreatitis klinisk?",
+    "answer": "Stærke epigastriske smerter med udstråling til ryggen, kvalme, opkast og feber.",
+    "difficulty": "medium",
+    "tags": [
+      "pancreatitis",
+      "mavesmerter"
+    ],
+    "deckId": "gastroCards"
+  },
+  {
+    "id": "gastro_009",
+    "subject": "Sygdomslære",
+    "topic": "Gastroenterologi",
+    "question": "Hvad er de hyppigste årsager til pancreatitis?",
+    "answer": "Alkohol og galdesten.",
+    "difficulty": "easy",
+    "tags": [
+      "pancreatitis",
+      "alkohol",
+      "galdesten"
+    ],
+    "deckId": "gastroCards"
+  },
+  {
+    "id": "gastro_010",
+    "subject": "Sygdomslære",
+    "topic": "Gastroenterologi",
+    "question": "Hvordan kan man mistænke tarmperforation præhospitalt?",
+    "answer": "Akut indsættende stærke smerter, brætspændt abdomen og påvirket puls og BT.",
+    "difficulty": "hard",
+    "tags": [
+      "perforation",
+      "akut abdomen"
+    ],
+    "deckId": "gastroCards"
+  },
+  {
+    "id": "gastro_011",
+    "subject": "Sygdomslære",
+    "topic": "Gastroenterologi",
+    "question": "Hvad er et ileus, og hvilke tegn kan observeres præhospitalt?",
+    "answer": "Tarmobstruktion. Ses som oppustet abdomen, manglende afføring, smerter og opkast.",
+    "difficulty": "medium",
+    "tags": [
+      "ileus",
+      "tarmobstruktion"
+    ],
+    "deckId": "gastroCards"
+  },
+  {
+    "id": "gastro_012",
+    "subject": "Sygdomslære",
+    "topic": "Gastroenterologi",
+    "question": "Hvad er forskellen på mekanisk og paralytisk ileus?",
+    "answer": "Mekanisk: fysisk blokering. Paralytisk: manglende tarmperistaltik.",
+    "difficulty": "hard",
+    "tags": [
+      "ileus",
+      "paralytisk"
+    ],
+    "deckId": "gastroCards"
+  },
+  {
+    "id": "gastro_013",
+    "subject": "Sygdomslære",
+    "topic": "Gastroenterologi",
+    "question": "Hvad er Murphy’s tegn, og hvornår bruges det?",
+    "answer": "Smertetest over galdeblæren ved inspiration. Bruges ved mistanke om cholecystitis.",
+    "difficulty": "hard",
+    "tags": [
+      "cholecystitis",
+      "Murphys tegn"
+    ],
+    "deckId": "gastroCards"
+  },
+  {
+    "id": "gastro_014",
+    "subject": "Sygdomslære",
+    "topic": "Gastroenterologi",
+    "question": "Hvad er de typiske symptomer på galdestensanfald?",
+    "answer": "Kolikagtige smerter under højre ribbenskant, kvalme, opkast, smerter mod ryg/skulder.",
+    "difficulty": "medium",
+    "tags": [
+      "galdesten"
+    ],
+    "deckId": "gastroCards"
+  },
+  {
+    "id": "gastro_015",
+    "subject": "Sygdomslære",
+    "topic": "Gastroenterologi",
+    "question": "Hvorfor er gastrointestinal blødning potentielt livstruende præhospitalt?",
+    "answer": "Fordi det kan føre til hypovolæmisk shock og organsvigt.",
+    "difficulty": "easy",
+    "tags": [
+      "GI-blødning",
+      "shock"
+    ],
+    "deckId": "gastroCards"
+  },
+  {
+    "id": "gastro_016",
+    "subject": "Sygdomslære",
+    "topic": "Gastroenterologi",
+    "question": "Hvad skal man altid gøre ved akut mavesmerter med påvirket vitalstatus?",
+    "answer": "Behandle som potentielt kirurgisk akut abdomen og prioritere transport.",
+    "difficulty": "medium",
+    "tags": [
+      "akut abdomen"
+    ],
+    "deckId": "gastroCards"
+  },
+  {
+    "id": "gastro_017",
+    "subject": "Sygdomslære",
+    "topic": "Gastroenterologi",
+    "question": "Hvorfor må man ikke give mad eller drikke ved mistanke om akut abdomen?",
+    "answer": "Patienten kan have behov for akut operation.",
+    "difficulty": "easy",
+    "tags": [
+      "operation",
+      "akut abdomen"
+    ],
+    "deckId": "gastroCards"
+  },
+  {
+    "id": "gastro_018",
+    "subject": "Sygdomslære",
+    "topic": "Gastroenterologi",
+    "question": "Hvordan kan levercirrose påvirke koagulation?",
+    "answer": "Leveren danner størstedelen af koagulationsfaktorer, så svigt kan give blødningstendens.",
+    "difficulty": "hard",
+    "tags": [
+      "cirrose",
+      "koagulation"
+    ],
+    "deckId": "gastroCards"
+  },
+  {
+    "id": "gastro_019",
+    "subject": "Sygdomslære",
+    "topic": "Gastroenterologi",
+    "question": "Hvad er portahypertension, og hvorfor er det farligt?",
+    "answer": "Forhøjet tryk i vena porta. Kan give øsofagusvaricer og livstruende blødning.",
+    "difficulty": "hard",
+    "tags": [
+      "cirrose",
+      "varicer"
+    ],
+    "deckId": "gastroCards"
+  },
+  {
+    "id": "gastro_020",
+    "subject": "Sygdomslære",
+    "topic": "Gastroenterologi",
+    "question": "Hvordan kan du som ambulancepersonale kende variceblødning?",
+    "answer": "Kraftig hæmatemese, lav BT, høj puls, svimmelhed og påvirket bevidsthed.",
+    "difficulty": "hard",
+    "tags": [
+      "varicer",
+      "GI-blødning"
+    ],
+    "deckId": "gastroCards"
+  },
+  {
+    "id": "geri_001",
+    "subject": "Sygdomslære",
+    "topic": "Geriatri",
+    "question": "Hvad kendetegner en geriatrisk patient?",
+    "answer": "Typisk ældre med kompleks sygdomsbillede, multimorbiditet, polyfarmaci og øget sårbarhed (skrøbelighed).",
+    "difficulty": "easy",
+    "tags": [
+      "geriatrisk",
+      "skrøbelighed"
+    ],
+    "deckId": "geriatriCards"
+  },
+  {
+    "id": "geri_002",
+    "subject": "Sygdomslære",
+    "topic": "Geriatri",
+    "question": "Hvad er skrøbelighed (frailty) hos ældre?",
+    "answer": "Reduceret fysiologisk reserve, nedsat modstand mod stress og høj risiko for forværring ved sygdom.",
+    "difficulty": "medium",
+    "tags": [
+      "frailty",
+      "fysiologi"
+    ],
+    "deckId": "geriatriCards"
+  },
+  {
+    "id": "geri_003",
+    "subject": "Sygdomslære",
+    "topic": "Geriatri",
+    "question": "Hvordan præsenterer infektion sig ofte hos ældre?",
+    "answer": "Ofte atypisk: konfusion, faldtendens, træthed eller nedsat appetit — ikke nødvendigvis feber.",
+    "difficulty": "medium",
+    "tags": [
+      "infektion",
+      "atypisk"
+    ],
+    "deckId": "geriatriCards"
+  },
+  {
+    "id": "geri_004",
+    "subject": "Sygdomslære",
+    "topic": "Geriatri",
+    "question": "Hvorfor er sepsis særligt farligt hos ældre?",
+    "answer": "De har nedsat immunrespons, reduceret organreserve og kan hurtigt udvikle multiorgansvigt.",
+    "difficulty": "hard",
+    "tags": [
+      "sepsis",
+      "shock"
+    ],
+    "deckId": "geriatriCards"
+  },
+  {
+    "id": "geri_005",
+    "subject": "Sygdomslære",
+    "topic": "Geriatri",
+    "question": "Hvordan påvirker alderen nyrernes funktion?",
+    "answer": "GFR falder, hvilket øger risiko for væskeretention og medicinophobning, fx ved NSAID og opiater.",
+    "difficulty": "hard",
+    "tags": [
+      "nyrefunktion",
+      "farmakologi"
+    ],
+    "deckId": "geriatriCards"
+  },
+  {
+    "id": "geri_006",
+    "subject": "Sygdomslære",
+    "topic": "Geriatri",
+    "question": "Hvad betyder polyfarmaci, og hvorfor er det problematisk?",
+    "answer": "Brug af ≥5 faste lægemidler — øger risiko for interaktioner, bivirkninger og compliance-problemer.",
+    "difficulty": "medium",
+    "tags": [
+      "polyfarmaci"
+    ],
+    "deckId": "geriatriCards"
+  },
+  {
+    "id": "geri_007",
+    "subject": "Sygdomslære",
+    "topic": "Geriatri",
+    "question": "Hvorfor får ældre lettere dehydrering?",
+    "answer": "Nedsat tørstfornemmelse, lavere muskelmasse og nyrefunktion samt diuretika eller diarré.",
+    "difficulty": "medium",
+    "tags": [
+      "hydrering"
+    ],
+    "deckId": "geriatriCards"
+  },
+  {
+    "id": "geri_008",
+    "subject": "Sygdomslære",
+    "topic": "Geriatri",
+    "question": "Hvad er delirium, og hvad kan udløse det?",
+    "answer": "Akut forvirringstilstand udløst af infektion, dehydrering, medicin, smerte eller miljøskifte.",
+    "difficulty": "hard",
+    "tags": [
+      "delirium",
+      "konfusion"
+    ],
+    "deckId": "geriatriCards"
+  },
+  {
+    "id": "geri_009",
+    "subject": "Sygdomslære",
+    "topic": "Geriatri",
+    "question": "Hvordan kan hjertesvigt præsentere sig atypisk hos ældre?",
+    "answer": "Træthed, vægttab, faldtendens, nedsat funktion – ikke nødvendigvis åndenød eller ødem.",
+    "difficulty": "medium",
+    "tags": [
+      "hjertesvigt",
+      "atypisk"
+    ],
+    "deckId": "geriatriCards"
+  },
+  {
+    "id": "geri_010",
+    "subject": "Sygdomslære",
+    "topic": "Geriatri",
+    "question": "Hvorfor kan vitalparametre virke normale, selv ved alvorlig sygdom hos ældre?",
+    "answer": "Aldersrelateret svag immunrespons og nedsat fysiologisk reserve giver 'stille' klinik.",
+    "difficulty": "hard",
+    "tags": [
+      "vitalparametre"
+    ],
+    "deckId": "geriatriCards"
+  },
+  {
+    "id": "geri_011",
+    "subject": "Sygdomslære",
+    "topic": "Geriatri",
+    "question": "Hvilke ABCDE-fund vækker særlig bekymring hos ældre?",
+    "answer": "Bevidsthedspåvirkning, systolisk BT <110, RF >22, nytilkommen arytmi, fald i funktion.",
+    "difficulty": "hard",
+    "tags": [
+      "ABCDE"
+    ],
+    "deckId": "geriatriCards"
+  },
+  {
+    "id": "geri_012",
+    "subject": "Sygdomslære",
+    "topic": "Geriatri",
+    "question": "Hvorfor bør man være varsom med opiater til ældre?",
+    "answer": "De har øget følsomhed for respirationsdepression, konfusion og obstipation.",
+    "difficulty": "medium",
+    "tags": [
+      "opiater",
+      "bivirkning"
+    ],
+    "deckId": "geriatriCards"
+  },
+  {
+    "id": "geri_013",
+    "subject": "Sygdomslære",
+    "topic": "Geriatri",
+    "question": "Hvad betyder 'geriatrisk triade' af akutte symptomer?",
+    "answer": "Akut immoblisering, akut konfusion og akut inkontinens — ofte tegn på alvorlig sygdom.",
+    "difficulty": "hard",
+    "tags": [
+      "triade",
+      "geriatrisk"
+    ],
+    "deckId": "geriatriCards"
+  },
+  {
+    "id": "geri_014",
+    "subject": "Sygdomslære",
+    "topic": "Geriatri",
+    "question": "Hvorfor bliver ældre lettere hypotensive ved væsketab?",
+    "answer": "Lavere muskelmasse, ingen kompensationsevne og ofte antihypertensiv medicin.",
+    "difficulty": "medium",
+    "tags": [
+      "BT",
+      "væske"
+    ],
+    "deckId": "geriatriCards"
+  },
+  {
+    "id": "geri_015",
+    "subject": "Sygdomslære",
+    "topic": "Geriatri",
+    "question": "Forklar begrebet 'multimorbiditet'.",
+    "answer": "Når en patient har flere kroniske sygdomme samtidig, fx KOL, hjertesvigt og diabetes.",
+    "difficulty": "easy",
+    "tags": [
+      "multimorbiditet"
+    ],
+    "deckId": "geriatriCards"
+  },
+  {
+    "id": "geri_016",
+    "subject": "Sygdomslære",
+    "topic": "Geriatri",
+    "question": "Hvad er et 'stille infarkt' hos ældre?",
+    "answer": "AMI uden klassiske brystsmerter — ofte kun dyspnø, træthed, konfusion eller fald.",
+    "difficulty": "hard",
+    "tags": [
+      "AMI",
+      "atypisk"
+    ],
+    "deckId": "geriatriCards"
+  },
+  {
+    "id": "geri_017",
+    "subject": "Sygdomslære",
+    "topic": "Geriatri",
+    "question": "Hvordan kan pneumoni præsentere sig atypisk hos ældre?",
+    "answer": "Conufsion, sløvhed, faldtendens, dehydrering eller urinvejsproblemer fremfor hoste/feber.",
+    "difficulty": "medium",
+    "tags": [
+      "infektion",
+      "pneumoni"
+    ],
+    "deckId": "geriatriCards"
+  },
+  {
+    "id": "geri_018",
+    "subject": "Sygdomslære",
+    "topic": "Geriatri",
+    "question": "Forklar hvorfor ældre har øget risiko for faldskader.",
+    "answer": "Balanceproblemer, svage muskler, medicin, synstab og nedsat proprioception.",
+    "difficulty": "easy",
+    "tags": [
+      "fald",
+      "traume"
+    ],
+    "deckId": "geriatriCards"
+  },
+  {
+    "id": "geri_019",
+    "subject": "Sygdomslære",
+    "topic": "Geriatri",
+    "question": "Hvorfor kan en banal UVI føre til delirium hos ældre?",
+    "answer": "Inflammation og elektrolytforstyrrelser kan påvirke hjernen pga. sårbar reservekapacitet.",
+    "difficulty": "hard",
+    "tags": [
+      "UVI",
+      "delirium"
+    ],
+    "deckId": "geriatriCards"
+  },
+  {
+    "id": "geri_020",
+    "subject": "Sygdomslære",
+    "topic": "Geriatri",
+    "question": "Hvad er vigtigt ved ABCDE på en skrøbelig ældre?",
+    "answer": "Vær opmærksom på små ændringer, brug baseline hvis kendt, og tænk altid atypisk.",
+    "difficulty": "medium",
+    "tags": [
+      "ABCDE",
+      "skrøbelighed"
+    ],
+    "deckId": "geriatriCards"
+  },
+  {
+    "id": "haem_001",
+    "subject": "Sygdomslære",
+    "topic": "Hæmatologi",
+    "question": "Hvad er anæmi, og hvorfor kan det give dyspnø?",
+    "answer": "Anæmi er lav hæmoglobinkoncentration, hvilket reducerer blodets ilttransportevne og kan give dyspnø, takykardi og træthed.",
+    "difficulty": "easy",
+    "tags": [
+      "anæmi",
+      "ilttransport"
+    ],
+    "deckId": "haematologiCards"
+  },
+  {
+    "id": "haem_002",
+    "subject": "Sygdomslære",
+    "topic": "Hæmatologi",
+    "question": "Hvad er forskellen på mikrocytær og makrocytær anæmi?",
+    "answer": "Mikrocytær: små erytrocytter, fx jernmangel. Makrocytær: store erytrocytter, fx B12-/folatmangel.",
+    "difficulty": "medium",
+    "tags": [
+      "anæmityper"
+    ],
+    "deckId": "haematologiCards"
+  },
+  {
+    "id": "haem_003",
+    "subject": "Sygdomslære",
+    "topic": "Hæmatologi",
+    "question": "Hvilke symptomer ses ofte ved akut anæmi?",
+    "answer": "Træthed, svimmelhed, dyspnø, bleghed, takykardi og lavt BT ved større blodtab.",
+    "difficulty": "easy",
+    "tags": [
+      "akut anæmi"
+    ],
+    "deckId": "haematologiCards"
+  },
+  {
+    "id": "haem_004",
+    "subject": "Sygdomslære",
+    "topic": "Hæmatologi",
+    "question": "Hvad er hæmolytisk anæmi?",
+    "answer": "Når erytrocytter nedbrydes for tidligt, fx ved autoimmun sygdom, infektion eller medicin.",
+    "difficulty": "medium",
+    "tags": [
+      "hæmolyse"
+    ],
+    "deckId": "haematologiCards"
+  },
+  {
+    "id": "haem_005",
+    "subject": "Sygdomslære",
+    "topic": "Hæmatologi",
+    "question": "Hvordan adskiller leukæmi sig fra lymfom?",
+    "answer": "Leukæmi: malignitet i blodet/knoglemarven. Lymfom: malignitet i lymfesystemet.",
+    "difficulty": "medium",
+    "tags": [
+      "leukæmi",
+      "lymfom"
+    ],
+    "deckId": "haematologiCards"
+  },
+  {
+    "id": "haem_006",
+    "subject": "Sygdomslære",
+    "topic": "Hæmatologi",
+    "question": "Nævn 3 symptomer på leukæmi.",
+    "answer": "Træthed (anæmi), infektioner (lavt leukocyttal), blå mærker/blødning (trombocytopeni).",
+    "difficulty": "easy",
+    "tags": [
+      "leukæmi"
+    ],
+    "deckId": "haematologiCards"
+  },
+  {
+    "id": "haem_007",
+    "subject": "Sygdomslære",
+    "topic": "Hæmatologi",
+    "question": "Hvad er DIC (Dissemineret Intravaskulær Coagulation)?",
+    "answer": "Akut tilstand med ukontrolleret koagulation og efterfølgende blødning pga. opbrugte koagulationsfaktorer.",
+    "difficulty": "hard",
+    "tags": [
+      "DIC",
+      "koagulation"
+    ],
+    "deckId": "haematologiCards"
+  },
+  {
+    "id": "haem_008",
+    "subject": "Sygdomslære",
+    "topic": "Hæmatologi",
+    "question": "Hvordan kan man præhospitalt mistænke DIC?",
+    "answer": "Udbredt blødning, petekier, shocktegn hos patient med infektion, traume eller obstetriske komplikationer.",
+    "difficulty": "hard",
+    "tags": [
+      "DIC",
+      "akut"
+    ],
+    "deckId": "haematologiCards"
+  },
+  {
+    "id": "haem_009",
+    "subject": "Sygdomslære",
+    "topic": "Hæmatologi",
+    "question": "Hvad kendetegner hæmofili?",
+    "answer": "Medfødt koagulationsdefekt (faktor VIII eller IX), som giver øget blødningstendens.",
+    "difficulty": "medium",
+    "tags": [
+      "hæmofili",
+      "blødning"
+    ],
+    "deckId": "haematologiCards"
+  },
+  {
+    "id": "haem_010",
+    "subject": "Sygdomslære",
+    "topic": "Hæmatologi",
+    "question": "Hvordan præsenterer GI-blødning sig ofte præhospitalt?",
+    "answer": "Sort tjærelignende afføring (melæna), opkast af blod (hæmatemese), lavt BT og takykardi.",
+    "difficulty": "medium",
+    "tags": [
+      "GI-blødning"
+    ],
+    "deckId": "haematologiCards"
+  },
+  {
+    "id": "haem_011",
+    "subject": "Sygdomslære",
+    "topic": "Hæmatologi",
+    "question": "Hvad er transfusionsreaktion, og hvorfor er det farligt?",
+    "answer": "Immunreaktion mod fremmede blodkomponenter; kan give shock, feber og akut respirationssvigt.",
+    "difficulty": "hard",
+    "tags": [
+      "transfusion",
+      "anafylaksi"
+    ],
+    "deckId": "haematologiCards"
+  },
+  {
+    "id": "haem_012",
+    "subject": "Sygdomslære",
+    "topic": "Hæmatologi",
+    "question": "Nævn forskellen på hypovolæmisk og kardiogent shock.",
+    "answer": "Hypovolæmisk: væske/blodtab. Kardiogent: hjertet pumper utilstrækkeligt (fx AMI).",
+    "difficulty": "easy",
+    "tags": [
+      "shock"
+    ],
+    "deckId": "haematologiCards"
+  },
+  {
+    "id": "haem_013",
+    "subject": "Sygdomslære",
+    "topic": "Hæmatologi",
+    "question": "Hvad kaldes det, når immunsystemet angriber trombocytter?",
+    "answer": "ITP (Idiopatisk trombocytopenisk purpura), som giver spontan blødning og petekier.",
+    "difficulty": "medium",
+    "tags": [
+      "ITP"
+    ],
+    "deckId": "haematologiCards"
+  },
+  {
+    "id": "haem_014",
+    "subject": "Sygdomslære",
+    "topic": "Hæmatologi",
+    "question": "Hvorfor får patienter med KOL og hjertesvigt ofte sekundær polycytæmi?",
+    "answer": "Hypoksi stimulerer erytropoietinproduktion, hvilket øger antallet af erytrocytter.",
+    "difficulty": "hard",
+    "tags": [
+      "polycytæmi",
+      "hypoksi"
+    ],
+    "deckId": "haematologiCards"
+  },
+  {
+    "id": "haem_015",
+    "subject": "Sygdomslære",
+    "topic": "Hæmatologi",
+    "question": "Hvordan kan man præhospitalt genkende blødning i abdomen?",
+    "answer": "Lavt BT, takykardi, abdominal ømhed, bleghed, evt. Kussmauls respiration eller shock.",
+    "difficulty": "medium",
+    "tags": [
+      "intern blødning"
+    ],
+    "deckId": "haematologiCards"
+  },
+  {
+    "id": "haem_016",
+    "subject": "Sygdomslære",
+    "topic": "Hæmatologi",
+    "question": "Hvilke blodprodukter gives typisk ved DIC?",
+    "answer": "Plasma, trombocytter og evt. fibrinogen og faktor-koncentrater.",
+    "difficulty": "hard",
+    "tags": [
+      "DIC",
+      "behandling"
+    ],
+    "deckId": "haematologiCards"
+  },
+  {
+    "id": "haem_017",
+    "subject": "Sygdomslære",
+    "topic": "Hæmatologi",
+    "question": "Hvorfor har ældre større risiko for blødning ved AK-behandling?",
+    "answer": "Svækket leverfunktion, polyfarmaci og øget følsomhed for antikoagulanter.",
+    "difficulty": "medium",
+    "tags": [
+      "AK-behandling"
+    ],
+    "deckId": "haematologiCards"
+  },
+  {
+    "id": "haem_018",
+    "subject": "Sygdomslære",
+    "topic": "Hæmatologi",
+    "question": "Hvordan kan K-vitamin påvirke koagulation?",
+    "answer": "K-vitamin er nødvendig for syntese af koagulationsfaktorer II, VII, IX og X i leveren.",
+    "difficulty": "medium",
+    "tags": [
+      "K-vitamin"
+    ],
+    "deckId": "haematologiCards"
+  },
+  {
+    "id": "haem_019",
+    "subject": "Sygdomslære",
+    "topic": "Hæmatologi",
+    "question": "Hvad er lymfom, og hvad ses ofte som symptomer?",
+    "answer": "Kræft i lymfesystemet; hævede lymfeknuder, B-symptomer (nattesved, feber, vægttab).",
+    "difficulty": "medium",
+    "tags": [
+      "lymfom"
+    ],
+    "deckId": "haematologiCards"
+  },
+  {
+    "id": "haem_020",
+    "subject": "Sygdomslære",
+    "topic": "Hæmatologi",
+    "question": "Hvilken type shock kan blødning føre til?",
+    "answer": "Hypovolæmisk shock — tab af blodvolumen reducerer preload, CO og perfusion.",
+    "difficulty": "easy",
+    "tags": [
+      "shock",
+      "blødning"
+    ],
+    "deckId": "haematologiCards"
+  },
+  {
+    "id": "inf_001",
+    "subject": "Sygdomslære",
+    "topic": "Infektion",
+    "question": "Hvad er sepsis ifølge den moderne definition (Sepsis-3)?",
+    "answer": "Livstruende organdysfunktion forårsaget af dysreguleret værtsrespons på infektion.",
+    "difficulty": "medium",
+    "tags": [
+      "sepsis",
+      "organsvigt"
+    ],
+    "deckId": "infektionCards"
+  },
+  {
+    "id": "inf_002",
+    "subject": "Sygdomslære",
+    "topic": "Infektion",
+    "question": "Hvordan kan ambulancepersonale hurtigt screene for sepsis præhospitalt?",
+    "answer": "Brug qSOFA: RF ≥22, systolisk BT ≤100 mmHg og ændret mental status (GCS <15).",
+    "difficulty": "medium",
+    "tags": [
+      "sepsisscreening",
+      "qSOFA"
+    ],
+    "deckId": "infektionCards"
+  },
+  {
+    "id": "inf_003",
+    "subject": "Sygdomslære",
+    "topic": "Infektion",
+    "question": "Hvad kendetegner septisk shock?",
+    "answer": "Sepsis med vedvarende hypotension, trods væske, og behov for vasopressor samt laktat >2 mmol/L.",
+    "difficulty": "hard",
+    "tags": [
+      "shock",
+      "laktat"
+    ],
+    "deckId": "infektionCards"
+  },
+  {
+    "id": "inf_004",
+    "subject": "Sygdomslære",
+    "topic": "Infektion",
+    "question": "Nævn tidlige symptomer på sepsis.",
+    "answer": "Feber, kulderystelser, høj puls, høj RF, påvirket almen tilstand og konfusion.",
+    "difficulty": "easy",
+    "tags": [
+      "sepsis",
+      "symptomer"
+    ],
+    "deckId": "infektionCards"
+  },
+  {
+    "id": "inf_005",
+    "subject": "Sygdomslære",
+    "topic": "Infektion",
+    "question": "Hvordan kan sepsis præsentere atypisk hos ældre?",
+    "answer": "Konfusion, faldtendens, sløvhed, svimmelhed og nedsat appetit – ofte uden feber.",
+    "difficulty": "medium",
+    "tags": [
+      "ældre",
+      "atypisk"
+    ],
+    "deckId": "infektionCards"
+  },
+  {
+    "id": "inf_006",
+    "subject": "Sygdomslære",
+    "topic": "Infektion",
+    "question": "Hvad er de fire typiske smitteveje ved infektion?",
+    "answer": "Dråbesmitte, kontaktsmitte, luftbåren smitte og fækal-oral smitte.",
+    "difficulty": "easy",
+    "tags": [
+      "smitteveje"
+    ],
+    "deckId": "infektionCards"
+  },
+  {
+    "id": "inf_007",
+    "subject": "Sygdomslære",
+    "topic": "Infektion",
+    "question": "Hvad er meningitis, og hvad er det vigtigste at opdage præhospitalt?",
+    "answer": "Hjernehindeinfektion. Vigtigste fund: nakkestivhed, påvirket bevidsthed og petechier.",
+    "difficulty": "medium",
+    "tags": [
+      "meningitis",
+      "ABCDE"
+    ],
+    "deckId": "infektionCards"
+  },
+  {
+    "id": "inf_008",
+    "subject": "Sygdomslære",
+    "topic": "Infektion",
+    "question": "Hvorfor er petekkier ved feber en rød alarm?",
+    "answer": "Kan indikere meningokok-sepsis med dissemineret intravaskulær koagulation (DIC).",
+    "difficulty": "hard",
+    "tags": [
+      "sepsis",
+      "DIC",
+      "petekkier"
+    ],
+    "deckId": "infektionCards"
+  },
+  {
+    "id": "inf_009",
+    "subject": "Sygdomslære",
+    "topic": "Infektion",
+    "question": "Hvordan kan pneumoni se ud præhospitalt?",
+    "answer": "Feber, hoste, dyspnø, øget RF, påvirket almen tilstand og evt. pleuritisk brystsmerte.",
+    "difficulty": "easy",
+    "tags": [
+      "pneumoni"
+    ],
+    "deckId": "infektionCards"
+  },
+  {
+    "id": "inf_010",
+    "subject": "Sygdomslære",
+    "topic": "Infektion",
+    "question": "Hvad er forskellen på viral og bakteriel pneumoni?",
+    "answer": "Bakteriel: ofte feber, produktiv hoste, høj CRP. Viral: mere tør hoste, lavere CRP, gradvis debut.",
+    "difficulty": "medium",
+    "tags": [
+      "pneumoni",
+      "viral",
+      "bakteriel"
+    ],
+    "deckId": "infektionCards"
+  },
+  {
+    "id": "inf_011",
+    "subject": "Sygdomslære",
+    "topic": "Infektion",
+    "question": "Hvorfor kan urinvejsinfektion føre til sepsis hos ældre?",
+    "answer": "Ældre har svækket immunforsvar og kan udvikle urosepsis med påvirket mentalstatus.",
+    "difficulty": "medium",
+    "tags": [
+      "UVI",
+      "urosepsis"
+    ],
+    "deckId": "infektionCards"
+  },
+  {
+    "id": "inf_012",
+    "subject": "Sygdomslære",
+    "topic": "Infektion",
+    "question": "Hvordan præsenterer cellulitis sig præhospitalt?",
+    "answer": "Rødme, varme, hævelse og smerte i huden – evt. feber og påvirket alm. tilstand.",
+    "difficulty": "easy",
+    "tags": [
+      "cellulitis",
+      "infektion"
+    ],
+    "deckId": "infektionCards"
+  },
+  {
+    "id": "inf_013",
+    "subject": "Sygdomslære",
+    "topic": "Infektion",
+    "question": "Hvad tyder hævelse, smerte, misfarvning og bullae på ved hudinfektion?",
+    "answer": "Mistanke om nekrotiserende fasciitis – kræver akut kirurgi.",
+    "difficulty": "hard",
+    "tags": [
+      "nekrotiserende fasciitis",
+      "akut"
+    ],
+    "deckId": "infektionCards"
+  },
+  {
+    "id": "inf_014",
+    "subject": "Sygdomslære",
+    "topic": "Infektion",
+    "question": "Hvilke vitale parametre tyder stærkt på infektion med systemisk påvirkning?",
+    "answer": "RF >22, puls >100, temp <36 eller >38, systolisk BT <100 og påvirket bevidsthed.",
+    "difficulty": "medium",
+    "tags": [
+      "sepsis",
+      "vitalparametre"
+    ],
+    "deckId": "infektionCards"
+  },
+  {
+    "id": "inf_015",
+    "subject": "Sygdomslære",
+    "topic": "Infektion",
+    "question": "Hvad er forskellen på kolonisation og infektion?",
+    "answer": "Kolonisation betyder bakterier til stede uden sygdom, infektion betyder inflammation og symptomer.",
+    "difficulty": "medium",
+    "tags": [
+      "mikrobiologi",
+      "infektion"
+    ],
+    "deckId": "infektionCards"
+  },
+  {
+    "id": "inf_016",
+    "subject": "Sygdomslære",
+    "topic": "Infektion",
+    "question": "Hvorfor kan steroidbrug og diabetes øge risikoen for infektion?",
+    "answer": "Fordi immunforsvaret er svækket ved steroidbrug og diabetikere har nedsat mikrocirkulation.",
+    "difficulty": "hard",
+    "tags": [
+      "immunforsvar",
+      "diabetes"
+    ],
+    "deckId": "infektionCards"
+  },
+  {
+    "id": "inf_017",
+    "subject": "Sygdomslære",
+    "topic": "Infektion",
+    "question": "Hvordan kan man præhospitalt mistænke tuberkulose?",
+    "answer": "Langvarig hoste (>3 uger), vægttab, natlig sved, hæmoptyse og kontakt til kendt smittet.",
+    "difficulty": "medium",
+    "tags": [
+      "tuberkulose",
+      "infektion"
+    ],
+    "deckId": "infektionCards"
+  },
+  {
+    "id": "inf_018",
+    "subject": "Sygdomslære",
+    "topic": "Infektion",
+    "question": "Hvad advarer høj temperatur (>38,5) kombineret med konfusion om hos ældre?",
+    "answer": "Mistanke om sepsis, UVI, pneumoni eller meningitis.",
+    "difficulty": "medium",
+    "tags": [
+      "ældre",
+      "sepsis",
+      "infektion"
+    ],
+    "deckId": "infektionCards"
+  },
+  {
+    "id": "inf_019",
+    "subject": "Sygdomslære",
+    "topic": "Infektion",
+    "question": "Hvordan skelner man mellem allergisk shock og septisk shock præhospitalt?",
+    "answer": "Allergisk shock: pludselig, udslæt, hævelse, hvæsende vejrtrækning. Septisk shock: feber, infektion, konfusion.",
+    "difficulty": "hard",
+    "tags": [
+      "shock",
+      "allergi",
+      "sepsis"
+    ],
+    "deckId": "infektionCards"
+  },
+  {
+    "id": "inf_020",
+    "subject": "Sygdomslære",
+    "topic": "Infektion",
+    "question": "Hvad er den vigtigste præhospitale behandling ved mistanke om sepsis?",
+    "answer": "ABCDE, væskebehandling, ilt ved behov, monitorering og hurtig transport til hospital.",
+    "difficulty": "easy",
+    "tags": [
+      "behandling",
+      "prehospital"
+    ],
+    "deckId": "infektionCards"
+  },
+  {
+    "id": "lung_001",
+    "subject": "Sygdomslære",
+    "topic": "Lungesygdomme",
+    "question": "Hvordan defineres akut respirationssvigt?",
+    "answer": "Manglende evne til at opretholde normal iltning eller udskille CO₂. Typisk Sat < 90% eller RF > 30 eller < 8.",
+    "difficulty": "medium",
+    "tags": [
+      "respirationssvigt",
+      "ABCDE"
+    ],
+    "deckId": "lungesygdommeCards"
+  },
+  {
+    "id": "lung_002",
+    "subject": "Sygdomslære",
+    "topic": "Lungesygdomme",
+    "question": "Hvad kendetegner KOL-præhospitalt?",
+    "answer": "Forværret dyspnø, hoste, ekspektoration, forlænget ekspirium og brug af accessoriske respirationsmuskler.",
+    "difficulty": "easy",
+    "tags": [
+      "KOL",
+      "dyspnø"
+    ],
+    "deckId": "lungesygdommeCards"
+  },
+  {
+    "id": "lung_003",
+    "subject": "Sygdomslære",
+    "topic": "Lungesygdomme",
+    "question": "Hvorfor bør man være forsigtig med høj ilttilførsel til KOL-patienter?",
+    "answer": "Kan fjerne hypoksidrevet respiration og medføre CO₂-retention og bevidsthedspåvirkning.",
+    "difficulty": "hard",
+    "tags": [
+      "KOL",
+      "iltbehandling"
+    ],
+    "deckId": "lungesygdommeCards"
+  },
+  {
+    "id": "lung_004",
+    "subject": "Sygdomslære",
+    "topic": "Lungesygdomme",
+    "question": "Hvordan adskiller astma sig fra KOL præhospitalt?",
+    "answer": "Astma: pludselig bronkospasme, ofte yngre patient, god respons på bronkodilatatorer. KOL: gradvis forværring, kronisk.",
+    "difficulty": "medium",
+    "tags": [
+      "astma",
+      "KOL"
+    ],
+    "deckId": "lungesygdommeCards"
+  },
+  {
+    "id": "lung_005",
+    "subject": "Sygdomslære",
+    "topic": "Lungesygdomme",
+    "question": "Hvilke fund tyder på svær astma-forværring?",
+    "answer": "RF >30, puls >120, stilhed over lungerne, cyanose, udtrætning og bevidsthedspåvirkning.",
+    "difficulty": "hard",
+    "tags": [
+      "astma",
+      "livstruende"
+    ],
+    "deckId": "lungesygdommeCards"
+  },
+  {
+    "id": "lung_006",
+    "subject": "Sygdomslære",
+    "topic": "Lungesygdomme",
+    "question": "Hvad tyder unilateral nedsat st.p. og hypotension på?",
+    "answer": "Mistanke om spændingspneumothorax.",
+    "difficulty": "medium",
+    "tags": [
+      "pneumothorax",
+      "ABCDE"
+    ],
+    "deckId": "lungesygdommeCards"
+  },
+  {
+    "id": "lung_007",
+    "subject": "Sygdomslære",
+    "topic": "Lungesygdomme",
+    "question": "Hvad er de klassiske tegn på pneumoni præhospitalt?",
+    "answer": "Feber, hoste, purulent sputum, dyspnø, unilateral st.p. med knitrelyde.",
+    "difficulty": "easy",
+    "tags": [
+      "pneumoni",
+      "infektion"
+    ],
+    "deckId": "lungesygdommeCards"
+  },
+  {
+    "id": "lung_008",
+    "subject": "Sygdomslære",
+    "topic": "Lungesygdomme",
+    "question": "Hvordan kan man klinisk skelne mellem hjertestop og lungeemboli i hjertestop-situation?",
+    "answer": "LE: ofte cyanose, tidligere dyspnø, pludseligt kredsløbskollaps, evt. højre belastning på EKG.",
+    "difficulty": "hard",
+    "tags": [
+      "lungeemboli",
+      "hjertestop"
+    ],
+    "deckId": "lungesygdommeCards"
+  },
+  {
+    "id": "lung_009",
+    "subject": "Sygdomslære",
+    "topic": "Lungesygdomme",
+    "question": "Hvad er typiske symptomer på lungeemboli?",
+    "answer": "Pludselig dyspnø, brystsmerter, tachykardi, evt. hæmoptyse og synkope.",
+    "difficulty": "medium",
+    "tags": [
+      "emboli",
+      "dyspnø"
+    ],
+    "deckId": "lungesygdommeCards"
+  },
+  {
+    "id": "lung_010",
+    "subject": "Sygdomslære",
+    "topic": "Lungesygdomme",
+    "question": "Hvordan kan lungeødem identificeres præhospitalt?",
+    "answer": "Skummende evt. lyserødt sputum, gispende vejrtrækning, crepitationer bilateralt og ortopnø.",
+    "difficulty": "medium",
+    "tags": [
+      "lungeødem",
+      "hjertesvigt"
+    ],
+    "deckId": "lungesygdommeCards"
+  },
+  {
+    "id": "lung_011",
+    "subject": "Sygdomslære",
+    "topic": "Lungesygdomme",
+    "question": "Hvorfor gives CPAP ved lungeødem?",
+    "answer": "Forbedrer gasudveksling, reducerer preload og presser væske væk fra alveoler.",
+    "difficulty": "hard",
+    "tags": [
+      "CPAP",
+      "lungeødem"
+    ],
+    "deckId": "lungesygdommeCards"
+  },
+  {
+    "id": "lung_012",
+    "subject": "Sygdomslære",
+    "topic": "Lungesygdomme",
+    "question": "Hvordan præsenterer COVID-19 sig ofte præhospitalt?",
+    "answer": "Langsom debut med feber, tør hoste, dyspnø, træthed og evt. hypoksi uden dyspnø (silent hypoxia).",
+    "difficulty": "medium",
+    "tags": [
+      "COVID",
+      "infektion"
+    ],
+    "deckId": "lungesygdommeCards"
+  },
+  {
+    "id": "lung_013",
+    "subject": "Sygdomslære",
+    "topic": "Lungesygdomme",
+    "question": "Hvad betyder 'silent hypoxia'?",
+    "answer": "Patienten har lav iltmætning uden at føle udtalt dyspnø – typisk ved COVID-19.",
+    "difficulty": "hard",
+    "tags": [
+      "hypoksi"
+    ],
+    "deckId": "lungesygdommeCards"
+  },
+  {
+    "id": "lung_014",
+    "subject": "Sygdomslære",
+    "topic": "Lungesygdomme",
+    "question": "Hvad er forskellen på inspiratoriske og ekspiratoriske rhonchi?",
+    "answer": "Inspiratorisk: tyder ofte på øvre luftvejsobstruktion. Ekspiratorisk: bronkospasme, fx astma/KOL.",
+    "difficulty": "medium",
+    "tags": [
+      "st.p",
+      "lungelyde"
+    ],
+    "deckId": "lungesygdommeCards"
+  },
+  {
+    "id": "lung_015",
+    "subject": "Sygdomslære",
+    "topic": "Lungesygdomme",
+    "question": "Hvordan vurderes dyspnø klinisk?",
+    "answer": "RF, iltmætning, brug af accessoriske muskler, cyanose, bevidsthed og påvirket tale.",
+    "difficulty": "easy",
+    "tags": [
+      "dyspnø",
+      "vurdering"
+    ],
+    "deckId": "lungesygdommeCards"
+  },
+  {
+    "id": "lung_016",
+    "subject": "Sygdomslære",
+    "topic": "Lungesygdomme",
+    "question": "Hvad er Kussmaul-respiration, og hvornår ses det?",
+    "answer": "Dybe, hurtige vejrtrækninger som kompensation for metabolisk acidose – fx ved ketoacidose og nyresvigt.",
+    "difficulty": "hard",
+    "tags": [
+      "Kussmaul",
+      "acidose"
+    ],
+    "deckId": "lungesygdommeCards"
+  },
+  {
+    "id": "lung_017",
+    "subject": "Sygdomslære",
+    "topic": "Lungesygdomme",
+    "question": "Hvad tyder bradypnø og lav respons ved hypoksi på?",
+    "answer": "Respirationsinsufficiens og risiko for respirationsstop. Kræver akut ventilationsstøtte.",
+    "difficulty": "hard",
+    "tags": [
+      "insufficiens",
+      "ABCDE"
+    ],
+    "deckId": "lungesygdommeCards"
+  },
+  {
+    "id": "lung_018",
+    "subject": "Sygdomslære",
+    "topic": "Lungesygdomme",
+    "question": "Hvordan kan du præhospitalt mistænke obstruktiv vs restriktiv lungesygdom?",
+    "answer": "Obstruktiv: forlænget ekspirium og hvæsende vejrtrækning. Restriktiv: stiv thorax, hurtig og overfladisk respiration.",
+    "difficulty": "hard",
+    "tags": [
+      "obstruktiv",
+      "restriktiv"
+    ],
+    "deckId": "lungesygdommeCards"
+  },
+  {
+    "id": "lung_019",
+    "subject": "Sygdomslære",
+    "topic": "Lungesygdomme",
+    "question": "Nævn tre årsager til akut dyspnø, som kræver intensiv præhospital behandling.",
+    "answer": "Astma/KOL forværring, lungeemboli, pneumothorax, hjertesvigt eller alvorlig pneumoni.",
+    "difficulty": "easy",
+    "tags": [
+      "dyspnø",
+      "akut"
+    ],
+    "deckId": "lungesygdommeCards"
+  },
+  {
+    "id": "lung_020",
+    "subject": "Sygdomslære",
+    "topic": "Lungesygdomme",
+    "question": "Hvad er de vigtigste præhospitale interventioner ved respirationssvigt?",
+    "answer": "Ilt, CPAP eller ventilationsstøtte, lejring, bronkodilatatorer, ABCDE og hurtig transport.",
+    "difficulty": "medium",
+    "tags": [
+      "behandling",
+      "respirationssvigt"
+    ],
+    "deckId": "lungesygdommeCards"
+  },
+  {
+    "id": "neuro_001",
+    "subject": "Sygdomslære",
+    "topic": "Neurologi",
+    "question": "Hvad er den præhospitale definition på apopleksi?",
+    "answer": "Pludseligt opståede neurologiske udfald pga. enten iskæmi (infarkt) eller blødning i hjernen.",
+    "difficulty": "easy",
+    "tags": [
+      "apopleksi",
+      "stroke"
+    ],
+    "deckId": "neurologiCards"
+  },
+  {
+    "id": "neuro_002",
+    "subject": "Sygdomslære",
+    "topic": "Neurologi",
+    "question": "Hvad står FAST for ved stroke-screening?",
+    "answer": "Face, Arm, Speech, Time – bruges til hurtig identifikation af apopleksi.",
+    "difficulty": "easy",
+    "tags": [
+      "stroke",
+      "FAST"
+    ],
+    "deckId": "neurologiCards"
+  },
+  {
+    "id": "neuro_003",
+    "subject": "Sygdomslære",
+    "topic": "Neurologi",
+    "question": "Hvilke symptomer ses typisk ved en TCI (transitorisk cerebral iskæmi)?",
+    "answer": "Stroke-lignende symptomer, men med fuld remission inden for 24 timer.",
+    "difficulty": "medium",
+    "tags": [
+      "TCI",
+      "iskæmi"
+    ],
+    "deckId": "neurologiCards"
+  },
+  {
+    "id": "neuro_004",
+    "subject": "Sygdomslære",
+    "topic": "Neurologi",
+    "question": "Hvordan kan du præhospitalt mistænke en intracerebral blødning fremfor iskæmisk stroke?",
+    "answer": "Oftere hovedpine, kvalme, bevidsthedspåvirkning og høj BT ved blødning.",
+    "difficulty": "hard",
+    "tags": [
+      "blødning",
+      "stroke"
+    ],
+    "deckId": "neurologiCards"
+  },
+  {
+    "id": "neuro_005",
+    "subject": "Sygdomslære",
+    "topic": "Neurologi",
+    "question": "Hvad er et fokalt neurologisk udfald?",
+    "answer": "Funktionsudfald i bestemte dele af kroppen, fx hemiparese, synsudfald eller taleforstyrrelse.",
+    "difficulty": "medium",
+    "tags": [
+      "neurologi",
+      "fokal"
+    ],
+    "deckId": "neurologiCards"
+  },
+  {
+    "id": "neuro_006",
+    "subject": "Sygdomslære",
+    "topic": "Neurologi",
+    "question": "Hvad er en epileptisk krampe?",
+    "answer": "Ufrivillige neurologiske symptomer pga. ukontrolleret elektrisk aktivitet i hjernen.",
+    "difficulty": "easy",
+    "tags": [
+      "epilepsi",
+      "kramper"
+    ],
+    "deckId": "neurologiCards"
+  },
+  {
+    "id": "neuro_007",
+    "subject": "Sygdomslære",
+    "topic": "Neurologi",
+    "question": "Hvad er status epilepticus?",
+    "answer": "Et epileptisk anfald over 5 min eller flere anfald uden normalisering imellem – akut livstruende.",
+    "difficulty": "hard",
+    "tags": [
+      "status",
+      "epilepsi"
+    ],
+    "deckId": "neurologiCards"
+  },
+  {
+    "id": "neuro_008",
+    "subject": "Sygdomslære",
+    "topic": "Neurologi",
+    "question": "Hvordan behandles kramper præhospitalt?",
+    "answer": "ABCDE, frie luftveje, ilt, benzodiazepiner efter ordination, monitorering og hurtig transport.",
+    "difficulty": "medium",
+    "tags": [
+      "kramper",
+      "behandling"
+    ],
+    "deckId": "neurologiCards"
+  },
+  {
+    "id": "neuro_009",
+    "subject": "Sygdomslære",
+    "topic": "Neurologi",
+    "question": "Hvad bruges GCS til?",
+    "answer": "Vurdering af bevidsthedsniveau ud fra øjenåbning, verbalt og motorisk respons.",
+    "difficulty": "easy",
+    "tags": [
+      "GCS",
+      "bevidsthed"
+    ],
+    "deckId": "neurologiCards"
+  },
+  {
+    "id": "neuro_010",
+    "subject": "Sygdomslære",
+    "topic": "Neurologi",
+    "question": "Hvad definerer en bevidsthedspåvirket patient?",
+    "answer": "GCS <15 eller ændret mental status (fx sløv, konfus, desorienteret).",
+    "difficulty": "medium",
+    "tags": [
+      "bevidsthed",
+      "GCS"
+    ],
+    "deckId": "neurologiCards"
+  },
+  {
+    "id": "neuro_011",
+    "subject": "Sygdomslære",
+    "topic": "Neurologi",
+    "question": "Hvad er anisokori, og hvorfor er det vigtigt?",
+    "answer": "Forskellig pupilstørrelse, kan tyde på intrakraniel blødning eller trykstigning.",
+    "difficulty": "hard",
+    "tags": [
+      "anisokori",
+      "pupil"
+    ],
+    "deckId": "neurologiCards"
+  },
+  {
+    "id": "neuro_012",
+    "subject": "Sygdomslære",
+    "topic": "Neurologi",
+    "question": "Hvad er et konfusionstilstand?",
+    "answer": "Akut forstyrret kognition med desorientering, nedsat hukommelse og opmærksomhed.",
+    "difficulty": "medium",
+    "tags": [
+      "konfusion",
+      "bevidsthed"
+    ],
+    "deckId": "neurologiCards"
+  },
+  {
+    "id": "neuro_013",
+    "subject": "Sygdomslære",
+    "topic": "Neurologi",
+    "question": "Hvordan kan hypoglykæmi give neurologiske symptomer?",
+    "answer": "Manglende glukose til hjernen kan give kramper, parese, konfusion eller koma.",
+    "difficulty": "medium",
+    "tags": [
+      "hypoglykæmi",
+      "neurologi"
+    ],
+    "deckId": "neurologiCards"
+  },
+  {
+    "id": "neuro_014",
+    "subject": "Sygdomslære",
+    "topic": "Neurologi",
+    "question": "Hvad er patofysiologien bag meningitis?",
+    "answer": "Infektion i hjernehinderne → inflammation → ødem → forhøjet intrakranielt tryk.",
+    "difficulty": "hard",
+    "tags": [
+      "meningitis",
+      "tryk"
+    ],
+    "deckId": "neurologiCards"
+  },
+  {
+    "id": "neuro_015",
+    "subject": "Sygdomslære",
+    "topic": "Neurologi",
+    "question": "Hvilke symptomer ses ofte ved meningitis?",
+    "answer": "Nakkestivhed, feber, hovedpine, opkast, fotofobi og evt. petekkier.",
+    "difficulty": "medium",
+    "tags": [
+      "meningitis",
+      "abc"
+    ],
+    "deckId": "neurologiCards"
+  },
+  {
+    "id": "neuro_016",
+    "subject": "Sygdomslære",
+    "topic": "Neurologi",
+    "question": "Hvad er forskellen på bevidstløshed og koma?",
+    "answer": "Koma er dyb bevidstløshed uden respons på tale eller smerte (GCS ≤ 8).",
+    "difficulty": "medium",
+    "tags": [
+      "koma",
+      "bevidsthed"
+    ],
+    "deckId": "neurologiCards"
+  },
+  {
+    "id": "neuro_017",
+    "subject": "Sygdomslære",
+    "topic": "Neurologi",
+    "question": "Hvad er en postiktal fase?",
+    "answer": "Tidsperioden efter et epileptisk anfald med træthed, konfusion og muskelsmerter.",
+    "difficulty": "easy",
+    "tags": [
+      "epilepsi",
+      "postiktal"
+    ],
+    "deckId": "neurologiCards"
+  },
+  {
+    "id": "neuro_018",
+    "subject": "Sygdomslære",
+    "topic": "Neurologi",
+    "question": "Hvordan vurderes pupilreaktion præhospitalt?",
+    "answer": "Tjek størrelse, symmetri og lysreaktion på begge øjne. Unormal respons kan tyde på hjerneskade.",
+    "difficulty": "medium",
+    "tags": [
+      "pupil",
+      "neurologi"
+    ],
+    "deckId": "neurologiCards"
+  },
+  {
+    "id": "neuro_019",
+    "subject": "Sygdomslære",
+    "topic": "Neurologi",
+    "question": "Hvorfor er aphasi et vigtigt fund ved stroke?",
+    "answer": "Taleforstyrrelse kan være første tegn på iskæmi i venstre hemisfære (brocas eller wernickes område).",
+    "difficulty": "medium",
+    "tags": [
+      "aphasi",
+      "stroke"
+    ],
+    "deckId": "neurologiCards"
+  },
+  {
+    "id": "neuro_020",
+    "subject": "Sygdomslære",
+    "topic": "Neurologi",
+    "question": "Hvilke neurologiske tilstande kan give akut bevidsthedstab?",
+    "answer": "Epilepsi, hypoglykæmi, apopleksi, intoxikation, hovedtraume, hypoxi og hypoperfusion.",
+    "difficulty": "hard",
+    "tags": [
+      "ABCDE",
+      "årsager"
+    ],
+    "deckId": "neurologiCards"
+  },
+  {
+    "id": "nyre_001",
+    "subject": "Sygdomslære",
+    "topic": "Nyrer og urinveje",
+    "question": "Hvad er akut nyresvigt (AKI)?",
+    "answer": "Pludseligt tab af nyrernes evne til at filtrere blod og udskille affaldsstoffer. Opdages ofte ved forhøjet kreatinin og nedsat urinproduktion.",
+    "difficulty": "medium",
+    "tags": [
+      "AKI",
+      "nyresvigt"
+    ],
+    "deckId": "nyrerCards"
+  },
+  {
+    "id": "nyre_002",
+    "subject": "Sygdomslære",
+    "topic": "Nyrer og urinveje",
+    "question": "Hvordan kan akut nyresvigt opdeles ætiologisk?",
+    "answer": "Prærenal (hypoperfusion), renal (nyreparenkym skade) og postrenal (obstruktion i urinveje).",
+    "difficulty": "hard",
+    "tags": [
+      "AKI",
+      "klassifikation"
+    ],
+    "deckId": "nyrerCards"
+  },
+  {
+    "id": "nyre_003",
+    "subject": "Sygdomslære",
+    "topic": "Nyrer og urinveje",
+    "question": "Hvad er de vigtigste præhospitale tegn på nyresvigt?",
+    "answer": "Ødemer, træthed, kvalme, påvirket bevidsthed, hypertension og evt. Kussmaul-respiration.",
+    "difficulty": "medium",
+    "tags": [
+      "nyresvigt",
+      "symptomer"
+    ],
+    "deckId": "nyrerCards"
+  },
+  {
+    "id": "nyre_004",
+    "subject": "Sygdomslære",
+    "topic": "Nyrer og urinveje",
+    "question": "Hvordan kan nyresvigt føre til lungeødem?",
+    "answer": "Væskeophobning pga. nedsat diurese giver øget preload og væskepres i alveolerne.",
+    "difficulty": "hard",
+    "tags": [
+      "nyresvigt",
+      "lungeødem"
+    ],
+    "deckId": "nyrerCards"
+  },
+  {
+    "id": "nyre_005",
+    "subject": "Sygdomslære",
+    "topic": "Nyrer og urinveje",
+    "question": "Hvad er et urinretentionsproblem?",
+    "answer": "Manglende evne til at tømme blæren fuldt, ofte pga. obstruktion eller neurologisk dysfunktion.",
+    "difficulty": "easy",
+    "tags": [
+      "urinretention"
+    ],
+    "deckId": "nyrerCards"
+  },
+  {
+    "id": "nyre_006",
+    "subject": "Sygdomslære",
+    "topic": "Nyrer og urinveje",
+    "question": "Hvad er pyelonefritis, og hvilke symptomer ses?",
+    "answer": "Nyrebækkenbetændelse. Symptomer: flankesmerter, feber, kulderystelser og kvalme.",
+    "difficulty": "medium",
+    "tags": [
+      "pyelonefritis",
+      "infektion"
+    ],
+    "deckId": "nyrerCards"
+  },
+  {
+    "id": "nyre_007",
+    "subject": "Sygdomslære",
+    "topic": "Nyrer og urinveje",
+    "question": "Hvordan kan man præhospitalt skelne pyelonefritis fra cystitis?",
+    "answer": "Cystitis giver lokale symptomer (svie og hyppig vandladning). Pyelonefritis giver flankesmerter, feber og almen påvirkning.",
+    "difficulty": "medium",
+    "tags": [
+      "cystitis",
+      "infektion"
+    ],
+    "deckId": "nyrerCards"
+  },
+  {
+    "id": "nyre_008",
+    "subject": "Sygdomslære",
+    "topic": "Nyrer og urinveje",
+    "question": "Hvorfor kan infektion i urinvejene føre til sepsis?",
+    "answer": "Hvis bakterier spredes til blodet kan det give urosepsis – især hos ældre og svækkede patienter.",
+    "difficulty": "medium",
+    "tags": [
+      "urosepsis",
+      "infektion"
+    ],
+    "deckId": "nyrerCards"
+  },
+  {
+    "id": "nyre_009",
+    "subject": "Sygdomslære",
+    "topic": "Nyrer og urinveje",
+    "question": "Hvad er klassiske tegn på nyresten?",
+    "answer": "Kolikagtige flankesmerter med udstråling mod lysken, kvalme og rastløshed.",
+    "difficulty": "medium",
+    "tags": [
+      "nyresten",
+      "koliksmerter"
+    ],
+    "deckId": "nyrerCards"
+  },
+  {
+    "id": "nyre_010",
+    "subject": "Sygdomslære",
+    "topic": "Nyrer og urinveje",
+    "question": "Hvordan opstår koliksmerter ved nyresten?",
+    "answer": "Tryk og spasmer i urinlederen pga. obstruerende sten giver intense bølgeformede smerter.",
+    "difficulty": "hard",
+    "tags": [
+      "koliksmerter",
+      "patofysiologi"
+    ],
+    "deckId": "nyrerCards"
+  },
+  {
+    "id": "nyre_011",
+    "subject": "Sygdomslære",
+    "topic": "Nyrer og urinveje",
+    "question": "Hvad kendetegner urosepsis præhospitalt?",
+    "answer": "Feber, hypotension, takykardi, mental påvirkning og infektionstegn fra urinveje.",
+    "difficulty": "hard",
+    "tags": [
+      "urosepsis",
+      "sepsis"
+    ],
+    "deckId": "nyrerCards"
+  },
+  {
+    "id": "nyre_012",
+    "subject": "Sygdomslære",
+    "topic": "Nyrer og urinveje",
+    "question": "Hvorfor kan nyresvigt føre til hyperkaliæmi?",
+    "answer": "Kalium udskilles primært via nyrerne, så nyresvigt medfører ophobning i blodet.",
+    "difficulty": "hard",
+    "tags": [
+      "hyperkaliæmi",
+      "nyresvigt",
+      "EKG"
+    ],
+    "deckId": "nyrerCards"
+  },
+  {
+    "id": "nyre_013",
+    "subject": "Sygdomslære",
+    "topic": "Nyrer og urinveje",
+    "question": "Hvilket EKG-fund ses ved hyperkaliæmi?",
+    "answer": "Spidse T-takker, bred QRS, flade P-takker og risiko for VF eller asystoli.",
+    "difficulty": "hard",
+    "tags": [
+      "hyperkaliæmi",
+      "EKG"
+    ],
+    "deckId": "nyrerCards"
+  },
+  {
+    "id": "nyre_014",
+    "subject": "Sygdomslære",
+    "topic": "Nyrer og urinveje",
+    "question": "Hvordan behandles hyperkaliæmi præhospitalt?",
+    "answer": "Calciumchlorid (stabiliserer hjertet), evt. ventolin eller natriumbikarbonat efter lægeordination.",
+    "difficulty": "hard",
+    "tags": [
+      "hyperkaliæmi",
+      "behandling"
+    ],
+    "deckId": "nyrerCards"
+  },
+  {
+    "id": "nyre_015",
+    "subject": "Sygdomslære",
+    "topic": "Nyrer og urinveje",
+    "question": "Hvorfor bliver nogle nyresvigtpatienter konfuse?",
+    "answer": "Uremi (ophobning af affaldsstoffer) påvirker hjernen og giver encefalopati.",
+    "difficulty": "medium",
+    "tags": [
+      "uremi",
+      "bevidsthedspåvirkning"
+    ],
+    "deckId": "nyrerCards"
+  },
+  {
+    "id": "nyre_016",
+    "subject": "Sygdomslære",
+    "topic": "Nyrer og urinveje",
+    "question": "Hvad er oliguri og anuri?",
+    "answer": "Oliguri: urinproduktion <400 ml/døgn. Anuri: <100 ml/døgn.",
+    "difficulty": "easy",
+    "tags": [
+      "urinproduktion"
+    ],
+    "deckId": "nyrerCards"
+  },
+  {
+    "id": "nyre_017",
+    "subject": "Sygdomslære",
+    "topic": "Nyrer og urinveje",
+    "question": "Hvorfor må man være forsigtig med væskebehandling ved nyresvigtpatienter?",
+    "answer": "De kan ikke udskille væske normalt og risikerer lungeødem.",
+    "difficulty": "medium",
+    "tags": [
+      "væske",
+      "nyresvigt"
+    ],
+    "deckId": "nyrerCards"
+  },
+  {
+    "id": "nyre_018",
+    "subject": "Sygdomslære",
+    "topic": "Nyrer og urinveje",
+    "question": "Hvordan påvirker nyresvigt syre-base-balancen?",
+    "answer": "Nyresvigt kan give metabolisk acidose, da syre ikke udskilles.",
+    "difficulty": "hard",
+    "tags": [
+      "acidose",
+      "nyresvigt"
+    ],
+    "deckId": "nyrerCards"
+  },
+  {
+    "id": "nyre_019",
+    "subject": "Sygdomslære",
+    "topic": "Nyrer og urinveje",
+    "question": "Hvad er de vigtigste præhospitale prioriteter ved mistanke om AKI?",
+    "answer": "ABCDE, vurder hydrering, monitorering, vurder urinproduktion og transport til hospital.",
+    "difficulty": "medium",
+    "tags": [
+      "AKI",
+      "prehospital"
+    ],
+    "deckId": "nyrerCards"
+  },
+  {
+    "id": "nyre_020",
+    "subject": "Sygdomslære",
+    "topic": "Nyrer og urinveje",
+    "question": "Hvordan kan akut urinretention påvirke en ældre mand med prostataproblemer?",
+    "answer": "Kan give smerter, uro, hypertension og risiko for nyreskade ved langvarig retention.",
+    "difficulty": "medium",
+    "tags": [
+      "prostata",
+      "urinretention"
+    ],
+    "deckId": "nyrerCards"
+  },
+  {
+    "id": "paed_001",
+    "subject": "Sygdomslære",
+    "topic": "Pædiatri",
+    "question": "Hvorfor er børn fysiologisk mere sårbare ved hypoksi end voksne?",
+    "answer": "De har højere iltforbrug, mindre funktionelle reserve og kan hurtigt dekompensere ved luftvejshinder.",
+    "difficulty": "medium",
+    "tags": [
+      "hypoksi",
+      "respiration"
+    ],
+    "deckId": "paediatriCards"
+  },
+  {
+    "id": "paed_002",
+    "subject": "Sygdomslære",
+    "topic": "Pædiatri",
+    "question": "Hvad er det vigtigste første skridt ved vurdering af sygt barn præhospitalt?",
+    "answer": "ABCDE, men især vurdering af adfærd, bevidsthed, vejrtrækning og cirkulation (PAT: Pediatric Assessment Triangle).",
+    "difficulty": "easy",
+    "tags": [
+      "ABCDE",
+      "PAT"
+    ],
+    "deckId": "paediatriCards"
+  },
+  {
+    "id": "paed_003",
+    "subject": "Sygdomslære",
+    "topic": "Pædiatri",
+    "question": "Hvorfor er et stille barn mere alarmerende end et grædende barn?",
+    "answer": "Fordi gråd kræver energi og luftveje — stille børn kan være kritisk syge eller præchok.",
+    "difficulty": "medium",
+    "tags": [
+      "red flags"
+    ],
+    "deckId": "paediatriCards"
+  },
+  {
+    "id": "paed_004",
+    "subject": "Sygdomslære",
+    "topic": "Pædiatri",
+    "question": "Hvad er typiske tegn på dehydrering hos børn?",
+    "answer": "Indsunkne øjne, tørre slimhinder, slaphed, kølig hud, nedsat tissetrang og ingen tårer ved gråd.",
+    "difficulty": "easy",
+    "tags": [
+      "dehydrering"
+    ],
+    "deckId": "paediatriCards"
+  },
+  {
+    "id": "paed_005",
+    "subject": "Sygdomslære",
+    "topic": "Pædiatri",
+    "question": "Hvad kan være tidligt tegn på sepsis hos børn?",
+    "answer": "Sløvhed, irritabilitet, påvirket perifer cirkulation, marmoreret hud, forlænget kapillærrespons.",
+    "difficulty": "hard",
+    "tags": [
+      "sepsis",
+      "shock"
+    ],
+    "deckId": "paediatriCards"
+  },
+  {
+    "id": "paed_006",
+    "subject": "Sygdomslære",
+    "topic": "Pædiatri",
+    "question": "Hvordan vurderer man kapillærrespons korrekt hos børn?",
+    "answer": "Pres på sternum eller fingerpulp i 5 sekunder og slip — >2 sekunder genopfyldning er patologisk.",
+    "difficulty": "easy",
+    "tags": [
+      "circulation"
+    ],
+    "deckId": "paediatriCards"
+  },
+  {
+    "id": "paed_007",
+    "subject": "Sygdomslære",
+    "topic": "Pædiatri",
+    "question": "Hvad er feberkramper, og hvad er vigtigst præhospitalt?",
+    "answer": "Generaliserede tonisk-kloniske kramper hos børn 6 mdr.–5 år. Beskyt barnet mod skade, luftvejsovervågning og ABC.",
+    "difficulty": "medium",
+    "tags": [
+      "feberkramper"
+    ],
+    "deckId": "paediatriCards"
+  },
+  {
+    "id": "paed_008",
+    "subject": "Sygdomslære",
+    "topic": "Pædiatri",
+    "question": "Hvad er de præhospitale faresignaler ved meningitis hos børn?",
+    "answer": "Petekier, nakkestivhed, påvirket bevidsthed, kramper, sløvhed og marmoreret/blålig hud.",
+    "difficulty": "hard",
+    "tags": [
+      "meningitis"
+    ],
+    "deckId": "paediatriCards"
+  },
+  {
+    "id": "paed_009",
+    "subject": "Sygdomslære",
+    "topic": "Pædiatri",
+    "question": "Hvorfor kan børn hurtigt udvikle respirationssvigt?",
+    "answer": "Smalle luftveje, høj metabolisme og begrænset evne til at øge tidalvolumen.",
+    "difficulty": "medium",
+    "tags": [
+      "respiration"
+    ],
+    "deckId": "paediatriCards"
+  },
+  {
+    "id": "paed_010",
+    "subject": "Sygdomslære",
+    "topic": "Pædiatri",
+    "question": "Hvordan vurderer man respirationsarbejde hos børn?",
+    "answer": "Se efter indtrækninger, næseflaring, hurtig RF, cyanose, uro eller udtrætning.",
+    "difficulty": "easy",
+    "tags": [
+      "respiratorisk arbejde"
+    ],
+    "deckId": "paediatriCards"
+  },
+  {
+    "id": "paed_011",
+    "subject": "Sygdomslære",
+    "topic": "Pædiatri",
+    "question": "Hvordan ser inspiratorisk stridor ofte ud, og hvad tyder det på?",
+    "answer": "Gøende hoste og stridor tyder på øvre luftvejsobstruktion, fx pseudocroup eller epiglottitis.",
+    "difficulty": "medium",
+    "tags": [
+      "stridor"
+    ],
+    "deckId": "paediatriCards"
+  },
+  {
+    "id": "paed_012",
+    "subject": "Sygdomslære",
+    "topic": "Pædiatri",
+    "question": "Hvordan kan tidligt septisk shock vise sig hos børn, før BT falder?",
+    "answer": "Takykardi, marmoreret hud, forlænget kapillærrespons — BT falder sent hos børn.",
+    "difficulty": "hard",
+    "tags": [
+      "shock",
+      "sepsis"
+    ],
+    "deckId": "paediatriCards"
+  },
+  {
+    "id": "paed_013",
+    "subject": "Sygdomslære",
+    "topic": "Pædiatri",
+    "question": "Hvilke vitale tegn vækker mest bekymring hos et barn præhospitalt?",
+    "answer": "Unormalt bevidsthedsniveau, ændret vejrtrækning, cyanose, svag gråd eller hypotension.",
+    "difficulty": "medium",
+    "tags": [
+      "vitalparametre"
+    ],
+    "deckId": "paediatriCards"
+  },
+  {
+    "id": "paed_014",
+    "subject": "Sygdomslære",
+    "topic": "Pædiatri",
+    "question": "Hvad er den hyppigste årsag til hjertestop hos børn?",
+    "answer": "Respirationssvigt — fx astma, luftvejsobstruktion eller drukning.",
+    "difficulty": "medium",
+    "tags": [
+      "hjertestop"
+    ],
+    "deckId": "paediatriCards"
+  },
+  {
+    "id": "paed_015",
+    "subject": "Sygdomslære",
+    "topic": "Pædiatri",
+    "question": "Hvad er vigtigt i kommunikationen med børn?",
+    "answer": "Vær rolig, tal enkelt, brug forældre aktivt, forklar hvad du gør og brug konkrete ord.",
+    "difficulty": "easy",
+    "tags": [
+      "kommunikation"
+    ],
+    "deckId": "paediatriCards"
+  },
+  {
+    "id": "paed_016",
+    "subject": "Sygdomslære",
+    "topic": "Pædiatri",
+    "question": "Hvordan adskiller ABCDE sig hos børn i forhold til voksne?",
+    "answer": "Samme princip, men hos børn vægtes adfærd, interaktion, respiration og hudfarve højere end tal.",
+    "difficulty": "hard",
+    "tags": [
+      "ABCDE",
+      "triage"
+    ],
+    "deckId": "paediatriCards"
+  },
+  {
+    "id": "paed_017",
+    "subject": "Sygdomslære",
+    "topic": "Pædiatri",
+    "question": "Hvordan vurderer man smerte hos børn, der ikke kan tale?",
+    "answer": "Brug adfærd: ansigtsudtryk, kropsstilling, gråd, reaktion ved berøring — fx FLACC-skalaen.",
+    "difficulty": "medium",
+    "tags": [
+      "smertevurdering"
+    ],
+    "deckId": "paediatriCards"
+  },
+  {
+    "id": "paed_018",
+    "subject": "Sygdomslære",
+    "topic": "Pædiatri",
+    "question": "Hvad er tegn på kritisk dehydrering hos spædbørn?",
+    "answer": "Ingen tårer, indsunk fontanelle, slaphed, kold ekstremiteter, ingen urinproduktion.",
+    "difficulty": "hard",
+    "tags": [
+      "dehydrering"
+    ],
+    "deckId": "paediatriCards"
+  },
+  {
+    "id": "paed_019",
+    "subject": "Sygdomslære",
+    "topic": "Pædiatri",
+    "question": "Hvorfor er feber mere farlig hos spædbørn end hos større børn?",
+    "answer": "Immunsystemet er umodent, og feber kan være tegn på alvorlig bakteriel infektion eller sepsis.",
+    "difficulty": "medium",
+    "tags": [
+      "feber"
+    ],
+    "deckId": "paediatriCards"
+  },
+  {
+    "id": "paed_020",
+    "subject": "Sygdomslære",
+    "topic": "Pædiatri",
+    "question": "Hvad er vigtigt ved transport af kritisk sygt barn?",
+    "answer": "Stabilisering før transport, sikre luftvej, varme, ABCDE-overvågning og tæt kommunikation med hospital.",
+    "difficulty": "easy",
+    "tags": [
+      "transport",
+      "kritisk barn"
+    ],
+    "deckId": "paediatriCards"
+  },
+  {
+    "id": "ami_001",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Akut Myokardieinfarkt",
+    "question": "Hvad er AMI (Akut Myokardieinfarkt)?",
+    "answer": "Irreversibel skade på hjertemusklen pga. længerevarende iskæmi, som skyldes blokering af en koronararterie.",
+    "difficulty": "easy",
+    "tags": [
+      "AMI",
+      "iskæmi"
+    ],
+    "deckId": "amiCards"
+  },
+  {
+    "id": "ami_002",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Akut Myokardieinfarkt",
+    "question": "Hvad er forskellen på STEMI og NSTEMI?",
+    "answer": "STEMI har fuldt karokkluderet koronarkar og ST-elevation. NSTEMI har delvis blokering og ingen ST-elevation, men troponinforhøjelse.",
+    "difficulty": "medium",
+    "tags": [
+      "STEMI",
+      "NSTEMI"
+    ],
+    "deckId": "amiCards"
+  },
+  {
+    "id": "ami_003",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Akut Myokardieinfarkt",
+    "question": "Forklar patofysiologien bag AMI.",
+    "answer": "Rift i ateromatøs plaque → trombedannelse → fuld eller delvis blokering af koronararterie → iskæmi → nekrose.",
+    "difficulty": "hard",
+    "tags": [
+      "aterosklerose",
+      "trombe"
+    ],
+    "deckId": "amiCards"
+  },
+  {
+    "id": "ami_004",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Akut Myokardieinfarkt",
+    "question": "Hvorfor gør AMI ondt, og hvor mærkes smerten?",
+    "answer": "Iskæmisk skade udløser inflammation og frigivelse af smertefremkaldende stoffer. Smerten kan stråle til arm, kæbe, ryg og epigastrium.",
+    "difficulty": "medium",
+    "tags": [
+      "brystsmerter"
+    ],
+    "deckId": "amiCards"
+  },
+  {
+    "id": "ami_005",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Akut Myokardieinfarkt",
+    "question": "Nævn typiske symptomer på AMI.",
+    "answer": "Trykken i brystet >20 min, åndenød, kvalme, koldsved, bleghed, angst og ubehag i arm, hals eller mave.",
+    "difficulty": "easy",
+    "tags": [
+      "symptomer"
+    ],
+    "deckId": "amiCards"
+  },
+  {
+    "id": "ami_006",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Akut Myokardieinfarkt",
+    "question": "Hvad er atypiske symptomer på AMI?",
+    "answer": "Mavesmerter, træthed, dyspnø, svimmelhed, synkope, kvalme uden brystsmerter. Ses især hos ældre og diabetikere.",
+    "difficulty": "medium",
+    "tags": [
+      "atypisk"
+    ],
+    "deckId": "amiCards"
+  },
+  {
+    "id": "ami_007",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Akut Myokardieinfarkt",
+    "question": "Hvorfor kan AMI udløse kvalme og opkast?",
+    "answer": "Iskæmi kan aktivere vagusnerven og give kvalme, sved og opkast — især ved inferior infarkt.",
+    "difficulty": "hard",
+    "tags": [
+      "vagus",
+      "inferior infarkt"
+    ],
+    "deckId": "amiCards"
+  },
+  {
+    "id": "ami_008",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Akut Myokardieinfarkt",
+    "question": "Hvilke vitale tegn ses ofte ved AMI?",
+    "answer": "Takykardi, evt. bradykardi, koldsved, dyspnø, lavt BT ved kardiel påvirkning, angst og uro.",
+    "difficulty": "medium",
+    "tags": [
+      "vitalparametre"
+    ],
+    "deckId": "amiCards"
+  },
+  {
+    "id": "ami_009",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Akut Myokardieinfarkt",
+    "question": "Hvad er MONA-behandling?",
+    "answer": "Morphin, Oxygen (kun hvis Sat < 90), Nitro og ASA (trombehæmning). Bruges som initial behandling af infarkt.",
+    "difficulty": "medium",
+    "tags": [
+      "MONA",
+      "ASA"
+    ],
+    "deckId": "amiCards"
+  },
+  {
+    "id": "ami_010",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Akut Myokardieinfarkt",
+    "question": "Hvorfor må nitroglycerin ikke gives ved lavt blodtryk?",
+    "answer": "Nitro giver vasodilatation og sænker preload, hvilket kan føre til kollaps ved hypotension.",
+    "difficulty": "hard",
+    "tags": [
+      "nitro",
+      "hypotension"
+    ],
+    "deckId": "amiCards"
+  },
+  {
+    "id": "ami_011",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Akut Myokardieinfarkt",
+    "question": "Hvad er forskellen på stabil og ustabil angina?",
+    "answer": "Stabil: kommer ved anstrengelse og lindres i hvile. Ustabil: opstår også i hvile, varer længere og kan være forstadie til AMI.",
+    "difficulty": "medium",
+    "tags": [
+      "angina"
+    ],
+    "deckId": "amiCards"
+  },
+  {
+    "id": "ami_012",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Akut Myokardieinfarkt",
+    "question": "Hvorfor kan AMI føre til hjertestop?",
+    "answer": "Infarkt kan udløse livstruende arytmier som VF, VT eller AV-blok, som stopper perfusionen.",
+    "difficulty": "hard",
+    "tags": [
+      "hjertestop",
+      "arytmi"
+    ],
+    "deckId": "amiCards"
+  },
+  {
+    "id": "ami_013",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Akut Myokardieinfarkt",
+    "question": "Hvad måles troponin for?",
+    "answer": "Troponin frigives ved myokardienekrose og bruges til at bekræfte AMI.",
+    "difficulty": "easy",
+    "tags": [
+      "troponin"
+    ],
+    "deckId": "amiCards"
+  },
+  {
+    "id": "ami_014",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Akut Myokardieinfarkt",
+    "question": "Hvorfor ser man ST-elevation ved STEMI?",
+    "answer": "Transmural myokardieiskæmi påvirker repolarisation og giver ST-elevation på EKG.",
+    "difficulty": "hard",
+    "tags": [
+      "EKG",
+      "STEMI"
+    ],
+    "deckId": "amiCards"
+  },
+  {
+    "id": "ami_015",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Akut Myokardieinfarkt",
+    "question": "Hvad betyder 'time is myocardium'?",
+    "answer": "Jo længere tid uden blodforsyning, jo større bliver den irreversible myokardieskade.",
+    "difficulty": "medium",
+    "tags": [
+      "myokardieskade"
+    ],
+    "deckId": "amiCards"
+  },
+  {
+    "id": "ami_016",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Akut Myokardieinfarkt",
+    "question": "Hvordan vurderer du præhospitalt, om patienten har AMI?",
+    "answer": "Anamnese (smerte, varighed, debut), ABCDE, vitalparametre, EKG, smerteradiation, risikofaktorer.",
+    "difficulty": "medium",
+    "tags": [
+      "prehospital",
+      "EKG"
+    ],
+    "deckId": "amiCards"
+  },
+  {
+    "id": "ami_017",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Akut Myokardieinfarkt",
+    "question": "Nævn modifiable risikofaktorer for AMI.",
+    "answer": "Rygestop, overvægt, hypertension, diabetes, hyperkolesterolæmi, inaktivitet, stress.",
+    "difficulty": "easy",
+    "tags": [
+      "risikofaktorer"
+    ],
+    "deckId": "amiCards"
+  },
+  {
+    "id": "ami_018",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Akut Myokardieinfarkt",
+    "question": "Hvorfor er AMI hos diabetikere ofte overset?",
+    "answer": "Diabetikere kan have neuropati og mærker ikke klassiske smerter—ofte asymptomatisk eller atypisk.",
+    "difficulty": "hard",
+    "tags": [
+      "diabetes",
+      "atypisk"
+    ],
+    "deckId": "amiCards"
+  },
+  {
+    "id": "ami_019",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Akut Myokardieinfarkt",
+    "question": "Hvordan håndteres AMI præhospitalt?",
+    "answer": "ABC, smertelindring, EKG, ASA, nitro hvis BT > 100, monitorering, vurdering af transport til PCI-center.",
+    "difficulty": "medium",
+    "tags": [
+      "prehospital",
+      "PCI"
+    ],
+    "deckId": "amiCards"
+  },
+  {
+    "id": "ami_020",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Akut Myokardieinfarkt",
+    "question": "Hvorfor skal STEMI-patienter ofte til PCI og ikke trombolyse?",
+    "answer": "PCI er mere effektiv og har færre komplikationer. Trombolyse bruges hvis PCI ikke kan nås inden for tidsgrænsen.",
+    "difficulty": "medium",
+    "tags": [
+      "PCI",
+      "trombolyse"
+    ],
+    "deckId": "amiCards"
+  },
+  {
+    "id": "ang_001",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Angina pectoris",
+    "question": "Hvad er angina pectoris?",
+    "answer": "Brystsmerter forårsaget af forbigående iskæmi i hjertemuskulaturen pga. utilstrækkelig blodforsyning.",
+    "difficulty": "easy",
+    "tags": [
+      "definition"
+    ],
+    "deckId": "anginaCards"
+  },
+  {
+    "id": "ang_002",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Angina pectoris",
+    "question": "Hvad er forskellen på stabil og ustabil angina?",
+    "answer": "Stabil: udløses ved fysisk/psykisk belastning og lindres i hvile. Ustabil: opstår også i hvile og kan være forstadie til AMI.",
+    "difficulty": "medium",
+    "tags": [
+      "stabil",
+      "ustabil"
+    ],
+    "deckId": "anginaCards"
+  },
+  {
+    "id": "ang_003",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Angina pectoris",
+    "question": "Hvorfor opstår angina pectoris fysiologisk?",
+    "answer": "Når hjertets iltbehov overstiger koronararteriernes evne til at levere blod pga. stenose eller spasme.",
+    "difficulty": "hard",
+    "tags": [
+      "iltbehov",
+      "iskæmi"
+    ],
+    "deckId": "anginaCards"
+  },
+  {
+    "id": "ang_004",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Angina pectoris",
+    "question": "Hvilke symptomer ses ved typisk angina?",
+    "answer": "Trykken i brystet, udstråling til venstre arm, kæbe eller ryg, dyspnø, angst og kvalme.",
+    "difficulty": "easy",
+    "tags": [
+      "symptomer"
+    ],
+    "deckId": "anginaCards"
+  },
+  {
+    "id": "ang_005",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Angina pectoris",
+    "question": "Hvad er atypiske symptomer på angina pectoris?",
+    "answer": "Mavesmerter, træthed, dyspnø, svimmelhed uden klassiske brystsmerter. Ses hos ældre, kvinder og diabetikere.",
+    "difficulty": "medium",
+    "tags": [
+      "atypisk",
+      "diabetes"
+    ],
+    "deckId": "anginaCards"
+  },
+  {
+    "id": "ang_006",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Angina pectoris",
+    "question": "Hvordan adskiller angina sig fra AMI patofysiologisk?",
+    "answer": "Angina er forbigående iskæmi uden nekrose. AMI indebærer længerevarende iskæmi med irreversibel nekrose.",
+    "difficulty": "hard",
+    "tags": [
+      "AMI",
+      "iskæmi"
+    ],
+    "deckId": "anginaCards"
+  },
+  {
+    "id": "ang_007",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Angina pectoris",
+    "question": "Hvordan viser stabil angina sig på EKG under anfald?",
+    "answer": "ST-depression og/eller T-taks inversion under angreb, men normalisering i hvile.",
+    "difficulty": "medium",
+    "tags": [
+      "EKG",
+      "ST-depression"
+    ],
+    "deckId": "anginaCards"
+  },
+  {
+    "id": "ang_008",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Angina pectoris",
+    "question": "Hvad er Prinzmetal’s angina?",
+    "answer": "Variant angina forårsaget af koronararteriespasme. Ses ofte om natten. ST-elevation under anfald.",
+    "difficulty": "hard",
+    "tags": [
+      "prinzmetal",
+      "ST-elevation"
+    ],
+    "deckId": "anginaCards"
+  },
+  {
+    "id": "ang_009",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Angina pectoris",
+    "question": "Hvilken medicin bruges akut mod angina?",
+    "answer": "Nitroglycerin sublingualt — vasodilatation, nedsat preload og forbedret koronar perfusion.",
+    "difficulty": "easy",
+    "tags": [
+      "nitro"
+    ],
+    "deckId": "anginaCards"
+  },
+  {
+    "id": "ang_010",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Angina pectoris",
+    "question": "Hvorfor skal nitroglycerin ikke gives ved SBP < 100?",
+    "answer": "Vasodilatation kan føre til yderligere hypotension og kollaps.",
+    "difficulty": "medium",
+    "tags": [
+      "hypotension",
+      "nitro"
+    ],
+    "deckId": "anginaCards"
+  },
+  {
+    "id": "ang_011",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Angina pectoris",
+    "question": "Hvordan håndteres ustabil angina præhospitalt?",
+    "answer": "ABCDE, EKG, ASA, nitro hvis BT>100, ilt hvis Sat<90, smertelindring, transport til PCI-center.",
+    "difficulty": "hard",
+    "tags": [
+      "præhospital",
+      "ustabil"
+    ],
+    "deckId": "anginaCards"
+  },
+  {
+    "id": "ang_012",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Angina pectoris",
+    "question": "Nævn risikofaktorer for angina.",
+    "answer": "Hypertension, diabetes, rygning, hyperkolesterolæmi, overvægt, inaktivitet, familiær disposition.",
+    "difficulty": "easy",
+    "tags": [
+      "risikofaktorer"
+    ],
+    "deckId": "anginaCards"
+  },
+  {
+    "id": "ang_013",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Angina pectoris",
+    "question": "Hvorfor kan angina føre til kvalme?",
+    "answer": "Iskæmi kan stimulere vagusnerven og give kvalme og sved.",
+    "difficulty": "medium",
+    "tags": [
+      "vagus"
+    ],
+    "deckId": "anginaCards"
+  },
+  {
+    "id": "ang_014",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Angina pectoris",
+    "question": "Hvordan kan man skelne smerter fra angina og muskuloskeletale smerter?",
+    "answer": "Angina lindres ikke ved bevægelse, men ved hvile. Muskuloskeletale smerter forværres ved bevægelse og palpation.",
+    "difficulty": "medium",
+    "tags": [
+      "differentialdiagnose"
+    ],
+    "deckId": "anginaCards"
+  },
+  {
+    "id": "ang_015",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Angina pectoris",
+    "question": "Hvorfor er ustabil angina farlig?",
+    "answer": "Kan være forstadie til AMI og indebærer risiko for akut okklusion.",
+    "difficulty": "medium",
+    "tags": [
+      "ustabil",
+      "AMI"
+    ],
+    "deckId": "anginaCards"
+  },
+  {
+    "id": "ang_016",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Angina pectoris",
+    "question": "Hvad er patofysiologien bag stabil angina?",
+    "answer": "Aterosklerose indsnævrer koronarkar → iskæmi ved øget iltbehov, men normal blodforsyning i hvile.",
+    "difficulty": "hard",
+    "tags": [
+      "aterosklerose",
+      "iskæmi"
+    ],
+    "deckId": "anginaCards"
+  },
+  {
+    "id": "ang_017",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Angina pectoris",
+    "question": "Hvorfor lindrer nitro smerterne ved angina?",
+    "answer": "Nitro dilaterer vener og koronarkar → mindsker preload og øger blodflow til hjertet.",
+    "difficulty": "medium",
+    "tags": [
+      "nitro",
+      "behandling"
+    ],
+    "deckId": "anginaCards"
+  },
+  {
+    "id": "ang_018",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Angina pectoris",
+    "question": "Hvad betyder 'silent angina'?",
+    "answer": "Iskæmi uden smerter — ofte hos diabetikere pga. neuropati.",
+    "difficulty": "medium",
+    "tags": [
+      "silent",
+      "diabetes"
+    ],
+    "deckId": "anginaCards"
+  },
+  {
+    "id": "ang_019",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Angina pectoris",
+    "question": "Hvorfor kan fysisk anstrengelse udløse angina?",
+    "answer": "Øget puls og kontraktilitet → øget iltbehov → koronarkar kan ikke følge med.",
+    "difficulty": "medium",
+    "tags": [
+      "fysisk belastning"
+    ],
+    "deckId": "anginaCards"
+  },
+  {
+    "id": "ang_020",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Angina pectoris",
+    "question": "Hvilke tiltag er vigtige i den præhospitale vurdering af angina?",
+    "answer": "ABCDE, anamnese (OPQRST), vitalparametre, EKG, risikofaktorer, smertevurdering.",
+    "difficulty": "medium",
+    "tags": [
+      "vurdering",
+      "prehospital"
+    ],
+    "deckId": "anginaCards"
+  },
+  {
+    "id": "ary_001",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Arytmier",
+    "question": "Hvad er en arytmi?",
+    "answer": "En forstyrrelse af hjertets rytme, hvor impulsdannelsen eller impulsledningen er unormal.",
+    "difficulty": "easy",
+    "tags": [
+      "definition"
+    ],
+    "deckId": "arytmierCards"
+  },
+  {
+    "id": "ary_002",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Arytmier",
+    "question": "Hvad er forskellen på bradykardi og takykardi?",
+    "answer": "Bradykardi: puls < 50. Takykardi: puls > 100. Begge er rytmeforstyrrelser.",
+    "difficulty": "easy",
+    "tags": [
+      "rytme",
+      "puls"
+    ],
+    "deckId": "arytmierCards"
+  },
+  {
+    "id": "ary_003",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Arytmier",
+    "question": "Hvad karakteriserer atrieflimren (AFLI) på EKG?",
+    "answer": "Uregelmæssig uregelmæssig rytme, ingen tydelige p-takker, varierende RR-interval.",
+    "difficulty": "medium",
+    "tags": [
+      "EKG",
+      "AFLI"
+    ],
+    "deckId": "arytmierCards"
+  },
+  {
+    "id": "ary_004",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Arytmier",
+    "question": "Hvorfor kan AFLI føre til blodprop i hjernen?",
+    "answer": "Stase i atrierne kan føre til trombedannelse, som kan embolisere til blodbanen.",
+    "difficulty": "hard",
+    "tags": [
+      "emboli",
+      "AFLI"
+    ],
+    "deckId": "arytmierCards"
+  },
+  {
+    "id": "ary_005",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Arytmier",
+    "question": "Nævn typiske symptomer ved AFLI.",
+    "answer": "Hjertebanken, svimmelhed, dyspnø, træthed, brystsmerter, evt. asymptomatisk.",
+    "difficulty": "easy",
+    "tags": [
+      "symptomer"
+    ],
+    "deckId": "arytmierCards"
+  },
+  {
+    "id": "ary_006",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Arytmier",
+    "question": "Hvordan behandles AFLI præhospitalt?",
+    "answer": "Monitorering, BT-kontrol, ilt hvis Sat < 90, evt. frekvensregulerende medicin (lægeordineret).",
+    "difficulty": "medium",
+    "tags": [
+      "præhospital",
+      "behandling"
+    ],
+    "deckId": "arytmierCards"
+  },
+  {
+    "id": "ary_007",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Arytmier",
+    "question": "Hvad er ventrikulær takykardi (VT)?",
+    "answer": "Hurtig, regelmæssig, bredt kompleks takykardi med oprindelse i ventriklerne.",
+    "difficulty": "medium",
+    "tags": [
+      "VT",
+      "EKG"
+    ],
+    "deckId": "arytmierCards"
+  },
+  {
+    "id": "ary_008",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Arytmier",
+    "question": "Hvorfor er ventrikelflimren (VF) livstruende?",
+    "answer": "Ventriklerne flimrer uden effektiv kontraktion, hvilket giver 0 minutvolumen.",
+    "difficulty": "medium",
+    "tags": [
+      "VF",
+      "hjertestop"
+    ],
+    "deckId": "arytmierCards"
+  },
+  {
+    "id": "ary_009",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Arytmier",
+    "question": "Hvordan behandles VF præhospitalt?",
+    "answer": "CPR, defibrillering, adrenalin, amiodaron, frie luftveje og O2.",
+    "difficulty": "hard",
+    "tags": [
+      "defibrillering",
+      "hjertestop"
+    ],
+    "deckId": "arytmierCards"
+  },
+  {
+    "id": "ary_010",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Arytmier",
+    "question": "Hvad adskiller PEA fra asystoli?",
+    "answer": "PEA har elektrisk aktivitet men ingen puls. Asystoli er helt flad uden elektrisk aktivitet.",
+    "difficulty": "medium",
+    "tags": [
+      "PEA",
+      "asystoli"
+    ],
+    "deckId": "arytmierCards"
+  },
+  {
+    "id": "ary_011",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Arytmier",
+    "question": "Hvilke reversible årsager skal tænkes ved hjertestop (H's og T's)?",
+    "answer": "Hypoxi, Hypovolæmi, Hypo/Hyperkaliæmi, Hypotermi, Tamponade, Tromboemboli, Trykpneumothorax, Toksiner.",
+    "difficulty": "hard",
+    "tags": [
+      "H's And T's"
+    ],
+    "deckId": "arytmierCards"
+  },
+  {
+    "id": "ary_012",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Arytmier",
+    "question": "Hvorfor kan elektrolytforstyrrelser give arytmier?",
+    "answer": "Ionbalancen påvirker cellernes excitable membran og impulskonduktion.",
+    "difficulty": "hard",
+    "tags": [
+      "ioner",
+      "patofysiologi"
+    ],
+    "deckId": "arytmierCards"
+  },
+  {
+    "id": "ary_013",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Arytmier",
+    "question": "Hvordan genkendes AV-blok 3 på EKG?",
+    "answer": "Total blokering mellem atrier og ventrikler, ingen relation mellem P-takker og QRS.",
+    "difficulty": "hard",
+    "tags": [
+      "AV-blok",
+      "EKG"
+    ],
+    "deckId": "arytmierCards"
+  },
+  {
+    "id": "ary_014",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Arytmier",
+    "question": "Hvad er en ekstrasystole?",
+    "answer": "En ekstra impuls, som opstår uden for sinusknuden. Kan være atriel eller ventrikulær.",
+    "difficulty": "easy",
+    "tags": [
+      "ekstrasystole"
+    ],
+    "deckId": "arytmierCards"
+  },
+  {
+    "id": "ary_015",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Arytmier",
+    "question": "Hvordan påvirker adrenerge hormoner arytmier?",
+    "answer": "Øger excitabilitet og risiko for takykardi/arytmier via sympaticusaktivering.",
+    "difficulty": "hard",
+    "tags": [
+      "catecholaminer"
+    ],
+    "deckId": "arytmierCards"
+  },
+  {
+    "id": "ary_016",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Arytmier",
+    "question": "Hvornår er arytmier livstruende præhospitalt?",
+    "answer": "Ved hæmodynamisk påvirkning: BT-fald, synkope, shock, bevidsthedspåvirkning.",
+    "difficulty": "medium",
+    "tags": [
+      "hæmodynamik",
+      "præhospital"
+    ],
+    "deckId": "arytmierCards"
+  },
+  {
+    "id": "ary_017",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Arytmier",
+    "question": "Hvordan kan hypoxi udløse arytmier?",
+    "answer": "Mangel på ilt påvirker hjertets celler og elektrofysiologi.",
+    "difficulty": "medium",
+    "tags": [
+      "hypoxi"
+    ],
+    "deckId": "arytmierCards"
+  },
+  {
+    "id": "ary_018",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Arytmier",
+    "question": "Hvilke præhospitale værktøjer bruges til arytmidiagnostik?",
+    "answer": "12-aflednings EKG, monitorering, pulsmåling, anamnese og ABCDE.",
+    "difficulty": "easy",
+    "tags": [
+      "EKG",
+      "vurdering"
+    ],
+    "deckId": "arytmierCards"
+  },
+  {
+    "id": "ary_019",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Arytmier",
+    "question": "Hvad er forskellen på shockbar og ikke-shockbar rytme?",
+    "answer": "Shockbar: VF og pulsløs VT. Ikke-shockbar: PEA og asystoli.",
+    "difficulty": "medium",
+    "tags": [
+      "shockbar",
+      "rytmetype"
+    ],
+    "deckId": "arytmierCards"
+  },
+  {
+    "id": "ary_020",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Arytmier",
+    "question": "Hvorfor skal man ikke defibrillere asystoli?",
+    "answer": "Der er ingen elektrisk aktivitet at resynkronisere — kun CPR og adrenalin hjælper.",
+    "difficulty": "medium",
+    "tags": [
+      "asystoli",
+      "defibrillering"
+    ],
+    "deckId": "arytmierCards"
+  },
+  {
+    "id": "hs_001",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertestop",
+    "question": "Hvad er definitionen på hjertestop?",
+    "answer": "Pludselig ophør af effektiv cirkulation, typisk med bevidstløshed, ophørt normal vejrtrækning og manglende livstegn.",
+    "difficulty": "easy",
+    "tags": [
+      "definition"
+    ],
+    "deckId": "hjertestopCards"
+  },
+  {
+    "id": "hs_002",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertestop",
+    "question": "Hvilke to hovedgrupper opdeles hjertestoprytmer i?",
+    "answer": "Shockbare rytmer (VF og pulsløs VT) og ikke-shockbare rytmer (PEA og asystoli).",
+    "difficulty": "easy",
+    "tags": [
+      "rytme",
+      "shockbar"
+    ],
+    "deckId": "hjertestopCards"
+  },
+  {
+    "id": "hs_003",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertestop",
+    "question": "Hvad er formålet med hjertelungeredning (HLR)?",
+    "answer": "At opretholde minimal perfusion af hjerne og vitale organer, indtil spontan cirkulation kan genskabes.",
+    "difficulty": "easy",
+    "tags": [
+      "HLR",
+      "perfursion"
+    ],
+    "deckId": "hjertestopCards"
+  },
+  {
+    "id": "hs_004",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertestop",
+    "question": "Hvilke tre primære fund tyder på hjertestop præhospitalt?",
+    "answer": "Bevidstløshed, manglende normal vejrtrækning og fravær af livstegn (ingen puls, ingen respons).",
+    "difficulty": "easy",
+    "tags": [
+      "diagnose",
+      "ABC"
+    ],
+    "deckId": "hjertestopCards"
+  },
+  {
+    "id": "hs_005",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertestop",
+    "question": "Hvad er anbefalet kompressionsdybde og kompressionsfrekvens hos voksne?",
+    "answer": "Dybde 5–6 cm med frekvens 100–120 kompressioner per minut.",
+    "difficulty": "medium",
+    "tags": [
+      "HLR",
+      "kompressioner"
+    ],
+    "deckId": "hjertestopCards"
+  },
+  {
+    "id": "hs_006",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertestop",
+    "question": "Hvorfor er tidlig defibrillering vigtig ved VF/VT?",
+    "answer": "Chancen for overlevelse falder ca. 7–10 % per minut uden defibrillering ved shockbar rytme.",
+    "difficulty": "medium",
+    "tags": [
+      "defibrillering",
+      "VF",
+      "VT"
+    ],
+    "deckId": "hjertestopCards"
+  },
+  {
+    "id": "hs_007",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertestop",
+    "question": "Hvad er forskellen på VF og pulsløs VT?",
+    "answer": "VF er kaotisk, uorganiseret ventrikulær aktivitet, mens pulsløs VT er hurtig, organiseret, bred QRS-rytme uden palpabel puls.",
+    "difficulty": "hard",
+    "tags": [
+      "VF",
+      "VT",
+      "EKG"
+    ],
+    "deckId": "hjertestopCards"
+  },
+  {
+    "id": "hs_008",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertestop",
+    "question": "Hvorfor må man ikke defibrillere PEA eller asystoli?",
+    "answer": "Der er ingen elektrisk aktivitet at synkronisere; behandling fokuserer på HLR, adrenalin og behandling af reversible årsager.",
+    "difficulty": "medium",
+    "tags": [
+      "PEA",
+      "asystoli"
+    ],
+    "deckId": "hjertestopCards"
+  },
+  {
+    "id": "hs_009",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertestop",
+    "question": "Hvad står H’s og T’s for i forbindelse med hjertestop?",
+    "answer": "Hypoxi, Hypovolæmi, Hypo/Hyperkaliæmi og andre metaboliske forstyrrelser, Hypotermi, Tamponade, Trykpneumothorax, Tromboemboli, Toksiner.",
+    "difficulty": "hard",
+    "tags": [
+      "reversible årsager",
+      "H's & T's"
+    ],
+    "deckId": "hjertestopCards"
+  },
+  {
+    "id": "hs_010",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertestop",
+    "question": "Hvornår gives adrenalin ved ikke-shockbar rytme ifølge ERC-retningslinjer?",
+    "answer": "Så tidligt som muligt efter etablering af HLR og sikring af rytmediagnose (PEA/asystoli), og derefter hver 3–5. minut.",
+    "difficulty": "medium",
+    "tags": [
+      "adrenalin",
+      "medicin"
+    ],
+    "deckId": "hjertestopCards"
+  },
+  {
+    "id": "hs_011",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertestop",
+    "question": "Hvad er formålet med høj-kvalitets kompressioner?",
+    "answer": "At opnå tilstrækkeligt koronar- og cerebralt perfusionstryk, hvilket øger chancen for ROSC.",
+    "difficulty": "hard",
+    "tags": [
+      "cerebral perfusion",
+      "ROSC"
+    ],
+    "deckId": "hjertestopCards"
+  },
+  {
+    "id": "hs_012",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertestop",
+    "question": "Hvad betyder ROSC?",
+    "answer": "Return Of Spontaneous Circulation – tilbagekomst af spontan puls og cirkulation.",
+    "difficulty": "easy",
+    "tags": [
+      "ROSC"
+    ],
+    "deckId": "hjertestopCards"
+  },
+  {
+    "id": "hs_013",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertestop",
+    "question": "Hvordan vurderes respiration hos en bevidstløs person i mulig hjertestop?",
+    "answer": "Åbn luftvejen, se-lyt-føl i maks. 10 sekunder og vurder om vejrtrækningen er normal eller fraværende/gasping.",
+    "difficulty": "medium",
+    "tags": [
+      "respiration",
+      "vurdering"
+    ],
+    "deckId": "hjertestopCards"
+  },
+  {
+    "id": "hs_014",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertestop",
+    "question": "Hvorfor er gasping ikke normal vejrtrækning?",
+    "answer": "Gasping er agonal respiration og tyder på alvorlig hypoxi og hjertestop; den giver ikke effektiv ventilation.",
+    "difficulty": "medium",
+    "tags": [
+      "agonal",
+      "hypoxi"
+    ],
+    "deckId": "hjertestopCards"
+  },
+  {
+    "id": "hs_015",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertestop",
+    "question": "Hvilke post-ROSC-tiltag er vigtige præhospitalt?",
+    "answer": "Stabilisering af ABC, iltmætning 94–98 %, BT-kontrol, EKG, behandling af udløsende årsag og hurtig transport til relevant center.",
+    "difficulty": "hard",
+    "tags": [
+      "post-ROSC",
+      "stabilisering"
+    ],
+    "deckId": "hjertestopCards"
+  },
+  {
+    "id": "hs_016",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertestop",
+    "question": "Hvorfor er tidlig alarmering (1. led i kæden) afgørende ved hjertestop?",
+    "answer": "Jo hurtigere HLR og defibrillering iværksættes, jo større er chancen for overlevelse med god neurologisk funktion.",
+    "difficulty": "easy",
+    "tags": [
+      "kæden",
+      "overlevelse"
+    ],
+    "deckId": "hjertestopCards"
+  },
+  {
+    "id": "hs_017",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertestop",
+    "question": "Hvordan påvirker hypotermi behandlingen af hjertestop?",
+    "answer": "HLR fortsættes længere, medicin metaboliseres langsomt, og defibrillering kan være mindre effektiv ved meget lav temperatur.",
+    "difficulty": "hard",
+    "tags": [
+      "hypotermi"
+    ],
+    "deckId": "hjertestopCards"
+  },
+  {
+    "id": "hs_018",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertestop",
+    "question": "Hvad er særlige overvejelser ved hjertestop hos gravide?",
+    "answer": "Venstre sideleje/uterusforskydning for at aflaste vena cava, hurtig HLR og overvejelse af perimortem sectio ved fremskreden graviditet.",
+    "difficulty": "hard",
+    "tags": [
+      "graviditet",
+      "specielle situationer"
+    ],
+    "deckId": "hjertestopCards"
+  },
+  {
+    "id": "hs_019",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertestop",
+    "question": "Hvordan kan man skelne hjertestop fra synkope præhospitalt?",
+    "answer": "Ved hjertestop: vedvarende bevidstløshed, ingen normal vejrtrækning, ingen livstegn. Ved synkope: kortvarig bevidsthedstab med hurtig spontan bedring.",
+    "difficulty": "medium",
+    "tags": [
+      "synkope",
+      "differentialdiagnose"
+    ],
+    "deckId": "hjertestopCards"
+  },
+  {
+    "id": "hs_020",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertestop",
+    "question": "Hvornår kan det være rimeligt at stoppe HLR præhospitalt?",
+    "answer": "Efter længerevarende HLR uden ROSC, ingen reversible årsager, fravær af shockbar rytme og i samråd med læge og lokale retningslinjer.",
+    "difficulty": "hard",
+    "tags": [
+      "ophør",
+      "prognose"
+    ],
+    "deckId": "hjertestopCards"
+  },
+  {
+    "id": "hjsv_001",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertesvigt",
+    "question": "Hvad er definitionen på hjertesvigt?",
+    "answer": "Tilstand hvor hjertet ikke kan opretholde tilstrækkelig minutvolumen til kroppens behov, enten i hvile eller belastning.",
+    "difficulty": "easy",
+    "tags": [
+      "definition"
+    ],
+    "deckId": "hjertesvigtCards"
+  },
+  {
+    "id": "hjsv_002",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertesvigt",
+    "question": "Hvad er forskellen på systolisk og diastolisk hjertesvigt?",
+    "answer": "Systolisk: nedsat pumpekraft (lav EF). Diastolisk: stiv ventrikel med normal EF, men nedsat fyldning.",
+    "difficulty": "medium",
+    "tags": [
+      "systolisk",
+      "diastolisk"
+    ],
+    "deckId": "hjertesvigtCards"
+  },
+  {
+    "id": "hjsv_003",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertesvigt",
+    "question": "Forklar forskellen på højresidig og venstresidig hjertesvigt.",
+    "answer": "Højresidig: væskeophobning i ben, lever og abdomen. Venstresidig: lungeødem og dyspnø.",
+    "difficulty": "easy",
+    "tags": [
+      "højresidig",
+      "venstresidig"
+    ],
+    "deckId": "hjertesvigtCards"
+  },
+  {
+    "id": "hjsv_004",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertesvigt",
+    "question": "Nævn tre typiske symptomer på venstresidig hjertesvigt.",
+    "answer": "Dyspnø, ortopnø og hoste med skummende sputum (evt. lyserødt).",
+    "difficulty": "medium",
+    "tags": [
+      "lungeødem"
+    ],
+    "deckId": "hjertesvigtCards"
+  },
+  {
+    "id": "hjsv_005",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertesvigt",
+    "question": "Hvad er ortopnø, og hvorfor ses det ved hjertesvigt?",
+    "answer": "Åndenød i liggende stilling pga. øget venøst tilbageløb og væske i lungerne.",
+    "difficulty": "medium",
+    "tags": [
+      "ortopnø"
+    ],
+    "deckId": "hjertesvigtCards"
+  },
+  {
+    "id": "hjsv_006",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertesvigt",
+    "question": "Hvad er forward failure kontra backward failure?",
+    "answer": "Forward: reduceret minutvolumen. Backward: ophobning af blod bag hjertet → stase.",
+    "difficulty": "hard",
+    "tags": [
+      "forward",
+      "backward"
+    ],
+    "deckId": "hjertesvigtCards"
+  },
+  {
+    "id": "hjsv_007",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertesvigt",
+    "question": "Hvorfor får nogle hjertesvigtpatienter hævede ankler?",
+    "answer": "Højresidig hjertesvigt giver øget venetryk og væskeudtrængning i ben og ankler.",
+    "difficulty": "easy",
+    "tags": [
+      "ødem",
+      "højresidig"
+    ],
+    "deckId": "hjertesvigtCards"
+  },
+  {
+    "id": "hjsv_008",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertesvigt",
+    "question": "Hvordan præsenterer akut lungeødem sig præhospitalt?",
+    "answer": "Kraftig dyspnø, gispende vejrtrækning, skummende evt. lyserødt sputum, angst, cyanose og takykardi.",
+    "difficulty": "medium",
+    "tags": [
+      "ødem",
+      "akut"
+    ],
+    "deckId": "hjertesvigtCards"
+  },
+  {
+    "id": "hjsv_009",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertesvigt",
+    "question": "Hvorfor bruges CPAP ved lungeødem?",
+    "answer": "Øger iltoptagelse, reducerer preload og forbedrer gasudveksling ved at skubbe væske væk fra alveolerne.",
+    "difficulty": "hard",
+    "tags": [
+      "CPAP",
+      "behandling"
+    ],
+    "deckId": "hjertesvigtCards"
+  },
+  {
+    "id": "hjsv_010",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertesvigt",
+    "question": "Hvorfor skal man være forsigtig med nitroglycerin hos hjertesvigtpatienter?",
+    "answer": "Nitro sænker preload og kan udløse kritisk hypotension ved kardiogent shock.",
+    "difficulty": "hard",
+    "tags": [
+      "nitro",
+      "shock"
+    ],
+    "deckId": "hjertesvigtCards"
+  },
+  {
+    "id": "hjsv_011",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertesvigt",
+    "question": "Hvordan kan hjertesvigt føre til nyrepåvirkning?",
+    "answer": "Lav minutvolumen → nedsat perfusion af nyrerne → væskeretention og yderligere belastning af hjertet.",
+    "difficulty": "hard",
+    "tags": [
+      "nyrer",
+      "kredsløb"
+    ],
+    "deckId": "hjertesvigtCards"
+  },
+  {
+    "id": "hjsv_012",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertesvigt",
+    "question": "Hvilken blodprøve bruges til at vurdere hjertesvigt?",
+    "answer": "BNP (Brain Natriuretic Peptide), som frigives ved strækning af hjertets ventrikler.",
+    "difficulty": "medium",
+    "tags": [
+      "BNP"
+    ],
+    "deckId": "hjertesvigtCards"
+  },
+  {
+    "id": "hjsv_013",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertesvigt",
+    "question": "Hvorfor bliver nogle hjertesvigtpatienter cyanotiske?",
+    "answer": "Nedsat iltoptagelse fra lungerne og dårlig perfusion giver blålig hud og læber.",
+    "difficulty": "easy",
+    "tags": [
+      "cyanose"
+    ],
+    "deckId": "hjertesvigtCards"
+  },
+  {
+    "id": "hjsv_014",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertesvigt",
+    "question": "Hvad sker der ved kardiogent shock?",
+    "answer": "Svigtende pumpefunktion giver kritisk lavt BT, lav perfusion og organhypoxi.",
+    "difficulty": "hard",
+    "tags": [
+      "kardiogent shock"
+    ],
+    "deckId": "hjertesvigtCards"
+  },
+  {
+    "id": "hjsv_015",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertesvigt",
+    "question": "Hvad er ejection fraction (EF)?",
+    "answer": "Procentdel af blod i venstre ventrikel, der pumpes ud ved systole. Normal er 55–70%.",
+    "difficulty": "medium",
+    "tags": [
+      "EF"
+    ],
+    "deckId": "hjertesvigtCards"
+  },
+  {
+    "id": "hjsv_016",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertesvigt",
+    "question": "Hvad er preload og afterload?",
+    "answer": "Preload = blodfyldning af ventriklerne. Afterload = trykket hjertet arbejder imod (karmodstanden).",
+    "difficulty": "hard",
+    "tags": [
+      "preload",
+      "afterload"
+    ],
+    "deckId": "hjertesvigtCards"
+  },
+  {
+    "id": "hjsv_017",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertesvigt",
+    "question": "Nævn 3 udløsende årsager til akut hjertesvigt.",
+    "answer": "AMI, arytmi (fx AFLI), infektion/sepsis, hypertension, anstrengelse, medicinmangel.",
+    "difficulty": "medium",
+    "tags": [
+      "årsager"
+    ],
+    "deckId": "hjertesvigtCards"
+  },
+  {
+    "id": "hjsv_018",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertesvigt",
+    "question": "Hvordan kan man præhospitalt opdage, at hjertesvigt er akut?",
+    "answer": "Akut åndenød, svær stase, skummende sputum, takypnø, cyanose, angst og kraftig BT-påvirkning.",
+    "difficulty": "medium",
+    "tags": [
+      "vurdering"
+    ],
+    "deckId": "hjertesvigtCards"
+  },
+  {
+    "id": "hjsv_019",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertesvigt",
+    "question": "Hvordan behandles akut hjertesvigt præhospitalt?",
+    "answer": "ABC, CPAP, nitro (hvis BT >100), ilt ved Sat <90, lejring, monitorering, evt. morfin, afvent væske.",
+    "difficulty": "medium",
+    "tags": [
+      "behandling",
+      "præhospital"
+    ],
+    "deckId": "hjertesvigtCards"
+  },
+  {
+    "id": "hjsv_020",
+    "subject": "Sygdomslære",
+    "topic": "Hjertesygdomme",
+    "subtopic": "Hjertesygdomme::Hjertesvigt",
+    "question": "Hvorfor kan hjertesvigtpatienter udvikle lungeødem?",
+    "answer": "Venstresidig svigt øger trykket i lungekredsløbet → væske presses ud i alveolerne → gasudveksling påvirkes.",
+    "difficulty": "hard",
+    "tags": [
+      "lungeødem",
+      "patofysiologi"
+    ],
+    "deckId": "hjertesvigtCards"
+  }
+]
