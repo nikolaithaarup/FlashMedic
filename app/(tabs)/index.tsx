@@ -263,7 +263,9 @@ export default function Index() {
         setLoadError(null);
         setLoadingCards(true);
 
-        const res = await fetch("https://flashmedic-backend.onrender.com/flashcards/all");
+        const API_BASE_URL = "https://flashmedic-backend.onrender.com/";
+
+        const res = await fetch(`${API_BASE_URL}/flashcards/all`);
         const data = await res.json();
 
         const rawCards = Array.isArray(data) ? data : data.cards ?? [];
