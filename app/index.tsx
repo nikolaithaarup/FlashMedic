@@ -18,9 +18,10 @@ import {
   useWindowDimensions
 } from "react-native";
 
-import { ekgImageLookup } from "../../src/data/ekg/imageLookup";
-import { loadStats, saveStats, updateStatsForCard } from "../../src/storage/stats";
-import type { Difficulty, Flashcard } from "../../src/types/Flashcard";
+import { ekgImageLookup } from "../src/data/ekg/imageLookup";
+import { loadStats, saveStats, updateStatsForCard } from "../src/storage/stats";
+import type { Difficulty, Flashcard } from "../src/types/Flashcard";
+
 import { styles } from "./flashmedicStyles";
 
 // ---------- Types ----------
@@ -72,7 +73,7 @@ type DrugCalcQuestion = {
 const APP_ID = "FlashMedic";
 const SUPPORT_EMAIL = "nikolai_91@live.com";
 
-const APP_LOGO = require("../../assets/her-icon.png");
+const APP_LOGO = require("../assets/her-icon.png");
 
 // ---------- Helpers ----------
 
