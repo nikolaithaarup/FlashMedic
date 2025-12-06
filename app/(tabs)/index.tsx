@@ -1,3 +1,5 @@
+import Constants from "expo-constants";
+import * as Device from "expo-device";
 import { LinearGradient } from "expo-linear-gradient";
 import * as Linking from "expo-linking";
 import * as MailComposer from "expo-mail-composer";
@@ -7,18 +9,19 @@ import {
   Alert,
   Image,
   Modal,
+  Platform,
   Pressable,
   ScrollView,
-  StyleSheet,
   Text,
   TextInput,
   View,
-  useWindowDimensions,
+  useWindowDimensions
 } from "react-native";
 
 import { ekgImageLookup } from "../../src/data/ekg/imageLookup";
 import { loadStats, saveStats, updateStatsForCard } from "../../src/storage/stats";
 import type { Difficulty, Flashcard } from "../../src/types/Flashcard";
+import { styles } from "./flashmedicStyles";
 
 // ---------- Types ----------
 
@@ -232,6 +235,8 @@ export default function Index() {
 
   // -------- Image modal --------
   const [imageModalVisible, setImageModalVisible] = useState(false);
+  const [imageSize, setImageSize] = useState<{ width: number; height: number } | null>(null);
+
 
   // -------- Stats --------
   const [stats, setStats] = useState<StatsMap>({});
@@ -259,9 +264,9 @@ export default function Index() {
   const [wordOfWeekResult, setWordOfWeekResult] = useState<"idle" | "correct" | "wrong">("idle");
 
   // -------- Responsive typography --------
-  const { width } = useWindowDimensions();
+  const { width: screenWidth, height: screenHeight } = useWindowDimensions();
   const baseWidth = 375;
-  const scale = Math.min(width / baseWidth, 1.2);
+  const scale = Math.min(screenWidth / baseWidth, 1.2);
 
   const headingFont = 40 * scale;
   const subtitleFont = 20 * scale;
@@ -655,60 +660,36 @@ export default function Index() {
       return;
     }
 
-    const namePart = contactName.trim() || "Ukendt bruger";
-    const emailPart = contactEmail.trim() || "Ikke oplyst";
-
-    const subject = `[${APP_ID}] Kontakt/feedback fra ${namePart}`;
-
-    const bodyLines = [
-      "Hej Nikolai,",
-      "",
-      "Du har modtaget en besked fra kontaktformularen i FlashMedic:",
-      "",
-      `Navn: ${namePart}`,
-      `E-mail: ${emailPart}`,
-      "",
-      "Besked:",
-      contactMessage.trim(),
-      "",
-      "— Automatisk sendt fra FlashMedic kontaktformularen",
-    ];
-
-    const body = bodyLines.join("\n");
-
     try {
-      const isAvailable = await MailComposer.isAvailableAsync();
+      const API_BASE_URL = "https://flashmedic-backend.onrender.com";
 
-      if (isAvailable) {
-        await MailComposer.composeAsync({
-          recipients: [SUPPORT_EMAIL],
-          subject,
-          body,
-        });
+      const res = await fetch(`${API_BASE_URL}/contact/send`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: contactName.trim() || "Ukendt bruger",
+          email: contactEmail.trim() || "Ikke oplyst",
+          message: contactMessage.trim(),
+        }),
+      });
 
-        Alert.alert("Sendt", "Din besked er klar i mail-appen. Tak for din feedback!");
-        return;
+      if (!res.ok) {
+        throw new Error("Server error");
       }
-    } catch (err) {
-      console.warn("MailComposer failed, falling back to mailto:", err);
+
+      Alert.alert("Sendt!", "Din besked er sendt til udvikleren.");
+
+      // Ryd felterne efter succesfuldt send
+      setContactName("");
+      setContactEmail("");
+      setContactMessage("");
+    } catch (error) {
+      console.error(error);
+      Alert.alert(
+        "Fejl",
+        "Kunne ikke sende beskeden. Tjek internetforbindelsen og prøv igen.",
+      );
     }
-
-    // Fallback til mailto:
-    const mailtoSubject = encodeURIComponent(subject);
-    const mailtoBody = encodeURIComponent(body);
-    const url = `mailto:${SUPPORT_EMAIL}?subject=${mailtoSubject}&body=${mailtoBody}`;
-
-    Linking.openURL(url);
-
-    Alert.alert(
-      "Mail-klient",
-      "Din besked er åbnet i din mail-app. Tjek lige udkastet, før du sender.",
-    );
-
-    // (Valgfrit) ryd felterne bagefter
-    setContactName("");
-    setContactEmail("");
-    setContactMessage("");
   };
 
   // ---------- Spaced repetition actions ----------
@@ -899,169 +880,231 @@ export default function Index() {
     );
   }
 
-  // QUIZ
-  if (screen === "quiz" && currentCard) {
-    const primaryColor = getSubjectPrimaryColor(currentCard.subject);
-    const difficultyText = difficultyTextMap[currentCard.difficulty];
-    const gradient = getSubjectGradient(currentCard.subject);
+// QUIZ 
+if (screen === "quiz" && currentCard) {
+  const primaryColor = getSubjectPrimaryColor(currentCard.subject);
+  const difficultyText = difficultyTextMap[currentCard.difficulty];
+  const gradient = getSubjectGradient(currentCard.subject);
 
-    const totalQuestions = history.length + 1 + upcoming.length;
-    const currentIndex = history.length + 1;
+  const totalQuestions = history.length + 1 + upcoming.length;
+  const currentIndex = history.length + 1;
 
-    return (
-      <LinearGradient colors={gradient} style={styles.quizBackground}>
-        <StatusBar style="light" />
-        <View style={styles.quizContainer}>
-          <View style={styles.headerRow}>
-            <Text
-              style={[styles.appTitle, { color: "#fff", marginBottom: 0, fontSize: headingFont }]}
-            >
-              FlashMedic
-            </Text>
-            <View style={styles.headerButtons}>
-              {history.length > 0 && (
-                <Pressable
-                  style={[styles.smallButton, { borderColor: "#fff" }]}
-                  onPress={handlePreviousQuestion}
-                  hitSlop={8}
-                >
-                  <Text
-                    style={[styles.smallButtonText, { color: "#fff", fontSize: buttonFont * 0.9 }]}
-                  >
-                    Tilbage
-                  </Text>
-                </Pressable>
-              )}
+  // Compute zoom style for rotated image based on real image size
+  let zoomImageStyle: any = styles.zoomImage;
+
+  if (imageSize) {
+    const sw = screenWidth;
+    const sh = screenHeight;
+
+    const { width: iw, height: ih } = imageSize;
+
+    // After 90° rotation: rotatedWidth = ih, rotatedHeight = iw
+    const rotatedWidth = ih;
+    const rotatedHeight = iw;
+
+    // Scale so that rotated box fits within screen
+    const fitScale = Math.min(sw / rotatedWidth, sh / rotatedHeight);
+
+    // Shrink slightly so edges are clearly visible
+    const marginScale = 0.94; // 94% of max size – tweak if you want
+    const finalScale = fitScale * marginScale;
+
+    const displayWidth = iw * finalScale;
+    const displayHeight = ih * finalScale;
+
+    zoomImageStyle = [
+      styles.zoomImage,
+      { width: displayWidth, height: displayHeight },
+    ];
+  }
+
+  return (
+    <LinearGradient colors={gradient} style={styles.quizBackground}>
+      <StatusBar style="light" />
+      <View style={styles.quizContainer}>
+        <View style={styles.headerRow}>
+          <Text
+            style={[styles.appTitle, { color: "#fff", marginBottom: 0, fontSize: headingFont }]}
+          >
+            FlashMedic
+          </Text>
+          <View style={styles.headerButtons}>
+            {history.length > 0 && (
               <Pressable
                 style={[styles.smallButton, { borderColor: "#fff" }]}
-                onPress={handleHome}
+                onPress={handlePreviousQuestion}
                 hitSlop={8}
               >
                 <Text
                   style={[styles.smallButtonText, { color: "#fff", fontSize: buttonFont * 0.9 }]}
                 >
-                  Home
+                  Tilbage
                 </Text>
               </Pressable>
-            </View>
-          </View>
-
-          <View style={styles.metaRow}>
-            <View>
-              <Text style={[styles.subjectLabel, { color: "#f8f9fa", fontSize: subjectFont }]}>
-                {currentCard.subject}
-              </Text>
-              <Text style={[styles.topicLabel, { color: "#e9ecef", fontSize: metaFont }]}>
-                {currentCard.topic}
-                {currentCard.subtopic ? ` · ${currentCard.subtopic}` : ""}
-              </Text>
-              <Text style={[styles.progressText, { color: "#e9ecef", fontSize: metaFont }]}>
-                Spørgsmål {currentIndex} af {totalQuestions}
-              </Text>
-            </View>
-            <View
-              style={[
-                styles.difficultyPill,
-                { backgroundColor: getDifficultyColor(currentCard.difficulty) },
-              ]}
+            )}
+            <Pressable
+              style={[styles.smallButton, { borderColor: "#fff" }]}
+              onPress={handleHome}
+              hitSlop={8}
             >
-              <Text style={[styles.difficultyText, { fontSize: buttonFont * 0.9 }]}>
-                {difficultyText}
+              <Text
+                style={[styles.smallButtonText, { color: "#fff", fontSize: buttonFont * 0.9 }]}
+              >
+                Home
               </Text>
-            </View>
+            </Pressable>
           </View>
-
-          <View style={styles.cardContainer}>
-            <View style={styles.cardBox}>
-              {currentCard.image && (
-                <Pressable onPress={() => setImageModalVisible(true)}>
-                  <Image
-                    source={currentCard.image}
-                    style={styles.questionImage}
-                    resizeMode="contain"
-                  />
-                  <Text style={styles.tapToZoomText}>Tryk for at se stort</Text>
-                </Pressable>
-              )}
-              <Text style={[styles.questionText, { fontSize: questionFont }]}>
-                {currentCard.question}
-              </Text>
-            </View>
-
-            <View style={styles.cardBox}>
-              {showAnswer ? (
-                <Text style={[styles.answerText, { fontSize: answerFont }]}>
-                  {currentCard.answer}
-                </Text>
-              ) : (
-                <Text style={styles.placeholderText}>
-                  Tryk på &apos;Vis svar&apos; for at se svaret.
-                </Text>
-              )}
-            </View>
-          </View>
-
-          {!showAnswer && (
-            <View style={styles.buttonRow}>
-              <Pressable
-                style={[styles.bigButton, styles.primaryButton, { backgroundColor: primaryColor }]}
-                onPress={() => setShowAnswer(true)}
-              >
-                <Text style={[styles.bigButtonText, { fontSize: buttonFont }]}>Vis svar</Text>
-              </Pressable>
-            </View>
-          )}
-
-          {showAnswer && (
-            <View style={styles.ratingRow}>
-              <Pressable
-                style={[styles.ratingButton, styles.knownButton]}
-                onPress={handleMarkKnown}
-              >
-                <Text style={[styles.ratingButtonText, { fontSize: buttonFont }]}>
-                  Jeg kunne den
-                </Text>
-              </Pressable>
-              <Pressable
-                style={[styles.ratingButton, styles.unknownButton]}
-                onPress={handleMarkUnknown}
-              >
-                <Text style={[styles.ratingButtonText, { fontSize: buttonFont }]}>
-                  Jeg kunne den ikke
-                </Text>
-              </Pressable>
-            </View>
-          )}
-
-          <Pressable style={[styles.bigButton, styles.outlineButton]} onPress={handleReportError}>
-            <Text style={styles.outlineButtonText}>Rapportér fejl</Text>
-          </Pressable>
         </View>
 
-        {currentCard.image && (
-          <Modal
-            visible={imageModalVisible}
-            transparent
-            animationType="fade"
-            onRequestClose={() => setImageModalVisible(false)}
+        <View style={styles.metaRow}>
+          <View>
+            <Text style={[styles.subjectLabel, { color: "#f8f9fa", fontSize: subjectFont }]}>
+              {currentCard.subject}
+            </Text>
+            <Text style={[styles.topicLabel, { color: "#e9ecef", fontSize: metaFont }]}>
+              {currentCard.topic}
+              {currentCard.subtopic ? ` · ${currentCard.subtopic}` : ""}
+            </Text>
+            <Text style={[styles.progressText, { color: "#e9ecef", fontSize: metaFont }]}>
+              Spørgsmål {currentIndex} af {totalQuestions}
+            </Text>
+          </View>
+          <View
+            style={[
+              styles.difficultyPill,
+              { backgroundColor: getDifficultyColor(currentCard.difficulty) },
+            ]}
           >
-            <View style={styles.modalBackdrop}>
-              <View style={styles.modalContent}>
-                <Image source={currentCard.image} style={styles.zoomImage} resizeMode="contain" />
+            <Text style={[styles.difficultyText, { fontSize: buttonFont * 0.9 }]}>
+              {difficultyText}
+            </Text>
+          </View>
+        </View>
 
-                <Pressable
-                  style={styles.modalCloseButton}
-                  onPress={() => setImageModalVisible(false)}
-                >
-                  <Text style={styles.modalCloseText}>Luk</Text>
-                </Pressable>
-              </View>
-            </View>
-          </Modal>
+        <View style={styles.cardContainer}>
+          <View style={styles.cardBox}>
+            {currentCard.image && (
+              <Pressable
+                onPress={() => {
+                  const imgSource = currentCard.image as any;
+                  const resolved = Image.resolveAssetSource(imgSource);
+
+                  // Bundled asset: width/height available directly
+                  if (resolved?.width && resolved?.height) {
+                    setImageSize({ width: resolved.width, height: resolved.height });
+                    setImageModalVisible(true);
+                    return;
+                  }
+
+                  // URI or unknown: use Image.getSize
+                  Image.getSize(
+                    resolved?.uri ?? imgSource,
+                    (width, height) => {
+                      setImageSize({ width, height });
+                      setImageModalVisible(true);
+                    },
+                    () => {
+                      // fallback guess if we really can't get size
+                      setImageSize({ width: 1600, height: 1000 });
+                      setImageModalVisible(true);
+                    }
+                  );
+                }}
+              >
+                {/* Thumbnail: same as original – NOT rotated */}
+                <Image
+                  source={currentCard.image}
+                  style={styles.questionImage}
+                  resizeMode="contain"
+                />
+                <Text style={styles.tapToZoomText}>Tryk for at se stort</Text>
+              </Pressable>
+            )}
+
+            <Text style={[styles.questionText, { fontSize: questionFont }]}>
+              {currentCard.question}
+            </Text>
+          </View>
+
+          <View style={styles.cardBox}>
+            {showAnswer ? (
+              <Text style={[styles.answerText, { fontSize: answerFont }]}>
+                {currentCard.answer}
+              </Text>
+            ) : (
+              <Text style={styles.placeholderText}>
+                Tryk på &apos;Vis svar&apos; for at se svaret.
+              </Text>
+            )}
+          </View>
+        </View>
+
+        {!showAnswer && (
+          <View style={styles.buttonRow}>
+            <Pressable
+              style={[styles.bigButton, styles.primaryButton, { backgroundColor: primaryColor }]}
+              onPress={() => setShowAnswer(true)}
+            >
+              <Text style={[styles.bigButtonText, { fontSize: buttonFont }]}>Vis svar</Text>
+            </Pressable>
+          </View>
         )}
-      </LinearGradient>
-    );
-  }
+
+        {showAnswer && (
+          <View style={styles.ratingRow}>
+            <Pressable
+              style={[styles.ratingButton, styles.knownButton]}
+              onPress={handleMarkKnown}
+            >
+              <Text style={[styles.ratingButtonText, { fontSize: buttonFont }]}>
+                Jeg kunne den
+              </Text>
+            </Pressable>
+            <Pressable
+              style={[styles.ratingButton, styles.unknownButton]}
+              onPress={handleMarkUnknown}
+            >
+              <Text style={[styles.ratingButtonText, { fontSize: buttonFont }]}>
+                Jeg kunne den ikke
+              </Text>
+            </Pressable>
+          </View>
+        )}
+
+        <Pressable style={[styles.bigButton, styles.outlineButton]} onPress={handleReportError}>
+          <Text style={styles.outlineButtonText}>Rapportér fejl</Text>
+        </Pressable>
+      </View>
+
+      {currentCard.image && (
+        <Modal
+          visible={imageModalVisible}
+          transparent={false}
+          animationType="fade"
+          onRequestClose={() => setImageModalVisible(false)}
+        >
+          <View style={styles.modalBackdrop}>
+            <View style={styles.modalContent}>
+              <Image
+                source={currentCard.image}
+                style={zoomImageStyle}
+                resizeMode="contain"
+              />
+
+              <Pressable
+                style={styles.modalCloseButton}
+                onPress={() => setImageModalVisible(false)}
+              >
+                <Text style={styles.modalCloseText}>Luk</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
+      )}
+
+    </LinearGradient>
+  );
+}
 
   // FLASHCARDS HOME
   if (screen === "flashcardsHome") {
@@ -1343,11 +1386,31 @@ export default function Index() {
     return (
       <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
         <StatusBar style="light" />
-        <ScrollView contentContainerStyle={styles.homeContainer}>
+        <ScrollView contentContainerStyle={[styles.homeContainer, styles.safeTopContainer]}>
           <View style={styles.headerRow}>
-            <Text style={[styles.appTitle, { fontSize: headingFont, color: "#f8f9fa" }]}>
-              Weekly – Multiple Choice
-            </Text>
+            <View style={styles.headerRow}>
+  <Text style={[styles.appTitle, { fontSize: headingFont, color: "#fff" }]}>
+    Weekly Challenges
+  </Text>
+  <Pressable
+    style={[styles.smallButton, { borderColor: "#ffffffdd" }]}
+    onPress={() => {
+      setWeeklyGameRunning(false);
+      setScreen("weeklyHome");
+    }}
+  >
+    <Text style={[styles.smallButtonText, { color: "#fff" }]}>
+      Hjem
+    </Text>
+  </Pressable>
+</View>
+
+<View style={styles.weeklyTimerBar}>
+  <Text style={styles.weeklyTimerText}>Tid: {formatSeconds(weeklyTimerSeconds)}</Text>
+</View>
+
+<Text style={styles.weeklyGameTitle}>Multiple Choice Game</Text>
+
             <Pressable
               style={[styles.smallButton, { borderColor: "#fff" }]}
               onPress={handleBack}
@@ -1395,11 +1458,31 @@ export default function Index() {
     return (
       <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
         <StatusBar style="light" />
-        <ScrollView contentContainerStyle={styles.homeContainer}>
+        <ScrollView contentContainerStyle={[styles.homeContainer, styles.safeTopContainer]}>
           <View style={styles.headerRow}>
-            <Text style={[styles.appTitle, { fontSize: headingFont, color: "#f8f9fa" }]}>
-              Weekly – Match Game
-            </Text>
+            <View style={styles.headerRow}>
+  <Text style={[styles.appTitle, { fontSize: headingFont, color: "#fff" }]}>
+    Weekly Challenges
+  </Text>
+  <Pressable
+    style={[styles.smallButton, { borderColor: "#ffffffdd" }]}
+    onPress={() => {
+      setWeeklyGameRunning(false);
+      setScreen("weeklyHome");
+    }}
+  >
+    <Text style={[styles.smallButtonText, { color: "#fff" }]}>
+      Hjem
+    </Text>
+  </Pressable>
+</View>
+
+<View style={styles.weeklyTimerBar}>
+  <Text style={styles.weeklyTimerText}>Tid: {formatSeconds(weeklyTimerSeconds)}</Text>
+</View>
+
+<Text style={styles.weeklyGameTitle}>Match Game</Text>
+
             <Pressable
               style={[styles.smallButton, { borderColor: "#fff" }]}
               onPress={handleBack}
@@ -1461,11 +1544,31 @@ export default function Index() {
     return (
       <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
         <StatusBar style="light" />
-        <ScrollView contentContainerStyle={styles.homeContainer}>
+        <ScrollView contentContainerStyle={[styles.homeContainer, styles.safeTopContainer]}>
           <View style={styles.headerRow}>
-            <Text style={[styles.appTitle, { fontSize: headingFont, color: "#f8f9fa" }]}>
-              Weekly – Word of The Week
-            </Text>
+            <View style={styles.headerRow}>
+  <Text style={[styles.appTitle, { fontSize: headingFont, color: "#fff" }]}>
+    Weekly Challenges
+  </Text>
+  <Pressable
+    style={[styles.smallButton, { borderColor: "#ffffffdd" }]}
+    onPress={() => {
+      setWeeklyGameRunning(false);
+      setScreen("weeklyHome");
+    }}
+  >
+    <Text style={[styles.smallButtonText, { color: "#fff" }]}>
+      Hjem
+    </Text>
+  </Pressable>
+</View>
+
+<View style={styles.weeklyTimerBar}>
+  <Text style={styles.weeklyTimerText}>Tid: {formatSeconds(weeklyTimerSeconds)}</Text>
+</View>
+
+<Text style={styles.weeklyGameTitle}>Multiple Choice Game</Text>
+
             <Pressable
               style={[styles.smallButton, { borderColor: "#fff" }]}
               onPress={handleBack}
@@ -1538,81 +1641,187 @@ export default function Index() {
     );
   }
 
-  // CONTACT
-  if (screen === "contact") {
-    return (
-      <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
-        <StatusBar style="light" />
-        <ScrollView contentContainerStyle={styles.homeContainer}>
-          <View style={styles.headerRow}>
-            <Text style={[styles.appTitle, { fontSize: headingFont, color: "#f8f9fa" }]}>
-              Kontakt
-            </Text>
-            <Pressable
-              style={[styles.smallButton, { borderColor: "#fff" }]}
-              onPress={() => setScreen("home")}
-              hitSlop={8}
-            >
-              <Text style={[styles.smallButtonText, { color: "#fff", fontSize: buttonFont * 0.9 }]}>
-                Home
-              </Text>
-            </Pressable>
-          </View>
+// CONTACT
+if (screen === "contact") {
+  const appName = Constants.expoConfig?.name ?? "FlashMedic";
+  const appVersion = Constants.expoConfig?.version ?? "ukendt version";
 
-          <Text style={[styles.subtitle, { fontSize: subtitleFont, color: "#e9ecef" }]}>
-            FlashMedic er lavet af en ambulancebehandler-studerende til paramedicinere og
-            ambulancefolk.
-            {"\n\n"}Jeg bliver glad for både ros og konstruktiv kritik – det gør appen bedre for
-            alle.
+  const deviceInfoParts = [
+    Device.manufacturer,
+    Device.modelName,
+    Device.osName,
+    Device.osVersion,
+  ].filter(Boolean);
+
+  const deviceInfo = deviceInfoParts.join(" ");
+
+  const handleSend = async () => {
+    if (!contactMessage.trim()) {
+      Alert.alert("Fejl", "Skriv venligst en besked.");
+      return;
+    }
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/contact/send`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: contactName.trim() || null,
+          email: contactEmail.trim() || null,
+          message: contactMessage.trim(),
+          appName,
+          appVersion,
+          platform: Platform.OS,
+          deviceInfo,
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Serverfejl");
+      }
+
+      Alert.alert("Tak!", "Din besked er sendt til serveren.");
+      setContactName("");
+      setContactEmail("");
+      setContactMessage("");
+    } catch (err) {
+      Alert.alert("Fejl", "Kunne ikke sende beskeden. Prøv igen.");
+    }
+  };
+
+  return (
+  <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
+    <StatusBar style="light" />
+
+    <ScrollView
+      contentContainerStyle={[
+        styles.safeTopContainer ?? styles.homeContainer,
+        {
+          paddingTop: 80,
+          paddingHorizontal: 16,
+          paddingBottom: 40,
+          alignItems: "flex-start",
+        },
+      ]}
+    >
+      <View style={{ width: "100%", maxWidth: 700 }}>
+        <View style={styles.headerRow}>
+          <Text style={[styles.appTitle, { fontSize: headingFont, color: "#f8f9fa" }]}>
+            Kontakt os
           </Text>
-
-          <View style={[styles.statsCard, { marginTop: 20 }]}>
-            <Text style={styles.statsSectionTitle}>Kontaktformular</Text>
-
-            <Text style={styles.statsLabel}>Navn</Text>
-            <TextInput
-              value={contactName}
-              onChangeText={setContactName}
-              placeholder="Fx ParamedNick"
-              placeholderTextColor="#adb5bd"
-              style={styles.textInput}
-            />
-
-            <Text style={[styles.statsLabel, { marginTop: 12 }]}>E-mail (valgfri)</Text>
-            <TextInput
-              value={contactEmail}
-              onChangeText={setContactEmail}
-              placeholder="Din e-mail (hvis du vil have svar)"
-              placeholderTextColor="#adb5bd"
-              keyboardType="email-address"
-              autoCapitalize="none"
-              style={styles.textInput}
-            />
-
-            <Text style={[styles.statsLabel, { marginTop: 12 }]}>Besked</Text>
-            <TextInput
-              value={contactMessage}
-              onChangeText={setContactMessage}
-              placeholder="Skriv din besked her..."
-              placeholderTextColor="#adb5bd"
-              multiline
-              style={[styles.textInput, { height: 140, textAlignVertical: "top" }]}
-            />
-
-            <Pressable
+          <Pressable
+            style={[styles.smallButton, { borderColor: "#ffffffdd" }]}
+            onPress={() => setScreen("home")}
+          >
+            <Text
               style={[
-                styles.bigButton,
-                { marginTop: 16, backgroundColor: "#1c7ed6", alignSelf: "stretch" },
+                styles.smallButtonText,
+                { color: "#fff", fontSize: buttonFont * 0.9 },
               ]}
-              onPress={handleSendContactEmail}
             >
-              <Text style={styles.bigButtonText}>Send besked</Text>
-            </Pressable>
-          </View>
-        </ScrollView>
-      </LinearGradient>
-    );
-  }
+              Tilbage
+            </Text>
+          </Pressable>
+        </View>
+
+        {/* EXISTING subtitle – keep this */}
+        <Text
+          style={[
+            styles.statsLabel,
+            {
+              marginTop: 12,
+              marginBottom: 8,
+              color: "#f1f3f5",
+            },
+          ]}
+        >
+          Denne besked bliver sendt til FlashMedic-teamet via serveren.
+          {"\n"}
+          App: {appName} – v{appVersion}
+          {"\n"}
+          Enhed: {deviceInfo || "Ukendt enhed"} ({Platform.OS})
+        </Text>
+
+        {/* NEW: app description paragraph under subtitle */}
+        <Text
+          style={[
+            styles.statsLabel,
+            {
+              marginBottom: 8,
+              color: "#f8f9fa",
+              fontSize: 24,
+            },
+          ]}
+        >
+          Denne app er lavet af en ambulancebehandlerelev og er rettet mod både
+          elever og færdiguddannede, som vil øve sig i anatomi, medicin, EKG og meget mere.
+          {"\n\n"}
+          Ris, ros og konstruktiv kritik modtages meget gerne – det hjælper med at gøre
+          appen bedre for alle.
+        </Text>
+
+        <Text style={[styles.statsLabel, { marginTop: 24 }]}>
+          Navn (valgfri)
+        </Text>
+        <TextInput
+          value={contactName}
+          onChangeText={setContactName}
+          style={[styles.textInput, { width: "100%" }]}
+          placeholder="Fx Nikolai"
+          placeholderTextColor="#adb5bd"
+        />
+
+        <Text style={[styles.statsLabel, { marginTop: 16 }]}>
+          Email (valgfri)
+        </Text>
+        <TextInput
+          value={contactEmail}
+          onChangeText={setContactEmail}
+          style={[styles.textInput, { width: "100%" }]}
+          placeholder="Fx nikolai@example.com"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          placeholderTextColor="#adb5bd"
+        />
+
+        <Text style={[styles.statsLabel, { marginTop: 16 }]}>
+          Besked
+        </Text>
+        <TextInput
+          value={contactMessage}
+          onChangeText={setContactMessage}
+          style={[
+            styles.textInput,
+            {
+              width: "100%",
+              height: 140,
+              textAlignVertical: "top",
+            },
+          ]}
+          placeholder="Skriv din besked her..."
+          placeholderTextColor="#adb5bd"
+          multiline
+        />
+
+        <Pressable
+          style={[
+            styles.bigButton,
+            styles.primaryButton,
+            {
+              marginTop: 24,
+              alignSelf: "flex-start",
+            },
+          ]}
+          onPress={handleSend}
+        >
+          <Text style={styles.bigButtonText}>SEND</Text>
+        </Pressable>
+      </View>
+    </ScrollView>
+  </LinearGradient>
+);
+
+}
 
   // PROFILE
   if (screen === "profile") {
@@ -1836,57 +2045,133 @@ export default function Index() {
     );
   }
 
-  // DRUG CALC THEORY
-  if (screen === "drugCalcTheory") {
-    return (
-      <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
-        <StatusBar style="light" />
-        <ScrollView contentContainerStyle={styles.homeContainer}>
-          <View style={styles.headerRow}>
-            <View style={{ flex: 1 }}>
-              <Text
-                style={[styles.appTitle, { fontSize: headingFont, color: "#f8f9fa" }]}
-                numberOfLines={1}
-                adjustsFontSizeToFit
-              >
-                Lægemiddelregning
-              </Text>
-              <View style={styles.subHeaderRow}>
-                <Text style={[styles.subHeaderText, { fontSize: subtitleFont }]}>Teori</Text>
-              </View>
-            </View>
-            <Pressable
-              style={[styles.smallButton, { borderColor: "#fff" }]}
-              onPress={() => setScreen("drugCalcHome")}
-              hitSlop={8}
+// DRUG CALC THEORY
+if (screen === "drugCalcTheory") {
+  return (
+    <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
+      <StatusBar style="light" />
+      <ScrollView
+        contentContainerStyle={[styles.homeContainer, styles.safeTopContainer]}
+      >
+        <View style={styles.headerRow}>
+          <View style={{ flex: 1 }}>
+            <Text
+              style={[styles.appTitle, { fontSize: headingFont, color: "#f8f9fa" }]}
+              numberOfLines={1}
+              adjustsFontSizeToFit
             >
-              <Text style={[styles.smallButtonText, { color: "#fff", fontSize: buttonFont * 0.9 }]}>
-                Tilbage
+              Lægemiddelregning
+            </Text>
+            <View style={styles.subHeaderRow}>
+              <Text style={[styles.subHeaderText, { fontSize: subtitleFont }]}>
+                Teori
               </Text>
-            </Pressable>
+            </View>
           </View>
 
-          <View style={[styles.statsCard, { alignSelf: "stretch" }]}>
-            <Text style={styles.statsSectionTitle}>Grundformler</Text>
-            <Text style={styles.drugTheoryText}>
-              Generel dosisformel:{"\n"}
-              {"\n"}• Ordineret dosis (D){"\n"}• Styrke (S){"\n"}• Mængde / volumen (V)
-              {"\n"}
-              {"\n"}D = S × V{"\n"}V = D / S{"\n"}
-              {"\n"}Eksempel:{"\n"}Du skal give 300 mg, præparatet indeholder 100 mg/mL.{"\n"}V =
-              300 / 100 = 3 mL.
-              {"\n"}
-              {"\n"}Tabletter:{"\n"}Antal tabletter = ordineret dosis / mg pr. tablet.
-              {"\n"}
-              {"\n"}Procentregning (glukose):{"\n"}X% betyder X g pr. 100 mL.{"\n"}10% = 10 g / 100
-              mL.{"\n"}
-              {"\n"}Så 500 mL 10% glukose:{"\n"}(10 g / 100 mL) × 500 mL = 50 g.
+          <Pressable
+            style={[styles.smallButton, { borderColor: "#fff" }]}
+            onPress={() => setScreen("drugCalcHome")}
+            hitSlop={8}
+          >
+            <Text
+              style={[styles.smallButtonText, { color: "#fff", fontSize: buttonFont * 0.9 }]}
+            >
+              Tilbage
             </Text>
-          </View>
-        </ScrollView>
-      </LinearGradient>
-    );
-  }
+          </Pressable>
+        </View>
+
+        <View style={[styles.statsCard, { alignSelf: "stretch" }]}>
+          <Text style={styles.statsSectionTitle}>Grundformler</Text>
+
+          <Text style={styles.drugTheoryText}>
+            Dosisregning handler i sin kerne om tre ting:
+            {"\n"}{"\n"}
+            • D = ordineret dosis (mg eller g){"\n"}
+            • S = styrke (mg/mL, mg/tablet, % osv.){"\n"}
+            • V = volumen (mL eller antal tabletter)
+            {"\n"}{"\n"}
+            De tre hænger altid sammen gennem formlerne:
+            {"\n"}
+            D = S × V{"\n"}
+            V = D / S{"\n"}
+            S = D / V
+            {"\n"}{"\n"}
+            Eksempel: Du skal give 300 mg, præparatet indeholder 100 mg/mL.
+            {"\n"}
+            V = 300 / 100 = 3 mL.
+          </Text>
+
+          <Text style={[styles.statsSectionTitle, { marginTop: 18 }]}>
+            Tabletter
+          </Text>
+          <Text style={styles.drugTheoryText}>
+            Tabletberegning er en af de hyppigste former for medicinregning:
+            {"\n"}{"\n"}
+            Antal tabletter = ordineret dosis / mg pr. tablet.
+            {"\n"}{"\n"}
+            Eksempel: Patienten skal have 225 mg Paracetamol, tabletter findes som 75 mg.
+            {"\n"}
+            Antal tabletter = 225 / 75 = 3 tabletter.
+          </Text>
+
+          <Text style={[styles.statsSectionTitle, { marginTop: 18 }]}>
+            Stærke opløsninger (mg/mL)
+          </Text>
+          <Text style={styles.drugTheoryText}>
+            Flydende medicin er næsten altid angivet som mg pr. mL.
+            {"\n"}
+            Husk: mængden du giver afhænger af total dosis.
+            {"\n"}{"\n"}
+            Eksempel: 5 mg/mL og du skal give 20 mg → 20 / 5 = 4 mL.
+          </Text>
+
+          <Text style={[styles.statsSectionTitle, { marginTop: 18 }]}>
+            Procentregning (glukose, NaCl osv.)
+          </Text>
+          <Text style={styles.drugTheoryText}>
+            En procentopløsning betyder:
+            {"\n"}
+            X% = X gram pr. 100 mL.
+            {"\n"}{"\n"}
+            Eksempel: 10% glukose = 10 g / 100 mL.
+            {"\n"}{"\n"}
+            500 mL 10% glukose = (10 g / 100 mL) × 500 mL = 50 g.
+            {"\n"}{"\n"}
+            En hurtig huskeregel:
+            {"\n"}
+            • 5% = 5 g/100 mL{"\n"}
+            • 10% = 10 g/100 mL{"\n"}
+            • 20% = 20 g/100 mL
+          </Text>
+
+          <Text style={[styles.statsSectionTitle, { marginTop: 18 }]}>
+            Dråber → mL
+          </Text>
+          <Text style={styles.drugTheoryText}>
+            1 mL svarer typisk til 20 dråber (kan variere i praksis).
+            {"\n"}
+            Bruges især ved infusioner eller øjendråber.
+            {"\n"}{"\n"}
+            Eksempel: 60 dråber = 60 / 20 = 3 mL.
+          </Text>
+
+          <Text style={[styles.statsSectionTitle, { marginTop: 18 }]}>
+            Infusioner og hastigheder
+          </Text>
+          <Text style={styles.drugTheoryText}>
+            Infusionshastighed regnes som:
+            {"\n"}
+            mL/time = total volumen / antal timer.
+            {"\n"}{"\n"}
+            Eksempel: 1000 mL over 4 timer → 1000 / 4 = 250 mL/time.
+          </Text>
+        </View>
+      </ScrollView>
+    </LinearGradient>
+  );
+}
 
   // HOME
   return (
@@ -1967,562 +2252,3 @@ export default function Index() {
   );
 }
 
-// ------------------ STYLES --------------------
-
-const styles = StyleSheet.create({
-  homeBackground: {
-    flex: 1,
-  },
-  homeContainer: {
-    flexGrow: 1,
-    paddingTop: 56,
-    paddingVertical: 32,
-    paddingHorizontal: 24,
-    alignItems: "center",
-  },
-  homeTopRow: {
-    flexDirection: "row",
-    width: "100%",
-    justifyContent: "flex-end",
-    marginTop: 16,
-    marginBottom: 8,
-  },
-  appLogo: {
-    width: 100, // << change icon size here
-    height: 100, // << and here
-    marginBottom: 12,
-  },
-  quizBackground: {
-    flex: 1,
-  },
-  quizContainer: {
-    flex: 1,
-    padding: 24,
-    paddingTop: 48,
-    alignItems: "center",
-  },
-  appTitle: {
-    fontWeight: "800",
-    marginBottom: 12,
-    fontFamily: "sans-serif",
-    letterSpacing: 0.5,
-    textAlign: "center",
-  },
-  subtitle: {
-    color: "#495057",
-    marginBottom: 24,
-    fontFamily: "System",
-    textAlign: "center",
-  },
-  homeButtonsContainer: {
-    width: "100%",
-    marginTop: 8,
-    marginBottom: 24,
-  },
-  homeNavButton: {
-    paddingVertical: 14,
-    alignItems: "center",
-  },
-  homeNavButtonText: {
-    fontSize: 20,
-    fontWeight: "800",
-    color: "#f8f9fa",
-    textAlign: "center",
-  },
-  subjectGrid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    gap: 16,
-  },
-  cardContainer: {
-    width: "100%",
-    flex: 1,
-    justifyContent: "center",
-  },
-  cardBox: {
-    minHeight: 120,
-    padding: 20,
-    borderRadius: 16,
-    backgroundColor: "#ffffff",
-    borderWidth: 0,
-    marginVertical: 12,
-    justifyContent: "center",
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 4 },
-    elevation: 4,
-  },
-  questionText: {
-    fontWeight: "800",
-    textAlign: "center",
-    fontFamily: "System",
-  },
-  answerText: {
-    textAlign: "center",
-    fontFamily: "serif",
-  },
-  placeholderText: {
-    fontSize: 15,
-    color: "#dee2e6",
-    textAlign: "center",
-  },
-  bigButton: {
-    paddingVertical: 14,
-    paddingHorizontal: 20,
-    borderRadius: 16,
-    minWidth: 150,
-    alignItems: "center",
-    marginVertical: 10,
-  },
-  primaryButton: { backgroundColor: "#1c7ed6" },
-  secondaryButton: { backgroundColor: "#495057" },
-  bigButtonText: { color: "#fff", fontWeight: "800" },
-  smallButton: {
-    borderWidth: 1,
-    borderColor: "#343a40",
-    paddingVertical: 8,
-    paddingHorizontal: 14,
-    borderRadius: 999,
-    marginLeft: 8,
-    backgroundColor: "rgba(255,255,255,0.1)",
-  },
-  smallButtonText: { color: "#343a40", fontWeight: "500" },
-  outlineButton: {
-    borderWidth: 1,
-    borderColor: "#f1f3f5",
-    backgroundColor: "transparent",
-    marginTop: 8,
-  },
-  outlineButtonText: { color: "#f1f3f5", fontWeight: "600" },
-  headerRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
-    marginBottom: 20,
-    alignItems: "flex-end",
-  },
-  headerButtons: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  subjectLabel: { fontWeight: "700" },
-  topicLabel: {
-    marginTop: 2,
-  },
-  metaRow: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 16,
-  },
-  difficultyPill: {
-    paddingVertical: 4,
-    paddingHorizontal: 10,
-    borderRadius: 999,
-  },
-  difficultyText: {
-    color: "#fff",
-    fontWeight: "600",
-  },
-  buttonRow: {
-    flexDirection: "row",
-    justifyContent: "center",
-    gap: 12,
-    marginVertical: 10,
-  },
-  ratingRow: {
-    flexDirection: "row",
-    justifyContent: "center",
-    gap: 12,
-    marginBottom: 10,
-    marginTop: 4,
-  },
-  ratingButton: {
-    flex: 1,
-    paddingVertical: 14,
-    paddingHorizontal: 16,
-    borderRadius: 14,
-    alignItems: "center",
-  },
-  knownButton: {
-    backgroundColor: "#e6fcf5",
-    borderWidth: 1,
-    borderColor: "#12b886",
-  },
-  unknownButton: {
-    backgroundColor: "#fff4e6",
-    borderWidth: 1,
-    borderColor: "#f08c00",
-  },
-  ratingButtonText: {
-    fontWeight: "600",
-    color: "#212529",
-  },
-  topicSection: {
-    marginTop: 24,
-    width: "100%",
-  },
-  topicHeaderRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "baseline",
-    marginBottom: 8,
-  },
-  topicTitle: {
-    fontWeight: "600",
-    color: "#f8f9fa",
-  },
-  topicLink: {
-    fontSize: 14,
-    color: "#e9ecef",
-    fontWeight: "500",
-  },
-  topicEmptyText: {
-    fontSize: 14,
-    color: "#dee2e6",
-    marginTop: 4,
-  },
-  topicGroupList: {
-    marginTop: 4,
-    width: "100%",
-  },
-  topicGroup: {
-    marginBottom: 10,
-  },
-  topicGroupTitle: {
-    fontSize: 15,
-    fontWeight: "600",
-    color: "#f8f9fa",
-  },
-  topicGroupTitleSelected: {
-    color: "#4dabf7",
-  },
-  subtopicRow: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 8,
-    marginTop: 4,
-    marginLeft: 12,
-  },
-  topicChip: {
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 999,
-    borderWidth: 1,
-    borderColor: "#ced4da",
-    backgroundColor: "#ffffff",
-  },
-  topicChipSelected: {
-    backgroundColor: "#4c6ef5",
-    borderColor: "#364fc7",
-  },
-  topicChipText: {
-    fontSize: 14,
-    color: "#343a40",
-  },
-  topicChipTextSelected: {
-    color: "#ffffff",
-    fontWeight: "600",
-  },
-  progressText: {
-    marginTop: 4,
-    fontWeight: "500",
-  },
-  questionImage: {
-    width: 260,
-    height: 160,
-    marginBottom: 8,
-  },
-  tapToZoomText: {
-    fontSize: 12,
-    color: "#868e96",
-    textAlign: "center",
-    marginBottom: 8,
-  },
-  modalBackdrop: {
-    flex: 1,
-    backgroundColor: "rgba(0,0,0,0.9)",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  modalContent: {
-    width: "100%",
-    height: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  zoomImage: {
-    width: "100%",
-    height: "80%",
-  },
-  modalCloseButton: {
-    position: "absolute",
-    top: 48,
-    right: 24,
-    paddingVertical: 8,
-    paddingHorizontal: 14,
-    borderRadius: 999,
-    borderWidth: 1,
-    borderColor: "#fff",
-    backgroundColor: "transparent",
-  },
-  modalCloseText: {
-    color: "#fff",
-    fontWeight: "600",
-    fontSize: 14,
-  },
-  statsCard: {
-    width: "100%",
-    padding: 20,
-    borderRadius: 16,
-    backgroundColor: "rgba(255,255,255,0.95)",
-    shadowColor: "#000",
-    shadowOpacity: 0.15,
-    shadowRadius: 10,
-    shadowOffset: { width: 0, height: 6 },
-    elevation: 6,
-    marginBottom: 8,
-  },
-  statsRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 12,
-  },
-  statsLabel: {
-    fontSize: 14,
-    color: "#495057",
-    marginBottom: 2,
-  },
-  statsValue: {
-    fontSize: 28,
-    fontWeight: "800",
-    color: "#212529",
-  },
-  statsGood: {
-    fontSize: 20,
-    fontWeight: "700",
-    color: "#12b886",
-  },
-  statsBad: {
-    fontSize: 20,
-    fontWeight: "700",
-    color: "#fa5252",
-  },
-  statsAccuracy: {
-    fontSize: 26,
-    fontWeight: "800",
-    color: "#1c7ed6",
-  },
-  statsSectionTitle: {
-    fontSize: 16,
-    fontWeight: "700",
-    color: "#212529",
-    marginBottom: 8,
-  },
-  statsRankRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 4,
-  },
-  statsRankPosition: {
-    width: 24,
-    fontWeight: "700",
-    color: "#212529",
-  },
-  statsRankName: {
-    flex: 1,
-    color: "#343a40",
-  },
-  statsRankClass: {
-    color: "#868e96",
-    fontSize: 12,
-  },
-  statsRankScore: {
-    fontWeight: "700",
-    color: "#1c7ed6",
-  },
-  subjectStatsRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 6,
-  },
-  subjectStatsTitle: {
-    fontWeight: "600",
-    color: "#212529",
-  },
-  subjectStatsSub: {
-    fontSize: 13,
-    color: "#495057",
-  },
-  textInput: {
-    borderWidth: 1,
-    borderColor: "#ced4da",
-    borderRadius: 12,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    fontSize: 16,
-    color: "#212529",
-    backgroundColor: "#ffffff",
-    marginTop: 4,
-  },
-  classList: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 8,
-    marginTop: 8,
-  },
-  classChip: {
-    paddingVertical: 6,
-    paddingHorizontal: 10,
-    borderRadius: 999,
-    borderWidth: 1,
-    borderColor: "#ced4da",
-    backgroundColor: "#ffffff",
-  },
-  classChipSelected: {
-    backgroundColor: "#4c6ef5",
-    borderColor: "#364fc7",
-  },
-  classChipText: {
-    fontSize: 13,
-    color: "#343a40",
-  },
-  classChipTextSelected: {
-    color: "#ffffff",
-    fontWeight: "600",
-  },
-  profileBadge: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 999,
-    backgroundColor: "rgba(0,0,0,0.3)",
-    borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.6)",
-  },
-  profileBadgeAnon: {
-    backgroundColor: "rgba(0,0,0,0.2)",
-  },
-  profileBadgeText: {
-    color: "#f8f9fa",
-    fontWeight: "700",
-    fontSize: 13,
-  },
-  profileBadgeSub: {
-    color: "#e9ecef",
-    fontSize: 11,
-  },
-  madeByText: {
-    marginTop: 16,
-    fontSize: 10,
-    color: "#212529",
-    opacity: 0.7,
-    textAlign: "center",
-  },
-  drugQuestionText: {
-    fontSize: 16,
-    color: "#212529",
-    marginBottom: 8,
-  },
-  drugHintText: {
-    fontSize: 13,
-    color: "#868e96",
-    marginBottom: 12,
-  },
-  drugAnswerBox: {
-    marginTop: 8,
-    padding: 8,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: "#ced4da",
-    backgroundColor: "#ffffff",
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-  drugAnswerBoxCorrect: {
-    borderColor: "#12b886",
-    backgroundColor: "#e6fcf5",
-  },
-  drugAnswerBoxIncorrect: {
-    borderColor: "#fa5252",
-    backgroundColor: "#ffe3e3",
-  },
-  drugUnitText: {
-    fontSize: 16,
-    color: "#495057",
-  },
-  drugTheoryText: {
-    fontSize: 15,
-    color: "#212529",
-    lineHeight: 22,
-  },
-  subHeaderRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: -4,
-  },
-  subHeaderText: {
-    color: "#e9ecef",
-    fontWeight: "500",
-  },
-  weeklyTimerBar: {
-    width: "100%",
-    alignItems: "center",
-    marginBottom: 16,
-  },
-  weeklyTimerText: {
-    fontSize: 16,
-    fontWeight: "700",
-    color: "#f8f9fa",
-  },
-  weeklyGameCenter: {
-    width: "100%",
-    alignItems: "center",
-    marginTop: 32,
-  },
-  weeklyGameTitle: {
-    fontSize: 22,
-    fontWeight: "800",
-    color: "#f8f9fa",
-    marginBottom: 24,
-    textAlign: "center",
-  },
-  weeklyStartButton: {
-    paddingHorizontal: 40,
-  },
-  weeklyStartButtonText: {
-    fontSize: 22,
-  },
-  weeklyPlaceholderText: {
-    marginTop: 16,
-    fontSize: 14,
-    color: "#e9ecef",
-    textAlign: "center",
-  },
-  weeklyWordScrambled: {
-    fontSize: 26,
-    letterSpacing: 2,
-    fontWeight: "800",
-    color: "#212529",
-    marginBottom: 8,
-    textAlign: "center",
-  },
-  weeklyWordFeedbackCorrect: {
-    marginTop: 12,
-    fontSize: 14,
-    color: "#12b886",
-    textAlign: "center",
-    fontWeight: "700",
-  },
-  weeklyWordFeedbackWrong: {
-    marginTop: 12,
-    fontSize: 14,
-    color: "#fa5252",
-    textAlign: "center",
-    fontWeight: "700",
-  },
-});
