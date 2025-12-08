@@ -68,6 +68,117 @@ type DrugCalcQuestion = {
   hint?: string;
 };
 
+type WeeklyMcqOption = {
+  id: string;
+  text: string;
+  isCorrect: boolean;
+};
+
+type WeeklyMcqQuestion = {
+  id: string;
+  text: string;
+  options: WeeklyMcqOption[];
+};
+
+const WEEKLY_MCQ_TIME_LIMIT = 30; // seconds per question
+
+// TODO: Senere skal disse komme fra backend for "ugens sæt"
+const WEEKLY_MCQ_QUESTIONS: WeeklyMcqQuestion[] = [
+  {
+    id: "q1",
+    text: "Du ankommer til en 65-årig mand med pludseligt opstået åndenød. Hvad er dit første fokus i ABCDE?",
+    options: [
+      { id: "q1a", text: "A – Sikre frie luftveje", isCorrect: true },
+      { id: "q1b", text: "B – Måle saturation og frekvens", isCorrect: false },
+      { id: "q1c", text: "C – Måle blodtryk", isCorrect: false },
+      { id: "q1d", text: "D – GCS og pupilreaktion", isCorrect: false },
+    ],
+  },
+  {
+    id: "q2",
+    text: "Hvad er den mest alvorlige mistanke ved pludselig, skarp, ensidig brystsmerte og åndenød hos en yngre patient?",
+    options: [
+      { id: "q2a", text: "Gastroøsofageal refluks", isCorrect: false },
+      { id: "q2b", text: "Pneumoni", isCorrect: false },
+      { id: "q2c", text: "Pneumothorax", isCorrect: true },
+      { id: "q2d", text: "Muskelstræk", isCorrect: false },
+    ],
+  },
+  {
+    id: "q3",
+    text: "En diabetiker er vågen, kold-svedende og konfus. Blodsukkeret er 2,1 mmol/L. Første tiltager?",
+    options: [
+      { id: "q3a", text: "Give insulin", isCorrect: false },
+      { id: "q3b", text: "Give hurtigtvirkende kulhydrat per os", isCorrect: true },
+      { id: "q3c", text: "Give væske intravenøst uden kulhydrat", isCorrect: false },
+      { id: "q3d", text: "Intubere med det samme", isCorrect: false },
+    ],
+  },
+  {
+    id: "q4",
+    text: "Ved mistanke om apopleksi (stroke) er det vigtigste præhospitale fokus:",
+    options: [
+      { id: "q4a", text: "Smertedækning til VAS 0", isCorrect: false },
+      { id: "q4b", text: "Tidlig tidstagning og hurtig transport til stroke-center", isCorrect: true },
+      { id: "q4c", text: "At tage fuld medicinliste før afgang", isCorrect: false },
+      { id: "q4d", text: "At starte antibiotika præhospitalt", isCorrect: false },
+    ],
+  },
+  {
+    id: "q5",
+    text: "En patient klager over trykkende brystsmerter med udstråling til venstre arm og kæbe. Hvad er mest korrekt?",
+    options: [
+      { id: "q5a", text: "Tænk først muskelsmerter fra skulder", isCorrect: false },
+      { id: "q5b", text: "Mistænk akut koronart syndrom", isCorrect: true },
+      { id: "q5c", text: "Tænk primært galdesten", isCorrect: false },
+      { id: "q5d", text: "Afvent og se om det går over", isCorrect: false },
+    ],
+  },
+];
+
+type WeeklyMatchPair = {
+  id: string;
+  left: string;
+  right: string;
+};
+
+// TODO: Senere: hent disse fra backend som "ugens match-sæt"
+const WEEKLY_MATCH_PAIRS: WeeklyMatchPair[] = [
+  {
+    id: "m1",
+    left: "Fentanyl",
+    right: "Stærkt opioid-analgetikum",
+  },
+  {
+    id: "m2",
+    left: "Ondansetron",
+    right: "Antiemetikum (kvalmestillende)",
+  },
+  {
+    id: "m3",
+    left: "Buccolam (midazolam)",
+    right: "Benzodiazepin mod kramper",
+  },
+  {
+    id: "m4",
+    left: "Heparin",
+    right: "Antikoagulans (blodfortyndende)",
+  },
+  {
+    id: "m5",
+    left: "Adrenalin",
+    right: "Katekolamin ved hjertestop/anafylaksi",
+  },
+];
+
+const WEEKLY_MATCH_COLORS: Record<string, string> = {
+  m1: "#ff6b6b", // rød
+  m2: "#fcc419", // gul
+  m3: "#40c057", // grøn
+  m4: "#4dabf7", // blå
+  m5: "#9775fa", // lilla
+};
+
 // ---------- App identity ----------
 
 const APP_ID = "FlashMedic";
@@ -122,6 +233,8 @@ const WORD_OF_WEEK_WORDS = [
   "kapillær",
   "arterioler",
 ];
+
+const WEEKLY_WORD_TIME_LIMIT = 30; // sekunder
 
 function scrambleWord(word: string): string {
   const arr = word.split("");
@@ -258,11 +371,45 @@ export default function Index() {
   const [weeklyGameRunning, setWeeklyGameRunning] = useState(false);
   const [weeklyTimerSeconds, setWeeklyTimerSeconds] = useState(0);
 
+   // MCQ – per-question timer & scoring
+  const [weeklyMcqStarted, setWeeklyMcqStarted] = useState(false);
+  const [weeklyMcqIndex, setWeeklyMcqIndex] = useState(0);
+  const [weeklyMcqSecondsLeft, setWeeklyMcqSecondsLeft] = useState(WEEKLY_MCQ_TIME_LIMIT);
+  const [weeklyMcqScore, setWeeklyMcqScore] = useState(0);
+  const [weeklyMcqCorrect, setWeeklyMcqCorrect] = useState(0);
+  const [weeklyMcqWrong, setWeeklyMcqWrong] = useState(0);
+  const [weeklyMcqSelectedId, setWeeklyMcqSelectedId] = useState<string | null>(null);
+  const [weeklyMcqShowFeedback, setWeeklyMcqShowFeedback] = useState(false);
+  const [weeklyMcqLastPoints, setWeeklyMcqLastPoints] = useState(0);
+  const [weeklyMcqFinished, setWeeklyMcqFinished] = useState(false);
+  const [weeklyMcqLocked, setWeeklyMcqLocked] = useState(false);
+  const [weeklyMcqShowResults, setWeeklyMcqShowResults] = useState(false);
+
+   // MATCH GAME – state
+  const [weeklyMatchStarted, setWeeklyMatchStarted] = useState(false);
+  const [weeklyMatchLocked, setWeeklyMatchLocked] = useState(false);
+  const [weeklyMatchFinished, setWeeklyMatchFinished] = useState(false);
+  const [weeklyMatchRightItems, setWeeklyMatchRightItems] = useState<WeeklyMatchPair[]>([]);
+  const [weeklyMatchSelectedLeftId, setWeeklyMatchSelectedLeftId] = useState<string | null>(null);
+  const [weeklyMatchSelectedRightId, setWeeklyMatchSelectedRightId] = useState<string | null>(null);
+  const [weeklyMatchMatches, setWeeklyMatchMatches] = useState<Record<string, string>>({}); // leftId -> rightId
+  const [weeklyMatchScore, setWeeklyMatchScore] = useState(0);
+  const [weeklyMatchCorrect, setWeeklyMatchCorrect] = useState(0);
+  const [weeklyMatchWrong, setWeeklyMatchWrong] = useState(0);
+  const [weeklyMatchShowResults, setWeeklyMatchShowResults] = useState(false);
+
   // Word of the Week state
   const [wordOfWeekOriginal, setWordOfWeekOriginal] = useState("");
   const [wordOfWeekScrambled, setWordOfWeekScrambled] = useState("");
   const [wordOfWeekGuess, setWordOfWeekGuess] = useState("");
   const [wordOfWeekResult, setWordOfWeekResult] = useState<"idle" | "correct" | "wrong">("idle");
+    const [weeklyWordStarted, setWeeklyWordStarted] = useState(false);
+  const [weeklyWordFinished, setWeeklyWordFinished] = useState(false);
+  const [weeklyWordSecondsLeft, setWeeklyWordSecondsLeft] =
+    useState<number>(WEEKLY_WORD_TIME_LIMIT);
+  const [wordOfWeekScore, setWordOfWeekScore] = useState(0);
+  const [weeklyWordShowResults, setWeeklyWordShowResults] = useState(false);
+
 
   // -------- Responsive typography --------
   const { width: screenWidth, height: screenHeight } = useWindowDimensions();
@@ -371,6 +518,35 @@ export default function Index() {
 
     return () => clearInterval(interval);
   }, [weeklyGameRunning]);
+
+    // -------- Weekly MCQ countdown (30 sek pr. spørgsmål) --------
+  useEffect(() => {
+    if (!weeklyGameRunning) return;
+    if (screen !== "weeklyMcq") return;
+    if (!weeklyMcqStarted || weeklyMcqShowFeedback || weeklyMcqFinished) return;
+
+    const interval = setInterval(() => {
+      setWeeklyMcqSecondsLeft((prev) => {
+        // Når tiden rammer 0, stopper vi spillet og viser feedback som "for langsom / 0 point"
+        if (prev <= 1) {
+          setWeeklyGameRunning(false);
+          setWeeklyMcqShowFeedback(true);
+          setWeeklyMcqLastPoints(0);
+          setWeeklyMcqWrong((w) => w + 1);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [
+    weeklyGameRunning,
+    screen,
+    weeklyMcqStarted,
+    weeklyMcqShowFeedback,
+    weeklyMcqFinished,
+  ]);
 
   // -------- Derived stats --------
   const { totalSeen, totalCorrect, totalIncorrect, accuracy } = useMemo(() => {
@@ -763,6 +939,303 @@ export default function Index() {
     setDrugAnswer("");
     setDrugAnswerStatus("neutral");
   };
+
+    // ---------- WEEKLY MCQ HELPERS ----------
+
+  const handleWeeklyMcqStart = () => {
+    if (weeklyMcqLocked) {
+      Alert.alert(
+        "Spillet er låst",
+        "Du har allerede spillet denne uges Multiple Choice Game. Nyt sæt kommer i næste uge."
+      );
+      return;
+    }
+
+    if (!WEEKLY_MCQ_QUESTIONS || WEEKLY_MCQ_QUESTIONS.length === 0) {
+      Alert.alert("Ingen spørgsmål", "Der er ingen MCQ-spørgsmål til denne uge endnu.");
+      return;
+    }
+
+    setWeeklyMcqStarted(true);
+    setWeeklyMcqFinished(false);
+    setWeeklyMcqIndex(0);
+    setWeeklyMcqSecondsLeft(WEEKLY_MCQ_TIME_LIMIT);
+    setWeeklyMcqSelectedId(null);
+    setWeeklyMcqShowFeedback(false);
+    setWeeklyMcqLastPoints(0);
+    setWeeklyMcqScore(0);
+    setWeeklyMcqCorrect(0);
+    setWeeklyMcqWrong(0);
+  };
+
+  const handleWeeklyMcqAnswer = (optionId: string) => {
+    if (!weeklyMcqStarted) return;
+    if (weeklyMcqShowFeedback) return;
+
+    const currentQuestion = WEEKLY_MCQ_QUESTIONS[weeklyMcqIndex];
+    if (!currentQuestion) return;
+
+    const selectedOption = currentQuestion.options.find((o) => o.id === optionId);
+    if (!selectedOption) return;
+
+    setWeeklyMcqSelectedId(optionId);
+
+    const isCorrect = !!selectedOption.isCorrect;
+
+    let points = 0;
+    if (isCorrect) {
+      const elapsed = WEEKLY_MCQ_TIME_LIMIT - weeklyMcqSecondsLeft; // sekunder brugt
+      const fastWindow = 5;
+
+      if (elapsed <= fastWindow) {
+        points = 1000;
+      } else {
+        const extraSeconds = elapsed - fastWindow;
+        const deducted = extraSeconds * 32;
+        points = Math.max(200, 1000 - deducted);
+      }
+    } else {
+      points = 0;
+    }
+
+    setWeeklyMcqLastPoints(points);
+    setWeeklyMcqShowFeedback(true);
+
+    setWeeklyMcqScore((prev) => prev + points);
+    if (isCorrect) {
+      setWeeklyMcqCorrect((prev) => prev + 1);
+    } else {
+      setWeeklyMcqWrong((prev) => prev + 1);
+    }
+  };
+
+  const handleWeeklyMcqNext = () => {
+    const totalQuestions = WEEKLY_MCQ_QUESTIONS.length;
+    const nextIndex = weeklyMcqIndex + 1;
+
+    if (nextIndex >= totalQuestions) {
+      // Spillet er færdigt
+      setWeeklyMcqStarted(false);
+      setWeeklyMcqFinished(true);
+      setWeeklyMcqShowFeedback(false);
+      setWeeklyMcqSelectedId(null);
+      setWeeklyMcqSecondsLeft(WEEKLY_MCQ_TIME_LIMIT);
+      setWeeklyMcqLocked(true); // lås til næste uge
+      setWeeklyMcqShowResults(true);
+      return;
+    }
+
+    // Næste spørgsmål
+    setWeeklyMcqIndex(nextIndex);
+    setWeeklyMcqSelectedId(null);
+    setWeeklyMcqShowFeedback(false);
+    setWeeklyMcqLastPoints(0);
+    setWeeklyMcqSecondsLeft(WEEKLY_MCQ_TIME_LIMIT);
+  };
+
+  const handleWeeklyMcqCloseResults = () => {
+    setWeeklyMcqShowResults(false);
+    setWeeklyMcqFinished(true);
+    setWeeklyMcqStarted(false);
+    setWeeklyMcqSelectedId(null);
+    setWeeklyMcqShowFeedback(false);
+    setWeeklyMcqSecondsLeft(WEEKLY_MCQ_TIME_LIMIT);
+    setScreen("weeklyHome");
+  };
+
+  // ---------- Weekly MATCH helpers ----------
+
+  const handleWeeklyMatchStart = () => {
+    if (weeklyMatchLocked) {
+      Alert.alert(
+        "Spillet er låst",
+        "Du har allerede spillet denne uges Match Game. Nyt sæt kommer i næste uge."
+      );
+      return;
+    }
+
+    setWeeklyMatchStarted(true);
+    setWeeklyMatchFinished(false);
+    setWeeklyMatchMatches({});
+    setWeeklyMatchSelectedLeftId(null);
+    setWeeklyMatchSelectedRightId(null);
+    setWeeklyMatchRightItems(shuffle(WEEKLY_MATCH_PAIRS));
+    setWeeklyMatchScore(0);
+    setWeeklyMatchCorrect(0);
+    setWeeklyMatchWrong(0);
+    setWeeklyTimerSeconds(0);
+    setWeeklyGameRunning(true);
+  };
+
+  const handleWeeklyMatchSelectLeft = (leftId: string) => {
+    // Vælg / fravælg venstre felt (kun markering – par forbliver)
+    setWeeklyMatchSelectedLeftId((prev) => (prev === leftId ? null : leftId));
+  };
+
+  const handleWeeklyMatchSelectRight = (rightId: string) => {
+    // Hvis ingen venstre valgt: “tap kombinationen igen for at fortryde”
+    if (!weeklyMatchSelectedLeftId) {
+      // Se om denne højre allerede er matchet – hvis ja, ophæv den parring
+      const existingLeftId = Object.entries(weeklyMatchMatches).find(
+        ([, r]) => r === rightId,
+      )?.[0];
+
+      if (existingLeftId) {
+        setWeeklyMatchMatches((prev) => {
+          const next = { ...prev };
+          delete next[existingLeftId];
+          return next;
+        });
+      }
+
+      setWeeklyMatchSelectedRightId((prev) => (prev === rightId ? null : rightId));
+      return;
+    }
+
+    // Her har vi både venstre og højre valgt → lav eller fjern parring
+    const leftId = weeklyMatchSelectedLeftId;
+
+    setWeeklyMatchMatches((prev) => {
+      const currentRightForLeft = prev[leftId];
+
+      // Hvis brugeren trykker på den SAMME højre som allerede er matchet til den venstre → fjern parring
+      if (currentRightForLeft === rightId) {
+        const next = { ...prev };
+        delete next[leftId];
+        return next;
+      }
+
+      // Ellers lav ny parring – men fjern først evt. tidligere brug af denne højre
+      const next: Record<string, string> = { ...prev };
+
+      // Find om denne højre er brugt af en anden venstre
+      const otherLeftId = Object.entries(next).find(([, r]) => r === rightId)?.[0];
+      if (otherLeftId && otherLeftId !== leftId) {
+        delete next[otherLeftId];
+      }
+
+      next[leftId] = rightId;
+      return next;
+    });
+
+    setWeeklyMatchSelectedLeftId(null);
+    setWeeklyMatchSelectedRightId(null);
+  };
+
+  const handleWeeklyMatchSubmit = () => {
+    const totalPairs = WEEKLY_MATCH_PAIRS.length;
+
+    let correct = 0;
+    WEEKLY_MATCH_PAIRS.forEach((pair) => {
+      const matchedRightId = weeklyMatchMatches[pair.id];
+      if (matchedRightId === pair.id) {
+        correct += 1;
+      }
+    });
+
+    const wrong = totalPairs - correct;
+
+    // Scoring:
+    // 1000 point pr. korrekt match
+    // minus 50 point pr. sekund samlet tid
+    const baseScore = correct * 1000;
+    const penalty = weeklyTimerSeconds * 50;
+    const finalScore = Math.max(0, baseScore - penalty);
+
+    setWeeklyMatchCorrect(correct);
+    setWeeklyMatchWrong(wrong);
+    setWeeklyMatchScore(finalScore);
+
+    setWeeklyGameRunning(false);
+    setWeeklyMatchFinished(true);
+    setWeeklyMatchLocked(true); // lås spillet for denne uge (indtil reload / backend reset)
+    setWeeklyMatchShowResults(true);
+  };
+
+  const handleWeeklyMatchCloseResults = () => {
+    setWeeklyMatchShowResults(false);
+    setScreen("weeklyHome");
+  };
+
+    // ---------- WEEKLY WORD HELPERS ----------
+
+  const handleWeeklyWordStart = () => {
+    const word = pickRandomWordOfWeek();
+    setWordOfWeekOriginal(word);
+    setWordOfWeekScrambled(scrambleWord(word).toUpperCase());
+    setWordOfWeekGuess("");
+    setWordOfWeekResult("idle");
+    setWeeklyWordSecondsLeft(WEEKLY_WORD_TIME_LIMIT);
+    setWordOfWeekScore(0);
+    setWeeklyWordStarted(true);
+    setWeeklyWordFinished(false);
+  };
+
+  const handleWeeklyWordGuess = () => {
+    if (!weeklyWordStarted) return;
+    if (weeklyWordSecondsLeft <= 0) return;
+
+    const guess = wordOfWeekGuess.trim().toLowerCase();
+    if (!guess) {
+      Alert.alert("Mangler svar", "Skriv dit gæt, før du afleverer.");
+      return;
+    }
+
+    const target = wordOfWeekOriginal.toLowerCase();
+
+    let score = 0;
+    if (guess === target) {
+      const elapsed = WEEKLY_WORD_TIME_LIMIT - weeklyWordSecondsLeft;
+
+      if (elapsed <= 5) {
+        // 0–5 sekunder → 5000 point
+        score = 5000;
+      } else {
+        // efter 5 sekunder: -160 point pr. ekstra sekund, ned til minimum 1000
+        const extraSeconds = elapsed - 5;
+        score = Math.max(1000, 5000 - extraSeconds * 160);
+      }
+
+      setWordOfWeekResult("correct");
+    } else {
+      score = 0;
+      setWordOfWeekResult("wrong");
+    }
+
+    setWordOfWeekScore(score);
+    setWeeklyWordStarted(false);
+    setWeeklyWordFinished(true);
+  };
+
+  const handleWeeklyWordShowResults = () => {
+    if (!weeklyWordFinished) return;
+    setWeeklyWordShowResults(true);
+  };
+
+  const handleWeeklyWordCloseResults = () => {
+    setWeeklyWordShowResults(false);
+    setScreen("weeklyHome");
+  };
+
+    // -------- Word of the Week timer (countdown) --------
+  useEffect(() => {
+    if (!weeklyWordStarted) return;
+
+    if (weeklyWordSecondsLeft <= 0) {
+      // Timeout → ingen point
+      setWeeklyWordStarted(false);
+      setWeeklyWordFinished(true);
+      setWordOfWeekResult("wrong");
+      setWordOfWeekScore(0);
+      return;
+    }
+
+    const interval = setInterval(() => {
+      setWeeklyWordSecondsLeft((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [weeklyWordStarted, weeklyWordSecondsLeft]);
 
   // ---------- SCREENS ----------
 
@@ -1312,7 +1785,12 @@ if (screen === "quiz" && currentCard) {
               onPress={() => setScreen("home")}
               hitSlop={8}
             >
-              <Text style={[styles.smallButtonText, { color: "#fff", fontSize: buttonFont * 0.9 }]}>
+              <Text
+                style={[
+                  styles.smallButtonText,
+                  { color: "#fff", fontSize: buttonFont * 0.9 },
+                ]}
+              >
                 Home
               </Text>
             </Pressable>
@@ -1333,28 +1811,43 @@ if (screen === "quiz" && currentCard) {
           </Text>
 
           <View style={styles.homeButtonsContainer}>
+            {/* MCQ – med lås/tekst */}
             <Pressable
-              style={styles.homeNavButton}
+              style={[
+                styles.homeNavButton,
+                weeklyMcqLocked && { opacity: 0.5 },
+              ]}
               onPress={() => {
                 setWeeklyGameRunning(false);
                 setWeeklyTimerSeconds(0);
                 setScreen("weeklyMcq");
               }}
             >
-              <Text style={styles.homeNavButtonText}>Multiple Choice Game</Text>
+              <Text style={styles.homeNavButtonText}>
+                Multiple Choice Game
+                {weeklyMcqLocked ? " ✓ (låst til næste uge)" : ""}
+              </Text>
             </Pressable>
 
-            <Pressable
-              style={styles.homeNavButton}
+            {/* Match Game – kan være tom placeholder indtil logik er klar */}
+                        <Pressable
+              style={[
+                styles.homeNavButton,
+                weeklyMatchLocked && { opacity: 0.5 },
+              ]}
               onPress={() => {
                 setWeeklyGameRunning(false);
                 setWeeklyTimerSeconds(0);
                 setScreen("weeklyMatch");
               }}
             >
-              <Text style={styles.homeNavButtonText}>Match Game</Text>
+              <Text style={styles.homeNavButtonText}>
+                Match Game{weeklyMatchLocked ? " ✓ (låst til næste uge)" : ""}
+              </Text>
             </Pressable>
 
+
+            {/* Word of the Week */}
             <Pressable
               style={styles.homeNavButton}
               onPress={() => {
@@ -1373,71 +1866,258 @@ if (screen === "quiz" && currentCard) {
 
   // WEEKLY – MULTIPLE CHOICE GAME
   if (screen === "weeklyMcq") {
-    const handleStart = () => {
-      setWeeklyTimerSeconds(0);
-      setWeeklyGameRunning(true);
-      // TODO: her kan du senere loade spørgsmål fra backend
-    };
+    const currentQuestion = WEEKLY_MCQ_QUESTIONS[weeklyMcqIndex];
+    const totalQuestions = WEEKLY_MCQ_QUESTIONS.length;
+    const questionNumber = weeklyMcqIndex + 1;
+    const timeLabel = formatSeconds(weeklyMcqSecondsLeft);
 
     const handleBack = () => {
       setWeeklyGameRunning(false);
+      setWeeklyMcqStarted(false);
+      setWeeklyMcqFinished(false);
+      setWeeklyMcqShowFeedback(false);
+      setWeeklyMcqSecondsLeft(WEEKLY_MCQ_TIME_LIMIT);
+      setWeeklyMcqSelectedId(null);
+      setWeeklyMcqLastPoints(0);
       setScreen("weeklyHome");
     };
+
+    const playerRank = 15; // placeholder indtil backend laver ægte global ranking
 
     return (
       <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
         <StatusBar style="light" />
         <ScrollView contentContainerStyle={[styles.homeContainer, styles.safeTopContainer]}>
+          {/* Header */}
           <View style={styles.headerRow}>
-            <View style={styles.headerRow}>
-  <Text style={[styles.appTitle, { fontSize: headingFont, color: "#fff" }]}>
-    Weekly Challenges
-  </Text>
-  <Pressable
-    style={[styles.smallButton, { borderColor: "#ffffffdd" }]}
-    onPress={() => {
-      setWeeklyGameRunning(false);
-      setScreen("weeklyHome");
-    }}
-  >
-    <Text style={[styles.smallButtonText, { color: "#fff" }]}>
-      Hjem
-    </Text>
-  </Pressable>
-</View>
-
-<View style={styles.weeklyTimerBar}>
-  <Text style={styles.weeklyTimerText}>Tid: {formatSeconds(weeklyTimerSeconds)}</Text>
-</View>
-
-<Text style={styles.weeklyGameTitle}>Multiple Choice Game</Text>
-
+            <Text style={[styles.appTitle, { fontSize: headingFont, color: "#fff" }]}>
+              Weekly Challenges
+            </Text>
             <Pressable
-              style={[styles.smallButton, { borderColor: "#fff" }]}
+              style={[styles.smallButton, { borderColor: "#ffffffdd" }]}
               onPress={handleBack}
               hitSlop={8}
             >
-              <Text style={[styles.smallButtonText, { color: "#fff", fontSize: buttonFont * 0.9 }]}>
+              <Text
+                style={[
+                  styles.smallButtonText,
+                  { color: "#fff", fontSize: buttonFont * 0.9 },
+                ]}
+              >
                 Tilbage
               </Text>
             </Pressable>
           </View>
 
-          <View style={styles.weeklyTimerBar}>
-            <Text style={styles.weeklyTimerText}>Tid: {formatSeconds(weeklyTimerSeconds)}</Text>
-          </View>
+          {/* If game not started yet: instructions + start button */}
+          {!weeklyMcqStarted && !weeklyMcqFinished && (
+            <View style={styles.weeklyGameCenter}>
+              <Text style={styles.weeklyGameTitle}>Multiple Choice Game</Text>
 
-          <View style={styles.weeklyGameCenter}>
-            <Text style={styles.weeklyGameTitle}>Multiple Choice Game</Text>
+              <Text
+                style={[
+                  styles.weeklyPlaceholderText,
+                  { textAlign: "left", alignSelf: "flex-start", marginTop: 16 },
+                ]}
+              >
+                Svar så hurtigt og korrekt som muligt på ugens spørgsmål.
+              </Text>
 
-            <Pressable style={[styles.bigButton, styles.weeklyStartButton]} onPress={handleStart}>
-              <Text style={[styles.bigButtonText, styles.weeklyStartButtonText]}>START</Text>
-            </Pressable>
+              <View
+                style={{
+                  marginTop: 16,
+                  width: "100%",
+                  maxWidth: 700,
+                  alignSelf: "flex-start",
+                }}
+              >
+                <Text style={styles.statsLabel}>Sådan fungerer spillet:</Text>
+                <Text style={styles.drugTheoryText}>
+                  {"\n"}• {totalQuestions} spørgsmål om et præhospitalt emne
+                  {"\n"}• 30 sekunder pr. spørgsmål
+                  {"\n"}• Korrekt svar inden for de første 5 sekunder: 1000 point
+                  {"\n"}• Derefter falder scoren med ca. 32 point pr. sekund
+                  {"\n"}• Minimum 200 point for et korrekt svar
+                  {"\n"}• Forkert svar eller timeout: 0 point
+                  {"\n\n"}
+                  Du kan kun spille dette spil én gang pr. uge, når backend er koblet på.
+                </Text>
+              </View>
 
-            <Text style={styles.weeklyPlaceholderText}>
-              Spillet kommer – lige nu tester vi layout og timer.
-            </Text>
-          </View>
+              <Pressable
+                style={[
+                  styles.bigButton,
+                  styles.weeklyStartButton,
+                  { marginTop: 24 },
+                  weeklyMcqLocked && { opacity: 0.5 },
+                ]}
+                onPress={handleWeeklyMcqStart}
+              >
+                <Text style={[styles.bigButtonText, styles.weeklyStartButtonText]}>
+                  {weeklyMcqLocked ? "LÅST (allerede spillet)" : "START SPILLET"}
+                </Text>
+              </Pressable>
+            </View>
+          )}
+
+          {/* Active question view */}
+          {weeklyMcqStarted && currentQuestion && (
+            <>
+              <View style={styles.weeklyTimerBar}>
+                <Text style={styles.weeklyTimerText}>Tid tilbage: {timeLabel}</Text>
+              </View>
+
+              <View style={styles.weeklyGameCenter}>
+                <Text style={styles.weeklyGameTitle}>Multiple Choice Game</Text>
+                <Text style={styles.statsLabel}>
+                  Spørgsmål {questionNumber} af {totalQuestions}
+                </Text>
+
+                <View
+                  style={{
+                    marginTop: 16,
+                    width: "100%",
+                    maxWidth: 700,
+                    padding: 12,
+                    borderRadius: 12,
+                    backgroundColor: "#f8f9fad9",
+                  }}
+                >
+                  <Text style={styles.questionText}>{currentQuestion.text}</Text>
+                </View>
+
+                {/* Options */}
+                <View style={{ width: "100%", maxWidth: 700, marginTop: 16 }}>
+                  {currentQuestion.options.map((opt) => {
+                    const isSelected = weeklyMcqSelectedId === opt.id;
+
+                    let backgroundColor = "#343a40";
+                    if (weeklyMcqShowFeedback) {
+                      if (opt.isCorrect) {
+                        backgroundColor = "#2b8a3e"; // grøn
+                      } else if (isSelected && !opt.isCorrect) {
+                        backgroundColor = "#c92a2a"; // rød
+                      } else {
+                        backgroundColor = "#495057";
+                      }
+                    } else if (isSelected) {
+                      backgroundColor = "#1c7ed6";
+                    }
+
+                    return (
+                      <Pressable
+                        key={opt.id}
+                        style={[
+                          styles.bigButton,
+                          {
+                            alignSelf: "stretch",
+                            marginTop: 8,
+                            backgroundColor,
+                          },
+                        ]}
+                        disabled={weeklyMcqShowFeedback}
+                        onPress={() => handleWeeklyMcqAnswer(opt.id)}
+                      >
+                        <Text style={[styles.bigButtonText, { fontSize: buttonFont }]}>
+                          {opt.text}
+                        </Text>
+                      </Pressable>
+                    );
+                  })}
+                </View>
+
+                {/* Feedback for spørgsmålet */}
+                {weeklyMcqShowFeedback && (
+                  <View
+                    style={{
+                      marginTop: 20,
+                      width: "100%",
+                      maxWidth: 700,
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text
+                      style={
+                        weeklyMcqLastPoints > 0
+                          ? styles.weeklyWordFeedbackCorrect
+                          : styles.weeklyWordFeedbackWrong
+                      }
+                    >
+                      {weeklyMcqLastPoints > 0
+                        ? `Korrekt! Du fik ${weeklyMcqLastPoints} point.`
+                        : "Forkert eller for langsom – 0 point for dette spørgsmål."}
+                    </Text>
+
+                    <Pressable
+                      style={[
+                        styles.bigButton,
+                        styles.primaryButton,
+                        { marginTop: 12, backgroundColor: "#1c7ed6" },
+                      ]}
+                      onPress={handleWeeklyMcqNext}
+                    >
+                      <Text style={styles.bigButtonText}>
+                        {questionNumber === totalQuestions ? "Se resultat" : "Næste spørgsmål"}
+                      </Text>
+                    </Pressable>
+                  </View>
+                )}
+              </View>
+            </>
+          )}
+
+          {/* Resultat-modal efter sidste spørgsmål */}
+          <Modal
+            visible={weeklyMcqShowResults}
+            transparent={true}
+            animationType="fade"
+            onRequestClose={handleWeeklyMcqCloseResults}
+          >
+            <View style={styles.modalBackdrop}>
+              <View
+                style={[
+                  styles.modalContent,
+                  {
+                    maxWidth: 700,
+                    backgroundColor: "#ffffff",
+                    borderRadius: 12,
+                    padding: 20,
+                  },
+                ]}
+              >
+                <Text style={styles.statsSectionTitle}>Resultat – Multiple Choice Game</Text>
+
+                <Text style={[styles.statsLabel, { marginTop: 12 }]}>
+                  Point i alt: <Text style={styles.statsAccuracy}>{weeklyMcqScore}</Text>
+                </Text>
+                <Text style={styles.statsLabel}>
+                  Korrekte svar: {weeklyMcqCorrect} / {totalQuestions}
+                </Text>
+                <Text style={styles.statsLabel}>Forkerte svar: {weeklyMcqWrong}</Text>
+
+                <Text style={[styles.statsLabel, { marginTop: 16 }]}>
+                  Foreløbig global rangliste (placeholder – ægte ranking kommer med backend):
+                </Text>
+
+                <View style={{ marginTop: 8 }}>
+                  <Text style={styles.subjectStatsSub}>1. ParamedPro · 9870 pts</Text>
+                  <Text style={styles.subjectStatsSub}>2. ShockMaster · 9420 pts</Text>
+                  <Text style={styles.subjectStatsSub}>3. ABCDE_Ninja · 9100 pts</Text>
+                  <Text style={styles.subjectStatsSub}>...</Text>
+                  <Text style={styles.subjectStatsSub}>
+                    {playerRank}. {profile?.nickname ?? "Dig"} · {weeklyMcqScore} pts
+                  </Text>
+                </View>
+
+                <Pressable
+                  style={[styles.modalCloseButton, { marginTop: 24 }]}
+                  onPress={handleWeeklyMcqCloseResults}
+                >
+                  <Text style={styles.modalCloseText}>Luk</Text>
+                </Pressable>
+              </View>
+            </View>
+          </Modal>
         </ScrollView>
       </LinearGradient>
     );
@@ -1445,198 +2125,589 @@ if (screen === "quiz" && currentCard) {
 
   // WEEKLY – MATCH GAME
   if (screen === "weeklyMatch") {
-    const handleStart = () => {
-      setWeeklyTimerSeconds(0);
-      setWeeklyGameRunning(true);
-      // TODO: senere kan vi starte match-logik her
-    };
+    const timeLabel = formatSeconds(weeklyTimerSeconds);
+    const totalPairs = WEEKLY_MATCH_PAIRS.length;
+    const playerRank = 21; // placeholder indtil backend ranking
 
     const handleBack = () => {
       setWeeklyGameRunning(false);
+      setWeeklyMatchStarted(false);
+      setWeeklyMatchFinished(false);
+      setWeeklyMatchShowResults(false);
+      setWeeklyMatchMatches({});
+      setWeeklyMatchSelectedLeftId(null);
+      setWeeklyMatchSelectedRightId(null);
+      setWeeklyTimerSeconds(0);
       setScreen("weeklyHome");
     };
+
+    const rightItemsToShow =
+      weeklyMatchRightItems.length > 0 ? weeklyMatchRightItems : shuffle(WEEKLY_MATCH_PAIRS);
 
     return (
       <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
         <StatusBar style="light" />
         <ScrollView contentContainerStyle={[styles.homeContainer, styles.safeTopContainer]}>
+          {/* Header */}
           <View style={styles.headerRow}>
-            <View style={styles.headerRow}>
-  <Text style={[styles.appTitle, { fontSize: headingFont, color: "#fff" }]}>
-    Weekly Challenges
-  </Text>
-  <Pressable
-    style={[styles.smallButton, { borderColor: "#ffffffdd" }]}
-    onPress={() => {
-      setWeeklyGameRunning(false);
-      setScreen("weeklyHome");
-    }}
-  >
-    <Text style={[styles.smallButtonText, { color: "#fff" }]}>
-      Hjem
-    </Text>
-  </Pressable>
-</View>
-
-<View style={styles.weeklyTimerBar}>
-  <Text style={styles.weeklyTimerText}>Tid: {formatSeconds(weeklyTimerSeconds)}</Text>
-</View>
-
-<Text style={styles.weeklyGameTitle}>Match Game</Text>
-
+            <Text style={[styles.appTitle, { fontSize: headingFont, color: "#fff" }]}>
+              Weekly Challenges
+            </Text>
             <Pressable
-              style={[styles.smallButton, { borderColor: "#fff" }]}
+              style={[styles.smallButton, { borderColor: "#ffffffdd" }]}
               onPress={handleBack}
               hitSlop={8}
             >
-              <Text style={[styles.smallButtonText, { color: "#fff", fontSize: buttonFont * 0.9 }]}>
+              <Text
+                style={[
+                  styles.smallButtonText,
+                  { color: "#fff", fontSize: buttonFont * 0.9 },
+                ]}
+              >
                 Tilbage
               </Text>
             </Pressable>
           </View>
 
-          <View style={styles.weeklyTimerBar}>
-            <Text style={styles.weeklyTimerText}>Tid: {formatSeconds(weeklyTimerSeconds)}</Text>
-          </View>
+          {/* Intro / regler – før spillet starter */}
+          {!weeklyMatchStarted && !weeklyMatchFinished && (
+            <View style={styles.weeklyGameCenter}>
+              <Text style={styles.weeklyGameTitle}>Match Game</Text>
 
-          <View style={styles.weeklyGameCenter}>
-            <Text style={styles.weeklyGameTitle}>Match Game</Text>
+              <Text
+                style={[
+                  styles.weeklyPlaceholderText,
+                  { textAlign: "left", alignSelf: "flex-start", marginTop: 16 },
+                ]}
+              >
+                Match 5 elementer korrekt – fx præparat og virkning, organ og hormon,
+                eller suffiks og lægemiddeltype.
+              </Text>
 
-            <Pressable style={[styles.bigButton, styles.weeklyStartButton]} onPress={handleStart}>
-              <Text style={[styles.bigButtonText, styles.weeklyStartButtonText]}>START</Text>
-            </Pressable>
+              <View
+                style={{
+                  marginTop: 16,
+                  width: "100%",
+                  maxWidth: 700,
+                  alignSelf: "flex-start",
+                }}
+              >
+                <Text style={styles.statsLabel}>Sådan fungerer spillet:</Text>
+                <Text style={styles.drugTheoryText}>
+                  {"\n"}• Venstre kolonne er låst (fx præparatnavn)
+                  {"\n"}• Højre kolonne er blandet (fx virkninger)
+                  {"\n"}• Hvert felt i venstre kolonne har sin egen farve
+                  {"\n"}• Tryk først på et venstre felt, derefter på et højre
+                  {"\n"}  → højre felt får samme farve = de er matchet
+                  {"\n"}• Vil du fortryde et match:
+                  {"\n"}  – Tryk igen på samme kombination (venstre + samme højre)
+                  {"\n"}  – eller tryk på et højre felt uden venstre valgt for at frigøre det
+                  {"\n"}• Når du er tilfreds, trykker du på "Aflever"
+                  {"\n"}• Point:
+                  {"\n"}  – 1000 point for hvert korrekt match
+                  {"\n"}  – minus 50 point for hvert sekund, du bruger i alt
+                </Text>
+              </View>
 
-            <Text style={styles.weeklyPlaceholderText}>
-              Her kommer match-spillet – par fx præparat og virkning.
-            </Text>
-          </View>
+              <Pressable
+                style={[
+                  styles.bigButton,
+                  styles.weeklyStartButton,
+                  { marginTop: 24 },
+                  weeklyMatchLocked && { opacity: 0.5 },
+                ]}
+                onPress={handleWeeklyMatchStart}
+              >
+                <Text style={[styles.bigButtonText, styles.weeklyStartButtonText]}>
+                  {weeklyMatchLocked ? "LÅST (allerede spillet)" : "START SPILLET"}
+                </Text>
+              </Pressable>
+            </View>
+          )}
+
+          {/* Selve spillet */}
+          {weeklyMatchStarted && (
+            <>
+              <View style={styles.weeklyTimerBar}>
+                <Text style={styles.weeklyTimerText}>Tid brugt: {timeLabel}</Text>
+              </View>
+
+              <View style={[styles.weeklyGameCenter, { alignItems: "stretch" }]}>
+                <Text style={styles.weeklyGameTitle}>Match Game</Text>
+                <Text style={styles.statsLabel}>
+                  Match alle {totalPairs} par og tryk derefter på "Aflever".
+                </Text>
+
+                <View
+                  style={{
+                    flexDirection: "row",
+                    width: "100%",
+                    maxWidth: 800,
+                    marginTop: 16,
+                    gap: 12,
+                  }}
+                >
+                  {/* Venstre kolonne – låste "spørgsmål" med farver */}
+                  <View style={{ flex: 1 }}>
+                    <Text style={[styles.statsLabel, { marginBottom: 4 }]}>Venstre</Text>
+                    {WEEKLY_MATCH_PAIRS.map((pair) => {
+                      const isSelected = weeklyMatchSelectedLeftId === pair.id;
+                      const isMatched = weeklyMatchMatches[pair.id] != null;
+                      const baseColor = WEEKLY_MATCH_COLORS[pair.id] ?? "#1c7ed6";
+
+                      const backgroundColor = isSelected
+                        ? baseColor
+                        : isMatched
+                        ? baseColor
+                        : "#343a40";
+
+                      return (
+                        <Pressable
+                          key={pair.id}
+                          style={[
+                            styles.bigButton,
+                            {
+                              marginTop: 6,
+                              backgroundColor,
+                            },
+                          ]}
+                          onPress={() => handleWeeklyMatchSelectLeft(pair.id)}
+                        >
+                          <Text style={[styles.bigButtonText, { fontSize: buttonFont * 0.9 }]}>
+                            {pair.left}
+                          </Text>
+                        </Pressable>
+                      );
+                    })}
+                  </View>
+
+                  {/* Højre kolonne – blandede "svar" med farver fra match */}
+                  <View style={{ flex: 1 }}>
+                    <Text style={[styles.statsLabel, { marginBottom: 4 }]}>Højre</Text>
+                    {rightItemsToShow.map((pair) => {
+                      // Find om denne højre-id allerede er matchet til en venstre
+                      const matchedLeftEntry = Object.entries(weeklyMatchMatches).find(
+                        ([, r]) => r === pair.id,
+                      );
+                      const matchedLeftId = matchedLeftEntry?.[0];
+                      const isSelectedRight = weeklyMatchSelectedRightId === pair.id;
+
+                      let backgroundColor = "#343a40";
+
+                      if (matchedLeftId) {
+                        const color = WEEKLY_MATCH_COLORS[matchedLeftId] ?? "#1c7ed6";
+                        backgroundColor = color;
+                      } else if (isSelectedRight) {
+                        backgroundColor = "#1c7ed6";
+                      }
+
+                      return (
+                        <Pressable
+                          key={pair.id}
+                          style={[
+                            styles.bigButton,
+                            {
+                              marginTop: 6,
+                              backgroundColor,
+                            },
+                          ]}
+                          onPress={() => handleWeeklyMatchSelectRight(pair.id)}
+                        >
+                          <Text style={[styles.bigButtonText, { fontSize: buttonFont * 0.9 }]}>
+                            {pair.right}
+                          </Text>
+                        </Pressable>
+                      );
+                    })}
+                  </View>
+                </View>
+
+                <Pressable
+                  style={[
+                    styles.bigButton,
+                    styles.primaryButton,
+                    {
+                      marginTop: 24,
+                      backgroundColor: "#2b8a3e",
+                      alignSelf: "flex-start",
+                    },
+                  ]}
+                  onPress={handleWeeklyMatchSubmit}
+                >
+                  <Text style={styles.bigButtonText}>Aflever</Text>
+                </Pressable>
+              </View>
+            </>
+          )}
+
+          {/* Resultat-modal */}
+          <Modal
+            visible={weeklyMatchShowResults}
+            transparent={true}
+            animationType="fade"
+            onRequestClose={handleWeeklyMatchCloseResults}
+          >
+            <View style={styles.modalBackdrop}>
+              <View
+                style={[
+                  styles.modalContent,
+                  {
+                    maxWidth: 700,
+                    backgroundColor: "#ffffff",
+                    borderRadius: 12,
+                    padding: 20,
+                  },
+                ]}
+              >
+                <Text style={styles.statsSectionTitle}>Resultat – Match Game</Text>
+
+                <Text style={[styles.statsLabel, { marginTop: 12 }]}>
+                  Point i alt: <Text style={styles.statsAccuracy}>{weeklyMatchScore}</Text>
+                </Text>
+                <Text style={styles.statsLabel}>
+                  Korrekte matches: {weeklyMatchCorrect} / {totalPairs}
+                </Text>
+                <Text style={styles.statsLabel}>Forkerte / manglende: {weeklyMatchWrong}</Text>
+                <Text style={styles.statsLabel}>
+                  Tidsforbrug: {timeLabel} (−50 point pr. sekund)
+                </Text>
+
+                <Text style={[styles.statsLabel, { marginTop: 16 }]}>
+                  Foreløbig global rangliste (placeholder – ægte ranking kommer med backend):
+                </Text>
+
+                <View style={{ marginTop: 8 }}>
+                  <Text style={styles.subjectStatsSub}>1. MatchMaster · 5000 pts</Text>
+                  <Text style={styles.subjectStatsSub}>2. NeuroNurse · 4820 pts</Text>
+                  <Text style={styles.subjectStatsSub}>3. ShockDoc · 4710 pts</Text>
+                  <Text style={styles.subjectStatsSub}>...</Text>
+                  <Text style={styles.subjectStatsSub}>
+                    {playerRank}. {profile?.nickname ?? "Dig"} · {weeklyMatchScore} pts
+                  </Text>
+                </View>
+
+                <Pressable
+                  style={[styles.modalCloseButton, { marginTop: 24 }]}
+                  onPress={handleWeeklyMatchCloseResults}
+                >
+                  <Text style={styles.modalCloseText}>Luk</Text>
+                </Pressable>
+              </View>
+            </View>
+          </Modal>
         </ScrollView>
       </LinearGradient>
     );
   }
 
+
   // WEEKLY – WORD OF THE WEEK
   if (screen === "weeklyWord") {
-    const handleStart = () => {
-      const word = pickRandomWordOfWeek();
-      setWordOfWeekOriginal(word);
-      setWordOfWeekScrambled(scrambleWord(word));
-      setWordOfWeekGuess("");
-      setWordOfWeekResult("idle");
-      setWeeklyTimerSeconds(0);
-      setWeeklyGameRunning(true);
-    };
-
     const handleBack = () => {
-      setWeeklyGameRunning(false);
+      setWeeklyWordStarted(false);
+      setWeeklyWordFinished(false);
+      setWeeklyWordSecondsLeft(WEEKLY_WORD_TIME_LIMIT);
+      setWordOfWeekResult("idle");
+      setWordOfWeekGuess("");
+      setWordOfWeekScore(0);
       setScreen("weeklyHome");
     };
 
-    const handleCheckWord = () => {
-      if (!wordOfWeekOriginal) return;
-      if (wordOfWeekGuess.trim().toLowerCase() === wordOfWeekOriginal.toLowerCase()) {
-        setWordOfWeekResult("correct");
-        setWeeklyGameRunning(false);
-      } else {
-        setWordOfWeekResult("wrong");
-      }
-    };
+    const timeLabel = formatSeconds(weeklyWordSecondsLeft);
+    const isTimeUp = weeklyWordSecondsLeft <= 0;
+    const guessLocked = weeklyWordFinished;
+
+    const playerRank = 37; // placeholder, indtil backend giver ægte rangliste
+
+    // Lav en pæn række med bokse til bogstaverne (COUNTDOWN-style)
+    const scrambledLetters = (wordOfWeekScrambled || "").split("");
 
     return (
       <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
         <StatusBar style="light" />
         <ScrollView contentContainerStyle={[styles.homeContainer, styles.safeTopContainer]}>
+          {/* Header */}
           <View style={styles.headerRow}>
-            <View style={styles.headerRow}>
-  <Text style={[styles.appTitle, { fontSize: headingFont, color: "#fff" }]}>
-    Weekly Challenges
-  </Text>
-  <Pressable
-    style={[styles.smallButton, { borderColor: "#ffffffdd" }]}
-    onPress={() => {
-      setWeeklyGameRunning(false);
-      setScreen("weeklyHome");
-    }}
-  >
-    <Text style={[styles.smallButtonText, { color: "#fff" }]}>
-      Hjem
-    </Text>
-  </Pressable>
-</View>
-
-<View style={styles.weeklyTimerBar}>
-  <Text style={styles.weeklyTimerText}>Tid: {formatSeconds(weeklyTimerSeconds)}</Text>
-</View>
-
-<Text style={styles.weeklyGameTitle}>Multiple Choice Game</Text>
-
+            <Text style={[styles.appTitle, { fontSize: headingFont, color: "#fff" }]}>
+              Weekly Challenges
+            </Text>
             <Pressable
-              style={[styles.smallButton, { borderColor: "#fff" }]}
+              style={[styles.smallButton, { borderColor: "#ffffffdd" }]}
               onPress={handleBack}
               hitSlop={8}
             >
-              <Text style={[styles.smallButtonText, { color: "#fff", fontSize: buttonFont * 0.9 }]}>
+              <Text
+                style={[
+                  styles.smallButtonText,
+                  { color: "#fff", fontSize: buttonFont * 0.9 },
+                ]}
+              >
                 Tilbage
               </Text>
             </Pressable>
           </View>
 
-          <View style={styles.weeklyTimerBar}>
-            <Text style={styles.weeklyTimerText}>Tid: {formatSeconds(weeklyTimerSeconds)}</Text>
-          </View>
+          {/* Intro / regler – før spillet starter */}
+          {!weeklyWordStarted && !weeklyWordFinished && (
+            <View style={styles.weeklyGameCenter}>
+              <Text style={styles.weeklyGameTitle}>Word of The Week</Text>
 
-          <View style={styles.weeklyGameCenter}>
-            <Text style={styles.weeklyGameTitle}>Word of The Week</Text>
-
-            <Pressable style={[styles.bigButton, styles.weeklyStartButton]} onPress={handleStart}>
-              <Text style={[styles.bigButtonText, styles.weeklyStartButtonText]}>START</Text>
-            </Pressable>
-
-            <View style={{ marginTop: 24, width: "100%", alignItems: "center" }}>
-              <Text style={styles.weeklyWordScrambled}>
-                {wordOfWeekScrambled || "Tryk START for at se ordet"}
+              <Text
+                style={[
+                  styles.weeklyPlaceholderText,
+                  { textAlign: "left", alignSelf: "flex-start", marginTop: 16 },
+                ]}
+              >
+                Gæt et blandet, ambulance-relevant ord på dansk, før tiden løber ud.
               </Text>
 
-              {wordOfWeekScrambled ? (
-                <>
-                  <Text style={[styles.statsLabel, { marginTop: 16 }]}>
-                    Skriv det rigtige medicinske ord:
+              <View
+                style={{
+                  marginTop: 16,
+                  width: "100%",
+                  maxWidth: 700,
+                  alignSelf: "flex-start",
+                }}
+              >
+                <Text style={styles.statsLabel}>Sådan fungerer spillet:</Text>
+                <Text style={styles.drugTheoryText}>
+                  {"\n"}• Du får ét medicinsk ord (6–10 bogstaver), blandet
+                  {"\n"}• 30 sekunders nedtælling
+                  {"\n"}• Bogstaverne vises i store bogstaver i små bokse (Countdown-style)
+                  {"\n"}• Skriv dit gæt i feltet nedenunder
+                  {"\n"}• Tryk på "Gæt ord" for at låse dit svar
+                  {"\n"}• Når svaret er låst, kan du ikke ændre det
+                  {"\n"}• Derefter kan du trykke "Vis svar" og se facit + point
+                  {"\n\n"}Point:
+                  {"\n"}• Korrekt svar inden for de første 5 sekunder: 5000 point
+                  {"\n"}• Herefter mister du 160 point pr. ekstra sekund
+                  {"\n"}• Minimumscore for korrekt svar: 1000 point
+                  {"\n"}• Forkert svar eller timeout: 0 point
+                </Text>
+              </View>
+
+              <Pressable
+                style={[
+                  styles.bigButton,
+                  styles.weeklyStartButton,
+                  { marginTop: 24 },
+                ]}
+                onPress={handleWeeklyWordStart}
+              >
+                <Text style={[styles.bigButtonText, styles.weeklyStartButtonText]}>
+                  START SPILLET
+                </Text>
+              </Pressable>
+            </View>
+          )}
+
+          {/* Selve spillet (eller låst efter svar/timeout) */}
+          {(weeklyWordStarted || weeklyWordFinished) && (
+            <>
+              <View style={styles.weeklyTimerBar}>
+                <Text style={styles.weeklyTimerText}>
+                  Tid tilbage: {timeLabel}
+                </Text>
+              </View>
+
+              <View style={styles.weeklyGameCenter}>
+                <Text style={styles.weeklyGameTitle}>Word of The Week</Text>
+
+                {/* Countdown-style bogstavbokse */}
+                <View
+                  style={{
+                    marginTop: 24,
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                    gap: 8,
+                  }}
+                >
+                  {scrambledLetters.length > 0 ? (
+                    scrambledLetters.map((ch, idx) => (
+                      <View
+                        key={`${ch}-${idx}`}
+                        style={{
+                          width: 40,
+                          height: 50,
+                          borderRadius: 6,
+                          borderWidth: 2,
+                          borderColor: "#f8f9fa",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          backgroundColor: "#343a40dd",
+                        }}
+                      >
+                        <Text
+                          style={{
+                            color: "#f8f9fa",
+                            fontSize: 24,
+                            fontWeight: "700",
+                          }}
+                        >
+                          {ch}
+                        </Text>
+                      </View>
+                    ))
+                  ) : (
+                    <Text style={styles.weeklyPlaceholderText}>
+                      Tryk START for at se ugens ord.
+                    </Text>
+                  )}
+                </View>
+
+                {/* Svarfelt – “8 Out of 10 Cats”-style input */}
+                <View
+                  style={{
+                    marginTop: 24,
+                    width: "100%",
+                    maxWidth: 500,
+                    alignSelf: "center",
+                  }}
+                >
+                  <Text style={[styles.statsLabel, { marginBottom: 8, textAlign: "center" }]}>
+                    Skriv dit gæt:
                   </Text>
                   <TextInput
                     value={wordOfWeekGuess}
                     onChangeText={(text) => {
-                      setWordOfWeekGuess(text);
-                      setWordOfWeekResult("idle");
+                      if (!guessLocked && !isTimeUp) {
+                        setWordOfWeekGuess(text.toUpperCase());
+                        setWordOfWeekResult("idle");
+                      }
                     }}
-                    placeholder="Fx respiration"
+                    placeholder="FX RESPIRATION"
                     placeholderTextColor="#adb5bd"
                     autoCapitalize="none"
-                    style={[styles.textInput, { marginTop: 8 }]}
+                    editable={!guessLocked && !isTimeUp}
+                    style={[
+                      styles.textInput,
+                      {
+                        textAlign: "center",
+                        fontSize: 26,
+                        letterSpacing: 4,
+                        textTransform: "uppercase",
+                        borderWidth: 0,
+                        borderBottomWidth: 3,
+                        borderBottomColor: "#f8f9fa",
+                        backgroundColor: "#212529dd",
+                        paddingVertical: 10,
+                        color: "#ffffff",
+                      },
+                    ]}
                   />
+                </View>
 
+                {/* Knapper: Gæt ord / Vis svar */}
+                <View
+                  style={{
+                    marginTop: 24,
+                    width: "100%",
+                    maxWidth: 500,
+                    alignSelf: "center",
+                    alignItems: "center",
+                    gap: 12,
+                  }}
+                >
                   <Pressable
                     style={[
                       styles.bigButton,
                       styles.primaryButton,
-                      { backgroundColor: "#1c7ed6", marginTop: 12 },
+                      {
+                        backgroundColor:
+                          guessLocked || isTimeUp ? "#495057" : "#1c7ed6",
+                        alignSelf: "stretch",
+                      },
                     ]}
-                    onPress={handleCheckWord}
+                    disabled={guessLocked || isTimeUp}
+                    onPress={handleWeeklyWordGuess}
                   >
-                    <Text style={styles.bigButtonText}>TJEK SVAR</Text>
+                    <Text style={styles.bigButtonText}>
+                      {isTimeUp ? "TIDEN ER GÅET" : "GÆT ORD"}
+                    </Text>
                   </Pressable>
 
-                  {wordOfWeekResult === "correct" && (
-                    <Text style={styles.weeklyWordFeedbackCorrect}>
-                      Korrekt! Ordet var "{wordOfWeekOriginal}".
-                    </Text>
-                  )}
-                  {wordOfWeekResult === "wrong" && (
-                    <Text style={styles.weeklyWordFeedbackWrong}>Ikke helt – prøv igen.</Text>
-                  )}
-                </>
-              ) : null}
+                  {guessLocked || isTimeUp ? (
+                    <Pressable
+                      style={[
+                        styles.bigButton,
+                        styles.secondaryButton,
+                        {
+                          backgroundColor: "#2b8a3e",
+                          alignSelf: "stretch",
+                        },
+                      ]}
+                      onPress={handleWeeklyWordShowResults}
+                    >
+                      <Text style={styles.bigButtonText}>VIS SVAR</Text>
+                    </Pressable>
+                  ) : null}
+                </View>
+              </View>
+            </>
+          )}
+
+          {/* Resultat-modal */}
+          <Modal
+            visible={weeklyWordShowResults}
+            transparent={true}
+            animationType="fade"
+            onRequestClose={handleWeeklyWordCloseResults}
+          >
+            <View style={styles.modalBackdrop}>
+              <View
+                style={[
+                  styles.modalContent,
+                  {
+                    maxWidth: 700,
+                    backgroundColor: "#ffffff",
+                    borderRadius: 12,
+                    padding: 20,
+                  },
+                ]}
+              >
+                <Text style={styles.statsSectionTitle}>Resultat – Word of The Week</Text>
+
+                <Text style={[styles.statsLabel, { marginTop: 12 }]}>
+                  Korrekt ord:{" "}
+                  <Text style={styles.statsAccuracy}>
+                    {wordOfWeekOriginal.toUpperCase()}
+                  </Text>
+                </Text>
+                <Text style={styles.statsLabel}>
+                  Dit gæt:{" "}
+                  <Text style={styles.subjectStatsSub}>
+                    {wordOfWeekGuess || "(ingen gæt)"}
+                  </Text>
+                </Text>
+                <Text style={styles.statsLabel}>
+                  Point i alt:{" "}
+                  <Text style={styles.statsAccuracy}>{wordOfWeekScore}</Text>
+                </Text>
+
+                <Text style={[styles.statsLabel, { marginTop: 16 }]}>
+                  Foreløbig global rangliste (placeholder – ægte ranking kommer med backend):
+                </Text>
+
+                <View style={{ marginTop: 8 }}>
+                  <Text style={styles.subjectStatsSub}>1. CountdownKing · 5000 pts</Text>
+                  <Text style={styles.subjectStatsSub}>2. NeuroLex · 4820 pts</Text>
+                  <Text style={styles.subjectStatsSub}>3. ShockSpell · 4710 pts</Text>
+                  <Text style={styles.subjectStatsSub}>...</Text>
+                  <Text style={styles.subjectStatsSub}>
+                    {playerRank}. {profile?.nickname ?? "Dig"} · {wordOfWeekScore} pts
+                  </Text>
+                </View>
+
+                <Pressable
+                  style={[styles.modalCloseButton, { marginTop: 24 }]}
+                  onPress={handleWeeklyWordCloseResults}
+                >
+                  <Text style={styles.modalCloseText}>Luk</Text>
+                </Pressable>
+              </View>
             </View>
-          </View>
+          </Modal>
         </ScrollView>
       </LinearGradient>
     );
