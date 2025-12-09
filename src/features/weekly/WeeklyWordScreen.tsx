@@ -3,12 +3,14 @@ import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
 import {
-    Modal,
-    Pressable,
-    ScrollView,
-    Text,
-    TextInput,
-    View,
+  Alert,
+  Modal,
+  Pressable,
+  ScrollView,
+  Text,
+  TextInput,
+  View,
+  useWindowDimensions,
 } from "react-native";
 
 import { styles } from "../../../app/flashmedicStyles";
@@ -28,6 +30,8 @@ type WeeklyWordScreenProps = {
   headingFont: number;
   buttonFont: number;
   profileNickname?: string | null;
+  weeklyWordLocked: boolean;
+  setWeeklyWordLocked: (locked: boolean) => void;
   onBack: () => void;
 };
 
@@ -35,6 +39,8 @@ export function WeeklyWordScreen({
   headingFont,
   buttonFont,
   profileNickname,
+  weeklyWordLocked,
+  setWeeklyWordLocked,
   onBack,
 }: WeeklyWordScreenProps) {
   const [wordOriginal, setWordOriginal] = useState("");
@@ -47,6 +53,25 @@ export function WeeklyWordScreen({
   const [secondsLeft, setSecondsLeft] = useState<number>(WEEKLY_WORD_TIME_LIMIT);
   const [score, setScore] = useState(0);
   const [showResults, setShowResults] = useState(false);
+
+  // Skærmbredde til auto-shrink bokse
+  const { width } = useWindowDimensions();
+
+  const scrambledLetters = (wordScrambled || "").split("");
+
+  // Tilgængelig bredde (minus padding)
+  const availableWidth = width - 32;
+
+  // Dynamisk boksstørrelse så ordet kan være på én linje
+  const boxSize =
+    scrambledLetters.length > 0
+      ? Math.max(
+          26,
+          Math.floor(
+            (availableWidth - (scrambledLetters.length - 1) * 8) / scrambledLetters.length,
+          ),
+        )
+      : 40;
 
   // Timer
   useEffect(() => {
@@ -68,6 +93,11 @@ export function WeeklyWordScreen({
   }, [started, secondsLeft]);
 
   const handleStart = () => {
+    if (weeklyWordLocked) {
+      Alert.alert("Spillet er låst", "Du har allerede spillet denne uges Word of The Week.");
+      return;
+    }
+
     const word = pickRandomWordOfWeek();
     setWordOriginal(word);
     setWordScrambled(scrambleWord(word).toUpperCase());
@@ -85,7 +115,7 @@ export function WeeklyWordScreen({
 
     const trimmed = guess.trim().toLowerCase();
     if (!trimmed) {
-      alert("Skriv dit gæt, før du afleverer.");
+      Alert.alert("Manglende gæt", "Skriv dit gæt, før du afleverer.");
       return;
     }
 
@@ -110,6 +140,7 @@ export function WeeklyWordScreen({
     setScore(s);
     setStarted(false);
     setFinished(true);
+    setWeeklyWordLocked(true); // 🔒 lås via parent efter første spil
   };
 
   const handleShowResults = () => {
@@ -137,8 +168,6 @@ export function WeeklyWordScreen({
   const guessLocked = finished;
   const playerRank = 37; // placeholder til backend
 
-  const scrambledLetters = (wordScrambled || "").split("");
-
   return (
     <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
       <StatusBar style="light" />
@@ -162,7 +191,9 @@ export function WeeklyWordScreen({
         {/* Intro screen */}
         {!started && !finished && (
           <View style={styles.weeklyGameCenter}>
-            <Text style={styles.weeklyGameTitle}>Word of The Week</Text>
+            <Text style={styles.weeklyGameTitle}>
+              {weeklyWordLocked ? "Word of The Week" : "Word of The Week"}
+            </Text>
 
             <Text
               style={[
@@ -199,11 +230,16 @@ export function WeeklyWordScreen({
             </View>
 
             <Pressable
-              style={[styles.bigButton, styles.weeklyStartButton, { marginTop: 24 }]}
+              style={[
+                styles.bigButton,
+                styles.weeklyStartButton,
+                { marginTop: 24 },
+                weeklyWordLocked && { opacity: 0.5 },
+              ]}
               onPress={handleStart}
             >
               <Text style={[styles.bigButtonText, styles.weeklyStartButtonText]}>
-                START SPILLET
+                {weeklyWordLocked ? "LÅST (allerede spillet)" : "START SPILLET"}
               </Text>
             </Pressable>
           </View>
@@ -220,46 +256,48 @@ export function WeeklyWordScreen({
               <Text style={styles.weeklyGameTitle}>Word of The Week</Text>
 
               {/* Letter boxes */}
-              <View
-                style={{
-                  marginTop: 24,
-                  flexDirection: "row",
-                  flexWrap: "wrap",
-                  justifyContent: "center",
-                  gap: 8,
-                }}
-              >
-                {scrambledLetters.length > 0 ? (
-                  scrambledLetters.map((ch, idx) => (
-                    <View
-                      key={`${ch}-${idx}`}
-                      style={{
-                        width: 40,
-                        height: 50,
-                        borderRadius: 6,
-                        borderWidth: 2,
-                        borderColor: "#f8f9fa",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        backgroundColor: "#343a40dd",
-                      }}
-                    >
-                      <Text
+              <View style={{ marginTop: 24, width: "100%", alignItems: "center" }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    paddingHorizontal: 16,
+                  }}
+                >
+                  {scrambledLetters.length > 0 ? (
+                    scrambledLetters.map((ch, idx) => (
+                      <View
+                        key={`${ch}-${idx}`}
                         style={{
-                          color: "#f8f9fa",
-                          fontSize: 24,
-                          fontWeight: "700",
+                          width: boxSize,
+                          height: Math.floor(boxSize * 1.3),
+                          borderRadius: 6,
+                          borderWidth: 2,
+                          borderColor: "#f8f9fa",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          backgroundColor: "#343a40dd",
+                          marginHorizontal: 4,
                         }}
                       >
-                        {ch}
-                      </Text>
-                    </View>
-                  ))
-                ) : (
-                  <Text style={styles.weeklyPlaceholderText}>
-                    Tryk START for at se ugens ord.
-                  </Text>
-                )}
+                        <Text
+                          style={{
+                            color: "#f8f9fa",
+                            fontSize: Math.max(18, Math.floor(boxSize * 0.6)), // lidt større tekst
+                            fontWeight: "700",
+                          }}
+                        >
+                          {ch}
+                        </Text>
+                      </View>
+                    ))
+                  ) : (
+                    <Text style={styles.weeklyPlaceholderText}>
+                      Tryk START for at se ugens ord.
+                    </Text>
+                  )}
+                </View>
               </View>
 
               {/* Answer field */}
@@ -298,7 +336,7 @@ export function WeeklyWordScreen({
                       borderBottomColor: "#f8f9fa",
                       backgroundColor: "#212529dd",
                       paddingVertical: 10,
-                      color: "#ffffff", // you wanted white text here
+                      color: "#ffffff",
                     },
                   ]}
                 />
@@ -327,9 +365,7 @@ export function WeeklyWordScreen({
                   disabled={guessLocked || isTimeUp}
                   onPress={handleGuess}
                 >
-                  <Text style={styles.bigButtonText}>
-                    {isTimeUp ? "TIDEN ER GÅET" : "GÆT ORD"}
-                  </Text>
+                  <Text style={styles.bigButtonText}>{isTimeUp ? "TIDEN ER GÅET" : "GÆT ORD"}</Text>
                 </Pressable>
 
                 {(guessLocked || isTimeUp) && (
@@ -374,12 +410,10 @@ export function WeeklyWordScreen({
               <Text style={styles.statsSectionTitle}>Resultat – Word of The Week</Text>
 
               <Text style={[styles.statsLabel, { marginTop: 12 }]}>
-                Korrekt ord:{" "}
-                <Text style={styles.statsAccuracy}>{wordOriginal.toUpperCase()}</Text>
+                Korrekt ord: <Text style={styles.statsAccuracy}>{wordOriginal.toUpperCase()}</Text>
               </Text>
               <Text style={styles.statsLabel}>
-                Dit gæt:{" "}
-                <Text style={styles.subjectStatsSub}>{guess || "(ingen gæt)"}</Text>
+                Dit gæt: <Text style={styles.subjectStatsSub}>{guess || "(ingen gæt)"}</Text>
               </Text>
               <Text style={styles.statsLabel}>
                 Point i alt: <Text style={styles.statsAccuracy}>{score}</Text>
@@ -412,4 +446,5 @@ export function WeeklyWordScreen({
     </LinearGradient>
   );
 }
+
 export default WeeklyWordScreen;

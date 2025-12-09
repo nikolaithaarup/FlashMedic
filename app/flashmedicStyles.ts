@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
- // ------------------ STYLES --------------------
+  // ------------------ STYLES --------------------
 
   homeBackground: {
     flex: 1,
@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   safeTopContainer: {
-  paddingTop: 80,
+    paddingTop: 80,
   },
   homeTopRow: {
     flexDirection: "row",
@@ -559,3 +559,7 @@ export const styles = StyleSheet.create({
     fontWeight: "700",
   },
 });
+// Dummy default export so Expo Router stops treating this as a broken route
+export default function FlashmedicStylesRoute() {
+  return null;
+}

@@ -12,6 +12,8 @@ type WeeklyHomeScreenProps = {
   subtitleFont: number;
   buttonFont: number;
   weeklyMcqLocked: boolean;
+  weeklyMatchLocked: boolean;
+  weeklyWordLocked: boolean;
   onBackToHome: () => void;
   onOpenMcq: () => void;
   onOpenMatch: () => void;
@@ -23,6 +25,8 @@ export function WeeklyHomeScreen({
   subtitleFont,
   buttonFont,
   weeklyMcqLocked,
+  weeklyMatchLocked,
+  weeklyWordLocked,
   onBackToHome,
   onOpenMcq,
   onOpenMatch,
@@ -64,10 +68,7 @@ export function WeeklyHomeScreen({
         <View style={styles.homeButtonsContainer}>
           {/* MCQ */}
           <Pressable
-            style={[
-              styles.homeNavButton,
-              weeklyMcqLocked && { opacity: 0.5 },
-            ]}
+            style={[styles.homeNavButton, weeklyMcqLocked && { opacity: 0.5 }]}
             onPress={onOpenMcq}
           >
             <Text style={styles.homeNavButtonText}>
@@ -76,13 +77,23 @@ export function WeeklyHomeScreen({
           </Pressable>
 
           {/* Match */}
-          <Pressable style={styles.homeNavButton} onPress={onOpenMatch}>
-            <Text style={styles.homeNavButtonText}>Match Game</Text>
+          <Pressable
+            style={[styles.homeNavButton, weeklyMatchLocked && { opacity: 0.5 }]}
+            onPress={onOpenMatch}
+          >
+            <Text style={styles.homeNavButtonText}>
+              Match Game {weeklyMatchLocked ? " ✓ (låst til næste uge)" : ""}
+            </Text>
           </Pressable>
 
           {/* Word */}
-          <Pressable style={styles.homeNavButton} onPress={onOpenWord}>
-            <Text style={styles.homeNavButtonText}>Word of The Week</Text>
+          <Pressable
+            style={[styles.homeNavButton, weeklyWordLocked && { opacity: 0.5 }]}
+            onPress={onOpenWord}
+          >
+            <Text style={styles.homeNavButtonText}>
+              Word of the Week {weeklyWordLocked ? " ✓ (låst til næste uge)" : ""}
+            </Text>
           </Pressable>
         </View>
       </ScrollView>
