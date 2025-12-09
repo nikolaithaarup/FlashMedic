@@ -22,6 +22,9 @@ import { ekgImageLookup } from "../src/data/ekg/imageLookup";
 import { loadStats, saveStats, updateStatsForCard } from "../src/storage/stats";
 import type { Difficulty, Flashcard } from "../src/types/Flashcard";
 
+import WeeklyHomeScreen from "../src/features/weekly/WeeklyHomeScreen";
+import WeeklyWordScreen from "../src/features/weekly/WeeklyWordScreen";
+
 import { styles } from "./flashmedicStyles";
 
 // ---------- Types ----------
@@ -221,40 +224,8 @@ function scoreCardForQuiz(card: Flashcard, stats: StatsMap): number {
 const BEHANDLER_CLASSES = Array.from({ length: 30 - 14 + 1 }, (_, i) => 14 + i).map(
   (n) => `Behandler ${n}`,
 );
-const WORD_OF_WEEK_WORDS = [
-  "sepsis",
-  "respiration",
-  "intubation",
-  "cerebrum",
-  "ventrikel",
-  "infusion",
-  "anaphylaksi",
-  "hypotension",
-  "kapillær",
-  "arterioler",
-];
 
 const WEEKLY_WORD_TIME_LIMIT = 30; // sekunder
-
-function scrambleWord(word: string): string {
-  const arr = word.split("");
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  const scrambled = arr.join("");
-  // Hvis den (mod forventning) bliver identisk, prøv igen:
-  if (scrambled.toLowerCase() === word.toLowerCase()) {
-    return scrambleWord(word);
-  }
-  return scrambled;
-}
-
-function pickRandomWordOfWeek(): string {
-  const candidates = WORD_OF_WEEK_WORDS.filter((w) => w.length >= 6);
-  const idx = Math.floor(Math.random() * candidates.length);
-  return candidates[idx];
-}
 
 function formatSeconds(totalSeconds: number): string {
   const minutes = Math.floor(totalSeconds / 60);
@@ -397,19 +368,6 @@ export default function Index() {
   const [weeklyMatchCorrect, setWeeklyMatchCorrect] = useState(0);
   const [weeklyMatchWrong, setWeeklyMatchWrong] = useState(0);
   const [weeklyMatchShowResults, setWeeklyMatchShowResults] = useState(false);
-
-  // Word of the Week state
-  const [wordOfWeekOriginal, setWordOfWeekOriginal] = useState("");
-  const [wordOfWeekScrambled, setWordOfWeekScrambled] = useState("");
-  const [wordOfWeekGuess, setWordOfWeekGuess] = useState("");
-  const [wordOfWeekResult, setWordOfWeekResult] = useState<"idle" | "correct" | "wrong">("idle");
-    const [weeklyWordStarted, setWeeklyWordStarted] = useState(false);
-  const [weeklyWordFinished, setWeeklyWordFinished] = useState(false);
-  const [weeklyWordSecondsLeft, setWeeklyWordSecondsLeft] =
-    useState<number>(WEEKLY_WORD_TIME_LIMIT);
-  const [wordOfWeekScore, setWordOfWeekScore] = useState(0);
-  const [weeklyWordShowResults, setWeeklyWordShowResults] = useState(false);
-
 
   // -------- Responsive typography --------
   const { width: screenWidth, height: screenHeight } = useWindowDimensions();
@@ -1157,86 +1115,6 @@ export default function Index() {
     setScreen("weeklyHome");
   };
 
-    // ---------- WEEKLY WORD HELPERS ----------
-
-  const handleWeeklyWordStart = () => {
-    const word = pickRandomWordOfWeek();
-    setWordOfWeekOriginal(word);
-    setWordOfWeekScrambled(scrambleWord(word).toUpperCase());
-    setWordOfWeekGuess("");
-    setWordOfWeekResult("idle");
-    setWeeklyWordSecondsLeft(WEEKLY_WORD_TIME_LIMIT);
-    setWordOfWeekScore(0);
-    setWeeklyWordStarted(true);
-    setWeeklyWordFinished(false);
-  };
-
-  const handleWeeklyWordGuess = () => {
-    if (!weeklyWordStarted) return;
-    if (weeklyWordSecondsLeft <= 0) return;
-
-    const guess = wordOfWeekGuess.trim().toLowerCase();
-    if (!guess) {
-      Alert.alert("Mangler svar", "Skriv dit gæt, før du afleverer.");
-      return;
-    }
-
-    const target = wordOfWeekOriginal.toLowerCase();
-
-    let score = 0;
-    if (guess === target) {
-      const elapsed = WEEKLY_WORD_TIME_LIMIT - weeklyWordSecondsLeft;
-
-      if (elapsed <= 5) {
-        // 0–5 sekunder → 5000 point
-        score = 5000;
-      } else {
-        // efter 5 sekunder: -160 point pr. ekstra sekund, ned til minimum 1000
-        const extraSeconds = elapsed - 5;
-        score = Math.max(1000, 5000 - extraSeconds * 160);
-      }
-
-      setWordOfWeekResult("correct");
-    } else {
-      score = 0;
-      setWordOfWeekResult("wrong");
-    }
-
-    setWordOfWeekScore(score);
-    setWeeklyWordStarted(false);
-    setWeeklyWordFinished(true);
-  };
-
-  const handleWeeklyWordShowResults = () => {
-    if (!weeklyWordFinished) return;
-    setWeeklyWordShowResults(true);
-  };
-
-  const handleWeeklyWordCloseResults = () => {
-    setWeeklyWordShowResults(false);
-    setScreen("weeklyHome");
-  };
-
-    // -------- Word of the Week timer (countdown) --------
-  useEffect(() => {
-    if (!weeklyWordStarted) return;
-
-    if (weeklyWordSecondsLeft <= 0) {
-      // Timeout → ingen point
-      setWeeklyWordStarted(false);
-      setWeeklyWordFinished(true);
-      setWordOfWeekResult("wrong");
-      setWordOfWeekScore(0);
-      return;
-    }
-
-    const interval = setInterval(() => {
-      setWeeklyWordSecondsLeft((prev) => prev - 1);
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [weeklyWordStarted, weeklyWordSecondsLeft]);
-
   // ---------- SCREENS ----------
 
   // STATS
@@ -1770,97 +1648,19 @@ if (screen === "quiz" && currentCard) {
     );
   }
 
-  // WEEKLY CHALLENGE HOME
+  // WEEKLY HOME
   if (screen === "weeklyHome") {
     return (
-      <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
-        <StatusBar style="light" />
-        <ScrollView contentContainerStyle={styles.homeContainer}>
-          <View style={styles.headerRow}>
-            <Text style={[styles.appTitle, { fontSize: headingFont, color: "#f8f9fa" }]}>
-              Weekly Challenges
-            </Text>
-            <Pressable
-              style={[styles.smallButton, { borderColor: "#fff" }]}
-              onPress={() => setScreen("home")}
-              hitSlop={8}
-            >
-              <Text
-                style={[
-                  styles.smallButtonText,
-                  { color: "#fff", fontSize: buttonFont * 0.9 },
-                ]}
-              >
-                Home
-              </Text>
-            </Pressable>
-          </View>
-
-          <Text
-            style={[
-              styles.subtitle,
-              {
-                fontSize: subtitleFont,
-                color: "#e9ecef",
-                textAlign: "left",
-                alignSelf: "flex-start",
-              },
-            ]}
-          >
-            Ugens spiltyper – én chance pr. uge, når backend er klar.
-          </Text>
-
-          <View style={styles.homeButtonsContainer}>
-            {/* MCQ – med lås/tekst */}
-            <Pressable
-              style={[
-                styles.homeNavButton,
-                weeklyMcqLocked && { opacity: 0.5 },
-              ]}
-              onPress={() => {
-                setWeeklyGameRunning(false);
-                setWeeklyTimerSeconds(0);
-                setScreen("weeklyMcq");
-              }}
-            >
-              <Text style={styles.homeNavButtonText}>
-                Multiple Choice Game
-                {weeklyMcqLocked ? " ✓ (låst til næste uge)" : ""}
-              </Text>
-            </Pressable>
-
-            {/* Match Game – kan være tom placeholder indtil logik er klar */}
-                        <Pressable
-              style={[
-                styles.homeNavButton,
-                weeklyMatchLocked && { opacity: 0.5 },
-              ]}
-              onPress={() => {
-                setWeeklyGameRunning(false);
-                setWeeklyTimerSeconds(0);
-                setScreen("weeklyMatch");
-              }}
-            >
-              <Text style={styles.homeNavButtonText}>
-                Match Game{weeklyMatchLocked ? " ✓ (låst til næste uge)" : ""}
-              </Text>
-            </Pressable>
-
-
-            {/* Word of the Week */}
-            <Pressable
-              style={styles.homeNavButton}
-              onPress={() => {
-                setWeeklyGameRunning(false);
-                setWeeklyTimerSeconds(0);
-                setScreen("weeklyWord");
-              }}
-            >
-              <Text style={styles.homeNavButtonText}>Word of The Week</Text>
-            </Pressable>
-          </View>
-        </ScrollView>
-      </LinearGradient>
+      <WeeklyHomeScreen
+        headingFont={headingFont}
+        subtitleFont={subtitleFont}
+        buttonFont={buttonFont}
+        weeklyMcqLocked={weeklyMcqLocked}
+        onBackToHome={() => setScreen("home")}
+        onOpenMcq={() => setScreen("weeklyMcq")}
+        onOpenMatch={() => setScreen("weeklyMatch")}
+        onOpenWord={() => setScreen("weeklyWord")}
+      />
     );
   }
 
@@ -2400,316 +2200,15 @@ if (screen === "quiz" && currentCard) {
     );
   }
 
-
   // WEEKLY – WORD OF THE WEEK
   if (screen === "weeklyWord") {
-    const handleBack = () => {
-      setWeeklyWordStarted(false);
-      setWeeklyWordFinished(false);
-      setWeeklyWordSecondsLeft(WEEKLY_WORD_TIME_LIMIT);
-      setWordOfWeekResult("idle");
-      setWordOfWeekGuess("");
-      setWordOfWeekScore(0);
-      setScreen("weeklyHome");
-    };
-
-    const timeLabel = formatSeconds(weeklyWordSecondsLeft);
-    const isTimeUp = weeklyWordSecondsLeft <= 0;
-    const guessLocked = weeklyWordFinished;
-
-    const playerRank = 37; // placeholder, indtil backend giver ægte rangliste
-
-    // Lav en pæn række med bokse til bogstaverne (COUNTDOWN-style)
-    const scrambledLetters = (wordOfWeekScrambled || "").split("");
-
     return (
-      <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
-        <StatusBar style="light" />
-        <ScrollView contentContainerStyle={[styles.homeContainer, styles.safeTopContainer]}>
-          {/* Header */}
-          <View style={styles.headerRow}>
-            <Text style={[styles.appTitle, { fontSize: headingFont, color: "#fff" }]}>
-              Weekly Challenges
-            </Text>
-            <Pressable
-              style={[styles.smallButton, { borderColor: "#ffffffdd" }]}
-              onPress={handleBack}
-              hitSlop={8}
-            >
-              <Text
-                style={[
-                  styles.smallButtonText,
-                  { color: "#fff", fontSize: buttonFont * 0.9 },
-                ]}
-              >
-                Tilbage
-              </Text>
-            </Pressable>
-          </View>
-
-          {/* Intro / regler – før spillet starter */}
-          {!weeklyWordStarted && !weeklyWordFinished && (
-            <View style={styles.weeklyGameCenter}>
-              <Text style={styles.weeklyGameTitle}>Word of The Week</Text>
-
-              <Text
-                style={[
-                  styles.weeklyPlaceholderText,
-                  { textAlign: "left", alignSelf: "flex-start", marginTop: 16 },
-                ]}
-              >
-                Gæt et blandet, ambulance-relevant ord på dansk, før tiden løber ud.
-              </Text>
-
-              <View
-                style={{
-                  marginTop: 16,
-                  width: "100%",
-                  maxWidth: 700,
-                  alignSelf: "flex-start",
-                }}
-              >
-                <Text style={styles.statsLabel}>Sådan fungerer spillet:</Text>
-                <Text style={styles.drugTheoryText}>
-                  {"\n"}• Du får ét medicinsk ord (6–10 bogstaver), blandet
-                  {"\n"}• 30 sekunders nedtælling
-                  {"\n"}• Bogstaverne vises i store bogstaver i små bokse (Countdown-style)
-                  {"\n"}• Skriv dit gæt i feltet nedenunder
-                  {"\n"}• Tryk på "Gæt ord" for at låse dit svar
-                  {"\n"}• Når svaret er låst, kan du ikke ændre det
-                  {"\n"}• Derefter kan du trykke "Vis svar" og se facit + point
-                  {"\n\n"}Point:
-                  {"\n"}• Korrekt svar inden for de første 5 sekunder: 5000 point
-                  {"\n"}• Herefter mister du 160 point pr. ekstra sekund
-                  {"\n"}• Minimumscore for korrekt svar: 1000 point
-                  {"\n"}• Forkert svar eller timeout: 0 point
-                </Text>
-              </View>
-
-              <Pressable
-                style={[
-                  styles.bigButton,
-                  styles.weeklyStartButton,
-                  { marginTop: 24 },
-                ]}
-                onPress={handleWeeklyWordStart}
-              >
-                <Text style={[styles.bigButtonText, styles.weeklyStartButtonText]}>
-                  START SPILLET
-                </Text>
-              </Pressable>
-            </View>
-          )}
-
-          {/* Selve spillet (eller låst efter svar/timeout) */}
-          {(weeklyWordStarted || weeklyWordFinished) && (
-            <>
-              <View style={styles.weeklyTimerBar}>
-                <Text style={styles.weeklyTimerText}>
-                  Tid tilbage: {timeLabel}
-                </Text>
-              </View>
-
-              <View style={styles.weeklyGameCenter}>
-                <Text style={styles.weeklyGameTitle}>Word of The Week</Text>
-
-                {/* Countdown-style bogstavbokse */}
-                <View
-                  style={{
-                    marginTop: 24,
-                    flexDirection: "row",
-                    flexWrap: "wrap",
-                    justifyContent: "center",
-                    gap: 8,
-                  }}
-                >
-                  {scrambledLetters.length > 0 ? (
-                    scrambledLetters.map((ch, idx) => (
-                      <View
-                        key={`${ch}-${idx}`}
-                        style={{
-                          width: 40,
-                          height: 50,
-                          borderRadius: 6,
-                          borderWidth: 2,
-                          borderColor: "#f8f9fa",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          backgroundColor: "#343a40dd",
-                        }}
-                      >
-                        <Text
-                          style={{
-                            color: "#f8f9fa",
-                            fontSize: 24,
-                            fontWeight: "700",
-                          }}
-                        >
-                          {ch}
-                        </Text>
-                      </View>
-                    ))
-                  ) : (
-                    <Text style={styles.weeklyPlaceholderText}>
-                      Tryk START for at se ugens ord.
-                    </Text>
-                  )}
-                </View>
-
-                {/* Svarfelt – “8 Out of 10 Cats”-style input */}
-                <View
-                  style={{
-                    marginTop: 24,
-                    width: "100%",
-                    maxWidth: 500,
-                    alignSelf: "center",
-                  }}
-                >
-                  <Text style={[styles.statsLabel, { marginBottom: 8, textAlign: "center" }]}>
-                    Skriv dit gæt:
-                  </Text>
-                  <TextInput
-                    value={wordOfWeekGuess}
-                    onChangeText={(text) => {
-                      if (!guessLocked && !isTimeUp) {
-                        setWordOfWeekGuess(text.toUpperCase());
-                        setWordOfWeekResult("idle");
-                      }
-                    }}
-                    placeholder="FX RESPIRATION"
-                    placeholderTextColor="#adb5bd"
-                    autoCapitalize="none"
-                    editable={!guessLocked && !isTimeUp}
-                    style={[
-                      styles.textInput,
-                      {
-                        textAlign: "center",
-                        fontSize: 26,
-                        letterSpacing: 4,
-                        textTransform: "uppercase",
-                        borderWidth: 0,
-                        borderBottomWidth: 3,
-                        borderBottomColor: "#f8f9fa",
-                        backgroundColor: "#212529dd",
-                        paddingVertical: 10,
-                        color: "#ffffff",
-                      },
-                    ]}
-                  />
-                </View>
-
-                {/* Knapper: Gæt ord / Vis svar */}
-                <View
-                  style={{
-                    marginTop: 24,
-                    width: "100%",
-                    maxWidth: 500,
-                    alignSelf: "center",
-                    alignItems: "center",
-                    gap: 12,
-                  }}
-                >
-                  <Pressable
-                    style={[
-                      styles.bigButton,
-                      styles.primaryButton,
-                      {
-                        backgroundColor:
-                          guessLocked || isTimeUp ? "#495057" : "#1c7ed6",
-                        alignSelf: "stretch",
-                      },
-                    ]}
-                    disabled={guessLocked || isTimeUp}
-                    onPress={handleWeeklyWordGuess}
-                  >
-                    <Text style={styles.bigButtonText}>
-                      {isTimeUp ? "TIDEN ER GÅET" : "GÆT ORD"}
-                    </Text>
-                  </Pressable>
-
-                  {guessLocked || isTimeUp ? (
-                    <Pressable
-                      style={[
-                        styles.bigButton,
-                        styles.secondaryButton,
-                        {
-                          backgroundColor: "#2b8a3e",
-                          alignSelf: "stretch",
-                        },
-                      ]}
-                      onPress={handleWeeklyWordShowResults}
-                    >
-                      <Text style={styles.bigButtonText}>VIS SVAR</Text>
-                    </Pressable>
-                  ) : null}
-                </View>
-              </View>
-            </>
-          )}
-
-          {/* Resultat-modal */}
-          <Modal
-            visible={weeklyWordShowResults}
-            transparent={true}
-            animationType="fade"
-            onRequestClose={handleWeeklyWordCloseResults}
-          >
-            <View style={styles.modalBackdrop}>
-              <View
-                style={[
-                  styles.modalContent,
-                  {
-                    maxWidth: 700,
-                    backgroundColor: "#ffffff",
-                    borderRadius: 12,
-                    padding: 20,
-                  },
-                ]}
-              >
-                <Text style={styles.statsSectionTitle}>Resultat – Word of The Week</Text>
-
-                <Text style={[styles.statsLabel, { marginTop: 12 }]}>
-                  Korrekt ord:{" "}
-                  <Text style={styles.statsAccuracy}>
-                    {wordOfWeekOriginal.toUpperCase()}
-                  </Text>
-                </Text>
-                <Text style={styles.statsLabel}>
-                  Dit gæt:{" "}
-                  <Text style={styles.subjectStatsSub}>
-                    {wordOfWeekGuess || "(ingen gæt)"}
-                  </Text>
-                </Text>
-                <Text style={styles.statsLabel}>
-                  Point i alt:{" "}
-                  <Text style={styles.statsAccuracy}>{wordOfWeekScore}</Text>
-                </Text>
-
-                <Text style={[styles.statsLabel, { marginTop: 16 }]}>
-                  Foreløbig global rangliste (placeholder – ægte ranking kommer med backend):
-                </Text>
-
-                <View style={{ marginTop: 8 }}>
-                  <Text style={styles.subjectStatsSub}>1. CountdownKing · 5000 pts</Text>
-                  <Text style={styles.subjectStatsSub}>2. NeuroLex · 4820 pts</Text>
-                  <Text style={styles.subjectStatsSub}>3. ShockSpell · 4710 pts</Text>
-                  <Text style={styles.subjectStatsSub}>...</Text>
-                  <Text style={styles.subjectStatsSub}>
-                    {playerRank}. {profile?.nickname ?? "Dig"} · {wordOfWeekScore} pts
-                  </Text>
-                </View>
-
-                <Pressable
-                  style={[styles.modalCloseButton, { marginTop: 24 }]}
-                  onPress={handleWeeklyWordCloseResults}
-                >
-                  <Text style={styles.modalCloseText}>Luk</Text>
-                </Pressable>
-              </View>
-            </View>
-          </Modal>
-        </ScrollView>
-      </LinearGradient>
+      <WeeklyWordScreen
+        headingFont={headingFont}
+        buttonFont={buttonFont}
+        profileNickname={profile?.nickname}
+        onBack={() => setScreen("weeklyHome")}
+      />
     );
   }
 
