@@ -6,9 +6,7 @@
     "question": "Hvad betyder perfusion?",
     "answer": "Levering af ilt og næringsstoffer til væv gennem blodcirkulationen.",
     "difficulty": "easy",
-    "tags": [
-      "perfusion"
-    ],
+    "tags": ["perfusion"],
     "deckId": "klinikCirkulationAcidoseCards"
   },
   {
@@ -18,10 +16,7 @@
     "question": "Hvad sker der i cellerne ved nedsat perfusion?",
     "answer": "Cellerne skifter til anaerob metabolisme, hvilket danner laktat og fører til metabolisk acidose.",
     "difficulty": "medium",
-    "tags": [
-      "anaerob",
-      "laktat"
-    ],
+    "tags": ["anaerob", "laktat"],
     "deckId": "klinikCirkulationAcidoseCards"
   },
   {
@@ -31,10 +26,7 @@
     "question": "Hvorfor stiger respirationsfrekvensen ved metabolisk acidose?",
     "answer": "Kroppen forsøger at udskille CO₂ via hyperventilation for at hæve pH (Kussmaul-trækning).",
     "difficulty": "hard",
-    "tags": [
-      "RF",
-      "kompensation"
-    ],
+    "tags": ["RF", "kompensation"],
     "deckId": "klinikCirkulationAcidoseCards"
   },
   {
@@ -44,10 +36,7 @@
     "question": "Hvad er tegn på metabolisk acidose præhospitalt?",
     "answer": "Dybe, hurtige vejrtrækninger, lavt BT, høj puls, sløvhed og evt. kold/klam hud.",
     "difficulty": "medium",
-    "tags": [
-      "acidose",
-      "RF"
-    ],
+    "tags": ["acidose", "RF"],
     "deckId": "klinikCirkulationAcidoseCards"
   },
   {
@@ -57,10 +46,7 @@
     "question": "Hvorfor kan shock føre til acidose?",
     "answer": "Shock reducerer perfusion, hvilket giver anaerob metabolisme og øget laktatproduktion.",
     "difficulty": "medium",
-    "tags": [
-      "shock",
-      "laktat"
-    ],
+    "tags": ["shock", "laktat"],
     "deckId": "klinikCirkulationAcidoseCards"
   },
   {
@@ -70,10 +56,7 @@
     "question": "Hvad er forskellen på respiratorisk og metabolisk acidose?",
     "answer": "Respiratorisk skyldes CO₂-retention (lungesvigt). Metabolisk skyldes øget syreproduktion eller tab af base (fx sepsis, ketoacidose).",
     "difficulty": "hard",
-    "tags": [
-      "respiratorisk",
-      "metabolisk"
-    ],
+    "tags": ["respiratorisk", "metabolisk"],
     "deckId": "klinikCirkulationAcidoseCards"
   },
   {
@@ -83,10 +66,7 @@
     "question": "Hvordan kan respiratorisk acidose observeres præhospitalt?",
     "answer": "Hypoventilation, sløvhed, lav RF, cyanose og høj CO₂-retention.",
     "difficulty": "hard",
-    "tags": [
-      "CO2",
-      "respiration"
-    ],
+    "tags": ["CO2", "respiration"],
     "deckId": "klinikCirkulationAcidoseCards"
   },
   {
@@ -96,10 +76,7 @@
     "question": "Hvad er det tidligste tegn på dårlig perfusion?",
     "answer": "Stigende respirationsfrekvens og takykardi.",
     "difficulty": "easy",
-    "tags": [
-      "kompensation",
-      "vitalparametre"
-    ],
+    "tags": ["kompensation", "vitalparametre"],
     "deckId": "klinikCirkulationAcidoseCards"
   },
   {
@@ -109,10 +86,7 @@
     "question": "Hvad betyder Kussmaul-respiration?",
     "answer": "Dybe, anstrengte og hurtige vejrtrækninger ved metabolisk acidose (fx ketoacidose eller sepsis).",
     "difficulty": "hard",
-    "tags": [
-      "Kussmaul",
-      "acidose"
-    ],
+    "tags": ["Kussmaul", "acidose"],
     "deckId": "klinikCirkulationAcidoseCards"
   },
   {
@@ -122,10 +96,7 @@
     "question": "Hvordan påvirker sepsis blodkar og perfusion?",
     "answer": "Vasodilatation og kapillærlækage reducerer blodtryk og perfusion.",
     "difficulty": "medium",
-    "tags": [
-      "sepsis",
-      "BT"
-    ],
+    "tags": ["sepsis", "BT"],
     "deckId": "klinikCirkulationAcidoseCards"
   },
   {
@@ -135,10 +106,7 @@
     "question": "Hvad tyder marmorering og cyanose på?",
     "answer": "Alvorligt nedsat perifer perfusion og risiko for shock og organsvigt.",
     "difficulty": "medium",
-    "tags": [
-      "hud",
-      "shock"
-    ],
+    "tags": ["hud", "shock"],
     "deckId": "klinikCirkulationAcidoseCards"
   },
   {
@@ -148,10 +116,7 @@
     "question": "Hvorfor falder mentalstatus ved ubehandlet acidose?",
     "answer": "Hjernens celler påvirkes af lav pH, nedsat perfusion og elektrolytforstyrrelser.",
     "difficulty": "hard",
-    "tags": [
-      "GCS",
-      "pH"
-    ],
+    "tags": ["GCS", "pH"],
     "deckId": "klinikCirkulationAcidoseCards"
   },
   {
@@ -161,10 +126,7 @@
     "question": "Hvordan kan man i ambulancen skelne mellem acidose og angst?",
     "answer": "Angst → hurtig, overfladisk hyperventilation. Acidose → dyb, kraftig og stønnende hyperventilation.",
     "difficulty": "hard",
-    "tags": [
-      "respiration",
-      "differentialdiagnose"
-    ],
+    "tags": ["respiration", "differentialdiagnose"],
     "deckId": "klinikCirkulationAcidoseCards"
   },
   {
@@ -174,10 +136,7 @@
     "question": "Hvad er formålet med væsketerapi ved acidose?",
     "answer": "Forbedre perfusion, øge iltlevering og reducere anaerob metabolisme og laktatproduktion.",
     "difficulty": "medium",
-    "tags": [
-      "væske",
-      "shock"
-    ],
+    "tags": ["væske", "shock"],
     "deckId": "klinikCirkulationAcidoseCards"
   },
   {
@@ -187,10 +146,7 @@
     "question": "Hvorfor er takykardi et tidligt tegn ved perfusionsproblemer?",
     "answer": "Kroppen øger pulsen for at opretholde minutvolumen, når slagvolumen falder.",
     "difficulty": "medium",
-    "tags": [
-      "puls",
-      "kompensation"
-    ],
+    "tags": ["puls", "kompensation"],
     "deckId": "klinikCirkulationAcidoseCards"
   },
   {
@@ -200,10 +156,7 @@
     "question": "Hvordan ser respiratorisk alkalose ud klinisk?",
     "answer": "Hyperventilation, svimmelhed, prikken i fingre og let mental påvirkning.",
     "difficulty": "hard",
-    "tags": [
-      "alkalose",
-      "hyperventilation"
-    ],
+    "tags": ["alkalose", "hyperventilation"],
     "deckId": "klinikCirkulationAcidoseCards"
   },
   {
@@ -213,10 +166,7 @@
     "question": "Hvilket shock har størst risiko for metabolisk acidose?",
     "answer": "Hypovolæmisk og septisk shock pga. manglende perfusion og anaerob metabolisme.",
     "difficulty": "medium",
-    "tags": [
-      "shock",
-      "laktat"
-    ],
+    "tags": ["shock", "laktat"],
     "deckId": "klinikCirkulationAcidoseCards"
   },
   {
@@ -226,10 +176,7 @@
     "question": "Hvordan påvirker acidose hjertet?",
     "answer": "Reducerer kontraktionsevne, giver arytmier og forværrer shocktilstand.",
     "difficulty": "hard",
-    "tags": [
-      "hjertet",
-      "arytmi"
-    ],
+    "tags": ["hjertet", "arytmi"],
     "deckId": "klinikCirkulationAcidoseCards"
   },
   {
@@ -239,9 +186,7 @@
     "question": "Hvordan kan du klinisk se forbedret perfusion efter behandling?",
     "answer": "BT stiger, puls falder, hudfarve normaliseres, mentalstatus forbedres, CRT <2 sek.",
     "difficulty": "medium",
-    "tags": [
-      "behandlingseffekt"
-    ],
+    "tags": ["behandlingseffekt"],
     "deckId": "klinikCirkulationAcidoseCards"
   },
   {
@@ -251,10 +196,7 @@
     "question": "Hvad er paramedicinerens vigtigste rolle ved mistanke om perfusionssvigt og acidose?",
     "answer": "Tidlig identifikation, ABC-støtte, ilt, væske, monitorering og hurtig transport.",
     "difficulty": "easy",
-    "tags": [
-      "rolle",
-      "ABC"
-    ],
+    "tags": ["rolle", "ABC"],
     "deckId": "klinikCirkulationAcidoseCards"
   },
   {
@@ -264,10 +206,7 @@
     "question": "Hvilke tre diagnoser skal altid overvejes ved nedsat bevidsthed præhospitalt?",
     "answer": "Hypoglykæmi, hypoksi og sepsis.",
     "difficulty": "easy",
-    "tags": [
-      "GCS",
-      "ABC"
-    ],
+    "tags": ["GCS", "ABC"],
     "deckId": "klinikDifferentialDiagnoserCards"
   },
   {
@@ -277,10 +216,7 @@
     "question": "Hvordan kan hypoglykæmi adskilles fra sepsis-hjerne?",
     "answer": "Hypoglykæmi debuterer akut og forbedres ofte hurtigt med glukose. Sepsis-hjerne udvikler sig gradvist og ledsages af feber, hypotension og tachykardi.",
     "difficulty": "medium",
-    "tags": [
-      "glukose",
-      "sepsis"
-    ],
+    "tags": ["glukose", "sepsis"],
     "deckId": "klinikDifferentialDiagnoserCards"
   },
   {
@@ -290,10 +226,7 @@
     "question": "Hvordan adskilles stroke fra infektiøs encefalitis?",
     "answer": "Stroke: fokale neurologiske udfald og pludselig debut. Encefalitis: mental påvirkning, feber og kramper.",
     "difficulty": "hard",
-    "tags": [
-      "stroke",
-      "encefalitis"
-    ],
+    "tags": ["stroke", "encefalitis"],
     "deckId": "klinikDifferentialDiagnoserCards"
   },
   {
@@ -303,10 +236,7 @@
     "question": "Hvordan kan man klinisk adskille sepsis fra hypovolæmisk shock?",
     "answer": "Sepsis: varm rød hud tidligt, feber og mental påvirkning. Hypovolæmi: kold, bleg og tør hud, ofte kendt blødningsårsag.",
     "difficulty": "medium",
-    "tags": [
-      "shock",
-      "hud"
-    ],
+    "tags": ["shock", "hud"],
     "deckId": "klinikDifferentialDiagnoserCards"
   },
   {
@@ -316,10 +246,7 @@
     "question": "Hvornår skal anafylaksi mistænkes?",
     "answer": "Akut debut med hypotension, hududslæt, hævelse, kløe, åndenød eller stridor.",
     "difficulty": "easy",
-    "tags": [
-      "anafylaksi",
-      "allergi"
-    ],
+    "tags": ["anafylaksi", "allergi"],
     "deckId": "klinikDifferentialDiagnoserCards"
   },
   {
@@ -329,10 +256,7 @@
     "question": "Hvordan kan respiratorisk acidose ses præhospitalt?",
     "answer": "Sløvhed, lav RF eller ineffektiv vejrtrækning, cyanose og evt. KOL eller opioider.",
     "difficulty": "hard",
-    "tags": [
-      "CO2",
-      "respiration"
-    ],
+    "tags": ["CO2", "respiration"],
     "deckId": "klinikDifferentialDiagnoserCards"
   },
   {
@@ -342,10 +266,7 @@
     "question": "Hvordan skelnes KOL-exacerbation fra pneumoni?",
     "answer": "Pneumoni: feber, unilateral krepitation, ofte produktiv hoste. KOL: forlænget ekspirium, expiratorisk rhonchi og ingen feber.",
     "difficulty": "medium",
-    "tags": [
-      "KOL",
-      "pneumoni"
-    ],
+    "tags": ["KOL", "pneumoni"],
     "deckId": "klinikDifferentialDiagnoserCards"
   },
   {
@@ -355,10 +276,7 @@
     "question": "Hvordan kan metabolisk acidose skelnes fra hyperventilation pga. angst?",
     "answer": "Acidose: dyb, kraftig vejrtrækning (Kussmaul), påvirket AT. Angst: hurtig, overfladisk og patienten er vågen og alert.",
     "difficulty": "hard",
-    "tags": [
-      "acidose",
-      "psykogen"
-    ],
+    "tags": ["acidose", "psykogen"],
     "deckId": "klinikDifferentialDiagnoserCards"
   },
   {
@@ -368,10 +286,7 @@
     "question": "Hvordan adskilles delirium fra demens?",
     "answer": "Delirium er akut, svingende og ofte reversibelt. Demens er kronisk og stabilt.",
     "difficulty": "medium",
-    "tags": [
-      "delirium",
-      "demens"
-    ],
+    "tags": ["delirium", "demens"],
     "deckId": "klinikDifferentialDiagnoserCards"
   },
   {
@@ -381,10 +296,7 @@
     "question": "Hvordan kan intoksikation ligne sepsis?",
     "answer": "Begge kan give konfusion, hypotension, tachykardi og påvirket respiration. Intoks er ofte uden feber og uden tegn på inflammation.",
     "difficulty": "hard",
-    "tags": [
-      "intoksikation",
-      "sepsis"
-    ],
+    "tags": ["intoksikation", "sepsis"],
     "deckId": "klinikDifferentialDiagnoserCards"
   },
   {
@@ -394,10 +306,7 @@
     "question": "Hvilket klinisk fund er mest typisk for kardiogent shock?",
     "answer": "Dyspnø, lungeødem, halsvenestase og kold klam hud.",
     "difficulty": "medium",
-    "tags": [
-      "kardiogent",
-      "lunger"
-    ],
+    "tags": ["kardiogent", "lunger"],
     "deckId": "klinikDifferentialDiagnoserCards"
   },
   {
@@ -407,10 +316,7 @@
     "question": "Hvordan kan dekompenseret KOL ligne opioidoverdosering?",
     "answer": "Begge giver hypoventilation og CO₂-retention, men opioidpatienten har ofte pinpoint pupils og flad RF.",
     "difficulty": "hard",
-    "tags": [
-      "CO2",
-      "opioid"
-    ],
+    "tags": ["CO2", "opioid"],
     "deckId": "klinikDifferentialDiagnoserCards"
   },
   {
@@ -420,10 +326,7 @@
     "question": "Hvilke shocktyper har risiko for lungeødem?",
     "answer": "Kardiogent shock og avanceret septisk shock.",
     "difficulty": "medium",
-    "tags": [
-      "shock",
-      "lunger"
-    ],
+    "tags": ["shock", "lunger"],
     "deckId": "klinikDifferentialDiagnoserCards"
   },
   {
@@ -433,10 +336,7 @@
     "question": "Hvordan kan sepsis-hjerne adskilles fra stroke?",
     "answer": "Sepsis-hjerne: diffus mental påvirkning. Stroke: fokale neurologiske udfald.",
     "difficulty": "medium",
-    "tags": [
-      "CNS",
-      "stroke"
-    ],
+    "tags": ["CNS", "stroke"],
     "deckId": "klinikDifferentialDiagnoserCards"
   },
   {
@@ -446,10 +346,7 @@
     "question": "Hvilket klinisk parameter er særligt vigtigt ved differentialdiagnoser med GCS?",
     "answer": "Respirationsmønster – kan vise acidose, CO₂-retention, hypoksi eller neurologisk skade.",
     "difficulty": "hard",
-    "tags": [
-      "GCS",
-      "respiration"
-    ],
+    "tags": ["GCS", "respiration"],
     "deckId": "klinikDifferentialDiagnoserCards"
   },
   {
@@ -459,10 +356,7 @@
     "question": "Hvad er et nøglesignal på psykogent frem for organisk bevidsthedstab?",
     "answer": "Bevarede vitale værdier, normal perifer cirkulation og normal respirationsmønster.",
     "difficulty": "hard",
-    "tags": [
-      "psykogen",
-      "bevidsthed"
-    ],
+    "tags": ["psykogen", "bevidsthed"],
     "deckId": "klinikDifferentialDiagnoserCards"
   },
   {
@@ -472,10 +366,7 @@
     "question": "Hvordan kan sepsis ligne dehydrering?",
     "answer": "Begge kan give hypotension og tachykardi, men ved sepsis ses mental påvirkning og feber.",
     "difficulty": "medium",
-    "tags": [
-      "dehydrering",
-      "sepsis"
-    ],
+    "tags": ["dehydrering", "sepsis"],
     "deckId": "klinikDifferentialDiagnoserCards"
   },
   {
@@ -485,10 +376,7 @@
     "question": "Hvordan kan akut nyresvigt ligne shock?",
     "answer": "Træthed, hypotension, kold hud og acidose kan ligne shock, men ofte med oliguri og ingen feber.",
     "difficulty": "hard",
-    "tags": [
-      "nyrer",
-      "acidose"
-    ],
+    "tags": ["nyrer", "acidose"],
     "deckId": "klinikDifferentialDiagnoserCards"
   },
   {
@@ -498,10 +386,7 @@
     "question": "Hvordan kan hyperkapni påvirke mental status?",
     "answer": "CO₂-retention giver træthed, hovedpine, konfusion og i alvorlige tilfælde bevidsthedstab.",
     "difficulty": "medium",
-    "tags": [
-      "CO2",
-      "mental status"
-    ],
+    "tags": ["CO2", "mental status"],
     "deckId": "klinikDifferentialDiagnoserCards"
   },
   {
@@ -511,10 +396,7 @@
     "question": "Hvad er paramedicinerens primære rolle ved differentialdiagnoser?",
     "answer": "Identificere ABC-trusler, observere mønstre, stille hypotese og prioritere korrekt behandling og transport.",
     "difficulty": "easy",
-    "tags": [
-      "ABC",
-      "klinisk tænkning"
-    ],
+    "tags": ["ABC", "klinisk tænkning"],
     "deckId": "klinikDifferentialDiagnoserCards"
   },
   {
@@ -524,10 +406,7 @@
     "question": "Hvad adskiller meningitis fra encefalitis?",
     "answer": "Meningitis er infektion i hjernehinderne, mens encefalitis er infektion i selve hjernevævet.",
     "difficulty": "medium",
-    "tags": [
-      "meningitis",
-      "encefalitis"
-    ],
+    "tags": ["meningitis", "encefalitis"],
     "deckId": "klinikInfektionNeurologiCards"
   },
   {
@@ -537,10 +416,7 @@
     "question": "Nævn tre klassiske symptomer på meningitis.",
     "answer": "Feber, nakkestivhed og påvirket mental status.",
     "difficulty": "easy",
-    "tags": [
-      "meningitis",
-      "triade"
-    ],
+    "tags": ["meningitis", "triade"],
     "deckId": "klinikInfektionNeurologiCards"
   },
   {
@@ -550,10 +426,7 @@
     "question": "Hvad er et tidligt tegn på encefalitis?",
     "answer": "Ændret mental status, personlighedsændringer eller konfusion.",
     "difficulty": "medium",
-    "tags": [
-      "encefalitis",
-      "GCS"
-    ],
+    "tags": ["encefalitis", "GCS"],
     "deckId": "klinikInfektionNeurologiCards"
   },
   {
@@ -563,10 +436,7 @@
     "question": "Hvordan kan meningitis og encefalitis adskilles klinisk?",
     "answer": "Meningitis: nakkestivhed og lysfølsomhed. Encefalitis: neurologiske udfald og adfærdsændringer.",
     "difficulty": "hard",
-    "tags": [
-      "mental status",
-      "neurologi"
-    ],
+    "tags": ["mental status", "neurologi"],
     "deckId": "klinikInfektionNeurologiCards"
   },
   {
@@ -576,10 +446,7 @@
     "question": "Hvad tyder petekier på ved feber og påvirket AT?",
     "answer": "Meningokoksepsis med risiko for DIC og septisk shock.",
     "difficulty": "hard",
-    "tags": [
-      "petechier",
-      "sepsis"
-    ],
+    "tags": ["petechier", "sepsis"],
     "deckId": "klinikInfektionNeurologiCards"
   },
   {
@@ -589,10 +456,7 @@
     "question": "Hvad er sepsis-hjerne?",
     "answer": "Neurologisk påvirkning ved sepsis pga. inflammatorisk skade og nedsat cerebral perfusion.",
     "difficulty": "medium",
-    "tags": [
-      "sepsis",
-      "CNS"
-    ],
+    "tags": ["sepsis", "CNS"],
     "deckId": "klinikInfektionNeurologiCards"
   },
   {
@@ -602,10 +466,7 @@
     "question": "Hvordan viser sepsis-hjerne sig præhospitalt?",
     "answer": "Konfusion, sløvhed, agitation eller bevidsthedssvækkelse.",
     "difficulty": "medium",
-    "tags": [
-      "GCS",
-      "sepsis"
-    ],
+    "tags": ["GCS", "sepsis"],
     "deckId": "klinikInfektionNeurologiCards"
   },
   {
@@ -615,10 +476,7 @@
     "question": "Hvad adskiller delirium fra demens præhospitalt?",
     "answer": "Delirium er akut, svingende, og ofte reversibelt. Demens er kronisk og stabilt.",
     "difficulty": "medium",
-    "tags": [
-      "delirium",
-      "demens"
-    ],
+    "tags": ["delirium", "demens"],
     "deckId": "klinikInfektionNeurologiCards"
   },
   {
@@ -628,11 +486,7 @@
     "question": "Hvilket tidligt tegn ses ved meningitis hos børn og ældre?",
     "answer": "Ændret mental status frem for nakkestivhed.",
     "difficulty": "hard",
-    "tags": [
-      "børn",
-      "ældre",
-      "meningitis"
-    ],
+    "tags": ["børn", "ældre", "meningitis"],
     "deckId": "klinikInfektionNeurologiCards"
   },
   {
@@ -642,10 +496,7 @@
     "question": "Hvorfor kan encefalitis give kramper?",
     "answer": "Vævsinflammation i hjernen forstyrrer neuronernes elektriske aktivitet.",
     "difficulty": "hard",
-    "tags": [
-      "encefalitis",
-      "kramper"
-    ],
+    "tags": ["encefalitis", "kramper"],
     "deckId": "klinikInfektionNeurologiCards"
   },
   {
@@ -655,9 +506,7 @@
     "question": "Hvilke vitale parametre ses ofte ved infektion i CNS?",
     "answer": "Feber, tachykardi, påvirket mental status og evt. højt BT.",
     "difficulty": "medium",
-    "tags": [
-      "vitalparametre"
-    ],
+    "tags": ["vitalparametre"],
     "deckId": "klinikInfektionNeurologiCards"
   },
   {
@@ -667,9 +516,7 @@
     "question": "Hvordan vurderes nakkestivhed klinisk?",
     "answer": "Patienten kan ikke aktivt bøje nakken fremover fordi det udløser smerte.",
     "difficulty": "easy",
-    "tags": [
-      "nakkestiv"
-    ],
+    "tags": ["nakkestiv"],
     "deckId": "klinikInfektionNeurologiCards"
   },
   {
@@ -679,10 +526,7 @@
     "question": "Hvorfor er meningitis tidskritisk?",
     "answer": "Kan hurtigt udvikle sig til hjerneskade, sepsis og multiorgansvigt.",
     "difficulty": "medium",
-    "tags": [
-      "mortalitet",
-      "organ"
-    ],
+    "tags": ["mortalitet", "organ"],
     "deckId": "klinikInfektionNeurologiCards"
   },
   {
@@ -692,10 +536,7 @@
     "question": "Hvordan mistænkes delirium præhospitalt?",
     "answer": "Akut ændring i adfærd, uro, hallucinationer, desorientering og fluktuerende bevidsthed.",
     "difficulty": "medium",
-    "tags": [
-      "psyke",
-      "adfærd"
-    ],
+    "tags": ["psyke", "adfærd"],
     "deckId": "klinikInfektionNeurologiCards"
   },
   {
@@ -705,10 +546,7 @@
     "question": "Hvordan skelnes sepsis-hjerne fra hypoglykæmi?",
     "answer": "Hypoglykæmi er reversibel med glukose, mens sepsis-hjerne ledsages af feber og infektionstegn.",
     "difficulty": "hard",
-    "tags": [
-      "hypoglykæmi",
-      "GCS"
-    ],
+    "tags": ["hypoglykæmi", "GCS"],
     "deckId": "klinikInfektionNeurologiCards"
   },
   {
@@ -718,10 +556,7 @@
     "question": "Hvad betyder ‘akut konfusion’ altid præhospitalt?",
     "answer": "Potentiel livstruende tilstand (hypoksi, sepsis, elektrolytforstyrrelse eller hypoglykæmi).",
     "difficulty": "hard",
-    "tags": [
-      "konfusion",
-      "triage"
-    ],
+    "tags": ["konfusion", "triage"],
     "deckId": "klinikInfektionNeurologiCards"
   },
   {
@@ -731,10 +566,7 @@
     "question": "Hvorfor kan sepsis og meningitis give lavt BT?",
     "answer": "Systemisk inflammation skaber vasodilatation og kapillærlækage.",
     "difficulty": "hard",
-    "tags": [
-      "shock",
-      "BT"
-    ],
+    "tags": ["shock", "BT"],
     "deckId": "klinikInfektionNeurologiCards"
   },
   {
@@ -744,9 +576,7 @@
     "question": "Hvilken score bruges til vurdering af mental status?",
     "answer": "GCS (Glasgow Coma Scale).",
     "difficulty": "easy",
-    "tags": [
-      "GCS"
-    ],
+    "tags": ["GCS"],
     "deckId": "klinikInfektionNeurologiCards"
   },
   {
@@ -756,10 +586,7 @@
     "question": "Hvornår skal meningitis overvejes hos patient uden feber?",
     "answer": "Ved mental påvirkning, nakkestivhed eller petekier.",
     "difficulty": "medium",
-    "tags": [
-      "feberfri",
-      "meningitis"
-    ],
+    "tags": ["feberfri", "meningitis"],
     "deckId": "klinikInfektionNeurologiCards"
   },
   {
@@ -769,10 +596,7 @@
     "question": "Hvad er ambulancepersonalets vigtigste rolle ved mistanke om CNS-infektion?",
     "answer": "Identificere symptomer, sikre ABC, isolere ved mistanke og transportere hurtigt.",
     "difficulty": "easy",
-    "tags": [
-      "rolle",
-      "ambulance"
-    ],
+    "tags": ["rolle", "ambulance"],
     "deckId": "klinikInfektionNeurologiCards"
   },
   {
@@ -782,10 +606,7 @@
     "question": "Hvilke tre elementer kræver mistanke om sepsis præhospitalt?",
     "answer": "1) Mistanke om infektion, 2) påvirket vitalstatus, 3) tegn på organsvigt (ændret mentalstatus, hypotension, høj RF).",
     "difficulty": "medium",
-    "tags": [
-      "sepsis",
-      "triage"
-    ],
+    "tags": ["sepsis", "triage"],
     "deckId": "kliniskIntegrationCards"
   },
   {
@@ -795,10 +616,7 @@
     "question": "Hvad er det første vitale parameter, der ofte ændres ved sepsis?",
     "answer": "Respirationsfrekvensen stiger (>22) som kompensation for metabolisk acidose.",
     "difficulty": "hard",
-    "tags": [
-      "respiration",
-      "kompensation"
-    ],
+    "tags": ["respiration", "kompensation"],
     "deckId": "kliniskIntegrationCards"
   },
   {
@@ -808,10 +626,7 @@
     "question": "Hvilket tegn er stærkest mistanke om alvorlig infektion præhospitalt?",
     "answer": "Ændret mental status (GCS <15) – tegn på organpåvirkning.",
     "difficulty": "easy",
-    "tags": [
-      "GCS",
-      "organpåvirkning"
-    ],
+    "tags": ["GCS", "organpåvirkning"],
     "deckId": "kliniskIntegrationCards"
   },
   {
@@ -821,10 +636,7 @@
     "question": "Hvordan skelner du præhospitalt mellem anafylaksi og septisk shock?",
     "answer": "Anafylaksi: pludselig debut, hudforandringer, luftvejsødem. Sepsis: langsommere debut, feber, infektion, mental påvirkning.",
     "difficulty": "hard",
-    "tags": [
-      "shock",
-      "differentialdiagnose"
-    ],
+    "tags": ["shock", "differentialdiagnose"],
     "deckId": "kliniskIntegrationCards"
   },
   {
@@ -834,9 +646,7 @@
     "question": "Hvordan ses hypovolæmisk shock i modsætning til septisk shock?",
     "answer": "Hypovolæmisk: kold, bleg, takykardi, lavt BT. Tidlig sepsis: varm hud, rød, høj puls og feber.",
     "difficulty": "medium",
-    "tags": [
-      "shocktyper"
-    ],
+    "tags": ["shocktyper"],
     "deckId": "kliniskIntegrationCards"
   },
   {
@@ -846,9 +656,7 @@
     "question": "Hvad skyldes hypotension ved sepsis?",
     "answer": "Vasodilatation og kapillærlækage → fald i intravaskulært volumen.",
     "difficulty": "hard",
-    "tags": [
-      "patofysiologi"
-    ],
+    "tags": ["patofysiologi"],
     "deckId": "kliniskIntegrationCards"
   },
   {
@@ -858,9 +666,7 @@
     "question": "Hvorfor kan septisk shock være 'varmt shock' i starten?",
     "answer": "Fordi inflammatoriske mediatorer giver vasodilatation, rød og varm hud trods shock.",
     "difficulty": "hard",
-    "tags": [
-      "varmt shock"
-    ],
+    "tags": ["varmt shock"],
     "deckId": "kliniskIntegrationCards"
   },
   {
@@ -870,10 +676,7 @@
     "question": "Hvilke ABC-prioriteter gælder ved mistanke om sepsis?",
     "answer": "Sikre luftvej, ilt ved hypoxi, iv-adgang, væske, overvågning og hurtig transport.",
     "difficulty": "easy",
-    "tags": [
-      "ABC",
-      "behandling"
-    ],
+    "tags": ["ABC", "behandling"],
     "deckId": "kliniskIntegrationCards"
   },
   {
@@ -883,10 +686,7 @@
     "question": "Hvilket vitalt parameter er mest følsomt for klinisk forværring?",
     "answer": "Respirationsfrekvens – tidligt tegn på sepsis, acidose og hypoksi.",
     "difficulty": "medium",
-    "tags": [
-      "RF",
-      "vitalparametre"
-    ],
+    "tags": ["RF", "vitalparametre"],
     "deckId": "kliniskIntegrationCards"
   },
   {
@@ -896,9 +696,7 @@
     "question": "Hvornår mistænkes urosepsis præhospitalt?",
     "answer": "Feber, flankesmerter, påvirket AT, takykardi, hypotension og evt. konfusion.",
     "difficulty": "medium",
-    "tags": [
-      "urosepsis"
-    ],
+    "tags": ["urosepsis"],
     "deckId": "kliniskIntegrationCards"
   },
   {
@@ -908,9 +706,7 @@
     "question": "Hvilke 3 infektionstyper fører oftest til sepsis?",
     "answer": "Pneumoni, UVI/pyelonefritis og hud/ bløddelsinfektioner.",
     "difficulty": "easy",
-    "tags": [
-      "infektion"
-    ],
+    "tags": ["infektion"],
     "deckId": "kliniskIntegrationCards"
   },
   {
@@ -920,9 +716,7 @@
     "question": "Hvad betyder 'time is tissue' i sepsissammenhæng?",
     "answer": "Jo tidligere sepsis opdages og behandles, desto mindre organskade og mortalitet.",
     "difficulty": "medium",
-    "tags": [
-      "behandlingstid"
-    ],
+    "tags": ["behandlingstid"],
     "deckId": "kliniskIntegrationCards"
   },
   {
@@ -932,10 +726,7 @@
     "question": "Hvad kan petekkier på hud tyde på?",
     "answer": "Meningokoksepsis og risiko for DIC og septisk shock.",
     "difficulty": "hard",
-    "tags": [
-      "petechier",
-      "meningitis"
-    ],
+    "tags": ["petechier", "meningitis"],
     "deckId": "kliniskIntegrationCards"
   },
   {
@@ -945,10 +736,7 @@
     "question": "Hvorfor er mental status kritisk at vurdere ved infektion?",
     "answer": "Påvirket mentalstatus er tidligt tegn på organpåvirkning og mulig sepsis.",
     "difficulty": "medium",
-    "tags": [
-      "GCS",
-      "organ"
-    ],
+    "tags": ["GCS", "organ"],
     "deckId": "kliniskIntegrationCards"
   },
   {
@@ -958,10 +746,7 @@
     "question": "Hvorfor giver sepsis hurtig RF og lav saturation?",
     "answer": "Kapillærskade og lungeinflammation reducerer iltoptagelse og ventilation.",
     "difficulty": "hard",
-    "tags": [
-      "hypoxi",
-      "lunge"
-    ],
+    "tags": ["hypoxi", "lunge"],
     "deckId": "kliniskIntegrationCards"
   },
   {
@@ -971,9 +756,7 @@
     "question": "Hvad tyder en hurtig puls (>120) og feber på præhospitalt?",
     "answer": "Systemisk infektion eller begyndende sepsis, især hvis BT samtidig er faldende.",
     "difficulty": "medium",
-    "tags": [
-      "tachykardi"
-    ],
+    "tags": ["tachykardi"],
     "deckId": "kliniskIntegrationCards"
   },
   {
@@ -983,9 +766,7 @@
     "question": "Hvilke parametre indgår i NEWS2 ved infektion?",
     "answer": "RF, puls, BT, saturation, temperatur og mental status.",
     "difficulty": "easy",
-    "tags": [
-      "NEWS2"
-    ],
+    "tags": ["NEWS2"],
     "deckId": "kliniskIntegrationCards"
   },
   {
@@ -995,9 +776,7 @@
     "question": "Hvordan kan infektion påvirke blodsukkeret?",
     "answer": "Stressrespons øger kortisol og adrenalin → hyperglykæmi selv hos ikke-diabetikere.",
     "difficulty": "hard",
-    "tags": [
-      "hyperglykæmi"
-    ],
+    "tags": ["hyperglykæmi"],
     "deckId": "kliniskIntegrationCards"
   },
   {
@@ -1007,10 +786,7 @@
     "question": "Hvad gør du ved febril patient med hypotension og tachykardi?",
     "answer": "Mistænk sepsis, etabler iv-adgang, giv ilt, monitorer og kør hurtigt til hospital.",
     "difficulty": "easy",
-    "tags": [
-      "handling",
-      "ambulance"
-    ],
+    "tags": ["handling", "ambulance"],
     "deckId": "kliniskIntegrationCards"
   },
   {
@@ -1020,9 +796,7 @@
     "question": "Hvad er paramedicinerens vigtigste funktion ved sepsis?",
     "answer": "Tidlig identifikation, understøttende behandling (ilt, væske, ABC), og hurtig transport.",
     "difficulty": "easy",
-    "tags": [
-      "rolle"
-    ],
+    "tags": ["rolle"],
     "deckId": "kliniskIntegrationCards"
   },
   {
@@ -1032,10 +806,7 @@
     "question": "Hvorfor gives ilt ofte ved sepsis?",
     "answer": "Sepsis reducerer iltoptagelse og transport, hvilket kræver supplemental ilt for at sikre vævsperfusion.",
     "difficulty": "easy",
-    "tags": [
-      "ilt",
-      "sepsis"
-    ],
+    "tags": ["ilt", "sepsis"],
     "deckId": "klinikFarmakoSepsisCards"
   },
   {
@@ -1045,10 +816,7 @@
     "question": "Hvad er formålet med iv-væske ved sepsis?",
     "answer": "At erstatte væske tabt til interstitiet pga. kapillærlækage og forbedre kredsløb og BT.",
     "difficulty": "medium",
-    "tags": [
-      "væske",
-      "shock"
-    ],
+    "tags": ["væske", "shock"],
     "deckId": "klinikFarmakoSepsisCards"
   },
   {
@@ -1058,10 +826,7 @@
     "question": "Hvorfor kan vasopressorer være nødvendige ved septisk shock?",
     "answer": "Fordi kraftig vasodilatation gør, at væske alene ikke kan opretholde blodtryk.",
     "difficulty": "hard",
-    "tags": [
-      "vasopressor",
-      "BT"
-    ],
+    "tags": ["vasopressor", "BT"],
     "deckId": "klinikFarmakoSepsisCards"
   },
   {
@@ -1071,10 +836,7 @@
     "question": "Hvorfor gives iv-glukose ved lavt blodsukker i sepsis?",
     "answer": "Stressrespons og øget metabolisme kan udtømme glukose og give hypoglykæmi.",
     "difficulty": "medium",
-    "tags": [
-      "glukose",
-      "hypoglykæmi"
-    ],
+    "tags": ["glukose", "hypoglykæmi"],
     "deckId": "klinikFarmakoSepsisCards"
   },
   {
@@ -1084,10 +846,7 @@
     "question": "Hvorfor må antibiotika ikke gives i ambulancen ved mistanke om sepsis?",
     "answer": "Det kræver dyrkning og lægelig ordination for korrekt valg og undgå resistens.",
     "difficulty": "medium",
-    "tags": [
-      "antibiotika",
-      "ordination"
-    ],
+    "tags": ["antibiotika", "ordination"],
     "deckId": "klinikFarmakoSepsisCards"
   },
   {
@@ -1097,10 +856,7 @@
     "question": "Hvad betyder 'empirisk antibiotika' på hospitalet?",
     "answer": "Antibiotika gives ud fra sandsynlig årsag før man kender specifik bakterie.",
     "difficulty": "medium",
-    "tags": [
-      "empirisk",
-      "behandling"
-    ],
+    "tags": ["empirisk", "behandling"],
     "deckId": "klinikFarmakoSepsisCards"
   },
   {
@@ -1110,9 +866,7 @@
     "question": "Hvordan kan du vurdere om væsketerapi virker præhospitalt?",
     "answer": "BT stabiliseres, puls falder, CRT forbedres og mentalstatus bedres.",
     "difficulty": "hard",
-    "tags": [
-      "væskeeffekt"
-    ],
+    "tags": ["væskeeffekt"],
     "deckId": "klinikFarmakoSepsisCards"
   },
   {
@@ -1122,10 +876,7 @@
     "question": "Hvorfor skal man være forsigtig med store væskemængder ved kardiogent shock?",
     "answer": "Øger risiko for lungeødem pga. hjertets nedsatte pumpeevne.",
     "difficulty": "hard",
-    "tags": [
-      "væske",
-      "hjertesvigt"
-    ],
+    "tags": ["væske", "hjertesvigt"],
     "deckId": "klinikFarmakoSepsisCards"
   },
   {
@@ -1135,10 +886,7 @@
     "question": "Hvilken farmakologisk effekt har adrenalin ved anafylaktisk shock?",
     "answer": "Vasokonstriktion, bronkodilatation og øget BT og cardiac output.",
     "difficulty": "hard",
-    "tags": [
-      "anafylaksi",
-      "adrenalin"
-    ],
+    "tags": ["anafylaksi", "adrenalin"],
     "deckId": "klinikFarmakoSepsisCards"
   },
   {
@@ -1148,9 +896,7 @@
     "question": "Hvorfor stiger ofte blodsukkeret ved infektion?",
     "answer": "Stressrespons → kortisol/adrenalin → hæmmer insulin og øger glukose.",
     "difficulty": "medium",
-    "tags": [
-      "hyperglykæmi"
-    ],
+    "tags": ["hyperglykæmi"],
     "deckId": "klinikFarmakoSepsisCards"
   },
   {
@@ -1160,10 +906,7 @@
     "question": "Hvordan kan væskebehandling forbedre bevidsthedsniveauet ved sepsis?",
     "answer": "Forbedret cerebral perfusion giver højere GCS.",
     "difficulty": "medium",
-    "tags": [
-      "GCS",
-      "perfusion"
-    ],
+    "tags": ["GCS", "perfusion"],
     "deckId": "klinikFarmakoSepsisCards"
   },
   {
@@ -1173,10 +916,7 @@
     "question": "Hvad er den primære årsag til hypotension ved sepsis?",
     "answer": "Vasodilatation og tab af intravaskulær væske pga. kapillærlækage.",
     "difficulty": "hard",
-    "tags": [
-      "vasodilatation",
-      "BT"
-    ],
+    "tags": ["vasodilatation", "BT"],
     "deckId": "klinikFarmakoSepsisCards"
   },
   {
@@ -1186,10 +926,7 @@
     "question": "Hvorfor kan iltbehandling være utilstrækkelig ved sepsis?",
     "answer": "Ilttransport og vævsoptagelse er ofte nedsat trods god saturation.",
     "difficulty": "hard",
-    "tags": [
-      "ilt",
-      "vævsoptagelse"
-    ],
+    "tags": ["ilt", "vævsoptagelse"],
     "deckId": "klinikFarmakoSepsisCards"
   },
   {
@@ -1199,10 +936,7 @@
     "question": "Hvordan kan iv-væske forbedre laktatniveauet ved sepsis?",
     "answer": "Bedre perfusion → mindre anaerob metabolisme → lavere laktat.",
     "difficulty": "hard",
-    "tags": [
-      "laktat",
-      "perfusionsstatus"
-    ],
+    "tags": ["laktat", "perfusionsstatus"],
     "deckId": "klinikFarmakoSepsisCards"
   },
   {
@@ -1212,10 +946,7 @@
     "question": "Hvorfor kan vasopressor være farligt at give præhospitalt?",
     "answer": "Perifer ekstravasation kan give nekrose, og monitorering kræver hospital.",
     "difficulty": "hard",
-    "tags": [
-      "vasopressor",
-      "risiko"
-    ],
+    "tags": ["vasopressor", "risiko"],
     "deckId": "klinikFarmakoSepsisCards"
   },
   {
@@ -1225,10 +956,7 @@
     "question": "Hvad er paramedicinerens rolle ift. antibiotika ved sepsis?",
     "answer": "Ikke give det – men identificere infektion og informere hospitalet om mistanke.",
     "difficulty": "easy",
-    "tags": [
-      "rolle",
-      "antibiotika"
-    ],
+    "tags": ["rolle", "antibiotika"],
     "deckId": "klinikFarmakoSepsisCards"
   },
   {
@@ -1238,10 +966,7 @@
     "question": "Hvorfor gives væske hurtigt ved sepsis, men langsomt ved hjertesvigt?",
     "answer": "Sepsis → lav modstand og lav volumen. Hjertesvigt → risiko for overload og lungeødem.",
     "difficulty": "medium",
-    "tags": [
-      "væske",
-      "differentialdiagnose"
-    ],
+    "tags": ["væske", "differentialdiagnose"],
     "deckId": "klinikFarmakoSepsisCards"
   },
   {
@@ -1251,10 +976,7 @@
     "question": "Hvad er tegn på at væsketerapi ikke virker?",
     "answer": "BT stiget minimalt, fortsat tachykardi, kold hud og mental påvirkning.",
     "difficulty": "hard",
-    "tags": [
-      "væsketerapi",
-      "BT"
-    ],
+    "tags": ["væsketerapi", "BT"],
     "deckId": "klinikFarmakoSepsisCards"
   },
   {
@@ -1264,10 +986,7 @@
     "question": "Hvordan kan glukose påvirke mental status ved sepsis?",
     "answer": "Hypoglykæmi kan forværre eller imitere sepsis-hjerne.",
     "difficulty": "medium",
-    "tags": [
-      "glukose",
-      "mental status"
-    ],
+    "tags": ["glukose", "mental status"],
     "deckId": "klinikFarmakoSepsisCards"
   },
   {
@@ -1277,10 +996,7 @@
     "question": "Hvad er paramedicinerens hovedmål ved sepsisbehandling?",
     "answer": "Optimere perfusion (ilt, væske), understøtte ABC og sikre hurtig transport.",
     "difficulty": "easy",
-    "tags": [
-      "rolle",
-      "ABC"
-    ],
+    "tags": ["rolle", "ABC"],
     "deckId": "klinikFarmakoSepsisCards"
   },
   {
@@ -1290,10 +1006,7 @@
     "question": "Hvad er shock grundlæggende?",
     "answer": "En tilstand med utilstrækkelig vævsperfusion og iltlevering, som fører til celleskade og organsvigt.",
     "difficulty": "medium",
-    "tags": [
-      "definition",
-      "perfusion"
-    ],
+    "tags": ["definition", "perfusion"],
     "deckId": "klinikShockCards"
   },
   {
@@ -1303,10 +1016,7 @@
     "question": "Hvilke tre hovedtegn tyder på shock præhospitalt?",
     "answer": "Hypotension, tachykardi og påvirket mental status.",
     "difficulty": "easy",
-    "tags": [
-      "vitalparametre",
-      "GCS"
-    ],
+    "tags": ["vitalparametre", "GCS"],
     "deckId": "klinikShockCards"
   },
   {
@@ -1316,10 +1026,7 @@
     "question": "Hvad er forskellen på koldt og varmt shock?",
     "answer": "Koldt shock: perifer vasokonstriktion og bleg hud. Varmt shock: vasodilatation og rød/varm hud (ses ved septisk shock tidligt).",
     "difficulty": "hard",
-    "tags": [
-      "hud",
-      "vasodilatation"
-    ],
+    "tags": ["hud", "vasodilatation"],
     "deckId": "klinikShockCards"
   },
   {
@@ -1329,10 +1036,7 @@
     "question": "Hvordan ses hypovolæmisk shock klinisk?",
     "answer": "Lavt BT, kold/bleg hud, takykardi, tørste, svag puls og evt. påvirket bevidsthed.",
     "difficulty": "medium",
-    "tags": [
-      "hypovolæmi",
-      "væske"
-    ],
+    "tags": ["hypovolæmi", "væske"],
     "deckId": "klinikShockCards"
   },
   {
@@ -1342,9 +1046,7 @@
     "question": "Hvordan adskiller septisk shock sig klinisk fra hypovolæmisk shock?",
     "answer": "Septisk: ofte varm hud tidligt, feber, påvirket mentalt status og mistanke om infektion. Hypovolæmi: kold, bleg og tør hud, typisk traume eller væsketab.",
     "difficulty": "hard",
-    "tags": [
-      "differentialdiagnose"
-    ],
+    "tags": ["differentialdiagnose"],
     "deckId": "klinikShockCards"
   },
   {
@@ -1354,10 +1056,7 @@
     "question": "Hvordan præsenterer anafylaktisk shock sig?",
     "answer": "Hurtig debut med hypotension, hududslæt, ødemer, åndenød og evt. stridor.",
     "difficulty": "medium",
-    "tags": [
-      "anafylaksi",
-      "hud"
-    ],
+    "tags": ["anafylaksi", "hud"],
     "deckId": "klinikShockCards"
   },
   {
@@ -1367,10 +1066,7 @@
     "question": "Hvad er kardinalsymptomet ved kardiogent shock?",
     "answer": "Hypotension med tegn på hjertesvigt: dyspnø, brady-/tachyarytmi, bleg og kold klam hud.",
     "difficulty": "hard",
-    "tags": [
-      "kardiogent",
-      "arytmi"
-    ],
+    "tags": ["kardiogent", "arytmi"],
     "deckId": "klinikShockCards"
   },
   {
@@ -1380,10 +1076,7 @@
     "question": "Hvorfor ses tachykardi tidligt ved shock?",
     "answer": "Øget sympatikusaktivering giver høj puls som kompensation for reduceret slagvolumen og perfusion.",
     "difficulty": "medium",
-    "tags": [
-      "sympatikus",
-      "kompensation"
-    ],
+    "tags": ["sympatikus", "kompensation"],
     "deckId": "klinikShockCards"
   },
   {
@@ -1393,10 +1086,7 @@
     "question": "Hvordan kan shock påvirke mental status?",
     "answer": "Cerebral hypoperfusion kan give uro, konfusion, sløvhed eller bevidsthedstab.",
     "difficulty": "medium",
-    "tags": [
-      "GCS",
-      "hjernen"
-    ],
+    "tags": ["GCS", "hjernen"],
     "deckId": "klinikShockCards"
   },
   {
@@ -1406,10 +1096,7 @@
     "question": "Hvilket vitalt parameter er ofte tidligst ændret ved shock?",
     "answer": "Respirationsfrekvensen stiger tidligt som kompensation for metabolisk acidose.",
     "difficulty": "hard",
-    "tags": [
-      "RF",
-      "acidose"
-    ],
+    "tags": ["RF", "acidose"],
     "deckId": "klinikShockCards"
   },
   {
@@ -1419,10 +1106,7 @@
     "question": "Hvad skyldes lavt blodtryk ved shock?",
     "answer": "Reduceret slagvolumen, vasodilatation eller pumpesvigt i hjertet.",
     "difficulty": "medium",
-    "tags": [
-      "BT",
-      "perfusion"
-    ],
+    "tags": ["BT", "perfusion"],
     "deckId": "klinikShockCards"
   },
   {
@@ -1432,10 +1116,7 @@
     "question": "Hvorfor kan huden være cyanotisk ved shock?",
     "answer": "Nedsat perifer perfusion og hypoxi giver blålig misfarvning, især på læber, negle og ører.",
     "difficulty": "medium",
-    "tags": [
-      "cyanose",
-      "hud"
-    ],
+    "tags": ["cyanose", "hud"],
     "deckId": "klinikShockCards"
   },
   {
@@ -1445,10 +1126,7 @@
     "question": "Hvad betyder kapillær respons, og hvad indikerer forlænget CRT (>2 sek)?",
     "answer": "CRT tester perifer perfusion. Forlænget CRT tyder på hypoperfusion.",
     "difficulty": "easy",
-    "tags": [
-      "CRT",
-      "perfusion"
-    ],
+    "tags": ["CRT", "perfusion"],
     "deckId": "klinikShockCards"
   },
   {
@@ -1458,10 +1136,7 @@
     "question": "Hvordan kan urinproduktion bruges som shockparameter?",
     "answer": "Lav urinproduktion (<0,5 ml/kg/t) tyder på nedsat nyreperfusion og organpåvirkning.",
     "difficulty": "hard",
-    "tags": [
-      "nyrer",
-      "organsvigt"
-    ],
+    "tags": ["nyrer", "organsvigt"],
     "deckId": "klinikShockCards"
   },
   {
@@ -1471,9 +1146,7 @@
     "question": "Hvordan kan du klinisk skelne mellem kompenseret og dekompenseret shock?",
     "answer": "Kompenseret: normalt BT, men tachykardi, bleg hud og uro. Dekomp: hypotension, svag puls, sløvhed.",
     "difficulty": "hard",
-    "tags": [
-      "kompensation"
-    ],
+    "tags": ["kompensation"],
     "deckId": "klinikShockCards"
   },
   {
@@ -1483,10 +1156,7 @@
     "question": "Hvad er den vigtigste præhospitale behandling ved hypovolæmisk shock?",
     "answer": "Stands blødning, sikre ABC og giv iv-væske hurtigt.",
     "difficulty": "medium",
-    "tags": [
-      "hypovolæmi",
-      "væske"
-    ],
+    "tags": ["hypovolæmi", "væske"],
     "deckId": "klinikShockCards"
   },
   {
@@ -1496,10 +1166,7 @@
     "question": "Hvilken behandling er afgørende ved anafylaktisk shock?",
     "answer": "Intramuskulær adrenalin, ilt, væske og frie luftveje.",
     "difficulty": "medium",
-    "tags": [
-      "anafylaksi",
-      "adrenalin"
-    ],
+    "tags": ["anafylaksi", "adrenalin"],
     "deckId": "klinikShockCards"
   },
   {
@@ -1509,10 +1176,7 @@
     "question": "Hvilken præhospital behandling anvendes ofte ved septisk shock?",
     "answer": "Ilt, væsketerapi, monitorering, iv-adgang og hurtig transport.",
     "difficulty": "medium",
-    "tags": [
-      "sepsis",
-      "behandling"
-    ],
+    "tags": ["sepsis", "behandling"],
     "deckId": "klinikShockCards"
   },
   {
@@ -1522,9 +1186,7 @@
     "question": "Hvorfor skal vasopressorer typisk ikke initieres præhospitalt?",
     "answer": "Kræver monitorering, central adgang og risiko for vævsnekrose ved perifer ekstravasation.",
     "difficulty": "hard",
-    "tags": [
-      "vasopressor"
-    ],
+    "tags": ["vasopressor"],
     "deckId": "klinikShockCards"
   },
   {
@@ -1534,10 +1196,207 @@
     "question": "Hvad er paramedicinerens vigtigste rolle ved shock?",
     "answer": "Tidlig identifikation, understøttende ABC-behandling og hurtig transport til endelig behandling.",
     "difficulty": "easy",
-    "tags": [
-      "rolle",
-      "ambulance"
-    ],
+    "tags": ["rolle", "ambulance"],
     "deckId": "klinikShockCards"
+  },
+  {
+    "id": "vgascrp_001",
+    "subject": "Kliniske parametre",
+    "topic": "VGAS, CRP og blodprøver",
+    "question": "Hvad er formålet med en venøs blodgas (VGAS) præhospitalt?",
+    "answer": "At give et hurtigt billede af patientens syre-base status, laktat, pH og CO₂, som kan guide vurderingen af respiratorisk eller metabolisk påvirkning.",
+    "difficulty": "easy",
+    "tags": ["vgas", "formål"],
+    "deckId": "vgasCrpCards"
+  },
+  {
+    "id": "vgascrp_002",
+    "subject": "Kliniske parametre",
+    "topic": "VGAS, CRP og blodprøver",
+    "question": "Hvad indikerer et forhøjet laktat i venøs blodgas?",
+    "answer": "Vævs-hypoperfusion og anaerob metabolisme, ofte tegn på shock, sepsis eller svær hypoksi.",
+    "difficulty": "medium",
+    "tags": ["laktat", "shock"],
+    "deckId": "vgasCrpCards"
+  },
+  {
+    "id": "vgascrp_003",
+    "subject": "Kliniske parametre",
+    "topic": "VGAS, CRP og blodprøver",
+    "question": "Hvad betyder en lav pH i VGAS?",
+    "answer": "Acidose — enten metabolisk (f.eks. laktatstigning, ketoacidose) eller respiratorisk (CO₂-retention).",
+    "difficulty": "easy",
+    "tags": ["acidose", "pH"],
+    "deckId": "vgasCrpCards"
+  },
+  {
+    "id": "vgascrp_004",
+    "subject": "Kliniske parametre",
+    "topic": "VGAS, CRP og blodprøver",
+    "question": "Hvordan kan en venøs CO₂-værdi bruges præhospitalt?",
+    "answer": "En forhøjet CO₂ peger mod respiratorisk insufficiens, hypoventilation eller KOL-forværring.",
+    "difficulty": "medium",
+    "tags": ["co2", "respiration"],
+    "deckId": "vgasCrpCards"
+  },
+  {
+    "id": "vgascrp_005",
+    "subject": "Kliniske parametre",
+    "topic": "VGAS, CRP og blodprøver",
+    "question": "Hvad betyder en base excess (BE) under -5?",
+    "answer": "Signifikant metabolisk acidose, ofte pga. shock, sepsis, nyresvigt eller forgiftning.",
+    "difficulty": "hard",
+    "tags": ["baseexcess", "metabolisk"],
+    "deckId": "vgasCrpCards"
+  },
+  {
+    "id": "vgascrp_006",
+    "subject": "Kliniske parametre",
+    "topic": "VGAS, CRP og blodprøver",
+    "question": "Hvorfor er CRP ikke brugbar til akutte præhospitale beslutninger?",
+    "answer": "CRP stiger først efter 6–12 timer og afspejler ikke akut fysiologisk forværring. Det egner sig ikke til vurdering af akutte infektioner præhospitalt.",
+    "difficulty": "easy",
+    "tags": ["crp", "infektion"],
+    "deckId": "vgasCrpCards"
+  },
+  {
+    "id": "vgascrp_007",
+    "subject": "Kliniske parametre",
+    "topic": "VGAS, CRP og blodprøver",
+    "question": "Hvilket parameter i VGAS er mest relevant ved mistanke om hypoperfusion?",
+    "answer": "Laktat — jo højere laktat, jo større sandsynlighed for shock og vævsacidose.",
+    "difficulty": "easy",
+    "tags": ["laktat", "hypoperfusion"],
+    "deckId": "vgasCrpCards"
+  },
+  {
+    "id": "vgascrp_008",
+    "subject": "Kliniske parametre",
+    "topic": "VGAS, CRP og blodprøver",
+    "question": "Hvad indikerer en pCO₂ under normalområdet i en venøs blodgas?",
+    "answer": "Hyperventilation eller respiratorisk alkalose — ses fx ved smerte, angst eller sepsis tidligt.",
+    "difficulty": "medium",
+    "tags": ["alkalose", "respiration"],
+    "deckId": "vgasCrpCards"
+  },
+  {
+    "id": "vgascrp_009",
+    "subject": "Kliniske parametre",
+    "topic": "VGAS, CRP og blodprøver",
+    "question": "Hvorfor kan hæmoglobin fra blodprøve være vigtigt præhospitalt?",
+    "answer": "Et lavt Hgb kan understøtte mistanke om anæmi eller blødning som årsag til symptomer og cirkulatorisk påvirkning.",
+    "difficulty": "easy",
+    "tags": ["hgb", "blødning"],
+    "deckId": "vgasCrpCards"
+  },
+  {
+    "id": "vgascrp_010",
+    "subject": "Kliniske parametre",
+    "topic": "VGAS, CRP og blodprøver",
+    "question": "Hvilket blodprøveparameter kan hjælpe med at vurdere dehydrering?",
+    "answer": "Hæmatokrit (Hct) — forhøjet ved dehydrering og hæmokoncentration.",
+    "difficulty": "medium",
+    "tags": ["hct", "dehydrering"],
+    "deckId": "vgasCrpCards"
+  },
+  {
+    "id": "vgascrp_011",
+    "subject": "Kliniske parametre",
+    "topic": "VGAS, CRP og blodprøver",
+    "question": "Hvornår er det særligt relevant at vurdere glukose præhospitalt?",
+    "answer": "Ved ændret bevidsthedsniveau, kramper, sepsis, diabetisk mistanke eller generel påvirket patient.",
+    "difficulty": "easy",
+    "tags": ["glukose", "bevidsthed"],
+    "deckId": "vgasCrpCards"
+  },
+  {
+    "id": "vgascrp_012",
+    "subject": "Kliniske parametre",
+    "topic": "VGAS, CRP og blodprøver",
+    "question": "Hvordan kan en VGAS hjælpe ved mistanke om ketoacidose?",
+    "answer": "Lav pH, lav BE og ofte forhøjet laktat peger mod metabolisk acidose — sammen med hyperglykæmi styrker det mistanken om DKA.",
+    "difficulty": "medium",
+    "tags": ["DKA", "acidose"],
+    "deckId": "vgasCrpCards"
+  },
+  {
+    "id": "vgascrp_013",
+    "subject": "Kliniske parametre",
+    "topic": "VGAS, CRP og blodprøver",
+    "question": "Hvordan kan forhøjet kalium i blodprøve præhospitalt være akut farligt?",
+    "answer": "Hyperkaliæmi kan give livstruende arytmier, bradykardi og breddeøgede QRS-komplekser.",
+    "difficulty": "hard",
+    "tags": ["kalium", "arytmier"],
+    "deckId": "vgasCrpCards"
+  },
+  {
+    "id": "vgascrp_014",
+    "subject": "Kliniske parametre",
+    "topic": "VGAS, CRP og blodprøver",
+    "question": "Hvornår kan en VGAS være nyttig ved respirationsproblemer?",
+    "answer": "Når man vil vurdere CO₂-retention ved KOL, udtrætning ved astma eller respirationssvigt ved pneumoni.",
+    "difficulty": "medium",
+    "tags": ["respiration", "KOL"],
+    "deckId": "vgasCrpCards"
+  },
+  {
+    "id": "vgascrp_015",
+    "subject": "Kliniske parametre",
+    "topic": "VGAS, CRP og blodprøver",
+    "question": "Hvorfor kan normal CRP ikke udelukke alvorlig infektion præhospitalt?",
+    "answer": "CRP stiger langsomt, så tidlige stadier af sepsis kan forekomme med helt normale værdier.",
+    "difficulty": "medium",
+    "tags": ["crp", "sepsis"],
+    "deckId": "vgasCrpCards"
+  },
+  {
+    "id": "vgascrp_016",
+    "subject": "Kliniske parametre",
+    "topic": "VGAS, CRP og blodprøver",
+    "question": "Hvilket tegn i VGAS kan indikere begyndende respirationssvigt?",
+    "answer": "Stigende CO₂ i kombination med faldende pH — tegn på udtrætning og hypoventilation.",
+    "difficulty": "hard",
+    "tags": ["respirationssvigt", "co2"],
+    "deckId": "vgasCrpCards"
+  },
+  {
+    "id": "vgascrp_017",
+    "subject": "Kliniske parametre",
+    "topic": "VGAS, CRP og blodprøver",
+    "question": "Hvorfor er venøs pO₂ ikke brugbar i præhospital beslutningstagning?",
+    "answer": "Venøs pO₂ varierer kraftigt og siger intet om patientens iltning — saturation og klinisk vurdering er langt vigtigere.",
+    "difficulty": "easy",
+    "tags": ["po2", "vgas"],
+    "deckId": "vgasCrpCards"
+  },
+  {
+    "id": "vgascrp_018",
+    "subject": "Kliniske parametre",
+    "topic": "VGAS, CRP og blodprøver",
+    "question": "Hvad betyder det, hvis laktat falder ved gentagelse?",
+    "answer": "Tegn på forbedret perfusion og respons på behandling — positiv prognostisk indikator.",
+    "difficulty": "medium",
+    "tags": ["laktat", "prognose"],
+    "deckId": "vgasCrpCards"
+  },
+  {
+    "id": "vgascrp_019",
+    "subject": "Kliniske parametre",
+    "topic": "VGAS, CRP og blodprøver",
+    "question": "Hvilket parameter på VGAS kan hjælpe med at skelne mellem metabolisk og respiratorisk acidose?",
+    "answer": "Base excess — negativ ved metabolisk acidose, normal eller let negativ ved respiratorisk acidose.",
+    "difficulty": "hard",
+    "tags": ["acidose", "baseexcess"],
+    "deckId": "vgasCrpCards"
+  },
+  {
+    "id": "vgascrp_020",
+    "subject": "Kliniske parametre",
+    "topic": "VGAS, CRP og blodprøver",
+    "question": "Hvorfor bør blodglukose altid måles ved påvirket patient – også selvom symptomerne ikke er klassisk 'diabetiske'?",
+    "answer": "Hypo- og hyperglykæmi kan imitere alt fra stroke til sepsis, og værdien er essentiel for korrekt ABCDE-behandling og triagering.",
+    "difficulty": "easy",
+    "tags": ["glukose", "ABCDE"],
+    "deckId": "vgasCrpCards"
   }
 ]

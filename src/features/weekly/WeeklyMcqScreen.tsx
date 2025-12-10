@@ -23,6 +23,14 @@ export type WeeklyMcqQuestion = {
 const WEEKLY_MCQ_TIME_LIMIT = 30; // seconds per question
 
 // TODO: Later: load from backend
+const WEEKLY_MCQ_TOPICS: string[] = [
+  "Akutte ABCDE-tilstande",
+  "Respiration & cirkulation",
+  "Neurologi & pædiatri",
+];
+
+const weeklyMcqTopicsBullets = WEEKLY_MCQ_TOPICS.map((t) => `- ${t}`).join("\n");
+
 const WEEKLY_MCQ_QUESTIONS: WeeklyMcqQuestion[] = [
   {
     id: "q1",
@@ -78,6 +86,104 @@ const WEEKLY_MCQ_QUESTIONS: WeeklyMcqQuestion[] = [
       { id: "q5d", text: "Afvent og se om det går over", isCorrect: false },
     ],
   },
+  {
+    id: "q6",
+    text: "En 78-årig kvinde er febril, konfus, tachykard og hypotensiv. Hvad er den mest sandsynlige overordnede tilstand?",
+    options: [
+      { id: "q6a", text: "Isoleret dehydrering uden infektion", isCorrect: false },
+      { id: "q6b", text: "Akut sepsis / septisk shock", isCorrect: true },
+      { id: "q6c", text: "Ren hyperventilation pga. angst", isCorrect: false },
+      { id: "q6d", text: "Kronisk smerteproblematik", isCorrect: false },
+    ],
+  },
+  {
+    id: "q7",
+    text: "En patient får pludseligt kløe, urticaria, hæshed og BT-fald efter penicillin. Hvad er førstevalg af behandling præhospitalt?",
+    options: [
+      { id: "q7a", text: "Intravenøs væske som eneste behandling", isCorrect: false },
+      { id: "q7b", text: "Intramuskulær adrenalin", isCorrect: true },
+      { id: "q7c", text: "Kun antihistamin per os", isCorrect: false },
+      { id: "q7d", text: "Vent og observer uden behandling", isCorrect: false },
+    ],
+  },
+  {
+    id: "q8",
+    text: "Du ankommer til et højenergi-frontalkollisionstraume. Patienten er bleg, klam og har mavesmerter. Hvad er vigtigst?",
+    options: [
+      {
+        id: "q8a",
+        text: "Detaljeret smerteanamnese før noget andet",
+        isCorrect: false,
+      },
+      {
+        id: "q8b",
+        text: "Hurtig ABCDE, stabilisering og transport til traumecenter",
+        isCorrect: true,
+      },
+      {
+        id: "q8c",
+        text: "At tage fuldt 12-aflednings-EKG inden afgang",
+        isCorrect: false,
+      },
+      {
+        id: "q8d",
+        text: "At lade patienten selv gå til båren hvis muligt",
+        isCorrect: false,
+      },
+    ],
+  },
+  {
+    id: "q9",
+    text: "En kendt KOL-patient har forværring i åndenød og en saturation på 88 % uden ilt. Hvad er mest korrekt?",
+    options: [
+      {
+        id: "q9a",
+        text: "Ingen ilt, da 88 % altid er normalt for KOL-patienter",
+        isCorrect: false,
+      },
+      {
+        id: "q9b",
+        text: "Giv ilt med forsigtighed og sigt mod saturation 88–92 %",
+        isCorrect: true,
+      },
+      {
+        id: "q9c",
+        text: "Giv højflow ilt for at nå 100 % saturation",
+        isCorrect: false,
+      },
+      {
+        id: "q9d",
+        text: "Kun beroligelse, ingen medicinsk behandling",
+        isCorrect: false,
+      },
+    ],
+  },
+  {
+    id: "q10",
+    text: "Du ser et barn med feber, påvirket almentilstand og petechier på huden. Hvad er den vigtigste overvejelse?",
+    options: [
+      {
+        id: "q10a",
+        text: "Formentlig uskyldig virusinfektion, lav prioritet",
+        isCorrect: false,
+      },
+      {
+        id: "q10b",
+        text: "Mistanke om meningokoksygdom/sepsis – højeste prioritet",
+        isCorrect: true,
+      },
+      {
+        id: "q10c",
+        text: "Tænk først allergisk reaktion på mad",
+        isCorrect: false,
+      },
+      {
+        id: "q10d",
+        text: "Sandsynlig voksesmerter i benene",
+        isCorrect: false,
+      },
+    ],
+  },
 ];
 
 function formatSeconds(totalSeconds: number): string {
@@ -128,7 +234,6 @@ export function WeeklyMcqScreen({
 
   const [timerRunning, setTimerRunning] = useState(false);
 
-  // keep shuffled options per question so order is stable while answering
   const [shuffledOptions, setShuffledOptions] = useState<WeeklyMcqOption[]>([]);
 
   const currentQuestion = WEEKLY_MCQ_QUESTIONS[index];
@@ -170,6 +275,42 @@ export function WeeklyMcqScreen({
 
   // Handlers
   const handleBack = () => {
+    // If a question is actively being played, confirm exit + lock
+    if (started && !finished) {
+      Alert.alert(
+        "Afslut spil?",
+        "Er du sikker på, at du vil afslutte spillet? Du har kun én chance pr. uge.",
+        [
+          {
+            text: "Nej",
+            style: "cancel",
+          },
+          {
+            text: "Ja",
+            style: "destructive",
+            onPress: () => {
+              // Lock this week's MCQ game
+              setWeeklyMcqLocked(true);
+
+              // Kill the current run
+              setTimerRunning(false);
+              setStarted(false);
+              setFinished(true);
+              setShowFeedback(false);
+              setShowResults(false);
+              setSecondsLeft(WEEKLY_MCQ_TIME_LIMIT);
+              setSelectedId(null);
+              setLastPoints(0);
+
+              onBack();
+            },
+          },
+        ],
+      );
+      return;
+    }
+
+    // Normal exit when not in an active run (intro or after results)
     setTimerRunning(false);
     setStarted(false);
     setFinished(false);
@@ -255,7 +396,7 @@ export function WeeklyMcqScreen({
       setShowFeedback(false);
       setSelectedId(null);
       setSecondsLeft(WEEKLY_MCQ_TIME_LIMIT);
-      setWeeklyMcqLocked(true); // ⬅️ pattern to copy for Match/Word
+      setWeeklyMcqLocked(true);
       setShowResults(true);
       return;
     }
@@ -348,6 +489,48 @@ export function WeeklyMcqScreen({
                 {weeklyMcqLocked ? "LÅST (allerede spillet)" : "START SPILLET"}
               </Text>
             </Pressable>
+
+            {/* Weekly topics BELOW Start button – unified style */}
+            <View
+              style={{
+                marginTop: 24,
+                paddingVertical: 12,
+                paddingHorizontal: 16,
+                borderRadius: 12,
+                alignSelf: "stretch",
+                maxWidth: 700,
+                backgroundColor: "#ffffff22",
+              }}
+            >
+              {/* Larger header */}
+              <Text
+                style={[
+                  styles.bigButtonText,
+                  {
+                    fontSize: 24,
+                    fontWeight: "700",
+                    textAlign: "left",
+                    alignSelf: "flex-start",
+                    marginBottom: 6,
+                  },
+                ]}
+              >
+                Denne ugens emner er:
+              </Text>
+
+              {/* Bullets */}
+              <Text
+                style={[
+                  styles.weeklyPlaceholderText,
+                  {
+                    textAlign: "left",
+                    lineHeight: 24,
+                  },
+                ]}
+              >
+                {weeklyMcqTopicsBullets}
+              </Text>
+            </View>
           </View>
         )}
 
@@ -360,6 +543,23 @@ export function WeeklyMcqScreen({
 
             <View style={styles.weeklyGameCenter}>
               <Text style={styles.weeklyGameTitle}>Multiple Choice Game</Text>
+
+              {/* Weekly topics subtitle inside the game */}
+              <View
+                style={{
+                  marginTop: 4,
+                  alignSelf: "center",
+                  width: "100%",
+                  maxWidth: 700,
+                }}
+              >
+                <Text
+                  style={[styles.subjectStatsSub, { textAlign: "center", fontStyle: "italic" }]}
+                >
+                  Denne ugens emner: {WEEKLY_MCQ_TOPICS.join(", ")}
+                </Text>
+              </View>
+
               <Text style={styles.statsLabel}>
                 Spørgsmål {questionNumber} af {totalQuestions}
               </Text>
