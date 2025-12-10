@@ -1,0 +1,1202 @@
+[
+  {
+    "id": "angst_001",
+    "subject": "Psykologi",
+    "topic": "Angst",
+    "question": "Hvordan definerede Freud angst i relation til konflikten mellem id, ego og superego?",
+    "answer": "Freud beskriver angst som et resultat af indre konflikter, hvor egoet presses mellem id'ets impulser og superegoets moralske krav.",
+    "difficulty": "medium",
+    "tags": ["freud", "psykoanalyse", "definition"],
+    "deckId": "angstCards"
+  },
+  {
+    "id": "angst_002",
+    "subject": "Psykologi",
+    "topic": "Angst",
+    "question": "Hvad er formålet med Freuds forsvarsmekanismer i forbindelse med angst?",
+    "answer": "De beskytter egoet mod psykisk ubehag ved at håndtere eller fortrænge angstprovokerende indre konflikter.",
+    "difficulty": "easy",
+    "tags": ["freud", "forsvarsmekanismer"],
+    "deckId": "angstCards"
+  },
+  {
+    "id": "angst_003",
+    "subject": "Psykologi",
+    "topic": "Angst",
+    "question": "Hvad betyder fortrængning som forsvarsmekanisme?",
+    "answer": "Ubevidst undertrykkelse af angstfremkaldende tanker, følelser eller minder.",
+    "difficulty": "easy",
+    "tags": ["freud", "forsvarsmekanismer"],
+    "deckId": "angstCards"
+  },
+  {
+    "id": "angst_004",
+    "subject": "Psykologi",
+    "topic": "Angst",
+    "question": "Hvordan beskriver Aaron Beck forholdet mellem tanker og angst i sin kognitive model?",
+    "answer": "Angst skyldes automatiske negative tanker og kognitive forvrængninger, som fører til fejltolkning af situationer.",
+    "difficulty": "medium",
+    "tags": ["beck", "kognitiv teori"],
+    "deckId": "angstCards"
+  },
+  {
+    "id": "angst_005",
+    "subject": "Psykologi",
+    "topic": "Angst",
+    "question": "Hvad betyder katastrofetænkning i Becks teori?",
+    "answer": "En tendens til at forvente det værst tænkelige udfald, selv når risikoen er lille.",
+    "difficulty": "easy",
+    "tags": ["beck", "kognitive forvrængninger"],
+    "deckId": "angstCards"
+  },
+  {
+    "id": "angst_006",
+    "subject": "Psykologi",
+    "topic": "Angst",
+    "question": "Hvad er formålet med kognitiv omstrukturering i behandling af angst?",
+    "answer": "At identificere, udfordre og erstatte negative automatiske tanker med mere realistiske vurderinger.",
+    "difficulty": "medium",
+    "tags": ["beck", "CBT"],
+    "deckId": "angstCards"
+  },
+  {
+    "id": "angst_007",
+    "subject": "Psykologi",
+    "topic": "Angst",
+    "question": "Hvordan forklarer Pavlovs klassiske betingning udviklingen af angst?",
+    "answer": "En neutral stimulus kobles med en ubehagelig oplevelse og bliver en betinget udløser af angst.",
+    "difficulty": "medium",
+    "tags": ["pavlov", "klassisk betingning"],
+    "deckId": "angstCards"
+  },
+  {
+    "id": "angst_008",
+    "subject": "Psykologi",
+    "topic": "Angst",
+    "question": "Hvad er et eksempel på klassisk betinget angst i en skolekontekst?",
+    "answer": "En elev oplever panik under en eksamen → eksamenslokaler udløser senere angst automatisk.",
+    "difficulty": "easy",
+    "tags": ["pavlov", "eksempel"],
+    "deckId": "angstCards"
+  },
+  {
+    "id": "angst_009",
+    "subject": "Psykologi",
+    "topic": "Angst",
+    "question": "Hvordan kan tilknytningsteori forklare øget angst hos voksne?",
+    "answer": "Usikker tilknytning kan give svækket følelsesregulering og højere sårbarhed over for stress og angst.",
+    "difficulty": "medium",
+    "tags": ["bowlby", "tilknytning"],
+    "deckId": "angstCards"
+  },
+  {
+    "id": "angst_010",
+    "subject": "Psykologi",
+    "topic": "Angst",
+    "question": "Hvad karakteriserer et undvigende tilknytningsmønster i forhold til angst?",
+    "answer": "Tendens til at undertrykke behov, undgå følelsesmæssig nærhed og have svært ved at søge støtte i stress.",
+    "difficulty": "medium",
+    "tags": ["bowlby", "tilknytning"],
+    "deckId": "angstCards"
+  },
+  {
+    "id": "angst_011",
+    "subject": "Psykologi",
+    "topic": "Angst",
+    "question": "Hvad beskriver MacLeans triune brain model?",
+    "answer": "En model med tre hjerneniveauer: reptilhjernen (overlevelse), det limbiske system (følelser) og neokortex (rationel tænkning).",
+    "difficulty": "easy",
+    "tags": ["maclean", "triune brain"],
+    "deckId": "angstCards"
+  },
+  {
+    "id": "angst_012",
+    "subject": "Psykologi",
+    "topic": "Angst",
+    "question": "Hvordan forklarer MacLean angstreaktioner?",
+    "answer": "Ved angst overtager det limbiske system kontrollen og reducerer neokortex' evne til rationel regulering.",
+    "difficulty": "medium",
+    "tags": ["maclean", "angst"],
+    "deckId": "angstCards"
+  },
+  {
+    "id": "angst_013",
+    "subject": "Psykologi",
+    "topic": "Angst",
+    "question": "Hvad er amygdalas rolle i Joseph LeDoux' forskning?",
+    "answer": "Amygdala registrerer fare hurtigt og udløser kropslige angstreaktioner før bevidst bearbejdning.",
+    "difficulty": "easy",
+    "tags": ["ledoux", "amygdala"],
+    "deckId": "angstCards"
+  },
+  {
+    "id": "angst_014",
+    "subject": "Psykologi",
+    "topic": "Angst",
+    "question": "Hvorfor kan fysiske symptomer som hjertebanken opstå uden bevidst tankeproces ifølge LeDoux?",
+    "answer": "Fordi amygdala aktiverer autonome reaktioner via en hurtig, ubevidst “low road”.",
+    "difficulty": "medium",
+    "tags": ["ledoux", "neurobiologi"],
+    "deckId": "angstCards"
+  },
+  {
+    "id": "angst_015",
+    "subject": "Psykologi",
+    "topic": "Angst",
+    "question": "Hvad er forskellen på frygt og angst i psykologisk teori?",
+    "answer": "Frygt er rettet mod en konkret trussel; angst mod en diffus eller indre trussel.",
+    "difficulty": "easy",
+    "tags": ["angst", "definition"],
+    "deckId": "angstCards"
+  },
+  {
+    "id": "angst_016",
+    "subject": "Psykologi",
+    "topic": "Angst",
+    "question": "Hvad er hypervigilans, og hvordan relaterer det til angst?",
+    "answer": "En forhøjet opmærksomhedstilstand, hvor personen konstant scanner omgivelserne for fare.",
+    "difficulty": "medium",
+    "tags": ["symptomer", "angst"],
+    "deckId": "angstCards"
+  },
+  {
+    "id": "angst_017",
+    "subject": "Psykologi",
+    "topic": "Angst",
+    "question": "Hvordan kan angst påvirke beslutningstagning i akutte situationer?",
+    "answer": "Angst øger fokus på trusler, reducerer arbejdshukommelse og kan føre til tunnel vision og fejlskøn.",
+    "difficulty": "hard",
+    "tags": ["paramedicin", "kognition"],
+    "deckId": "angstCards"
+  },
+  {
+    "id": "angst_018",
+    "subject": "Psykologi",
+    "topic": "Angst",
+    "question": "Hvordan kan paramedicinere støtte en patient med akut angst?",
+    "answer": "Ved at skabe ro, regulere omgivelser, bruge simple instruktioner og anerkende patientens oplevelse.",
+    "difficulty": "medium",
+    "tags": ["prehospital", "kommunikation"],
+    "deckId": "angstCards"
+  },
+  {
+    "id": "angst_019",
+    "subject": "Psykologi",
+    "topic": "Angst",
+    "question": "Hvordan kan utryg tilknytning påvirke patienters samarbejde i ambulancen?",
+    "answer": "De kan have lav tillid, blive defensiv eller reagere kraftigt på stress, hvilket kræver tydelig og empatisk kommunikation.",
+    "difficulty": "medium",
+    "tags": ["bowlby", "prehospital"],
+    "deckId": "angstCards"
+  },
+  {
+    "id": "angst_020",
+    "subject": "Psykologi",
+    "topic": "Angst",
+    "question": "Hvorfor kan gentagne negative erfaringer i sundhedssystemet skabe betinget angst?",
+    "answer": "Situationen (hospital, ambulance) forbindes gennem klassisk betingning med tidligere ubehag, og udløser angst automatisk.",
+    "difficulty": "medium",
+    "tags": ["pavlov", "prehospital"],
+    "deckId": "angstCards"
+  },
+  {
+    "id": "krise_001",
+    "subject": "Psykologi",
+    "topic": "Krise og Sorg",
+    "question": "Hvordan definerer Cullberg en traumatisk krise?",
+    "answer": "En traumatisk krise udløses af en pludselig ydre hændelse, der opleves som en alvorlig trussel mod individets eksistens, identitet eller tryghed.",
+    "difficulty": "easy",
+    "tags": ["cullberg", "definition", "traumatisk krise"],
+    "deckId": "kriseCards"
+  },
+  {
+    "id": "krise_002",
+    "subject": "Psykologi",
+    "topic": "Krise og Sorg",
+    "question": "Hvad er forskellen på en traumatisk krise og en udviklingskrise ifølge Cullberg?",
+    "answer": "En traumatisk krise skyldes en akut, truende hændelse, mens en udviklingskrise opstår som en naturlig del af livets overgange, fx at blive forælder eller gå på pension.",
+    "difficulty": "medium",
+    "tags": ["cullberg", "krisetyper"],
+    "deckId": "kriseCards"
+  },
+  {
+    "id": "krise_003",
+    "subject": "Psykologi",
+    "topic": "Krise og Sorg",
+    "question": "Nævn de fire faser i Cullbergs kriseforløb.",
+    "answer": "Chokfasen, reaktionsfasen, bearbejdningsfasen og nyorienteringsfasen.",
+    "difficulty": "easy",
+    "tags": ["cullberg", "kriseforløb"],
+    "deckId": "kriseCards"
+  },
+  {
+    "id": "krise_004",
+    "subject": "Psykologi",
+    "topic": "Krise og Sorg",
+    "question": "Hvad kendetegner chokfasen i en krise?",
+    "answer": "Følelsesmæssig lammelse, uvirkelighedsfølelse og reduceret evne til at handle eller forstå situationen.",
+    "difficulty": "easy",
+    "tags": ["cullberg", "chokfase"],
+    "deckId": "kriseCards"
+  },
+  {
+    "id": "krise_005",
+    "subject": "Psykologi",
+    "topic": "Krise og Sorg",
+    "question": "Hvorfor er Cullbergs reaktionsfase vigtig for krisebearbejdning?",
+    "answer": "I reaktionsfasen begynder individet at forstå og føle tabet, hvilket muliggør emotionel bearbejdning.",
+    "difficulty": "medium",
+    "tags": ["cullberg", "reaktionsfase"],
+    "deckId": "kriseCards"
+  },
+  {
+    "id": "krise_006",
+    "subject": "Psykologi",
+    "topic": "Krise og Sorg",
+    "question": "Hvad menes med en kompliceret krise?",
+    "answer": "En krise der ikke følger et naturligt forløb, men forværres af psykiske symptomer som depression, angst eller traumereaktioner.",
+    "difficulty": "medium",
+    "tags": ["cullberg", "kompliceret krise"],
+    "deckId": "kriseCards"
+  },
+  {
+    "id": "krise_007",
+    "subject": "Psykologi",
+    "topic": "Krise og Sorg",
+    "question": "Hvad betyder overdetermineret krise?",
+    "answer": "En krise hvis intensitet forstærkes af tidligere oplevelser eller personlighedsmæssig sårbarhed.",
+    "difficulty": "hard",
+    "tags": ["cullberg", "overdetermineret"],
+    "deckId": "kriseCards"
+  },
+  {
+    "id": "krise_008",
+    "subject": "Psykologi",
+    "topic": "Krise og Sorg",
+    "question": "Hvad er hovedpointen i Jacobsen's eksistentielle perspektiv på krise?",
+    "answer": "At kriser udfordrer individets mening, identitet og forståelse af egen rolle i verden.",
+    "difficulty": "medium",
+    "tags": ["jacobsen", "eksistentiel krise"],
+    "deckId": "kriseCards"
+  },
+  {
+    "id": "krise_009",
+    "subject": "Psykologi",
+    "topic": "Krise og Sorg",
+    "question": "Hvordan kan paramedicinere anvende det eksistentielle perspektiv i krisehåndtering?",
+    "answer": "Ved at skabe ro, nærvær og støtte, så patienten føler sig set og forstået i en meningsløs situation.",
+    "difficulty": "medium",
+    "tags": ["prehospital", "eksistentiel støtte"],
+    "deckId": "kriseCards"
+  },
+  {
+    "id": "krise_010",
+    "subject": "Psykologi",
+    "topic": "Krise og Sorg",
+    "question": "Hvad beskriver Stroebe og Schuts to-spors-model?",
+    "answer": "En model hvor sorgprocessen pendulerer mellem tabsspor (smerte, følelser) og reetableringsspor (tilpasning, praktiske opgaver).",
+    "difficulty": "easy",
+    "tags": ["stroebe", "schut", "sorg"],
+    "deckId": "kriseCards"
+  },
+  {
+    "id": "krise_011",
+    "subject": "Psykologi",
+    "topic": "Krise og Sorg",
+    "question": "Hvorfor er pendulering vigtig i to-spors-modellen?",
+    "answer": "Pendulering normaliserer, at man veksler mellem sorg og funktion, og at begge spor er nødvendige for sund sorgbearbejdning.",
+    "difficulty": "medium",
+    "tags": ["stroebe", "schut"],
+    "deckId": "kriseCards"
+  },
+  {
+    "id": "krise_012",
+    "subject": "Psykologi",
+    "topic": "Krise og Sorg",
+    "question": "Hvordan kan manglende pendulering påvirke sorgen?",
+    "answer": "Fastlåsning i ét spor kan føre til enten overvældende sorg eller følelsesmæssig undgåelse.",
+    "difficulty": "hard",
+    "tags": ["stroebe", "schut", "fastlåsning"],
+    "deckId": "kriseCards"
+  },
+  {
+    "id": "krise_013",
+    "subject": "Psykologi",
+    "topic": "Krise og Sorg",
+    "question": "Hvilke typiske reaktioner ses hos pårørende i akut sorg?",
+    "answer": "Intens gråd, benægtelse, vrede, forvirring, fysisk uro eller tavshed.",
+    "difficulty": "easy",
+    "tags": ["sorg", "pårørende"],
+    "deckId": "kriseCards"
+  },
+  {
+    "id": "krise_014",
+    "subject": "Psykologi",
+    "topic": "Krise og Sorg",
+    "question": "Hvordan adskiller børns sorg sig ofte fra voksnes?",
+    "answer": "Børn pendulerer hurtigere mellem leg og sorg, og deres forståelse af døden afhænger af alder og kognitiv udvikling.",
+    "difficulty": "medium",
+    "tags": ["børn", "sorg"],
+    "deckId": "kriseCards"
+  },
+  {
+    "id": "krise_015",
+    "subject": "Psykologi",
+    "topic": "Krise og Sorg",
+    "question": "Hvilken udfordring ses typisk ved sorg hos ældre?",
+    "answer": "Sorgen kan forstærkes af ensomhed, sygdom og tab af funktioner, hvilket øger sårbarheden.",
+    "difficulty": "medium",
+    "tags": ["ældre", "sorg"],
+    "deckId": "kriseCards"
+  },
+  {
+    "id": "krise_016",
+    "subject": "Psykologi",
+    "topic": "Krise og Sorg",
+    "question": "Hvad er formålet med akut kriseintervention?",
+    "answer": "At skabe tryghed, dæmpe kaos og støtte individet i de første skridt mod stabilisering.",
+    "difficulty": "easy",
+    "tags": ["kriseintervention", "prehospital"],
+    "deckId": "kriseCards"
+  },
+  {
+    "id": "krise_017",
+    "subject": "Psykologi",
+    "topic": "Krise og Sorg",
+    "question": "Hvorfor bør man undgå at give for mange informationer til en patient i chokfasen?",
+    "answer": "Kognitiv kapacitet er reduceret, og personen kan ikke absorbere eller bearbejde kompleks information.",
+    "difficulty": "medium",
+    "tags": ["kommunikation", "chok"],
+    "deckId": "kriseCards"
+  },
+  {
+    "id": "krise_018",
+    "subject": "Psykologi",
+    "topic": "Krise og Sorg",
+    "question": "Hvordan kan en paramediciner støtte pårørende efter et dødsfald præhospitalt?",
+    "answer": "Ved at være nærværende, tale roligt, anerkende deres reaktioner og tilbyde praktisk støtte såsom kontakt til lægevagt eller præst.",
+    "difficulty": "medium",
+    "tags": ["pårørende", "prehospital"],
+    "deckId": "kriseCards"
+  },
+  {
+    "id": "krise_019",
+    "subject": "Psykologi",
+    "topic": "Krise og Sorg",
+    "question": "Hvorfor er empati en central kompetence i krisesituationer?",
+    "answer": "Empati skaber tryghed, reducerer isolationsfølelse og kan hjælpe personen til at begynde at bearbejde situationen.",
+    "difficulty": "easy",
+    "tags": ["kommunikation", "empati"],
+    "deckId": "kriseCards"
+  },
+  {
+    "id": "krise_020",
+    "subject": "Psykologi",
+    "topic": "Krise og Sorg",
+    "question": "Hvordan kan en krise påvirke kroppens fysiologi?",
+    "answer": "Akutte krisereaktioner kan udløse fight-or-flight, give hjertebanken, hyperventilation, rysten og koncentrationsbesvær.",
+    "difficulty": "medium",
+    "tags": ["fysiologi", "krisereaktion"],
+    "deckId": "kriseCards"
+  },
+  {
+    "id": "stress_001",
+    "subject": "Psykologi",
+    "topic": "Stress og Coping",
+    "question": "Hvordan definerer Walter Cannon 'fight-or-flight'-reaktionen?",
+    "answer": "En automatisk fysiologisk stresstilstand, hvor kroppen mobiliserer energi til enten at konfrontere (fight) eller flygte (flight) fra en trussel.",
+    "difficulty": "easy",
+    "tags": ["cannon", "fight-or-flight", "fysiologi"],
+    "deckId": "stressCopingCards"
+  },
+  {
+    "id": "stress_002",
+    "subject": "Psykologi",
+    "topic": "Stress og Coping",
+    "question": "Hvilke centrale hormoner frigives ved fight-or-flight-reaktionen?",
+    "answer": "Primært adrenalin og noradrenalin fra binyremarven samt senere kortisol fra binyrebarken.",
+    "difficulty": "medium",
+    "tags": ["hormoner", "adrenalin", "kortisol"],
+    "deckId": "stressCopingCards"
+  },
+  {
+    "id": "stress_003",
+    "subject": "Psykologi",
+    "topic": "Stress og Coping",
+    "question": "Hvordan kan fight-or-flight-reaktionen være både hjælpsom og skadelig?",
+    "answer": "Akut er den hjælpsom ved at øge årvågenhed og mobilisere energi. Ved langvarig aktivering kan den føre til udmattelse, søvnproblemer, hypertension og øget sygdomsrisiko.",
+    "difficulty": "medium",
+    "tags": ["cannon", "akut", "kronisk stress"],
+    "deckId": "stressCopingCards"
+  },
+  {
+    "id": "stress_004",
+    "subject": "Psykologi",
+    "topic": "Stress og Coping",
+    "question": "Hvad mener Lazarus med primær vurdering (primary appraisal)?",
+    "answer": "Den første vurdering af, om en situation opleves som irrelevant, udfordrende eller truende for ens velbefindende.",
+    "difficulty": "medium",
+    "tags": ["lazarus", "primær vurdering"],
+    "deckId": "stressCopingCards"
+  },
+  {
+    "id": "stress_005",
+    "subject": "Psykologi",
+    "topic": "Stress og Coping",
+    "question": "Hvad er sekundær vurdering (secondary appraisal) ifølge Lazarus?",
+    "answer": "En vurdering af, om man har ressourcer og mestringsstrategier nok til at håndtere den oplevede belastning.",
+    "difficulty": "medium",
+    "tags": ["lazarus", "sekundær vurdering"],
+    "deckId": "stressCopingCards"
+  },
+  {
+    "id": "stress_006",
+    "subject": "Psykologi",
+    "topic": "Stress og Coping",
+    "question": "Hvordan kan to personer reagere forskelligt på samme situation ifølge Lazarus' stressmodel?",
+    "answer": "De foretager forskellige primære og sekundære vurderinger, så den ene kan opleve situationen som håndterbar udfordring, mens den anden oplever den som truende og overvældende.",
+    "difficulty": "hard",
+    "tags": ["lazarus", "individuelle forskelle"],
+    "deckId": "stressCopingCards"
+  },
+  {
+    "id": "stress_007",
+    "subject": "Psykologi",
+    "topic": "Stress og Coping",
+    "question": "Hvad er problemfokuseret coping?",
+    "answer": "En mestringsstrategi hvor man forsøger at ændre eller løse den belastende situation, fx ved planlægning, informationssøgning eller aktiv handling.",
+    "difficulty": "easy",
+    "tags": ["coping", "lazarus", "problemfokuseret"],
+    "deckId": "stressCopingCards"
+  },
+  {
+    "id": "stress_008",
+    "subject": "Psykologi",
+    "topic": "Stress og Coping",
+    "question": "Hvad er emotionsfokuseret coping?",
+    "answer": "En mestringsstrategi hvor fokus er på at regulere de svære følelser, fx gennem afledning, social støtte, gråd eller kognitiv omfortolkning.",
+    "difficulty": "easy",
+    "tags": ["coping", "lazarus", "emotionsfokuseret"],
+    "deckId": "stressCopingCards"
+  },
+  {
+    "id": "stress_009",
+    "subject": "Psykologi",
+    "topic": "Stress og Coping",
+    "question": "Hvad undersøgte Holmes og Rahe med deres Social Readjustment Rating Scale?",
+    "answer": "De målte hvor belastende forskellige livshændelser er, og hvordan ophobning af sådanne hændelser øger risikoen for sygdom.",
+    "difficulty": "medium",
+    "tags": ["holmes", "rahe", "livshændelser"],
+    "deckId": "stressCopingCards"
+  },
+  {
+    "id": "stress_010",
+    "subject": "Psykologi",
+    "topic": "Stress og Coping",
+    "question": "Giv eksempler på livshændelser med høj belastningsscore hos Holmes og Rahe.",
+    "answer": "Dødsfald hos ægtefælle, skilsmisse, alvorlig sygdom, jobtab eller større økonomiske problemer.",
+    "difficulty": "easy",
+    "tags": ["holmes", "rahe", "eksempler"],
+    "deckId": "stressCopingCards"
+  },
+  {
+    "id": "stress_011",
+    "subject": "Psykologi",
+    "topic": "Stress og Coping",
+    "question": "Hvad var hovedkonklusionen hos Holmes og Rahe om stress og sygdom?",
+    "answer": "Jo flere belastende livshændelser inden for en kortere periode, jo højere risiko for både psykisk og somatisk sygdom.",
+    "difficulty": "medium",
+    "tags": ["holmes", "rahe", "sygdomsrisiko"],
+    "deckId": "stressCopingCards"
+  },
+  {
+    "id": "stress_012",
+    "subject": "Psykologi",
+    "topic": "Stress og Coping",
+    "question": "Hvad betyder Antonovskys begreb 'sense of coherence' (SOC)?",
+    "answer": "En oplevelse af sammenhæng, hvor livet grundlæggende føles begribeligt, håndterbart og meningsfuldt.",
+    "difficulty": "medium",
+    "tags": ["antonovsky", "SOC"],
+    "deckId": "stressCopingCards"
+  },
+  {
+    "id": "stress_013",
+    "subject": "Psykologi",
+    "topic": "Stress og Coping",
+    "question": "Hvad betyder 'begribelighed' i Antonovskys sense of coherence?",
+    "answer": "At man oplever verden som forståelig og forudsigelig, så hændelser ikke føles helt kaotiske.",
+    "difficulty": "easy",
+    "tags": ["antonovsky", "begribelighed"],
+    "deckId": "stressCopingCards"
+  },
+  {
+    "id": "stress_014",
+    "subject": "Psykologi",
+    "topic": "Stress og Coping",
+    "question": "Hvad betyder 'håndterbarhed' i Antonovskys model?",
+    "answer": "Oplevelsen af at have eller kunne få adgang til ressourcer, der gør én i stand til at klare belastninger.",
+    "difficulty": "easy",
+    "tags": ["antonovsky", "håndterbarhed"],
+    "deckId": "stressCopingCards"
+  },
+  {
+    "id": "stress_015",
+    "subject": "Psykologi",
+    "topic": "Stress og Coping",
+    "question": "Hvad betyder 'meningsfuldhed' i Antonovskys sense of coherence?",
+    "answer": "At det giver følelsesmæssig mening at engagere sig i livet og kæmpe med de udfordringer, man møder.",
+    "difficulty": "medium",
+    "tags": ["antonovsky", "meningsfuldhed"],
+    "deckId": "stressCopingCards"
+  },
+  {
+    "id": "stress_016",
+    "subject": "Psykologi",
+    "topic": "Stress og Coping",
+    "question": "Hvordan kan et stærkt sense of coherence beskytte mod stress?",
+    "answer": "Det øger chancen for, at belastninger opleves som forståelige, håndterbare og værd at investere energi i, hvilket reducerer risikoen for langvarig skadelig stress.",
+    "difficulty": "hard",
+    "tags": ["antonovsky", "resiliens"],
+    "deckId": "stressCopingCards"
+  },
+  {
+    "id": "stress_017",
+    "subject": "Psykologi",
+    "topic": "Stress og Coping",
+    "question": "Hvilke typiske stresssymptomer kan du observere hos en patient præhospitalt?",
+    "answer": "Hjertebanken, sved, rysten, hurtig RF, muskelspændinger, rastløshed, koncentrationsbesvær og irritabilitet.",
+    "difficulty": "easy",
+    "tags": ["symptomer", "prehospital"],
+    "deckId": "stressCopingCards"
+  },
+  {
+    "id": "stress_018",
+    "subject": "Psykologi",
+    "topic": "Stress og Coping",
+    "question": "Hvordan kan stress påvirke din egen beslutningstagning som ambulanceredder?",
+    "answer": "Stress kan give tunnelvision, øge risiko for forenklede beslutninger, fejl i overblik og nedsat evne til at mentalisere patient og pårørende.",
+    "difficulty": "hard",
+    "tags": ["prehospital", "beslutningstagning"],
+    "deckId": "stressCopingCards"
+  },
+  {
+    "id": "stress_019",
+    "subject": "Psykologi",
+    "topic": "Stress og Coping",
+    "question": "Hvad er formålet med debriefing eller defusing efter en belastende hændelse i ambulancetjenesten?",
+    "answer": "At give mulighed for at gennemgå hændelsen, normalisere reaktioner, dele oplevelser og forebygge længerevarende psykiske følgevirkninger.",
+    "difficulty": "medium",
+    "tags": ["debriefing", "defusing", "arbejdsmiljø"],
+    "deckId": "stressCopingCards"
+  },
+  {
+    "id": "stress_020",
+    "subject": "Psykologi",
+    "topic": "Stress og Coping",
+    "question": "Hvad menes med mental parathed før et vagtforløb?",
+    "answer": "At være psykisk forberedt, udhvilet og bevidst om egen tilstand, så man har bedst mulige ressourcer til at håndtere akutte og følelsesmæssigt krævende situationer.",
+    "difficulty": "medium",
+    "tags": ["mental parathed", "arbejdsliv"],
+    "deckId": "stressCopingCards"
+  },
+  {
+    "id": "laering_001",
+    "subject": "Psykologi",
+    "topic": "Læring og Motivation",
+    "question": "Hvordan definerer Knud Illeris læring?",
+    "answer": "Illeris definerer læring som en proces, hvor individet tilegner sig viden, færdigheder og kompetencer gennem samspil mellem kognitive, emotionelle og sociale dimensioner.",
+    "difficulty": "easy",
+    "tags": ["illeris", "definition"],
+    "deckId": "laeringMotivationCards"
+  },
+  {
+    "id": "laering_002",
+    "subject": "Psykologi",
+    "topic": "Læring og Motivation",
+    "question": "Hvad er Illeris’ kognitive dimension i læring?",
+    "answer": "Den omfatter forståelse, hukommelse, problemløsning og evnen til at bearbejde information.",
+    "difficulty": "easy",
+    "tags": ["illeris", "kognition"],
+    "deckId": "laeringMotivationCards"
+  },
+  {
+    "id": "laering_003",
+    "subject": "Psykologi",
+    "topic": "Læring og Motivation",
+    "question": "Hvilken rolle spiller Illeris' emotionelle dimension i læring?",
+    "answer": "Motivation, engagement, følelser og personlige drivkræfter bestemmer, hvor meget energi individet investerer i at lære.",
+    "difficulty": "medium",
+    "tags": ["illeris", "emotioner"],
+    "deckId": "laeringMotivationCards"
+  },
+  {
+    "id": "laering_004",
+    "subject": "Psykologi",
+    "topic": "Læring og Motivation",
+    "question": "Hvad fokuserer Illeris’ sociale dimension på?",
+    "answer": "Samspillet med andre mennesker, kultur og læringsmiljøets betydning for læringsprocessen.",
+    "difficulty": "easy",
+    "tags": ["illeris", "social læring"],
+    "deckId": "laeringMotivationCards"
+  },
+  {
+    "id": "laering_005",
+    "subject": "Psykologi",
+    "topic": "Læring og Motivation",
+    "question": "Hvordan kan Illeris' model anvendes i ambulancetjenesten?",
+    "answer": "Den viser, at paramedicineres læring styrkes gennem hands-on erfaring, feedback, kollegial støtte og følelsesmæssigt engagement.",
+    "difficulty": "medium",
+    "tags": ["illeris", "prehospital"],
+    "deckId": "laeringMotivationCards"
+  },
+  {
+    "id": "laering_006",
+    "subject": "Psykologi",
+    "topic": "Læring og Motivation",
+    "question": "Hvad er assimilation ifølge Piaget?",
+    "answer": "Processen hvor ny information integreres i eksisterende mentale strukturer (skemaer).",
+    "difficulty": "easy",
+    "tags": ["piaget", "assimilation"],
+    "deckId": "laeringMotivationCards"
+  },
+  {
+    "id": "laering_007",
+    "subject": "Psykologi",
+    "topic": "Læring og Motivation",
+    "question": "Hvad betyder akkommodation i Piagets teori?",
+    "answer": "Når individet tilpasser eller ændrer sine mentale skemaer på baggrund af ny erfaring.",
+    "difficulty": "easy",
+    "tags": ["piaget", "akkommodation"],
+    "deckId": "laeringMotivationCards"
+  },
+  {
+    "id": "laering_008",
+    "subject": "Psykologi",
+    "topic": "Læring og Motivation",
+    "question": "Hvordan afspejles Piagets udviklingsstadier i voksnes læring?",
+    "answer": "Selv om stadierne gælder børn, viser de, at læring kræver passende kognitiv modenhed og bygger på tidligere erfaringer.",
+    "difficulty": "medium",
+    "tags": ["piaget", "voksenlæring"],
+    "deckId": "laeringMotivationCards"
+  },
+  {
+    "id": "laering_009",
+    "subject": "Psykologi",
+    "topic": "Læring og Motivation",
+    "question": "Hvad indebærer Banduras social læringsteori?",
+    "answer": "At mennesker lærer gennem observation, imitation og modellering af andre.",
+    "difficulty": "easy",
+    "tags": ["bandura", "social læring"],
+    "deckId": "laeringMotivationCards"
+  },
+  {
+    "id": "laering_010",
+    "subject": "Psykologi",
+    "topic": "Læring og Motivation",
+    "question": "Hvad betyder Banduras begreb 'self-efficacy'?",
+    "answer": "Troen på egne evner til at lykkes i en given situation; en central faktor for motivation og præstation.",
+    "difficulty": "medium",
+    "tags": ["bandura", "self-efficacy"],
+    "deckId": "laeringMotivationCards"
+  },
+  {
+    "id": "laering_011",
+    "subject": "Psykologi",
+    "topic": "Læring og Motivation",
+    "question": "Hvordan kan selv-efficacy styrkes hos en ambulanceelev?",
+    "answer": "Gennem succesoplevelser, konstruktiv feedback, rollemodeller og støttende kollegaer.",
+    "difficulty": "medium",
+    "tags": ["bandura", "prehospital"],
+    "deckId": "laeringMotivationCards"
+  },
+  {
+    "id": "laering_012",
+    "subject": "Psykologi",
+    "topic": "Læring og Motivation",
+    "question": "Hvad fokuserede Daniel Berlyne på i sin forskning om motivation?",
+    "answer": "Menneskers behov for optimal stimulation og nysgerrighed som drivkraft for læring.",
+    "difficulty": "easy",
+    "tags": ["berlyne", "motivation"],
+    "deckId": "laeringMotivationCards"
+  },
+  {
+    "id": "laering_013",
+    "subject": "Psykologi",
+    "topic": "Læring og Motivation",
+    "question": "Hvad betyder Berlynes begreb 'arousal' i læring?",
+    "answer": "Et niveau af mental og følelsesmæssig aktivering, hvor hverken for lidt eller for meget giver optimal læring.",
+    "difficulty": "medium",
+    "tags": ["berlyne", "arousal"],
+    "deckId": "laeringMotivationCards"
+  },
+  {
+    "id": "laering_014",
+    "subject": "Psykologi",
+    "topic": "Læring og Motivation",
+    "question": "Hvordan kan for høj arousal påvirke læring?",
+    "answer": "Stress og overstimulering kan mindske koncentration, hukommelse og problemløsningsevne.",
+    "difficulty": "medium",
+    "tags": ["berlyne", "stress"],
+    "deckId": "laeringMotivationCards"
+  },
+  {
+    "id": "laering_015",
+    "subject": "Psykologi",
+    "topic": "Læring og Motivation",
+    "question": "Hvordan kan for lav arousal påvirke læring?",
+    "answer": "Understimulering kan føre til kedsomhed, lav motivation og overfladisk indlæring.",
+    "difficulty": "easy",
+    "tags": ["berlyne", "motivation"],
+    "deckId": "laeringMotivationCards"
+  },
+  {
+    "id": "laering_016",
+    "subject": "Psykologi",
+    "topic": "Læring og Motivation",
+    "question": "Hvordan kan Banduras teori anvendes i træning af nye ambulancefolk?",
+    "answer": "Træning styrkes gennem modellering, hvor elever observerer erfarne reddere demonstrere kliniske og kommunikative færdigheder.",
+    "difficulty": "medium",
+    "tags": ["bandura", "uddannelse"],
+    "deckId": "laeringMotivationCards"
+  },
+  {
+    "id": "laering_017",
+    "subject": "Psykologi",
+    "topic": "Læring og Motivation",
+    "question": "Hvordan kan feedback påvirke læring ifølge Illeris' model?",
+    "answer": "Feedback styrker både kognition og emotionel motivation ved at tydeliggøre fremskridt og behov for udvikling.",
+    "difficulty": "hard",
+    "tags": ["illeris", "feedback"],
+    "deckId": "laeringMotivationCards"
+  },
+  {
+    "id": "laering_018",
+    "subject": "Psykologi",
+    "topic": "Læring og Motivation",
+    "question": "Hvad er forskellen på intrinsisk og ekstrinsisk motivation?",
+    "answer": "Intrinsisk motivation udspringer af interesse og nydelse ved aktiviteten; ekstrinsisk motivation drives af ydre belønninger som karakterer, ros eller løn.",
+    "difficulty": "easy",
+    "tags": ["motivation", "intrinsisk", "ekstrinsisk"],
+    "deckId": "laeringMotivationCards"
+  },
+  {
+    "id": "laering_019",
+    "subject": "Psykologi",
+    "topic": "Læring og Motivation",
+    "question": "Hvorfor er refleksion vigtig i professionel læring?",
+    "answer": "Refleksion omsætter erfaringer til viden, styrker kritisk tænkning og øger evnen til at handle professionelt i nye situationer.",
+    "difficulty": "medium",
+    "tags": ["refleksion", "metakognition"],
+    "deckId": "laeringMotivationCards"
+  },
+  {
+    "id": "laering_020",
+    "subject": "Psykologi",
+    "topic": "Læring og Motivation",
+    "question": "Hvordan kan læringsmiljøet påvirke motivationen hos ambulanceelever?",
+    "answer": "Et miljø med støtte, feedback og mulighed for fejl uden straf øger tryghed og fremmer læring og engagement.",
+    "difficulty": "medium",
+    "tags": ["læringsmiljø", "uddannelse"],
+    "deckId": "laeringMotivationCards"
+  },
+  {
+    "id": "grupper_001",
+    "subject": "Psykologi",
+    "topic": "Grupper, Kultur og Magt",
+    "question": "Hvad betyder Cooleys begreb 'the looking-glass self'?",
+    "answer": "At individets selvopfattelse formes gennem, hvordan de tror, andre opfatter dem.",
+    "difficulty": "easy",
+    "tags": ["cooley", "selvopfattelse"],
+    "deckId": "grupperKulturMagtCards"
+  },
+  {
+    "id": "grupper_002",
+    "subject": "Psykologi",
+    "topic": "Grupper, Kultur og Magt",
+    "question": "Hvordan kan 'looking-glass self' påvirke en ambulanceelev i praktik?",
+    "answer": "Elevens selvtillid og læring kan påvirkes af, hvordan de tror, kollegaerne vurderer deres præstationer.",
+    "difficulty": "medium",
+    "tags": ["cooley", "prehospital"],
+    "deckId": "grupperKulturMagtCards"
+  },
+  {
+    "id": "grupper_003",
+    "subject": "Psykologi",
+    "topic": "Grupper, Kultur og Magt",
+    "question": "Hvad er social kapital ifølge Bourdieu?",
+    "answer": "Ressourcer baseret på relationer og netværk, som kan give fordele og adgang til muligheder.",
+    "difficulty": "easy",
+    "tags": ["bourdieu", "social kapital"],
+    "deckId": "grupperKulturMagtCards"
+  },
+  {
+    "id": "grupper_004",
+    "subject": "Psykologi",
+    "topic": "Grupper, Kultur og Magt",
+    "question": "Hvad er kulturel kapital i Bourdieus teori?",
+    "answer": "Viden, uddannelse, erfaringer og kulturelle kompetencer, der giver status og adgang til sociale positioner.",
+    "difficulty": "medium",
+    "tags": ["bourdieu", "kulturel kapital"],
+    "deckId": "grupperKulturMagtCards"
+  },
+  {
+    "id": "grupper_005",
+    "subject": "Psykologi",
+    "topic": "Grupper, Kultur og Magt",
+    "question": "Hvordan viser økonomisk kapital sig i Bourdieus model?",
+    "answer": "Som materielle ressourcer, penge og økonomiske aktiver, der giver direkte adgang til magt og privilegier.",
+    "difficulty": "easy",
+    "tags": ["bourdieu", "økonomisk kapital"],
+    "deckId": "grupperKulturMagtCards"
+  },
+  {
+    "id": "grupper_006",
+    "subject": "Psykologi",
+    "topic": "Grupper, Kultur og Magt",
+    "question": "Hvordan kan Bourdieus kapitalbegreber forklare samarbejdsvanskeligheder i et ambulanceteam?",
+    "answer": "Forskelle i erfaring, status og netværk kan skabe uligheder i indflydelse og forventninger.",
+    "difficulty": "hard",
+    "tags": ["bourdieu", "prehospital"],
+    "deckId": "grupperKulturMagtCards"
+  },
+  {
+    "id": "grupper_007",
+    "subject": "Psykologi",
+    "topic": "Grupper, Kultur og Magt",
+    "question": "Hvad betyder habitus i Bourdieus teori?",
+    "answer": "Indlærte dispositioner, vaner og holdninger, der former vores måde at tænke og handle på i sociale sammenhænge.",
+    "difficulty": "medium",
+    "tags": ["bourdieu", "habitus"],
+    "deckId": "grupperKulturMagtCards"
+  },
+  {
+    "id": "grupper_008",
+    "subject": "Psykologi",
+    "topic": "Grupper, Kultur og Magt",
+    "question": "Hvordan kan habitus påvirke en patients møde med sundhedsvæsenet?",
+    "answer": "Patientens tidligere erfaringer, normer og vaner kan præge tillid, kommunikation og samarbejde med ambulancepersonalet.",
+    "difficulty": "medium",
+    "tags": ["bourdieu", "patientologi"],
+    "deckId": "grupperKulturMagtCards"
+  },
+  {
+    "id": "grupper_009",
+    "subject": "Psykologi",
+    "topic": "Grupper, Kultur og Magt",
+    "question": "Hvad mente Nietzsche med 'vilje til magt'?",
+    "answer": "At mennesker grundlæggende drives af et ønske om indflydelse, selvudfoldelse og at forme deres omgivelser.",
+    "difficulty": "medium",
+    "tags": ["nietzsche", "magt"],
+    "deckId": "grupperKulturMagtCards"
+  },
+  {
+    "id": "grupper_010",
+    "subject": "Psykologi",
+    "topic": "Grupper, Kultur og Magt",
+    "question": "Hvordan kan Nietzsches tanker ses i sundhedsvæsenets hierarkier?",
+    "answer": "Rollefordeling og status kan skabe magtforhold, der påvirker kommunikation og beslutninger.",
+    "difficulty": "hard",
+    "tags": ["nietzsche", "hierarki"],
+    "deckId": "grupperKulturMagtCards"
+  },
+  {
+    "id": "grupper_011",
+    "subject": "Psykologi",
+    "topic": "Grupper, Kultur og Magt",
+    "question": "Hvad er Løgstrups etiske fordring?",
+    "answer": "At vi altid holder noget af den andens liv i vores hænder og derfor har en forpligtelse til at handle godt.",
+    "difficulty": "easy",
+    "tags": ["løgstrup", "etik"],
+    "deckId": "grupperKulturMagtCards"
+  },
+  {
+    "id": "grupper_012",
+    "subject": "Psykologi",
+    "topic": "Grupper, Kultur og Magt",
+    "question": "Hvordan er Løgstrups tanke relevant for ambulancearbejde?",
+    "answer": "Patienten er ekstremt sårbar, og redderen har midlertidigt stor magt over både fysisk og psykisk velbefindende.",
+    "difficulty": "medium",
+    "tags": ["løgstrup", "prehospital"],
+    "deckId": "grupperKulturMagtCards"
+  },
+  {
+    "id": "grupper_013",
+    "subject": "Psykologi",
+    "topic": "Grupper, Kultur og Magt",
+    "question": "Hvad betyder gruppedynamik i et sundhedsfagligt team?",
+    "answer": "Interaktionen mellem teammedlemmer, som påvirker samarbejde, kommunikation, beslutninger og konflikter.",
+    "difficulty": "easy",
+    "tags": ["gruppedynamik", "team"],
+    "deckId": "grupperKulturMagtCards"
+  },
+  {
+    "id": "grupper_014",
+    "subject": "Psykologi",
+    "topic": "Grupper, Kultur og Magt",
+    "question": "Hvordan kan implicitte magtstrukturer påvirke en patientkontakt?",
+    "answer": "Patienten kan føle sig underlegen, tilbageholdende eller misforstået, hvilket kan hæmme samarbejde og tryghed.",
+    "difficulty": "medium",
+    "tags": ["magt", "patientologi"],
+    "deckId": "grupperKulturMagtCards"
+  },
+  {
+    "id": "grupper_015",
+    "subject": "Psykologi",
+    "topic": "Grupper, Kultur og Magt",
+    "question": "Hvad er gruppepres og hvordan kan det påvirke beslutningstagning?",
+    "answer": "Gruppens normer kan presse individer til at følge flertallet, selv mod bedre viden, hvilket øger risikoen for fejl.",
+    "difficulty": "hard",
+    "tags": ["gruppedynamik", "beslutningstagning"],
+    "deckId": "grupperKulturMagtCards"
+  },
+  {
+    "id": "grupper_016",
+    "subject": "Psykologi",
+    "topic": "Grupper, Kultur og Magt",
+    "question": "Hvad er gruppepolarisering?",
+    "answer": "En proces hvor gruppens fælles holdning bliver mere ekstrem efter diskussion.",
+    "difficulty": "medium",
+    "tags": ["grupper", "polarisering"],
+    "deckId": "grupperKulturMagtCards"
+  },
+  {
+    "id": "grupper_017",
+    "subject": "Psykologi",
+    "topic": "Grupper, Kultur og Magt",
+    "question": "Hvad forstås ved kulturel kompetence i sundhedsarbejde?",
+    "answer": "Evnen til at forstå, respektere og tilpasse sig forskellige kulturelle perspektiver og sundhedsopfattelser.",
+    "difficulty": "medium",
+    "tags": ["kultur", "kompetence"],
+    "deckId": "grupperKulturMagtCards"
+  },
+  {
+    "id": "grupper_018",
+    "subject": "Psykologi",
+    "topic": "Grupper, Kultur og Magt",
+    "question": "Hvordan kan kulturelle forskelle påvirke patientens forventninger til ambulancen?",
+    "answer": "Patientens baggrund kan påvirke syn på smerte, autoriteter, kønsroller, og hvad der anses som passende behandling.",
+    "difficulty": "medium",
+    "tags": ["kultur", "patientologi"],
+    "deckId": "grupperKulturMagtCards"
+  },
+  {
+    "id": "grupper_019",
+    "subject": "Psykologi",
+    "topic": "Grupper, Kultur og Magt",
+    "question": "Hvordan påvirker tillid samarbejde i et ambulanceteam?",
+    "answer": "Høj tillid fremmer effektiv kommunikation, ro under pres og sikker opgavefordeling.",
+    "difficulty": "easy",
+    "tags": ["team", "tillid"],
+    "deckId": "grupperKulturMagtCards"
+  },
+  {
+    "id": "grupper_020",
+    "subject": "Psykologi",
+    "topic": "Grupper, Kultur og Magt",
+    "question": "Hvordan kan man som redder aktivt modvirke negative magtforhold i mødet med patienter?",
+    "answer": "Ved at kommunikere respektfuldt, inddrage patienten, forklare procedurer og give plads til patientens perspektiv.",
+    "difficulty": "medium",
+    "tags": ["magt", "kommunikation", "prehospital"],
+    "deckId": "grupperKulturMagtCards"
+  },
+  {
+    "id": "identitet_001",
+    "subject": "Psykologi",
+    "topic": "Identitet og Udviklingspsykologi",
+    "question": "Hvad forstås ved begrebet identitet i psykologien?",
+    "answer": "Identitet handler om individets oplevelse af sig selv som en sammenhængende person gennem tid, inkl. værdier, roller og selvbillede.",
+    "difficulty": "easy",
+    "tags": ["identitet", "selvforståelse"],
+    "deckId": "identitetUdviklingCards"
+  },
+  {
+    "id": "identitet_002",
+    "subject": "Psykologi",
+    "topic": "Identitet og Udviklingspsykologi",
+    "question": "Hvordan påvirker sociale relationer identitetsdannelsen?",
+    "answer": "Relationer giver feedback, spejling og forventninger, som former individets selvopfattelse og sociale roller.",
+    "difficulty": "medium",
+    "tags": ["identitet", "relationer"],
+    "deckId": "identitetUdviklingCards"
+  },
+  {
+    "id": "identitet_003",
+    "subject": "Psykologi",
+    "topic": "Identitet og Udviklingspsykologi",
+    "question": "Hvad menes med selvbillede?",
+    "answer": "Selvbillede er individets opfattelse af egne evner, styrker, svagheder og sociale værdi.",
+    "difficulty": "easy",
+    "tags": ["selvbillede", "selv"],
+    "deckId": "identitetUdviklingCards"
+  },
+  {
+    "id": "identitet_004",
+    "subject": "Psykologi",
+    "topic": "Identitet og Udviklingspsykologi",
+    "question": "Hvordan kan sygdom påvirke en persons selvbillede?",
+    "answer": "Sygdom kan ændre kropsfunktioner, roller og oplevelse af kontrol, hvilket kan skabe tab af identitet og selvværd.",
+    "difficulty": "medium",
+    "tags": ["selvbillede", "sygdom"],
+    "deckId": "identitetUdviklingCards"
+  },
+  {
+    "id": "identitet_005",
+    "subject": "Psykologi",
+    "topic": "Identitet og Udviklingspsykologi",
+    "question": "Hvad er psykosomatiske symptomer?",
+    "answer": "Fysiske symptomer som opstår eller forværres af psykiske belastninger uden at skyldes en organisk sygdom.",
+    "difficulty": "easy",
+    "tags": ["psykosomatik", "symptomer"],
+    "deckId": "identitetUdviklingCards"
+  },
+  {
+    "id": "identitet_006",
+    "subject": "Psykologi",
+    "topic": "Identitet og Udviklingspsykologi",
+    "question": "Hvad karakteriserer funktionelle lidelser?",
+    "answer": "Kroppens funktion er påvirket, men der findes ingen forklaring i form af organisk sygdom; symptomerne er reelle og opleves som belastende.",
+    "difficulty": "medium",
+    "tags": ["funktionelle lidelser", "psykosomatik"],
+    "deckId": "identitetUdviklingCards"
+  },
+  {
+    "id": "identitet_007",
+    "subject": "Psykologi",
+    "topic": "Identitet og Udviklingspsykologi",
+    "question": "Hvordan skal ambulancepersonale møde patienter med funktionelle lidelser?",
+    "answer": "Med anerkendelse, ro, validering og uden at antyde, at symptomerne er indbildte.",
+    "difficulty": "easy",
+    "tags": ["funktionelle lidelser", "prehospital"],
+    "deckId": "identitetUdviklingCards"
+  },
+  {
+    "id": "identitet_008",
+    "subject": "Psykologi",
+    "topic": "Identitet og Udviklingspsykologi",
+    "question": "Hvordan udvikles selvregulering hos børn?",
+    "answer": "Gennem trygge relationer, emotionel støtte og gradvis læring af at håndtere følelser og impulser.",
+    "difficulty": "medium",
+    "tags": ["børn", "selvregulering"],
+    "deckId": "identitetUdviklingCards"
+  },
+  {
+    "id": "identitet_009",
+    "subject": "Psykologi",
+    "topic": "Identitet og Udviklingspsykologi",
+    "question": "Hvordan ændrer kommunikation sig typisk hos unge i krise?",
+    "answer": "Unge kan virke svingende, tilbagetrukne eller udadreagerende pga. identitetsprocesser og følelsesmæssig umodenhed.",
+    "difficulty": "medium",
+    "tags": ["unge", "kommunikation"],
+    "deckId": "identitetUdviklingCards"
+  },
+  {
+    "id": "identitet_010",
+    "subject": "Psykologi",
+    "topic": "Identitet og Udviklingspsykologi",
+    "question": "Hvordan påvirker alder kognitiv bearbejdning?",
+    "answer": "Kognitiv hastighed falder typisk med alderen, mens erfaring og viden ofte stiger.",
+    "difficulty": "medium",
+    "tags": ["ældre", "kognition"],
+    "deckId": "identitetUdviklingCards"
+  },
+  {
+    "id": "identitet_011",
+    "subject": "Psykologi",
+    "topic": "Identitet og Udviklingspsykologi",
+    "question": "Hvad er mentalisering?",
+    "answer": "Evnen til at forstå egne og andres mentale tilstande som tanker, følelser og intentioner.",
+    "difficulty": "medium",
+    "tags": ["mentalisering", "kommunikation"],
+    "deckId": "identitetUdviklingCards"
+  },
+  {
+    "id": "identitet_012",
+    "subject": "Psykologi",
+    "topic": "Identitet og Udviklingspsykologi",
+    "question": "Hvorfor kan ældre reagere anderledes på akut sygdom end yngre?",
+    "answer": "Akutte symptomer kan være atypiske, og sygdom kan true selvstændighed og identitet, hvilket påvirker adfærd og følelsesmæssig respons.",
+    "difficulty": "hard",
+    "tags": ["ældre", "identitet"],
+    "deckId": "identitetUdviklingCards"
+  },
+  {
+    "id": "identitet_013",
+    "subject": "Psykologi",
+    "topic": "Identitet og Udviklingspsykologi",
+    "question": "Hvad kendetegner udviklingsforstyrrelser som ADHD og autismespektrumforstyrrelser?",
+    "answer": "Atypisk udvikling af opmærksomhed, kommunikation, social interaktion og/eller adfærdsmønstre.",
+    "difficulty": "medium",
+    "tags": ["udviklingsforstyrrelser", "ADHD", "autisme"],
+    "deckId": "identitetUdviklingCards"
+  },
+  {
+    "id": "identitet_014",
+    "subject": "Psykologi",
+    "topic": "Identitet og Udviklingspsykologi",
+    "question": "Hvordan kan ambulancepersonale bedst kommunikere med en patient med autismespektrumforstyrrelse?",
+    "answer": "Ved at være konkret, rolig, undgå unødige sanseindtryk og give tydelige, strukturerede instruktioner.",
+    "difficulty": "medium",
+    "tags": ["autisme", "prehospital"],
+    "deckId": "identitetUdviklingCards"
+  },
+  {
+    "id": "identitet_015",
+    "subject": "Psykologi",
+    "topic": "Identitet og Udviklingspsykologi",
+    "question": "Hvordan påvirker kropslige ændringer selvopfattelsen hos patienter med kronisk sygdom?",
+    "answer": "Tab af funktion eller ændret udseende kan skabe sorg, skam, lavt selvværd og identitetskrise.",
+    "difficulty": "hard",
+    "tags": ["kropslige ændringer", "selvbillede"],
+    "deckId": "identitetUdviklingCards"
+  },
+  {
+    "id": "identitet_016",
+    "subject": "Psykologi",
+    "topic": "Identitet og Udviklingspsykologi",
+    "question": "Hvorfor kan funktionstab føre til psykologisk lidelse?",
+    "answer": "Fordi funktionstab truer autonomi, identitet, sociale roller og selvværd.",
+    "difficulty": "medium",
+    "tags": ["funktionstab", "lidelse"],
+    "deckId": "identitetUdviklingCards"
+  },
+  {
+    "id": "identitet_017",
+    "subject": "Psykologi",
+    "topic": "Identitet og Udviklingspsykologi",
+    "question": "Hvad forstås ved professionel distance i sundhedsarbejde?",
+    "answer": "Evnen til at engagere sig empatisk uden at blive følelsesmæssigt overvældet, så fagligheden bevares.",
+    "difficulty": "medium",
+    "tags": ["professionel rolle", "distance"],
+    "deckId": "identitetUdviklingCards"
+  },
+  {
+    "id": "identitet_018",
+    "subject": "Psykologi",
+    "topic": "Identitet og Udviklingspsykologi",
+    "question": "Hvad er involvering i professionel praksis?",
+    "answer": "At engagere sig menneskeligt i patienten og skabe tryghed, uden at miste faglig objektivitet.",
+    "difficulty": "medium",
+    "tags": ["professionel rolle", "involvering"],
+    "deckId": "identitetUdviklingCards"
+  },
+  {
+    "id": "identitet_019",
+    "subject": "Psykologi",
+    "topic": "Identitet og Udviklingspsykologi",
+    "question": "Hvordan kan man som ambulanceredder balancere involvering og professionel distance?",
+    "answer": "Ved at udvise empati, men samtidig holde fokus på opgaven og egne følelsesmæssige grænser.",
+    "difficulty": "hard",
+    "tags": ["professionel rolle", "grænser"],
+    "deckId": "identitetUdviklingCards"
+  },
+  {
+    "id": "identitet_020",
+    "subject": "Psykologi",
+    "topic": "Identitet og Udviklingspsykologi",
+    "question": "Hvordan kan en persons identitet udfordres under en akut hændelse?",
+    "answer": "Akut sygdom eller traume kan skabe tab af kontrol, rolleforvirring og trussel mod selvopfattelsen.",
+    "difficulty": "medium",
+    "tags": ["identitet", "akut krise"],
+    "deckId": "identitetUdviklingCards"
+  }
+]

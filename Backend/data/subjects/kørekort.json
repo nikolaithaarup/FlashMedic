@@ -1,0 +1,1903 @@
+[
+  {
+    "id": "koerekort_lastbil_001",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad forstås ved at et køretøj er lovligt?",
+    "answer": "At køretøjet opfylder lovens krav til fx registrering, syn, vægt, dimensioner, dæk, bremser og lygter. Ansvaret ligger primært hos ejeren eller den registrerede bruger.",
+    "difficulty": "easy",
+    "tags": ["ansvar", "lovlig"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_002",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad forstås ved at et køretøj er forsvarligt?",
+    "answer": "At køretøjet er i en sådan stand, at det kan bruges sikkert i den konkrete situation, fx korrekt lastet, ingen synlige fejl, fri udsigt. Ansvaret ligger primært hos føreren.",
+    "difficulty": "easy",
+    "tags": ["ansvar", "forsvarlig"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_003",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvem har hovedansvaret, hvis lastbilen ikke er lovlig?",
+    "answer": "Ejeren eller den registrerede bruger har hovedansvaret for at lastbilen er lovlig, fx syn, vægtgrænser og udstyr.",
+    "difficulty": "easy",
+    "tags": ["ansvar", "ejer"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_004",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvem har hovedansvaret, hvis lastbilen ikke føres forsvarligt?",
+    "answer": "Føreren har ansvaret for, at kørslen gennemføres forsvarligt, fx hastighed, afstand, lastens placering og at køretøjet ikke bruges, hvis der er alvorlige fejl.",
+    "difficulty": "easy",
+    "tags": ["ansvar", "fører"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_005",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad er den normale største tilladte bredde for en lastbil på dansk vej?",
+    "answer": "2,55 meter. Kølevogne med tykke isolerede vægge må typisk være op til 2,60 meter brede.",
+    "difficulty": "medium",
+    "tags": ["dimensioner", "bredde"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_006",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad er den normale største tilladte længde for en sololastbil?",
+    "answer": "12,0 meter, med enkelte undtagelser for særlige karrosserityper.",
+    "difficulty": "medium",
+    "tags": ["dimensioner", "længde"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_007",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad er den generelle maksimale højde for et køretøj i Danmark?",
+    "answer": "Normalt 4,0 meter. Højere køretøjer kræver særlige forhold og ruter, og der skal tages ekstra hensyn til broer og ledninger.",
+    "difficulty": "medium",
+    "tags": ["dimensioner", "højde"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_008",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvornår skal gods, der rager ud foran eller bagved lastbilen, afmærkes?",
+    "answer": "Når det rager mere end 1 meter ud foran eller bagved køretøjet, eller mere end ca. 15 cm til siden ud over køretøjets bredeste punkt.",
+    "difficulty": "easy",
+    "tags": ["afmærkning", "gods"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_009",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvordan skal tromler typisk opstilles på ladet for at være forsvarligt sikret?",
+    "answer": "De skal så vidt muligt stå oprejst og sikres mod at trille eller vælte, fx ved klemmer, stopklodser, stropper eller kæder.",
+    "difficulty": "medium",
+    "tags": ["lastsikring", "tromler"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_010",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad gælder for transport af levende dyr over længere afstande?",
+    "answer": "Ved transport over en vis afstand og varighed kræves særligt kompetencebevis til dyretransport, og køretøjet skal opfylde særlige krav til ventilation, plads og dyrevelfærd.",
+    "difficulty": "medium",
+    "tags": ["dyr", "specialtransport"],
+    "deckId": "koerekortLastbilCards"
+  },
+
+  {
+    "id": "koerekort_lastbil_011",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad betyder betegnelsen 'T' i registreringsattesten for en lastbil?",
+    "answer": "Den tilladte totalvægt – den samlede vægt, som køretøjet maksimalt må veje inklusive last, fører, passagerer, brændstof og udstyr.",
+    "difficulty": "easy",
+    "tags": ["vægt", "totalvægt"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_012",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad omfatter lastbilens nyttelast/last (L)?",
+    "answer": "Den vægt, der højst må lastes på køretøjet, beregnet som tilladt totalvægt minus egenvægt med fører, brændstof og væsker.",
+    "difficulty": "medium",
+    "tags": ["vægt", "nyttelast"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_013",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad betyder det, at tromler eller tanke over 4 m³ skal være fastspændt?",
+    "answer": "At store tanke og beholdere skal være konstruktivt fastgjort til ladet eller rammen, så de ikke kan forskubbe sig væsentligt ved opbremsning eller kollision.",
+    "difficulty": "medium",
+    "tags": ["lastsikring", "tanke"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_014",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad er forskellen på skiftelad/veksellad og skibscontainer?",
+    "answer": "Et skiftelad/veksellad er et lad, der kan skiftes mellem lastbiler og er konstrueret til vejtransport. En skibscontainer er standardiseret til søtransport og må kun lastes på lad, der er indrettet til det.",
+    "difficulty": "medium",
+    "tags": ["ladtyper", "container"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_015",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvor ofte skal en tankvogn med farligt gods normalt have eftersyn af tanken?",
+    "answer": "Som hovedregel mindst én gang årligt af godkendt synsvirksomhed eller efter særlige bestemmelser for farligt gods.",
+    "difficulty": "hard",
+    "tags": ["farligtgods", "eftersyn"],
+    "deckId": "koerekortLastbilCards"
+  },
+
+  {
+    "id": "koerekort_lastbil_016",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvilken dæktype skal normalt anvendes på en aksel med akseltryk over 8 ton?",
+    "answer": "Der skal anvendes radialdæk på enkeltmonterede hjul ved akseltryk over 8 ton.",
+    "difficulty": "medium",
+    "tags": ["dæk", "radialdæk"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_017",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvor stor skal mønsterdybden mindst være på lastbildæk?",
+    "answer": "Mindst 1 mm i hovedmønsterets dybde på alle hjul – dog anbefales mere af hensyn til sikkerhed, især i vådt føre.",
+    "difficulty": "easy",
+    "tags": ["dæk", "mønster"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_018",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad kan ensidigt dækslid typisk tyde på?",
+    "answer": "Fejl i sporing eller styretøjsmål, forskubbet aksel eller fejl i hjulophæng.",
+    "difficulty": "medium",
+    "tags": ["dæk", "slid"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_019",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad kan slid på begge skuldre af dækket tyde på?",
+    "answer": "For lavt lufttryk, så dækket bliver for blødt og belastes mest i kanterne.",
+    "difficulty": "easy",
+    "tags": ["dæk", "lufttryk"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_020",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad kan kraftigt slid midt i dækket tyde på?",
+    "answer": "For højt lufttryk, så dækket bærer mest på midten.",
+    "difficulty": "easy",
+    "tags": ["dæk", "lufttryk"],
+    "deckId": "koerekortLastbilCards"
+  },
+
+  {
+    "id": "koerekort_lastbil_021",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvorfor er det vigtigt, at alle dæk på samme aksel har samme type og dimension?",
+    "answer": "Forskellig type eller dimension giver skævt vejgreb, ujævn bremsning og kan ødelægge transmission og bremser.",
+    "difficulty": "medium",
+    "tags": ["dæk", "aksler"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_022",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad betyder 'regroovable' på et dæk?",
+    "answer": "At dækket er konstrueret, så man lovligt kan skære nyt mønster, når det oprindelige er slidt ned, under forudsætning af korrekte regler følges.",
+    "difficulty": "medium",
+    "tags": ["dæk", "regroovable"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_023",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad skal du kontrollere ved fælge og hjulmøtrikker før kørsel?",
+    "answer": "At fælge ikke er revnede eller deforme, at møtrikker er tilspændt, ikke mangler, og at evt. indikatorskiver ikke viser løsheden.",
+    "difficulty": "medium",
+    "tags": ["fælge", "hjul"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_024",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvorfor skal hjul typisk efterspændes efter hjulskift?",
+    "answer": "Fordi hjulmøtrikker kan sætte sig eller give sig efter de første kilometers kørsel, hvilket kan føre til løse hjul hvis de ikke efterspændes.",
+    "difficulty": "easy",
+    "tags": ["hjul", "efterspænding"],
+    "deckId": "koerekortLastbilCards"
+  },
+
+  {
+    "id": "koerekort_lastbil_025",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad er formålet med støddæmpere på lastbilen?",
+    "answer": "De dæmper fjederbevægelsen, så hjulene holder kontakt med vejen og køretøjet ikke bliver ustabilt eller hopper.",
+    "difficulty": "easy",
+    "tags": ["støddæmpere", "affjedring"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_026",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad kan tegn på defekte støddæmpere være?",
+    "answer": "Stødvis dækslid, at bilen gynger længe efter ujævnhed, og dårlig retningsstabilitet ved bremsning og sving.",
+    "difficulty": "medium",
+    "tags": ["støddæmpere", "fejl"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_027",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad må der ikke være på chassisrammen?",
+    "answer": "Revner, kraftige deformationer eller uautoriseret svejsning – det svækker styrken og kan give brud.",
+    "difficulty": "medium",
+    "tags": ["chassis", "fejl"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_028",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad kan opbulinger i lakken på rammen tyde på?",
+    "answer": "Begyndende rust og evt. brud under malingen, som kræver nærmere undersøgelse.",
+    "difficulty": "medium",
+    "tags": ["chassis", "rust"],
+    "deckId": "koerekortLastbilCards"
+  },
+
+  {
+    "id": "koerekort_lastbil_029",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvilke grundkrav er der til styreapparatet under kørsel?",
+    "answer": "Det skal være let, sikkert, hurtigt og selvoprettende samt uden væsentligt ratslør, rystelser eller mislyde.",
+    "difficulty": "easy",
+    "tags": ["styretøj", "krav"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_030",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad er maksimalt tilladeligt ratslør i rattet på en lastbil?",
+    "answer": "Ca. 5 cm målt på ratkransen, afhængigt af type, for at styretøjet stadig regnes som sikkert.",
+    "difficulty": "medium",
+    "tags": ["styretøj", "ratslør"],
+    "deckId": "koerekortLastbilCards"
+  },
+
+  {
+    "id": "koerekort_lastbil_031",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad er tegn på fejl i styretøjet under kørsel?",
+    "answer": "Bilen trækker til en side, rattet ryster, der er mislyde ved drejning eller unormalt dækslid.",
+    "difficulty": "medium",
+    "tags": ["styretøj", "fejl"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_032",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad gør differentialespærren, og hvornår må den bruges?",
+    "answer": "Den låser differentialet, så begge hjul på akslen trækker lige meget. Den bruges kun ved lav hastighed og ligeudkørsel, fx når lastbilen sidder fast.",
+    "difficulty": "medium",
+    "tags": ["differentiale", "trækkraft"],
+    "deckId": "koerekortLastbilCards"
+  },
+
+  {
+    "id": "koerekort_lastbil_033",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvor mange uafhængige bremsesystemer skal en lastbil have?",
+    "answer": "Mindst tre: driftsbremse (to-kreds), parkeringsbremse og nødbremse. Derudover ofte en supplerende motor- eller retarderbremse.",
+    "difficulty": "easy",
+    "tags": ["bremser", "systemer"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_034",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad er formålet med ALB-ventilen (Automatisk Lasteafhængig Bremsekraftregulator)?",
+    "answer": "Den tilpasser bremsetrykket på bagakslen efter lastens størrelse, så hjulene ikke blokerer på tom eller letlastet lastbil.",
+    "difficulty": "medium",
+    "tags": ["bremser", "ALB"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_035",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad er formålet med tæthedsprøven af trykluftbremsesystemet?",
+    "answer": "At kontrollere, om forsynings- og bremsekredse er tætte, så der ikke sker farligt trykfald under kørsel.",
+    "difficulty": "medium",
+    "tags": ["bremser", "tæthedsprøve"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_036",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad kan for lang oppumpningstid af trykluft tyde på?",
+    "answer": "Slidt eller defekt kompressor, slap eller knækket kilerem, utætheder i forsyningskreds eller tilstoppet luftfilter.",
+    "difficulty": "medium",
+    "tags": ["bremser", "kompressor"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_037",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad kan meget kort oppumpningstid eller stort trykfald ved fuldbremsning tyde på?",
+    "answer": "Vand eller buler i tryklufttankene, som reducerer det effektive luftvolumen.",
+    "difficulty": "hard",
+    "tags": ["bremser", "lufttank"],
+    "deckId": "koerekortLastbilCards"
+  },
+
+  {
+    "id": "koerekort_lastbil_038",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad skal parkeringsbremsen kunne klare på en lastbil?",
+    "answer": "Den skal mekanisk kunne holde køretøjet standset på en stigning på mindst ca. 18 %, og et vogntog på en lidt lavere stigning.",
+    "difficulty": "medium",
+    "tags": ["bremser", "parkeringsbremse"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_039",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad betyder det, hvis lastbilen trækker skævt ved bremsning?",
+    "answer": "Der kan være uens bremsevirkning, fx pga. defekte bremsemembraner, fugt eller olie på bremsebelægninger eller forkert justerede bremser.",
+    "difficulty": "medium",
+    "tags": ["bremser", "fejl"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_040",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvordan vil du opdage luftlækage i trykluftbremsesystemet ved tæthedsprøve?",
+    "answer": "Ved at træde bremsepedalen ned, standse motoren og lytte efter luftlækage samt observere, om manometrene falder for hurtigt.",
+    "difficulty": "medium",
+    "tags": ["bremser", "tæthed"],
+    "deckId": "koerekortLastbilCards"
+  },
+
+  {
+    "id": "koerekort_lastbil_041",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvor langt skal en lastbil typisk kunne standse fra 30 km/t ved fuldbremsning?",
+    "answer": "På tør, jævn vej skal bremselængden være omkring 10 meter, hvis bremsesystemet er i orden.",
+    "difficulty": "hard",
+    "tags": ["bremser", "bremselængde"],
+    "deckId": "koerekortLastbilCards"
+  },
+
+  {
+    "id": "koerekort_lastbil_042",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvilke lygter skal der som minimum være foran på en lastbil?",
+    "answer": "To fjernlyslygter, to asymmetriske nærlyslygter og to positionslygter. Derudover kan være tåge- og arbejdslygter.",
+    "difficulty": "easy",
+    "tags": ["lygter", "foran"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_043",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvilke lygter og reflekser skal der som minimum være bag på lastbilen?",
+    "answer": "To baglygter, to stoplygter, røde reflekser (ikke trekantede) samt nummerpladelys.",
+    "difficulty": "easy",
+    "tags": ["lygter", "bagpå"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_044",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvornår skal lastbilen være forsynet med gule sidereflekser og sidemarkeringslygter?",
+    "answer": "På køretøjer over ca. 6 meters længde skal der være sidereflekser, og nyere lange køretøjer skal have sidemarkeringslygter.",
+    "difficulty": "medium",
+    "tags": ["reflekser", "markeringslygter"],
+    "deckId": "koerekortLastbilCards"
+  },
+
+  {
+    "id": "koerekort_lastbil_045",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad er kravene til hornet på lastbilen?",
+    "answer": "Det skal have en klar, konstant og uafbrudt tone og må kun anvendes til at advare andre trafikanter.",
+    "difficulty": "easy",
+    "tags": ["horn", "signal"],
+    "deckId": "koerekortLastbilCards"
+  },
+
+  {
+    "id": "koerekort_lastbil_046",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad forstås ved standsning i færdselsloven?",
+    "answer": "Frivillig hensætning af køretøjet i højst cirka 3 minutter, med eller uden fører, dog længere tid ved aktiv af- og pålæsning.",
+    "difficulty": "easy",
+    "tags": ["standsning", "parkering"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_047",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Nævn et par steder, hvor standsning og parkering som hovedregel er forbudt.",
+    "answer": "Tættere end 5 meter fra kryds, i vejkryds, på fodgængerfelt, i nødspor på motorvej eller hvor oversigten bliver væsentligt nedsat.",
+    "difficulty": "medium",
+    "tags": ["standsning", "forbud"],
+    "deckId": "koerekortLastbilCards"
+  },
+
+  {
+    "id": "koerekort_lastbil_048",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad er daglig maksimal køretid efter køre- og hviletidsreglerne for tung trafik?",
+    "answer": "Den daglige køretid må normalt højst være 9 timer, men kan to gange om ugen forlænges til 10 timer.",
+    "difficulty": "medium",
+    "tags": ["køre-hviletid", "daglig"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_049",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvor mange timers køretid må der højst være på en uge og to uger?",
+    "answer": "Højst 56 timers køretid på én uge og højst 90 timers køretid i to på hinanden følgende uger.",
+    "difficulty": "medium",
+    "tags": ["køre-hviletid", "uge"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_050",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad er hovedreglen for pause efter sammenlagt 4,5 times kørsel?",
+    "answer": "Der skal holdes mindst 45 minutters pause, som kan opdeles i 15 minutter efterfulgt af 30 minutter inden for køreperioden.",
+    "difficulty": "easy",
+    "tags": ["køre-hviletid", "pause"],
+    "deckId": "koerekortLastbilCards"
+  },
+
+  {
+    "id": "koerekort_lastbil_051",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Må du udføre andet arbejde under den lovpligtige pause efter 4,5 times kørsel?",
+    "answer": "Nej. I pausen må du ikke udføre andet arbejde – du skal kunne hvile dig fra både kørsel og andet arbejde.",
+    "difficulty": "medium",
+    "tags": ["køre-hviletid", "pausearbejde"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_052",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad er formålet med daglig hviletid i køre- og hviletidsreglerne?",
+    "answer": "At sikre, at føreren får tilstrækkelig søvn og restitution, så træthed ikke øger risikoen for ulykker.",
+    "difficulty": "easy",
+    "tags": ["køre-hviletid", "hvile"],
+    "deckId": "koerekortLastbilCards"
+  },
+
+  {
+    "id": "koerekort_lastbil_053",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvilke køretøjer er typisk undtaget fra køre- og hviletidsreglerne?",
+    "answer": "Blandt andet ambulancer, brandkøretøjer, politi og visse forsvarskøretøjer samt visse ikke-erhvervsmæssige transporter.",
+    "difficulty": "medium",
+    "tags": ["køre-hviletid", "undtagelser"],
+    "deckId": "koerekortLastbilCards"
+  },
+
+  {
+    "id": "koerekort_lastbil_054",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvorfor er miljøvenlig kørsel vigtig i lastbil?",
+    "answer": "Det reducerer brændstofforbrug, CO₂-udledning, støj, slid på materiel og øger trafiksikkerheden gennem roligere kørselsmønster.",
+    "difficulty": "easy",
+    "tags": ["miljø", "økonomisk kørsel"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_055",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvordan kører du mest brændstoføkonomisk med lastbil?",
+    "answer": "Ved at planlægge fremad, holde jævn hastighed, bruge højest mulige gear, undgå unødvendige accelerationer og motorbremsning i god tid.",
+    "difficulty": "medium",
+    "tags": ["miljø", "økonomisk kørsel"],
+    "deckId": "koerekortLastbilCards"
+  },
+
+  {
+    "id": "koerekort_lastbil_056",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvad er risikoen ved at køre i for lavt gear og høje omdrejninger med tung lastbil?",
+    "answer": "Overforbrug af brændstof, øget støj og øget belastning af motor og kobling, med risiko for skader.",
+    "difficulty": "medium",
+    "tags": ["miljø", "gearvalg"],
+    "deckId": "koerekortLastbilCards"
+  },
+
+  {
+    "id": "koerekort_lastbil_057",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvilke særlige risikoforhold skal du især være opmærksom på i bytrafik med tung lastbil?",
+    "answer": "Bløde trafikanter i højre side, cyklister i dødvinkler, kryds med sving, parkerede biler og skiftende hastighedsbegrænsninger.",
+    "difficulty": "medium",
+    "tags": ["risici", "bykørsel"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_058",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvorfor er højresving med lastbil særligt risikofyldt?",
+    "answer": "På grund af store døde vinkler og svingbanen, hvor lastbilen kan skære hjørne og komme tæt på cyklister og fodgængere.",
+    "difficulty": "medium",
+    "tags": ["risici", "højresving"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_059",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvordan kan du som chauffør reducere risikoen for højresvingsulykker?",
+    "answer": "Ved at placere dig korrekt, nedsætte hastigheden i god tid, bruge spejle og kameraer aktivt, holde øjenkontakt med cyklister og kun dreje, når du har fuldt overblik.",
+    "difficulty": "hard",
+    "tags": ["risici", "højresving"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_lastbil_060",
+    "subject": "Kørekort",
+    "topic": "Lastbil",
+    "question": "Hvorfor er det vigtigt, at lastbilens karrosseri og lad er hele og intakte?",
+    "answer": "Skader kan skarpe kanter, dårlig beskyttelse mod underkørsel og risiko for at gods falder af, hvilket øger faren for andre trafikanter.",
+    "difficulty": "medium",
+    "tags": ["karrosseri", "sikkerhed"],
+    "deckId": "koerekortLastbilCards"
+  },
+  {
+    "id": "koerekort_taxa_001",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvilket kørekort er som udgangspunkt nødvendigt for at køre taxa i Danmark?",
+    "answer": "Kørekort til kategori B (personbil) samt et gyldigt chaufførkort efter taxilovgivningen.",
+    "difficulty": "easy",
+    "tags": ["kørekort", "taxa"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_002",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvad er formålet med chaufførkortet til taxa?",
+    "answer": "At dokumentere, at føreren opfylder krav til kørekort, helbred, straffeattest og kvalifikationer til erhvervsmæssig personbefordring.",
+    "difficulty": "easy",
+    "tags": ["chaufførkort", "formål"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_003",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvem udsteder chaufførkort til taxikørsel?",
+    "answer": "Færdselsstyrelsen eller den kompetente myndighed, efter ansøgning og dokumentation for opfyldte krav.",
+    "difficulty": "medium",
+    "tags": ["chaufførkort", "myndighed"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_004",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvilke personlige forhold kan medføre afslag på chaufførkort?",
+    "answer": "Alvorlig kriminalitet, spiritus- eller narkotikaforbrydelser, grov vold, eller helbredsmæssige forhold der gør føreren uegnet.",
+    "difficulty": "medium",
+    "tags": ["chaufførkort", "straffeattest"],
+    "deckId": "koerekortTaxaCards"
+  },
+
+  {
+    "id": "koerekort_taxa_005",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvad er chaufførens hovedopgave i forhold til passagerernes sikkerhed?",
+    "answer": "At køre defensivt og roligt, sikre korrekt brug af seler og børnesikringsudstyr, samt sørge for sikker ind- og udstigning.",
+    "difficulty": "easy",
+    "tags": ["sikkerhed", "passagerer"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_006",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvilket ansvar har chaufføren for brug af sikkerhedssele?",
+    "answer": "Chaufføren skal bruge egen sele og sikre, at passagerer under 15 år og de fleste voksne bruger sele efter lovkrav.",
+    "difficulty": "medium",
+    "tags": ["sikkerhedssele", "ansvar"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_007",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvornår skal der anvendes barnestol eller særligt udstyr i taxa?",
+    "answer": "Når små børn transporteres, skal de så vidt muligt spændes fast i passende udstyr. Der er særlige undtagelser for kort taxikørsel, men sikkerhed bør altid prioriteres.",
+    "difficulty": "medium",
+    "tags": ["børnesikring", "passagerer"],
+    "deckId": "koerekortTaxaCards"
+  },
+
+  {
+    "id": "koerekort_taxa_008",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvad forstås ved god kundeservice som taxichauffør?",
+    "answer": "Høflig og respektfuld behandling, hjælp med bagage, klar information om pris og rute samt hensyn til kundens særlige behov.",
+    "difficulty": "easy",
+    "tags": ["service", "adfærd"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_009",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvordan bør du som chauffør håndtere en beruset, men ikke udad reagerende passager?",
+    "answer": "Sørge for, at personen sidder sikkert fastspændt, køre roligt, undgå konflikter og hjælpe ved udstigning. Ved behov kontakte politi eller vagtcentral.",
+    "difficulty": "medium",
+    "tags": ["service", "beruselse"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_010",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Må en taxichauffør afvise en kunde?",
+    "answer": "Kun i særlige situationer, fx hvis kunden er truende, stærkt beruset, ikke kan betale eller hvis turen er ulovlig eller sikkerhedsmæssigt uforsvarlig.",
+    "difficulty": "medium",
+    "tags": ["service", "afvisning"],
+    "deckId": "koerekortTaxaCards"
+  },
+
+  {
+    "id": "koerekort_taxa_011",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvad er formålet med taxameteret?",
+    "answer": "At registrere tid og distance korrekt og danne grundlag for en gennemsigtig og lovlig pris for kunden.",
+    "difficulty": "easy",
+    "tags": ["taxameter", "betaling"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_012",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvad skal chaufføren sikre, inden en tur på taxameter påbegyndes?",
+    "answer": "At taxameteret er nulstillet, korrekt indstillet på taksttype, og at kunden kender prisgrundlaget, fx ved zonetakst eller fast pris.",
+    "difficulty": "medium",
+    "tags": ["taxameter", "rutine"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_013",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvordan skal pengesager håndteres for at mindske risiko for røveri?",
+    "answer": "Begrænset kontantbeholdning, gerne elektronisk betaling, diskret håndtering af kontanter og opmærksomhed på mistænkelig adfærd.",
+    "difficulty": "medium",
+    "tags": ["sikkerhed", "røveri"],
+    "deckId": "koerekortTaxaCards"
+  },
+
+  {
+    "id": "koerekort_taxa_014",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvor må en taxa normalt holde standby mellem ture?",
+    "answer": "På anviste taxiholdepladser eller andre steder, hvor standsning er lovlig og ikke til ulempe for øvrig trafik.",
+    "difficulty": "easy",
+    "tags": ["taxiholdeplads", "standsning"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_015",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Må en taxa holde på busstoppested for at samle passager op?",
+    "answer": "Kun hvis det er kortvarigt og ikke hindrer busserne – men som hovedregel bør busstoppested undgås til taxikunder.",
+    "difficulty": "medium",
+    "tags": ["standsning", "busstoppested"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_016",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Må taxa køre i busbane?",
+    "answer": "I mange byer er taxa tilladt i busbaner, men det afhænger af lokal skiltning. Chaufføren skal altid følge de konkrete skilte.",
+    "difficulty": "medium",
+    "tags": ["busbane", "lokaleregler"],
+    "deckId": "koerekortTaxaCards"
+  },
+
+  {
+    "id": "koerekort_taxa_017",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvordan bør en chauffør køre i tæt bytrafik med sårbare passagerer (fx ældre eller syge)?",
+    "answer": "Roligt, med god afstand, lave accelerationer og blød bremsning, så risikoen for fald og skader minimeres.",
+    "difficulty": "easy",
+    "tags": ["defensiv kørsel", "bytrafik"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_018",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvad forstås ved defensiv kørsel for en taxichauffør?",
+    "answer": "At forudse andres fejl, holde ekstra sikkerhedsafstand, undgå unødvendige risici og give sig tid i stedet for at presse situationer.",
+    "difficulty": "medium",
+    "tags": ["defensiv kørsel", "sikkerhed"],
+    "deckId": "koerekortTaxaCards"
+  },
+
+  {
+    "id": "koerekort_taxa_019",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvorfor er det vigtigt ikke at bruge håndholdt mobiltelefon under taxikørsel?",
+    "answer": "Det nedsætter opmærksomheden, øger reaktionstiden og kan føre til ulykker – og er ulovligt.",
+    "difficulty": "easy",
+    "tags": ["mobiltelefon", "opmærksomhed"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_020",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvordan kan navigation anvendes sikkert under kørsel?",
+    "answer": "Ruten planlægges før start, skærmen placeres så den ikke blokerer udsynet, og ændringer foretages kun i stilstand eller via stemmestyring.",
+    "difficulty": "medium",
+    "tags": ["navigation", "sikkerhed"],
+    "deckId": "koerekortTaxaCards"
+  },
+
+  {
+    "id": "koerekort_taxa_021",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvad er god ergonomi for en taxichauffør?",
+    "answer": "Korrekt indstilling af sæde, rat og spejle, variation i siddestilling og pauser til at strække ben og ryg.",
+    "difficulty": "easy",
+    "tags": ["ergonomi", "arbejdsmiljø"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_022",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvordan kan du reducere stress i arbejdet som chauffør?",
+    "answer": "God tidsplanlægning, realistiske forventninger til antal ture, pauser, og at undgå at lade kunders stress smitte.",
+    "difficulty": "medium",
+    "tags": ["stress", "arbejdsmiljø"],
+    "deckId": "koerekortTaxaCards"
+  },
+
+  {
+    "id": "koerekort_taxa_023",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvilke oplysninger bør du indhente på forhånd ved sygetransport uden udrykning?",
+    "answer": "Adresse, patientens mobilitet, hjælpemidler, særlige hensyn (ilt, smerter, kvalme) og om ledsager deltager.",
+    "difficulty": "medium",
+    "tags": ["sygetransport", "planlægning"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_024",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvad skal du være opmærksom på ved transport af kørestolsbrugere?",
+    "answer": "Kørestol skal fastspændes med godkendt system, passager skal spændes med sele, og acceleration/bremsning skal være meget blid.",
+    "difficulty": "medium",
+    "tags": ["sygetransport", "kørestol"],
+    "deckId": "koerekortTaxaCards"
+  },
+
+  {
+    "id": "koerekort_taxa_025",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvordan bør du reagere, hvis passageren bliver akut dårlig under almindelig taxikørsel?",
+    "answer": "Stands forsvarligt, vurder ABC, ring 1-1-2 ved alvorlige symptomer og giv førstehjælp efter evne.",
+    "difficulty": "medium",
+    "tags": ["akut", "førstehjælp"],
+    "deckId": "koerekortTaxaCards"
+  },
+
+  {
+    "id": "koerekort_taxa_026",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvad er taxachaufførens ansvar ved færdselsuheld under kørsel med kunder?",
+    "answer": "Stoppe, sikre stedet, yde førstehjælp, tilkalde hjælp, udveksle oplysninger og tage hensyn til kundens videre transport.",
+    "difficulty": "medium",
+    "tags": ["uheld", "ansvar"],
+    "deckId": "koerekortTaxaCards"
+  },
+
+  {
+    "id": "koerekort_taxa_027",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvorfor er regelmæssig bilpleje og rengøring vigtig i taxa?",
+    "answer": "Det øger passagerkomfort, sikkerhed (fx rene ruder og spejle) og giver professionelt indtryk.",
+    "difficulty": "easy",
+    "tags": ["vedligehold", "service"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_028",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvilke daglige kontroller bør en taxachauffør mindst udføre før kørsel?",
+    "answer": "Kontrol af lys, bremser, dæk, olie- og kølevæskeniveau, ruder/spejle, sikkerhedsudstyr og taxameterets funktion.",
+    "difficulty": "medium",
+    "tags": ["vedligehold", "dagligt eftersyn"],
+    "deckId": "koerekortTaxaCards"
+  },
+
+  {
+    "id": "koerekort_taxa_029",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvordan påvirker aggressiv kørsel taxachaufførens arbejdsmiljø?",
+    "answer": "Det øger stressniveau, risiko for konflikter og ulykker samt giver dårlig kundetilfredshed.",
+    "difficulty": "medium",
+    "tags": ["adfærd", "stress"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_030",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvorfor er det vigtigt at kunne håndtere konflikter verbalt som chauffør?",
+    "answer": "God konflikthåndtering kan forhindre vold, hærværk og klagesager og skabe tryghed for både chauffør og passagerer.",
+    "difficulty": "hard",
+    "tags": ["konflikthåndtering", "kommunikation"],
+    "deckId": "koerekortTaxaCards"
+  },
+
+  {
+    "id": "koerekort_taxa_031",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvad betyder tavshedspligt i forhold til oplysninger om passagerer?",
+    "answer": "At du ikke må videregive fortrolige oplysninger om kundernes forhold eller destinationer uden lovligt grundlag.",
+    "difficulty": "medium",
+    "tags": ["etik", "tavshedspligt"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_032",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvordan skal du håndtere fundne effekter, som passagerer har glemt i taxaen?",
+    "answer": "Forsøge at kontakte kunden via bestillingskontoret og ellers aflevere effekter efter gældende regler, fx til politiet.",
+    "difficulty": "medium",
+    "tags": ["fundne effekter", "etik"],
+    "deckId": "koerekortTaxaCards"
+  },
+
+  {
+    "id": "koerekort_taxa_033",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvad betyder det, at taxikørsel er erhvervsmæssig personbefordring?",
+    "answer": "At personer transporteres mod betaling som led i et erhverv, med skærpede krav til uddannelse, udstyr og ansvar.",
+    "difficulty": "medium",
+    "tags": ["erhvervskørsel", "definition"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_034",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvordan kan du køre mere miljøvenligt som taxichauffør?",
+    "answer": "Jævn acceleration, undgå tomgang, korrekt dæktryk og brug af ECO-funktioner og ruteplanlægning.",
+    "difficulty": "easy",
+    "tags": ["miljø", "økonomisk kørsel"],
+    "deckId": "koerekortTaxaCards"
+  },
+
+  {
+    "id": "koerekort_taxa_035",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvad er risikoen ved langvarig tomgangskørsel ved ventetid?",
+    "answer": "Unødigt brændstofforbrug, øget luftforurening og støj samt unødvendigt slid på motoren.",
+    "difficulty": "medium",
+    "tags": ["miljø", "tomgang"],
+    "deckId": "koerekortTaxaCards"
+  },
+
+  {
+    "id": "koerekort_taxa_036",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvordan påvirker glat føre og regn din kørsel med passagerer?",
+    "answer": "Du skal sænke farten, øge bremselængden, undgå kraftige styreudslag og bremse jævnt for at undgå skrid.",
+    "difficulty": "medium",
+    "tags": ["vejgreb", "defensiv kørsel"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_037",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvad skal du være særlig opmærksom på ved kørsel med taxa i mørke?",
+    "answer": "Bløde trafikanter, dårligere afstandsbedømmelse, blænding og træthed. Brug korrekt lys og hold forrude ren.",
+    "difficulty": "medium",
+    "tags": ["mørkekørsel", "sikkerhed"],
+    "deckId": "koerekortTaxaCards"
+  },
+
+  {
+    "id": "koerekort_taxa_038",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvordan kan kendskab til lokalområdet øge sikkerhed og service i taxakørsel?",
+    "answer": "Kortere ruter, mindre stress, færre fejlkørsler og bedre evne til at vælge sikre steder til ind- og udstigning.",
+    "difficulty": "easy",
+    "tags": ["lokalkendskab", "service"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_039",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvad er formålet med videoovervågning i nogle taxaer?",
+    "answer": "At øge sikkerheden for chauffør og passager, samt dokumentere hændelser ved fx vold eller røveri, under iagttagelse af persondataregler.",
+    "difficulty": "medium",
+    "tags": ["overvågning", "sikkerhed"],
+    "deckId": "koerekortTaxaCards"
+  },
+
+  {
+    "id": "koerekort_taxa_040",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvad skal en chauffør gøre, hvis han vurderer sig selv for træt til at køre sikkert?",
+    "answer": "Stoppe med at køre, holde hvile, eventuelt aflevere bilen til anden chauffør og informere vagtcentral/arbejdsgiver.",
+    "difficulty": "medium",
+    "tags": ["træthed", "sikkerhed"],
+    "deckId": "koerekortTaxaCards"
+  },
+
+  {
+    "id": "koerekort_taxa_041",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvorfor er alkohol og medicin ekstra problematisk for professionelle chauffører?",
+    "answer": "Det øger ulykkesrisikoen kraftigt, og erhvervschauffører har skærpet ansvar og kan miste både kørekort og erhvervsgrundlag.",
+    "difficulty": "easy",
+    "tags": ["alkohol", "medicin"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_042",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvad skal du gøre, hvis du får mistanke om, at en passager er livstruende syg (fx brystsmerter og åndenød)?",
+    "answer": "Stand forsvarligt, ring 1-1-2, giv relevante oplysninger og begynd basal førstehjælp efter ABC-principperne.",
+    "difficulty": "medium",
+    "tags": ["akut", "førstehjælp"],
+    "deckId": "koerekortTaxaCards"
+  },
+
+  {
+    "id": "koerekort_taxa_043",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvorfor er det vigtigt, at taxien er teknisk lovlig, selvom den 'kører fint'?",
+    "answer": "Små tekniske fejl kan hurtigt udvikle sig til farlige situationer, og politiet kan give bøder og inddrage tilladelser.",
+    "difficulty": "medium",
+    "tags": ["lovlighed", "teknisk stand"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_044",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvilket udstyr er særligt vigtigt for kundernes tryghed i taxaen?",
+    "answer": "Funktionsdygtige låse, sikkerhedsseler, god belysning, tydelig identifikation af chauffør og mulighed for at betale sikkert.",
+    "difficulty": "medium",
+    "tags": ["sikkerhed", "udstyr"],
+    "deckId": "koerekortTaxaCards"
+  },
+
+  {
+    "id": "koerekort_taxa_045",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvordan bør du som chauffør reagere på diskriminerende ønsker fra kunder (fx 'kør ikke med X-gruppe')?",
+    "answer": "Du skal afvise diskriminerende ønsker og behandle alle kunder ligeværdigt inden for lovens rammer.",
+    "difficulty": "hard",
+    "tags": ["etik", "diskrimination"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_046",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvad betyder det, at en taxachauffør skal udvise 'særlig agtpågivenhed' ved skole- og institutionskørsel?",
+    "answer": "Ekstra lav hastighed, tydelig kommunikation, sikre børn under ind- og udstigning og skærpet opmærksomhed på uforudsigelig adfærd.",
+    "difficulty": "medium",
+    "tags": ["skolekørsel", "agtpågivenhed"],
+    "deckId": "koerekortTaxaCards"
+  },
+
+  {
+    "id": "koerekort_taxa_047",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvordan kan erfaring med ambulancekørsel være en fordel ved taxa- og patienttransport?",
+    "answer": "Man har erfaring med syge passagerer, ABC-vurdering, kommunikation i krise og samarbejde med sundhedsvæsenet.",
+    "difficulty": "medium",
+    "tags": ["ambulance", "overførbare kompetencer"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_048",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvad er fordelen ved at bruge checkliste eller rutine før hver vagt?",
+    "answer": "Man glemmer færre ting, opdager fejl i tide og skaber en sikker og professionel start på arbejdsdagen.",
+    "difficulty": "easy",
+    "tags": ["rutiner", "sikkerhed"],
+    "deckId": "koerekortTaxaCards"
+  },
+
+  {
+    "id": "koerekort_taxa_049",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvorfor er samarbejde med vagtcentral eller bestillingskontor vigtigt?",
+    "answer": "Det sikrer god fordeling af ture, hjælp ved uheld eller konflikter og ensartet kvalitet over for kunderne.",
+    "difficulty": "medium",
+    "tags": ["samarbejde", "organisation"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_050",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvad er en fordel ved at dokumentere hændelser kort efter, de sker?",
+    "answer": "Man husker detaljer bedre, hvilket kan være vigtigt ved klagesager, forsikringssager eller politianmeldelser.",
+    "difficulty": "medium",
+    "tags": ["dokumentation", "sager"],
+    "deckId": "koerekortTaxaCards"
+  },
+
+  {
+    "id": "koerekort_taxa_051",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvordan kan du som chauffør passe på din egen psykiske trivsel?",
+    "answer": "Tale med kolleger, bruge debriefing efter voldsomme hændelser, sætte grænser og søge professionel hjælp ved behov.",
+    "difficulty": "medium",
+    "tags": ["psykisk arbejdsmiljø", "trivsel"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_052",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvordan kan du som chauffør forebygge røveri?",
+    "answer": "Være opmærksom på mistænkelig adfærd, begrænse kontanter, vælge sikre stoppesteder og holde kontakt til central.",
+    "difficulty": "medium",
+    "tags": ["sikkerhed", "røveri"],
+    "deckId": "koerekortTaxaCards"
+  },
+
+  {
+    "id": "koerekort_taxa_053",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvad skal du gøre, hvis en passager bliver truende eller voldelig?",
+    "answer": "Forsøge at nedtrappe konflikten verbalt, standse et sikkert sted, undgå fysisk konfrontation og tilkalde politi.",
+    "difficulty": "hard",
+    "tags": ["konflikthåndtering", "vold"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_054",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvordan kan du bruge din erfaring som paramedicinstuderende i rollen som chauffør?",
+    "answer": "Bedre vurdering af syge passagerer, rolig kommunikation, struktureret observation og kendskab til sundhedsvæsenet.",
+    "difficulty": "medium",
+    "tags": ["ambulance", "kompetencer"],
+    "deckId": "koerekortTaxaCards"
+  },
+
+  {
+    "id": "koerekort_taxa_055",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvorfor er det vigtigt at kunne forklare ruten og prisen for kunden på en rolig og klar måde?",
+    "answer": "Det skaber tryghed, forebygger konflikter om pris og rute og udstråler professionalisme.",
+    "difficulty": "easy",
+    "tags": ["kommunikation", "service"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_056",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvordan kan du bedst støtte en ængstelig eller traumatiseret passager under kørsel?",
+    "answer": "Rolig kørsel, kort og tydelig kommunikation, mulighed for pauser, og at signalere kontrol og overskud.",
+    "difficulty": "medium",
+    "tags": ["psykologi", "passagerer"],
+    "deckId": "koerekortTaxaCards"
+  },
+
+  {
+    "id": "koerekort_taxa_057",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvornår er det særligt vigtigt at udvise ekstra hensyn til cyklister som taxachauffør?",
+    "answer": "Ved højresving, overhaling, kørsel langs parkerede biler og i mørke eller dårligt vejr.",
+    "difficulty": "medium",
+    "tags": ["cyklister", "hensyn"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_058",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvordan påvirker tung bagage og mange passagerer bilens køreegenskaber?",
+    "answer": "Længere bremselængde, ændret balance, større rullebevægelser og behov for lavere hastighed i sving.",
+    "difficulty": "medium",
+    "tags": ["last", "køreegenskaber"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_059",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvorfor er det vigtigt at sikre bagagen korrekt i bagagerum eller kabine?",
+    "answer": "Løst gods kan ved hård opbremsning ramme passagerer eller chauffør og forårsage alvorlig skade.",
+    "difficulty": "medium",
+    "tags": ["lastsikring", "passagersikkerhed"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "koerekort_taxa_060",
+    "subject": "Kørekort",
+    "topic": "Taxa/chauffør",
+    "question": "Hvordan kan erfaring som taxachauffør være en fordel ved ambulancekørsel?",
+    "answer": "Man får rutine i bykørsel, defensiv kørsel, kommunikation med patienter/passagerer og håndtering af stressede situationer.",
+    "difficulty": "medium",
+    "tags": ["ambulance", "erfaring"],
+    "deckId": "koerekortTaxaCards"
+  },
+  {
+    "id": "udrykning_001",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvad kræves for at et køretøj må udføre udrykningskørsel?",
+    "answer": "Det kræver både udrykningssignal (blå blink og horn) og en anerkendelsesværdig hastende opgave, jf. Færdselsloven §4 stk. 1.",
+    "difficulty": "easy",
+    "tags": ["lovgivning", "krav"],
+    "deckId": "udrykningCards"
+  },
+  {
+    "id": "udrykning_002",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvilke to typer signaler udgør et gyldigt udrykningssignal?",
+    "answer": "Blå blink og udrykningshorn.",
+    "difficulty": "easy",
+    "tags": ["signal", "blåblink"],
+    "deckId": "udrykningCards"
+  },
+  {
+    "id": "udrykning_003",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvornår må blå blink bruges uden horn?",
+    "answer": "Ved standsning eller parkering i forbindelse med en udrykningsopgave — ikke under selve fremkørslen.",
+    "difficulty": "medium",
+    "tags": ["blåblink"],
+    "deckId": "udrykningCards"
+  },
+  {
+    "id": "udrykning_004",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvornår vurderes en opgave som 'anerkendelsesværdigt hastende'?",
+    "answer": "Når forsinkelse kan medføre betydelig skade på personer, værdier eller samfundsfunktioner.",
+    "difficulty": "medium",
+    "tags": ["lovgivning"],
+    "deckId": "udrykningCards"
+  },
+  {
+    "id": "udrykning_005",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvad siger Færdselsloven om ansvar under udrykningskørsel?",
+    "answer": "Føreren er stadig ansvarlig for at køre med forsvarlig hensyntagen og undgå fare. Udrykningssignal fritager ikke for ansvar.",
+    "difficulty": "easy",
+    "tags": ["ansvar", "lovgivning"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_006",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvilke færdselsregler må fraviges under udrykningskørsel?",
+    "answer": "Hastighedsgrænser, rødt lys, vigepligt, overhaling, linjer — men kun hvis det kan gøres uden fare.",
+    "difficulty": "medium",
+    "tags": ["færdselsregler"],
+    "deckId": "udrykningCards"
+  },
+  {
+    "id": "udrykning_007",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvad er den største risiko ved at køre mod rødt under udrykning?",
+    "answer": "Tværgående trafik, der ikke har opdaget udrykningskøretøjet.",
+    "difficulty": "medium",
+    "tags": ["risiko", "kryds"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_008",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvordan håndteres et kryds med rødt lys under udrykning?",
+    "answer": "Nedsæt hastigheden markant, skab øjenkontakt med trafikanter, og kryds først når vejen er klar.",
+    "difficulty": "medium",
+    "tags": ["kryds", "teknik"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_009",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvornår bruges horn primært under udrykning?",
+    "answer": "Ved fremkørsel gennem kryds og når andre trafikanter ikke reagerer på blå blink.",
+    "difficulty": "easy",
+    "tags": ["horn"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_010",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvad er den største risikofaktor for ulykker med udrykningskøretøjer?",
+    "answer": "For høj hastighed i forhold til oversigtsforhold og forventede reaktioner.",
+    "difficulty": "medium",
+    "tags": ["risiko", "hastighed"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_011",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvordan bør en udrykningskører placere sig i tæt trafik?",
+    "answer": "Midt i vognbanen eller let mod midten for at signalere passagevej og give trafikanter klar retning.",
+    "difficulty": "medium",
+    "tags": ["teknik", "placering"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_012",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvordan reagerer ofte modkørende trafikanter på udrykningssignal?",
+    "answer": "De bliver i tvivl og kan bremse hårdt, trække til siden eller stoppe uhensigtsmæssigt.",
+    "difficulty": "hard",
+    "tags": ["trafikadfærd"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_013",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvorfor er kryds det farligste sted for udrykningskørsel?",
+    "answer": "Kryds samler mange trafikanter, med dårlig oversigt, flere konfliktszoner og uforudsigelige bevægelser.",
+    "difficulty": "hard",
+    "tags": ["kryds", "risiko"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_014",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvilken køreteknik er vigtig ved smalle veje under udrykning?",
+    "answer": "Hold lav hastighed, skab øjenkontakt, brug lydsignal og bevar flugtvej.",
+    "difficulty": "medium",
+    "tags": ["teknik", "smalvej"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_015",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvad er en 'flugtvej' i udrykningskørsel?",
+    "answer": "En planlagt retning eller mulighed for at undvige, hvis trafikanter reagerer uforudsigeligt.",
+    "difficulty": "easy",
+    "tags": ["teknik", "sikkerhed"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_016",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvorfor skal man aldrig overhale højre om i tæt trafik?",
+    "answer": "Bilister forventer kun overhaling venstre om og kan utilsigtet trække ind til højre.",
+    "difficulty": "medium",
+    "tags": ["overhaling"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_017",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvorfor bør man undgå at ligge meget tæt på forankørende under udrykning?",
+    "answer": "Det stresser trafikanterne og reducerer din egen reaktionstid og flugtvej.",
+    "difficulty": "medium",
+    "tags": ["afstand"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_018",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvordan påvirker sirene og lys andre trafikanter?",
+    "answer": "De kan blive stressede, usikre og foretage pludselige manøvrer.",
+    "difficulty": "easy",
+    "tags": ["adfærd", "psykologi"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_019",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvilken sirene bør anvendes i byzoner for bedst effekt?",
+    "answer": "Vekselfladende tone, der er lettere at retningsbestemme.",
+    "difficulty": "hard",
+    "tags": ["horn", "teknik"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_020",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvorfor bør man sænke hastigheden markant i vejkryds selv med fuldt udrykningssignal?",
+    "answer": "Fordi andre trafikanter stadig kan overse dig eller fejlfortolke situationen.",
+    "difficulty": "easy",
+    "tags": ["kryds", "hastighed"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_021",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvordan bør man passere et område med fodgængerfelt under udrykning?",
+    "answer": "Med lav hastighed, horn ved behov og først køre frem når feltet er tydeligt frit.",
+    "difficulty": "medium",
+    "tags": ["fodgænger", "teknik"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_022",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvorfor er busser og lastbiler særligt risikable at passere?",
+    "answer": "De kan skjule udsyn til fodgængere, cyklister og modkørende.",
+    "difficulty": "hard",
+    "tags": ["risiko", "udsyn"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_023",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvordan skal man forholde sig ved køkørsel på motorvej under udrykning?",
+    "answer": "Benyt midterstriben mellem vognbaner, reducer hastighed og brug lydsignal selektivt.",
+    "difficulty": "medium",
+    "tags": ["motorvej", "kø"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_024",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvad bør du altid forvente af andre trafikanter?",
+    "answer": "At de reagerer uforudsigeligt — selv når dit signal er tydeligt.",
+    "difficulty": "easy",
+    "tags": ["trafikadfærd"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_025",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvad betyder 'defensiv udrykningskørsel'?",
+    "answer": "At køre hurtigt, men med maksimal sikkerhed, marginer og forudseenhed.",
+    "difficulty": "medium",
+    "tags": ["køreteknik"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_026",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvorfor skal føreren undgå tunnelsyn under udrykning?",
+    "answer": "Høj stress og hastighed reducerer perifert syn, hvilket øger risikoen for ulykker.",
+    "difficulty": "hard",
+    "tags": ["psykologi", "risiko"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_027",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvordan bør en udrykningschauffør håndtere mørkekørsel?",
+    "answer": "Lavere hastighed, langsgående scanning, tidlig signalgivning og fokus på refleksioner.",
+    "difficulty": "medium",
+    "tags": ["mørke", "teknik"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_028",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvad er den vigtigste faktor ved kørsel i regn og våd asfalt?",
+    "answer": "Forlænget bremselængde og nedsat vejgreb kræver større afstand og lavere hastighed.",
+    "difficulty": "easy",
+    "tags": ["vejgreb", "vejr"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_029",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvorfor bruger man ofte 'punkt-opbremsning' ved udrykning?",
+    "answer": "For at teste vejgreb og sikre stabilitet før skarpe manøvrer.",
+    "difficulty": "hard",
+    "tags": ["teknik"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_030",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvad er den mest almindelige fejl blandt nye udrykningschauffører?",
+    "answer": "At køre for hurtigt i forhold til oversigtsforhold og situation.",
+    "difficulty": "easy",
+    "tags": ["fejl"],
+    "deckId": "udrykningCards"
+  },
+
+  /* ---- Questions 31–60 below ---- */
+
+  {
+    "id": "udrykning_031",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvornår skal blå blink slukkes?",
+    "answer": "Når køretøjet er ude af udrykningssituationen og ikke længere udfører en hastende opgave.",
+    "difficulty": "easy",
+    "tags": ["blåblink"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_032",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvornår må man benytte udrykningskørsel til privat kørsel?",
+    "answer": "Aldrig. Udrykningskørsel er kun tilladt i tjenstligt øjemed.",
+    "difficulty": "easy",
+    "tags": ["lovgivning"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_033",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvad er formålet med sirene i landområder?",
+    "answer": "At øge opmærksomhed på afstand, hvor blå blink kan være mindre synlige.",
+    "difficulty": "medium",
+    "tags": ["horn"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_034",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvordan takler man cyklister under udrykning?",
+    "answer": "Lav hastighed, tydeligt signal, god afstand og forventning om uforudsigelig adfærd.",
+    "difficulty": "medium",
+    "tags": ["cyklister"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_035",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvad er hensigtsmæssig placering ved overhaling på landevej under udrykning?",
+    "answer": "Langt til venstre i vognbanen for at skabe tydelig passagevej og bedre udsyn.",
+    "difficulty": "medium",
+    "tags": ["overhaling"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_036",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvad er den bedste strategi ved kø på landevej med kun én vognbane hver retning?",
+    "answer": "Forsigtig midterkørsel, lav hastighed og tydeligt signal.",
+    "difficulty": "hard",
+    "tags": ["kø"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_037",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvorfor bør man undgå at bruge lange hornsignaler konstant?",
+    "answer": "Det stresser trafikanter og kan skabe panikreaktioner.",
+    "difficulty": "medium",
+    "tags": ["horn"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_038",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvordan bør man reagere hvis en bilist blokerer din vej?",
+    "answer": "Reducer hastighed, hold afstand og brug korte, tydelige signaler.",
+    "difficulty": "easy",
+    "tags": ["adfærd"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_039",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvorfor er venstresving særlig risikabelt under udrykning?",
+    "answer": "Det krydser modkørende bane og kræver stort udsyn og lav hastighed.",
+    "difficulty": "hard",
+    "tags": ["sving"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_040",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvordan bør man køre i rundkørsler under udrykning?",
+    "answer": "Lav hastighed, kort hornsignal, bevare oversigt i alle retninger og være klar til stop.",
+    "difficulty": "medium",
+    "tags": ["rundkørsel"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_041",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvad er den vigtigste strategi ved kørsel bag en ambulancefører der lærlingekører?",
+    "answer": "Hold større afstand og undgå at presse føreren med lys eller lyd.",
+    "difficulty": "medium",
+    "tags": ["uddannelse"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_042",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvorfor bør man ikke bruge fjernlys under udrykning i by?",
+    "answer": "Det blænder trafikanter og gør det sværere at se blå blink.",
+    "difficulty": "easy",
+    "tags": ["lys"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_043",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvad er en 'visuel corridor' under udrykningskørsel?",
+    "answer": "Et kunstigt skabt mellemrum mellem biler, som giver passagevej ved signalgivning.",
+    "difficulty": "hard",
+    "tags": ["teknik"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_044",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvordan undgår man hydroplaning ved høj hastighed?",
+    "answer": "Lav hastighed i vandpytter, bløde ratbevægelser og undgå hårde opbremsninger.",
+    "difficulty": "medium",
+    "tags": ["vejgreb"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_045",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvordan bør man håndtere kørsel i sne og is?",
+    "answer": "Ekstrem lav hastighed, tidlig bremsning og stor afstand til andre trafikanter.",
+    "difficulty": "medium",
+    "tags": ["vejr"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_046",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvorfor er acceleration gennem kryds farligt?",
+    "answer": "Fordi eventuel modkørende trafik øges i risiko ved højere hastighed og dårligere reaktionstid.",
+    "difficulty": "hard",
+    "tags": ["kryds"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_047",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvad er formålet med 'scanning' under udrykning?",
+    "answer": "At opdage bevægelser, konflikter og blinde vinkler i god tid.",
+    "difficulty": "easy",
+    "tags": ["teknik"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_048",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvorfor bør man ikke bruge permanent sirene på motorvej?",
+    "answer": "Lyden forplanter sig dårligt og kan forvirre fremadkørende trafik.",
+    "difficulty": "medium",
+    "tags": ["horn"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_049",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvad er den korrekte fremgang ved passage af jernbaneoverskæring under udrykning?",
+    "answer": "Stop helt, tjek begge retninger og kør kun frem ved fuld visuel sikkerhed.",
+    "difficulty": "hard",
+    "tags": ["jernbane"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_050",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvordan bør man håndtere rundkørsler med flere spor?",
+    "answer": "Ekstra lav hastighed, altid forvent modkørende i eget spor og signalgivning før indkørsel.",
+    "difficulty": "hard",
+    "tags": ["rundkørsel"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_051",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvorfor er udrykning i boligområder særligt risikabel?",
+    "answer": "Mange blinde vinkler, parkerede biler, børn og cyklister gør reaktionstiden minimal.",
+    "difficulty": "medium",
+    "tags": ["risiko"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_052",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvornår må man standse på cykelsti under udrykning?",
+    "answer": "Når det er nødvendigt for opgaven, og man ikke skaber fare.",
+    "difficulty": "medium",
+    "tags": ["cykelsti", "standsning"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_053",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvad er formålet med 'udrykningsbremsning'?",
+    "answer": "At kontrollere stabilitet og maksimere greb uden at miste kontrol under høj belastning.",
+    "difficulty": "hard",
+    "tags": ["bremse"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_054",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvornår er det acceptabelt at køre forbi en lastbil højre om under udrykning?",
+    "answer": "Kun i helt stille kø med meget lav hastighed og fuldt udsyn—ellers aldrig.",
+    "difficulty": "hard",
+    "tags": ["overhaling"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_055",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvorfor bør udrykningskørsel aldrig udføres aggressivt?",
+    "answer": "Aggressiv kørsel skaber panikreaktioner og øger risiko for ulykker markant.",
+    "difficulty": "easy",
+    "tags": ["sikkerhed"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_056",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvad bør man gøre, hvis GPS'en sender dig ind i et område med vejarbejde?",
+    "answer": "Slå GPS fra, brug egen vurdering og vælg den sikreste alternative rute.",
+    "difficulty": "medium",
+    "tags": ["navigation"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_057",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvorfor er det vigtigt at kommunikere med makker under udrykning?",
+    "answer": "Makker kan overvåge trafik, støtte beslutninger og opdage farer før føreren.",
+    "difficulty": "easy",
+    "tags": ["kommunikation"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_058",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvad er den typiske fejl hos bilister, der vil hjælpe udrykningskøretøjer?",
+    "answer": "De standser midt i vejen eller trækker pludseligt til siden uden orientering.",
+    "difficulty": "easy",
+    "tags": ["trafikadfærd"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_059",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvordan bør du passere en skolezone under udrykning?",
+    "answer": "Meget lav hastighed, scanning efter børn og maksimal forsigtighed.",
+    "difficulty": "medium",
+    "tags": ["skolezone"],
+    "deckId": "udrykningCards"
+  },
+
+  {
+    "id": "udrykning_060",
+    "subject": "Kørekort",
+    "topic": "Udrykningskørsel",
+    "question": "Hvad er grundreglen for udrykningskørsel ifølge dansk lov?",
+    "answer": "Udrykningssignal giver tilladelse til at fravige regler — men aldrig til at bringe andre i fare.",
+    "difficulty": "easy",
+    "tags": ["lovgivning", "grundregel"],
+    "deckId": "udrykningCards"
+  }
+]
