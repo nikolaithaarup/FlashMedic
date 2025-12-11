@@ -17,6 +17,11 @@ import {
   View,
   useWindowDimensions,
 } from "react-native";
+import {
+  loadStoredProfile,
+  saveStoredProfile,
+  type StoredUserProfile,
+} from "../src/services/userService";
 
 import { ekgImageLookup } from "../src/data/ekg/imageLookup";
 import { loadStats, saveStats, updateStatsForCard } from "../src/storage/stats";
@@ -60,6 +65,7 @@ type TopicGroup = {
 };
 
 type UserProfile = {
+  userId: string | null; // NEW
   nickname: string;
   classId: number | null;
   isAnonymous: boolean;
@@ -97,6 +103,8 @@ const APP_ID = "FlashMedic";
 const SUPPORT_EMAIL = "nikolai_91@live.com";
 
 const APP_LOGO = require("../assets/her-icon.png");
+
+const API_BASE_URL = "https://flashmedic-backend.onrender.com";
 
 // ---------- Helpers ----------
 
@@ -263,11 +271,29 @@ export default function Index() {
   const questionFont = 22 * scale;
   const answerFont = 17 * scale;
 
-  // -------- Initial anonymous profile --------
+  // -------- Load profile from storage or create anonymous --------
   useEffect(() => {
-    if (!profile) {
+    (async () => {
+      // Try to load a stored profile (with userId etc.)
+      const stored = await loadStoredProfile();
+
+      if (stored) {
+        const loadedProfile: UserProfile = {
+          userId: stored.userId,
+          nickname: stored.nickname,
+          classId: stored.classId,
+          isAnonymous: stored.isAnonymous,
+        };
+        setProfile(loadedProfile);
+        setProfileEditNickname(loadedProfile.nickname);
+        setProfileEditClassId(loadedProfile.classId);
+        return;
+      }
+
+      // No stored profile → create local anonymous one (no backend id yet)
       const randomId = Math.floor(1000 + Math.random() * 9000);
       const anon: UserProfile = {
+        userId: null,
         nickname: `Bruger${randomId}`,
         classId: null,
         isAnonymous: true,
@@ -275,8 +301,17 @@ export default function Index() {
       setProfile(anon);
       setProfileEditNickname(anon.nickname);
       setProfileEditClassId(anon.classId);
-    }
-  }, [profile]);
+
+      // Also store this anonymous profile so it sticks across sessions
+      const storedAnon: StoredUserProfile = {
+        userId: null,
+        nickname: anon.nickname,
+        classId: anon.classId,
+        isAnonymous: true,
+      };
+      await saveStoredProfile(storedAnon);
+    })();
+  }, []);
 
   // When entering profile screen, sync edit fields with current profile
   useEffect(() => {
@@ -307,8 +342,6 @@ export default function Index() {
       try {
         setLoadError(null);
         setLoadingCards(true);
-
-        const API_BASE_URL = "https://flashmedic-backend.onrender.com";
 
         const res = await fetch(`${API_BASE_URL}/flashcards/all`);
 
@@ -637,8 +670,6 @@ export default function Index() {
     }
 
     try {
-      const API_BASE_URL = "https://flashmedic-backend.onrender.com";
-
       const res = await fetch(`${API_BASE_URL}/contact/send`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -1496,17 +1527,64 @@ export default function Index() {
 
   // PROFILE
   if (screen === "profile") {
-    const saveProfile = () => {
-      if (!profileEditNickname.trim()) {
+    const saveProfile = async () => {
+      const nickname = profileEditNickname.trim();
+
+      if (!nickname) {
         Alert.alert("Navn mangler", "Vælg et kaldenavn.");
         return;
       }
-      setProfile({
-        nickname: profileEditNickname.trim(),
-        classId: profileEditClassId,
-        isAnonymous: false,
-      });
-      setScreen("home");
+
+      try {
+        let userId = profile?.userId ?? null;
+
+        // If we don't yet have a backend user, register one
+        if (!userId) {
+          const result = await registerUserOnBackend(nickname, profileEditClassId);
+          userId = result.userId;
+        }
+
+        const newProfile: UserProfile = {
+          userId,
+          nickname,
+          classId: profileEditClassId,
+          isAnonymous: false,
+        };
+
+        setProfile(newProfile);
+
+        const stored: StoredUserProfile = {
+          userId,
+          nickname,
+          classId: profileEditClassId,
+          isAnonymous: false,
+        };
+        await saveStoredProfile(stored);
+
+        setScreen("home");
+      } catch (err) {
+        console.error(err);
+        Alert.alert(
+          "Fejl",
+          "Kunne ikke gemme profil på serveren. Tjek netværket og prøv igen. Din lokale profil er stadig gemt.",
+        );
+
+        // Fallback: at least store locally without userId
+        const fallbackProfile: UserProfile = {
+          userId: profile?.userId ?? null,
+          nickname,
+          classId: profileEditClassId,
+          isAnonymous: false,
+        };
+        setProfile(fallbackProfile);
+        const stored: StoredUserProfile = {
+          userId: fallbackProfile.userId,
+          nickname,
+          classId: profileEditClassId,
+          isAnonymous: false,
+        };
+        await saveStoredProfile(stored);
+      }
     };
 
     return (

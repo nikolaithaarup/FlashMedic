@@ -3,13 +3,13 @@ import express from "express";
 import fs from "fs";
 import path from "path";
 import contactRoutes from "./routes/contact";
+import { createUser, findUserById } from "./userStore";
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 app.use("/contact", contactRoutes);
-
 
 // ---------- Helpers ----------
 
@@ -22,9 +22,21 @@ function loadAllCards() {
 
   for (const file of files) {
     const fullPath = path.join(subjectsDir, file);
-    const content = JSON.parse(fs.readFileSync(fullPath, "utf8"));
-    if (Array.isArray(content)) {
-      allCards = allCards.concat(content);
+
+    try {
+      const raw = fs.readFileSync(fullPath, "utf8");
+      const content = JSON.parse(raw);
+
+      if (Array.isArray(content)) {
+        allCards = allCards.concat(content);
+      } else {
+        // Non-array JSON is just ignored for flashcards
+        console.log(`Skipping non-array JSON file: ${file}`);
+      }
+    } catch (err) {
+      console.error("Failed to parse JSON file:", fullPath, err);
+      // Re-throw so Express still returns 500 (but now with a useful log)
+      throw err;
     }
   }
 
@@ -100,6 +112,41 @@ app.get("/weekly-challenges/current", (_req, res) => {
     return res.status(404).json({ error: "Ingen weekly challenge sat endnu." });
   }
   return res.json(weekly);
+});
+
+// ---------- Profiles / users ----------
+
+// Register a new user profile
+app.post("/profiles/register", (req, res) => {
+  const { nickname, classLabel } = req.body || {};
+
+  if (!nickname || typeof nickname !== "string") {
+    return res.status(400).json({ error: "nickname is required" });
+  }
+
+  const user = createUser(
+    String(nickname).trim(),
+    classLabel ? String(classLabel).trim() : undefined,
+  );
+
+  return res.json({
+    userId: user.id,
+    nickname: user.nickname,
+    classLabel: user.classLabel ?? null,
+  });
+});
+
+// Get existing user (mainly for debugging)
+app.get("/profiles/:id", (req, res) => {
+  const user = findUserById(req.params.id);
+  if (!user) return res.status(404).json({ error: "User not found" });
+
+  return res.json({
+    userId: user.id,
+    nickname: user.nickname,
+    classLabel: user.classLabel ?? null,
+    createdAt: user.createdAt,
+  });
 });
 
 // ---------- Start server ----------
