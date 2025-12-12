@@ -339,39 +339,51 @@ export default function Index() {
     let cancelled = false;
 
     async function loadFromBackend() {
-      try {
-        setLoadError(null);
-        setLoadingCards(true);
+  try {
+    setLoadError(null);
+    setLoadingCards(true);
 
-        const res = await fetch(`${API_BASE_URL}/flashcards/all`);
+    const res = await fetch(`${API_BASE_URL}/flashcards/all`);
 
-        const text = await res.text(); // read raw text first
-        console.log("FLASHCARDS RAW RESPONSE", text);
+    const text = await res.text();
+    console.log("FLASHCARDS RAW RESPONSE", text);
 
-        const data = JSON.parse(text);
-
-        const rawCards = Array.isArray(data) ? data : data.cards ?? [];
-
-        const hydrated: Flashcard[] = rawCards.map((c: any) => {
-          if (c.imageKey && ekgImageLookup[c.imageKey]) {
-            return { ...c, image: ekgImageLookup[c.imageKey] };
-          }
-          return c;
-        });
-
-        if (!cancelled) {
-          setCards(hydrated);
-          setLoadingCards(false);
-          setLoadError(null);
-        }
-      } catch (err) {
-        console.error("Failed to fetch flashcards", err);
-        if (!cancelled) {
-          setLoadError("Kunne ikke hente flashcards fra serveren.");
-          setLoadingCards(false);
-        }
-      }
+    if (!res.ok) {
+      // Backend returned error (like 500) – don't try to JSON.parse HTML
+      setLoadError("Serverfejl: kunne ikke hente flashcards (status " + res.status + ").");
+      setLoadingCards(false);
+      return;
     }
+
+    let data: any;
+    try {
+      data = JSON.parse(text);
+    } catch (e) {
+      console.error("Failed to parse flashcards JSON", e);
+      setLoadError("Kunne ikke læse flashcards-data fra serveren.");
+      setLoadingCards(false);
+      return;
+    }
+
+    const rawCards = Array.isArray(data) ? data : data.cards ?? [];
+
+    const hydrated: Flashcard[] = rawCards.map((c: any) => {
+      if (c.imageKey && ekgImageLookup[c.imageKey]) {
+        return { ...c, image: ekgImageLookup[c.imageKey] };
+      }
+      return c;
+    });
+
+    setCards(hydrated);
+    setLoadingCards(false);
+    setLoadError(null);
+  } catch (err) {
+    console.error("Failed to fetch flashcards", err);
+    setLoadError("Kunne ikke hente flashcards fra serveren.");
+    setLoadingCards(false);
+  }
+}
+
 
     loadFromBackend();
 
