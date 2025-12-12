@@ -162,3 +162,12 @@ const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => {
   console.log(`FlashMedic backend listening on port ${PORT}`);
 });
+
+app.use((err: any, _req: any, res: any, _next: any) => {
+  console.error("UNHANDLED ERROR:", err);
+  return res.status(500).json({
+    error: "Internal Server Error",
+    message: err?.message ?? String(err),
+    stack: err?.stack ?? null,
+  });
+});
