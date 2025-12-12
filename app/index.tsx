@@ -1134,6 +1134,33 @@ export default function Index() {
               </Text>
             </Pressable>
           </View>
+<View
+  style={[
+    styles.statsCard,
+    {
+      marginTop: 14,
+      marginBottom: 14,
+      alignSelf: "stretch",
+      backgroundColor: "rgba(0,0,0,0.12)",
+    },
+  ]}
+>
+  <Text style={[styles.statsSectionTitle, { color: "#f8f9fa" }]}>
+    Sådan bruger du Flashcards
+  </Text>
+
+  <Text style={[styles.statsLabel, { color: "#e9ecef", marginTop: 8, lineHeight: 20 }]}>
+    • Vælg et fag for at se emner og underemner.{"\n"}
+    • Vælg ét eller flere emner (eller tryk “Vælg alle”).{"\n"}
+    • Start en quiz – du får spørgsmål fra de valgte emner.{"\n"}
+    • Under quizzen: “Jeg kunne den” = tæller korrekt. “Jeg kunne den ikke” = kortet kommer igen.
+  </Text>
+
+  <Text style={[styles.statsLabel, { color: "#e9ecef", marginTop: 10, lineHeight: 20 }]}>
+    Tip: Hvis du vil træne bredt, så vælg alle emner. Hvis du crammer til skole (vi dømmer ikke), så vælg
+    et enkelt underemne.
+  </Text>
+</View>
 
           <View style={styles.subjectGrid}>
             {subjects.map((subject) => (

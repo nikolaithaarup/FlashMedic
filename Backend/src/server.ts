@@ -5,6 +5,7 @@ import path from "path";
 import contactRoutes from "./routes/contact";
 import { createUser, findUserById } from "./userStore";
 
+
 const app = express();
 
 app.use(cors());
@@ -158,6 +159,33 @@ app.get("/profiles/:id", (req, res) => {
     classLabel: user.classLabel ?? null,
     createdAt: user.createdAt,
   });
+});
+
+// ---------- Profiles / users ----------
+
+// Create/register a user profile
+app.post("/profiles/register", (req, res) => {
+  const { nickname, classLabel } = req.body || {};
+
+  if (!nickname || typeof nickname !== "string") {
+    return res.status(400).json({ error: "nickname is required" });
+  }
+
+  const user = createUser(nickname.trim(), typeof classLabel === "string" ? classLabel.trim() : undefined);
+
+  return res.json({
+    userId: user.id,
+    nickname: user.nickname,
+    classLabel: user.classLabel ?? null,
+  });
+});
+
+// Fetch a profile (debug / later use)
+app.get("/profiles/:id", (req, res) => {
+  const user = findUserById(req.params.id);
+  if (!user) return res.status(404).json({ error: "User not found" });
+
+  return res.json(user);
 });
 
 // ---------- Start server ----------
