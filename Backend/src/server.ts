@@ -21,8 +21,13 @@ app.use("/contact", contactRoutes);
 // Load ALL cards from data/subjects
 function loadAllCards() {
   const subjectsDir = path.join(__dirname, "..", "data", "subjects");
-  const files = fs.readdirSync(subjectsDir).filter((f) => f.endsWith(".json"));
 
+  if (!fs.existsSync(subjectsDir)) {
+    console.error("Subjects directory does not exist:", subjectsDir);
+    return [];
+  }
+
+  const files = fs.readdirSync(subjectsDir).filter((f) => f.endsWith(".json"));
   let allCards: any[] = [];
 
   for (const file of files) {
@@ -35,18 +40,18 @@ function loadAllCards() {
       if (Array.isArray(content)) {
         allCards = allCards.concat(content);
       } else {
-        // Non-array JSON is just ignored for flashcards
-        console.log(`Skipping non-array JSON file: ${file}`);
+        console.warn(`Skipping ${file}: not an array`);
       }
     } catch (err) {
-      console.error("Failed to parse JSON file:", fullPath, err);
-      // Re-throw so Express still returns 500 (but now with a useful log)
-      throw err;
+      console.error(`Skipping invalid JSON file: ${file}`, err);
+      // IMPORTANT: continue instead of crashing
+      continue;
     }
   }
 
   return allCards;
 }
+
 
 
 // Load current weekly challenge from JSON file (if present)
@@ -163,11 +168,3 @@ app.listen(PORT, () => {
   console.log(`FlashMedic backend listening on port ${PORT}`);
 });
 
-app.use((err: any, _req: any, res: any, _next: any) => {
-  console.error("UNHANDLED ERROR:", err);
-  return res.status(500).json({
-    error: "Internal Server Error",
-    message: err?.message ?? String(err),
-    stack: err?.stack ?? null,
-  });
-});
