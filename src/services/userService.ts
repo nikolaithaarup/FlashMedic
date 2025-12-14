@@ -1,34 +1,30 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const USER_PROFILE_KEY = "flashmedic_profile";
-const API_BASE_URL = "https://flashmedic-backend.onrender.com";
-
 export type StoredUserProfile = {
-  userId: string | null; // null before registering
+  userId: string | null;
   nickname: string;
   classId: number | null;
   isAnonymous: boolean;
 };
 
+const PROFILE_KEY = "flashmedic_profile";
+const API_BASE_URL = "https://flashmedic-backend.onrender.com";
+
 export async function loadStoredProfile(): Promise<StoredUserProfile | null> {
-  const json = await AsyncStorage.getItem(USER_PROFILE_KEY);
+  const json = await AsyncStorage.getItem(PROFILE_KEY);
   if (!json) return null;
   try {
-    return JSON.parse(json) as StoredUserProfile;
+    return JSON.parse(json);
   } catch {
     return null;
   }
 }
 
-export async function saveStoredProfile(profile: StoredUserProfile): Promise<void> {
-  await AsyncStorage.setItem(USER_PROFILE_KEY, JSON.stringify(profile));
+export async function saveStoredProfile(p: StoredUserProfile): Promise<void> {
+  await AsyncStorage.setItem(PROFILE_KEY, JSON.stringify(p));
 }
 
-// Call this when the user chooses nickname/class and we want a real backend id
-export async function registerUserOnBackend(
-  nickname: string,
-  classId: number | null,
-): Promise<{ userId: string }> {
+export async function registerProfileOnBackend(nickname: string, classId: number | null) {
   const classLabel = classId ? `Behandler ${classId}` : undefined;
 
   const res = await fetch(`${API_BASE_URL}/profiles/register`, {
@@ -37,10 +33,9 @@ export async function registerUserOnBackend(
     body: JSON.stringify({ nickname, classLabel }),
   });
 
-  if (!res.ok) {
-    throw new Error("Failed to register user on backend");
-  }
+  const text = await res.text();
+  if (!res.ok) throw new Error(text || "Failed to register profile");
 
-  const data = await res.json();
+  const data = JSON.parse(text);
   return { userId: data.userId as string };
 }

@@ -6,6 +6,14 @@ import { Alert, Modal, Pressable, ScrollView, Text, View } from "react-native";
 
 import { styles } from "../../../app/flashmedicStyles";
 
+import { useWeeklyLock } from "./useWeeklyLock";
+
+import { saveWeeklyResult } from "../../services/weeklyResultsService";
+
+import { auth } from "../../firebase/firebase";
+
+
+
 // ---------- Types & data ----------
 
 export type WeeklyMcqOption = {
@@ -241,6 +249,8 @@ export function WeeklyMcqScreen({
   const questionNumber = index + 1;
   const timeLabel = formatSeconds(secondsLeft);
   const playerRank = 15; // placeholder til backend
+  const { locked, loaded, lock } = useWeeklyLock("weekly_lock_mcq");
+
 
   // keep options shuffled per question
   useEffect(() => {
@@ -386,38 +396,49 @@ export function WeeklyMcqScreen({
     }
   };
 
-  const handleNext = () => {
-    const nextIndex = index + 1;
+const handleNext = async () => {
+  const nextIndex = index + 1;
 
-    if (nextIndex >= totalQuestions) {
-      // done – tell parent to lock MCQ for this week
-      setStarted(false);
-      setFinished(true);
-      setShowFeedback(false);
-      setSelectedId(null);
-      setSecondsLeft(WEEKLY_MCQ_TIME_LIMIT);
-      setWeeklyMcqLocked(true);
-      setShowResults(true);
-      return;
-    }
+if (nextIndex >= totalQuestions) {
+  setStarted(false);
+  setFinished(true);
+  setShowFeedback(false);
+  setSelectedId(null);
+  setSecondsLeft(WEEKLY_MCQ_TIME_LIMIT);
+  setWeeklyMcqLocked(true);
+  setShowResults(true);
 
-    setIndex(nextIndex);
-    setSelectedId(null);
-    setShowFeedback(false);
-    setLastPoints(0);
-    setSecondsLeft(WEEKLY_MCQ_TIME_LIMIT);
-    setTimerRunning(true);
-  };
+  try {
+    await saveWeeklyResult({
+      uid: auth.currentUser!.uid,
+      nickname: profileNickname ?? "Ukendt",
+      mcqScore: score,
+    });
+  } catch (err) {
+    console.error("Failed to save MCQ weekly result", err);
+  }
 
-  const handleCloseResults = () => {
-    setShowResults(false);
-    setFinished(true);
-    setStarted(false);
-    setSelectedId(null);
-    setShowFeedback(false);
-    setSecondsLeft(WEEKLY_MCQ_TIME_LIMIT);
-    onBack();
-  };
+  return;
+}
+
+
+  setIndex(nextIndex);
+  setSelectedId(null);
+  setShowFeedback(false);
+  setLastPoints(0);
+  setSecondsLeft(WEEKLY_MCQ_TIME_LIMIT);
+  setTimerRunning(true);
+};
+
+const handleCloseResults = () => {
+  setShowResults(false);
+  setFinished(true);
+  setStarted(false);
+  setSelectedId(null);
+  setShowFeedback(false);
+  setSecondsLeft(WEEKLY_MCQ_TIME_LIMIT);
+  onBack();
+};
 
   // ---------- Render ----------
 

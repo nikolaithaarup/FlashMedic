@@ -1,11 +1,11 @@
 // src/features/weekly/WeeklyHomeScreen.tsx
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useEffect } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
 
-// adjust this path if your styles file lives somewhere else
 import { styles } from "../../../app/flashmedicStyles";
+import { useStats } from "../stats/StatsContext";
 
 type WeeklyHomeScreenProps = {
   headingFont: number;
@@ -32,6 +32,19 @@ export function WeeklyHomeScreen({
   onOpenMatch,
   onOpenWord,
 }: WeeklyHomeScreenProps) {
+  const { weeklyGlobal, loadingWeekly, refreshWeeklyGlobal } = useStats();
+
+  // Fetch weekly global stats when this screen mounts
+  useEffect(() => {
+    // avoid spamming if it already exists
+    if (!weeklyGlobal) refreshWeeklyGlobal();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const weekId = weeklyGlobal?.week?.weekId ?? null;
+  const top10 = weeklyGlobal?.leaderboard ?? [];
+  const topics = weeklyGlobal?.week?.topics ?? null;
+
   return (
     <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
       <StatusBar style="light" />
@@ -64,6 +77,54 @@ export function WeeklyHomeScreen({
         >
           Ugens spiltyper – frit valg, én gang pr. spil når backend er klar.
         </Text>
+
+        {/* ✅ Global weekly leaderboard card */}
+        <View style={[styles.statsCard, { alignSelf: "stretch", marginTop: 14 }]}>
+          <View style={styles.headerRow}>
+            <Text style={styles.statsSectionTitle}>
+              Global statistik – Weekly Challenge{weekId ? ` (${weekId})` : ""}
+            </Text>
+
+            <Pressable
+              style={[styles.smallButton, { borderColor: "#dee2e6" }]}
+              onPress={refreshWeeklyGlobal}
+              disabled={loadingWeekly}
+            >
+              <Text style={[styles.smallButtonText, { color: "#343a40" }]}>
+                {loadingWeekly ? "..." : "Opdatér"}
+              </Text>
+            </Pressable>
+          </View>
+
+          {loadingWeekly ? (
+            <Text style={[styles.statsLabel, { marginTop: 8 }]}>Henter leaderboard…</Text>
+          ) : top10.length === 0 ? (
+            <Text style={[styles.statsLabel, { marginTop: 8 }]}>Ingen data endnu.</Text>
+          ) : (
+            top10.slice(0, 5).map((r: any, i: number) => (
+              <View key={r.userId ?? String(i)} style={styles.statsRankRow}>
+                <Text style={styles.statsRankPosition}>{i + 1}.</Text>
+                <Text style={styles.statsRankName}>
+                  {r.nickname}
+                  {r.classId ? (
+                    <Text style={styles.statsRankClass}> · Behandler {r.classId}</Text>
+                  ) : null}
+                </Text>
+                <Text style={styles.statsRankScore}>{r.points} pts</Text>
+              </View>
+            ))
+          )}
+
+          {/* Optional: show topics from the active week */}
+          {topics ? (
+            <Text style={[styles.statsLabel, { marginTop: 12 }]}>
+              Ugens emner:{"\n"}
+              • MCQ: {topics.mcq ?? "—"}{"\n"}
+              • Match: {topics.match ?? "—"}{"\n"}
+              • Word: {topics.word ?? "—"}
+            </Text>
+          ) : null}
+        </View>
 
         <View style={styles.homeButtonsContainer}>
           {/* MCQ */}
@@ -100,4 +161,5 @@ export function WeeklyHomeScreen({
     </LinearGradient>
   );
 }
+
 export default WeeklyHomeScreen;

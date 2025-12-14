@@ -20,12 +20,18 @@ import {
 import {
   loadStoredProfile,
   saveStoredProfile,
-  type StoredUserProfile,
+  type StoredUserProfile
 } from "../src/services/userService";
 
 import { ekgImageLookup } from "../src/data/ekg/imageLookup";
-import { loadStats, saveStats, updateStatsForCard } from "../src/storage/stats";
 import type { Difficulty, Flashcard } from "../src/types/Flashcard";
+
+import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
+import { auth } from "../src/firebase/firebase";
+
+import { useStats } from "../src/features/stats/StatsContext";
+import { getPersonalTotals } from "../src/features/stats/statsSelectors";
+
 
 import WeeklyHomeScreen from "../src/features/weekly/WeeklyHomeScreen";
 import WeeklyMatchScreen from "../src/features/weekly/WeeklyMatchScreen";
@@ -65,11 +71,36 @@ type TopicGroup = {
 };
 
 type UserProfile = {
-  userId: string | null; // NEW
+  userId: string | null;
   nickname: string;
-  classId: number | null;
+
+  role: UserRole | null;
+  gender: Gender | null;
+  region: Region | null;
+
+  classId: number | null; // only relevant if role === "student"
   isAnonymous: boolean;
 };
+
+
+type UserRole =
+  | "student"
+  | "ambulancebehandler"
+  | "paramediciner"
+  | "laegeassistent";
+
+type Gender =
+  | "male"
+  | "female"
+  | "not_specified";
+
+type Region =
+  | "hovedstaden"
+  | "sjaelland"
+  | "syddanmark"
+  | "midtjylland"
+  | "nordjylland"
+  | "oestdanmark";
 
 type DrugCalcQuestion = {
   id: number;
@@ -138,9 +169,13 @@ function scoreCardForQuiz(card: Flashcard, stats: StatsMap): number {
   return accuracy + s.seen * 0.05;
 }
 
-const BEHANDLER_CLASSES = Array.from({ length: 30 - 14 + 1 }, (_, i) => 14 + i).map(
-  (n) => `Behandler ${n}`,
+const MAX_STUDENT_CLASS = 60;
+
+const STUDENT_CLASSES = Array.from(
+  { length: MAX_STUDENT_CLASS },
+  (_, i) => i + 1
 );
+
 
 const WEEKLY_WORD_TIME_LIMIT = 30; // sekunder
 
@@ -221,9 +256,32 @@ export default function Index() {
   const [screen, setScreen] = useState<Screen>("home");
   const [profile, setProfile] = useState<UserProfile | null>(null);
 
+  const classLabel = useMemo(() => {
+  if (!profile?.classId) return "";
+  return `Behandler ${profile.classId}`;
+}, [profile]);
+
+const {
+  personalStats,
+  markCard,
+  resetPersonalStats,
+  weeklyGlobal,
+  loadingWeekly,
+  refreshWeeklyGlobal,
+} = useStats();
+
+const { totalSeen, totalCorrect, totalIncorrect, accuracy } = useMemo(
+  () => getPersonalTotals(personalStats),
+  [personalStats]
+);
+
   // Profile edit state (must be top-level hooks!)
   const [profileEditNickname, setProfileEditNickname] = useState("");
   const [profileEditClassId, setProfileEditClassId] = useState<number | null>(null);
+  const [profileEditRole, setProfileEditRole] = useState<UserRole | null>(null);
+  const [profileEditGender, setProfileEditGender] = useState<Gender | null>(null);
+  const [profileEditRegion, setProfileEditRegion] = useState<Region | null>(null);
+
 
   // -------- Subject selection --------
   const [selectedSubject, setSelectedSubject] = useState<string | null>(null);
@@ -238,9 +296,6 @@ export default function Index() {
   // -------- Image modal --------
   const [imageModalVisible, setImageModalVisible] = useState(false);
   const [imageSize, setImageSize] = useState<{ width: number; height: number } | null>(null);
-
-  // -------- Stats --------
-  const [stats, setStats] = useState<StatsMap>({});
 
   // -------- Drug calc state --------
   const [currentDrugQuestion, setCurrentDrugQuestion] = useState<DrugCalcQuestion | null>(null);
@@ -293,11 +348,15 @@ export default function Index() {
       // No stored profile → create local anonymous one (no backend id yet)
       const randomId = Math.floor(1000 + Math.random() * 9000);
       const anon: UserProfile = {
-        userId: null,
-        nickname: `Bruger${randomId}`,
-        classId: null,
-        isAnonymous: true,
-      };
+  userId: null,
+  nickname: `Bruger${randomId}`,
+  role: null,
+  gender: null,
+  region: null,
+  classId: null,
+  isAnonymous: true,
+};
+
       setProfile(anon);
       setProfileEditNickname(anon.nickname);
       setProfileEditClassId(anon.classId);
@@ -313,26 +372,52 @@ export default function Index() {
     })();
   }, []);
 
+// 🔐 Firebase Auth bootstrap
+useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      try {
+        await signInAnonymously(auth);
+      } catch (e) {
+        console.error("Anonymous sign-in failed", e);
+      }
+      return;
+    }
+
+    const uid = user.uid;
+
+    setProfile((prev) =>
+      prev
+        ? {
+            ...prev,
+            userId: uid,
+          }
+        : {
+            userId: uid,
+            nickname: "Bruger",
+            role: null,
+            gender: null,
+            region: null,
+            classId: null,
+            isAnonymous: true,
+          }
+    );
+  });
+
+  return unsubscribe;
+}, []);
+
+
   // When entering profile screen, sync edit fields with current profile
   useEffect(() => {
-    if (screen === "profile" && profile) {
-      setProfileEditNickname(profile.nickname);
-      setProfileEditClassId(profile.classId);
-    }
-  }, [screen, profile]);
-
-  const classLabel = useMemo(() => {
-    if (!profile?.classId) return "";
-    return `Behandler ${profile.classId}`;
-  }, [profile]);
-
-  // -------- Load stats --------
-  useEffect(() => {
-    (async () => {
-      const loaded = await loadStats();
-      setStats(loaded);
-    })();
-  }, []);
+  if (screen === "profile" && profile) {
+    setProfileEditNickname(profile.nickname);
+    setProfileEditClassId(profile.classId);
+    setProfileEditRole(profile.role);
+    setProfileEditGender(profile.gender);
+    setProfileEditRegion(profile.region);
+  }
+}, [screen, profile]); 
 
   // -------- Load cards from backend --------
   useEffect(() => {
@@ -391,25 +476,6 @@ export default function Index() {
       cancelled = true;
     };
   }, []);
-
-  // -------- Derived stats --------
-  const { totalSeen, totalCorrect, totalIncorrect, accuracy } = useMemo(() => {
-    let seen = 0;
-    let correct = 0;
-    let incorrect = 0;
-    for (const s of Object.values(stats)) {
-      seen += s.seen;
-      correct += s.correct;
-      incorrect += s.incorrect;
-    }
-    const acc = seen > 0 ? (correct / seen) * 100 : 0;
-    return {
-      totalSeen: seen,
-      totalCorrect: correct,
-      totalIncorrect: incorrect,
-      accuracy: acc,
-    };
-  }, [stats]);
 
   // Subject-wise stats (personal)
   const subjectStats = useMemo(() => {
@@ -710,45 +776,31 @@ export default function Index() {
 
   // ---------- Spaced repetition actions ----------
 
-  const handleMarkKnown = () => {
-    if (!currentCard) return;
+const handleMarkKnown = () => {
+  if (!currentCard) return;
+  markCard(currentCard.id, true);
+  handleNextQuestion();
+};
 
-    setStats((prev) => {
-      const updated = updateStatsForCard(prev, currentCard.id, true);
-      saveStats(updated);
-      return updated;
-    });
+const handleMarkUnknown = () => {
+  if (!currentCard) return;
 
-    handleNextQuestion();
-  };
+  markCard(currentCard.id, false);
 
-  const handleMarkUnknown = () => {
-    if (!currentCard) return;
+  setUpcoming((prev) => [...prev, currentCard]);
+  handleNextQuestion();
+};
 
-    setStats((prev) => {
-      const updated = updateStatsForCard(prev, currentCard.id, false);
-      saveStats(updated);
-      return updated;
-    });
-
-    setUpcoming((prev) => [...prev, currentCard]);
-    handleNextQuestion();
-  };
-
-  const handleResetStats = () => {
-    Alert.alert("Nulstil statistik", "Er du sikker på, at du vil slette al statistik?", [
-      { text: "Annuller", style: "cancel" },
-      {
-        text: "Ja, nulstil",
-        style: "destructive",
-        onPress: () => {
-          const empty: StatsMap = {};
-          setStats(empty);
-          saveStats(empty);
-        },
-      },
-    ]);
-  };
+const handleResetStats = () => {
+  Alert.alert("Nulstil statistik", "Er du sikker på, at du vil slette al statistik?", [
+    { text: "Annuller", style: "cancel" },
+    {
+      text: "Ja, nulstil",
+      style: "destructive",
+      onPress: () => resetPersonalStats(),
+    },
+  ]);
+};
 
   // ---------- Drug calc helpers ----------
 
@@ -1174,7 +1226,10 @@ export default function Index() {
                 <Text
                   style={[
                     styles.homeNavButtonText,
-                    selectedSubject === subject && { textDecorationLine: "underline" },
+                    selectedSubject === subject
+  ? { textDecorationLine: "underline" }
+  : undefined
+
                   ]}
                 >
                   {subject}
@@ -1567,64 +1622,65 @@ export default function Index() {
   // PROFILE
   if (screen === "profile") {
     const saveProfile = async () => {
-      const nickname = profileEditNickname.trim();
+  const nickname = profileEditNickname.trim();
 
-      if (!nickname) {
-        Alert.alert("Navn mangler", "Vælg et kaldenavn.");
-        return;
-      }
+  if (!nickname) {
+  Alert.alert("Navn mangler", "Vælg et kaldenavn.");
+  return;
+}
 
-      try {
-        let userId = profile?.userId ?? null;
+// 🔒 GUARD: students must choose a class
+if (profileEditRole === "student" && !profileEditClassId) {
+  Alert.alert("Hold mangler", "Vælg venligst dit hold.");
+  return;
+}
 
-        // If we don't yet have a backend user, register one
-        if (!userId) {
-          const result = await registerUserOnBackend(nickname, profileEditClassId);
-          userId = result.userId;
-        }
+try {
 
-        const newProfile: UserProfile = {
-          userId,
-          nickname,
-          classId: profileEditClassId,
-          isAnonymous: false,
-        };
+const firebaseUid = auth.currentUser?.uid;
 
-        setProfile(newProfile);
+if (!firebaseUid) {
+  Alert.alert("Fejl", "Bruger er ikke logget ind korrekt.");
+  return;
+}
 
-        const stored: StoredUserProfile = {
-          userId,
-          nickname,
-          classId: profileEditClassId,
-          isAnonymous: false,
-        };
-        await saveStoredProfile(stored);
 
-        setScreen("home");
-      } catch (err) {
-        console.error(err);
-        Alert.alert(
-          "Fejl",
-          "Kunne ikke gemme profil på serveren. Tjek netværket og prøv igen. Din lokale profil er stadig gemt.",
-        );
+const updated: UserProfile = {
+  userId: firebaseUid,
+  nickname,
+  role: profileEditRole,
+  gender: profileEditGender,
+  region: profileEditRegion,
+  classId: profileEditRole === "student" ? profileEditClassId : null,
+  isAnonymous: false,
+};
 
-        // Fallback: at least store locally without userId
-        const fallbackProfile: UserProfile = {
-          userId: profile?.userId ?? null,
-          nickname,
-          classId: profileEditClassId,
-          isAnonymous: false,
-        };
-        setProfile(fallbackProfile);
-        const stored: StoredUserProfile = {
-          userId: fallbackProfile.userId,
-          nickname,
-          classId: profileEditClassId,
-          isAnonymous: false,
-        };
-        await saveStoredProfile(stored);
-      }
-    };
+
+
+    setProfile(updated);
+
+const toStore: StoredUserProfile = {
+  userId: firebaseUid,
+  nickname,
+  classId: profileEditClassId,
+  isAnonymous: false,
+};
+
+await saveStoredProfile(toStore);
+
+Alert.alert(
+  "Profil gemt ✅",
+  `userId:\n${firebaseUid}\n\nNavn: ${nickname}\nHold: ${profileEditClassId ?? "—"}`
+);
+
+setScreen("home");
+
+  } catch (err) {
+    console.error(err);
+    Alert.alert("Fejl", "Kunne ikke oprette profil på serveren. Tjek internet og prøv igen.");
+  }
+};
+
 
     return (
       <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
@@ -1655,24 +1711,148 @@ export default function Index() {
               style={styles.textInput}
             />
 
-            <Text style={[styles.statsSectionTitle, { marginTop: 16 }]}>Vælg hold / klasse</Text>
-            <View style={styles.classList}>
-              {BEHANDLER_CLASSES.map((label) => {
-                const num = parseInt(label.replace("Behandler ", ""), 10);
-                const selected = profileEditClassId === num;
-                return (
-                  <Pressable
-                    key={label}
-                    onPress={() => setProfileEditClassId(num)}
-                    style={[styles.classChip, selected && styles.classChipSelected]}
-                  >
-                    <Text style={[styles.classChipText, selected && styles.classChipTextSelected]}>
-                      {label}
-                    </Text>
-                  </Pressable>
-                );
-              })}
-            </View>
+<Text style={[styles.statsSectionTitle, { marginTop: 16 }]}>
+  Rolle
+</Text>
+
+<View style={styles.classList}>
+  {[
+    { id: "student", label: "Studerende" },
+    { id: "ambulancebehandler", label: "Ambulancebehandler" },
+    { id: "paramediciner", label: "Paramediciner" },
+    { id: "laegeassistent", label: "Lægeassistent" },
+  ].map((r) => {
+    const selected = profileEditRole === r.id;
+
+    return (
+      <Pressable
+        key={r.id}
+        onPress={() => setProfileEditRole(r.id as UserRole)}
+        style={[
+          styles.classChip,
+          selected && styles.classChipSelected,
+        ]}
+      >
+        <Text
+          style={[
+            styles.classChipText,
+            selected && styles.classChipTextSelected,
+          ]}
+        >
+          {r.label}
+        </Text>
+      </Pressable>
+    );
+  })}
+</View>
+
+            {profileEditRole === "student" && (
+  <>
+    <Text style={[styles.statsSectionTitle, { marginTop: 16 }]}>
+      Vælg hold / klasse
+    </Text>
+
+    <View style={styles.classList}>
+      {STUDENT_CLASSES.map((num) => {
+  const selected = profileEditClassId === num;
+
+  return (
+    <Pressable
+      key={num}
+      onPress={() => setProfileEditClassId(num)}
+      style={[
+        styles.classChip,
+        selected && styles.classChipSelected,
+      ]}
+    >
+      <Text
+        style={[
+          styles.classChipText,
+          selected && styles.classChipTextSelected,
+        ]}
+      >
+        {num}
+      </Text>
+    </Pressable>
+  );
+})}
+
+    
+    </View>
+  </>
+)}
+
+<Text style={[styles.statsSectionTitle, { marginTop: 16 }]}>
+  Region
+</Text>
+
+<View style={styles.classList}>
+  {[
+    { id: "hovedstaden", label: "Hovedstaden" },
+    { id: "sjaelland", label: "Sjælland" },
+    { id: "syddanmark", label: "Syddanmark" },
+    { id: "midtjylland", label: "Midtjylland" },
+    { id: "nordjylland", label: "Nordjylland" },
+    { id: "oestdanmark", label: "Østdanmark" },
+  ].map((r) => {
+    const selected = profileEditRegion === r.id;
+
+    return (
+      <Pressable
+        key={r.id}
+        onPress={() => setProfileEditRegion(r.id as Region)}
+        style={[
+          styles.classChip,
+          selected && styles.classChipSelected,
+        ]}
+      >
+        <Text
+          style={[
+            styles.classChipText,
+            selected && styles.classChipTextSelected,
+          ]}
+        >
+          {r.label}
+        </Text>
+      </Pressable>
+    );
+  })}
+</View>
+
+<Text style={[styles.statsSectionTitle, { marginTop: 16 }]}>
+  Køn (valgfri)
+</Text>
+
+<View style={styles.classList}>
+  {[
+    { id: "male", label: "Mand" },
+    { id: "female", label: "Kvinde" },
+    { id: "not_specified", label: "Ønsker ikke at oplyse" },
+  ].map((g) => {
+    const selected = profileEditGender === g.id;
+
+    return (
+      <Pressable
+        key={g.id}
+        onPress={() => setProfileEditGender(g.id as Gender)}
+        style={[
+          styles.classChip,
+          selected && styles.classChipSelected,
+        ]}
+      >
+        <Text
+          style={[
+            styles.classChipText,
+            selected && styles.classChipTextSelected,
+          ]}
+        >
+          {g.label}
+        </Text>
+      </Pressable>
+    );
+  })}
+</View>
+
 
             <Pressable
               style={[

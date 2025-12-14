@@ -16,6 +16,9 @@ import {
 import { styles } from "../../../app/flashmedicStyles";
 import { pickRandomWordOfWeek, scrambleWord } from "./weeklyData";
 
+import { saveWeeklyResult } from "../../services/weeklyResultsService";
+
+
 const WEEKLY_WORD_TIME_LIMIT = 30;
 const WORD_MAX_ROUNDS = 3;
 
@@ -232,16 +235,27 @@ export function WeeklyWordScreen({
     startRound(nextRound);
   };
 
-  const handleCloseResults = () => {
-    setShowResults(false);
+const handleCloseResults = async () => {
+  setShowResults(false);
 
-    // Efter sidste runde låses spillet
-    if (round >= WORD_MAX_ROUNDS) {
-      setWeeklyWordLocked(true);
+  // After last round: lock + save
+  if (round >= WORD_MAX_ROUNDS) {
+    setWeeklyWordLocked(true);
+
+    try {
+      await saveWeeklyResult({
+  uid,
+  nickname: profileNickname ?? "Ukendt",
+  wordScore: totalScore,
+});
+
+    } catch (err) {
+      console.error("Failed to save Word weekly result", err);
     }
+  }
 
-    onBack();
-  };
+  onBack();
+};
 
   const handleBack = () => {
     if (started && !finished) {

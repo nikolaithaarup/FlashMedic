@@ -3,6 +3,8 @@ import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
 import { Alert, Modal, Pressable, ScrollView, Text, View } from "react-native";
 
+import { saveWeeklyResult } from "../../services/weeklyResultsService";
+
 import { styles } from "../../../app/flashmedicStyles";
 
 type WeeklyMatchPair = {
@@ -273,15 +275,26 @@ export function WeeklyMatchScreen({
     startRound(nextRound, false);
   };
 
-  const handleCloseResults = () => {
-    setShowResults(false);
+const handleCloseResults = async () => {
+  setShowResults(false);
 
-    if (round >= MATCH_MAX_ROUNDS) {
-      setWeeklyMatchLocked(true);
+  if (round >= MATCH_MAX_ROUNDS) {
+    setWeeklyMatchLocked(true);
+
+    try {
+      await saveWeeklyResult({
+  uid,
+  nickname: profileNickname ?? "Ukendt",
+  wordScore: totalScore,
+});
+
+    } catch (err) {
+      console.error("Failed to save Match weekly result", err);
     }
+  }
 
-    onBack();
-  };
+  onBack();
+};
 
   const rightItemsToShow = rightItems.length > 0 ? rightItems : shuffle(WEEKLY_MATCH_PAIRS);
   const leftItemsToShow = leftItems.length > 0 ? leftItems : WEEKLY_MATCH_PAIRS;
