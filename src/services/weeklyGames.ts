@@ -1,31 +1,21 @@
-import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
-import type { WeeklyGame } from "../types/Weekly";
 
-function toDate(v: any): Date {
-  // Firestore Timestamp has toDate()
-  return v?.toDate ? v.toDate() : new Date(v);
-}
+export type WeeklyKind = "mcq" | "match" | "word";
 
-export async function fetchWeeklyGames(params: { year: number; isoWeek: number }) {
-  const q = query(
-    collection(db, "weeklyGames"),
-    where("year", "==", params.year),
-    where("isoWeek", "==", params.isoWeek),
-    orderBy("kind"),
-    orderBy("slot"),
-  );
+export async function getWeeklyGame(params: {
+  year: number;
+  isoWeek: number;
+  kind: WeeklyKind;
+  slot: number;
+}) {
+  const weekStr = String(params.isoWeek).padStart(2, "0");
+  const id = `${params.year}_W${weekStr}_${params.kind}_${params.slot}`;
 
-  const snap = await getDocs(q);
+  const ref = doc(db, "weeklyGames", id);
+  const snap = await getDoc(ref);
 
-  const games: WeeklyGame[] = snap.docs.map((d) => {
-    const data = d.data() as any;
-    return {
-      id: d.id,
-      ...data,
-      weekStart: toDate(data.weekStart),
-    } as WeeklyGame;
-  });
+  if (!snap.exists()) return null;
 
-  return games;
+  return { id: snap.id, ...snap.data() };
 }

@@ -1,199 +1,22 @@
 // src/features/weekly/WeeklyMcqScreen.tsx
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
-import { Alert, Modal, Pressable, ScrollView, Text, View } from "react-native";
+import React, { useEffect, useMemo, useState } from "react";
+import { ActivityIndicator, Alert, Modal, Pressable, ScrollView, Text, View } from "react-native";
 
 import { styles } from "../../../app/flashmedicStyles";
 
+import { auth } from "../../firebase/firebase";
+import { saveWeeklyResult } from "../../services/weeklyResultsService";
 import { useWeeklyLock } from "./useWeeklyLock";
 
-import { saveWeeklyResult } from "../../services/weeklyResultsService";
+import {
+  loadThisWeeksMcqPack,
+  type WeeklyMcqOption,
+  type WeeklyMcqQuestion,
+} from "../../services/weeklyMcqService";
 
-import { auth } from "../../firebase/firebase";
-
-
-
-// ---------- Types & data ----------
-
-export type WeeklyMcqOption = {
-  id: string;
-  text: string;
-  isCorrect: boolean;
-};
-
-export type WeeklyMcqQuestion = {
-  id: string;
-  text: string;
-  options: WeeklyMcqOption[];
-};
-
-const WEEKLY_MCQ_TIME_LIMIT = 30; // seconds per question
-
-// TODO: Later: load from backend
-const WEEKLY_MCQ_TOPICS: string[] = [
-  "Akutte ABCDE-tilstande",
-  "Respiration & cirkulation",
-  "Neurologi & pædiatri",
-];
-
-const weeklyMcqTopicsBullets = WEEKLY_MCQ_TOPICS.map((t) => `- ${t}`).join("\n");
-
-const WEEKLY_MCQ_QUESTIONS: WeeklyMcqQuestion[] = [
-  {
-    id: "q1",
-    text: "Du ankommer til en 65-årig mand med pludseligt opstået åndenød. Hvad er dit første fokus i ABCDE?",
-    options: [
-      { id: "q1a", text: " Sikre frie luftveje", isCorrect: true },
-      { id: "q1b", text: " Måle saturation og frekvens", isCorrect: false },
-      { id: "q1c", text: " Måle blodtryk", isCorrect: false },
-      { id: "q1d", text: " GCS og pupilreaktion", isCorrect: false },
-    ],
-  },
-  {
-    id: "q2",
-    text: "Hvad er den mest alvorlige mistanke ved pludselig, skarp, ensidig brystsmerte og åndenød hos en yngre patient?",
-    options: [
-      { id: "q2a", text: "Gastroøsofageal refluks", isCorrect: false },
-      { id: "q2b", text: "Pneumoni", isCorrect: false },
-      { id: "q2c", text: "Pneumothorax", isCorrect: true },
-      { id: "q2d", text: "Muskelstræk", isCorrect: false },
-    ],
-  },
-  {
-    id: "q3",
-    text: "En diabetiker er vågen, kold-svedende og konfus. Blodsukkeret er 2,1 mmol/L. Første tiltager?",
-    options: [
-      { id: "q3a", text: "Give insulin", isCorrect: false },
-      { id: "q3b", text: "Give hurtigtvirkende kulhydrat per os", isCorrect: true },
-      { id: "q3c", text: "Give væske intravenøst uden kulhydrat", isCorrect: false },
-      { id: "q3d", text: "Intubere med det samme", isCorrect: false },
-    ],
-  },
-  {
-    id: "q4",
-    text: "Ved mistanke om apopleksi (stroke) er det vigtigste præhospitale fokus:",
-    options: [
-      { id: "q4a", text: "Smertedækning til VAS 0", isCorrect: false },
-      {
-        id: "q4b",
-        text: "Tidlig tidstagning og hurtig transport til stroke-center",
-        isCorrect: true,
-      },
-      { id: "q4c", text: "At tage fuld medicinliste før afgang", isCorrect: false },
-      { id: "q4d", text: "At starte antibiotika præhospitalt", isCorrect: false },
-    ],
-  },
-  {
-    id: "q5",
-    text: "En patient klager over trykkende brystsmerter med udstråling til venstre arm og kæbe. Hvad er mest korrekt?",
-    options: [
-      { id: "q5a", text: "Tænk først muskelsmerter fra skulder", isCorrect: false },
-      { id: "q5b", text: "Mistænk akut koronart syndrom", isCorrect: true },
-      { id: "q5c", text: "Tænk primært galdesten", isCorrect: false },
-      { id: "q5d", text: "Afvent og se om det går over", isCorrect: false },
-    ],
-  },
-  {
-    id: "q6",
-    text: "En 78-årig kvinde er febril, konfus, tachykard og hypotensiv. Hvad er den mest sandsynlige overordnede tilstand?",
-    options: [
-      { id: "q6a", text: "Isoleret dehydrering uden infektion", isCorrect: false },
-      { id: "q6b", text: "Akut sepsis / septisk shock", isCorrect: true },
-      { id: "q6c", text: "Ren hyperventilation pga. angst", isCorrect: false },
-      { id: "q6d", text: "Kronisk smerteproblematik", isCorrect: false },
-    ],
-  },
-  {
-    id: "q7",
-    text: "En patient får pludseligt kløe, urticaria, hæshed og BT-fald efter penicillin. Hvad er førstevalg af behandling præhospitalt?",
-    options: [
-      { id: "q7a", text: "Intravenøs væske som eneste behandling", isCorrect: false },
-      { id: "q7b", text: "Intramuskulær adrenalin", isCorrect: true },
-      { id: "q7c", text: "Kun antihistamin per os", isCorrect: false },
-      { id: "q7d", text: "Vent og observer uden behandling", isCorrect: false },
-    ],
-  },
-  {
-    id: "q8",
-    text: "Du ankommer til et højenergi-frontalkollisionstraume. Patienten er bleg, klam og har mavesmerter. Hvad er vigtigst?",
-    options: [
-      {
-        id: "q8a",
-        text: "Detaljeret smerteanamnese før noget andet",
-        isCorrect: false,
-      },
-      {
-        id: "q8b",
-        text: "Hurtig ABCDE, stabilisering og transport til traumecenter",
-        isCorrect: true,
-      },
-      {
-        id: "q8c",
-        text: "At tage fuldt 12-aflednings-EKG inden afgang",
-        isCorrect: false,
-      },
-      {
-        id: "q8d",
-        text: "At lade patienten selv gå til båren hvis muligt",
-        isCorrect: false,
-      },
-    ],
-  },
-  {
-    id: "q9",
-    text: "En kendt KOL-patient har forværring i åndenød og en saturation på 88 % uden ilt. Hvad er mest korrekt?",
-    options: [
-      {
-        id: "q9a",
-        text: "Ingen ilt, da 88 % altid er normalt for KOL-patienter",
-        isCorrect: false,
-      },
-      {
-        id: "q9b",
-        text: "Giv ilt med forsigtighed og sigt mod saturation 88–92 %",
-        isCorrect: true,
-      },
-      {
-        id: "q9c",
-        text: "Giv højflow ilt for at nå 100 % saturation",
-        isCorrect: false,
-      },
-      {
-        id: "q9d",
-        text: "Kun beroligelse, ingen medicinsk behandling",
-        isCorrect: false,
-      },
-    ],
-  },
-  {
-    id: "q10",
-    text: "Du ser et barn med feber, påvirket almentilstand og petechier på huden. Hvad er den vigtigste overvejelse?",
-    options: [
-      {
-        id: "q10a",
-        text: "Formentlig uskyldig virusinfektion, lav prioritet",
-        isCorrect: false,
-      },
-      {
-        id: "q10b",
-        text: "Mistanke om meningokoksygdom/sepsis – højeste prioritet",
-        isCorrect: true,
-      },
-      {
-        id: "q10c",
-        text: "Tænk først allergisk reaktion på mad",
-        isCorrect: false,
-      },
-      {
-        id: "q10d",
-        text: "Sandsynlig voksesmerter i benene",
-        isCorrect: false,
-      },
-    ],
-  },
-];
-
+// ---------- Helpers ----------
 function formatSeconds(totalSeconds: number): string {
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
@@ -202,7 +25,6 @@ function formatSeconds(totalSeconds: number): string {
   return `${mm}:${ss}`;
 }
 
-// simple shuffle helper
 function shuffle<T>(arr: T[]): T[] {
   return [...arr].sort(() => Math.random() - 0.5);
 }
@@ -210,14 +32,17 @@ function shuffle<T>(arr: T[]): T[] {
 type WeeklyMcqScreenProps = {
   headingFont: number;
   buttonFont: number;
+
+  // You can keep these props for now (for backwards compat),
+  // but this screen will primarily use the internal week-based lock.
   weeklyMcqLocked: boolean;
   setWeeklyMcqLocked: (locked: boolean) => void;
+
   profileNickname?: string | null;
   onBack: () => void;
 };
 
 // ---------- Component ----------
-
 export function WeeklyMcqScreen({
   headingFont,
   buttonFont,
@@ -226,10 +51,18 @@ export function WeeklyMcqScreen({
   profileNickname,
   onBack,
 }: WeeklyMcqScreenProps) {
+  // Pack state (loaded from Firestore)
+  const [packLoaded, setPackLoaded] = useState(false);
+  const [weekKey, setWeekKey] = useState<string | null>(null);
+  const [topicTitle, setTopicTitle] = useState<string>("Ugens emne");
+  const [timeLimit, setTimeLimit] = useState<number>(30);
+  const [questions, setQuestions] = useState<WeeklyMcqQuestion[]>([]);
+
+  // Game state
   const [started, setStarted] = useState(false);
   const [finished, setFinished] = useState(false);
   const [index, setIndex] = useState(0);
-  const [secondsLeft, setSecondsLeft] = useState<number>(WEEKLY_MCQ_TIME_LIMIT);
+  const [secondsLeft, setSecondsLeft] = useState<number>(30);
 
   const [score, setScore] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
@@ -239,26 +72,60 @@ export function WeeklyMcqScreen({
   const [showFeedback, setShowFeedback] = useState(false);
   const [lastPoints, setLastPoints] = useState(0);
   const [showResults, setShowResults] = useState(false);
-
   const [timerRunning, setTimerRunning] = useState(false);
 
   const [shuffledOptions, setShuffledOptions] = useState<WeeklyMcqOption[]>([]);
 
-  const currentQuestion = WEEKLY_MCQ_QUESTIONS[index];
-  const totalQuestions = WEEKLY_MCQ_QUESTIONS.length;
+  // Week-specific lock key (auto-unlocks next week)
+  const lockKey = weekKey ? `weekly_lock_mcq_${weekKey}` : "weekly_lock_mcq_unknown";
+  const { locked } = useWeeklyLock(lockKey);
+
+  // Effective lock combines prop + internal week lock
+  const isLocked = weeklyMcqLocked || locked;
+
+  const currentQuestion = questions[index];
+  const totalQuestions = questions.length;
   const questionNumber = index + 1;
   const timeLabel = formatSeconds(secondsLeft);
-  const playerRank = 15; // placeholder til backend
-  const { locked, loaded, lock } = useWeeklyLock("weekly_lock_mcq");
+  const playerRank = 15; // placeholder
 
+  const weeklyTopicBullet = useMemo(() => `- ${topicTitle}`, [topicTitle]);
 
-  // keep options shuffled per question
+  // Load pack on mount
   useEffect(() => {
-    if (currentQuestion) {
-      setShuffledOptions(shuffle(currentQuestion.options));
-    } else {
-      setShuffledOptions([]);
-    }
+    (async () => {
+      try {
+        const res = await loadThisWeeksMcqPack();
+        if (!res) {
+          setWeekKey(null);
+          setTopicTitle("Ugens emne");
+          setTimeLimit(30);
+          setQuestions([]);
+          return;
+        }
+
+        setWeekKey(res.weekKey);
+        setTopicTitle(res.pack.topicTitle || "Ugens emne");
+        setTimeLimit(res.pack.timeLimitSec || 30);
+        setQuestions(res.pack.questions || []);
+      } catch (e) {
+        console.error("Failed to load weekly MCQ pack", e);
+        setQuestions([]);
+      } finally {
+        setPackLoaded(true);
+      }
+    })();
+  }, []);
+
+  // Keep secondsLeft aligned with timeLimit when not actively playing
+  useEffect(() => {
+    if (!started) setSecondsLeft(timeLimit);
+  }, [timeLimit, started]);
+
+  // Shuffle options for each question
+  useEffect(() => {
+    if (currentQuestion) setShuffledOptions(shuffle(currentQuestion.options));
+    else setShuffledOptions([]);
   }, [index, started, currentQuestion]);
 
   // Countdown
@@ -269,7 +136,7 @@ export function WeeklyMcqScreen({
     const interval = setInterval(() => {
       setSecondsLeft((prev) => {
         if (prev <= 1) {
-          // Time out on this question: 0 points, count as wrong
+          // Timeout: 0 points, count as wrong
           setTimerRunning(false);
           setShowFeedback(true);
           setLastPoints(0);
@@ -283,35 +150,43 @@ export function WeeklyMcqScreen({
     return () => clearInterval(interval);
   }, [timerRunning, started, showFeedback, finished]);
 
-  // Handlers
+  // -------- Handlers --------
+  const resetRunState = () => {
+    setTimerRunning(false);
+    setStarted(false);
+    setFinished(false);
+    setShowFeedback(false);
+    setShowResults(false);
+    setIndex(0);
+    setSecondsLeft(timeLimit);
+    setSelectedId(null);
+    setLastPoints(0);
+    setScore(0);
+    setCorrectCount(0);
+    setWrongCount(0);
+  };
+
   const handleBack = () => {
-    // If a question is actively being played, confirm exit + lock
+    // If currently playing, confirm exit + lock
     if (started && !finished) {
       Alert.alert(
         "Afslut spil?",
         "Er du sikker på, at du vil afslutte spillet? Du har kun én chance pr. uge.",
         [
-          {
-            text: "Nej",
-            style: "cancel",
-          },
+          { text: "Nej", style: "cancel" },
           {
             text: "Ja",
             style: "destructive",
             onPress: () => {
-              // Lock this week's MCQ game
               setWeeklyMcqLocked(true);
-
-              // Kill the current run
               setTimerRunning(false);
               setStarted(false);
               setFinished(true);
               setShowFeedback(false);
               setShowResults(false);
-              setSecondsLeft(WEEKLY_MCQ_TIME_LIMIT);
+              setSecondsLeft(timeLimit);
               setSelectedId(null);
               setLastPoints(0);
-
               onBack();
             },
           },
@@ -320,24 +195,29 @@ export function WeeklyMcqScreen({
       return;
     }
 
-    // Normal exit when not in an active run (intro or after results)
+    // Normal exit
     setTimerRunning(false);
     setStarted(false);
     setFinished(false);
     setShowFeedback(false);
-    setSecondsLeft(WEEKLY_MCQ_TIME_LIMIT);
+    setSecondsLeft(timeLimit);
     setSelectedId(null);
     setLastPoints(0);
     onBack();
   };
 
   const handleStart = () => {
-    if (weeklyMcqLocked) {
+    if (!packLoaded) {
+      Alert.alert("Indlæser", "Henter ugens spørgsmål...");
+      return;
+    }
+
+    if (isLocked) {
       Alert.alert("Spillet er låst", "Du har allerede spillet denne uges Multiple Choice Game.");
       return;
     }
 
-    if (!WEEKLY_MCQ_QUESTIONS || WEEKLY_MCQ_QUESTIONS.length === 0) {
+    if (!questions || questions.length === 0) {
       Alert.alert("Ingen spørgsmål", "Ingen MCQ-spørgsmål til denne uge endnu.");
       return;
     }
@@ -345,7 +225,7 @@ export function WeeklyMcqScreen({
     setStarted(true);
     setFinished(false);
     setIndex(0);
-    setSecondsLeft(WEEKLY_MCQ_TIME_LIMIT);
+    setSecondsLeft(timeLimit);
     setSelectedId(null);
     setShowFeedback(false);
     setLastPoints(0);
@@ -367,10 +247,10 @@ export function WeeklyMcqScreen({
     setSelectedId(optionId);
 
     const isCorrect = !!selectedOption.isCorrect;
-
     let points = 0;
+
     if (isCorrect) {
-      const elapsed = WEEKLY_MCQ_TIME_LIMIT - secondsLeft;
+      const elapsed = timeLimit - secondsLeft;
       const fastWindow = 5;
 
       if (elapsed <= fastWindow) {
@@ -389,59 +269,57 @@ export function WeeklyMcqScreen({
     setTimerRunning(false);
 
     setScore((prev) => prev + points);
-    if (isCorrect) {
-      setCorrectCount((prev) => prev + 1);
-    } else {
-      setWrongCount((prev) => prev + 1);
-    }
+    if (isCorrect) setCorrectCount((prev) => prev + 1);
+    else setWrongCount((prev) => prev + 1);
   };
 
-const handleNext = async () => {
-  const nextIndex = index + 1;
+  const handleNext = async () => {
+    const nextIndex = index + 1;
 
-if (nextIndex >= totalQuestions) {
-  setStarted(false);
-  setFinished(true);
-  setShowFeedback(false);
-  setSelectedId(null);
-  setSecondsLeft(WEEKLY_MCQ_TIME_LIMIT);
-  setWeeklyMcqLocked(true);
-  setShowResults(true);
+    if (nextIndex >= totalQuestions) {
+      setStarted(false);
+      setFinished(true);
+      setShowFeedback(false);
+      setSelectedId(null);
+      setSecondsLeft(timeLimit);
+      setWeeklyMcqLocked(true);
+      setShowResults(true);
 
-  try {
-    await saveWeeklyResult({
-      uid: auth.currentUser!.uid,
-      nickname: profileNickname ?? "Ukendt",
-      mcqScore: score,
-    });
-  } catch (err) {
-    console.error("Failed to save MCQ weekly result", err);
-  }
+      try {
+        const uid = auth.currentUser?.uid;
+        if (uid) {
+          await saveWeeklyResult({
+            uid,
+            nickname: profileNickname ?? "Ukendt",
+            mcqScore: score,
+          });
+        }
+      } catch (err) {
+        console.error("Failed to save MCQ weekly result", err);
+      }
 
-  return;
-}
+      return;
+    }
 
+    setIndex(nextIndex);
+    setSelectedId(null);
+    setShowFeedback(false);
+    setLastPoints(0);
+    setSecondsLeft(timeLimit);
+    setTimerRunning(true);
+  };
 
-  setIndex(nextIndex);
-  setSelectedId(null);
-  setShowFeedback(false);
-  setLastPoints(0);
-  setSecondsLeft(WEEKLY_MCQ_TIME_LIMIT);
-  setTimerRunning(true);
-};
-
-const handleCloseResults = () => {
-  setShowResults(false);
-  setFinished(true);
-  setStarted(false);
-  setSelectedId(null);
-  setShowFeedback(false);
-  setSecondsLeft(WEEKLY_MCQ_TIME_LIMIT);
-  onBack();
-};
+  const handleCloseResults = () => {
+    setShowResults(false);
+    setFinished(true);
+    setStarted(false);
+    setSelectedId(null);
+    setShowFeedback(false);
+    setSecondsLeft(timeLimit);
+    onBack();
+  };
 
   // ---------- Render ----------
-
   return (
     <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
       <StatusBar style="light" />
@@ -462,8 +340,18 @@ const handleCloseResults = () => {
           </Pressable>
         </View>
 
+        {/* Loading state */}
+        {!packLoaded && (
+          <View style={styles.weeklyGameCenter}>
+            <ActivityIndicator />
+            <Text style={[styles.weeklyPlaceholderText, { marginTop: 12 }]}>
+              Henter ugens spørgsmål...
+            </Text>
+          </View>
+        )}
+
         {/* Intro screen */}
-        {!started && !finished && (
+        {packLoaded && !started && !finished && (
           <View style={styles.weeklyGameCenter}>
             <Text style={styles.weeklyGameTitle}>Multiple Choice Game</Text>
 
@@ -476,24 +364,16 @@ const handleCloseResults = () => {
               Svar så hurtigt og korrekt som muligt på ugens spørgsmål.
             </Text>
 
-            <View
-              style={{
-                marginTop: 16,
-                width: "100%",
-                maxWidth: 700,
-                alignSelf: "flex-start",
-              }}
-            >
+            <View style={{ marginTop: 16, width: "100%", maxWidth: 700, alignSelf: "flex-start" }}>
               <Text style={styles.statsLabel}>Sådan fungerer spillet:</Text>
               <Text style={styles.drugTheoryText}>
-                {"\n"}• {totalQuestions} spørgsmål om et præhospitalt emne
-                {"\n"}• 30 sekunder pr. spørgsmål
+                {"\n"}• {totalQuestions} spørgsmål om ugens emne
+                {"\n"}• {timeLimit} sekunder pr. spørgsmål
                 {"\n"}• Korrekt svar inden for de første 5 sekunder: 1000 point
                 {"\n"}• Derefter falder scoren med ca. 32 point pr. sekund
                 {"\n"}• Minimum 200 point for et korrekt svar
                 {"\n"}• Forkert svar eller timeout: 0 point
-                {"\n\n"}
-                Du kan kun spille dette spil én gang pr. uge, når backend er koblet på.
+                {"\n\n"}Du kan kun spille dette spil én gang pr. uge.
               </Text>
             </View>
 
@@ -502,16 +382,16 @@ const handleCloseResults = () => {
                 styles.bigButton,
                 styles.weeklyStartButton,
                 { marginTop: 24 },
-                weeklyMcqLocked && { opacity: 0.5 },
+                isLocked && { opacity: 0.5 },
               ]}
               onPress={handleStart}
             >
               <Text style={[styles.bigButtonText, styles.weeklyStartButtonText]}>
-                {weeklyMcqLocked ? "LÅST (allerede spillet)" : "START SPILLET"}
+                {isLocked ? "LÅST (allerede spillet)" : "START SPILLET"}
               </Text>
             </Pressable>
 
-            {/* Weekly topics BELOW Start button – unified style */}
+            {/* Weekly topic */}
             <View
               style={{
                 marginTop: 24,
@@ -523,7 +403,6 @@ const handleCloseResults = () => {
                 backgroundColor: "#ffffff22",
               }}
             >
-              {/* Larger header */}
               <Text
                 style={[
                   styles.bigButtonText,
@@ -536,20 +415,16 @@ const handleCloseResults = () => {
                   },
                 ]}
               >
-                Denne ugens emner er:
+                Denne uges emne:
               </Text>
 
-              {/* Bullets */}
               <Text
                 style={[
                   styles.weeklyPlaceholderText,
-                  {
-                    textAlign: "left",
-                    lineHeight: 24,
-                  },
+                  { textAlign: "left", lineHeight: 24 },
                 ]}
               >
-                {weeklyMcqTopicsBullets}
+                {weeklyTopicBullet}
               </Text>
             </View>
           </View>
@@ -565,19 +440,9 @@ const handleCloseResults = () => {
             <View style={styles.weeklyGameCenter}>
               <Text style={styles.weeklyGameTitle}>Multiple Choice Game</Text>
 
-              {/* Weekly topics subtitle inside the game */}
-              <View
-                style={{
-                  marginTop: 4,
-                  alignSelf: "center",
-                  width: "100%",
-                  maxWidth: 700,
-                }}
-              >
-                <Text
-                  style={[styles.subjectStatsSub, { textAlign: "center", fontStyle: "italic" }]}
-                >
-                  Denne ugens emner: {WEEKLY_MCQ_TOPICS.join(", ")}
+              <View style={{ marginTop: 4, alignSelf: "center", width: "100%", maxWidth: 700 }}>
+                <Text style={[styles.subjectStatsSub, { textAlign: "center", fontStyle: "italic" }]}>
+                  Denne uges emne: {topicTitle}
                 </Text>
               </View>
 
@@ -608,13 +473,9 @@ const handleCloseResults = () => {
 
                     let backgroundColor = "#343a40";
                     if (showFeedback) {
-                      if (opt.isCorrect) {
-                        backgroundColor = "#2b8a3e"; // green
-                      } else if (isSelected && !opt.isCorrect) {
-                        backgroundColor = "#c92a2a"; // red
-                      } else {
-                        backgroundColor = "#495057";
-                      }
+                      if (opt.isCorrect) backgroundColor = "#2b8a3e";
+                      else if (isSelected && !opt.isCorrect) backgroundColor = "#c92a2a";
+                      else backgroundColor = "#495057";
                     } else if (isSelected) {
                       backgroundColor = "#1c7ed6";
                     }
@@ -624,11 +485,7 @@ const handleCloseResults = () => {
                         key={opt.id}
                         style={[
                           styles.bigButton,
-                          {
-                            alignSelf: "stretch",
-                            marginTop: 8,
-                            backgroundColor,
-                          },
+                          { alignSelf: "stretch", marginTop: 8, backgroundColor },
                         ]}
                         disabled={showFeedback}
                         onPress={() => handleAnswer(opt.id)}
@@ -644,14 +501,7 @@ const handleCloseResults = () => {
 
               {/* Feedback */}
               {showFeedback && (
-                <View
-                  style={{
-                    marginTop: 20,
-                    width: "100%",
-                    maxWidth: 700,
-                    alignItems: "center",
-                  }}
-                >
+                <View style={{ marginTop: 20, width: "100%", maxWidth: 700, alignItems: "center" }}>
                   <Text
                     style={
                       lastPoints > 0
@@ -683,22 +533,12 @@ const handleCloseResults = () => {
         )}
 
         {/* Result modal */}
-        <Modal
-          visible={showResults}
-          transparent
-          animationType="fade"
-          onRequestClose={handleCloseResults}
-        >
+        <Modal visible={showResults} transparent animationType="fade" onRequestClose={handleCloseResults}>
           <View style={styles.modalBackdrop}>
             <View
               style={[
                 styles.modalContent,
-                {
-                  maxWidth: 700,
-                  backgroundColor: "#ffffff",
-                  borderRadius: 12,
-                  padding: 20,
-                },
+                { maxWidth: 700, backgroundColor: "#ffffff", borderRadius: 12, padding: 20 },
               ]}
             >
               <Text style={styles.statsSectionTitle}>Resultat – Multiple Choice Game</Text>
@@ -725,10 +565,7 @@ const handleCloseResults = () => {
                 </Text>
               </View>
 
-              <Pressable
-                style={[styles.modalCloseButton, { marginTop: 24 }]}
-                onPress={handleCloseResults}
-              >
+              <Pressable style={[styles.modalCloseButton, { marginTop: 24 }]} onPress={handleCloseResults}>
                 <Text style={styles.modalCloseText}>Luk</Text>
               </Pressable>
             </View>
