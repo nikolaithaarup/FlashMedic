@@ -1,6 +1,6 @@
 // src/services/weekly/saveAndMergeWeeklyResult.ts
-import { auth } from "../../firebase/firebase";
-import { saveWeeklyResult } from "../weeklyResultsService";
+import { auth } from "../firebase/firebase";
+import { saveWeeklyResult } from "./weeklyResultsService";
 
 export type WeeklyResultPartial = {
   mcqScore?: number;

@@ -27,11 +27,12 @@ import { ekgImageLookup } from "../src/data/ekg/imageLookup";
 import type { Difficulty, Flashcard } from "../src/types/Flashcard";
 
 import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
-import { auth } from "../src/firebase/firebase";
+import { collectionGroup, getDocs, query } from "firebase/firestore";
+import { auth, db } from "../src/firebase/firebase";
 
 import { useStats } from "../src/features/stats/StatsContext";
+import StatsScreen from "../src/features/stats/StatsScreen";
 import { getPersonalTotals } from "../src/features/stats/statsSelectors";
-
 
 import WeeklyHomeScreen from "../src/features/weekly/WeeklyHomeScreen";
 import WeeklyMatchScreen from "../src/features/weekly/WeeklyMatchScreen";
@@ -419,87 +420,74 @@ useEffect(() => {
   }
 }, [screen, profile]); 
 
-  // -------- Load cards from backend --------
-  useEffect(() => {
-    let cancelled = false;
+// -------- Load cards from Firestore --------
+useEffect(() => {
+  let cancelled = false;
 
-    async function loadFromBackend() {
-  try {
-    setLoadError(null);
-    setLoadingCards(true);
-
-    const res = await fetch(`${API_BASE_URL}/flashcards/all`);
-
-    const text = await res.text();
-    console.log("FLASHCARDS RAW RESPONSE", text);
-
-    if (!res.ok) {
-      // Backend returned error (like 500) – don't try to JSON.parse HTML
-      setLoadError("Serverfejl: kunne ikke hente flashcards (status " + res.status + ").");
-      setLoadingCards(false);
-      return;
-    }
-
-    let data: any;
+  async function loadFromFirestore() {
     try {
-      data = JSON.parse(text);
-    } catch (e) {
-      console.error("Failed to parse flashcards JSON", e);
-      setLoadError("Kunne ikke læse flashcards-data fra serveren.");
-      setLoadingCards(false);
-      return;
-    }
+      setLoadError(null);
+      setLoadingCards(true);
 
-    const rawCards = Array.isArray(data) ? data : data.cards ?? [];
+      // Reads all docs from all "cards" subcollections: subjects/{slug}/cards/{cardId}
+      const q = query(collectionGroup(db, "cards"));
+      const snap = await getDocs(q);
 
-    const hydrated: Flashcard[] = rawCards.map((c: any) => {
-      if (c.imageKey && ekgImageLookup[c.imageKey]) {
-        return { ...c, image: ekgImageLookup[c.imageKey] };
+      const rawCards = snap.docs.map((d) => d.data() as any);
+
+      const hydrated: Flashcard[] = rawCards.map((c: any) => {
+        if (c.imageKey && ekgImageLookup[c.imageKey]) {
+          return { ...c, image: ekgImageLookup[c.imageKey] };
+        }
+        return c;
+      });
+
+      if (!cancelled) {
+        setCards(hydrated);
+        setLoadingCards(false);
+        setLoadError(null);
       }
-      return c;
-    });
-
-    setCards(hydrated);
-    setLoadingCards(false);
-    setLoadError(null);
-  } catch (err) {
-    console.error("Failed to fetch flashcards", err);
-    setLoadError("Kunne ikke hente flashcards fra serveren.");
-    setLoadingCards(false);
+    } catch (err) {
+      console.error("Failed to fetch flashcards from Firestore", err);
+      if (!cancelled) {
+        setLoadError("Kunne ikke hente flashcards fra Firestore.");
+        setLoadingCards(false);
+      }
+    }
   }
-}
 
+  loadFromFirestore();
 
-    loadFromBackend();
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  return () => {
+    cancelled = true;
+  };
+}, []);
 
   // Subject-wise stats (personal)
-  const subjectStats = useMemo(() => {
-    const map = new Map<string, { seen: number; correct: number }>();
+const subjectStats = useMemo(() => {
+  const map = new Map<string, { seen: number; correct: number }>();
 
-    for (const [cardId, s] of Object.entries(stats)) {
+    for (const [cardId, s] of Object.entries(personalStats ?? {})) {
       const card = cards.find((c) => c.id === cardId);
-      if (!card) continue;
-      const subject = card.subject || "Ukendt";
-      const entry = map.get(subject) ?? { seen: 0, correct: 0 };
-      entry.seen += s.seen;
-      entry.correct += s.correct;
-      map.set(subject, entry);
-    }
+    if (!card) continue;
 
-    return Array.from(map.entries())
-      .map(([subject, { seen, correct }]) => ({
-        subject,
-        seen,
-        correct,
-        accuracy: seen > 0 ? (correct / seen) * 100 : 0,
-      }))
-      .sort((a, b) => a.subject.localeCompare(b.subject));
-  }, [stats, cards]);
+    const subject = card.subject || "Ukendt";
+    const entry = map.get(subject) ?? { seen: 0, correct: 0 };
+    entry.seen += s.seen;
+    entry.correct += s.correct;
+    map.set(subject, entry);
+  }
+
+  return Array.from(map.entries())
+    .map(([subject, { seen, correct }]) => ({
+      subject,
+      seen,
+      correct,
+      accuracy: seen > 0 ? (correct / seen) * 100 : 0,
+    }))
+    .sort((a, b) => a.subject.localeCompare(b.subject));
+}, [personalStats, cards]);
+
 
   // -------- Subjects, topics, etc. --------
   const subjects = useMemo(() => {
@@ -607,7 +595,7 @@ useEffect(() => {
 
     const scored = effectiveCardsForQuiz.map((card) => ({
       card,
-      score: scoreCardForQuiz(card, stats),
+      score: scoreCardForQuiz(card, personalStats),
     }));
 
     scored.sort((a, b) => a.score - b.score);
@@ -630,7 +618,7 @@ useEffect(() => {
 
     const scored = cards.map((card) => ({
       card,
-      score: scoreCardForQuiz(card, stats),
+      score: scoreCardForQuiz(card, personalStats),
     }));
 
     scored.sort((a, b) => a.score - b.score);
@@ -834,119 +822,19 @@ const handleResetStats = () => {
   // ---------- SCREENS ----------
 
   // STATS
-  if (screen === "stats") {
-    return (
-      <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
-        <StatusBar style="light" />
-        <ScrollView contentContainerStyle={styles.homeContainer}>
-          <View style={styles.headerRow}>
-            <Text style={[styles.appTitle, { fontSize: headingFont, color: "#f8f9fa" }]}>
-              Statistik
-            </Text>
-            <Pressable
-              style={[styles.smallButton, { borderColor: "#fff" }]}
-              onPress={() => setScreen("home")}
-              hitSlop={8}
-            >
-              <Text style={[styles.smallButtonText, { color: "#fff", fontSize: buttonFont * 0.9 }]}>
-                Home
-              </Text>
-            </Pressable>
-          </View>
 
-          {/* Global weekly challenge stats (placeholder until backend) */}
-          <View style={styles.statsCard}>
-            <Text style={styles.statsSectionTitle}>Global statistik – Weekly Challenge</Text>
-            <Text style={styles.statsLabel}>
-              Rangliste (top 10 – kun weekly challenges, placeholder data)
-            </Text>
-            {Array.from({ length: 5 }).map((_, i) => (
-              <View key={i} style={styles.statsRankRow}>
-                <Text style={styles.statsRankPosition}>{i + 1}.</Text>
-                <Text style={styles.statsRankName}>
-                  ParamedNick{i + 1} <Text style={styles.statsRankClass}>· Behandler 17</Text>
-                </Text>
-                <Text style={styles.statsRankScore}>{100 - i * 5} pts</Text>
-              </View>
-            ))}
+if (screen === "stats") {
+  return (
+    <StatsScreen
+      headingFont={headingFont}
+      buttonFont={buttonFont}
+      subtitleFont={subtitleFont}
+      cards={cards}
+      onBack={() => setScreen("home")}
+    />
+  );
+}
 
-            <Pressable
-              style={[styles.smallButton, { marginTop: 12, alignSelf: "flex-start" }]}
-              onPress={() =>
-                Alert.alert(
-                  "Historik",
-                  "Historik over weekly challenges kommer, når backend er klar.",
-                )
-              }
-            >
-              <Text style={[styles.smallButtonText, { color: "#343a40" }]}>Se weekly historik</Text>
-            </Pressable>
-          </View>
-
-          {/* Personal overall stats */}
-          <View style={[styles.statsCard, { marginTop: 20 }]}>
-            <Text style={styles.statsSectionTitle}>Personlig statistik – samlet</Text>
-            <Text style={styles.statsLabel}>Antal besvarede spørgsmål</Text>
-            <Text style={styles.statsValue}>{totalSeen}</Text>
-
-            <View style={styles.statsRow}>
-              <View style={{ flex: 1 }}>
-                <Text style={styles.statsLabel}>Korrekte</Text>
-                <Text style={styles.statsGood}>{totalCorrect}</Text>
-              </View>
-              <View style={{ flex: 1 }}>
-                <Text style={styles.statsLabel}>Forkerte</Text>
-                <Text style={styles.statsBad}>{totalIncorrect}</Text>
-              </View>
-            </View>
-
-            <Text style={[styles.statsLabel, { marginTop: 16 }]}>Samlet træfsikkerhed</Text>
-            <Text style={styles.statsAccuracy}>
-              {isNaN(accuracy) ? "0%" : `${accuracy.toFixed(1)}%`}
-            </Text>
-          </View>
-
-          {/* Per-subject stats */}
-          <View style={[styles.statsCard, { marginTop: 20 }]}>
-            <Text style={styles.statsSectionTitle}>Personlig statistik – pr. fag</Text>
-            {subjectStats.length === 0 ? (
-              <Text style={styles.statsLabel}>Ingen data endnu.</Text>
-            ) : (
-              subjectStats.map((s) => (
-                <View key={s.subject} style={styles.subjectStatsRow}>
-                  <View style={{ flex: 2 }}>
-                    <Text style={styles.subjectStatsTitle}>{s.subject}</Text>
-                  </View>
-                  <View style={{ flex: 1 }}>
-                    <Text style={styles.subjectStatsSub}>Set: {s.seen}</Text>
-                    <Text style={styles.subjectStatsSub}>
-                      Treff: {isNaN(s.accuracy) ? "0%" : `${s.accuracy.toFixed(1)}%`}
-                    </Text>
-                  </View>
-                </View>
-              ))
-            )}
-          </View>
-
-          <Pressable
-            style={[
-              styles.bigButton,
-              {
-                backgroundColor: "#c92a2a",
-                alignSelf: "stretch",
-                marginTop: 24,
-              },
-            ]}
-            onPress={handleResetStats}
-          >
-            <Text style={[styles.bigButtonText, { fontSize: buttonFont, color: "#fff" }]}>
-              Nulstil statistik
-            </Text>
-          </Pressable>
-        </ScrollView>
-      </LinearGradient>
-    );
-  }
 
   // QUIZ
   if (screen === "quiz" && currentCard) {
@@ -1396,7 +1284,6 @@ const handleResetStats = () => {
         weeklyMcqLocked={weeklyMcqLocked}
         weeklyMatchLocked={weeklyMatchLocked}
         weeklyWordLocked={weeklyWordLocked}
-        profileNickname={profile?.nickname}
         onBackToHome={() => setScreen("home")}
         onOpenMcq={() => setScreen("weeklyMcq")}
         onOpenMatch={() => setScreen("weeklyMatch")}
