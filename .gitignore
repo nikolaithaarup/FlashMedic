@@ -9,6 +9,13 @@ dist/
 web-build/
 expo-env.d.ts
 
+# secrets
+Backend/scripts/keys/
+**/serviceAccount.json
+*.pem
+*.key
+.env
+
 # Native
 .kotlin/
 *.orig.*
