@@ -1,30 +1,18 @@
-import Constants from "expo-constants";
-import * as Device from "expo-device";
-import { LinearGradient } from "expo-linear-gradient";
+// app/index.tsx
+
 import * as Linking from "expo-linking";
 import * as MailComposer from "expo-mail-composer";
-import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useMemo, useState } from "react";
-import {
-  Alert,
-  Image,
-  Modal,
-  Platform,
-  Pressable,
-  ScrollView,
-  Text,
-  TextInput,
-  View,
-  useWindowDimensions,
-} from "react-native";
+import { Alert, useWindowDimensions } from "react-native";
+
 import {
   loadStoredProfile,
   saveStoredProfile,
-  type StoredUserProfile
+  type StoredUserProfile,
 } from "../src/services/userService";
 
 import { ekgImageLookup } from "../src/data/ekg/imageLookup";
-import type { Difficulty, Flashcard } from "../src/types/Flashcard";
+import type { Flashcard } from "../src/types/Flashcard";
 
 import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import { collectionGroup, getDocs, query } from "firebase/firestore";
@@ -34,15 +22,22 @@ import { useStats } from "../src/features/stats/StatsContext";
 import StatsScreen from "../src/features/stats/StatsScreen";
 import { getPersonalTotals } from "../src/features/stats/statsSelectors";
 
+import WeeklyDevScreen from "../src/features/weekly/WeeklyDevScreen";
 import WeeklyHomeScreen from "../src/features/weekly/WeeklyHomeScreen";
 import WeeklyMatchScreen from "../src/features/weekly/WeeklyMatchScreen";
 import WeeklyMcqScreen from "../src/features/weekly/WeeklyMcqScreen";
 import WeeklyWordScreen from "../src/features/weekly/WeeklyWordScreen";
 
-import { getWeeklyGame, type WeeklyKind } from "../src/services/weeklyGames";
+import DrugCalcHomeScreen from "../src/features/drugCalc/DrugCalcHomeScreen";
+import DrugCalcPracticeScreen from "../src/features/drugCalc/DrugCalcPracticeScreen";
+import DrugCalcTheoryScreen from "../src/features/drugCalc/DrugCalcTheoryScreen";
 
+import ContactScreen from "../src/features/contact/ContactScreen";
+import ProfileScreen from "../src/features/profile/ProfileScreen";
 
-import { styles } from "./flashmedicStyles";
+import FlashcardsHomeScreen from "../src/features/flashcards/FlashcardsHomeScreen";
+import HomeScreen from "../src/features/home/HomeScreen";
+import QuizScreen from "../src/features/quiz/QuizScreen";
 
 // ---------- Types ----------
 
@@ -89,25 +84,11 @@ type UserProfile = {
   isAnonymous: boolean;
 };
 
+type UserRole = "student" | "ambulancebehandler" | "paramediciner" | "laegeassistent";
 
-type UserRole =
-  | "student"
-  | "ambulancebehandler"
-  | "paramediciner"
-  | "laegeassistent";
+type Gender = "male" | "female" | "not_specified";
 
-type Gender =
-  | "male"
-  | "female"
-  | "not_specified";
-
-type Region =
-  | "hovedstaden"
-  | "sjaelland"
-  | "syddanmark"
-  | "midtjylland"
-  | "nordjylland"
-  | "oestdanmark";
+type Region = "hovedstaden" | "sjaelland" | "syddanmark" | "midtjylland" | "nordjylland" | "oestdanmark";
 
 type DrugCalcQuestion = {
   id: number;
@@ -138,18 +119,6 @@ function shuffle<T>(arr: T[]): T[] {
   return copy;
 }
 
-const difficultyTextMap: Record<Difficulty, string> = {
-  easy: "Let",
-  medium: "Mellem",
-  hard: "Svær",
-};
-
-const difficultyColorMap: Record<Difficulty, string> = {
-  easy: "#12b886",
-  medium: "#fab005",
-  hard: "#fa5252",
-};
-
 // Lower score = shown earlier
 function scoreCardForQuiz(card: Flashcard, stats: StatsMap): number {
   const s = stats[card.id];
@@ -159,22 +128,7 @@ function scoreCardForQuiz(card: Flashcard, stats: StatsMap): number {
 }
 
 const MAX_STUDENT_CLASS = 60;
-
-const STUDENT_CLASSES = Array.from(
-  { length: MAX_STUDENT_CLASS },
-  (_, i) => i + 1
-);
-
-
-const WEEKLY_WORD_TIME_LIMIT = 30; // sekunder
-
-function formatSeconds(totalSeconds: number): string {
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = totalSeconds % 60;
-  const mm = minutes.toString().padStart(2, "0");
-  const ss = seconds.toString().padStart(2, "0");
-  return `${mm}:${ss}`;
-}
+const STUDENT_CLASSES = Array.from({ length: MAX_STUDENT_CLASS }, (_, i) => i + 1);
 
 // ---------- Drug calc question generator ----------
 
@@ -235,10 +189,9 @@ function isDrugAnswerCorrect(user: number, correct: number): boolean {
 
 // ---------- MAIN COMPONENT ----------
 
-const [authReady, setAuthReady] = useState(false);
-
-
 export default function Index() {
+  const [authReady, setAuthReady] = useState(false);
+
   // -------- Flashcards from backend --------
   const [cards, setCards] = useState<Flashcard[]>([]);
   const [loadingCards, setLoadingCards] = useState(true);
@@ -249,35 +202,32 @@ export default function Index() {
   const [profile, setProfile] = useState<UserProfile | null>(null);
 
   const classLabel = useMemo(() => {
-  if (!profile?.classId) return "";
-  return `Behandler ${profile.classId}`;
-}, [profile]);
+    if (!profile?.classId) return "";
+    return `Behandler ${profile.classId}`;
+  }, [profile]);
 
-const {
-  personalStats,
-  markCard,
-  resetPersonalStats,
-  weeklyGlobal,
-  loadingWeekly,
-  refreshWeeklyGlobal,
-} = useStats();
+  const {
+    personalStats,
+    markCard,
+    resetPersonalStats,
+    // weeklyGlobal,
+    // loadingWeekly,
+    // refreshWeeklyGlobal,
+  } = useStats();
 
-const { totalSeen, totalCorrect, totalIncorrect, accuracy } = useMemo(
-  () => getPersonalTotals(personalStats),
-  [personalStats]
-);
+  // Not required right now, but harmless to keep around if StatsScreen uses it later
+  useMemo(() => getPersonalTotals(personalStats), [personalStats]);
 
-  // Profile edit state (must be top-level hooks!)
+  // Profile edit state
   const [profileEditNickname, setProfileEditNickname] = useState("");
   const [profileEditClassId, setProfileEditClassId] = useState<number | null>(null);
   const [profileEditRole, setProfileEditRole] = useState<UserRole | null>(null);
   const [profileEditGender, setProfileEditGender] = useState<Gender | null>(null);
   const [profileEditRegion, setProfileEditRegion] = useState<Region | null>(null);
 
-
   // -------- Subject selection --------
   const [selectedSubject, setSelectedSubject] = useState<string | null>(null);
-  const [selectedKeys, setSelectedKeys] = useState<string[]>([]); // topic::<ALL> or topic::subtopic
+  const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
 
   // -------- Quiz state --------
   const [currentCard, setCurrentCard] = useState<Flashcard | null>(null);
@@ -285,26 +235,10 @@ const { totalSeen, totalCorrect, totalIncorrect, accuracy } = useMemo(
   const [upcoming, setUpcoming] = useState<Flashcard[]>([]);
   const [showAnswer, setShowAnswer] = useState(false);
 
-  const [devYear, setDevYear] = useState(2026);
-const [devWeek, setDevWeek] = useState(1);
-const [devKind, setDevKind] = useState<WeeklyKind>("mcq");
-const [devSlot, setDevSlot] = useState(1);
-const [devGame, setDevGame] = useState<any>(null);
-const [devErr, setDevErr] = useState<string | null>(null);
-const [devLoading, setDevLoading] = useState(false);
-const [devShowJson, setDevShowJson] = useState(false);
-
-
-  // -------- Image modal --------
-  const [imageModalVisible, setImageModalVisible] = useState(false);
-  const [imageSize, setImageSize] = useState<{ width: number; height: number } | null>(null);
-
   // -------- Drug calc state --------
   const [currentDrugQuestion, setCurrentDrugQuestion] = useState<DrugCalcQuestion | null>(null);
   const [drugAnswer, setDrugAnswer] = useState("");
-  const [drugAnswerStatus, setDrugAnswerStatus] = useState<"neutral" | "correct" | "incorrect">(
-    "neutral",
-  );
+  const [drugAnswerStatus, setDrugAnswerStatus] = useState<"neutral" | "correct" | "incorrect">("neutral");
 
   // -------- Contact form state --------
   const [contactName, setContactName] = useState("");
@@ -316,7 +250,7 @@ const [devShowJson, setDevShowJson] = useState(false);
   const [weeklyWordLocked, setWeeklyWordLocked] = useState(false);
 
   // -------- Responsive typography --------
-  const { width: screenWidth, height: screenHeight } = useWindowDimensions();
+  const { width: screenWidth } = useWindowDimensions();
   const baseWidth = 375;
   const scale = Math.min(screenWidth / baseWidth, 1.2);
 
@@ -331,48 +265,43 @@ const [devShowJson, setDevShowJson] = useState(false);
   // -------- Load profile from storage or create anonymous --------
   useEffect(() => {
     (async () => {
-      // Try to load a stored profile (with userId etc.)
       const stored = await loadStoredProfile();
 
       if (stored) {
-const loadedProfile: UserProfile = {
-  userId: stored.userId,
-  nickname: stored.nickname,
-  role: null,
-  gender: null,
-  region: null,
-  classId: stored.classId,
-  isAnonymous: stored.isAnonymous,
-};
+        const loadedProfile: UserProfile = {
+          userId: stored.userId,
+          nickname: stored.nickname,
+          role: null,
+          gender: null,
+          region: null,
+          classId: stored.classId,
+          isAnonymous: stored.isAnonymous,
+        };
 
+        setProfile(loadedProfile);
+        setProfileEditNickname(loadedProfile.nickname);
+        setProfileEditClassId(loadedProfile.classId);
+        setProfileEditRole(loadedProfile.role);
+        setProfileEditGender(loadedProfile.gender);
+        setProfileEditRegion(loadedProfile.region);
+        return;
+      }
 
-  setProfile(loadedProfile);
-  setProfileEditNickname(loadedProfile.nickname);
-  setProfileEditClassId(loadedProfile.classId);
-  setProfileEditRole(loadedProfile.role);
-  setProfileEditGender(loadedProfile.gender);
-  setProfileEditRegion(loadedProfile.region);
-  return;
-}
-
-
-      // No stored profile → create local anonymous one (no backend id yet)
       const randomId = Math.floor(1000 + Math.random() * 9000);
       const anon: UserProfile = {
-  userId: null,
-  nickname: `Bruger${randomId}`,
-  role: null,
-  gender: null,
-  region: null,
-  classId: null,
-  isAnonymous: true,
-};
+        userId: null,
+        nickname: `Bruger${randomId}`,
+        role: null,
+        gender: null,
+        region: null,
+        classId: null,
+        isAnonymous: true,
+      };
 
       setProfile(anon);
       setProfileEditNickname(anon.nickname);
       setProfileEditClassId(anon.classId);
 
-      // Also store this anonymous profile so it sticks across sessions
       const storedAnon: StoredUserProfile = {
         userId: null,
         nickname: anon.nickname,
@@ -383,135 +312,104 @@ const loadedProfile: UserProfile = {
     })();
   }, []);
 
-// 🔐 Firebase Auth bootstrap
-useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, async (user) => {
-    if (!user) {
-      try {
-        await signInAnonymously(auth);
-      } catch (e) {
-        console.error("Anonymous sign-in failed", e);
+  // 🔐 Firebase Auth bootstrap
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        try {
+          await signInAnonymously(auth);
+        } catch (e) {
+          console.error("Anonymous sign-in failed", e);
+        }
+        return;
       }
-      return;
-    }
 
-    const uid = user.uid;
+      const uid = user.uid;
 
-    setProfile((prev) =>
-      prev
-        ? { ...prev, userId: uid }
-        : {
-            userId: uid,
-            nickname: "Bruger",
-            role: null,
-            gender: null,
-            region: null,
-            classId: null,
-            isAnonymous: true,
-          }
-    );
+      setProfile((prev) =>
+        prev
+          ? { ...prev, userId: uid }
+          : {
+              userId: uid,
+              nickname: "Bruger",
+              role: null,
+              gender: null,
+              region: null,
+              classId: null,
+              isAnonymous: true,
+            },
+      );
 
-    // ✅ ADD THIS LINE
-    setAuthReady(true);
-  });
+      setAuthReady(true);
+    });
 
-  return unsubscribe;
-}, []);
-
-
+    return unsubscribe;
+  }, []);
 
   // When entering profile screen, sync edit fields with current profile
   useEffect(() => {
-  if (screen === "profile" && profile) {
-    setProfileEditNickname(profile.nickname);
-    setProfileEditClassId(profile.classId);
-    setProfileEditRole(profile.role);
-    setProfileEditGender(profile.gender);
-    setProfileEditRegion(profile.region);
-  }
-}, [screen, profile]); 
-
-// -------- Load cards from Firestore --------
-useEffect(() => {
-  if (!authReady) return; // ✅ WAIT for Firebase auth first
-
-  let cancelled = false;
-
-  const withTimeout = async <T,>(p: Promise<T>, ms: number) => {
-    return await Promise.race<T>([
-      p,
-      new Promise<T>((_, reject) =>
-        setTimeout(() => reject(new Error(`Firestore timeout after ${ms}ms`)), ms),
-      ),
-    ]);
-  };
-
-  async function loadFromFirestore() {
-    try {
-      setLoadError(null);
-      setLoadingCards(true);
-
-      const q = query(collectionGroup(db, "cards"));
-
-      // ⏱️ timeout after 12 seconds so UI can recover
-      const snap = await withTimeout(getDocs(q), 12000);
-
-      const rawCards = snap.docs.map((d) => d.data() as any);
-
-      const hydrated: Flashcard[] = rawCards.map((c: any) => {
-        if (c.imageKey && ekgImageLookup[c.imageKey]) {
-          return { ...c, image: ekgImageLookup[c.imageKey] };
-        }
-        return c;
-      });
-
-      if (!cancelled) {
-        setCards(hydrated);
-        setLoadError(null);
-      }
-    } catch (err: any) {
-      console.error("Failed to fetch flashcards from Firestore", err);
-      if (!cancelled) {
-        setLoadError(err?.message ?? "Kunne ikke hente flashcards fra Firestore.");
-      }
-    } finally {
-      if (!cancelled) setLoadingCards(false);
+    if (screen === "profile" && profile) {
+      setProfileEditNickname(profile.nickname);
+      setProfileEditClassId(profile.classId);
+      setProfileEditRole(profile.role);
+      setProfileEditGender(profile.gender);
+      setProfileEditRegion(profile.region);
     }
-  }
+  }, [screen, profile]);
 
-  loadFromFirestore();
+  // -------- Load cards from Firestore --------
+  useEffect(() => {
+    if (!authReady) return;
 
-  return () => {
-    cancelled = true;
-  };
-}, [authReady]); // ✅ dependency changed
+    let cancelled = false;
 
+    const withTimeout = async <T,>(p: Promise<T>, ms: number) => {
+      return await Promise.race<T>([
+        p,
+        new Promise<T>((_, reject) =>
+          setTimeout(() => reject(new Error(`Firestore timeout after ${ms}ms`)), ms),
+        ),
+      ]);
+    };
 
-  // Subject-wise stats (personal)
-const subjectStats = useMemo(() => {
-  const map = new Map<string, { seen: number; correct: number }>();
+    async function loadFromFirestore() {
+      try {
+        setLoadError(null);
+        setLoadingCards(true);
 
-    for (const [cardId, s] of Object.entries(personalStats ?? {})) {
-      const card = cards.find((c) => c.id === cardId);
-    if (!card) continue;
+        const q = query(collectionGroup(db, "cards"));
 
-    const subject = card.subject || "Ukendt";
-    const entry = map.get(subject) ?? { seen: 0, correct: 0 };
-    entry.seen += s.seen;
-    entry.correct += s.correct;
-    map.set(subject, entry);
-  }
+        const snap = await withTimeout(getDocs(q), 12000);
 
-  return Array.from(map.entries())
-    .map(([subject, { seen, correct }]) => ({
-      subject,
-      seen,
-      correct,
-      accuracy: seen > 0 ? (correct / seen) * 100 : 0,
-    }))
-    .sort((a, b) => a.subject.localeCompare(b.subject));
-}, [personalStats, cards]);
+        const rawCards = snap.docs.map((d) => d.data() as any);
 
+        const hydrated: Flashcard[] = rawCards.map((c: any) => {
+          if (c.imageKey && ekgImageLookup[c.imageKey]) {
+            return { ...c, image: ekgImageLookup[c.imageKey] };
+          }
+          return c;
+        });
+
+        if (!cancelled) {
+          setCards(hydrated);
+          setLoadError(null);
+        }
+      } catch (err: any) {
+        console.error("Failed to fetch flashcards from Firestore", err);
+        if (!cancelled) {
+          setLoadError(err?.message ?? "Kunne ikke hente flashcards fra Firestore.");
+        }
+      } finally {
+        if (!cancelled) setLoadingCards(false);
+      }
+    }
+
+    loadFromFirestore();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [authReady]);
 
   // -------- Subjects, topics, etc. --------
   const subjects = useMemo(() => {
@@ -567,39 +465,11 @@ const subjectStats = useMemo(() => {
     return cardsForSelectedSubject.filter((card) => {
       const topic = card.topic ?? "";
       const sub = card.subtopic ?? "";
-
       const topicKey = `${topic}::<ALL>`;
       const subKey = `${topic}::${sub}`;
-
       return selectedKeys.includes(subKey) || selectedKeys.includes(topicKey);
     });
   }, [selectedSubject, selectedKeys, cardsForSelectedSubject]);
-
-  // ---------- Subject / theme colors ----------
-
-  const getSubjectGradient = (subject: string) => {
-    switch (subject) {
-      case "Anatomi og fysiologi":
-      case "Farmakologi":
-      case "Kliniske parametre":
-      case "Mikrobiologi":
-      case "Sygdomslære":
-      case "EKG":
-      case "Traumatologi og ITLS":
-        return ["#343a40", "#1c7ed6"];
-      default:
-        return ["#343a40", "#1c7ed6"];
-    }
-  };
-
-  const getSubjectPrimaryColor = (subject?: string | null) => {
-    if (!subject) return "#1c7ed6";
-    const [primary] = getSubjectGradient(subject);
-    return primary;
-  };
-
-  const getDifficultyColor = (difficulty: Difficulty) =>
-    difficultyColorMap[difficulty] ?? "#868e96";
 
   // ---------- Quiz control ----------
 
@@ -671,7 +541,7 @@ const subjectStats = useMemo(() => {
     setCurrentCard(upcoming[0]);
     setUpcoming((prev) => prev.slice(1));
     setShowAnswer(false);
-    setImageModalVisible(false);
+    // ✅ FIX: you no longer have image modal state in index.tsx
   };
 
   const handlePreviousQuestion = () => {
@@ -684,7 +554,7 @@ const subjectStats = useMemo(() => {
     setUpcoming((prev) => [currentCard, ...prev]);
     setCurrentCard(previous);
     setShowAnswer(true);
-    setImageModalVisible(false);
+    // ✅ FIX: you no longer have image modal state in index.tsx
   };
 
   const handleHome = () => {
@@ -693,18 +563,14 @@ const subjectStats = useMemo(() => {
     setShowAnswer(false);
     setHistory([]);
     setUpcoming([]);
-    setImageModalVisible(false);
+    // ✅ FIX: you no longer have image modal state in index.tsx
   };
 
   // ---------- Report error via MailComposer ----------
-
   const handleReportError = async () => {
     if (!currentCard) return;
 
-    const subject = `[${APP_ID}] Fejl i kort ${currentCard.id} – ${currentCard.question.slice(
-      0,
-      80,
-    )}`;
+    const subject = `[${APP_ID}] Fejl i kort ${currentCard.id} – ${currentCard.question.slice(0, 80)}`;
 
     const bodyLines = [
       "Hej Nikolai,",
@@ -713,9 +579,7 @@ const subjectStats = useMemo(() => {
       "",
       `Kort-ID: ${currentCard.id}`,
       `Fag: ${currentCard.subject ?? "Ukendt"}`,
-      `Emne: ${currentCard.topic ?? "Ukendt"}${
-        currentCard.subtopic ? " · " + currentCard.subtopic : ""
-      }`,
+      `Emne: ${currentCard.topic ?? "Ukendt"}${currentCard.subtopic ? " · " + currentCard.subtopic : ""}`,
       "",
       "Spørgsmål:",
       currentCard.question,
@@ -733,7 +597,6 @@ const subjectStats = useMemo(() => {
 
     try {
       const isAvailable = await MailComposer.isAvailableAsync();
-
       if (isAvailable) {
         await MailComposer.composeAsync({
           recipients: [SUPPORT_EMAIL],
@@ -770,13 +633,10 @@ const subjectStats = useMemo(() => {
         }),
       });
 
-      if (!res.ok) {
-        throw new Error("Server error");
-      }
+      if (!res.ok) throw new Error("Server error");
 
       Alert.alert("Sendt!", "Din besked er sendt til udvikleren.");
 
-      // Ryd felterne efter succesfuldt send
       setContactName("");
       setContactEmail("");
       setContactMessage("");
@@ -788,31 +648,30 @@ const subjectStats = useMemo(() => {
 
   // ---------- Spaced repetition actions ----------
 
-const handleMarkKnown = () => {
-  if (!currentCard) return;
-  markCard(currentCard.id, true);
-  handleNextQuestion();
-};
+  const handleMarkKnown = () => {
+    if (!currentCard) return;
+    markCard(currentCard.id, true);
+    handleNextQuestion();
+  };
 
-const handleMarkUnknown = () => {
-  if (!currentCard) return;
+  const handleMarkUnknown = () => {
+    if (!currentCard) return;
 
-  markCard(currentCard.id, false);
+    markCard(currentCard.id, false);
+    setUpcoming((prev) => [...prev, currentCard]);
+    handleNextQuestion();
+  };
 
-  setUpcoming((prev) => [...prev, currentCard]);
-  handleNextQuestion();
-};
-
-const handleResetStats = () => {
-  Alert.alert("Nulstil statistik", "Er du sikker på, at du vil slette al statistik?", [
-    { text: "Annuller", style: "cancel" },
-    {
-      text: "Ja, nulstil",
-      style: "destructive",
-      onPress: () => resetPersonalStats(),
-    },
-  ]);
-};
+  const handleResetStats = () => {
+    Alert.alert("Nulstil statistik", "Er du sikker på, at du vil slette al statistik?", [
+      { text: "Annuller", style: "cancel" },
+      {
+        text: "Ja, nulstil",
+        style: "destructive",
+        onPress: () => resetPersonalStats(),
+      },
+    ]);
+  };
 
   // ---------- Drug calc helpers ----------
 
@@ -845,757 +704,67 @@ const handleResetStats = () => {
 
   // ---------- SCREENS ----------
 
-if (screen === "weeklyDev") {
-  // --- Local helpers (kept inside this branch) ---
-  const clampInt = (value: string, fallback: number, min: number, max: number) => {
-    const n = parseInt(value || "", 10);
-    if (Number.isNaN(n)) return fallback;
-    return Math.max(min, Math.min(max, n));
-  };
+  if (screen === "weeklyDev") {
+    return <WeeklyDevScreen headingFont={headingFont} buttonFont={buttonFont} onBack={() => setScreen("home")} />;
+  }
 
-  const slotsForKind = (k: WeeklyKind): number[] => {
-    if (k === "mcq") return [1];
-    if (k === "match") return [1, 2];
-    return [1, 2, 3]; // word
-  };
-
-  const validateGame = (kind: WeeklyKind, game: any): string | null => {
-    if (!game) return "Game er tom (null/undefined).";
-    if (!Array.isArray(game.items)) return "Game.items mangler eller er ikke en liste.";
-
-    if (kind === "mcq") {
-      for (const q of game.items) {
-        if (!q?.id || !q?.text) return "MCQ-fejl: et spørgsmål mangler id eller text.";
-        if (!Array.isArray(q.options) || q.options.length < 2)
-          return "MCQ-fejl: et spørgsmål mangler options (min 2).";
-        const correct = q.options.filter((o: any) => o?.isCorrect);
-        if (correct.length !== 1)
-          return "MCQ-datafejl: et spørgsmål har ikke præcis 1 korrekt mulighed.";
-        for (const o of q.options) {
-          if (!o?.id || typeof o?.text !== "string")
-            return "MCQ-fejl: en option mangler id eller text.";
-          if (typeof o.isCorrect !== "boolean")
-            return "MCQ-fejl: en option mangler boolean isCorrect.";
-        }
-      }
-      return null;
-    }
-
-    if (kind === "match") {
-      const ids = new Set<string>();
-      for (const p of game.items) {
-        if (!p?.id || typeof p.left !== "string" || typeof p.right !== "string")
-          return "MATCH-fejl: et par mangler id/left/right.";
-        if (ids.has(p.id)) return "MATCH-fejl: duplicate pair id fundet.";
-        ids.add(p.id);
-        if (!p.left.trim() || !p.right.trim())
-          return "MATCH-fejl: left/right må ikke være tom.";
-      }
-      if (game.items.length !== 5) {
-        // Not required, but matches your current UI expectation (5 pairs)
-        return `MATCH-advarsel: der er ${game.items.length} par (UI forventer ofte 5).`;
-      }
-      return null;
-    }
-
-    // kind === "word"
-    for (const w of game.items) {
-      if (!w?.id) return "WORD-fejl: item mangler id.";
-      if (typeof w.word !== "string" || !w.word.trim()) return "WORD-fejl: item mangler word.";
-      if (w.accepted && !Array.isArray(w.accepted)) return "WORD-fejl: accepted skal være en liste.";
-      if (w.accepted && w.accepted.some((x: any) => typeof x !== "string"))
-        return "WORD-fejl: accepted må kun indeholde strings.";
-    }
-    if (game.items.length !== 3) {
-      // Not required, but matches your current 3-round game
-      return `WORD-advarsel: der er ${game.items.length} items (UI forventer ofte 3 runder).`;
-    }
-    return null;
-  };
-
-  const load = async () => {
-    setDevErr(null);
-    setDevGame(null);
-    setDevLoading(true);
-
-    try {
-      const game = await getWeeklyGame({
-        year: devYear,
-        isoWeek: devWeek,
-        kind: devKind,
-        slot: devSlot,
-      });
-
-      if (!game) {
-        setDevErr("Ingen game fundet for det valg.");
-        return;
-      }
-
-      const maybeErr = validateGame(devKind, game);
-      if (maybeErr) {
-        // keep showing the game even if warnings exist, but surface it
-        setDevErr(maybeErr);
-      }
-
-      setDevGame(game);
-    } catch (e: any) {
-      setDevErr(e?.message ?? "Kunne ikke hente game.");
-    } finally {
-      setDevLoading(false);
-    }
-  };
-
-  const slotChoices = slotsForKind(devKind);
-
-  return (
-    <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
-      <StatusBar style="light" />
-      <ScrollView contentContainerStyle={styles.homeContainer}>
-        <View style={styles.headerRow}>
-          <Text style={[styles.appTitle, { fontSize: headingFont, color: "#f8f9fa" }]}>
-            Weekly Dev Preview
-          </Text>
-
-          <View style={{ flexDirection: "row", gap: 10 }}>
-            <Pressable
-              style={[styles.smallButton, { borderColor: "#fff" }]}
-              onPress={() => setDevShowJson((p) => !p)}
-            >
-              <Text style={[styles.smallButtonText, { color: "#fff" }]}>
-                {devShowJson ? "Skjul JSON" : "Vis JSON"}
-              </Text>
-            </Pressable>
-
-            <Pressable
-              style={[styles.smallButton, { borderColor: "#fff" }]}
-              onPress={() => setScreen("home")}
-            >
-              <Text style={[styles.smallButtonText, { color: "#fff" }]}>Home</Text>
-            </Pressable>
-          </View>
-        </View>
-
-        <View style={styles.statsCard}>
-          <Text style={styles.statsSectionTitle}>Vælg hvad du vil teste</Text>
-
-          <Text style={styles.statsLabel}>År</Text>
-          <TextInput
-            value={String(devYear)}
-            onChangeText={(t) => setDevYear(clampInt(t, 2026, 2020, 2100))}
-            keyboardType="numeric"
-            style={styles.textInput}
-          />
-
-          <Text style={[styles.statsLabel, { marginTop: 12 }]}>ISO uge (1–53)</Text>
-          <TextInput
-            value={String(devWeek)}
-            onChangeText={(t) => setDevWeek(clampInt(t, 1, 1, 53))}
-            keyboardType="numeric"
-            style={styles.textInput}
-          />
-
-          <Text style={[styles.statsLabel, { marginTop: 12 }]}>Type</Text>
-          <View style={styles.classList}>
-            {(["mcq", "match", "word"] as WeeklyKind[]).map((k) => {
-              const selected = devKind === k;
-              return (
-                <Pressable
-                  key={k}
-                  onPress={() => {
-                    setDevKind(k);
-                    setDevSlot(1);
-                    setDevGame(null);
-                    setDevErr(null);
-                  }}
-                  style={[styles.classChip, selected && styles.classChipSelected]}
-                >
-                  <Text style={[styles.classChipText, selected && styles.classChipTextSelected]}>
-                    {k.toUpperCase()}
-                  </Text>
-                </Pressable>
-              );
-            })}
-          </View>
-
-          <Text style={[styles.statsLabel, { marginTop: 12 }]}>Slot</Text>
-          <View style={styles.classList}>
-            {slotChoices.map((s) => {
-              const selected = devSlot === s;
-              return (
-                <Pressable
-                  key={s}
-                  onPress={() => {
-                    setDevSlot(s);
-                    setDevGame(null);
-                    setDevErr(null);
-                  }}
-                  style={[styles.classChip, selected && styles.classChipSelected]}
-                >
-                  <Text style={[styles.classChipText, selected && styles.classChipTextSelected]}>
-                    {s}
-                  </Text>
-                </Pressable>
-              );
-            })}
-          </View>
-
-          <Pressable
-            style={[
-              styles.bigButton,
-              { backgroundColor: "#1c7ed6", marginTop: 16, opacity: devLoading ? 0.7 : 1 },
-            ]}
-            onPress={load}
-            disabled={devLoading}
-          >
-            <Text style={styles.bigButtonText}>{devLoading ? "Henter..." : "Hent game"}</Text>
-          </Pressable>
-
-          {!!devErr && (
-            <Text style={[styles.statsLabel, { marginTop: 12, color: "#ffdddd" }]}>{devErr}</Text>
-          )}
-
-          {!!devGame && (
-            <View style={{ marginTop: 12 }}>
-              <Text style={styles.statsSectionTitle}>{devGame.title ?? "(ingen title)"}</Text>
-              <Text style={styles.statsLabel}>
-                {devGame.subjectSlug ?? "(ingen subjectSlug)"} · uge {devGame.isoWeek ?? devWeek} ·{" "}
-                {devKind.toUpperCase()} slot {devSlot}
-              </Text>
-
-              <Text style={[styles.statsLabel, { marginTop: 10, opacity: 0.9 }]}>
-                Items: {(devGame.items ?? []).length}
-              </Text>
-
-              {/* -------- MCQ preview -------- */}
-              {devKind === "mcq" &&
-                (devGame.items ?? []).map((q: any) => {
-                  const correct = (q.options ?? []).find((o: any) => o?.isCorrect);
-                  return (
-                    <View key={q.id} style={{ marginTop: 12 }}>
-                      <Text style={styles.statsLabel}>Q: {q.text}</Text>
-                      <Text style={[styles.statsLabel, { opacity: 0.9, marginTop: 4 }]}>
-                        ✅ Korrekt: {correct?.text ?? "(mangler)"}
-                      </Text>
-                      <Text style={[styles.statsLabel, { opacity: 0.8, marginTop: 6 }]}>
-                        Muligheder:
-                      </Text>
-                      {(q.options ?? []).map((o: any) => (
-                        <Text key={o.id} style={[styles.statsLabel, { opacity: 0.85 }]}>
-                          - {o.text} {o.isCorrect ? "✅" : ""}
-                        </Text>
-                      ))}
-                    </View>
-                  );
-                })}
-
-              {/* -------- MATCH preview -------- */}
-              {devKind === "match" &&
-                (devGame.items ?? []).map((p: any) => (
-                  <View key={p.id} style={{ marginTop: 12 }}>
-                    <Text style={styles.statsLabel}>🟦 {p.left}</Text>
-                    <Text style={[styles.statsLabel, { opacity: 0.9 }]}>🟩 {p.right}</Text>
-                  </View>
-                ))}
-
-              {/* -------- WORD preview -------- */}
-              {devKind === "word" &&
-                (devGame.items ?? []).map((w: any) => (
-                  <View key={w.id} style={{ marginTop: 12 }}>
-                    <Text style={styles.statsLabel}>🧠 Ord: {String(w.word ?? "").toUpperCase()}</Text>
-                    {!!w.explanation && (
-                      <Text style={[styles.statsLabel, { opacity: 0.9, marginTop: 4 }]}>
-                        Forklaring: {w.explanation}
-                      </Text>
-                    )}
-                    <Text style={[styles.statsLabel, { opacity: 0.85, marginTop: 4 }]}>
-                      Accepted: {(w.accepted ?? []).join(", ") || "(ingen)"}
-                    </Text>
-                  </View>
-                ))}
-
-              {/* Raw JSON toggle */}
-              {devShowJson && (
-                <View style={{ marginTop: 14 }}>
-                  <Text style={[styles.statsLabel, { opacity: 0.85 }]}>Raw JSON:</Text>
-                  <Text
-                    style={[
-                      styles.statsLabel,
-                      {
-                        marginTop: 6,
-                        fontFamily: Platform.OS === "ios" ? "Menlo" : "monospace",
-                        fontSize: 12,
-                        lineHeight: 16,
-                        opacity: 0.9,
-                      },
-                    ]}
-                  >
-                    {JSON.stringify(devGame, null, 2)}
-                  </Text>
-                </View>
-              )}
-            </View>
-          )}
-        </View>
-      </ScrollView>
-    </LinearGradient>
-  );
-}
-
-
-  // STATS
-
-if (screen === "stats") {
-  return (
-    <StatsScreen
-      headingFont={headingFont}
-      buttonFont={buttonFont}
-      subtitleFont={subtitleFont}
-      cards={cards}
-      onBack={() => setScreen("home")}
-    />
-  );
-}
-
-
-  // QUIZ
-  if (screen === "quiz" && currentCard) {
-    const primaryColor = getSubjectPrimaryColor(currentCard.subject);
-    const difficultyText = difficultyTextMap[currentCard.difficulty];
-    const gradient = getSubjectGradient(currentCard.subject);
-
-    const totalQuestions = history.length + 1 + upcoming.length;
-    const currentIndex = history.length + 1;
-
-    // Compute zoom style for rotated image based on real image size
-    let zoomImageStyle: any = styles.zoomImage;
-
-    if (imageSize) {
-      const sw = screenWidth;
-      const sh = screenHeight;
-
-      const { width: iw, height: ih } = imageSize;
-
-      // After 90° rotation: rotatedWidth = ih, rotatedHeight = iw
-      const rotatedWidth = ih;
-      const rotatedHeight = iw;
-
-      // Scale so that rotated box fits within screen
-      const fitScale = Math.min(sw / rotatedWidth, sh / rotatedHeight);
-
-      // Shrink slightly so edges are clearly visible
-      const marginScale = 0.94; // 94% of max size – tweak if you want
-      const finalScale = fitScale * marginScale;
-
-      const displayWidth = iw * finalScale;
-      const displayHeight = ih * finalScale;
-
-      zoomImageStyle = [styles.zoomImage, { width: displayWidth, height: displayHeight }];
-    }
-
+  if (screen === "stats") {
     return (
-      <LinearGradient colors={gradient} style={styles.quizBackground}>
-        <StatusBar style="light" />
-        <View style={styles.quizContainer}>
-          <View style={styles.headerRow}>
-            <Text
-              style={[styles.appTitle, { color: "#fff", marginBottom: 0, fontSize: headingFont }]}
-            >
-              FlashMedic
-            </Text>
-            <View style={styles.headerButtons}>
-              {history.length > 0 && (
-                <Pressable
-                  style={[styles.smallButton, { borderColor: "#fff" }]}
-                  onPress={handlePreviousQuestion}
-                  hitSlop={8}
-                >
-                  <Text
-                    style={[styles.smallButtonText, { color: "#fff", fontSize: buttonFont * 0.9 }]}
-                  >
-                    Tilbage
-                  </Text>
-                </Pressable>
-              )}
-              <Pressable
-                style={[styles.smallButton, { borderColor: "#fff" }]}
-                onPress={handleHome}
-                hitSlop={8}
-              >
-                <Text
-                  style={[styles.smallButtonText, { color: "#fff", fontSize: buttonFont * 0.9 }]}
-                >
-                  Home
-                </Text>
-              </Pressable>
-            </View>
-          </View>
-
-          <View style={styles.metaRow}>
-            <View>
-              <Text style={[styles.subjectLabel, { color: "#f8f9fa", fontSize: subjectFont }]}>
-                {currentCard.subject}
-              </Text>
-              <Text style={[styles.topicLabel, { color: "#e9ecef", fontSize: metaFont }]}>
-                {currentCard.topic}
-                {currentCard.subtopic ? ` · ${currentCard.subtopic}` : ""}
-              </Text>
-              <Text style={[styles.progressText, { color: "#e9ecef", fontSize: metaFont }]}>
-                Spørgsmål {currentIndex} af {totalQuestions}
-              </Text>
-            </View>
-            <View
-              style={[
-                styles.difficultyPill,
-                { backgroundColor: getDifficultyColor(currentCard.difficulty) },
-              ]}
-            >
-              <Text style={[styles.difficultyText, { fontSize: buttonFont * 0.9 }]}>
-                {difficultyText}
-              </Text>
-            </View>
-          </View>
-
-          <View style={styles.cardContainer}>
-            <View style={styles.cardBox}>
-              {currentCard.image && (
-                <Pressable
-                  onPress={() => {
-                    const imgSource = currentCard.image as any;
-                    const resolved = Image.resolveAssetSource(imgSource);
-
-                    // Bundled asset: width/height available directly
-                    if (resolved?.width && resolved?.height) {
-                      setImageSize({ width: resolved.width, height: resolved.height });
-                      setImageModalVisible(true);
-                      return;
-                    }
-
-                    // URI or unknown: use Image.getSize
-                    Image.getSize(
-                      resolved?.uri ?? imgSource,
-                      (width, height) => {
-                        setImageSize({ width, height });
-                        setImageModalVisible(true);
-                      },
-                      () => {
-                        // fallback guess if we really can't get size
-                        setImageSize({ width: 1600, height: 1000 });
-                        setImageModalVisible(true);
-                      },
-                    );
-                  }}
-                >
-                  {/* Thumbnail: same as original – NOT rotated */}
-                  <Image
-                    source={currentCard.image}
-                    style={styles.questionImage}
-                    resizeMode="contain"
-                  />
-                  <Text style={styles.tapToZoomText}>Tryk for at se stort</Text>
-                </Pressable>
-              )}
-
-              <Text style={[styles.questionText, { fontSize: questionFont }]}>
-                {currentCard.question}
-              </Text>
-            </View>
-
-            <View style={styles.cardBox}>
-              {showAnswer ? (
-                <Text style={[styles.answerText, { fontSize: answerFont }]}>
-                  {currentCard.answer}
-                </Text>
-              ) : (
-                <Text style={styles.placeholderText}>
-                  Tryk på &apos;Vis svar&apos; for at se svaret.
-                </Text>
-              )}
-            </View>
-          </View>
-
-          {!showAnswer && (
-            <View style={styles.buttonRow}>
-              <Pressable
-                style={[styles.bigButton, styles.primaryButton, { backgroundColor: primaryColor }]}
-                onPress={() => setShowAnswer(true)}
-              >
-                <Text style={[styles.bigButtonText, { fontSize: buttonFont }]}>Vis svar</Text>
-              </Pressable>
-            </View>
-          )}
-
-          {showAnswer && (
-            <View style={styles.ratingRow}>
-              <Pressable
-                style={[styles.ratingButton, styles.knownButton]}
-                onPress={handleMarkKnown}
-              >
-                <Text style={[styles.ratingButtonText, { fontSize: buttonFont }]}>
-                  Jeg kunne den
-                </Text>
-              </Pressable>
-              <Pressable
-                style={[styles.ratingButton, styles.unknownButton]}
-                onPress={handleMarkUnknown}
-              >
-                <Text style={[styles.ratingButtonText, { fontSize: buttonFont }]}>
-                  Jeg kunne den ikke
-                </Text>
-              </Pressable>
-            </View>
-          )}
-
-          <Pressable style={[styles.bigButton, styles.outlineButton]} onPress={handleReportError}>
-            <Text style={styles.outlineButtonText}>Rapportér fejl</Text>
-          </Pressable>
-        </View>
-
-        {currentCard.image && (
-          <Modal
-            visible={imageModalVisible}
-            transparent={false}
-            animationType="fade"
-            onRequestClose={() => setImageModalVisible(false)}
-          >
-            <View style={styles.modalBackdrop}>
-              <View style={styles.modalContent}>
-                <Image source={currentCard.image} style={zoomImageStyle} resizeMode="contain" />
-
-                <Pressable
-                  style={styles.modalCloseButton}
-                  onPress={() => setImageModalVisible(false)}
-                >
-                  <Text style={styles.modalCloseText}>Luk</Text>
-                </Pressable>
-              </View>
-            </View>
-          </Modal>
-        )}
-      </LinearGradient>
+      <StatsScreen
+        headingFont={headingFont}
+        buttonFont={buttonFont}
+        subtitleFont={subtitleFont}
+        cards={cards}
+        onBack={() => setScreen("home")}
+      />
     );
   }
 
-  // FLASHCARDS HOME
+  if (screen === "quiz" && currentCard) {
+    return (
+      <QuizScreen
+        currentCard={currentCard}
+        historyCount={history.length}
+        upcomingCount={upcoming.length}
+        showAnswer={showAnswer}
+        setShowAnswer={setShowAnswer}
+        headingFont={headingFont}
+        buttonFont={buttonFont}
+        subjectFont={subjectFont}
+        metaFont={metaFont}
+        questionFont={questionFont}
+        answerFont={answerFont}
+        onPrevious={handlePreviousQuestion}
+        onHome={handleHome}
+        onMarkKnown={handleMarkKnown}
+        onMarkUnknown={handleMarkUnknown}
+        onReportError={handleReportError}
+      />
+    );
+  }
+
   if (screen === "flashcardsHome") {
     return (
-      <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
-        <StatusBar style="light" />
-        <ScrollView contentContainerStyle={styles.homeContainer}>
-          <View style={styles.headerRow}>
-            <Text style={[styles.appTitle, { fontSize: headingFont, color: "#f8f9fa" }]}>
-              Flashcards
-            </Text>
-            <Pressable
-              style={[styles.smallButton, { borderColor: "#fff" }]}
-              onPress={() => setScreen("home")}
-              hitSlop={8}
-            >
-              <Text style={[styles.smallButtonText, { color: "#fff", fontSize: buttonFont * 0.9 }]}>
-                Home
-              </Text>
-            </Pressable>
-          </View>
-<View
-  style={[
-    styles.statsCard,
-    {
-      marginTop: 14,
-      marginBottom: 14,
-      alignSelf: "stretch",
-      backgroundColor: "rgba(0,0,0,0.12)",
-    },
-  ]}
->
-  <Text style={[styles.statsSectionTitle, { color: "#f8f9fa" }]}>
-    Sådan bruger du Flashcards
-  </Text>
-
-  <Text style={[styles.statsLabel, { color: "#e9ecef", marginTop: 8, lineHeight: 20 }]}>
-    • Vælg et fag for at se emner og underemner.{"\n"}
-    • Vælg ét eller flere emner (eller tryk “Vælg alle”).{"\n"}
-    • Start en quiz – du får spørgsmål fra de valgte emner.{"\n"}
-    • Under quizzen: “Jeg kunne den” = tæller korrekt. “Jeg kunne den ikke” = kortet kommer igen.
-  </Text>
-
-  <Text style={[styles.statsLabel, { color: "#e9ecef", marginTop: 10, lineHeight: 20 }]}>
-    Tip: Hvis du vil træne bredt, så vælg alle emner. Hvis du crammer til skole (vi dømmer ikke), så vælg
-    et enkelt underemne.
-  </Text>
-</View>
-
-          <View style={styles.subjectGrid}>
-            {subjects.map((subject) => (
-              <Pressable
-                key={subject}
-                onPress={() => {
-                  setSelectedSubject((prev) => (prev === subject ? null : subject));
-                  setSelectedKeys([]);
-                }}
-              >
-                <Text
-                  style={[
-                    styles.homeNavButtonText,
-                    selectedSubject === subject
-  ? { textDecorationLine: "underline" }
-  : undefined
-
-                  ]}
-                >
-                  {subject}
-                </Text>
-              </Pressable>
-            ))}
-          </View>
-
-          {selectedSubject && (
-            <View style={styles.topicSection}>
-              <View style={styles.topicHeaderRow}>
-                <Text style={[styles.topicTitle, { fontSize: metaFont }]}>
-                  Emner i {selectedSubject}
-                </Text>
-                {topicGroupsForSelectedSubject.length > 0 && (
-                  <Pressable
-                    onPress={() =>
-                      allTopicsSelected ? setSelectedKeys([]) : setSelectedKeys(allSelectableKeys)
-                    }
-                    hitSlop={8}
-                  >
-                    <Text style={styles.topicLink}>
-                      {allTopicsSelected ? "Fravælg alle" : "Vælg alle"}
-                    </Text>
-                  </Pressable>
-                )}
-              </View>
-
-              {topicGroupsForSelectedSubject.length === 0 ? (
-                <Text style={styles.topicEmptyText}>Ingen emner fundet for dette fag.</Text>
-              ) : (
-                <View style={styles.topicGroupList}>
-                  {topicGroupsForSelectedSubject.map((group) => {
-                    const groupKeys =
-                      group.subtopics.length === 0
-                        ? [`${group.topic}::<ALL>`]
-                        : group.subtopics.map((sub) => `${group.topic}::${sub}`);
-                    const groupSelected = groupKeys.every((k) => selectedKeys.includes(k));
-
-                    return (
-                      <View key={group.topic} style={styles.topicGroup}>
-                        {group.subtopics.length > 0 && (
-                          <Text
-                            style={[
-                              styles.topicGroupTitle,
-                              groupSelected && styles.topicGroupTitleSelected,
-                            ]}
-                            onPress={() => {
-                              if (groupSelected) {
-                                setSelectedKeys((prev) =>
-                                  prev.filter((k) => !groupKeys.includes(k)),
-                                );
-                              } else {
-                                setSelectedKeys((prev) =>
-                                  Array.from(new Set([...prev, ...groupKeys])),
-                                );
-                              }
-                            }}
-                          >
-                            {group.topic}
-                          </Text>
-                        )}
-
-                        <View style={styles.subtopicRow}>
-                          {group.subtopics.length === 0 ? (
-                            <Pressable
-                              onPress={() =>
-                                setSelectedKeys((prev) =>
-                                  prev.includes(`${group.topic}::<ALL>`)
-                                    ? prev.filter((k) => k !== `${group.topic}::<ALL>`)
-                                    : [...prev, `${group.topic}::<ALL>`],
-                                )
-                              }
-                              style={[
-                                styles.topicChip,
-                                selectedKeys.includes(`${group.topic}::<ALL>`) &&
-                                  styles.topicChipSelected,
-                              ]}
-                            >
-                              <Text
-                                style={[
-                                  styles.topicChipText,
-                                  selectedKeys.includes(`${group.topic}::<ALL>`) &&
-                                    styles.topicChipTextSelected,
-                                ]}
-                              >
-                                {group.topic}
-                              </Text>
-                            </Pressable>
-                          ) : (
-                            group.subtopics.map((sub) => {
-                              const key = `${group.topic}::${sub}`;
-                              const selected = selectedKeys.includes(key);
-                              const isNested = sub.includes("::");
-                              const displayName = isNested ? sub.split("::")[1] : sub;
-
-                              return (
-                                <Pressable
-                                  key={key}
-                                  onPress={() =>
-                                    setSelectedKeys((prev) =>
-                                      prev.includes(key)
-                                        ? prev.filter((k) => k !== key)
-                                        : [...prev, key],
-                                    )
-                                  }
-                                  style={[
-                                    styles.topicChip,
-                                    selected && styles.topicChipSelected,
-                                    isNested && {
-                                      marginLeft: 24,
-                                      backgroundColor: "#f1f3f5",
-                                    },
-                                  ]}
-                                >
-                                  <Text
-                                    style={[
-                                      styles.topicChipText,
-                                      selected && styles.topicChipTextSelected,
-                                      isNested && {
-                                        fontSize: 13,
-                                        color: "#495057",
-                                      },
-                                    ]}
-                                  >
-                                    {displayName}
-                                  </Text>
-                                </Pressable>
-                              );
-                            })
-                          )}
-                        </View>
-                      </View>
-                    );
-                  })}
-                </View>
-              )}
-
-              <Pressable
-                style={[styles.bigButton, { backgroundColor: "#1c7ed6", marginTop: 20 }]}
-                onPress={handleStartQuiz}
-                disabled={loadingCards || cardsForSelectedSubject.length === 0}
-              >
-                <Text style={[styles.bigButtonText, { fontSize: buttonFont }]}>
-                  {selectedKeys.length === 0
-                    ? "Start quiz i alle emner"
-                    : "Start quiz i valgte emner"}
-                </Text>
-              </Pressable>
-            </View>
-          )}
-        </ScrollView>
-      </LinearGradient>
+      <FlashcardsHomeScreen
+        headingFont={headingFont}
+        buttonFont={buttonFont}
+        metaFont={metaFont}
+        subjects={subjects}
+        loadingCards={loadingCards}
+        selectedSubject={selectedSubject}
+        setSelectedSubject={setSelectedSubject}
+        selectedKeys={selectedKeys}
+        setSelectedKeys={setSelectedKeys}
+        topicGroupsForSelectedSubject={topicGroupsForSelectedSubject}
+        allSelectableKeys={allSelectableKeys}
+        allTopicsSelected={allTopicsSelected}
+        cardsForSelectedSubjectCount={cardsForSelectedSubject.length}
+        onBack={() => setScreen("home")}
+        onStartQuiz={handleStartQuiz}
+      />
     );
   }
 
-  // WEEKLY HOME
   if (screen === "weeklyHome") {
     return (
       <WeeklyHomeScreen
@@ -1613,7 +782,6 @@ if (screen === "stats") {
     );
   }
 
-  // WEEKLY – MULTIPLE CHOICE GAME
   if (screen === "weeklyMcq") {
     return (
       <WeeklyMcqScreen
@@ -1627,7 +795,6 @@ if (screen === "stats") {
     );
   }
 
-  // WEEKLY – MATCH GAME
   if (screen === "weeklyMatch") {
     return (
       <WeeklyMatchScreen
@@ -1641,7 +808,6 @@ if (screen === "stats") {
     );
   }
 
-  // WEEKLY – WORD OF THE WEEK
   if (screen === "weeklyWord") {
     return (
       <WeeklyWordScreen
@@ -1655,773 +821,108 @@ if (screen === "stats") {
     );
   }
 
-  // CONTACT
-  if (screen === "contact") {
-    const appName = Constants.expoConfig?.name ?? "FlashMedic";
-    const appVersion = Constants.expoConfig?.version ?? "ukendt version";
-
-    const deviceInfoParts = [
-      Device.manufacturer,
-      Device.modelName,
-      Device.osName,
-      Device.osVersion,
-    ].filter(Boolean);
-
-    const deviceInfo = deviceInfoParts.join(" ");
-
-    const handleSend = async () => {
-      if (!contactMessage.trim()) {
-        Alert.alert("Fejl", "Skriv venligst en besked.");
-        return;
-      }
-
-      try {
-        const res = await fetch(`${API_BASE_URL}/contact/send`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: contactName.trim() || null,
-            email: contactEmail.trim() || null,
-            message: contactMessage.trim(),
-            appName,
-            appVersion,
-            platform: Platform.OS,
-            deviceInfo,
-          }),
-        });
-
-        if (!res.ok) {
-          throw new Error("Serverfejl");
-        }
-
-        Alert.alert("Tak!", "Din besked er sendt til serveren.");
-        setContactName("");
-        setContactEmail("");
-        setContactMessage("");
-      } catch (err) {
-        Alert.alert("Fejl", "Kunne ikke sende beskeden. Prøv igen.");
-      }
-    };
-
-    return (
-      <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
-        <StatusBar style="light" />
-
-        <ScrollView
-          contentContainerStyle={[
-            styles.safeTopContainer ?? styles.homeContainer,
-            {
-              paddingTop: 80,
-              paddingHorizontal: 16,
-              paddingBottom: 40,
-              alignItems: "flex-start",
-            },
-          ]}
-        >
-          <View style={{ width: "100%", maxWidth: 700 }}>
-            <View style={styles.headerRow}>
-              <Text style={[styles.appTitle, { fontSize: headingFont, color: "#f8f9fa" }]}>
-                Kontakt os
-              </Text>
-              <Pressable
-                style={[styles.smallButton, { borderColor: "#ffffffdd" }]}
-                onPress={() => setScreen("home")}
-              >
-                <Text
-                  style={[styles.smallButtonText, { color: "#fff", fontSize: buttonFont * 0.9 }]}
-                >
-                  Tilbage
-                </Text>
-              </Pressable>
-            </View>
-
-            {/* EXISTING subtitle – keep this */}
-            <Text
-              style={[
-                styles.statsLabel,
-                {
-                  marginTop: 12,
-                  marginBottom: 8,
-                  color: "#f1f3f5",
-                },
-              ]}
-            >
-              Denne besked bliver sendt til FlashMedic-teamet via serveren.
-              {"\n"}
-              App: {appName} – v{appVersion}
-              {"\n"}
-              Enhed: {deviceInfo || "Ukendt enhed"} ({Platform.OS})
-            </Text>
-
-            {/* NEW: app description paragraph under subtitle */}
-            <Text
-              style={[
-                styles.statsLabel,
-                {
-                  marginBottom: 8,
-                  color: "#f8f9fa",
-                  fontSize: 24,
-                },
-              ]}
-            >
-              Denne app er lavet af en ambulancebehandlerelev og er rettet mod både elever og
-              færdiguddannede, som vil øve sig i anatomi, medicin, EKG og meget mere.
-              {"\n\n"}
-              Ris, ros og konstruktiv kritik modtages meget gerne – det hjælper med at gøre appen
-              bedre for alle.
-            </Text>
-
-            <Text style={[styles.statsLabel, { marginTop: 24 }]}>Navn (valgfri)</Text>
-            <TextInput
-              value={contactName}
-              onChangeText={setContactName}
-              style={[styles.textInput, { width: "100%" }]}
-              placeholder="Fx Nikolai"
-              placeholderTextColor="#adb5bd"
-            />
-
-            <Text style={[styles.statsLabel, { marginTop: 16 }]}>Email (valgfri)</Text>
-            <TextInput
-              value={contactEmail}
-              onChangeText={setContactEmail}
-              style={[styles.textInput, { width: "100%" }]}
-              placeholder="Fx nikolai@example.com"
-              keyboardType="email-address"
-              autoCapitalize="none"
-              placeholderTextColor="#adb5bd"
-            />
-
-            <Text style={[styles.statsLabel, { marginTop: 16 }]}>Besked</Text>
-            <TextInput
-              value={contactMessage}
-              onChangeText={setContactMessage}
-              style={[
-                styles.textInput,
-                {
-                  width: "100%",
-                  height: 140,
-                  textAlignVertical: "top",
-                },
-              ]}
-              placeholder="Skriv din besked her..."
-              placeholderTextColor="#adb5bd"
-              multiline
-            />
-
-            <Pressable
-              style={[
-                styles.bigButton,
-                styles.primaryButton,
-                {
-                  marginTop: 24,
-                  alignSelf: "flex-start",
-                },
-              ]}
-              onPress={handleSend}
-            >
-              <Text style={styles.bigButtonText}>SEND</Text>
-            </Pressable>
-          </View>
-        </ScrollView>
-      </LinearGradient>
-    );
-  }
-
-  // PROFILE
-  if (screen === "profile") {
-    const saveProfile = async () => {
-  const nickname = profileEditNickname.trim();
-
-  if (!nickname) {
-  Alert.alert("Navn mangler", "Vælg et kaldenavn.");
-  return;
-}
-
-// 🔒 GUARD: students must choose a class
-if (profileEditRole === "student" && !profileEditClassId) {
-  Alert.alert("Hold mangler", "Vælg venligst dit hold.");
-  return;
-}
-
-try {
-
-const firebaseUid = auth.currentUser?.uid;
-
-if (!firebaseUid) {
-  Alert.alert("Fejl", "Bruger er ikke logget ind korrekt.");
-  return;
-}
-
-
-const updated: UserProfile = {
-  userId: firebaseUid,
-  nickname,
-  role: profileEditRole,
-  gender: profileEditGender,
-  region: profileEditRegion,
-  classId: profileEditRole === "student" ? profileEditClassId : null,
-  isAnonymous: false,
-};
-
-
-
-    setProfile(updated);
-
-const toStore: StoredUserProfile = {
-  userId: firebaseUid,
-  nickname,
-  classId: profileEditRole === "student" ? profileEditClassId : null,
-  isAnonymous: false,
-};
-
-
-await saveStoredProfile(toStore);
-
-Alert.alert(
-  "Profil gemt ✅",
-  `userId:\n${firebaseUid}\n\nNavn: ${nickname}\nHold: ${profileEditClassId ?? "—"}`
-);
-
-setScreen("home");
-
-  } catch (err) {
-    console.error(err);
-    Alert.alert("Fejl", "Kunne ikke oprette profil på serveren. Tjek internet og prøv igen.");
-  }
-};
-
-
-    return (
-      <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
-        <StatusBar style="light" />
-        <ScrollView contentContainerStyle={styles.homeContainer}>
-          <View style={styles.headerRow}>
-            <Text style={[styles.appTitle, { fontSize: headingFont, color: "#f8f9fa" }]}>
-              Profil
-            </Text>
-            <Pressable
-              style={[styles.smallButton, { borderColor: "#fff" }]}
-              onPress={() => setScreen("home")}
-              hitSlop={8}
-            >
-              <Text style={[styles.smallButtonText, { color: "#fff", fontSize: buttonFont * 0.9 }]}>
-                Home
-              </Text>
-            </Pressable>
-          </View>
-
-          <View style={styles.statsCard}>
-            <Text style={styles.statsSectionTitle}>Vælg kaldenavn</Text>
-            <TextInput
-              value={profileEditNickname}
-              onChangeText={setProfileEditNickname}
-              placeholder="Fx ParamedNick"
-              placeholderTextColor="#adb5bd"
-              style={styles.textInput}
-            />
-
-<Text style={[styles.statsSectionTitle, { marginTop: 16 }]}>
-  Rolle
-</Text>
-
-<View style={styles.classList}>
-  {[
-    { id: "student", label: "Studerende" },
-    { id: "ambulancebehandler", label: "Ambulancebehandler" },
-    { id: "paramediciner", label: "Paramediciner" },
-    { id: "laegeassistent", label: "Lægeassistent" },
-  ].map((r) => {
-    const selected = profileEditRole === r.id;
-
-    return (
-      <Pressable
-        key={r.id}
-        onPress={() => setProfileEditRole(r.id as UserRole)}
-        style={[
-          styles.classChip,
-          selected && styles.classChipSelected,
-        ]}
-      >
-        <Text
-          style={[
-            styles.classChipText,
-            selected && styles.classChipTextSelected,
-          ]}
-        >
-          {r.label}
-        </Text>
-      </Pressable>
-    );
-  })}
-</View>
-
-            {profileEditRole === "student" && (
-  <>
-    <Text style={[styles.statsSectionTitle, { marginTop: 16 }]}>
-      Vælg hold / klasse
-    </Text>
-
-    <View style={styles.classList}>
-      {STUDENT_CLASSES.map((num) => {
-  const selected = profileEditClassId === num;
-
+ if (screen === "contact") {
   return (
-    <Pressable
-      key={num}
-      onPress={() => setProfileEditClassId(num)}
-      style={[
-        styles.classChip,
-        selected && styles.classChipSelected,
-      ]}
-    >
-      <Text
-        style={[
-          styles.classChipText,
-          selected && styles.classChipTextSelected,
-        ]}
-      >
-        {num}
-      </Text>
-    </Pressable>
+    <ContactScreen
+      headingFont={headingFont}
+      buttonFont={buttonFont}
+      apiBaseUrl={API_BASE_URL}
+      contactName={contactName}
+      setContactName={setContactName}
+      contactEmail={contactEmail}
+      setContactEmail={setContactEmail}
+      contactMessage={contactMessage}
+      setContactMessage={setContactMessage}
+      onBack={() => setScreen("home")}
+    />
   );
-})}
+}
 
-    
-    </View>
-  </>
-)}
-
-<Text style={[styles.statsSectionTitle, { marginTop: 16 }]}>
-  Region
-</Text>
-
-<View style={styles.classList}>
-  {[
-    { id: "hovedstaden", label: "Hovedstaden" },
-    { id: "sjaelland", label: "Sjælland" },
-    { id: "syddanmark", label: "Syddanmark" },
-    { id: "midtjylland", label: "Midtjylland" },
-    { id: "nordjylland", label: "Nordjylland" },
-    { id: "oestdanmark", label: "Østdanmark" },
-  ].map((r) => {
-    const selected = profileEditRegion === r.id;
-
+  if (screen === "profile") {
     return (
-      <Pressable
-        key={r.id}
-        onPress={() => setProfileEditRegion(r.id as Region)}
-        style={[
-          styles.classChip,
-          selected && styles.classChipSelected,
-        ]}
-      >
-        <Text
-          style={[
-            styles.classChipText,
-            selected && styles.classChipTextSelected,
-          ]}
-        >
-          {r.label}
-        </Text>
-      </Pressable>
-    );
-  })}
-</View>
-
-<Text style={[styles.statsSectionTitle, { marginTop: 16 }]}>
-  Køn (valgfri)
-</Text>
-
-<View style={styles.classList}>
-  {[
-    { id: "male", label: "Mand" },
-    { id: "female", label: "Kvinde" },
-    { id: "not_specified", label: "Ønsker ikke at oplyse" },
-  ].map((g) => {
-    const selected = profileEditGender === g.id;
-
-    return (
-      <Pressable
-        key={g.id}
-        onPress={() => setProfileEditGender(g.id as Gender)}
-        style={[
-          styles.classChip,
-          selected && styles.classChipSelected,
-        ]}
-      >
-        <Text
-          style={[
-            styles.classChipText,
-            selected && styles.classChipTextSelected,
-          ]}
-        >
-          {g.label}
-        </Text>
-      </Pressable>
-    );
-  })}
-</View>
-
-
-            <Pressable
-              style={[
-                styles.bigButton,
-                { backgroundColor: "#1c7ed6", marginTop: 24, alignSelf: "stretch" },
-              ]}
-              onPress={saveProfile}
-            >
-              <Text style={[styles.bigButtonText, { fontSize: buttonFont }]}>Gem profil</Text>
-            </Pressable>
-          </View>
-        </ScrollView>
-      </LinearGradient>
+      <ProfileScreen
+        headingFont={headingFont}
+        buttonFont={buttonFont}
+        firebaseUid={auth.currentUser?.uid ?? null}
+        setProfile={setProfile}
+        saveStoredProfile={saveStoredProfile}
+        profileEditNickname={profileEditNickname}
+        setProfileEditNickname={setProfileEditNickname}
+        profileEditRole={profileEditRole}
+        setProfileEditRole={setProfileEditRole}
+        profileEditClassId={profileEditClassId}
+        setProfileEditClassId={setProfileEditClassId}
+        profileEditRegion={profileEditRegion}
+        setProfileEditRegion={setProfileEditRegion}
+        profileEditGender={profileEditGender}
+        setProfileEditGender={setProfileEditGender}
+        STUDENT_CLASSES={STUDENT_CLASSES}
+        onBack={() => setScreen("home")}
+      />
     );
   }
 
-  // DRUG CALC HOME
   if (screen === "drugCalcHome") {
     return (
-      <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
-        <StatusBar style="light" />
-        <ScrollView contentContainerStyle={styles.homeContainer}>
-          <View style={styles.headerRow}>
-            <Text
-              style={[styles.appTitle, { fontSize: headingFont, color: "#f8f9fa" }]}
-              numberOfLines={1}
-              adjustsFontSizeToFit
-            >
-              Lægemiddelregning
-            </Text>
-            <Pressable
-              style={[styles.smallButton, { borderColor: "#fff" }]}
-              onPress={() => setScreen("home")}
-              hitSlop={8}
-            >
-              <Text style={[styles.smallButtonText, { color: "#fff", fontSize: buttonFont * 0.9 }]}>
-                Home
-              </Text>
-            </Pressable>
-          </View>
-
-          <Text
-            style={[
-              styles.subtitle,
-              {
-                fontSize: subtitleFont,
-                color: "#e9ecef",
-                textAlign: "left",
-                alignSelf: "flex-start",
-              },
-            ]}
-          >
-            Træn doser, styrker, mængder og procentregning.
-          </Text>
-
-          <View style={styles.homeButtonsContainer}>
-            <Pressable style={styles.homeNavButton} onPress={startDrugCalcPractice}>
-              <Text style={styles.homeNavButtonText}>Opgaver</Text>
-            </Pressable>
-            <Pressable style={styles.homeNavButton} onPress={() => setScreen("drugCalcTheory")}>
-              <Text style={styles.homeNavButtonText}>Teori</Text>
-            </Pressable>
-          </View>
-        </ScrollView>
-      </LinearGradient>
+      <DrugCalcHomeScreen
+        headingFont={headingFont}
+        subtitleFont={subtitleFont}
+        buttonFont={buttonFont}
+        onBackHome={() => setScreen("home")}
+        onStartPractice={startDrugCalcPractice}
+        onOpenTheory={() => setScreen("drugCalcTheory")}
+      />
     );
   }
 
-  // DRUG CALC PRACTICE
   if (screen === "drugCalcPractice") {
     return (
-      <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
-        <StatusBar style="light" />
-        <ScrollView contentContainerStyle={styles.homeContainer}>
-          <View style={styles.headerRow}>
-            <View style={{ flex: 1 }}>
-              <Text
-                style={[styles.appTitle, { fontSize: headingFont, color: "#f8f9fa" }]}
-                numberOfLines={1}
-                adjustsFontSizeToFit
-              >
-                Lægemiddelregning
-              </Text>
-              <View style={styles.subHeaderRow}>
-                <Text style={[styles.subHeaderText, { fontSize: subtitleFont }]}>Opgaver</Text>
-              </View>
-            </View>
-            <Pressable
-              style={[styles.smallButton, { borderColor: "#fff" }]}
-              onPress={() => setScreen("drugCalcHome")}
-              hitSlop={8}
-            >
-              <Text style={[styles.smallButtonText, { color: "#fff", fontSize: buttonFont * 0.9 }]}>
-                Tilbage
-              </Text>
-            </Pressable>
-          </View>
-
-          <View style={[styles.statsCard, { alignSelf: "stretch" }]}>
-            <Text style={styles.statsSectionTitle}>Spørgsmål</Text>
-            <Text style={styles.drugQuestionText}>
-              {currentDrugQuestion?.text ?? "Ingen spørgsmål – tryk på Næste spørgsmål."}
-            </Text>
-            {currentDrugQuestion?.hint && (
-              <Text style={styles.drugHintText}>{currentDrugQuestion.hint}</Text>
-            )}
-
-            <View
-              style={[
-                styles.drugAnswerBox,
-                drugAnswerStatus === "correct" && styles.drugAnswerBoxCorrect,
-                drugAnswerStatus === "incorrect" && styles.drugAnswerBoxIncorrect,
-              ]}
-            >
-              <TextInput
-                value={drugAnswer}
-                onChangeText={setDrugAnswer}
-                placeholder="Skriv dit svar"
-                placeholderTextColor="#adb5bd"
-                keyboardType="numeric"
-                style={styles.textInput}
-              />
-              {currentDrugQuestion?.unit && (
-                <Text style={styles.drugUnitText}>{currentDrugQuestion.unit}</Text>
-              )}
-            </View>
-
-            <View style={styles.buttonRow}>
-              <Pressable
-                style={[
-                  styles.bigButton,
-                  styles.primaryButton,
-                  { backgroundColor: "#1c7ed6", flex: 1 },
-                ]}
-                onPress={checkDrugAnswer}
-              >
-                <Text style={styles.bigButtonText}>Tjek svar</Text>
-              </Pressable>
-            </View>
-
-            {drugAnswerStatus !== "neutral" && (
-              <View style={styles.buttonRow}>
-                <Pressable
-                  style={[
-                    styles.bigButton,
-                    styles.secondaryButton,
-                    { backgroundColor: "#495057", flex: 1 },
-                  ]}
-                  onPress={nextDrugQuestion}
-                >
-                  <Text style={styles.bigButtonText}>Næste spørgsmål</Text>
-                </Pressable>
-              </View>
-            )}
-          </View>
-        </ScrollView>
-      </LinearGradient>
+      <DrugCalcPracticeScreen
+        headingFont={headingFont}
+        subtitleFont={subtitleFont}
+        buttonFont={buttonFont}
+        currentDrugQuestion={currentDrugQuestion}
+        drugAnswer={drugAnswer}
+        setDrugAnswer={setDrugAnswer}
+        drugAnswerStatus={drugAnswerStatus}
+        onCheckAnswer={checkDrugAnswer}
+        onNextQuestion={nextDrugQuestion}
+        onBack={() => setScreen("drugCalcHome")}
+      />
     );
   }
 
-  // DRUG CALC THEORY
   if (screen === "drugCalcTheory") {
     return (
-      <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
-        <StatusBar style="light" />
-        <ScrollView contentContainerStyle={[styles.homeContainer, styles.safeTopContainer]}>
-          <View style={styles.headerRow}>
-            <View style={{ flex: 1 }}>
-              <Text
-                style={[styles.appTitle, { fontSize: headingFont, color: "#f8f9fa" }]}
-                numberOfLines={1}
-                adjustsFontSizeToFit
-              >
-                Lægemiddelregning
-              </Text>
-              <View style={styles.subHeaderRow}>
-                <Text style={[styles.subHeaderText, { fontSize: subtitleFont }]}>Teori</Text>
-              </View>
-            </View>
-
-            <Pressable
-              style={[styles.smallButton, { borderColor: "#fff" }]}
-              onPress={() => setScreen("drugCalcHome")}
-              hitSlop={8}
-            >
-              <Text style={[styles.smallButtonText, { color: "#fff", fontSize: buttonFont * 0.9 }]}>
-                Tilbage
-              </Text>
-            </Pressable>
-          </View>
-
-          <View style={[styles.statsCard, { alignSelf: "stretch" }]}>
-            <Text style={styles.statsSectionTitle}>Grundformler</Text>
-
-            <Text style={styles.drugTheoryText}>
-              Dosisregning handler i sin kerne om tre ting:
-              {"\n"}
-              {"\n"}• D = ordineret dosis (mg eller g){"\n"}• S = styrke (mg/mL, mg/tablet, % osv.)
-              {"\n"}• V = volumen (mL eller antal tabletter)
-              {"\n"}
-              {"\n"}
-              De tre hænger altid sammen gennem formlerne:
-              {"\n"}D = S × V{"\n"}V = D / S{"\n"}S = D / V{"\n"}
-              {"\n"}
-              Eksempel: Du skal give 300 mg, præparatet indeholder 100 mg/mL.
-              {"\n"}V = 300 / 100 = 3 mL.
-            </Text>
-
-            <Text style={[styles.statsSectionTitle, { marginTop: 18 }]}>Tabletter</Text>
-            <Text style={styles.drugTheoryText}>
-              Tabletberegning er en af de hyppigste former for medicinregning:
-              {"\n"}
-              {"\n"}
-              Antal tabletter = ordineret dosis / mg pr. tablet.
-              {"\n"}
-              {"\n"}
-              Eksempel: Patienten skal have 225 mg Paracetamol, tabletter findes som 75 mg.
-              {"\n"}
-              Antal tabletter = 225 / 75 = 3 tabletter.
-            </Text>
-
-            <Text style={[styles.statsSectionTitle, { marginTop: 18 }]}>
-              Stærke opløsninger (mg/mL)
-            </Text>
-            <Text style={styles.drugTheoryText}>
-              Flydende medicin er næsten altid angivet som mg pr. mL.
-              {"\n"}
-              Husk: mængden du giver afhænger af total dosis.
-              {"\n"}
-              {"\n"}
-              Eksempel: 5 mg/mL og du skal give 20 mg → 20 / 5 = 4 mL.
-            </Text>
-
-            <Text style={[styles.statsSectionTitle, { marginTop: 18 }]}>
-              Procentregning (glukose, NaCl osv.)
-            </Text>
-            <Text style={styles.drugTheoryText}>
-              En procentopløsning betyder:
-              {"\n"}
-              X% = X gram pr. 100 mL.
-              {"\n"}
-              {"\n"}
-              Eksempel: 10% glukose = 10 g / 100 mL.
-              {"\n"}
-              {"\n"}
-              500 mL 10% glukose = (10 g / 100 mL) × 500 mL = 50 g.
-              {"\n"}
-              {"\n"}
-              En hurtig huskeregel:
-              {"\n"}• 5% = 5 g/100 mL{"\n"}• 10% = 10 g/100 mL{"\n"}• 20% = 20 g/100 mL
-            </Text>
-
-            <Text style={[styles.statsSectionTitle, { marginTop: 18 }]}>Dråber → mL</Text>
-            <Text style={styles.drugTheoryText}>
-              1 mL svarer typisk til 20 dråber (kan variere i praksis).
-              {"\n"}
-              Bruges især ved infusioner eller øjendråber.
-              {"\n"}
-              {"\n"}
-              Eksempel: 60 dråber = 60 / 20 = 3 mL.
-            </Text>
-
-            <Text style={[styles.statsSectionTitle, { marginTop: 18 }]}>
-              Infusioner og hastigheder
-            </Text>
-            <Text style={styles.drugTheoryText}>
-              Infusionshastighed regnes som:
-              {"\n"}
-              mL/time = total volumen / antal timer.
-              {"\n"}
-              {"\n"}
-              Eksempel: 1000 mL over 4 timer → 1000 / 4 = 250 mL/time.
-            </Text>
-          </View>
-        </ScrollView>
-      </LinearGradient>
+      <DrugCalcTheoryScreen
+        headingFont={headingFont}
+        subtitleFont={subtitleFont}
+        buttonFont={buttonFont}
+        onBack={() => setScreen("drugCalcHome")}
+      />
     );
   }
 
   // HOME
   return (
-    <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
-      <StatusBar style="light" />
-      <ScrollView contentContainerStyle={styles.homeContainer}>
-        {/* Top row: profile badge */}
-        <View style={styles.homeTopRow}>
-          <View style={{ flex: 1 }} />
-          <Pressable
-            style={[styles.profileBadge, profile?.isAnonymous && styles.profileBadgeAnon]}
-            onPress={() => setScreen("profile")}
-            hitSlop={16}
-          >
-            <Text style={styles.profileBadgeText}>
-              {profile?.isAnonymous ? "Opret profil" : profile?.nickname}
-            </Text>
-            {!profile?.isAnonymous && classLabel ? (
-              <Text style={styles.profileBadgeSub}>{classLabel}</Text>
-            ) : null}
-          </Pressable>
-        </View>
-
-        {/* Icon + title */}
-        <Image source={APP_LOGO} style={styles.appLogo} />
-        <Text style={[styles.appTitle, { fontSize: headingFont, color: "#f8f9fa" }]}>
-          FlashMedic
-        </Text>
-        {loadingCards ? (
-          <Text style={[styles.subtitle, { fontSize: subtitleFont, color: "#e9ecef" }]}>
-            Indlæser kort fra serveren…
-          </Text>
-        ) : loadError ? (
-          <Text style={[styles.subtitle, { fontSize: subtitleFont, color: "#ffdddd" }]}>
-            {loadError}
-          </Text>
-        ) : (
-          <Text style={[styles.subtitle, { fontSize: subtitleFont, color: "#e9ecef" }]}>
-            Træn medicin, anatomi, EKG og meget mere.
-          </Text>
-        )}
-
-        {/* Big centered nav buttons */}
-        <View style={styles.homeButtonsContainer}>
-          <Pressable
-  style={styles.homeNavButton}
-  onPress={() => setScreen("weeklyHome")}
-  onLongPress={() => setScreen("weeklyDev")}
-  delayLongPress={800}
->
-  <Text style={styles.homeNavButtonText}>Weekly Challenges</Text>
-</Pressable>
-
-
-          <Pressable style={styles.homeNavButton} onPress={() => setScreen("flashcardsHome")}>
-            <Text style={styles.homeNavButtonText}>Flashcards</Text>
-          </Pressable>
-
-          <Pressable
-            style={styles.homeNavButton}
-            onPress={handleStartAllSubjectsQuiz}
-            disabled={loadingCards || cards.length === 0}
-          >
-            <Text style={styles.homeNavButtonText}>Flashcards i alle fag</Text>
-          </Pressable>
-
-          <Pressable style={styles.homeNavButton} onPress={() => setScreen("drugCalcHome")}>
-            <Text style={styles.homeNavButtonText}>Lægemiddelregning</Text>
-          </Pressable>
-
-          <Pressable style={styles.homeNavButton} onPress={() => setScreen("stats")}>
-            <Text style={styles.homeNavButtonText}>Statistik</Text>
-          </Pressable>
-
-          <Pressable style={styles.homeNavButton} onPress={() => setScreen("contact")}>
-            <Text style={styles.homeNavButtonText}>Kontakt</Text>
-          </Pressable>
-        </View>
-
-        {/* Made by – ONLY on home */}
-        <Text style={styles.madeByText}>Made by Nikolai Louis Kleftås Thaarup</Text>
-      </ScrollView>
-    </LinearGradient>
+    <HomeScreen
+      headingFont={headingFont}
+      subtitleFont={subtitleFont}
+      loadingCards={loadingCards}
+      loadError={loadError}
+      profileNickname={profile?.nickname ?? null}
+      profileIsAnonymous={!!profile?.isAnonymous}
+      classLabel={classLabel}
+      appLogo={APP_LOGO}
+      onOpenProfile={() => setScreen("profile")}
+      onOpenWeeklyHome={() => setScreen("weeklyHome")}
+      onOpenWeeklyDev={() => setScreen("weeklyDev")}
+      onOpenFlashcardsHome={() => setScreen("flashcardsHome")}
+      onStartAllSubjectsQuiz={handleStartAllSubjectsQuiz}
+      onOpenDrugCalcHome={() => setScreen("drugCalcHome")}
+      onOpenStats={() => setScreen("stats")}
+      onOpenContact={() => setScreen("contact")}
+      disableAllSubjectsQuiz={loadingCards || cards.length === 0}
+    />
   );
 }
