@@ -1,14 +1,7 @@
 // src/services/weeklyMcqService.ts
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  limit,
-  query,
-  where,
-} from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
+import { getActiveWeekKey } from "./weeklyIndexService";
 
 export type WeeklyMcqOption = { id: string; text: string; isCorrect?: boolean };
 
@@ -113,24 +106,9 @@ export async function loadThisWeeksMcqPack(): Promise<{
   weekKey: string;
   pack: WeeklyMcqPack;
 } | null> {
-  const q = query(
-    collection(db, "weekly_mcq_packs"),
-    where("isActive", "==", true),
-    limit(1),
-  );
-
-  const snap = await getDocs(q);
-  if (snap.empty) return null;
-
-  const docSnap = snap.docs[0];
-  const data = docSnap.data() as any;
-
-  const pack = normalizeMcqPack(data, docSnap.id);
-
-  return {
-    weekKey: pack.weekKey,
-    pack,
-  };
+  const activeWeekKey = await getActiveWeekKey();
+  if (!activeWeekKey) return null;
+  return await loadMcqPackByWeekKey(activeWeekKey);
 }
 
 // ✅ DEV MODE / OVERRIDE (direct doc by weekKey)

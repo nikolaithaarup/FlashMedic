@@ -99,7 +99,9 @@ export function WeeklyWordScreen({
     ? `weekly_lock_word_${effectiveWeekKey}`
     : "weekly_lock_word_unknown";
   const lock = useWeeklyLock(lockKey);
-  const isLocked = (weeklyWordLocked || lock.locked) && !lock.ignoreLocks;
+  const [forceLocked, setForceLocked] = useState(false);
+  const isLocked =
+    (weeklyWordLocked || lock.locked || forceLocked) && !lock.ignoreLocks;
 
   // ---- Game state ----
   const [started, setStarted] = useState(false);
@@ -132,6 +134,10 @@ export function WeeklyWordScreen({
     if (!topicTitle) return "- (Ingen emner endnu)";
     return `- ${topicTitle}`;
   }, [topicTitle]);
+
+  useEffect(() => {
+    setForceLocked(false);
+  }, [effectiveWeekKey]);
 
   // ---- Load pack ----
   useEffect(() => {
@@ -209,11 +215,15 @@ export function WeeklyWordScreen({
   };
 
   const lockAndExit = async () => {
+    setForceLocked(true);
+    setWeeklyWordLocked(true);
+
     if (!lock.ignoreLocks) {
       try {
         await lock.lock();
-      } catch {}
-      setWeeklyWordLocked(true);
+      } catch (err) {
+        console.error("Failed to lock Word game on exit", err);
+      }
     }
 
     hardResetUi();
@@ -274,6 +284,10 @@ export function WeeklyWordScreen({
   };
 
   const handleStart = () => {
+    if (!lock.loaded) {
+      Alert.alert("Indlæser", "Tjekker spilstatus...");
+      return;
+    }
     if (!packLoaded) {
       Alert.alert("Indlæser", "Henter Word pack...");
       return;
@@ -334,11 +348,15 @@ export function WeeklyWordScreen({
   };
 
   const finishRun = async (finalScore: number) => {
+    setForceLocked(true);
+    setWeeklyWordLocked(true);
+
     if (!lock.ignoreLocks) {
       try {
         await lock.lock();
-      } catch {}
-      setWeeklyWordLocked(true);
+      } catch (err) {
+        console.error("Failed to lock Word game on finish", err);
+      }
     }
 
     try {

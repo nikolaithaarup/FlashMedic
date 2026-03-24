@@ -112,8 +112,10 @@ export function WeeklyMcqScreen({
     ? `weekly_lock_mcq_${effectiveWeekKey}`
     : "weekly_lock_mcq_unknown";
   const lock = useWeeklyLock(lockKey);
+  const [forceLocked, setForceLocked] = useState(false);
 
-  const isLocked = (weeklyMcqLocked || lock.locked) && !lock.ignoreLocks;
+  const isLocked =
+    (weeklyMcqLocked || lock.locked || forceLocked) && !lock.ignoreLocks;
 
   const currentQuestion = questions[index];
   const totalQuestions = questions.length;
@@ -193,6 +195,10 @@ export function WeeklyMcqScreen({
     return () => clearInterval(interval);
   }, [timerRunning, started, showFeedback, finished]);
 
+  useEffect(() => {
+    setForceLocked(false);
+  }, [effectiveWeekKey]);
+
   const hardResetUi = () => {
     setTimerRunning(false);
     setStarted(false);
@@ -209,10 +215,17 @@ export function WeeklyMcqScreen({
   };
 
   const lockAndExit = async () => {
-    try {
-      await lock.lock();
-    } catch {}
+    setForceLocked(true);
     setWeeklyMcqLocked(true);
+
+    if (!lock.ignoreLocks) {
+      try {
+        await lock.lock();
+      } catch (err) {
+        console.error("Failed to lock MCQ game on exit", err);
+      }
+    }
+
     hardResetUi();
     onBack();
   };
@@ -238,6 +251,10 @@ export function WeeklyMcqScreen({
   };
 
   const handleStart = () => {
+    if (!lock.loaded) {
+      Alert.alert("Indlæser", "Tjekker spilstatus...");
+      return;
+    }
     if (!packLoaded) {
       Alert.alert("Indlæser", "Henter ugens spørgsmål...");
       return;
@@ -305,11 +322,15 @@ export function WeeklyMcqScreen({
   };
 
   const finishRun = async (finalScore: number) => {
+    setForceLocked(true);
+    setWeeklyMcqLocked(true);
+
     if (!lock.ignoreLocks) {
       try {
         await lock.lock();
-      } catch {}
-      setWeeklyMcqLocked(true);
+      } catch (err) {
+        console.error("Failed to lock MCQ game on finish", err);
+      }
     }
 
     try {
@@ -336,7 +357,8 @@ export function WeeklyMcqScreen({
       setSecondsLeft(timeLimit);
       setShowResults(true);
 
-      await finishRun(score);
+      const finalScore = score + lastPoints;
+      await finishRun(finalScore);
       return;
     }
 

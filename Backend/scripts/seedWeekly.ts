@@ -16,6 +16,7 @@
 
 import crypto from "crypto";
 import admin from "firebase-admin";
+import fs from "fs";
 import { weeklyPlan2026 } from "../content/weeklyPlan_2026";
 
 type WeekKey = keyof typeof weeklyPlan2026;
@@ -66,8 +67,23 @@ function wordRound(
 async function ensureAdmin() {
   if (admin.apps.length) return;
 
+  const serviceAccountPath =
+    "C:\\Users\\nikol\\Code\\Firebase\\flashmedic-admin.json";
+
+  if (!fs.existsSync(serviceAccountPath)) {
+    throw new Error(`Service account file not found: ${serviceAccountPath}`);
+  }
+
+  const serviceAccount = JSON.parse(
+    fs.readFileSync(serviceAccountPath, "utf8"),
+  );
+
+  console.log("Using service account:", serviceAccountPath);
+  console.log("Project ID:", serviceAccount.project_id);
+
   admin.initializeApp({
-    credential: admin.credential.applicationDefault(),
+    credential: admin.credential.cert(serviceAccount),
+    projectId: serviceAccount.project_id,
   });
 }
 
@@ -83,7 +99,7 @@ async function setActiveForCollection(
   let touched = 0;
 
   snap.docs.forEach((d) => {
-    if (d.id === "current") return; // don't touch weekly_index/current here
+    if (d.id === "current") return;
     const isActive = d.id === activeWeek;
     batch.set(d.ref, { isActive }, { merge: true });
     touched++;
@@ -133,7 +149,6 @@ async function upsertWeek(
 
   const isActive = activeOverride ? weekKey === activeOverride : false;
 
-  // --- Word pack ---
   const wordPack = {
     weekKey,
     isActive,
@@ -146,7 +161,6 @@ async function upsertWeek(
     updatedAt: admin.firestore.FieldValue.serverTimestamp(),
   };
 
-  // --- Match pack ---
   const matchRounds = plan.match.rounds.map((topic, idx) => {
     const round = idx + 1;
     const pairsRaw = plan.match.pairsByRound?.[round] ?? [];
@@ -168,7 +182,6 @@ async function upsertWeek(
     updatedAt: admin.firestore.FieldValue.serverTimestamp(),
   };
 
-  // --- MCQ pack ---
   const mcqTimeLimit = plan.mcq.timeLimitSec ?? 30;
   const categories = plan.mcq.rounds;
   const questions = Array.isArray(plan.mcq.questions) ? plan.mcq.questions : [];
@@ -183,7 +196,6 @@ async function upsertWeek(
     updatedAt: admin.firestore.FieldValue.serverTimestamp(),
   };
 
-  // --- Weekly index entry per week ---
   const weeklyIndex = {
     weekKey,
     isActive,

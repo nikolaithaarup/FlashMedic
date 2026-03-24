@@ -1,5 +1,4 @@
 // src/features/weekly/WeeklyMatchScreen.tsx
-// ✅ ONLY CHANGE: replace the plain instruction block with the same boxed help card styling.
 
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
@@ -62,17 +61,27 @@ async function ensureAuthUid(): Promise<string> {
   return cred.user.uid;
 }
 
+const MATCH_COLORS = [
+  "#1971c2",
+  "#2b8a3e",
+  "#e67700",
+  "#9c36b5",
+  "#c2255c",
+  "#5f3dc4",
+  "#0b7285",
+  "#495057",
+];
+
 type WeeklyMatchScreenProps = {
   headingFont: number;
   buttonFont: number;
 
-  weeklyMatchLocked: boolean; // backward compat
+  weeklyMatchLocked: boolean;
   setWeeklyMatchLocked: (locked: boolean) => void;
 
   profileNickname?: string | null;
   onBack: () => void;
 
-  // ✅ DEV: force-load specific week doc id (e.g. "2026-W06")
   devWeekKey?: string | null;
 };
 
@@ -93,15 +102,19 @@ export function WeeklyMatchScreen({
 
   const maxRounds = rounds.length > 0 ? rounds.length : 1;
 
-  // ✅ effective key for locks + display
   const effectiveWeekKey = weekKey ?? devWeekKey ?? null;
 
-  // ---- Week lock (like MCQ) ----
+  // ---- Week lock ----
   const lockKey = effectiveWeekKey
     ? `weekly_lock_match_${effectiveWeekKey}`
     : "weekly_lock_match_unknown";
   const lock = useWeeklyLock(lockKey);
-  const isLocked = (weeklyMatchLocked || lock.locked) && !lock.ignoreLocks;
+
+  // local immediate lock so UI locks instantly on quit/finish
+  const [forceLocked, setForceLocked] = useState(false);
+
+  const isLocked =
+    (weeklyMatchLocked || lock.locked || forceLocked) && !lock.ignoreLocks;
 
   // ---- Game state ----
   const [started, setStarted] = useState(false);
@@ -117,7 +130,12 @@ export function WeeklyMatchScreen({
   const [selectedRightId, setSelectedRightId] = useState<string | null>(null);
   const [matches, setMatches] = useState<Record<string, string>>({}); // leftId -> rightId
 
-  // Rounds + scoring
+  // leftId -> color index, so matched left/right share same color
+  const [matchColorMap, setMatchColorMap] = useState<Record<string, number>>(
+    {},
+  );
+
+  // ---- Rounds + scoring ----
   const [round, setRound] = useState(1);
   const [lastRoundScore, setLastRoundScore] = useState(0);
   const [totalScore, setTotalScore] = useState(0);
@@ -127,7 +145,7 @@ export function WeeklyMatchScreen({
 
   const timeLabel = formatSeconds(timerSeconds);
 
-  // ---- Load pack on mount / when devWeekKey changes ----
+  // ---- Load pack ----
   useEffect(() => {
     let cancelled = false;
 
@@ -166,6 +184,11 @@ export function WeeklyMatchScreen({
     };
   }, [devWeekKey]);
 
+  // reset local force lock when week changes
+  useEffect(() => {
+    setForceLocked(false);
+  }, [effectiveWeekKey]);
+
   // Timer per round
   useEffect(() => {
     if (!timerRunning) return;
@@ -203,6 +226,7 @@ export function WeeklyMatchScreen({
     setSelectedLeftId(null);
     setSelectedRightId(null);
     setMatches({});
+    setMatchColorMap({});
 
     setLastRoundScore(0);
     setTotalScore(0);
@@ -211,11 +235,15 @@ export function WeeklyMatchScreen({
   };
 
   const lockAndExit = async () => {
+    setForceLocked(true);
+    setWeeklyMatchLocked(true);
+
     if (!lock.ignoreLocks) {
       try {
-        await lock.lock(); // week lock
-      } catch {}
-      setWeeklyMatchLocked(true); // backward compat
+        await lock.lock();
+      } catch (err) {
+        console.error("Failed to lock match game on exit", err);
+      }
     }
 
     hardResetUi();
@@ -263,10 +291,10 @@ export function WeeklyMatchScreen({
     setFinished(false);
 
     setMatches({});
+    setMatchColorMap({});
     setSelectedLeftId(null);
     setSelectedRightId(null);
 
-    // per-round counters
     setCorrectCount(0);
     setWrongCount(0);
     setLastRoundScore(0);
@@ -317,6 +345,12 @@ export function WeeklyMatchScreen({
           delete next[existingLeftId];
           return next;
         });
+
+        setMatchColorMap((prev) => {
+          const next = { ...prev };
+          delete next[existingLeftId];
+          return next;
+        });
       }
 
       setSelectedRightId((prev) => (prev === rightId ? null : rightId));
@@ -339,6 +373,7 @@ export function WeeklyMatchScreen({
       const otherLeftId = Object.entries(next).find(
         ([, r]) => r === rightId,
       )?.[0];
+
       if (otherLeftId && otherLeftId !== leftId) {
         delete next[otherLeftId];
       }
@@ -347,16 +382,47 @@ export function WeeklyMatchScreen({
       return next;
     });
 
+    setMatchColorMap((prev) => {
+      const next = { ...prev };
+
+      const currentRightForLeft = matches[leftId];
+      if (currentRightForLeft === rightId) {
+        delete next[leftId];
+        return next;
+      }
+
+      const otherLeftId = Object.entries(matches).find(
+        ([, r]) => r === rightId,
+      )?.[0];
+      if (otherLeftId && otherLeftId !== leftId) {
+        delete next[otherLeftId];
+      }
+
+      if (next[leftId] == null) {
+        const used = new Set(Object.values(next));
+        const availableIndex = MATCH_COLORS.findIndex(
+          (_, idx) => !used.has(idx),
+        );
+        next[leftId] = availableIndex >= 0 ? availableIndex : 0;
+      }
+
+      return next;
+    });
+
     setSelectedLeftId(null);
     setSelectedRightId(null);
   };
 
   const finishRun = async (finalScore: number) => {
+    setForceLocked(true);
+    setWeeklyMatchLocked(true);
+
     if (!lock.ignoreLocks) {
       try {
         await lock.lock();
-      } catch {}
-      setWeeklyMatchLocked(true);
+      } catch (err) {
+        console.error("Failed to lock match game on finish", err);
+      }
     }
 
     try {
@@ -423,7 +489,6 @@ export function WeeklyMatchScreen({
     rightItems.length > 0 ? rightItems : shuffle(currentPairs);
   const leftItemsToShow = leftItems.length > 0 ? leftItems : currentPairs;
 
-  // ---------- Render ----------
   return (
     <LinearGradient
       colors={["#0e91a8ff", "#5e6e7eff"]}
@@ -482,7 +547,6 @@ export function WeeklyMatchScreen({
               hormon, eller suffiks og lægemiddeltype.
             </Text>
 
-            {/* ✅ NEW: same "boxed help card" look as FlashcardsHomeScreen */}
             <View
               style={[
                 styles.statsCard,
@@ -506,8 +570,9 @@ export function WeeklyMatchScreen({
                 ]}
               >
                 • Tryk først venstre, derefter højre for at lave et match{"\n"}•
-                Tryk “Aflever” når du er færdig{"\n\n"}Point:{"\n"}• 1000 point
-                pr. korrekt match{"\n"}• −50 point pr. sekund (per runde)
+                Farver viser hvilke to felter der hører sammen{"\n"}• Tryk
+                “Aflever” når du er færdig{"\n\n"}Point:{"\n"}• 1000 point pr.
+                korrekt match{"\n"}• −50 point pr. sekund (per runde)
                 {"\n\n"}Du kan kun spille dette spil én gang pr. uge.
               </Text>
             </View>
@@ -568,7 +633,6 @@ export function WeeklyMatchScreen({
           </View>
         )}
 
-        {/* rest unchanged */}
         {started && (
           <>
             <View style={styles.weeklyTimerBar}>
@@ -609,10 +673,20 @@ export function WeeklyMatchScreen({
                   const rightPair = rightItemsToShow[idx];
 
                   const isSelectedLeft = selectedLeftId === leftPair.id;
-                  const isMatchedLeft = matches[leftPair.id] != null;
+                  const matchedRightId = matches[leftPair.id];
+                  const isMatchedLeft = matchedRightId != null;
+                  const leftColorIndex =
+                    matchColorMap[leftPair.id] != null
+                      ? matchColorMap[leftPair.id]
+                      : null;
 
-                  const leftBackgroundColor =
-                    isSelectedLeft || isMatchedLeft ? "#1c7ed6" : "#343a40";
+                  let leftBackgroundColor = "#343a40";
+                  if (isSelectedLeft) {
+                    leftBackgroundColor = "#74c0fc";
+                  } else if (isMatchedLeft && leftColorIndex != null) {
+                    leftBackgroundColor =
+                      MATCH_COLORS[leftColorIndex % MATCH_COLORS.length];
+                  }
 
                   let rightBackgroundColor = "#343a40";
                   if (rightPair) {
@@ -622,8 +696,14 @@ export function WeeklyMatchScreen({
                     const matchedLeftId = matchedLeftEntry?.[0];
                     const isSelectedRight = selectedRightId === rightPair.id;
 
-                    if (matchedLeftId) rightBackgroundColor = "#1c7ed6";
-                    else if (isSelectedRight) rightBackgroundColor = "#1c7ed6";
+                    if (matchedLeftId && matchColorMap[matchedLeftId] != null) {
+                      rightBackgroundColor =
+                        MATCH_COLORS[
+                          matchColorMap[matchedLeftId] % MATCH_COLORS.length
+                        ];
+                    } else if (isSelectedRight) {
+                      rightBackgroundColor = "#ffd43b";
+                    }
                   }
 
                   return (

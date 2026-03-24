@@ -225,10 +225,7 @@ export const weeklyPlan2026: WeeklyPlan = {
       ],
     },
     match: {
-      rounds: [
-        "Symptom ↔ mulig årsag (tryk, stikken, stråling)",
-        "EKG-forandring ↔ patofysiologi",
-      ],
+      rounds: ["Symptom ↔ mulig årsag", "EKG/fund ↔ betydning"],
       pairsByRound: {
         1: [
           { left: "Trykkende smerte", right: "Koronar iskæmi" },
@@ -236,19 +233,15 @@ export const weeklyPlan2026: WeeklyPlan = {
           { left: "Udstråling til venstre arm", right: "Hjerteiskæmi" },
           { left: "Smerte ved respiration", right: "Lungelidelse" },
           { left: "Brændende smerte", right: "Refluks" },
-          { left: "Smerte ved bevægelse", right: "Muskuloskeletal" },
-          { left: "Kvalme + sved", right: "Autonom respons ved AMI" },
-          { left: "Pludselig intens smerte", right: "Aortadissektion" },
+          { left: "Smerte ved bevægelse", right: "Muskuloskeletal årsag" },
         ],
         2: [
-          { left: "ST-elevation", right: "Transmural iskæmi" },
-          { left: "ST-depression", right: "Subendokardiel iskæmi" },
-          { left: "T-tak inversion", right: "Repolariseringsforstyrrelse" },
+          { left: "ST-elevation", right: "Akut transmural iskæmi" },
+          { left: "ST-depression", right: "Myokardieiskæmi" },
+          { left: "T-tak inversion", right: "Repolarisationsforstyrrelse" },
           { left: "Q-tak", right: "Tidligere infarkt" },
-          { left: "Hurtig puls", right: "Sympatikus aktivering" },
-          { left: "Lav BT", right: "Nedsat cardiac output" },
-          { left: "Høj troponin", right: "Myokardienekrose" },
-          { left: "Smertefri iskæmi", right: "Diabetisk neuropati" },
+          { left: "Høj troponin", right: "Myokardieskade" },
+          { left: "Lavt blodtryk", right: "Nedsat cardiac output" },
         ],
       },
     },
@@ -477,10 +470,7 @@ export const weeklyPlan2026: WeeklyPlan = {
       ],
     },
     match: {
-      rounds: [
-        "Pupilstørrelse ↔ mulig årsag",
-        "Bevidsthedsniveau ↔ hjernestruktur",
-      ],
+      rounds: ["Pupiller/fund ↔ mulig årsag", "Bevidsthedsniveau ↔ betydning"],
       pairsByRound: {
         1: [
           { left: "Små pupiller (miose)", right: "Opioidpåvirkning" },
@@ -488,32 +478,19 @@ export const weeklyPlan2026: WeeklyPlan = {
             left: "Store pupiller + agitation",
             right: "Stimulantia/intoksikation",
           },
-          { left: "Uens pupiller (anisokori)", right: "Intrakraniel patologi" },
-          {
-            left: "Bilateralt dilaterede pupiller",
-            right: "Hypoksi/brainstem påvirkning",
-          },
+          { left: "Uens pupiller", right: "Intrakraniel patologi" },
           { left: "Nystagmus", right: "Alkohol/stoffer" },
+          { left: "Miose + lav RF", right: "Respirationsdepression" },
           {
             left: "Pupiller reagerer ikke på lys",
             right: "Svær CNS-påvirkning",
           },
-          { left: "Miose + lav RF", right: "Respirationsdepression" },
-          { left: "Normal pupilreaktion", right: "Taler imod massiv CNS-tryk" },
         ],
         2: [
-          { left: "Vågen og orienteret", right: "Cortex intakt" },
+          { left: "Vågen og orienteret", right: "Normal cerebral funktion" },
           { left: "Reagerer på tiltale", right: "Let bevidsthedspåvirkning" },
           { left: "Reagerer på smerte", right: "Svær påvirkning" },
           { left: "Ingen respons", right: "Dybt coma" },
-          {
-            left: "Decorticate (fleksion)",
-            right: "Læsion over hjernestammen",
-          },
-          {
-            left: "Decerebrate (ekstension)",
-            right: "Hjernestamme-påvirkning",
-          },
           { left: "Postiktal konfusion", right: "Efter krampeanfald" },
           { left: "Pludselig fokalt udfald", right: "Mistanke apopleksi" },
         ],
@@ -747,48 +724,29 @@ export const weeklyPlan2026: WeeklyPlan = {
       ],
     },
     match: {
-      rounds: ["Lungelyd ↔ patologi", "RF ↔ kompensation"],
+      rounds: ["Lungelyd ↔ patologi", "Respirationsfund ↔ betydning"],
       pairsByRound: {
         1: [
-          { left: "Pibende eksspiration (wheeze)", right: "Bronkospasme" },
-          { left: "Krepitationer", right: "Væske/pneumoni" },
+          { left: "Pibende eksspiration", right: "Bronkospasme" },
+          { left: "Krepitationer", right: "Væske i lunger/alveoler" },
           {
-            left: "Ingen/markant nedsatte lyde",
+            left: "Nedsatte respirationslyde",
             right: "Pneumothorax/obstruktion",
           },
-          { left: "Grov ronchi", right: "Sekret i luftveje" },
+          { left: "Grove ronchi", right: "Sekret i luftveje" },
           { left: "Stridor", right: "Øvre luftvejsobstruktion" },
-          {
-            left: "Forlænget eksspiration",
-            right: "Obstruktiv sygdom (KOL/astma)",
-          },
-          { left: "Pleura gnidningslyd", right: "Pleuritis" },
-          { left: "Basale fine krepitationer", right: "Lungeødem" },
+          { left: "Forlænget eksspiration", right: "Obstruktiv lungesygdom" },
         ],
         2: [
-          {
-            left: "Høj RF",
-            right: "Kompensation for hypoksi/metabolisk acidose",
-          },
+          { left: "Høj RF", right: "Respiratorisk kompensation" },
           { left: "Lav RF", right: "Respirationsdepression" },
           { left: "Stigende EtCO2", right: "Hypoventilation" },
-          {
-            left: "Faldende EtCO2",
-            right: "Hyperventilation eller lav perfusion",
-          },
+          { left: "Faldende EtCO2", right: "Hyperventilation/lav perfusion" },
           {
             left: "Brug af accessoriske muskler",
             right: "Øget respirationsarbejde",
           },
-          {
-            left: "Træt patient + faldende RF",
-            right: "Udtrætning → impending failure",
-          },
           { left: "Cyanose", right: "Alvorlig hypoksi" },
-          {
-            left: "Tachykardi",
-            right: "Sympatikus respons ved hypoksi/stress",
-          },
         ],
       },
     },
@@ -1040,39 +998,29 @@ export const weeklyPlan2026: WeeklyPlan = {
       ],
     },
     match: {
-      rounds: ["Shocktype ↔ årsag", "Fund ↔ fysiologi"],
+      rounds: ["Shocktype ↔ hovedårsag", "Fund ↔ fysiologi"],
       pairsByRound: {
         1: [
-          { left: "Hypovolæmisk", right: "Blødning/væsketab" },
-          { left: "Kardiogent", right: "Pumpesvigt (AMI/arytmi)" },
-          { left: "Distributivt", right: "Vasodilatation (sepsis/anafylaksi)" },
+          { left: "Hypovolæmisk shock", right: "Blødning/væsketab" },
+          { left: "Kardiogent shock", right: "Pumpesvigt" },
+          { left: "Distributivt shock", right: "Vasodilatation" },
           {
-            left: "Obstruktivt",
-            right: "Mekanisk hindring (tamponade/PE/tension)",
+            left: "Obstruktivt shock",
+            right: "Mekanisk hindring for blodflow",
           },
-          {
-            left: "Anafylaksi",
-            right: "Histamin → vasodilatation + bronkospasme",
-          },
-          { left: "Sepsis", right: "Inflammation → lav SVR + kapillærlækage" },
-          { left: "Tamponade", right: "Nedsat fyldning pga. perikardie-væske" },
-          { left: "Tension pneumothorax", right: "Nedsat venøst tilbageløb" },
+          { left: "Anafylaksi", right: "Histaminfrigivelse" },
+          { left: "Sepsis", right: "Inflammation med lav SVR" },
         ],
         2: [
-          { left: "Takykardi", right: "Kompensation for lav CO" },
+          { left: "Takykardi", right: "Kompensation for lav perfusion" },
           {
             left: "Forlænget kapillærrespons",
             right: "Perifer vasokonstriktion",
           },
-          { left: "Kold/klam hud", right: "Sympatikus + vasokonstriktion" },
-          { left: "Varm hud tidligt", right: "Distributivt shock (lav SVR)" },
-          {
-            left: "Stigende laktat",
-            right: "Anaerob metabolisme pga. hypoperfusion",
-          },
-          { left: "Faldende bevidsthed", right: "Cerebral hypoperfusion" },
-          { left: "Lav urinproduktion", right: "Renal hypoperfusion/RAAS" },
-          { left: "Hurtig RF", right: "Kompensation for acidose/hypoksi" },
+          { left: "Kold og klam hud", right: "Sympatikusaktivering" },
+          { left: "Varm hud tidligt", right: "Distributivt shock" },
+          { left: "Stigende laktat", right: "Anaerob metabolisme" },
+          { left: "Lav urinproduktion", right: "Nedsat nyreperfusion" },
         ],
       },
     },
