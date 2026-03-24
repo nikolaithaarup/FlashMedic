@@ -1,16 +1,28 @@
 // src/features/weekly/WeeklyMcqScreen.tsx
+// ✅ ONLY CHANGE: replace the plain instruction block with the same boxed help card styling.
+
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useMemo, useState } from "react";
-import { ActivityIndicator, Alert, Modal, Pressable, ScrollView, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Alert,
+  Modal,
+  Pressable,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 
-import { styles } from "../../../app/flashmedicStyles";
+import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
 
 import { auth } from "../../firebase/firebase";
 import { saveWeeklyResult } from "../../services/weeklyResultsService";
+import { styles } from "../../ui/flashmedicStyles";
 import { useWeeklyLock } from "./useWeeklyLock";
 
 import {
+  loadMcqPackByWeekKey,
   loadThisWeeksMcqPack,
   type WeeklyMcqOption,
   type WeeklyMcqQuestion,
@@ -29,20 +41,36 @@ function shuffle<T>(arr: T[]): T[] {
   return [...arr].sort(() => Math.random() - 0.5);
 }
 
+async function ensureAuthUid(): Promise<string> {
+  const existing = auth.currentUser?.uid;
+  if (existing) return existing;
+
+  const hydrated = await new Promise<string | null>((resolve) => {
+    const unsub = onAuthStateChanged(auth, (u) => {
+      unsub();
+      resolve(u?.uid ?? null);
+    });
+  });
+  if (hydrated) return hydrated;
+
+  const cred = await signInAnonymously(auth);
+  return cred.user.uid;
+}
+
 type WeeklyMcqScreenProps = {
   headingFont: number;
   buttonFont: number;
 
-  // You can keep these props for now (for backwards compat),
-  // but this screen will primarily use the internal week-based lock.
-  weeklyMcqLocked: boolean;
+  weeklyMcqLocked: boolean; // backward compat
   setWeeklyMcqLocked: (locked: boolean) => void;
 
   profileNickname?: string | null;
   onBack: () => void;
+
+  // ✅ DEV: force-load specific week doc id (e.g. "2026-W06")
+  devWeekKey?: string | null;
 };
 
-// ---------- Component ----------
 export function WeeklyMcqScreen({
   headingFont,
   buttonFont,
@@ -50,8 +78,9 @@ export function WeeklyMcqScreen({
   setWeeklyMcqLocked,
   profileNickname,
   onBack,
+  devWeekKey = null,
 }: WeeklyMcqScreenProps) {
-  // Pack state (loaded from Firestore)
+  // Pack state
   const [packLoaded, setPackLoaded] = useState(false);
   const [weekKey, setWeekKey] = useState<string | null>(null);
   const [topicTitle, setTopicTitle] = useState<string>("Ugens emne");
@@ -76,29 +105,42 @@ export function WeeklyMcqScreen({
 
   const [shuffledOptions, setShuffledOptions] = useState<WeeklyMcqOption[]>([]);
 
-  // Week-specific lock key (auto-unlocks next week)
-  const lockKey = weekKey ? `weekly_lock_mcq_${weekKey}` : "weekly_lock_mcq_unknown";
-  const { locked } = useWeeklyLock(lockKey);
+  // Use the effective weekKey for lock keys
+  const effectiveWeekKey = weekKey ?? devWeekKey ?? null;
 
-  // Effective lock combines prop + internal week lock
-  const isLocked = weeklyMcqLocked || locked;
+  const lockKey = effectiveWeekKey
+    ? `weekly_lock_mcq_${effectiveWeekKey}`
+    : "weekly_lock_mcq_unknown";
+  const lock = useWeeklyLock(lockKey);
+
+  const isLocked = (weeklyMcqLocked || lock.locked) && !lock.ignoreLocks;
 
   const currentQuestion = questions[index];
   const totalQuestions = questions.length;
   const questionNumber = index + 1;
   const timeLabel = formatSeconds(secondsLeft);
-  const playerRank = 15; // placeholder
 
   const weeklyTopicBullet = useMemo(() => `- ${topicTitle}`, [topicTitle]);
 
-  // Load pack on mount
+  // Load pack on mount / when devWeekKey changes
   useEffect(() => {
+    let cancelled = false;
+
     (async () => {
+      setPackLoaded(false);
+
       try {
-        const res = await loadThisWeeksMcqPack();
+        const res = devWeekKey
+          ? await loadMcqPackByWeekKey(devWeekKey)
+          : await loadThisWeeksMcqPack();
+
+        if (cancelled) return;
+
         if (!res) {
-          setWeekKey(null);
-          setTopicTitle("Ugens emne");
+          setWeekKey(devWeekKey ?? null);
+          setTopicTitle(
+            devWeekKey ? `Ingen MCQ pack for ${devWeekKey}` : "Ugens emne",
+          );
           setTimeLimit(30);
           setQuestions([]);
           return;
@@ -110,19 +152,21 @@ export function WeeklyMcqScreen({
         setQuestions(res.pack.questions || []);
       } catch (e) {
         console.error("Failed to load weekly MCQ pack", e);
-        setQuestions([]);
+        if (!cancelled) setQuestions([]);
       } finally {
-        setPackLoaded(true);
+        if (!cancelled) setPackLoaded(true);
       }
     })();
-  }, []);
 
-  // Keep secondsLeft aligned with timeLimit when not actively playing
+    return () => {
+      cancelled = true;
+    };
+  }, [devWeekKey]);
+
   useEffect(() => {
     if (!started) setSecondsLeft(timeLimit);
   }, [timeLimit, started]);
 
-  // Shuffle options for each question
   useEffect(() => {
     if (currentQuestion) setShuffledOptions(shuffle(currentQuestion.options));
     else setShuffledOptions([]);
@@ -136,7 +180,6 @@ export function WeeklyMcqScreen({
     const interval = setInterval(() => {
       setSecondsLeft((prev) => {
         if (prev <= 1) {
-          // Timeout: 0 points, count as wrong
           setTimerRunning(false);
           setShowFeedback(true);
           setLastPoints(0);
@@ -150,8 +193,7 @@ export function WeeklyMcqScreen({
     return () => clearInterval(interval);
   }, [timerRunning, started, showFeedback, finished]);
 
-  // -------- Handlers --------
-  const resetRunState = () => {
+  const hardResetUi = () => {
     setTimerRunning(false);
     setStarted(false);
     setFinished(false);
@@ -166,8 +208,16 @@ export function WeeklyMcqScreen({
     setWrongCount(0);
   };
 
+  const lockAndExit = async () => {
+    try {
+      await lock.lock();
+    } catch {}
+    setWeeklyMcqLocked(true);
+    hardResetUi();
+    onBack();
+  };
+
   const handleBack = () => {
-    // If currently playing, confirm exit + lock
     if (started && !finished) {
       Alert.alert(
         "Afslut spil?",
@@ -177,32 +227,13 @@ export function WeeklyMcqScreen({
           {
             text: "Ja",
             style: "destructive",
-            onPress: () => {
-              setWeeklyMcqLocked(true);
-              setTimerRunning(false);
-              setStarted(false);
-              setFinished(true);
-              setShowFeedback(false);
-              setShowResults(false);
-              setSecondsLeft(timeLimit);
-              setSelectedId(null);
-              setLastPoints(0);
-              onBack();
-            },
+            onPress: () => void lockAndExit(),
           },
         ],
       );
       return;
     }
-
-    // Normal exit
-    setTimerRunning(false);
-    setStarted(false);
-    setFinished(false);
-    setShowFeedback(false);
-    setSecondsLeft(timeLimit);
-    setSelectedId(null);
-    setLastPoints(0);
+    hardResetUi();
     onBack();
   };
 
@@ -211,14 +242,20 @@ export function WeeklyMcqScreen({
       Alert.alert("Indlæser", "Henter ugens spørgsmål...");
       return;
     }
-
     if (isLocked) {
-      Alert.alert("Spillet er låst", "Du har allerede spillet denne uges Multiple Choice Game.");
+      Alert.alert(
+        "Spillet er låst",
+        "Du har allerede spillet denne uges Multiple Choice Game.",
+      );
       return;
     }
-
     if (!questions || questions.length === 0) {
-      Alert.alert("Ingen spørgsmål", "Ingen MCQ-spørgsmål til denne uge endnu.");
+      Alert.alert(
+        "Ingen spørgsmål",
+        devWeekKey
+          ? `Ingen MCQ-spørgsmål for ${devWeekKey}.`
+          : "Ingen MCQ-spørgsmål til denne uge endnu.",
+      );
       return;
     }
 
@@ -236,11 +273,10 @@ export function WeeklyMcqScreen({
   };
 
   const handleAnswer = (optionId: string) => {
-    if (!started) return;
-    if (showFeedback) return;
-    if (!currentQuestion) return;
+    if (!started || showFeedback || !currentQuestion) return;
 
-    const sourceOptions = shuffledOptions.length > 0 ? shuffledOptions : currentQuestion.options;
+    const sourceOptions =
+      shuffledOptions.length > 0 ? shuffledOptions : currentQuestion.options;
     const selectedOption = sourceOptions.find((o) => o.id === optionId);
     if (!selectedOption) return;
 
@@ -252,16 +288,11 @@ export function WeeklyMcqScreen({
     if (isCorrect) {
       const elapsed = timeLimit - secondsLeft;
       const fastWindow = 5;
-
-      if (elapsed <= fastWindow) {
-        points = 1000;
-      } else {
+      if (elapsed <= fastWindow) points = 1000;
+      else {
         const extraSeconds = elapsed - fastWindow;
-        const deducted = extraSeconds * 32;
-        points = Math.max(200, 1000 - deducted);
+        points = Math.max(200, 1000 - extraSeconds * 32);
       }
-    } else {
-      points = 0;
     }
 
     setLastPoints(points);
@@ -273,6 +304,27 @@ export function WeeklyMcqScreen({
     else setWrongCount((prev) => prev + 1);
   };
 
+  const finishRun = async (finalScore: number) => {
+    if (!lock.ignoreLocks) {
+      try {
+        await lock.lock();
+      } catch {}
+      setWeeklyMcqLocked(true);
+    }
+
+    try {
+      const uid = await ensureAuthUid();
+      await saveWeeklyResult({
+        uid,
+        nickname: profileNickname ?? "Ukendt",
+        weekKey: effectiveWeekKey,
+        mcqScore: finalScore,
+      });
+    } catch (err) {
+      console.error("Failed to save MCQ weekly result", err);
+    }
+  };
+
   const handleNext = async () => {
     const nextIndex = index + 1;
 
@@ -282,22 +334,9 @@ export function WeeklyMcqScreen({
       setShowFeedback(false);
       setSelectedId(null);
       setSecondsLeft(timeLimit);
-      setWeeklyMcqLocked(true);
       setShowResults(true);
 
-      try {
-        const uid = auth.currentUser?.uid;
-        if (uid) {
-          await saveWeeklyResult({
-            uid,
-            nickname: profileNickname ?? "Ukendt",
-            mcqScore: score,
-          });
-        }
-      } catch (err) {
-        console.error("Failed to save MCQ weekly result", err);
-      }
-
+      await finishRun(score);
       return;
     }
 
@@ -311,46 +350,55 @@ export function WeeklyMcqScreen({
 
   const handleCloseResults = () => {
     setShowResults(false);
-    setFinished(true);
-    setStarted(false);
-    setSelectedId(null);
-    setShowFeedback(false);
-    setSecondsLeft(timeLimit);
+    hardResetUi();
     onBack();
   };
 
   // ---------- Render ----------
   return (
-    <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
+    <LinearGradient
+      colors={["#0e91a8ff", "#5e6e7eff"]}
+      style={styles.homeBackground}
+    >
       <StatusBar style="light" />
-      <ScrollView contentContainerStyle={[styles.homeContainer, styles.safeTopContainer]}>
-        {/* Header */}
-        <View style={styles.headerRow}>
-          <Text style={[styles.appTitle, { fontSize: headingFont, color: "#fff" }]}>
+      <ScrollView
+        contentContainerStyle={[styles.homeContainer, styles.safeTopContainer]}
+      >
+        <View style={styles.gameHeaderRow}>
+          <Text
+            style={[
+              styles.appTitle,
+              {
+                fontSize: headingFont,
+                color: "#fff",
+                flex: 1,
+                textAlign: "left",
+                marginBottom: 0,
+              },
+            ]}
+            numberOfLines={2}
+          >
             Weekly Challenges
           </Text>
+
           <Pressable
-            style={[styles.smallButton, { borderColor: "#ffffffdd" }]}
+            style={styles.gameCloseButton}
             onPress={handleBack}
-            hitSlop={8}
+            hitSlop={10}
           >
-            <Text style={[styles.smallButtonText, { color: "#fff", fontSize: buttonFont * 0.9 }]}>
-              Tilbage
-            </Text>
+            <Text style={styles.gameCloseButtonText}>✕</Text>
           </Pressable>
         </View>
 
-        {/* Loading state */}
         {!packLoaded && (
           <View style={styles.weeklyGameCenter}>
             <ActivityIndicator />
             <Text style={[styles.weeklyPlaceholderText, { marginTop: 12 }]}>
-              Henter ugens spørgsmål...
+              Henter spørgsmål...
             </Text>
           </View>
         )}
 
-        {/* Intro screen */}
         {packLoaded && !started && !finished && (
           <View style={styles.weeklyGameCenter}>
             <Text style={styles.weeklyGameTitle}>Multiple Choice Game</Text>
@@ -364,16 +412,35 @@ export function WeeklyMcqScreen({
               Svar så hurtigt og korrekt som muligt på ugens spørgsmål.
             </Text>
 
-            <View style={{ marginTop: 16, width: "100%", maxWidth: 700, alignSelf: "flex-start" }}>
-              <Text style={styles.statsLabel}>Sådan fungerer spillet:</Text>
-              <Text style={styles.drugTheoryText}>
-                {"\n"}• {totalQuestions} spørgsmål om ugens emne
-                {"\n"}• {timeLimit} sekunder pr. spørgsmål
-                {"\n"}• Korrekt svar inden for de første 5 sekunder: 1000 point
-                {"\n"}• Derefter falder scoren med ca. 32 point pr. sekund
-                {"\n"}• Minimum 200 point for et korrekt svar
-                {"\n"}• Forkert svar eller timeout: 0 point
-                {"\n\n"}Du kan kun spille dette spil én gang pr. uge.
+            {/* ✅ NEW: same "boxed help card" look as FlashcardsHomeScreen */}
+            <View
+              style={[
+                styles.statsCard,
+                {
+                  marginTop: 14,
+                  marginBottom: 14,
+                  alignSelf: "stretch",
+                  maxWidth: 700,
+                  backgroundColor: "rgba(0,0,0,0.12)",
+                },
+              ]}
+            >
+              <Text style={[styles.statsSectionTitle, { color: "#f8f9fa" }]}>
+                Sådan fungerer spillet
+              </Text>
+
+              <Text
+                style={[
+                  styles.statsLabel,
+                  { color: "#e9ecef", marginTop: 8, lineHeight: 20 },
+                ]}
+              >
+                • {totalQuestions} spørgsmål om ugens emne{"\n"}• {timeLimit}{" "}
+                sekunder pr. spørgsmål{"\n"}• Korrekt svar inden for de første 5
+                sekunder: 1000 point{"\n"}• Derefter falder scoren med ca. 32
+                point pr. sekund{"\n"}• Minimum 200 point for et korrekt svar
+                {"\n"}• Forkert svar eller timeout: 0 point{"\n\n"}Du kan kun
+                spille dette spil én gang pr. uge.
               </Text>
             </View>
 
@@ -381,17 +448,18 @@ export function WeeklyMcqScreen({
               style={[
                 styles.bigButton,
                 styles.weeklyStartButton,
-                { marginTop: 24 },
+                { marginTop: 10 },
                 isLocked && { opacity: 0.5 },
               ]}
               onPress={handleStart}
             >
-              <Text style={[styles.bigButtonText, styles.weeklyStartButtonText]}>
+              <Text
+                style={[styles.bigButtonText, styles.weeklyStartButtonText]}
+              >
                 {isLocked ? "LÅST (allerede spillet)" : "START SPILLET"}
               </Text>
             </Pressable>
 
-            {/* Weekly topic */}
             <View
               style={{
                 marginTop: 24,
@@ -415,7 +483,7 @@ export function WeeklyMcqScreen({
                   },
                 ]}
               >
-                Denne uges emne:
+                {devWeekKey ? `Preview uge: ${devWeekKey}` : "Denne uges emne:"}
               </Text>
 
               <Text
@@ -430,19 +498,32 @@ export function WeeklyMcqScreen({
           </View>
         )}
 
-        {/* Active question view */}
         {started && currentQuestion && (
           <>
             <View style={styles.weeklyTimerBar}>
-              <Text style={styles.weeklyTimerText}>Tid tilbage: {timeLabel}</Text>
+              <Text style={styles.weeklyTimerText}>
+                Tid tilbage: {timeLabel}
+              </Text>
             </View>
 
             <View style={styles.weeklyGameCenter}>
               <Text style={styles.weeklyGameTitle}>Multiple Choice Game</Text>
 
-              <View style={{ marginTop: 4, alignSelf: "center", width: "100%", maxWidth: 700 }}>
-                <Text style={[styles.subjectStatsSub, { textAlign: "center", fontStyle: "italic" }]}>
-                  Denne uges emne: {topicTitle}
+              <View
+                style={{
+                  marginTop: 4,
+                  alignSelf: "center",
+                  width: "100%",
+                  maxWidth: 700,
+                }}
+              >
+                <Text
+                  style={[
+                    styles.subjectStatsSub,
+                    { textAlign: "center", fontStyle: "italic" },
+                  ]}
+                >
+                  Emne: {topicTitle}
                 </Text>
               </View>
 
@@ -460,48 +541,62 @@ export function WeeklyMcqScreen({
                   backgroundColor: "#f8f9fad9",
                 }}
               >
-                <Text style={[styles.questionText, { fontSize: 20, lineHeight: 26 }]}>
+                <Text
+                  style={[
+                    styles.questionText,
+                    { fontSize: 20, lineHeight: 26 },
+                  ]}
+                >
                   {currentQuestion.text}
                 </Text>
               </View>
 
-              {/* Options */}
               <View style={{ width: "100%", maxWidth: 700, marginTop: 16 }}>
-                {(shuffledOptions.length > 0 ? shuffledOptions : currentQuestion.options).map(
-                  (opt) => {
-                    const isSelected = selectedId === opt.id;
+                {(shuffledOptions.length > 0
+                  ? shuffledOptions
+                  : currentQuestion.options
+                ).map((opt) => {
+                  const isSelected = selectedId === opt.id;
 
-                    let backgroundColor = "#343a40";
-                    if (showFeedback) {
-                      if (opt.isCorrect) backgroundColor = "#2b8a3e";
-                      else if (isSelected && !opt.isCorrect) backgroundColor = "#c92a2a";
-                      else backgroundColor = "#495057";
-                    } else if (isSelected) {
-                      backgroundColor = "#1c7ed6";
-                    }
+                  let backgroundColor = "#343a40";
+                  if (showFeedback) {
+                    if (opt.isCorrect) backgroundColor = "#2b8a3e";
+                    else if (isSelected && !opt.isCorrect)
+                      backgroundColor = "#c92a2a";
+                    else backgroundColor = "#495057";
+                  } else if (isSelected) {
+                    backgroundColor = "#1c7ed6";
+                  }
 
-                    return (
-                      <Pressable
-                        key={opt.id}
-                        style={[
-                          styles.bigButton,
-                          { alignSelf: "stretch", marginTop: 8, backgroundColor },
-                        ]}
-                        disabled={showFeedback}
-                        onPress={() => handleAnswer(opt.id)}
+                  return (
+                    <Pressable
+                      key={opt.id}
+                      style={[
+                        styles.bigButton,
+                        { alignSelf: "stretch", marginTop: 8, backgroundColor },
+                      ]}
+                      disabled={showFeedback}
+                      onPress={() => handleAnswer(opt.id)}
+                    >
+                      <Text
+                        style={[styles.bigButtonText, { fontSize: buttonFont }]}
                       >
-                        <Text style={[styles.bigButtonText, { fontSize: buttonFont }]}>
-                          {opt.text}
-                        </Text>
-                      </Pressable>
-                    );
-                  },
-                )}
+                        {opt.text}
+                      </Text>
+                    </Pressable>
+                  );
+                })}
               </View>
 
-              {/* Feedback */}
               {showFeedback && (
-                <View style={{ marginTop: 20, width: "100%", maxWidth: 700, alignItems: "center" }}>
+                <View
+                  style={{
+                    marginTop: 20,
+                    width: "100%",
+                    maxWidth: 700,
+                    alignItems: "center",
+                  }}
+                >
                   <Text
                     style={
                       lastPoints > 0
@@ -523,7 +618,9 @@ export function WeeklyMcqScreen({
                     onPress={handleNext}
                   >
                     <Text style={styles.bigButtonText}>
-                      {questionNumber === totalQuestions ? "Se resultat" : "Næste spørgsmål"}
+                      {questionNumber === totalQuestions
+                        ? "Se resultat"
+                        : "Næste spørgsmål"}
                     </Text>
                   </Pressable>
                 </View>
@@ -532,16 +629,27 @@ export function WeeklyMcqScreen({
           </>
         )}
 
-        {/* Result modal */}
-        <Modal visible={showResults} transparent animationType="fade" onRequestClose={handleCloseResults}>
+        <Modal
+          visible={showResults}
+          transparent
+          animationType="fade"
+          onRequestClose={handleCloseResults}
+        >
           <View style={styles.modalBackdrop}>
             <View
               style={[
                 styles.modalContent,
-                { maxWidth: 700, backgroundColor: "#ffffff", borderRadius: 12, padding: 20 },
+                {
+                  maxWidth: 700,
+                  backgroundColor: "#ffffff",
+                  borderRadius: 12,
+                  padding: 20,
+                },
               ]}
             >
-              <Text style={styles.statsSectionTitle}>Resultat – Multiple Choice Game</Text>
+              <Text style={styles.statsSectionTitle}>
+                Resultat – Multiple Choice Game
+              </Text>
 
               <Text style={[styles.statsLabel, { marginTop: 12 }]}>
                 Point i alt: <Text style={styles.statsAccuracy}>{score}</Text>
@@ -551,21 +659,10 @@ export function WeeklyMcqScreen({
               </Text>
               <Text style={styles.statsLabel}>Forkerte svar: {wrongCount}</Text>
 
-              <Text style={[styles.statsLabel, { marginTop: 16 }]}>
-                Foreløbig global rangliste (placeholder – backend kommer):
-              </Text>
-
-              <View style={{ marginTop: 8 }}>
-                <Text style={styles.subjectStatsSub}>1. ParamedPro · 9870 pts</Text>
-                <Text style={styles.subjectStatsSub}>2. ShockMaster · 9420 pts</Text>
-                <Text style={styles.subjectStatsSub}>3. ABCDE_Ninja · 9100 pts</Text>
-                <Text style={styles.subjectStatsSub}>...</Text>
-                <Text style={styles.subjectStatsSub}>
-                  {playerRank}. {profileNickname ?? "Dig"} · {score} pts
-                </Text>
-              </View>
-
-              <Pressable style={[styles.modalCloseButton, { marginTop: 24 }]} onPress={handleCloseResults}>
+              <Pressable
+                style={[styles.modalCloseButton, { marginTop: 24 }]}
+                onPress={handleCloseResults}
+              >
                 <Text style={styles.modalCloseText}>Luk</Text>
               </Pressable>
             </View>

@@ -4,16 +4,16 @@ import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import React, { useMemo } from "react";
 import {
-    Alert,
-    Platform,
-    Pressable,
-    ScrollView,
-    Text,
-    TextInput,
-    View,
+  Alert,
+  Platform,
+  Pressable,
+  ScrollView,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
 
-import { styles } from "../../../app/flashmedicStyles";
+import { styles } from "../../ui/flashmedicStyles";
 
 type Props = {
   headingFont: number;
@@ -94,7 +94,10 @@ export function ContactScreen({
   };
 
   return (
-    <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
+    <LinearGradient
+      colors={["#0e91a8ff", "#5e6e7eff"]}
+      style={styles.homeBackground}
+    >
       <StatusBar style="light" />
 
       <ScrollView
@@ -110,11 +113,24 @@ export function ContactScreen({
       >
         <View style={{ width: "100%", maxWidth: 700 }}>
           <View style={styles.headerRow}>
-            <Text style={[styles.appTitle, { fontSize: headingFont, color: "#f8f9fa" }]}>
+            <Text
+              style={[
+                styles.appTitle,
+                { fontSize: headingFont, color: "#f8f9fa" },
+              ]}
+            >
               Kontakt os
             </Text>
-            <Pressable style={[styles.smallButton, { borderColor: "#ffffffdd" }]} onPress={onBack}>
-              <Text style={[styles.smallButtonText, { color: "#fff", fontSize: buttonFont * 0.9 }]}>
+            <Pressable
+              style={[styles.smallButton, { borderColor: "#ffffffdd" }]}
+              onPress={onBack}
+            >
+              <Text
+                style={[
+                  styles.smallButtonText,
+                  { color: "#fff", fontSize: buttonFont * 0.9 },
+                ]}
+              >
                 Tilbage
               </Text>
             </Pressable>
@@ -147,14 +163,17 @@ export function ContactScreen({
               },
             ]}
           >
-            Denne app er lavet af en ambulancebehandlerelev og er rettet mod både elever og
-            færdiguddannede, som vil øve sig i anatomi, medicin, EKG og meget mere.
+            Denne app er lavet af en ambulancebehandlerelev og er rettet mod
+            både elever og færdiguddannede, som vil øve sig i anatomi, medicin,
+            EKG og meget mere.
             {"\n\n"}
-            Ris, ros og konstruktiv kritik modtages meget gerne – det hjælper med at gøre appen bedre
-            for alle.
+            Ris, ros og konstruktiv kritik modtages meget gerne – det hjælper
+            med at gøre appen bedre for alle.
           </Text>
 
-          <Text style={[styles.statsLabel, { marginTop: 24 }]}>Navn (valgfri)</Text>
+          <Text style={[styles.statsLabel, { marginTop: 24 }]}>
+            Navn (valgfri)
+          </Text>
           <TextInput
             value={contactName}
             onChangeText={setContactName}
@@ -163,7 +182,9 @@ export function ContactScreen({
             placeholderTextColor="#adb5bd"
           />
 
-          <Text style={[styles.statsLabel, { marginTop: 16 }]}>Email (valgfri)</Text>
+          <Text style={[styles.statsLabel, { marginTop: 16 }]}>
+            Email (valgfri)
+          </Text>
           <TextInput
             value={contactEmail}
             onChangeText={setContactEmail}

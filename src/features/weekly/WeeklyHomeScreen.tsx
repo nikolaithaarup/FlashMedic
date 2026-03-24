@@ -4,7 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import React, { useEffect } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
 
-import { styles } from "../../../app/flashmedicStyles";
+import { styles } from "../../ui/flashmedicStyles";
 import { useStats } from "../stats/StatsContext";
 
 type WeeklyHomeScreenProps = {
@@ -46,11 +46,19 @@ export function WeeklyHomeScreen({
   const topics = weeklyGlobal?.week?.topics ?? null;
 
   return (
-    <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
+    <LinearGradient
+      colors={["#0e91a8ff", "#5e6e7eff"]}
+      style={styles.homeBackground}
+    >
       <StatusBar style="light" />
       <ScrollView contentContainerStyle={styles.homeContainer}>
         <View style={styles.headerRow}>
-          <Text style={[styles.appTitle, { fontSize: headingFont, color: "#f8f9fa" }]}>
+          <Text
+            style={[
+              styles.appTitle,
+              { fontSize: headingFont, color: "#f8f9fa" },
+            ]}
+          >
             Weekly Challenges
           </Text>
           <Pressable
@@ -58,7 +66,12 @@ export function WeeklyHomeScreen({
             onPress={onBackToHome}
             hitSlop={8}
           >
-            <Text style={[styles.smallButtonText, { color: "#fff", fontSize: buttonFont * 0.9 }]}>
+            <Text
+              style={[
+                styles.smallButtonText,
+                { color: "#fff", fontSize: buttonFont * 0.9 },
+              ]}
+            >
               Home
             </Text>
           </Pressable>
@@ -75,11 +88,13 @@ export function WeeklyHomeScreen({
             },
           ]}
         >
-          Ugens spiltyper – frit valg, én gang pr. spil når backend er klar.
+          Ugens spiltyper – én gang pr. spil.
         </Text>
 
         {/* ✅ Global weekly leaderboard card */}
-        <View style={[styles.statsCard, { alignSelf: "stretch", marginTop: 14 }]}>
+        <View
+          style={[styles.statsCard, { alignSelf: "stretch", marginTop: 14 }]}
+        >
           <View style={styles.headerRow}>
             <Text style={styles.statsSectionTitle}>
               Global statistik – Weekly Challenge{weekId ? ` (${weekId})` : ""}
@@ -97,9 +112,13 @@ export function WeeklyHomeScreen({
           </View>
 
           {loadingWeekly ? (
-            <Text style={[styles.statsLabel, { marginTop: 8 }]}>Henter leaderboard…</Text>
+            <Text style={[styles.statsLabel, { marginTop: 8 }]}>
+              Henter leaderboard…
+            </Text>
           ) : top10.length === 0 ? (
-            <Text style={[styles.statsLabel, { marginTop: 8 }]}>Ingen data endnu.</Text>
+            <Text style={[styles.statsLabel, { marginTop: 8 }]}>
+              Ingen data endnu.
+            </Text>
           ) : (
             top10.slice(0, 5).map((r: any, i: number) => (
               <View key={r.userId ?? String(i)} style={styles.statsRankRow}>
@@ -107,7 +126,10 @@ export function WeeklyHomeScreen({
                 <Text style={styles.statsRankName}>
                   {r.nickname}
                   {r.classId ? (
-                    <Text style={styles.statsRankClass}> · Behandler {r.classId}</Text>
+                    <Text style={styles.statsRankClass}>
+                      {" "}
+                      · Behandler {r.classId}
+                    </Text>
                   ) : null}
                 </Text>
                 <Text style={styles.statsRankScore}>{r.points} pts</Text>
@@ -118,10 +140,9 @@ export function WeeklyHomeScreen({
           {/* Optional: show topics from the active week */}
           {topics ? (
             <Text style={[styles.statsLabel, { marginTop: 12 }]}>
-              Ugens emner:{"\n"}
-              • MCQ: {topics.mcq ?? "—"}{"\n"}
-              • Match: {topics.match ?? "—"}{"\n"}
-              • Word: {topics.word ?? "—"}
+              Ugens emner:{"\n"}• MCQ: {topics.mcq ?? "—"}
+              {"\n"}• Match: {topics.match ?? "—"}
+              {"\n"}• Word: {topics.word ?? "—"}
             </Text>
           ) : null}
         </View>
@@ -133,13 +154,17 @@ export function WeeklyHomeScreen({
             onPress={onOpenMcq}
           >
             <Text style={styles.homeNavButtonText}>
-              Multiple Choice Game{weeklyMcqLocked ? " ✓ (låst til næste uge)" : ""}
+              Multiple Choice Game
+              {weeklyMcqLocked ? " ✓ (låst til næste uge)" : ""}
             </Text>
           </Pressable>
 
           {/* Match */}
           <Pressable
-            style={[styles.homeNavButton, weeklyMatchLocked && { opacity: 0.5 }]}
+            style={[
+              styles.homeNavButton,
+              weeklyMatchLocked && { opacity: 0.5 },
+            ]}
             onPress={onOpenMatch}
           >
             <Text style={styles.homeNavButtonText}>
@@ -153,7 +178,8 @@ export function WeeklyHomeScreen({
             onPress={onOpenWord}
           >
             <Text style={styles.homeNavButtonText}>
-              Word of the Week {weeklyWordLocked ? " ✓ (låst til næste uge)" : ""}
+              Word of the Week{" "}
+              {weeklyWordLocked ? " ✓ (låst til næste uge)" : ""}
             </Text>
           </Pressable>
         </View>

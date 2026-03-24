@@ -1,47 +1,74 @@
 // src/services/weeklyResultsService.ts
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
+import { getActiveWeekId } from "./weeklyIndexService";
 
-export type WeeklyResultPatch = {
+export type WeeklyScoreUpdate = {
   uid: string;
   nickname: string;
-
-  // allow partial updates (one game at a time)
+  weekKey?: string | null;
   mcqScore?: number;
   matchScore?: number;
   wordScore?: number;
 };
 
-// Simple ISO-week key like "2025-W50"
-function getIsoWeekKey(d: Date): string {
-  const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
-  const day = date.getUTCDay() || 7; // Mon=1..Sun=7
-  date.setUTCDate(date.getUTCDate() + 4 - day); // nearest Thursday
-  const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
-  const weekNo = Math.ceil((((date.getTime() - yearStart.getTime()) / 86400000) + 1) / 7);
-  return `${date.getUTCFullYear()}-W${String(weekNo).padStart(2, "0")}`;
+type WeeklyUserResult = {
+  uid: string;
+  nickname: string;
+  mcqScore?: number;
+  matchScore?: number;
+  wordScore?: number;
+  totalScore?: number;
+  updatedAt?: any;
+};
+
+function toSafeInt(n: unknown): number {
+  const x = typeof n === "number" && Number.isFinite(n) ? Math.floor(n) : 0;
+  return x < 0 ? 0 : x;
 }
 
-export async function saveWeeklyResult(patch: WeeklyResultPatch) {
-  const weekKey = getIsoWeekKey(new Date());
+export async function saveWeeklyResult(update: WeeklyScoreUpdate) {
+  const weekId = update.weekKey ?? (await getActiveWeekId());
 
-  // One document per user per week (easy leaderboard + easy history)
-  const docId = `${patch.uid}_${weekKey}`;
-  const ref = doc(db, "weeklyResults", docId);
+  if (!weekId) {
+    throw new Error("No active weekId (weekly_index/current missing)");
+  }
+
+  const ref = doc(db, "weekly_results", weekId, "users", update.uid);
 
   await setDoc(
     ref,
     {
-      uid: patch.uid,
-      nickname: patch.nickname,
-      weekKey,
+      uid: update.uid,
+      nickname: update.nickname,
+      ...(typeof update.mcqScore === "number"
+        ? { mcqScore: toSafeInt(update.mcqScore) }
+        : {}),
+      ...(typeof update.matchScore === "number"
+        ? { matchScore: toSafeInt(update.matchScore) }
+        : {}),
+      ...(typeof update.wordScore === "number"
+        ? { wordScore: toSafeInt(update.wordScore) }
+        : {}),
       updatedAt: serverTimestamp(),
-
-      // only set the fields you send (merge:true keeps the rest)
-      ...(patch.mcqScore !== undefined ? { mcqScore: patch.mcqScore } : {}),
-      ...(patch.matchScore !== undefined ? { matchScore: patch.matchScore } : {}),
-      ...(patch.wordScore !== undefined ? { wordScore: patch.wordScore } : {}),
     },
     { merge: true },
   );
+
+  const snap = await getDoc(ref);
+  const d = (snap.data() || {}) as WeeklyUserResult;
+
+  const total =
+    toSafeInt(d.mcqScore) + toSafeInt(d.matchScore) + toSafeInt(d.wordScore);
+
+  await setDoc(
+    ref,
+    {
+      totalScore: total,
+      updatedAt: serverTimestamp(),
+    },
+    { merge: true },
+  );
+
+  return { weekId, totalScore: total };
 }

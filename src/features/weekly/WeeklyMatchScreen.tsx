@@ -1,68 +1,34 @@
+// src/features/weekly/WeeklyMatchScreen.tsx
+// ✅ ONLY CHANGE: replace the plain instruction block with the same boxed help card styling.
+
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
-import { Alert, Modal, Pressable, ScrollView, Text, View } from "react-native";
+import React, { useEffect, useMemo, useState } from "react";
+import {
+  ActivityIndicator,
+  Alert,
+  Modal,
+  Pressable,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 
+import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
+
+import { auth } from "../../firebase/firebase";
 import { saveWeeklyResult } from "../../services/weeklyResultsService";
+import { styles } from "../../ui/flashmedicStyles";
+import { useWeeklyLock } from "./useWeeklyLock";
 
-import { styles } from "../../../app/flashmedicStyles";
+import {
+  loadMatchPackByWeekKey,
+  loadThisWeeksMatchPack,
+  type WeeklyMatchPair,
+  type WeeklyMatchRound,
+} from "../../services/weeklyMatchService";
 
-type WeeklyMatchPair = {
-  id: string;
-  left: string;
-  right: string;
-};
-
-// TODO: Later: hent fra backend
-const WEEKLY_MATCH_PAIRS: WeeklyMatchPair[] = [
-  {
-    id: "m1",
-    left: "Fentanyl",
-    right: "Stærkt opioid-analgetikum",
-  },
-  {
-    id: "m2",
-    left: "Ondansetron",
-    right: "Antiemetikum (kvalmestillende)",
-  },
-  {
-    id: "m3",
-    left: "Buccolam (midazolam)",
-    right: "Benzodiazepin mod kramper",
-  },
-  {
-    id: "m4",
-    left: "Heparin",
-    right: "Antikoagulans (blodfortyndende)",
-  },
-  {
-    id: "m5",
-    left: "Adrenalin",
-    right: "Katekolamin ved hjertestop/anafylaksi",
-  },
-];
-
-const WEEKLY_MATCH_COLORS: Record<string, string> = {
-  m1: "#ff6b6b", // rød
-  m2: "#fcc419", // gul
-  m3: "#40c057", // grøn
-  m4: "#4dabf7", // blå
-  m5: "#9775fa", // lilla
-};
-
-// Ugens emner (senere fra backend)
-const WEEKLY_MATCH_TOPICS: string[] = [
-  "Akut medicin – præparat og virkning",
-  "Shocktilstande – årsager og typer",
-  "EKG-rytmer – fund og tolkning",
-];
-
-// Emne-bullets til intro-boksen
-const weeklyMatchTopicsBullets = WEEKLY_MATCH_TOPICS.map((t) => `- ${t}`).join("\n");
-
-// MATCH_MAX_ROUNDS følger antallet af emner
-const MATCH_MAX_ROUNDS = WEEKLY_MATCH_TOPICS.length;
-
+// ---------- Helpers ----------
 function formatSeconds(totalSeconds: number): string {
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
@@ -80,13 +46,34 @@ function shuffle<T>(arr: T[]): T[] {
   return copy;
 }
 
+async function ensureAuthUid(): Promise<string> {
+  const existing = auth.currentUser?.uid;
+  if (existing) return existing;
+
+  const hydrated = await new Promise<string | null>((resolve) => {
+    const unsub = onAuthStateChanged(auth, (u) => {
+      unsub();
+      resolve(u?.uid ?? null);
+    });
+  });
+  if (hydrated) return hydrated;
+
+  const cred = await signInAnonymously(auth);
+  return cred.user.uid;
+}
+
 type WeeklyMatchScreenProps = {
   headingFont: number;
   buttonFont: number;
-  weeklyMatchLocked: boolean;
+
+  weeklyMatchLocked: boolean; // backward compat
   setWeeklyMatchLocked: (locked: boolean) => void;
+
   profileNickname?: string | null;
   onBack: () => void;
+
+  // ✅ DEV: force-load specific week doc id (e.g. "2026-W06")
+  devWeekKey?: string | null;
 };
 
 export function WeeklyMatchScreen({
@@ -96,9 +83,30 @@ export function WeeklyMatchScreen({
   setWeeklyMatchLocked,
   profileNickname,
   onBack,
+  devWeekKey = null,
 }: WeeklyMatchScreenProps) {
+  // ---- Pack state ----
+  const [packLoaded, setPackLoaded] = useState(false);
+  const [weekKey, setWeekKey] = useState<string | null>(null);
+  const [topicTitle, setTopicTitle] = useState<string>("Ugens emne");
+  const [rounds, setRounds] = useState<WeeklyMatchRound[]>([]);
+
+  const maxRounds = rounds.length > 0 ? rounds.length : 1;
+
+  // ✅ effective key for locks + display
+  const effectiveWeekKey = weekKey ?? devWeekKey ?? null;
+
+  // ---- Week lock (like MCQ) ----
+  const lockKey = effectiveWeekKey
+    ? `weekly_lock_match_${effectiveWeekKey}`
+    : "weekly_lock_match_unknown";
+  const lock = useWeeklyLock(lockKey);
+  const isLocked = (weeklyMatchLocked || lock.locked) && !lock.ignoreLocks;
+
+  // ---- Game state ----
   const [started, setStarted] = useState(false);
   const [finished, setFinished] = useState(false);
+
   const [timerSeconds, setTimerSeconds] = useState(0);
   const [timerRunning, setTimerRunning] = useState(false);
 
@@ -117,13 +125,48 @@ export function WeeklyMatchScreen({
   const [wrongCount, setWrongCount] = useState(0);
   const [showResults, setShowResults] = useState(false);
 
-  const playerRank = 21; // placeholder til backend
-  const totalPairs = WEEKLY_MATCH_PAIRS.length;
   const timeLabel = formatSeconds(timerSeconds);
 
-  const currentTopic = WEEKLY_MATCH_TOPICS[round - 1] ?? "Ugens emne";
+  // ---- Load pack on mount / when devWeekKey changes ----
+  useEffect(() => {
+    let cancelled = false;
 
-  // Timer til hver runde
+    (async () => {
+      setPackLoaded(false);
+
+      try {
+        const res = devWeekKey
+          ? await loadMatchPackByWeekKey(devWeekKey)
+          : await loadThisWeeksMatchPack();
+
+        if (cancelled) return;
+
+        if (!res) {
+          setWeekKey(devWeekKey ?? null);
+          setTopicTitle(
+            devWeekKey ? `Ingen Match pack for ${devWeekKey}` : "Ugens emne",
+          );
+          setRounds([]);
+          return;
+        }
+
+        setWeekKey(res.weekKey);
+        setTopicTitle(res.pack.topicTitle || "Ugens emne");
+        setRounds(res.pack.rounds || []);
+      } catch (e) {
+        console.error("Failed to load weekly Match pack", e);
+        if (!cancelled) setRounds([]);
+      } finally {
+        if (!cancelled) setPackLoaded(true);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [devWeekKey]);
+
+  // Timer per round
   useEffect(() => {
     if (!timerRunning) return;
     if (!started || finished) return;
@@ -135,27 +178,48 @@ export function WeeklyMatchScreen({
     return () => clearInterval(interval);
   }, [timerRunning, started, finished]);
 
-  const startRound = (roundNumber: number, resetSession: boolean) => {
-    if (resetSession) {
-      setRound(roundNumber);
-      setTotalScore(0);
-    } else {
-      setRound(roundNumber);
-    }
+  const currentRoundData = rounds[round - 1] ?? null;
+  const currentTopic = currentRoundData?.topic ?? "Ugens emne";
+  const currentPairs = currentRoundData?.pairs ?? [];
+  const totalPairs = currentPairs.length;
 
-    setLeftItems(shuffle(WEEKLY_MATCH_PAIRS));
-    setRightItems(shuffle(WEEKLY_MATCH_PAIRS));
+  const weeklyTopicsBullets = useMemo(() => {
+    if (rounds.length === 0) return "- (Ingen emner endnu)";
+    return rounds.map((r) => `- ${r.topic}`).join("\n");
+  }, [rounds]);
 
-    setStarted(true);
+  const hardResetUi = () => {
+    setTimerRunning(false);
+    setStarted(false);
     setFinished(false);
-    setMatches({});
+    setShowResults(false);
+
+    setRound(1);
+    setTimerSeconds(0);
+
+    setLeftItems([]);
+    setRightItems([]);
+
     setSelectedLeftId(null);
     setSelectedRightId(null);
+    setMatches({});
+
+    setLastRoundScore(0);
+    setTotalScore(0);
     setCorrectCount(0);
     setWrongCount(0);
-    setLastRoundScore(0);
-    setTimerSeconds(0);
-    setTimerRunning(true);
+  };
+
+  const lockAndExit = async () => {
+    if (!lock.ignoreLocks) {
+      try {
+        await lock.lock(); // week lock
+      } catch {}
+      setWeeklyMatchLocked(true); // backward compat
+    }
+
+    hardResetUi();
+    onBack();
   };
 
   const handleBack = () => {
@@ -168,26 +232,69 @@ export function WeeklyMatchScreen({
           {
             text: "Ja",
             style: "destructive",
-            onPress: () => {
-              setWeeklyMatchLocked(true);
-              setTimerRunning(false);
-              setStarted(false);
-              setFinished(true);
-              setShowResults(false);
-              onBack();
-            },
+            onPress: () => void lockAndExit(),
           },
         ],
       );
       return;
     }
 
+    hardResetUi();
     onBack();
   };
 
+  const startRound = (roundNumber: number, resetSession: boolean) => {
+    const rd = rounds[roundNumber - 1];
+    const pairs = rd?.pairs ?? [];
+
+    if (!rd || pairs.length === 0) {
+      Alert.alert("Ingen indhold", `Runde ${roundNumber} har ingen par endnu.`);
+      return;
+    }
+
+    if (resetSession) setTotalScore(0);
+
+    setRound(roundNumber);
+
+    setLeftItems(shuffle(pairs));
+    setRightItems(shuffle(pairs));
+
+    setStarted(true);
+    setFinished(false);
+
+    setMatches({});
+    setSelectedLeftId(null);
+    setSelectedRightId(null);
+
+    // per-round counters
+    setCorrectCount(0);
+    setWrongCount(0);
+    setLastRoundScore(0);
+
+    setTimerSeconds(0);
+    setTimerRunning(true);
+    setShowResults(false);
+  };
+
   const handleStart = () => {
-    if (weeklyMatchLocked) {
-      Alert.alert("Spillet er låst", "Du har allerede spillet denne uges Match Game.");
+    if (!packLoaded) {
+      Alert.alert("Indlæser", "Henter ugens Match pack...");
+      return;
+    }
+    if (isLocked) {
+      Alert.alert(
+        "Spillet er låst",
+        "Du har allerede spillet denne uges Match Game.",
+      );
+      return;
+    }
+    if (!rounds || rounds.length === 0) {
+      Alert.alert(
+        "Ingen indhold",
+        devWeekKey
+          ? `Ingen Match-runder for ${devWeekKey}.`
+          : "Ingen Match-runder til denne uge endnu.",
+      );
       return;
     }
 
@@ -200,7 +307,9 @@ export function WeeklyMatchScreen({
 
   const handleSelectRight = (rightId: string) => {
     if (!selectedLeftId) {
-      const existingLeftId = Object.entries(matches).find(([, r]) => r === rightId)?.[0];
+      const existingLeftId = Object.entries(matches).find(
+        ([, r]) => r === rightId,
+      )?.[0];
 
       if (existingLeftId) {
         setMatches((prev) => {
@@ -227,7 +336,9 @@ export function WeeklyMatchScreen({
 
       const next: Record<string, string> = { ...prev };
 
-      const otherLeftId = Object.entries(next).find(([, r]) => r === rightId)?.[0];
+      const otherLeftId = Object.entries(next).find(
+        ([, r]) => r === rightId,
+      )?.[0];
       if (otherLeftId && otherLeftId !== leftId) {
         delete next[otherLeftId];
       }
@@ -240,15 +351,36 @@ export function WeeklyMatchScreen({
     setSelectedRightId(null);
   };
 
-  const handleSubmit = () => {
-    const total = WEEKLY_MATCH_PAIRS.length;
-    let correct = 0;
+  const finishRun = async (finalScore: number) => {
+    if (!lock.ignoreLocks) {
+      try {
+        await lock.lock();
+      } catch {}
+      setWeeklyMatchLocked(true);
+    }
 
-    WEEKLY_MATCH_PAIRS.forEach((pair) => {
+    try {
+      const uid = await ensureAuthUid();
+      await saveWeeklyResult({
+        uid,
+        nickname: profileNickname ?? "Ukendt",
+        weekKey: effectiveWeekKey,
+        matchScore: finalScore,
+      });
+    } catch (err) {
+      console.error("Failed to save Match weekly result", err);
+    }
+  };
+
+  const handleSubmit = async () => {
+    const pairs = currentPairs;
+    const total = pairs.length;
+    if (total === 0) return;
+
+    let correct = 0;
+    pairs.forEach((pair) => {
       const matchedRightId = matches[pair.id];
-      if (matchedRightId === pair.id) {
-        correct += 1;
-      }
+      if (matchedRightId === pair.id) correct += 1;
     });
 
     const wrong = total - correct;
@@ -265,62 +397,78 @@ export function WeeklyMatchScreen({
     setTimerRunning(false);
     setFinished(true);
     setShowResults(true);
+
+    if (round >= maxRounds) {
+      const finalTotal = totalScore + finalScore;
+      await finishRun(finalTotal);
+    }
   };
 
   const handleNextRound = () => {
-    if (round >= MATCH_MAX_ROUNDS) return;
-
-    const nextRound = round + 1;
-    setShowResults(false);
-    startRound(nextRound, false);
+    if (round >= maxRounds) return;
+    startRound(round + 1, false);
   };
 
-const handleCloseResults = async () => {
-  setShowResults(false);
+  const handleCloseResults = () => {
+    setShowResults(false);
 
-  if (round >= MATCH_MAX_ROUNDS) {
-    setWeeklyMatchLocked(true);
-
-    try {
-      await saveWeeklyResult({
-  uid,
-  nickname: profileNickname ?? "Ukendt",
-  wordScore: totalScore,
-});
-
-    } catch (err) {
-      console.error("Failed to save Match weekly result", err);
+    if (round >= maxRounds) {
+      hardResetUi();
+      onBack();
+      return;
     }
-  }
+  };
 
-  onBack();
-};
+  const rightItemsToShow =
+    rightItems.length > 0 ? rightItems : shuffle(currentPairs);
+  const leftItemsToShow = leftItems.length > 0 ? leftItems : currentPairs;
 
-  const rightItemsToShow = rightItems.length > 0 ? rightItems : shuffle(WEEKLY_MATCH_PAIRS);
-  const leftItemsToShow = leftItems.length > 0 ? leftItems : WEEKLY_MATCH_PAIRS;
-
+  // ---------- Render ----------
   return (
-    <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
+    <LinearGradient
+      colors={["#0e91a8ff", "#5e6e7eff"]}
+      style={styles.homeBackground}
+    >
       <StatusBar style="light" />
-      <ScrollView contentContainerStyle={[styles.homeContainer, styles.safeTopContainer]}>
-        {/* Header */}
-        <View style={styles.headerRow}>
-          <Text style={[styles.appTitle, { fontSize: headingFont, color: "#fff" }]}>
+      <ScrollView
+        contentContainerStyle={[styles.homeContainer, styles.safeTopContainer]}
+      >
+        <View style={styles.gameHeaderRow}>
+          <Text
+            style={[
+              styles.appTitle,
+              {
+                fontSize: headingFont,
+                color: "#fff",
+                flex: 1,
+                textAlign: "left",
+                marginBottom: 0,
+              },
+            ]}
+            numberOfLines={2}
+          >
             Weekly Challenges
           </Text>
+
           <Pressable
-            style={[styles.smallButton, { borderColor: "#ffffffdd" }]}
+            style={styles.gameCloseButton}
             onPress={handleBack}
-            hitSlop={8}
+            hitSlop={10}
           >
-            <Text style={[styles.smallButtonText, { color: "#fff", fontSize: buttonFont * 0.9 }]}>
-              Tilbage
-            </Text>
+            <Text style={styles.gameCloseButtonText}>✕</Text>
           </Pressable>
         </View>
 
-        {/* Intro screen */}
-        {!started && !finished && (
+        {!packLoaded && (
+          <View style={styles.weeklyGameCenter}>
+            <ActivityIndicator />
+            <Text style={[styles.weeklyPlaceholderText, { marginTop: 12 }]}>
+              Henter Match pack...
+            </Text>
+          </View>
+        )}
+
+        {packLoaded && !started && !finished && (
           <View style={styles.weeklyGameCenter}>
             <Text style={styles.weeklyGameTitle}>Match Game</Text>
 
@@ -330,33 +478,37 @@ const handleCloseResults = async () => {
                 { textAlign: "left", alignSelf: "flex-start", marginTop: 16 },
               ]}
             >
-              Match 5 elementer korrekt – fx præparat og virkning, organ og hormon, eller suffiks og
-              lægemiddeltype.
+              Match elementer korrekt – fx præparat og virkning, organ og
+              hormon, eller suffiks og lægemiddeltype.
             </Text>
 
+            {/* ✅ NEW: same "boxed help card" look as FlashcardsHomeScreen */}
             <View
-              style={{
-                marginTop: 16,
-                width: "100%",
-                maxWidth: 700,
-                alignSelf: "flex-start",
-              }}
+              style={[
+                styles.statsCard,
+                {
+                  marginTop: 14,
+                  marginBottom: 14,
+                  alignSelf: "stretch",
+                  maxWidth: 700,
+                  backgroundColor: "rgba(0,0,0,0.12)",
+                },
+              ]}
             >
-              <Text style={styles.statsLabel}>Sådan fungerer spillet:</Text>
-              <Text style={styles.drugTheoryText}>
-                {"\n"}• Venstre kolonne er låst (fx præparatnavn)
-                {"\n"}• Højre kolonne er blandet (fx virkninger)
-                {"\n"}• Hvert felt i venstre kolonne har sin egen farve
-                {"\n"}• Tryk først på et venstre felt, derefter på et højre
-                {"\n"} → højre felt får samme farve = de er matchet
-                {"\n"}• Vil du fortryde et match:
-                {"\n"} – Tryk igen på samme kombination (venstre + samme højre)
-                {"\n"} – eller tryk på et højre felt uden venstre valgt for at frigøre det
-                {"\n"}• Når du er tilfreds, trykker du på "Aflever"
-                {"\n"}• Point:
-                {"\n"} – 1000 point for hvert korrekt match
-                {"\n"} – minus 50 point for hvert sekund, du bruger i alt
-                {"\n\n"}Der spilles {MATCH_MAX_ROUNDS} runder, og pointene lægges sammen.
+              <Text style={[styles.statsSectionTitle, { color: "#f8f9fa" }]}>
+                Sådan fungerer spillet
+              </Text>
+
+              <Text
+                style={[
+                  styles.statsLabel,
+                  { color: "#e9ecef", marginTop: 8, lineHeight: 20 },
+                ]}
+              >
+                • Tryk først venstre, derefter højre for at lave et match{"\n"}•
+                Tryk “Aflever” når du er færdig{"\n\n"}Point:{"\n"}• 1000 point
+                pr. korrekt match{"\n"}• −50 point pr. sekund (per runde)
+                {"\n\n"}Du kan kun spille dette spil én gang pr. uge.
               </Text>
             </View>
 
@@ -364,17 +516,18 @@ const handleCloseResults = async () => {
               style={[
                 styles.bigButton,
                 styles.weeklyStartButton,
-                { marginTop: 24 },
-                weeklyMatchLocked && { opacity: 0.5 },
+                { marginTop: 10 },
+                isLocked && { opacity: 0.5 },
               ]}
               onPress={handleStart}
             >
-              <Text style={[styles.bigButtonText, styles.weeklyStartButtonText]}>
-                {weeklyMatchLocked ? "LÅST (allerede spillet)" : "START SPILLET"}
+              <Text
+                style={[styles.bigButtonText, styles.weeklyStartButtonText]}
+              >
+                {isLocked ? "LÅST (allerede spillet)" : "START SPILLET"}
               </Text>
             </Pressable>
 
-            {/* Emne-boks – unified style */}
             <View
               style={{
                 marginTop: 24,
@@ -398,54 +551,48 @@ const handleCloseResults = async () => {
                   },
                 ]}
               >
-                Denne ugens emner er:
+                {devWeekKey
+                  ? `Preview uge: ${devWeekKey}`
+                  : "Denne uges emner:"}
               </Text>
 
               <Text
                 style={[
                   styles.weeklyPlaceholderText,
-                  {
-                    textAlign: "left",
-                    lineHeight: 24,
-                  },
+                  { textAlign: "left", lineHeight: 24 },
                 ]}
               >
-                {weeklyMatchTopicsBullets}
+                {weeklyTopicsBullets}
               </Text>
             </View>
           </View>
         )}
 
-        {/* Aktivt spil */}
+        {/* rest unchanged */}
         {started && (
           <>
             <View style={styles.weeklyTimerBar}>
               <Text style={styles.weeklyTimerText}>
-                Tid brugt: {timeLabel} · Runde {round} / {MATCH_MAX_ROUNDS}
+                Tid brugt: {timeLabel} · Runde {round} / {maxRounds}
               </Text>
             </View>
 
             <View style={[styles.weeklyGameCenter, { alignItems: "stretch" }]}>
               <Text style={styles.weeklyGameTitle}>Match Game</Text>
 
-              {/* under-overskrift med emne pr. runde */}
-              <Text style={[styles.statsLabel, { marginTop: 4 }]}>
-                Ugens emne (runde {round}): {currentTopic}
+              <Text style={[styles.subjectStatsSub, { textAlign: "center" }]}>
+                Emne: {topicTitle}
+              </Text>
+
+              <Text style={[styles.statsLabel, { marginTop: 8 }]}>
+                Runde {round}: {currentTopic}
               </Text>
 
               <Text style={styles.statsLabel}>
                 Match alle {totalPairs} par og tryk derefter på "Aflever".
               </Text>
 
-              {/* Grid: 2 kolonner × 5 rækker */}
-              <View
-                style={{
-                  width: "100%",
-                  maxWidth: 800,
-                  marginTop: 16,
-                }}
-              >
-                {/* Kolonne-headere */}
+              <View style={{ width: "100%", maxWidth: 800, marginTop: 16 }}>
                 <View
                   style={{
                     flexDirection: "row",
@@ -458,19 +605,14 @@ const handleCloseResults = async () => {
                   <Text style={[styles.statsLabel, { flex: 1 }]}>Højre</Text>
                 </View>
 
-                {/* Rækkerne */}
-                {leftItemsToShow.map((leftPair, index) => {
-                  const rightPair = rightItemsToShow[index];
+                {leftItemsToShow.map((leftPair, idx) => {
+                  const rightPair = rightItemsToShow[idx];
 
                   const isSelectedLeft = selectedLeftId === leftPair.id;
                   const isMatchedLeft = matches[leftPair.id] != null;
-                  const baseLeftColor = WEEKLY_MATCH_COLORS[leftPair.id] ?? "#1c7ed6";
 
-                  const leftBackgroundColor = isSelectedLeft
-                    ? baseLeftColor
-                    : isMatchedLeft
-                    ? baseLeftColor
-                    : "#343a40";
+                  const leftBackgroundColor =
+                    isSelectedLeft || isMatchedLeft ? "#1c7ed6" : "#343a40";
 
                   let rightBackgroundColor = "#343a40";
                   if (rightPair) {
@@ -480,24 +622,15 @@ const handleCloseResults = async () => {
                     const matchedLeftId = matchedLeftEntry?.[0];
                     const isSelectedRight = selectedRightId === rightPair.id;
 
-                    if (matchedLeftId) {
-                      const color = WEEKLY_MATCH_COLORS[matchedLeftId] ?? "#1c7ed6";
-                      rightBackgroundColor = color;
-                    } else if (isSelectedRight) {
-                      rightBackgroundColor = "#1c7ed6";
-                    }
+                    if (matchedLeftId) rightBackgroundColor = "#1c7ed6";
+                    else if (isSelectedRight) rightBackgroundColor = "#1c7ed6";
                   }
 
                   return (
                     <View
                       key={leftPair.id}
-                      style={{
-                        flexDirection: "row",
-                        gap: 12,
-                        marginTop: 6,
-                      }}
+                      style={{ flexDirection: "row", gap: 12, marginTop: 6 }}
                     >
-                      {/* Venstre felt */}
                       <Pressable
                         style={[
                           styles.bigButton,
@@ -519,7 +652,6 @@ const handleCloseResults = async () => {
                         </Text>
                       </Pressable>
 
-                      {/* Højre felt */}
                       {rightPair ? (
                         <Pressable
                           style={[
@@ -532,7 +664,12 @@ const handleCloseResults = async () => {
                           ]}
                           onPress={() => handleSelectRight(rightPair.id)}
                         >
-                          <Text style={[styles.bigButtonText, { fontSize: buttonFont * 0.9 }]}>
+                          <Text
+                            style={[
+                              styles.bigButtonText,
+                              { fontSize: buttonFont * 0.9 },
+                            ]}
+                          >
                             {rightPair.right}
                           </Text>
                         </Pressable>
@@ -551,10 +688,10 @@ const handleCloseResults = async () => {
                   {
                     marginTop: 24,
                     backgroundColor: "#2b8a3e",
-                    alignSelf: "flex-start",
+                    alignSelf: "stretch",
                   },
                 ]}
-                onPress={handleSubmit}
+                onPress={() => void handleSubmit()}
               >
                 <Text style={styles.bigButtonText}>Aflever</Text>
               </Pressable>
@@ -562,7 +699,6 @@ const handleCloseResults = async () => {
           </>
         )}
 
-        {/* Resultat-modal */}
         <Modal
           visible={showResults}
           transparent
@@ -581,44 +717,37 @@ const handleCloseResults = async () => {
                 },
               ]}
             >
-              <Text style={styles.statsSectionTitle}>Resultat – Match Game</Text>
+              <Text style={styles.statsSectionTitle}>
+                Resultat – Match Game
+              </Text>
 
               <Text style={[styles.statsLabel, { marginTop: 8 }]}>
-                Runde {round} af {MATCH_MAX_ROUNDS}
+                Runde {round} af {maxRounds}
               </Text>
 
               <Text style={[styles.statsLabel, { marginTop: 12 }]}>
-                Point denne runde: <Text style={styles.statsAccuracy}>{lastRoundScore}</Text>
+                Point denne runde:{" "}
+                <Text style={styles.statsAccuracy}>{lastRoundScore}</Text>
               </Text>
+
               <Text style={styles.statsLabel}>
-                Korrekte matches (denne runde): {correctCount} / {totalPairs}
+                Korrekte matches: {correctCount} / {totalPairs}
               </Text>
+
               <Text style={styles.statsLabel}>
-                Forkerte / manglende (denne runde): {wrongCount}
+                Forkerte / manglende: {wrongCount}
               </Text>
+
               <Text style={styles.statsLabel}>
-                Tidsforbrug (denne runde): {timeLabel} (−50 point pr. sekund)
+                Tidsforbrug: {timeLabel} (−50 point pr. sekund)
               </Text>
 
               <Text style={[styles.statsLabel, { marginTop: 8 }]}>
-                Samlede point (alle runder): <Text style={styles.statsAccuracy}>{totalScore}</Text>
+                Samlede point (alle runder):{" "}
+                <Text style={styles.statsAccuracy}>{totalScore}</Text>
               </Text>
 
-              <Text style={[styles.statsLabel, { marginTop: 16 }]}>
-                Foreløbig global rangliste (placeholder – backend kommer):
-              </Text>
-
-              <View style={{ marginTop: 8 }}>
-                <Text style={styles.subjectStatsSub}>1. MatchMaster · 5000 pts</Text>
-                <Text style={styles.subjectStatsSub}>2. NeuroNurse · 4820 pts</Text>
-                <Text style={styles.subjectStatsSub}>3. ShockDoc · 4710 pts</Text>
-                <Text style={styles.subjectStatsSub}>...</Text>
-                <Text style={styles.subjectStatsSub}>
-                  {playerRank}. {profileNickname ?? "Dig"} · {totalScore} pts
-                </Text>
-              </View>
-
-              {round < MATCH_MAX_ROUNDS && (
+              {round < maxRounds && (
                 <Pressable
                   style={[
                     styles.bigButton,
@@ -628,7 +757,7 @@ const handleCloseResults = async () => {
                   onPress={handleNextRound}
                 >
                   <Text style={styles.bigButtonText}>
-                    Næste runde ({round + 1} / {MATCH_MAX_ROUNDS})
+                    Næste runde ({round + 1} / {maxRounds})
                   </Text>
                 </Pressable>
               )}
@@ -638,7 +767,7 @@ const handleCloseResults = async () => {
                 onPress={handleCloseResults}
               >
                 <Text style={styles.modalCloseText}>
-                  {round >= MATCH_MAX_ROUNDS ? "Afslut ugens spil" : "Tilbage til Weekly"}
+                  {round >= maxRounds ? "Afslut ugens spil" : "Tilbage"}
                 </Text>
               </Pressable>
             </View>

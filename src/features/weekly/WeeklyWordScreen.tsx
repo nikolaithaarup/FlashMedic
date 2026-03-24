@@ -1,8 +1,9 @@
 // src/features/weekly/WeeklyWordScreen.tsx
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
+  ActivityIndicator,
   Alert,
   Modal,
   Pressable,
@@ -13,70 +14,25 @@ import {
   useWindowDimensions,
 } from "react-native";
 
-import { styles } from "../../../app/flashmedicStyles";
-import { pickRandomWordOfWeek, scrambleWord } from "./weeklyData";
+import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
 
+import { styles } from "../../ui/flashmedicStyles";
+import { scrambleWord } from "./weeklyData";
+
+import { auth } from "../../firebase/firebase";
 import { saveWeeklyResult } from "../../services/weeklyResultsService";
+import { useWeeklyLock } from "./useWeeklyLock";
 
+import {
+  loadThisWeeksWordPack,
+  loadWordPackByWeekKey,
+  pickWordFromRound,
+  type WeeklyWordRound,
+} from "../../services/weeklyWordService";
 
-const WEEKLY_WORD_TIME_LIMIT = 30;
-const WORD_MAX_ROUNDS = 3;
+const WEEKLY_WORD_TIME_LIMIT_DEFAULT = 30;
 
-// ---------- Round config (easy → hard) ----------
-
-type WordRoundConfig = {
-  round: number;
-  topic: string;
-  minLength: number;
-  maxLength: number;
-  difficultyLabel: string;
-};
-
-// For now this is frontend-only. Later you can load this from backend.
-const WORD_ROUND_CONFIGS: WordRoundConfig[] = [
-  {
-    round: 1,
-    topic: "Let",
-    minLength: 4,
-    maxLength: 4,
-    difficultyLabel: "let",
-  },
-  {
-    round: 2,
-    topic: "Mellem – 5–6 bogstaver",
-    minLength: 5,
-    maxLength: 6,
-    difficultyLabel: "mellem",
-  },
-  {
-    round: 3,
-    topic: "Svær – 6–10 bogstaver",
-    minLength: 6,
-    maxLength: 10,
-    difficultyLabel: "svær",
-  },
-];
-
-function getRoundConfig(round: number): WordRoundConfig {
-  return WORD_ROUND_CONFIGS.find((c) => c.round === round) ?? WORD_ROUND_CONFIGS[0];
-}
-
-// Keep using pickRandomWordOfWeek, but “filter” by length for each round.
-function pickWordForRound(round: number): string {
-  const { minLength, maxLength } = getRoundConfig(round);
-
-  let attempts = 0;
-  let word = pickRandomWordOfWeek();
-
-  while (attempts < 50 && (word.length < minLength || word.length > maxLength)) {
-    word = pickRandomWordOfWeek();
-    attempts++;
-  }
-
-  // Fallback hvis der ikke er ord i den ønskede længde
-  return word;
-}
-
+// ---------- Helpers ----------
 function formatSeconds(totalSeconds: number): string {
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
@@ -85,13 +41,38 @@ function formatSeconds(totalSeconds: number): string {
   return `${mm}:${ss}`;
 }
 
+function getRound(rounds: WeeklyWordRound[], roundNumber: number) {
+  return rounds.find((r) => r.round === roundNumber) ?? rounds[0] ?? null;
+}
+
+async function ensureAuthUid(): Promise<string> {
+  const existing = auth.currentUser?.uid;
+  if (existing) return existing;
+
+  const hydrated = await new Promise<string | null>((resolve) => {
+    const unsub = onAuthStateChanged(auth, (u) => {
+      unsub();
+      resolve(u?.uid ?? null);
+    });
+  });
+  if (hydrated) return hydrated;
+
+  const cred = await signInAnonymously(auth);
+  return cred.user.uid;
+}
+
 type WeeklyWordScreenProps = {
   headingFont: number;
   buttonFont: number;
   profileNickname?: string | null;
-  weeklyWordLocked: boolean;
+
+  weeklyWordLocked: boolean; // backward compat
   setWeeklyWordLocked: (locked: boolean) => void;
+
   onBack: () => void;
+
+  // ✅ DEV: force-load specific week doc id (e.g. "2026-W06")
+  devWeekKey?: string | null;
 };
 
 export function WeeklyWordScreen({
@@ -101,59 +82,105 @@ export function WeeklyWordScreen({
   weeklyWordLocked,
   setWeeklyWordLocked,
   onBack,
+  devWeekKey = null,
 }: WeeklyWordScreenProps) {
+  // ---- Pack state ----
+  const [packLoaded, setPackLoaded] = useState(false);
+  const [weekKey, setWeekKey] = useState<string | null>(null);
+  const [topicTitle, setTopicTitle] = useState<string>("Ugens emne");
+  const [rounds, setRounds] = useState<WeeklyWordRound[]>([]);
+
+  const maxRounds = rounds.length > 0 ? rounds.length : 3;
+
+  const effectiveWeekKey = weekKey ?? devWeekKey ?? null;
+
+  // ---- Week lock ----
+  const lockKey = effectiveWeekKey
+    ? `weekly_lock_word_${effectiveWeekKey}`
+    : "weekly_lock_word_unknown";
+  const lock = useWeeklyLock(lockKey);
+  const isLocked = (weeklyWordLocked || lock.locked) && !lock.ignoreLocks;
+
+  // ---- Game state ----
+  const [started, setStarted] = useState(false);
+  const [finished, setFinished] = useState(false);
+
+  const [round, setRound] = useState(1);
+  const [secondsLeft, setSecondsLeft] = useState<number>(
+    WEEKLY_WORD_TIME_LIMIT_DEFAULT,
+  );
+
   const [wordOriginal, setWordOriginal] = useState("");
   const [wordScrambled, setWordScrambled] = useState("");
   const [guess, setGuess] = useState("");
   const [result, setResult] = useState<"idle" | "correct" | "wrong">("idle");
 
-  const [started, setStarted] = useState(false);
-  const [finished, setFinished] = useState(false);
-  const [secondsLeft, setSecondsLeft] = useState<number>(WEEKLY_WORD_TIME_LIMIT);
-
-  // Rounds + scoring
-  const [round, setRound] = useState(1);
   const [roundScore, setRoundScore] = useState(0);
   const [totalScore, setTotalScore] = useState(0);
 
   const [showResults, setShowResults] = useState(false);
 
-  // Skærmbredde til auto-shrink bokse
   const { width } = useWindowDimensions();
 
-  const scrambledLetters = (wordScrambled || "").split("");
+  const currentRoundData = useMemo(
+    () => getRound(rounds, round),
+    [rounds, round],
+  );
 
-  // Tilgængelig bredde (minus padding), men maks ca. samme bredde som tekstfeltet
-  const MAX_LETTER_ROW_WIDTH = 500;
-  const availableWidth = Math.min(width, MAX_LETTER_ROW_WIDTH) - 32;
+  const weeklyTopicsBullets = useMemo(() => {
+    // Show ONE weekly topic like MCQ (instead of difficulty/length meta)
+    if (!topicTitle) return "- (Ingen emner endnu)";
+    return `- ${topicTitle}`;
+  }, [topicTitle]);
 
-  // Dynamisk boksstørrelse så ordet kan være på én linje
-  const boxSize =
-    scrambledLetters.length > 0
-      ? Math.max(
-          26,
-          Math.floor(
-            (availableWidth - (scrambledLetters.length - 1) * 8) / scrambledLetters.length,
-          ),
-        )
-      : 40;
-  const LETTER_GAP = 8;
-  const totalRowWidth =
-    scrambledLetters.length > 0
-      ? scrambledLetters.length * boxSize + (scrambledLetters.length - 1) * LETTER_GAP
-      : 0;
+  // ---- Load pack ----
+  useEffect(() => {
+    let cancelled = false;
 
-  // Timer
+    (async () => {
+      setPackLoaded(false);
+
+      try {
+        const res = devWeekKey
+          ? await loadWordPackByWeekKey(devWeekKey)
+          : await loadThisWeeksWordPack();
+
+        if (cancelled) return;
+
+        if (!res) {
+          setWeekKey(devWeekKey ?? null);
+          setTopicTitle(
+            devWeekKey ? `Ingen Word pack for ${devWeekKey}` : "Ugens emne",
+          );
+          setRounds([]);
+          return;
+        }
+
+        setWeekKey(res.weekKey);
+        setTopicTitle(res.pack.topicTitle || "Ugens emne");
+        setRounds(res.pack.rounds || []);
+      } catch (e) {
+        console.error("Failed to load weekly Word pack", e);
+        if (!cancelled) setRounds([]);
+      } finally {
+        if (!cancelled) setPackLoaded(true);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [devWeekKey]);
+
+  // ---- Timer ----
   useEffect(() => {
     if (!started) return;
 
     if (secondsLeft <= 0) {
-      // Tiden er gået for denne runde
       setStarted(false);
       setFinished(true);
       setResult("wrong");
       setRoundScore(0);
-      // totalScore ændres ikke (0 point for runden)
       return;
     }
 
@@ -164,28 +191,114 @@ export function WeeklyWordScreen({
     return () => clearInterval(interval);
   }, [started, secondsLeft]);
 
-  const startRound = (roundNumber: number) => {
-    const word = pickWordForRound(roundNumber);
+  const hardResetUi = () => {
+    setStarted(false);
+    setFinished(false);
+    setShowResults(false);
+
+    setRound(1);
+    setSecondsLeft(WEEKLY_WORD_TIME_LIMIT_DEFAULT);
+
+    setWordOriginal("");
+    setWordScrambled("");
+    setGuess("");
+    setResult("idle");
+
+    setRoundScore(0);
+    setTotalScore(0);
+  };
+
+  const lockAndExit = async () => {
+    if (!lock.ignoreLocks) {
+      try {
+        await lock.lock();
+      } catch {}
+      setWeeklyWordLocked(true);
+    }
+
+    hardResetUi();
+    onBack();
+  };
+
+  const handleBack = () => {
+    if (started && !finished) {
+      Alert.alert(
+        "Afslut spil?",
+        "Er du sikker på, at du vil afslutte spillet? Du har kun én chance pr. uge.",
+        [
+          { text: "Nej", style: "cancel" },
+          {
+            text: "Ja",
+            style: "destructive",
+            onPress: () => void lockAndExit(),
+          },
+        ],
+      );
+      return;
+    }
+    hardResetUi();
+    onBack();
+  };
+
+  const startRound = (roundNumber: number, resetSession: boolean) => {
+    const rd = getRound(rounds, roundNumber);
+
+    if (!rd) {
+      Alert.alert("Ingen indhold", "Ingen Word-runder til denne uge endnu.");
+      return;
+    }
+
+    const word = pickWordFromRound(rd);
+    if (!word) {
+      Alert.alert(
+        "Ingen ord",
+        `Runde ${roundNumber} har ingen ord endnu (eller længder matcher ikke).`,
+      );
+      return;
+    }
+
+    if (resetSession) setTotalScore(0);
+
     setRound(roundNumber);
     setWordOriginal(word);
     setWordScrambled(scrambleWord(word).toUpperCase());
     setGuess("");
     setResult("idle");
-    setSecondsLeft(WEEKLY_WORD_TIME_LIMIT);
+
+    setSecondsLeft(WEEKLY_WORD_TIME_LIMIT_DEFAULT);
     setRoundScore(0);
+
     setStarted(true);
     setFinished(false);
+    setShowResults(false);
   };
 
   const handleStart = () => {
-    if (weeklyWordLocked) {
-      Alert.alert("Spillet er låst", "Du har allerede spillet denne uges Word of The Week.");
+    if (!packLoaded) {
+      Alert.alert("Indlæser", "Henter Word pack...");
+      return;
+    }
+    if (isLocked) {
+      Alert.alert(
+        "Spillet er låst",
+        "Du har allerede spillet denne uges Word of The Week.",
+      );
+      return;
+    }
+    if (!rounds || rounds.length === 0) {
+      Alert.alert(
+        "Ingen indhold",
+        devWeekKey
+          ? `Ingen Word-runder for ${devWeekKey}.`
+          : "Ingen Word-runder til denne uge endnu.",
+      );
       return;
     }
 
-    // Ny 3-runders session
-    setTotalScore(0);
-    startRound(1);
+    const firstRound =
+      rounds.slice().sort((a, b) => a.round - b.round)[0]?.round ?? 1;
+
+    startRound(firstRound, true);
   };
 
   const handleGuess = () => {
@@ -198,15 +311,13 @@ export function WeeklyWordScreen({
       return;
     }
 
-    const target = wordOriginal.toLowerCase();
+    const target = (wordOriginal || "").trim().toLowerCase();
     let s = 0;
 
     if (trimmed === target) {
-      const elapsed = WEEKLY_WORD_TIME_LIMIT - secondsLeft;
-
-      if (elapsed <= 5) {
-        s = 5000;
-      } else {
+      const elapsed = WEEKLY_WORD_TIME_LIMIT_DEFAULT - secondsLeft;
+      if (elapsed <= 5) s = 5000;
+      else {
         const extraSeconds = elapsed - 5;
         s = Math.max(1000, 5000 - extraSeconds * 160);
       }
@@ -222,97 +333,121 @@ export function WeeklyWordScreen({
     setFinished(true);
   };
 
+  const finishRun = async (finalScore: number) => {
+    if (!lock.ignoreLocks) {
+      try {
+        await lock.lock();
+      } catch {}
+      setWeeklyWordLocked(true);
+    }
+
+    try {
+      const uid = await ensureAuthUid();
+      await saveWeeklyResult({
+        uid,
+        nickname: profileNickname ?? "Ukendt",
+        weekKey: effectiveWeekKey,
+        wordScore: finalScore,
+      });
+    } catch (err) {
+      console.error("Failed to save Word weekly result", err);
+    }
+  };
+
   const handleShowResults = () => {
     if (!finished) return;
     setShowResults(true);
   };
 
   const handleNextRound = () => {
-    if (round >= WORD_MAX_ROUNDS) return;
-
-    const nextRound = round + 1;
-    setShowResults(false);
-    startRound(nextRound);
+    if (round >= maxRounds) return;
+    startRound(round + 1, false);
   };
 
-const handleCloseResults = async () => {
-  setShowResults(false);
+  const handleCloseResults = async () => {
+    setShowResults(false);
 
-  // After last round: lock + save
-  if (round >= WORD_MAX_ROUNDS) {
-    setWeeklyWordLocked(true);
-
-    try {
-      await saveWeeklyResult({
-  uid,
-  nickname: profileNickname ?? "Ukendt",
-  wordScore: totalScore,
-});
-
-    } catch (err) {
-      console.error("Failed to save Word weekly result", err);
-    }
-  }
-
-  onBack();
-};
-
-  const handleBack = () => {
-    if (started && !finished) {
-      Alert.alert(
-        "Afslut spil?",
-        "Er du sikker på, at du vil afslutte spillet? Du har kun én chance pr. uge.",
-        [
-          { text: "Nej", style: "cancel" },
-          {
-            text: "Ja",
-            style: "destructive",
-            onPress: () => {
-              setWeeklyWordLocked(true);
-              setStarted(false);
-              setFinished(true);
-              setShowResults(false);
-              onBack();
-            },
-          },
-        ],
-      );
+    if (round >= maxRounds) {
+      await finishRun(totalScore);
+      hardResetUi();
+      onBack();
       return;
     }
-
-    // normal exit when not mid-game
-    onBack();
   };
+
+  // ---- Letter boxes math ----
+  const scrambledLetters = (wordScrambled || "").split("");
+  const MAX_LETTER_ROW_WIDTH = 500;
+  const availableWidth = Math.min(width, MAX_LETTER_ROW_WIDTH) - 32;
+
+  const boxSize =
+    scrambledLetters.length > 0
+      ? Math.max(
+          26,
+          Math.floor(
+            (availableWidth - (scrambledLetters.length - 1) * 8) /
+              scrambledLetters.length,
+          ),
+        )
+      : 40;
+
+  const LETTER_GAP = 8;
+  const totalRowWidth =
+    scrambledLetters.length > 0
+      ? scrambledLetters.length * boxSize +
+        (scrambledLetters.length - 1) * LETTER_GAP
+      : 0;
 
   const timeLabel = formatSeconds(secondsLeft);
   const isTimeUp = secondsLeft <= 0;
   const guessLocked = finished;
-  const playerRank = 37; // placeholder til backend
 
-  const currentRoundConfig = getRoundConfig(round);
-
+  // ---------- Render ----------
   return (
-    <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
+    <LinearGradient
+      colors={["#0e91a8ff", "#5e6e7eff"]}
+      style={styles.homeBackground}
+    >
       <StatusBar style="light" />
-      <ScrollView contentContainerStyle={[styles.homeContainer, styles.safeTopContainer]}>
-        {/* Header */}
-        <View style={styles.headerRow}>
-          <Text style={[styles.appTitle, { fontSize: headingFont, color: "#fff" }]}>
+      <ScrollView
+        contentContainerStyle={[styles.homeContainer, styles.safeTopContainer]}
+      >
+        <View style={styles.gameHeaderRow}>
+          <Text
+            style={[
+              styles.appTitle,
+              {
+                fontSize: headingFont,
+                color: "#fff",
+                flex: 1,
+                textAlign: "left",
+                marginBottom: 0,
+              },
+            ]}
+            numberOfLines={2}
+          >
             Weekly Challenges
           </Text>
+
           <Pressable
-            style={[styles.smallButton, { borderColor: "#ffffffdd" }]}
+            style={styles.gameCloseButton}
             onPress={handleBack}
-            hitSlop={8}
+            hitSlop={10}
           >
-            <Text style={[styles.smallButtonText, { color: "#fff", fontSize: buttonFont * 0.9 }]}>
-              Tilbage
-            </Text>
+            <Text style={styles.gameCloseButtonText}>✕</Text>
           </Pressable>
         </View>
 
-        {/* Intro screen */}
-        {!started && !finished && (
+        {!packLoaded && (
+          <View style={styles.weeklyGameCenter}>
+            <ActivityIndicator />
+            <Text style={[styles.weeklyPlaceholderText, { marginTop: 12 }]}>
+              Henter Word pack...
+            </Text>
+          </View>
+        )}
+
+        {packLoaded && !started && !finished && (
           <View style={styles.weeklyGameCenter}>
             <Text style={styles.weeklyGameTitle}>Word of The Week</Text>
 
@@ -322,7 +457,8 @@ const handleCloseResults = async () => {
                 { textAlign: "left", alignSelf: "flex-start", marginTop: 16 },
               ]}
             >
-              Gæt et blandet, ambulance-relevant ord på dansk, før tiden løber ud.
+              Gæt et blandet, ambulance-relevant ord på dansk, før tiden løber
+              ud.
             </Text>
 
             <View
@@ -335,22 +471,15 @@ const handleCloseResults = async () => {
             >
               <Text style={styles.statsLabel}>Sådan fungerer spillet:</Text>
               <Text style={styles.drugTheoryText}>
-                {"\n"}• Der spilles {WORD_MAX_ROUNDS} runder med stigende sværhedsgrad
-                {"\n"}• Runde 1: 4 bogstaver (let)
-                {"\n"}• Runde 2: 5–6 bogstaver (mellem)
-                {"\n"}• Runde 3: 6–10 bogstaver (svær)
+                {"\n"}• Der spilles {maxRounds} runder
                 {"\n"}• 30 sekunders nedtælling pr. runde
-                {"\n"}• Bogstaverne vises i store bogstaver i små bokse (Countdown-style)
-                {"\n"}• Skriv dit gæt i feltet nedenunder
-                {"\n"}• Tryk på "Gæt ord" for at låse dit svar
-                {"\n"}• Når svaret er låst, kan du ikke ændre det
-                {"\n"}• Derefter kan du trykke "Vis svar" og se facit + point
+                {"\n"}• Skriv dit gæt i feltet og tryk “Gæt ord”
                 {"\n\n"}Point:
-                {"\n"}• Korrekt svar inden for de første 5 sekunder: 5000 point
-                {"\n"}• Herefter mister du 160 point pr. ekstra sekund
+                {"\n"}• Korrekt svar inden for 5 sekunder: 5000 point
+                {"\n"}• Derefter mister du 160 point pr. ekstra sekund
                 {"\n"}• Minimumscore for korrekt svar: 1000 point
                 {"\n"}• Forkert svar eller timeout: 0 point
-                {"\n\n"}Der spilles {WORD_MAX_ROUNDS} runder, og pointene lægges sammen.
+                {"\n\n"}Du kan kun spille dette spil én gang pr. uge.
               </Text>
             </View>
 
@@ -359,16 +488,17 @@ const handleCloseResults = async () => {
                 styles.bigButton,
                 styles.weeklyStartButton,
                 { marginTop: 24 },
-                weeklyWordLocked && { opacity: 0.5 },
+                isLocked && { opacity: 0.5 },
               ]}
               onPress={handleStart}
             >
-              <Text style={[styles.bigButtonText, styles.weeklyStartButtonText]}>
-                {weeklyWordLocked ? "LÅST (allerede spillet)" : "START SPILLET"}
+              <Text
+                style={[styles.bigButtonText, styles.weeklyStartButtonText]}
+              >
+                {isLocked ? "LÅST (allerede spillet)" : "START SPILLET"}
               </Text>
             </Pressable>
 
-            {/* Weekly topics summary under START – unified style */}
             <View
               style={{
                 marginTop: 24,
@@ -380,7 +510,6 @@ const handleCloseResults = async () => {
                 backgroundColor: "#ffffff22",
               }}
             >
-              {/* Larger label */}
               <Text
                 style={[
                   styles.bigButtonText,
@@ -393,45 +522,34 @@ const handleCloseResults = async () => {
                   },
                 ]}
               >
-                Denne ugens emner er:
+                {devWeekKey
+                  ? `Preview uge: ${devWeekKey}`
+                  : "Denne uges emner:"}
               </Text>
 
-              {/* Per-round topics as bullets */}
-              {WORD_ROUND_CONFIGS.map((config) => {
-                const lengthText =
-                  config.minLength === config.maxLength
-                    ? `${config.minLength} bogstaver`
-                    : `${config.minLength}-${config.maxLength} bogstaver`;
-
-                return (
-                  <Text
-                    key={config.round}
-                    style={[
-                      styles.weeklyPlaceholderText,
-                      { marginTop: 4, textAlign: "left", lineHeight: 22 },
-                    ]}
-                  >
-                    - {config.topic} ({config.difficultyLabel}: {lengthText})
-                  </Text>
-                );
-              })}
+              <Text
+                style={[
+                  styles.weeklyPlaceholderText,
+                  { textAlign: "left", lineHeight: 24 },
+                ]}
+              >
+                {weeklyTopicsBullets}
+              </Text>
             </View>
           </View>
         )}
 
-        {/* Game / locked state */}
         {(started || finished) && (
           <>
             <View style={styles.weeklyTimerBar}>
               <Text style={styles.weeklyTimerText}>
-                Tid tilbage: {timeLabel} · Runde {round} / {WORD_MAX_ROUNDS}
+                Tid tilbage: {timeLabel} · Runde {round} / {maxRounds}
               </Text>
             </View>
 
             <View style={styles.weeklyGameCenter}>
               <Text style={styles.weeklyGameTitle}>Word of The Week</Text>
 
-              {/* Subtitle with topic per round */}
               <Text
                 style={[
                   styles.weeklyPlaceholderText,
@@ -443,16 +561,11 @@ const handleCloseResults = async () => {
                   },
                 ]}
               >
-                Runde {round}: {currentRoundConfig.topic}
+                Runde {round}: {currentRoundData?.topic ?? "Ugens emne"}
               </Text>
 
-              {/* Letter boxes */}
               <View
-                style={{
-                  marginTop: 24,
-                  width: "100%",
-                  alignItems: "center",
-                }}
+                style={{ marginTop: 24, width: "100%", alignItems: "center" }}
               >
                 <View
                   style={{
@@ -497,7 +610,6 @@ const handleCloseResults = async () => {
                 </View>
               </View>
 
-              {/* Answer field */}
               <View
                 style={{
                   marginTop: 24,
@@ -506,7 +618,12 @@ const handleCloseResults = async () => {
                   alignSelf: "center",
                 }}
               >
-                <Text style={[styles.statsLabel, { marginBottom: 8, textAlign: "center" }]}>
+                <Text
+                  style={[
+                    styles.statsLabel,
+                    { marginBottom: 8, textAlign: "center" },
+                  ]}
+                >
                   Skriv dit gæt:
                 </Text>
                 <TextInput
@@ -539,7 +656,6 @@ const handleCloseResults = async () => {
                 />
               </View>
 
-              {/* Buttons */}
               <View
                 style={{
                   marginTop: 24,
@@ -555,14 +671,17 @@ const handleCloseResults = async () => {
                     styles.bigButton,
                     styles.primaryButton,
                     {
-                      backgroundColor: guessLocked || isTimeUp ? "#495057" : "#1c7ed6",
+                      backgroundColor:
+                        guessLocked || isTimeUp ? "#495057" : "#1c7ed6",
                       alignSelf: "stretch",
                     },
                   ]}
                   disabled={guessLocked || isTimeUp}
                   onPress={handleGuess}
                 >
-                  <Text style={styles.bigButtonText}>{isTimeUp ? "TIDEN ER GÅET" : "GÆT ORD"}</Text>
+                  <Text style={styles.bigButtonText}>
+                    {isTimeUp ? "TIDEN ER GÅET" : "GÆT ORD"}
+                  </Text>
                 </Pressable>
 
                 {(guessLocked || isTimeUp) && (
@@ -570,10 +689,7 @@ const handleCloseResults = async () => {
                     style={[
                       styles.bigButton,
                       styles.secondaryButton,
-                      {
-                        backgroundColor: "#2b8a3e",
-                        alignSelf: "stretch",
-                      },
+                      { backgroundColor: "#2b8a3e", alignSelf: "stretch" },
                     ]}
                     onPress={handleShowResults}
                   >
@@ -581,11 +697,26 @@ const handleCloseResults = async () => {
                   </Pressable>
                 )}
               </View>
+
+              {finished && (
+                <View style={{ marginTop: 16, alignItems: "center" }}>
+                  <Text
+                    style={
+                      result === "correct"
+                        ? styles.weeklyWordFeedbackCorrect
+                        : styles.weeklyWordFeedbackWrong
+                    }
+                  >
+                    {result === "correct"
+                      ? `Korrekt! Du fik ${roundScore} point.`
+                      : "Forkert eller for langsom – 0 point denne runde."}
+                  </Text>
+                </View>
+              )}
             </View>
           </>
         )}
 
-        {/* Results modal */}
         <Modal
           visible={showResults}
           transparent
@@ -604,40 +735,39 @@ const handleCloseResults = async () => {
                 },
               ]}
             >
-              <Text style={styles.statsSectionTitle}>Resultat – Word of The Week</Text>
+              <Text style={styles.statsSectionTitle}>
+                Resultat – Word of The Week
+              </Text>
 
               <Text style={[styles.statsLabel, { marginTop: 8 }]}>
-                Runde {round} af {WORD_MAX_ROUNDS}
+                Runde {round} af {maxRounds}
               </Text>
 
               <Text style={[styles.statsLabel, { marginTop: 12 }]}>
-                Korrekt ord: <Text style={styles.statsAccuracy}>{wordOriginal.toUpperCase()}</Text>
-              </Text>
-              <Text style={styles.statsLabel}>
-                Dit gæt: <Text style={styles.subjectStatsSub}>{guess || "(ingen gæt)"}</Text>
-              </Text>
-              <Text style={styles.statsLabel}>
-                Point denne runde: <Text style={styles.statsAccuracy}>{roundScore}</Text>
-              </Text>
-              <Text style={styles.statsLabel}>
-                Samlede point (alle runder): <Text style={styles.statsAccuracy}>{totalScore}</Text>
-              </Text>
-
-              <Text style={[styles.statsLabel, { marginTop: 16 }]}>
-                Foreløbig global rangliste (placeholder – ægte ranking kommer med backend):
-              </Text>
-
-              <View style={{ marginTop: 8 }}>
-                <Text style={styles.subjectStatsSub}>1. CountdownKing · 5000 pts</Text>
-                <Text style={styles.subjectStatsSub}>2. NeuroLex · 4820 pts</Text>
-                <Text style={styles.subjectStatsSub}>3. ShockSpell · 4710 pts</Text>
-                <Text style={styles.subjectStatsSub}>...</Text>
-                <Text style={styles.subjectStatsSub}>
-                  {playerRank}. {profileNickname ?? "Dig"} · {totalScore} pts
+                Korrekt ord:{" "}
+                <Text style={styles.statsAccuracy}>
+                  {wordOriginal.toUpperCase()}
                 </Text>
-              </View>
+              </Text>
 
-              {round < WORD_MAX_ROUNDS && (
+              <Text style={styles.statsLabel}>
+                Dit gæt:{" "}
+                <Text style={styles.subjectStatsSub}>
+                  {guess || "(ingen gæt)"}
+                </Text>
+              </Text>
+
+              <Text style={styles.statsLabel}>
+                Point denne runde:{" "}
+                <Text style={styles.statsAccuracy}>{roundScore}</Text>
+              </Text>
+
+              <Text style={styles.statsLabel}>
+                Samlede point (alle runder):{" "}
+                <Text style={styles.statsAccuracy}>{totalScore}</Text>
+              </Text>
+
+              {round < maxRounds && (
                 <Pressable
                   style={[
                     styles.bigButton,
@@ -647,7 +777,7 @@ const handleCloseResults = async () => {
                   onPress={handleNextRound}
                 >
                   <Text style={styles.bigButtonText}>
-                    Næste runde ({round + 1} / {WORD_MAX_ROUNDS})
+                    Næste runde ({round + 1} / {maxRounds})
                   </Text>
                 </Pressable>
               )}
@@ -657,7 +787,7 @@ const handleCloseResults = async () => {
                 onPress={handleCloseResults}
               >
                 <Text style={styles.modalCloseText}>
-                  {round >= WORD_MAX_ROUNDS ? "Afslut ugens spil" : "Tilbage til Weekly"}
+                  {round >= maxRounds ? "Afslut ugens spil" : "Tilbage"}
                 </Text>
               </Pressable>
             </View>
@@ -669,4 +799,3 @@ const handleCloseResults = async () => {
 }
 
 export default WeeklyWordScreen;
-// --------------------------------------- End of WeeklyWordScreen.tsx ---------------------------------------

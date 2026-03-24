@@ -3,7 +3,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export type StoredUserProfile = {
   userId: string | null;
   nickname: string;
-  classId: number | null;
   isAnonymous: boolean;
 };
 
@@ -24,7 +23,14 @@ export async function saveStoredProfile(p: StoredUserProfile): Promise<void> {
   await AsyncStorage.setItem(PROFILE_KEY, JSON.stringify(p));
 }
 
-export async function registerProfileOnBackend(nickname: string, classId: number | null) {
+export async function clearStoredProfile(): Promise<void> {
+  await AsyncStorage.removeItem(PROFILE_KEY);
+}
+
+export async function registerProfileOnBackend(
+  nickname: string,
+  classId: number | null,
+) {
   const classLabel = classId ? `Behandler ${classId}` : undefined;
 
   const res = await fetch(`${API_BASE_URL}/profiles/register`, {

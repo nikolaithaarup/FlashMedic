@@ -1,10 +1,11 @@
+// src/features/stats/StatsScreen.tsx
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import React, { useMemo } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
-import { styles } from "../../../app/flashmedicStyles";
 import type { Flashcard } from "../../types/Flashcard";
-import { useStats } from "./StatsContext";
+import { styles } from "../../ui/flashmedicStyles";
+import { useStats, type StatsMap } from "./StatsContext"; // ✅ import StatsMap
 import { getPersonalTotals } from "./statsSelectors";
 
 type Props = {
@@ -15,8 +16,10 @@ type Props = {
   onBack: () => void;
 };
 
-type CardStats = { seen: number; correct: number; incorrect: number; lastSeen: string | null };
-type StatsMap = Record<string, CardStats>;
+function asStatsMap(value: unknown): StatsMap {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return {};
+  return value as StatsMap;
+}
 
 export default function StatsScreen({
   headingFont,
@@ -26,24 +29,33 @@ export default function StatsScreen({
   onBack,
 }: Props) {
   const { personalStats, resetPersonalStats } = useStats();
-  const statsMap = personalStats as StatsMap;
+
+  const statsMap = useMemo(() => asStatsMap(personalStats), [personalStats]);
 
   const { totalSeen, totalCorrect, totalIncorrect, accuracy } = useMemo(
-    () => getPersonalTotals(personalStats),
-    [personalStats]
+    () => getPersonalTotals(statsMap),
+    [statsMap],
   );
 
   const subjectStats = useMemo(() => {
+    const cardById = new Map<string, Flashcard>();
+    for (const c of cards ?? []) cardById.set(c.id, c);
+
     const map = new Map<string, { seen: number; correct: number }>();
 
     for (const [cardId, s] of Object.entries(statsMap)) {
-      const card = cards.find((c) => c.id === cardId);
+      const card = cardById.get(cardId);
       if (!card) continue;
 
       const subject = card.subject || "Ukendt";
       const entry = map.get(subject) ?? { seen: 0, correct: 0 };
-      entry.seen += s.seen;
-      entry.correct += s.correct;
+
+      const seen = Number(s?.seen ?? 0) || 0;
+      const correct = Number(s?.correct ?? 0) || 0;
+
+      entry.seen += seen;
+      entry.correct += correct;
+
       map.set(subject, entry);
     }
 
@@ -58,16 +70,25 @@ export default function StatsScreen({
   }, [statsMap, cards]);
 
   const handleReset = () => {
-    // Keep Alert in Index if you prefer; simple direct call here:
     resetPersonalStats();
   };
 
+  const safeAccuracy = Number.isFinite(accuracy) ? accuracy : 0;
+
   return (
-    <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
+    <LinearGradient
+      colors={["#0e91a8ff", "#5e6e7eff"]}
+      style={styles.homeBackground}
+    >
       <StatusBar style="light" />
       <ScrollView contentContainerStyle={styles.homeContainer}>
         <View style={styles.headerRow}>
-          <Text style={[styles.appTitle, { fontSize: headingFont, color: "#f8f9fa" }]}>
+          <Text
+            style={[
+              styles.appTitle,
+              { fontSize: headingFont, color: "#f8f9fa" },
+            ]}
+          >
             Statistik
           </Text>
           <Pressable
@@ -75,14 +96,22 @@ export default function StatsScreen({
             onPress={onBack}
             hitSlop={8}
           >
-            <Text style={[styles.smallButtonText, { color: "#fff", fontSize: buttonFont * 0.9 }]}>
+            <Text
+              style={[
+                styles.smallButtonText,
+                { color: "#fff", fontSize: buttonFont * 0.9 },
+              ]}
+            >
               Home
             </Text>
           </Pressable>
         </View>
 
         <View style={[styles.statsCard, { marginTop: 20 }]}>
-          <Text style={styles.statsSectionTitle}>Personlig statistik – samlet</Text>
+          <Text style={styles.statsSectionTitle}>
+            Personlig statistik – samlet
+          </Text>
+
           <Text style={styles.statsLabel}>Antal besvarede spørgsmål</Text>
           <Text style={styles.statsValue}>{totalSeen}</Text>
 
@@ -97,12 +126,17 @@ export default function StatsScreen({
             </View>
           </View>
 
-          <Text style={[styles.statsLabel, { marginTop: 16 }]}>Samlet træfsikkerhed</Text>
-          <Text style={styles.statsAccuracy}>{isNaN(accuracy) ? "0%" : `${accuracy.toFixed(1)}%`}</Text>
+          <Text style={[styles.statsLabel, { marginTop: 16 }]}>
+            Samlet træfsikkerhed
+          </Text>
+          <Text style={styles.statsAccuracy}>{safeAccuracy.toFixed(1)}%</Text>
         </View>
 
         <View style={[styles.statsCard, { marginTop: 20 }]}>
-          <Text style={styles.statsSectionTitle}>Personlig statistik – pr. fag</Text>
+          <Text style={styles.statsSectionTitle}>
+            Personlig statistik – pr. fag
+          </Text>
+
           {subjectStats.length === 0 ? (
             <Text style={styles.statsLabel}>Ingen data endnu.</Text>
           ) : (
@@ -114,7 +148,11 @@ export default function StatsScreen({
                 <View style={{ flex: 1 }}>
                   <Text style={styles.subjectStatsSub}>Set: {s.seen}</Text>
                   <Text style={styles.subjectStatsSub}>
-                    Treff: {isNaN(s.accuracy) ? "0%" : `${s.accuracy.toFixed(1)}%`}
+                    Treff:{" "}
+                    {Number.isFinite(s.accuracy)
+                      ? s.accuracy.toFixed(1)
+                      : "0.0"}
+                    %
                   </Text>
                 </View>
               </View>
@@ -129,7 +167,12 @@ export default function StatsScreen({
           ]}
           onPress={handleReset}
         >
-          <Text style={[styles.bigButtonText, { fontSize: buttonFont, color: "#fff" }]}>
+          <Text
+            style={[
+              styles.bigButtonText,
+              { fontSize: buttonFont, color: "#fff" },
+            ]}
+          >
             Nulstil statistik
           </Text>
         </Pressable>

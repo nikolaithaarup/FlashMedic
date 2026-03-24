@@ -1,5 +1,4 @@
 // app/index.tsx
-
 import * as Linking from "expo-linking";
 import * as MailComposer from "expo-mail-composer";
 import React, { useEffect, useMemo, useState } from "react";
@@ -10,6 +9,14 @@ import {
   saveStoredProfile,
   type StoredUserProfile,
 } from "../src/services/userService";
+
+import {
+  DRUG_TOPICS,
+  type DrugCalcQuestion as DrugCalcQuestionV2,
+  type DrugCalcTopic,
+  generateDrugCalcQuestion,
+  isDrugAnswerCorrect,
+} from "../src/features/drugCalc/drugCalcContent";
 
 import { ekgImageLookup } from "../src/data/ekg/imageLookup";
 import type { Flashcard } from "../src/types/Flashcard";
@@ -33,6 +40,7 @@ import DrugCalcPracticeScreen from "../src/features/drugCalc/DrugCalcPracticeScr
 import DrugCalcTheoryScreen from "../src/features/drugCalc/DrugCalcTheoryScreen";
 
 import ContactScreen from "../src/features/contact/ContactScreen";
+import AuthScreen from "../src/features/profile/AuthScreen";
 import ProfileScreen from "../src/features/profile/ProfileScreen";
 
 import FlashcardsHomeScreen from "../src/features/flashcards/FlashcardsHomeScreen";
@@ -52,6 +60,7 @@ type CardStats = {
 type StatsMap = Record<string, CardStats>;
 
 type Screen =
+  | "auth"
   | "home"
   | "flashcardsHome"
   | "quiz"
@@ -72,31 +81,40 @@ type TopicGroup = {
   subtopics: string[];
 };
 
-type UserProfile = {
-  userId: string | null;
-  nickname: string;
-
-  role: UserRole | null;
-  gender: Gender | null;
-  region: Region | null;
-
-  classId: number | null; // only relevant if role === "student"
-  isAnonymous: boolean;
-};
-
-type UserRole = "student" | "ambulancebehandler" | "paramediciner" | "laegeassistent";
+type UserRole =
+  | "student"
+  | "ambulancebehandler"
+  | "paramediciner"
+  | "laegeassistent";
 
 type Gender = "male" | "female" | "not_specified";
 
-type Region = "hovedstaden" | "sjaelland" | "syddanmark" | "midtjylland" | "nordjylland" | "oestdanmark";
+type Region =
+  | "hovedstaden"
+  | "sjaelland"
+  | "syddanmark"
+  | "midtjylland"
+  | "nordjylland"
+  | "oestdanmark";
 
-type DrugCalcQuestion = {
-  id: number;
-  text: string;
-  correctAnswer: number;
-  unit?: string;
-  hint?: string;
+type UserProfile = {
+  userId: string | null; // Firebase uid (anonymous user still has uid)
+  nickname: string;
+  classId: number | null;
+  role: UserRole | null;
+  gender: Gender | null;
+  region: Region | null;
+  isAnonymous: boolean;
 };
+
+type WeeklyDevOverride =
+  | {
+      enabled: true;
+      kind: "mcq" | "match" | "word";
+      weekKey: string;
+      round?: number;
+    }
+  | { enabled: false };
 
 // ---------- App identity ----------
 
@@ -109,6 +127,11 @@ const API_BASE_URL = "https://flashmedic-backend.onrender.com";
 
 // ---------- Helpers ----------
 
+function makeRandomAnonName() {
+  const n = Math.floor(1000 + Math.random() * 9000);
+  return `Bruger${n}`;
+}
+
 // Fisher–Yates shuffle
 function shuffle<T>(arr: T[]): T[] {
   const copy = [...arr];
@@ -120,77 +143,32 @@ function shuffle<T>(arr: T[]): T[] {
 }
 
 // Lower score = shown earlier
-function scoreCardForQuiz(card: Flashcard, stats: StatsMap): number {
-  const s = stats[card.id];
+// ✅ FIX: stats can be undefined during initial load; guard it.
+function scoreCardForQuiz(card: Flashcard, stats?: StatsMap | null): number {
+  const safeStats = stats ?? {};
+  const s = safeStats[card.id];
   if (!s || s.seen === 0) return 0;
   const accuracy = s.correct / s.seen;
   return accuracy + s.seen * 0.05;
 }
 
 const MAX_STUDENT_CLASS = 60;
-const STUDENT_CLASSES = Array.from({ length: MAX_STUDENT_CLASS }, (_, i) => i + 1);
-
-// ---------- Drug calc question generator ----------
-
-let drugCalcCounter = 1;
-
-function randInt(min: number, max: number): number {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function generateDrugCalcQuestion(): DrugCalcQuestion {
-  const type = randInt(1, 3);
-
-  if (type === 1) {
-    // Tablet calculation
-    const tabletStrength = 75;
-    const numTablets = randInt(2, 6);
-    const dose = tabletStrength * numTablets;
-    return {
-      id: drugCalcCounter++,
-      text: `Du skal give ${dose} mg ASA som tabletter á ${tabletStrength} mg.\nHvor mange tabletter skal du give?`,
-      correctAnswer: numTablets,
-      unit: "tabletter",
-    };
-  }
-
-  if (type === 2) {
-    // mg/mL → mL
-    const strength = [2, 5, 10][randInt(0, 2)]; // mg/mL
-    const ml = randInt(2, 10);
-    const dose = strength * ml;
-    return {
-      id: drugCalcCounter++,
-      text: `En opløsning indeholder ${strength} mg/mL.\nDu skal give ${dose} mg.\nHvor mange mL skal du give?`,
-      correctAnswer: ml,
-      unit: "mL",
-    };
-  }
-
-  // type 3: glucose %
-  const percent = [5, 10, 20][randInt(0, 2)];
-  const volume = [100, 250, 500][randInt(0, 2)];
-  const grams = (percent / 100) * volume; // g per 100 mL
-  return {
-    id: drugCalcCounter++,
-    text: `Du har en glukose ${percent}% opløsning.\nHvor mange gram glukose er der i ${volume} mL?`,
-    correctAnswer: grams,
-    unit: "g",
-    hint: "Husk: X% = X g pr. 100 mL.",
-  };
-}
-
-function isDrugAnswerCorrect(user: number, correct: number): boolean {
-  const diff = Math.abs(user - correct);
-  if (diff < 0.01) return true;
-  if (Math.round(user) === Math.round(correct)) return true;
-  return false;
-}
+const STUDENT_CLASSES = Array.from(
+  { length: MAX_STUDENT_CLASS },
+  (_, i) => i + 1,
+);
 
 // ---------- MAIN COMPONENT ----------
 
 export default function Index() {
   const [authReady, setAuthReady] = useState(false);
+
+  // ✅ Dev override MUST be inside component (hooks rule)
+  const [weeklyDevOverride, setWeeklyDevOverride] = useState<WeeklyDevOverride>(
+    {
+      enabled: false,
+    },
+  );
 
   // -------- Flashcards from backend --------
   const [cards, setCards] = useState<Flashcard[]>([]);
@@ -202,28 +180,31 @@ export default function Index() {
   const [profile, setProfile] = useState<UserProfile | null>(null);
 
   const classLabel = useMemo(() => {
-    if (!profile?.classId) return "";
+    if (profile?.classId == null) return "";
     return `Behandler ${profile.classId}`;
   }, [profile]);
 
-  const {
-    personalStats,
-    markCard,
-    resetPersonalStats,
-    // weeklyGlobal,
-    // loadingWeekly,
-    // refreshWeeklyGlobal,
-  } = useStats();
+  const { personalStats, markCard, resetPersonalStats } = useStats();
 
-  // Not required right now, but harmless to keep around if StatsScreen uses it later
-  useMemo(() => getPersonalTotals(personalStats), [personalStats]);
+  // ✅ Don’t compute-and-ignore
+  const personalTotals = useMemo(
+    () => getPersonalTotals(personalStats),
+    [personalStats],
+  );
+  // (personalTotals is currently unused in this file, but computed correctly.)
 
-  // Profile edit state
+  // Profile edit state (used by your existing ProfileScreen)
   const [profileEditNickname, setProfileEditNickname] = useState("");
-  const [profileEditClassId, setProfileEditClassId] = useState<number | null>(null);
+  const [profileEditClassId, setProfileEditClassId] = useState<number | null>(
+    null,
+  );
   const [profileEditRole, setProfileEditRole] = useState<UserRole | null>(null);
-  const [profileEditGender, setProfileEditGender] = useState<Gender | null>(null);
-  const [profileEditRegion, setProfileEditRegion] = useState<Region | null>(null);
+  const [profileEditGender, setProfileEditGender] = useState<Gender | null>(
+    null,
+  );
+  const [profileEditRegion, setProfileEditRegion] = useState<Region | null>(
+    null,
+  );
 
   // -------- Subject selection --------
   const [selectedSubject, setSelectedSubject] = useState<string | null>(null);
@@ -236,9 +217,15 @@ export default function Index() {
   const [showAnswer, setShowAnswer] = useState(false);
 
   // -------- Drug calc state --------
-  const [currentDrugQuestion, setCurrentDrugQuestion] = useState<DrugCalcQuestion | null>(null);
+  const [selectedDrugTopics, setSelectedDrugTopics] = useState<DrugCalcTopic[]>(
+    [],
+  );
+  const [currentDrugQuestion, setCurrentDrugQuestion] =
+    useState<DrugCalcQuestionV2 | null>(null);
   const [drugAnswer, setDrugAnswer] = useState("");
-  const [drugAnswerStatus, setDrugAnswerStatus] = useState<"neutral" | "correct" | "incorrect">("neutral");
+  const [drugAnswerStatus, setDrugAnswerStatus] = useState<
+    "neutral" | "correct" | "incorrect"
+  >("neutral");
 
   // -------- Contact form state --------
   const [contactName, setContactName] = useState("");
@@ -262,7 +249,7 @@ export default function Index() {
   const questionFont = 22 * scale;
   const answerFont = 17 * scale;
 
-  // -------- Load profile from storage or create anonymous --------
+  // -------- Load profile from storage (NO auto-create anymore) --------
   useEffect(() => {
     (async () => {
       const stored = await loadStoredProfile();
@@ -274,45 +261,30 @@ export default function Index() {
           role: null,
           gender: null,
           region: null,
-          classId: stored.classId,
+          classId: stored.classId ?? null,
           isAnonymous: stored.isAnonymous,
         };
 
         setProfile(loadedProfile);
+
+        // Prep edit fields
         setProfileEditNickname(loadedProfile.nickname);
         setProfileEditClassId(loadedProfile.classId);
         setProfileEditRole(loadedProfile.role);
         setProfileEditGender(loadedProfile.gender);
         setProfileEditRegion(loadedProfile.region);
+
+        setScreen("home");
         return;
       }
 
-      const randomId = Math.floor(1000 + Math.random() * 9000);
-      const anon: UserProfile = {
-        userId: null,
-        nickname: `Bruger${randomId}`,
-        role: null,
-        gender: null,
-        region: null,
-        classId: null,
-        isAnonymous: true,
-      };
-
-      setProfile(anon);
-      setProfileEditNickname(anon.nickname);
-      setProfileEditClassId(anon.classId);
-
-      const storedAnon: StoredUserProfile = {
-        userId: null,
-        nickname: anon.nickname,
-        classId: anon.classId,
-        isAnonymous: true,
-      };
-      await saveStoredProfile(storedAnon);
+      // No stored profile => show AuthScreen (user chooses anon or create profile)
+      setProfile(null);
+      setScreen("auth");
     })();
   }, []);
 
-  // 🔐 Firebase Auth bootstrap
+  // 🔐 Firebase Auth bootstrap (always ensure we have a Firebase uid)
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (!user) {
@@ -324,23 +296,30 @@ export default function Index() {
         return;
       }
 
-      const uid = user.uid;
-
-      setProfile((prev) =>
-        prev
-          ? { ...prev, userId: uid }
-          : {
-              userId: uid,
-              nickname: "Bruger",
-              role: null,
-              gender: null,
-              region: null,
-              classId: null,
-              isAnonymous: true,
-            },
-      );
-
       setAuthReady(true);
+
+      // If we already have a stored profile loaded, but its userId is null,
+      // patch it with the real Firebase uid and persist.
+      const uid = user.uid;
+      setProfile((prev) => {
+        if (!prev) return prev;
+        if (prev.userId === uid) return prev;
+        return { ...prev, userId: uid };
+      });
+
+      // Persist patch if needed (best-effort)
+      try {
+        const stored = await loadStoredProfile();
+        if (stored && (!stored.userId || stored.userId !== uid)) {
+          const patched: StoredUserProfile = {
+            ...stored,
+            userId: uid,
+          };
+          await saveStoredProfile(patched);
+        }
+      } catch (e) {
+        console.warn("Failed to patch stored profile userId", e);
+      }
     });
 
     return unsubscribe;
@@ -367,7 +346,10 @@ export default function Index() {
       return await Promise.race<T>([
         p,
         new Promise<T>((_, reject) =>
-          setTimeout(() => reject(new Error(`Firestore timeout after ${ms}ms`)), ms),
+          setTimeout(
+            () => reject(new Error(`Firestore timeout after ${ms}ms`)),
+            ms,
+          ),
         ),
       ]);
     };
@@ -378,7 +360,6 @@ export default function Index() {
         setLoadingCards(true);
 
         const q = query(collectionGroup(db, "cards"));
-
         const snap = await withTimeout(getDocs(q), 12000);
 
         const rawCards = snap.docs.map((d) => d.data() as any);
@@ -397,7 +378,9 @@ export default function Index() {
       } catch (err: any) {
         console.error("Failed to fetch flashcards from Firestore", err);
         if (!cancelled) {
-          setLoadError(err?.message ?? "Kunne ikke hente flashcards fra Firestore.");
+          setLoadError(
+            err?.message ?? "Kunne ikke hente flashcards fra Firestore.",
+          );
         }
       } finally {
         if (!cancelled) setLoadingCards(false);
@@ -414,7 +397,9 @@ export default function Index() {
   // -------- Subjects, topics, etc. --------
   const subjects = useMemo(() => {
     if (!cards || cards.length === 0) return [];
-    return Array.from(new Set(cards.map((c) => c.subject))).sort((a, b) => a.localeCompare(b));
+    return Array.from(new Set(cards.map((c) => c.subject))).sort((a, b) =>
+      a.localeCompare(b),
+    );
   }, [cards]);
 
   const cardsForSelectedSubject = useMemo(() => {
@@ -456,7 +441,8 @@ export default function Index() {
   }, [topicGroupsForSelectedSubject]);
 
   const allTopicsSelected =
-    allSelectableKeys.length > 0 && selectedKeys.length === allSelectableKeys.length;
+    allSelectableKeys.length > 0 &&
+    selectedKeys.length === allSelectableKeys.length;
 
   const effectiveCardsForQuiz = useMemo(() => {
     if (!selectedSubject) return [];
@@ -487,9 +473,12 @@ export default function Index() {
       return;
     }
 
+    // ✅ FIX: personalStats can be undefined during initial load
+    const statsSafe = (personalStats ?? {}) as any;
+
     const scored = effectiveCardsForQuiz.map((card) => ({
       card,
-      score: scoreCardForQuiz(card, personalStats),
+      score: scoreCardForQuiz(card, statsSafe),
     }));
 
     scored.sort((a, b) => a.score - b.score);
@@ -510,9 +499,12 @@ export default function Index() {
       return;
     }
 
+    // ✅ FIX: personalStats can be undefined during initial load
+    const statsSafe = (personalStats ?? {}) as any;
+
     const scored = cards.map((card) => ({
       card,
-      score: scoreCardForQuiz(card, personalStats),
+      score: scoreCardForQuiz(card, statsSafe),
     }));
 
     scored.sort((a, b) => a.score - b.score);
@@ -529,6 +521,9 @@ export default function Index() {
     setScreen("quiz");
   };
 
+  // ... (rest of your file is unchanged)
+  // KEEP EVERYTHING BELOW EXACTLY AS YOU HAD IT
+
   const handleNextQuestion = () => {
     if (!currentCard) return;
 
@@ -541,7 +536,6 @@ export default function Index() {
     setCurrentCard(upcoming[0]);
     setUpcoming((prev) => prev.slice(1));
     setShowAnswer(false);
-    // ✅ FIX: you no longer have image modal state in index.tsx
   };
 
   const handlePreviousQuestion = () => {
@@ -554,7 +548,6 @@ export default function Index() {
     setUpcoming((prev) => [currentCard, ...prev]);
     setCurrentCard(previous);
     setShowAnswer(true);
-    // ✅ FIX: you no longer have image modal state in index.tsx
   };
 
   const handleHome = () => {
@@ -563,29 +556,34 @@ export default function Index() {
     setShowAnswer(false);
     setHistory([]);
     setUpcoming([]);
-    // ✅ FIX: you no longer have image modal state in index.tsx
   };
 
   // ---------- Report error via MailComposer ----------
   const handleReportError = async () => {
     if (!currentCard) return;
 
-    const subject = `[${APP_ID}] Fejl i kort ${currentCard.id} – ${currentCard.question.slice(0, 80)}`;
+    const subject = `[${APP_ID}] Fejl i kort ${
+      (currentCard as any).id
+    } – ${(currentCard as any).question?.slice?.(0, 80) ?? ""}`;
 
     const bodyLines = [
       "Hej Nikolai,",
       "",
       "Jeg vil gerne rapportere en fejl i FlashMedic.",
       "",
-      `Kort-ID: ${currentCard.id}`,
-      `Fag: ${currentCard.subject ?? "Ukendt"}`,
-      `Emne: ${currentCard.topic ?? "Ukendt"}${currentCard.subtopic ? " · " + currentCard.subtopic : ""}`,
+      `Kort-ID: ${(currentCard as any).id}`,
+      `Fag: ${(currentCard as any).subject ?? "Ukendt"}`,
+      `Emne: ${(currentCard as any).topic ?? "Ukendt"}${
+        (currentCard as any).subtopic
+          ? " · " + (currentCard as any).subtopic
+          : ""
+      }`,
       "",
       "Spørgsmål:",
-      currentCard.question,
+      (currentCard as any).question ?? "",
       "",
       "Svar:",
-      currentCard.answer,
+      (currentCard as any).answer ?? "",
       "",
       "Min kommentar til fejlen / forbedringsforslag:",
       "",
@@ -612,7 +610,6 @@ export default function Index() {
     const mailtoSubject = encodeURIComponent(subject);
     const mailtoBody = encodeURIComponent(body);
     const url = `mailto:${SUPPORT_EMAIL}?subject=${mailtoSubject}&body=${mailtoBody}`;
-
     Linking.openURL(url);
   };
 
@@ -642,70 +639,171 @@ export default function Index() {
       setContactMessage("");
     } catch (error) {
       console.error(error);
-      Alert.alert("Fejl", "Kunne ikke sende beskeden. Tjek internetforbindelsen og prøv igen.");
+      Alert.alert(
+        "Fejl",
+        "Kunne ikke sende beskeden. Tjek internetforbindelsen og prøv igen.",
+      );
     }
   };
 
   // ---------- Spaced repetition actions ----------
-
   const handleMarkKnown = () => {
     if (!currentCard) return;
-    markCard(currentCard.id, true);
+    markCard((currentCard as any).id, true);
     handleNextQuestion();
   };
 
   const handleMarkUnknown = () => {
     if (!currentCard) return;
-
-    markCard(currentCard.id, false);
+    markCard((currentCard as any).id, false);
     setUpcoming((prev) => [...prev, currentCard]);
     handleNextQuestion();
   };
 
   const handleResetStats = () => {
-    Alert.alert("Nulstil statistik", "Er du sikker på, at du vil slette al statistik?", [
-      { text: "Annuller", style: "cancel" },
-      {
-        text: "Ja, nulstil",
-        style: "destructive",
-        onPress: () => resetPersonalStats(),
-      },
-    ]);
+    Alert.alert(
+      "Nulstil statistik",
+      "Er du sikker på, at du vil slette al statistik?",
+      [
+        { text: "Annuller", style: "cancel" },
+        {
+          text: "Ja, nulstil",
+          style: "destructive",
+          onPress: () => resetPersonalStats(),
+        },
+      ],
+    );
   };
 
   // ---------- Drug calc helpers ----------
+  function normalizeTopicIds(input: any[]): string[] {
+    return (input ?? [])
+      .map((t) => {
+        if (typeof t === "string") return t;
+        if (t && typeof t === "object") {
+          if (typeof (t as any).id === "string") return (t as any).id;
+          if (typeof (t as any).key === "string") return (t as any).key;
+          if (typeof (t as any).topicId === "string") return (t as any).topicId;
+        }
+        return null;
+      })
+      .filter(Boolean) as string[];
+  }
 
-  const startDrugCalcPractice = () => {
-    setCurrentDrugQuestion(generateDrugCalcQuestion());
+  const startDrugCalcPractice = (topics: any[]) => {
+    const topicIds = normalizeTopicIds(topics);
+    setSelectedDrugTopics(topicIds as unknown as DrugCalcTopic[]);
+    setCurrentDrugQuestion(
+      generateDrugCalcQuestion(topicIds as unknown as DrugCalcTopic[]),
+    );
     setDrugAnswer("");
     setDrugAnswerStatus("neutral");
     setScreen("drugCalcPractice");
   };
 
   const checkDrugAnswer = () => {
-    if (!currentDrugQuestion) return;
-    const parsed = parseFloat(drugAnswer.replace(",", "."));
-    if (isNaN(parsed)) {
-      Alert.alert("Ups", "Skriv et tal som svar.");
+    if (!currentDrugQuestion) {
+      Alert.alert("Ingen spørgsmål", "Start en opgave først.");
       return;
     }
-    if (isDrugAnswerCorrect(parsed, currentDrugQuestion.correctAnswer)) {
-      setDrugAnswerStatus("correct");
-    } else {
-      setDrugAnswerStatus("incorrect");
+
+    const normalized = drugAnswer.trim().replace(",", ".");
+
+    if (!normalized) {
+      Alert.alert("Manglende svar", "Skriv et svar først.");
+      return;
     }
+
+    const parsed = Number(normalized);
+
+    if (!Number.isFinite(parsed)) {
+      Alert.alert("Ugyldigt svar", "Skriv et gyldigt tal.");
+      return;
+    }
+
+    const isCorrect = isDrugAnswerCorrect(
+      parsed,
+      currentDrugQuestion.correctAnswer,
+      currentDrugQuestion.tolerance,
+    );
+
+    setDrugAnswerStatus(isCorrect ? "correct" : "incorrect");
   };
 
   const nextDrugQuestion = () => {
-    setCurrentDrugQuestion(generateDrugCalcQuestion());
+    setCurrentDrugQuestion(generateDrugCalcQuestion(selectedDrugTopics));
     setDrugAnswer("");
     setDrugAnswerStatus("neutral");
   };
 
+  // ---------- AuthScreen actions ----------
+  const persistAndEnterApp = async (nickname: string, isAnonymous: boolean) => {
+    const uid = auth.currentUser?.uid ?? null;
+
+    const newProfile: UserProfile = {
+      userId: uid,
+      nickname,
+      role: null,
+      gender: null,
+      region: null,
+      classId: null,
+      isAnonymous,
+    };
+
+    setProfile(newProfile);
+    setProfileEditNickname(newProfile.nickname);
+    setProfileEditClassId(newProfile.classId);
+    setProfileEditRole(newProfile.role);
+    setProfileEditGender(newProfile.gender);
+    setProfileEditRegion(newProfile.region);
+
+    const toStore: StoredUserProfile = {
+      userId: uid,
+      nickname: newProfile.nickname,
+      classId: newProfile.classId,
+      isAnonymous: newProfile.isAnonymous,
+    };
+
+    await saveStoredProfile(toStore);
+    setScreen("home");
+  };
+
   // ---------- SCREENS ----------
+  // (everything below unchanged)
+  if (screen === "auth") {
+    return (
+      <AuthScreen
+        headingFont={headingFont}
+        subtitleFont={subtitleFont}
+        buttonFont={buttonFont}
+        suggestedAnonName={makeRandomAnonName()}
+        onContinueAnonymous={(nick) => persistAndEnterApp(nick, true)}
+        onCreateProfile={(nick) => persistAndEnterApp(nick, false)}
+      />
+    );
+  }
 
   if (screen === "weeklyDev") {
-    return <WeeklyDevScreen headingFont={headingFont} buttonFont={buttonFont} onBack={() => setScreen("home")} />;
+    return (
+      <WeeklyDevScreen
+        headingFont={headingFont}
+        buttonFont={buttonFont}
+        onBack={() => setScreen("home")}
+        onStartGame={({ kind, weekKey, round }) => {
+          setWeeklyDevOverride({
+            enabled: true,
+            kind,
+            weekKey,
+            round,
+          });
+
+          if (kind === "mcq") setScreen("weeklyMcq");
+          if (kind === "match") setScreen("weeklyMatch");
+          if (kind === "word") setScreen("weeklyWord");
+        }}
+        onClearDevOverride={() => setWeeklyDevOverride({ enabled: false })}
+      />
+    );
   }
 
   if (screen === "stats") {
@@ -790,7 +888,14 @@ export default function Index() {
         weeklyMcqLocked={weeklyMcqLocked}
         setWeeklyMcqLocked={setWeeklyMcqLocked}
         profileNickname={profile?.nickname}
-        onBack={() => setScreen("weeklyHome")}
+        onBack={() => {
+          setScreen("weeklyHome");
+        }}
+        devWeekKey={
+          weeklyDevOverride.enabled && weeklyDevOverride.kind === "mcq"
+            ? weeklyDevOverride.weekKey
+            : null
+        }
       />
     );
   }
@@ -804,6 +909,11 @@ export default function Index() {
         setWeeklyMatchLocked={setWeeklyMatchLocked}
         profileNickname={profile?.nickname}
         onBack={() => setScreen("weeklyHome")}
+        devWeekKey={
+          weeklyDevOverride.enabled && weeklyDevOverride.kind === "match"
+            ? weeklyDevOverride.weekKey
+            : null
+        }
       />
     );
   }
@@ -817,46 +927,41 @@ export default function Index() {
         setWeeklyWordLocked={setWeeklyWordLocked}
         profileNickname={profile?.nickname}
         onBack={() => setScreen("weeklyHome")}
+        devWeekKey={
+          weeklyDevOverride.enabled && weeklyDevOverride.kind === "word"
+            ? weeklyDevOverride.weekKey
+            : null
+        }
       />
     );
   }
 
- if (screen === "contact") {
-  return (
-    <ContactScreen
-      headingFont={headingFont}
-      buttonFont={buttonFont}
-      apiBaseUrl={API_BASE_URL}
-      contactName={contactName}
-      setContactName={setContactName}
-      contactEmail={contactEmail}
-      setContactEmail={setContactEmail}
-      contactMessage={contactMessage}
-      setContactMessage={setContactMessage}
-      onBack={() => setScreen("home")}
-    />
-  );
-}
+  if (screen === "contact") {
+    return (
+      <ContactScreen
+        headingFont={headingFont}
+        buttonFont={buttonFont}
+        apiBaseUrl={API_BASE_URL}
+        contactName={contactName}
+        setContactName={setContactName}
+        contactEmail={contactEmail}
+        setContactEmail={setContactEmail}
+        contactMessage={contactMessage}
+        setContactMessage={setContactMessage}
+        onBack={() => setScreen("home")}
+      />
+    );
+  }
 
   if (screen === "profile") {
     return (
       <ProfileScreen
         headingFont={headingFont}
+        subtitleFont={subtitleFont}
         buttonFont={buttonFont}
         firebaseUid={auth.currentUser?.uid ?? null}
+        profile={profile}
         setProfile={setProfile}
-        saveStoredProfile={saveStoredProfile}
-        profileEditNickname={profileEditNickname}
-        setProfileEditNickname={setProfileEditNickname}
-        profileEditRole={profileEditRole}
-        setProfileEditRole={setProfileEditRole}
-        profileEditClassId={profileEditClassId}
-        setProfileEditClassId={setProfileEditClassId}
-        profileEditRegion={profileEditRegion}
-        setProfileEditRegion={setProfileEditRegion}
-        profileEditGender={profileEditGender}
-        setProfileEditGender={setProfileEditGender}
-        STUDENT_CLASSES={STUDENT_CLASSES}
         onBack={() => setScreen("home")}
       />
     );
@@ -888,6 +993,10 @@ export default function Index() {
         onCheckAnswer={checkDrugAnswer}
         onNextQuestion={nextDrugQuestion}
         onBack={() => setScreen("drugCalcHome")}
+        availableTopics={DRUG_TOPICS}
+        selectedTopics={selectedDrugTopics}
+        setSelectedTopics={setSelectedDrugTopics}
+        onStartWithTopics={startDrugCalcPractice}
       />
     );
   }

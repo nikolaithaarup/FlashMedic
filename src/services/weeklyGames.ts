@@ -1,3 +1,4 @@
+// src/services/weeklyGames.ts
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 

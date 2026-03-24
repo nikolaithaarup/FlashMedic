@@ -5,9 +5,9 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 
-import { useFlashcards } from "../src/features/flashcards/useFlashcards"; // <-- we’ll create
-import { useProfile } from "../src/features/profile/useProfile"; // <-- we’ll create
-import { styles } from "./flashmedicStyles";
+import { useFlashcards } from "../features/flashcards/useFlashcards"; // <-- we’ll create
+import { useProfile } from "../features/profile/useProfile"; // <-- we’ll create
+import { styles } from "../ui/flashmedicStyles";
 
 const APP_LOGO = require("../assets/her-icon.png");
 
@@ -15,17 +15,24 @@ export default function HomeScreen() {
   const router = useRouter();
 
   const { profile, classLabel } = useProfile();
-  const { cards, loadingCards, loadError, startAllSubjectsQuiz } = useFlashcards();
+  const { cards, loadingCards, loadError, startAllSubjectsQuiz } =
+    useFlashcards();
 
   return (
-    <LinearGradient colors={["#0e91a8ff", "#5e6e7eff"]} style={styles.homeBackground}>
+    <LinearGradient
+      colors={["#0e91a8ff", "#5e6e7eff"]}
+      style={styles.homeBackground}
+    >
       <StatusBar style="light" />
       <ScrollView contentContainerStyle={styles.homeContainer}>
         {/* Top row: profile badge */}
         <View style={styles.homeTopRow}>
           <View style={{ flex: 1 }} />
           <Pressable
-            style={[styles.profileBadge, profile?.isAnonymous && styles.profileBadgeAnon]}
+            style={[
+              styles.profileBadge,
+              profile?.isAnonymous && styles.profileBadgeAnon,
+            ]}
             onPress={() => router.push("/profile")}
             hitSlop={16}
           >
@@ -43,9 +50,13 @@ export default function HomeScreen() {
         <Text style={[styles.appTitle, { color: "#f8f9fa" }]}>FlashMedic</Text>
 
         {loadingCards ? (
-          <Text style={[styles.subtitle, { color: "#e9ecef" }]}>Indlæser kort fra serveren…</Text>
+          <Text style={[styles.subtitle, { color: "#e9ecef" }]}>
+            Indlæser kort fra serveren…
+          </Text>
         ) : loadError ? (
-          <Text style={[styles.subtitle, { color: "#ffdddd" }]}>{loadError}</Text>
+          <Text style={[styles.subtitle, { color: "#ffdddd" }]}>
+            {loadError}
+          </Text>
         ) : (
           <Text style={[styles.subtitle, { color: "#e9ecef" }]}>
             Træn medicin, anatomi, EKG og meget mere.
@@ -63,7 +74,10 @@ export default function HomeScreen() {
             <Text style={styles.homeNavButtonText}>Weekly Challenges</Text>
           </Pressable>
 
-          <Pressable style={styles.homeNavButton} onPress={() => router.push("/flashcards")}>
+          <Pressable
+            style={styles.homeNavButton}
+            onPress={() => router.push("/flashcards")}
+          >
             <Text style={styles.homeNavButtonText}>Flashcards</Text>
           </Pressable>
 
@@ -75,20 +89,31 @@ export default function HomeScreen() {
             <Text style={styles.homeNavButtonText}>Flashcards i alle fag</Text>
           </Pressable>
 
-          <Pressable style={styles.homeNavButton} onPress={() => router.push("/drugcalc")}>
+          <Pressable
+            style={styles.homeNavButton}
+            onPress={() => router.push("/drugcalc")}
+          >
             <Text style={styles.homeNavButtonText}>Lægemiddelregning</Text>
           </Pressable>
 
-          <Pressable style={styles.homeNavButton} onPress={() => router.push("/stats")}>
+          <Pressable
+            style={styles.homeNavButton}
+            onPress={() => router.push("/stats")}
+          >
             <Text style={styles.homeNavButtonText}>Statistik</Text>
           </Pressable>
 
-          <Pressable style={styles.homeNavButton} onPress={() => router.push("/contact")}>
+          <Pressable
+            style={styles.homeNavButton}
+            onPress={() => router.push("/contact")}
+          >
             <Text style={styles.homeNavButtonText}>Kontakt</Text>
           </Pressable>
         </View>
 
-        <Text style={styles.madeByText}>Made by Nikolai Louis Kleftås Thaarup</Text>
+        <Text style={styles.madeByText}>
+          Made by Nikolai Louis Kleftås Thaarup
+        </Text>
       </ScrollView>
     </LinearGradient>
   );
