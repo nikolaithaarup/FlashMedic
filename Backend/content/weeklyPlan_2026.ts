@@ -258,7 +258,7 @@ export const weeklyPlan2026: WeeklyPlan = {
     mcq: {
       rounds: [
         "GCS-opbygning",
-        "Årsager til nedsat bevidsthed (AEIOU-TIPS)",
+        "Årsager til nedsat bevidsthed (MIDASHE)",
         "ABCDE ved ukendt bevidsthedstab",
       ],
       questions: [
@@ -329,63 +329,65 @@ export const weeklyPlan2026: WeeklyPlan = {
           ],
         },
 
-        // --- Round 2: AEIOU-TIPS (5) ---
+        // --- Round 2: MIDASHE (5) ---
         {
           id: "w14_q6",
-          category: "Årsager til nedsat bevidsthed (AEIOU-TIPS)",
-          text: "Hvad står 'I' typisk for i AEIOU-TIPS?",
+          category: "Årsager til nedsat bevidsthed (MIDASHE)",
+          text: "Hvad står 'H' typisk for i MIDASHE?",
           explanation:
-            "I = Insulin (hypoglykæmi) er en klassisk reversibel årsag.",
+            "H = Hypoglykæmi er en hyppig og reversibel årsag til nedsat bevidsthed.",
           options: [
-            { id: "a", text: "Infektion" },
-            { id: "b", text: "Insulin (hypoglykæmi)", isCorrect: true },
-            { id: "c", text: "Inaktivitet" },
-            { id: "d", text: "Intubation" },
+            { id: "a", text: "Hypertermi" },
+            { id: "b", text: "Hypoglykæmi", isCorrect: true },
+            { id: "c", text: "Hypotension" },
+            { id: "d", text: "Hypoksi" },
           ],
         },
         {
           id: "w14_q7",
-          category: "Årsager til nedsat bevidsthed (AEIOU-TIPS)",
-          text: "Hvilken AEIOU-TIPS-årsag er hurtigst at udelukke præhospitalt?",
-          explanation: "Blodsukker kan måles på sekunder og er reversibelt.",
+          category: "Årsager til nedsat bevidsthed (MIDASHE)",
+          text: "Hvilken MIDASHE-årsag er hurtigst at udelukke præhospitalt?",
+          explanation:
+            "Hypoglykæmi kan måles hurtigt med blodsukker og behandles straks.",
           options: [
-            { id: "a", text: "Infektion" },
+            { id: "a", text: "Apopleksi" },
             { id: "b", text: "Hypoglykæmi", isCorrect: true },
-            { id: "c", text: "Apopleksi" },
-            { id: "d", text: "Traume" },
+            { id: "c", text: "Infektion" },
+            { id: "d", text: "Epilepsi" },
           ],
         },
         {
           id: "w14_q8",
-          category: "Årsager til nedsat bevidsthed (AEIOU-TIPS)",
-          text: "Hvilket fund passer bedst med opioidpåvirkning?",
+          category: "Årsager til nedsat bevidsthed (MIDASHE)",
+          text: "Hvilket fund passer bedst med 'D' i MIDASHE?",
           explanation:
-            "Klassisk triade: nedsat bevidsthed, miose og respirationsdepression.",
+            "D = Drugs. Opioidpåvirkning giver klassisk miose og respirationsdepression.",
           options: [
             { id: "a", text: "Store pupiller og hyperventilation" },
             { id: "b", text: "Miose og lav RF", isCorrect: true },
             { id: "c", text: "Høj feber og nakkestivhed" },
-            { id: "d", text: "Brystsmerter og hypertension" },
+            { id: "d", text: "Pludselig hemiparese" },
           ],
         },
         {
           id: "w14_q9",
-          category: "Årsager til nedsat bevidsthed (AEIOU-TIPS)",
-          text: "Hvilket af følgende er en vigtig toksisk årsag til bevidsthedspåvirkning?",
-          explanation: "Intoksikation er centralt i AEIOU-TIPS.",
+          category: "Årsager til nedsat bevidsthed (MIDASHE)",
+          text: "Hvilket af følgende hører under 'A' i MIDASHE?",
+          explanation:
+            "A = Alkohol/Acidose. Intoksikation med alkohol er en hyppig årsag.",
           options: [
-            { id: "a", text: "Anæmi" },
-            { id: "b", text: "Intoksikation", isCorrect: true },
+            { id: "a", text: "Alkoholpåvirkning", isCorrect: true },
+            { id: "b", text: "Anæmi" },
             { id: "c", text: "Artritis" },
             { id: "d", text: "Aterosklerose" },
           ],
         },
         {
           id: "w14_q10",
-          category: "Årsager til nedsat bevidsthed (AEIOU-TIPS)",
-          text: "Hvilket scenario peger mest på apopleksi som årsag?",
+          category: "Årsager til nedsat bevidsthed (MIDASHE)",
+          text: "Hvilket scenario peger mest på 'S' i MIDASHE?",
           explanation:
-            "Fokale neurologiske udfald (fx facialisparese/armsvækkelse) peger mod stroke.",
+            "S = Stroke. Fokale neurologiske udfald er klassisk for apopleksi.",
           options: [
             { id: "a", text: "Symmetrisk sløvhed efter alkohol" },
             {
@@ -1036,8 +1038,247 @@ export const weeklyPlan2026: WeeklyPlan = {
     title: "EKG Rytmer",
     mcq: {
       rounds: ["Sinusrytme", "Takykardi vs bradykardi", "Hvilke rytmer stødes"],
+      questions: [
+        // --- Round 1: Sinusrytme (5) ---
+        {
+          id: "w17_q1",
+          category: "Sinusrytme",
+          text: "Hvad karakteriserer en normal sinusrytme?",
+          explanation:
+            "P-tak før hvert QRS, regelmæssig rytme og frekvens 60–100/min.",
+          options: [
+            { id: "a", text: "Uregelmæssig rytme uden P-takker" },
+            {
+              id: "b",
+              text: "P-tak før hvert QRS og regelmæssig rytme",
+              isCorrect: true,
+            },
+            { id: "c", text: "Kun brede QRS-komplekser" },
+            { id: "d", text: "Ingen elektrisk aktivitet" },
+          ],
+        },
+        {
+          id: "w17_q2",
+          category: "Sinusrytme",
+          text: "Hvor opstår sinusrytmen?",
+          explanation: "Sinusknuden (SA node) er hjertets primære pacemaker.",
+          options: [
+            { id: "a", text: "AV-knuden" },
+            { id: "b", text: "Purkinje-fibre" },
+            { id: "c", text: "Sinusknuden", isCorrect: true },
+            { id: "d", text: "His’ bundt" },
+          ],
+        },
+        {
+          id: "w17_q3",
+          category: "Sinusrytme",
+          text: "Hvad er normal hvilepuls hos voksne?",
+          explanation: "Typisk 60–100 slag/min.",
+          options: [
+            { id: "a", text: "30–50/min" },
+            { id: "b", text: "60–100/min", isCorrect: true },
+            { id: "c", text: "100–140/min" },
+            { id: "d", text: ">150/min" },
+          ],
+        },
+        {
+          id: "w17_q4",
+          category: "Sinusrytme",
+          text: "Hvad kaldes en langsom sinusrytme?",
+          explanation: "Sinusbradykardi = <60/min.",
+          options: [
+            { id: "a", text: "Sinustakykardi" },
+            { id: "b", text: "Sinusbradykardi", isCorrect: true },
+            { id: "c", text: "VF" },
+            { id: "d", text: "VT" },
+          ],
+        },
+        {
+          id: "w17_q5",
+          category: "Sinusrytme",
+          text: "Hvad kaldes en hurtig sinusrytme?",
+          explanation: "Sinustakykardi = >100/min.",
+          options: [
+            { id: "a", text: "Sinusbradykardi" },
+            { id: "b", text: "Sinustakykardi", isCorrect: true },
+            { id: "c", text: "Asystoli" },
+            { id: "d", text: "AV-blok" },
+          ],
+        },
+
+        // --- Round 2: Takykardi vs bradykardi (5) ---
+        {
+          id: "w17_q6",
+          category: "Takykardi vs bradykardi",
+          text: "Hvad er den primære fysiologiske konsekvens af takykardi?",
+          explanation:
+            "Kortere diastole → dårligere fyldning → kan nedsætte CO.",
+          options: [
+            { id: "a", text: "Øget fyldningstid" },
+            {
+              id: "b",
+              text: "Nedsat fyldningstid",
+              isCorrect: true,
+            },
+            { id: "c", text: "Øget blodtryk altid" },
+            { id: "d", text: "Øget iltning" },
+          ],
+        },
+        {
+          id: "w17_q7",
+          category: "Takykardi vs bradykardi",
+          text: "Hvad er risikoen ved udtalt bradykardi?",
+          explanation:
+            "Lav puls → lav cardiac output → utilstrækkelig perfusion.",
+          options: [
+            { id: "a", text: "Hypertension" },
+            {
+              id: "b",
+              text: "Lav cardiac output",
+              isCorrect: true,
+            },
+            { id: "c", text: "Hyperglykæmi" },
+            { id: "d", text: "Feber" },
+          ],
+        },
+        {
+          id: "w17_q8",
+          category: "Takykardi vs bradykardi",
+          text: "Hvilket symptom ses ofte ved ustabil takykardi?",
+          explanation: "Hypoperfusion → svimmelhed, hypotension.",
+          options: [
+            { id: "a", text: "Øget appetit" },
+            {
+              id: "b",
+              text: "Svimmelhed og hypotension",
+              isCorrect: true,
+            },
+            { id: "c", text: "Kløe" },
+            { id: "d", text: "Feber" },
+          ],
+        },
+        {
+          id: "w17_q9",
+          category: "Takykardi vs bradykardi",
+          text: "Hvad afgør primært om en rytme er behandlingskrævende?",
+          explanation:
+            "Patientens kliniske tilstand (stabil vs ustabil) er afgørende.",
+          options: [
+            { id: "a", text: "Kun EKG-udseende" },
+            {
+              id: "b",
+              text: "Patientens kliniske tilstand",
+              isCorrect: true,
+            },
+            { id: "c", text: "Alder" },
+            { id: "d", text: "Køn" },
+          ],
+        },
+        {
+          id: "w17_q10",
+          category: "Takykardi vs bradykardi",
+          text: "Hvad er en klassisk behandling ved symptomatisk bradykardi?",
+          explanation: "Atropin øger puls via parasympatikus-hæmning.",
+          options: [
+            { id: "a", text: "Adrenalin bolus" },
+            { id: "b", text: "Atropin", isCorrect: true },
+            { id: "c", text: "Insulin" },
+            { id: "d", text: "Naloxon" },
+          ],
+        },
+
+        // --- Round 3: Hvilke rytmer stødes (5) ---
+        {
+          id: "w17_q11",
+          category: "Hvilke rytmer stødes",
+          text: "Hvilken rytme er stødbar?",
+          explanation: "VF er en klassisk stødbar rytme.",
+          options: [
+            { id: "a", text: "Asystoli" },
+            { id: "b", text: "VF", isCorrect: true },
+            { id: "c", text: "PEA" },
+            { id: "d", text: "Sinusrytme" },
+          ],
+        },
+        {
+          id: "w17_q12",
+          category: "Hvilke rytmer stødes",
+          text: "Pulsløs VT behandles med:",
+          explanation: "Pulsløs VT er stødbar → defibrillering.",
+          options: [
+            { id: "a", text: "Ilt" },
+            { id: "b", text: "Defibrillering", isCorrect: true },
+            { id: "c", text: "Væske" },
+            { id: "d", text: "Glukose" },
+          ],
+        },
+        {
+          id: "w17_q13",
+          category: "Hvilke rytmer stødes",
+          text: "Hvilken rytme er IKKE stødbar?",
+          explanation: "Asystoli og PEA er ikke-stødbar.",
+          options: [
+            { id: "a", text: "VF" },
+            { id: "b", text: "VT" },
+            { id: "c", text: "Asystoli", isCorrect: true },
+            { id: "d", text: "SVT" },
+          ],
+        },
+        {
+          id: "w17_q14",
+          category: "Hvilke rytmer stødes",
+          text: "Hvad er første behandling ved VF?",
+          explanation: "Tidlig defibrillering er afgørende.",
+          options: [
+            { id: "a", text: "Adrenalin først" },
+            { id: "b", text: "Defibrillering", isCorrect: true },
+            { id: "c", text: "Væske" },
+            { id: "d", text: "Naloxon" },
+          ],
+        },
+        {
+          id: "w17_q15",
+          category: "Hvilke rytmer stødes",
+          text: "PEA betyder:",
+          explanation:
+            "Elektrisk aktivitet uden effektiv mekanisk pumpefunktion.",
+          options: [
+            { id: "a", text: "Normal puls" },
+            {
+              id: "b",
+              text: "Elektrisk aktivitet uden puls",
+              isCorrect: true,
+            },
+            { id: "c", text: "Hurtig puls" },
+            { id: "d", text: "Langsom puls" },
+          ],
+        },
+      ],
     },
-    match: { rounds: ["Rytme ↔ EKG-billede", "Rytme ↔ behandling"] },
+    match: {
+      rounds: ["Rytme ↔ kendetegn", "Rytme ↔ behandling"],
+      pairsByRound: {
+        1: [
+          { left: "Sinusrytme", right: "P-tak før hvert QRS" },
+          { left: "Sinusbradykardi", right: "Frekvens under 60/min" },
+          { left: "Sinustakykardi", right: "Frekvens over 100/min" },
+          { left: "VF", right: "Kaotisk uorganiseret rytme" },
+          { left: "PEA", right: "Elektrisk aktivitet uden puls" },
+          { left: "Asystoli", right: "Flad linje uden aktivitet" },
+        ],
+        2: [
+          { left: "VF", right: "Usynkroniseret defibrillering" },
+          { left: "Pulsløs VT", right: "Stødbar bredkompleks takykardi" },
+          { left: "Asystoli", right: "Adrenalin og HLR" },
+          {
+            left: "PEA",
+            right: "Behandling af reversible årsager (H'er og T'er)",
+          },
+          { left: "Symptomatisk bradykardi", right: "Atropin som førstevalg" },
+          { left: "Ustabil takykardi", right: "Synkroniseret DC-konvertering" },
+        ],
+      },
+    },
     word: {
       topicTitle: "Hjerterytme",
       easy: ["Puls"],
@@ -1050,8 +1291,266 @@ export const weeklyPlan2026: WeeklyPlan = {
     title: "Diabetes",
     mcq: {
       rounds: ["Insulins funktion", "Hypo vs hyperglykæmi", "DKA vs HHS"],
+      questions: [
+        // --- Round 1: Insulins funktion (5) ---
+        {
+          id: "w18_q1",
+          category: "Insulins funktion",
+          text: "Hvad er insulinets primære funktion?",
+          explanation:
+            "Insulin sænker blodsukker ved at øge glukoseoptag i celler.",
+          options: [
+            { id: "a", text: "Øger blodsukker" },
+            { id: "b", text: "Sænker blodsukker", isCorrect: true },
+            { id: "c", text: "Øger blodtryk" },
+            { id: "d", text: "Øger puls" },
+          ],
+        },
+        {
+          id: "w18_q2",
+          category: "Insulins funktion",
+          text: "Hvor produceres insulin?",
+          explanation: "Produceres i pancreas (beta-celler).",
+          options: [
+            { id: "a", text: "Lever" },
+            { id: "b", text: "Pancreas", isCorrect: true },
+            { id: "c", text: "Nyre" },
+            { id: "d", text: "Hjerte" },
+          ],
+        },
+        {
+          id: "w18_q3",
+          category: "Insulins funktion",
+          text: "Hvad sker der med blodsukkeret uden insulin?",
+          explanation: "Glukose kan ikke optages i celler → hyperglykæmi.",
+          options: [
+            { id: "a", text: "Det falder" },
+            { id: "b", text: "Det stiger", isCorrect: true },
+            { id: "c", text: "Det er uændret" },
+            { id: "d", text: "Det bliver nul" },
+          ],
+        },
+        {
+          id: "w18_q4",
+          category: "Insulins funktion",
+          text: "Hvilken celletype producerer insulin?",
+          explanation: "Beta-celler i pancreas.",
+          options: [
+            { id: "a", text: "Alfa-celler" },
+            { id: "b", text: "Beta-celler", isCorrect: true },
+            { id: "c", text: "T-celler" },
+            { id: "d", text: "Erytrocytter" },
+          ],
+        },
+        {
+          id: "w18_q5",
+          category: "Insulins funktion",
+          text: "Hvad gør insulin i muskler?",
+          explanation: "Øger glukoseoptag og lagring som glykogen.",
+          options: [
+            { id: "a", text: "Nedbryder glukose" },
+            {
+              id: "b",
+              text: "Øger glukoseoptag",
+              isCorrect: true,
+            },
+            { id: "c", text: "Øger fedtforbrænding akut" },
+            { id: "d", text: "Stopper blodflow" },
+          ],
+        },
+
+        // --- Round 2: Hypo vs hyperglykæmi (5) ---
+        {
+          id: "w18_q6",
+          category: "Hypo vs hyperglykæmi",
+          text: "Hvad er et klassisk symptom på hypoglykæmi?",
+          explanation: "Sympatikus → sved, rysten.",
+          options: [
+            { id: "a", text: "Tør hud" },
+            { id: "b", text: "Sved og rysten", isCorrect: true },
+            { id: "c", text: "Polyuri" },
+            { id: "d", text: "Tørst" },
+          ],
+        },
+        {
+          id: "w18_q7",
+          category: "Hypo vs hyperglykæmi",
+          text: "Hvad skyldes symptomer ved hypoglykæmi primært?",
+          explanation: "Lav glukose til hjernen → neuroglykopeni.",
+          options: [
+            { id: "a", text: "For meget insulin" },
+            {
+              id: "b",
+              text: "For lidt glukose til hjernen",
+              isCorrect: true,
+            },
+            { id: "c", text: "Højt blodtryk" },
+            { id: "d", text: "Feber" },
+          ],
+        },
+        {
+          id: "w18_q8",
+          category: "Hypo vs hyperglykæmi",
+          text: "Hvad er typisk for hyperglykæmi?",
+          explanation: "Polyuri, polydipsi og tør hud.",
+          options: [
+            { id: "a", text: "Sved og rysten" },
+            {
+              id: "b",
+              text: "Tørst og hyppig vandladning",
+              isCorrect: true,
+            },
+            { id: "c", text: "Lav puls" },
+            { id: "d", text: "Miose" },
+          ],
+        },
+        {
+          id: "w18_q9",
+          category: "Hypo vs hyperglykæmi",
+          text: "Hvad er første behandling ved svær hypoglykæmi?",
+          explanation: "Glukose (PO/IV) eller glucagon.",
+          options: [
+            { id: "a", text: "Insulin" },
+            { id: "b", text: "Glukose", isCorrect: true },
+            { id: "c", text: "Adrenalin" },
+            { id: "d", text: "Ilt" },
+          ],
+        },
+        {
+          id: "w18_q10",
+          category: "Hypo vs hyperglykæmi",
+          text: "Hvordan er huden typisk ved hypoglykæmi?",
+          explanation: "Sympatikus → kold og klam.",
+          options: [
+            { id: "a", text: "Varm og tør" },
+            {
+              id: "b",
+              text: "Kold og klam",
+              isCorrect: true,
+            },
+            { id: "c", text: "Blå" },
+            { id: "d", text: "Rød og varm" },
+          ],
+        },
+
+        // --- Round 3: DKA vs HHS (5) ---
+        {
+          id: "w18_q11",
+          category: "DKA vs HHS",
+          text: "Hvad kendetegner DKA?",
+          explanation: "Ketoner + metabolisk acidose.",
+          options: [
+            { id: "a", text: "Kun højt blodsukker" },
+            {
+              id: "b",
+              text: "Ketoner og acidose",
+              isCorrect: true,
+            },
+            { id: "c", text: "Lav puls" },
+            { id: "d", text: "Normal pH" },
+          ],
+        },
+        {
+          id: "w18_q12",
+          category: "DKA vs HHS",
+          text: "Hvad er typisk respirationsmønster ved DKA?",
+          explanation: "Kussmaul respiration (dyb og hurtig).",
+          options: [
+            { id: "a", text: "Langsom vejrtrækning" },
+            {
+              id: "b",
+              text: "Dyb og hurtig respiration",
+              isCorrect: true,
+            },
+            { id: "c", text: "Apnø" },
+            { id: "d", text: "Normal RF" },
+          ],
+        },
+        {
+          id: "w18_q13",
+          category: "DKA vs HHS",
+          text: "Hvad er mest typisk for HHS?",
+          explanation: "Meget højt blodsukker uden betydelig ketose.",
+          options: [
+            { id: "a", text: "Lavt blodsukker" },
+            {
+              id: "b",
+              text: "Ekstrem hyperglykæmi uden ketoner",
+              isCorrect: true,
+            },
+            { id: "c", text: "Acidose" },
+            { id: "d", text: "Hypotermi" },
+          ],
+        },
+        {
+          id: "w18_q14",
+          category: "DKA vs HHS",
+          text: "Hvilken tilstand ses oftest hos type 1 diabetikere?",
+          explanation: "DKA er klassisk ved type 1.",
+          options: [
+            { id: "a", text: "HHS" },
+            { id: "b", text: "DKA", isCorrect: true },
+            { id: "c", text: "Hypertension" },
+            { id: "d", text: "Astma" },
+          ],
+        },
+        {
+          id: "w18_q15",
+          category: "DKA vs HHS",
+          text: "Hvad er en alvorlig komplikation ved ubehandlet DKA?",
+          explanation: "Acidose → cirkulatorisk kollaps.",
+          options: [
+            { id: "a", text: "Forstoppelse" },
+            {
+              id: "b",
+              text: "Shock",
+              isCorrect: true,
+            },
+            { id: "c", text: "Hududslæt" },
+            { id: "d", text: "Hårtab" },
+          ],
+        },
+      ],
     },
-    match: { rounds: ["Symptom ↔ blodsukker", "Hormon ↔ effekt"] },
+    match: {
+      rounds: ["Symptom ↔ tilstand", "Hormon/tilstand ↔ effekt"],
+      pairsByRound: {
+        1: [
+          {
+            left: "Sved og rysten",
+            right: "Hypoglykæmi med sympatikusaktivering",
+          },
+          {
+            left: "Tørst og polyuri",
+            right: "Hyperglykæmi med osmotisk diurese",
+          },
+          {
+            left: "Kold og klam hud",
+            right: "Adrenerg respons ved lavt blodsukker",
+          },
+          { left: "Kussmaul respiration", right: "Metabolisk acidose ved DKA" },
+          { left: "Ekstrem dehydrering", right: "Hyperosmolær tilstand (HHS)" },
+          {
+            left: "Bevidsthedspåvirkning",
+            right: "Cerebral påvirkning ved dysglykæmi",
+          },
+        ],
+        2: [
+          { left: "Insulin", right: "Øger glukoseoptag i celler" },
+          {
+            left: "Glucagon",
+            right: "Stimulerer glukosefrigivelse fra leveren",
+          },
+          { left: "DKA", right: "Ketondannelse og lav pH" },
+          { left: "HHS", right: "Svær hyperglykæmi uden ketoacidose" },
+          { left: "Hypoglykæmi", right: "Kræver hurtig tilførsel af sukker" },
+          {
+            left: "Pancreas beta-celler",
+            right: "Producerer insulin hormonelt",
+          },
+        ],
+      },
+    },
     word: {
       topicTitle: "Glukose",
       easy: ["Sukker"],
@@ -1068,8 +1567,268 @@ export const weeklyPlan2026: WeeklyPlan = {
         "Kroppens blødningsrespons",
         "Tourniquet/præhospital kontrol",
       ],
+      questions: [
+        // --- Round 1 ---
+        {
+          id: "w19_q1",
+          category: "Arterie vs vene",
+          text: "Hvordan ser arteriel blødning typisk ud?",
+          explanation: "Pulserende og lyst rødt.",
+          options: [
+            { id: "a", text: "Mørk og sivende" },
+            {
+              id: "b",
+              text: "Pulserende og lyst rødt",
+              isCorrect: true,
+            },
+            { id: "c", text: "Ingen blødning" },
+            { id: "d", text: "Koaguleret" },
+          ],
+        },
+        {
+          id: "w19_q2",
+          category: "Arterie vs vene",
+          text: "Venøs blødning er typisk:",
+          explanation: "Mørk og sivende.",
+          options: [
+            { id: "a", text: "Pulserende" },
+            { id: "b", text: "Mørk og sivende", isCorrect: true },
+            { id: "c", text: "Skummende" },
+            { id: "d", text: "Tør" },
+          ],
+        },
+        {
+          id: "w19_q3",
+          category: "Arterie vs vene",
+          text: "Hvorfor er arteriel blødning farligere?",
+          explanation: "Højere tryk → hurtigere blodtab.",
+          options: [
+            { id: "a", text: "Lavt tryk" },
+            {
+              id: "b",
+              text: "Højt tryk og hurtigt blodtab",
+              isCorrect: true,
+            },
+            { id: "c", text: "Langsomt flow" },
+            { id: "d", text: "Lav puls" },
+          ],
+        },
+        {
+          id: "w19_q4",
+          category: "Arterie vs vene",
+          text: "Hvad er første tiltag ved synlig blødning?",
+          explanation: "Direkte tryk.",
+          options: [
+            { id: "a", text: "Ilt" },
+            { id: "b", text: "Direkte tryk", isCorrect: true },
+            { id: "c", text: "Glukose" },
+            { id: "d", text: "Ventilation" },
+          ],
+        },
+        {
+          id: "w19_q5",
+          category: "Arterie vs vene",
+          text: "Hvad er kapillær blødning?",
+          explanation: "Overfladisk sivende blødning.",
+          options: [
+            { id: "a", text: "Pulserende" },
+            {
+              id: "b",
+              text: "Overfladisk sivende",
+              isCorrect: true,
+            },
+            { id: "c", text: "Sprøjtende" },
+            { id: "d", text: "Ingen blødning" },
+          ],
+        },
+
+        // --- Round 2 ---
+        {
+          id: "w19_q6",
+          category: "Blødningsrespons",
+          text: "Hvad er første kompensationsrespons?",
+          explanation: "Takykardi.",
+          options: [
+            { id: "a", text: "Bradykardi" },
+            { id: "b", text: "Takykardi", isCorrect: true },
+            { id: "c", text: "Hypotermi" },
+            { id: "d", text: "Hyperglykæmi" },
+          ],
+        },
+        {
+          id: "w19_q7",
+          category: "Blødningsrespons",
+          text: "Hvad sker der med huden ved shock?",
+          explanation: "Kold og klam pga sympatikus.",
+          options: [
+            { id: "a", text: "Varm og tør" },
+            { id: "b", text: "Kold og klam", isCorrect: true },
+            { id: "c", text: "Blå" },
+            { id: "d", text: "Rød" },
+          ],
+        },
+        {
+          id: "w19_q8",
+          category: "Blødningsrespons",
+          text: "Hvad sker der med blodtrykket senere i shock?",
+          explanation: "Falder når kompensation svigter.",
+          options: [
+            { id: "a", text: "Stiger" },
+            { id: "b", text: "Falder", isCorrect: true },
+            { id: "c", text: "Uændret" },
+            { id: "d", text: "Svinger" },
+          ],
+        },
+        {
+          id: "w19_q9",
+          category: "Blødningsrespons",
+          text: "Hvad er en vigtig metabolisk konsekvens?",
+          explanation: "Laktatstigning.",
+          options: [
+            { id: "a", text: "Laktat", isCorrect: true },
+            { id: "b", text: "Kolesterol" },
+            { id: "c", text: "Bilirubin" },
+            { id: "d", text: "Insulin" },
+          ],
+        },
+        {
+          id: "w19_q10",
+          category: "Blødningsrespons",
+          text: "Hvad sker der med urinproduktion?",
+          explanation: "Falder pga nedsat perfusion.",
+          options: [
+            { id: "a", text: "Stiger" },
+            { id: "b", text: "Falder", isCorrect: true },
+            { id: "c", text: "Uændret" },
+            { id: "d", text: "Stopper altid" },
+          ],
+        },
+
+        // --- Round 3 ---
+        {
+          id: "w19_q11",
+          category: "Tourniquet",
+          text: "Hvornår anvendes tourniquet?",
+          explanation: "Ved massiv ekstremitetsblødning.",
+          options: [
+            { id: "a", text: "Små sår" },
+            {
+              id: "b",
+              text: "Massiv blødning",
+              isCorrect: true,
+            },
+            { id: "c", text: "Hovedpine" },
+            { id: "d", text: "Infektion" },
+          ],
+        },
+        {
+          id: "w19_q12",
+          category: "Tourniquet",
+          text: "Hvor placeres tourniquet?",
+          explanation: "Proksimalt for blødningen.",
+          options: [
+            { id: "a", text: "Distalt" },
+            { id: "b", text: "Proksimalt", isCorrect: true },
+            { id: "c", text: "Over hjertet" },
+            { id: "d", text: "På brystet" },
+          ],
+        },
+        {
+          id: "w19_q13",
+          category: "Tourniquet",
+          text: "Hvad er tegn på effektiv tourniquet?",
+          explanation: "Blødning stopper.",
+          options: [
+            { id: "a", text: "Øget blødning" },
+            { id: "b", text: "Blødning stopper", isCorrect: true },
+            { id: "c", text: "Mere smerte" },
+            { id: "d", text: "Ingen effekt" },
+          ],
+        },
+        {
+          id: "w19_q14",
+          category: "Tourniquet",
+          text: "Hvad er en risiko ved ubehandlet blødning?",
+          explanation: "Shock og død.",
+          options: [
+            { id: "a", text: "Feber" },
+            { id: "b", text: "Shock", isCorrect: true },
+            { id: "c", text: "Hududslæt" },
+            { id: "d", text: "Hårtab" },
+          ],
+        },
+        {
+          id: "w19_q15",
+          category: "Tourniquet",
+          text: "Hvad er vigtigste mål præhospitalt?",
+          explanation: "Stop blødning hurtigt.",
+          options: [
+            { id: "a", text: "Måle BT" },
+            {
+              id: "b",
+              text: "Stoppe blødning",
+              isCorrect: true,
+            },
+            { id: "c", text: "Give antibiotika" },
+            { id: "d", text: "Give insulin" },
+          ],
+        },
+      ],
     },
-    match: { rounds: ["Tegn ↔ shockgrad", "Blødningstype ↔ udseende"] },
+    match: {
+      rounds: ["Blødningstype ↔ kendetegn", "Fund/tiltag ↔ betydning"],
+      pairsByRound: {
+        1: [
+          {
+            left: "Arteriel blødning",
+            right: "Pulserende blødning under højt tryk",
+          },
+          { left: "Venøs blødning", right: "Kontinuerlig mørk blodstrøm" },
+          {
+            left: "Kapillær blødning",
+            right: "Overfladisk sivning fra små kar",
+          },
+          {
+            left: "Massiv blødning",
+            right: "Hurtigt tab af cirkulerende volumen",
+          },
+          {
+            left: "Indre blødning",
+            right: "Blodtab uden synlig ekstern kilde",
+          },
+          {
+            left: "Direkte tryk",
+            right: "Mekanisk kompression af blødningssted",
+          },
+        ],
+        2: [
+          {
+            left: "Takykardi",
+            right: "Øget puls som kompensation for hypovolæmi",
+          },
+          {
+            left: "Kold og klam hud",
+            right: "Perifer vasokonstriktion via sympatikus",
+          },
+          {
+            left: "Forlænget kapillærrespons",
+            right: "Nedsat mikrocirkulation perifert",
+          },
+          {
+            left: "Faldende blodtryk",
+            right: "Dekompensation ved vedvarende blodtab",
+          },
+          {
+            left: "Tourniquet",
+            right: "Proksimal afklemning af arterielt flow",
+          },
+          {
+            left: "Stigende laktat",
+            right: "Anaerob metabolisme pga hypoperfusion",
+          },
+        ],
+      },
+    },
     word: {
       topicTitle: "Hæmodynamik",
       easy: ["Blod"],
