@@ -98,30 +98,30 @@ async function tryLoadCardsFromFirestore(): Promise<any[]> {
       console.log(
         "[Flashcards] Loaded",
         snap.size,
-        'via collectionGroup("cards")',
+        "via collectionGroup(\"cards\")",
       );
       return snap.docs.map((d) => d.data());
-    }"\\"
-    console.log('[Flashcards] collectionGroup("cards") returned 0 docs');
+    }
+    console.log("[Flashcards] collectionGroup(\"cards\") returned 0 docs");
   } catch (e) {
-    console.warn('[Flashcards] collectionGroup("cards") failed', e);
-  }"\\"
+    console.warn("[Flashcards] collectionGroup(\"cards\") failed", e);
+  }
 
-  // 2) Top-level""cards"\\"
+  // 2) Top-level "cards"
   try {
     const q2 = query(collection(db, "cards"), limit(5000));
     const snap = await getDocs(q2);
 
     if (!snap.empty) {
-      console.log("[Flashcards] Loaded", snap.size, 'via collection("cards")');
+      console.log("[Flashcards] Loaded", snap.size, "via collection(\"cards\")");
       return snap.docs.map((d) => d.data());
     }
-    console.log('[Flashcards] collection("cards") re"urned 0 docs');\\"
+    console.log("[Flashcards] collection(\"cards\") returned 0 docs");
   } catch (e) {
-    console.warn('[Flashcards] collection("cards") failed', e);
-  }"\\"
+    console.warn("[Flashcards] collection(\"cards\") failed", e);
+  }
 
-  // 3) Top-level""flashcards"\\"
+  // 3) Top-level "flashcards"
   try {
     const q3 = query(collection(db, "flashcards"), limit(5000));
     const snap = await getDocs(q3);
@@ -130,16 +130,16 @@ async function tryLoadCardsFromFirestore(): Promise<any[]> {
       console.log(
         "[Flashcards] Loaded",
         snap.size,
-        'via collection("flashcards")',
+        "via collection(\"flashcards\")",
       );
       return snap.docs.map((d) => d.data());
-    }"\\"
-    console.log('[Flashcards] collection("flashcards") returned 0 docs');
+    }
+    console.log("[Flashcards] collection(\"flashcards\") returned 0 docs");
   } catch (e) {
-    console.warn('[Flashcards] collection("flashcards") failed', e);
-  }"\\"
+    console.warn("[Flashcards] collection(\"flashcards\") failed", e);
+  }
 
-  // 4) Deck docs"containing { cards: [] }\\"
+  // 4) Deck docs containing { cards: [] }
   try {
     const snap = await getDocs(query(collection(db, "decks"), limit(2000)));
     const all: any[] = [];
@@ -157,10 +157,9 @@ async function tryLoadCardsFromFirestore(): Promise<any[]> {
       );
       return all;
     }
-"\\"
-    console.log('[Flashcards] collection("decks") had no decks[].cards arrays');
-  } catch (e) {"\\"
-    console.warn('[Flashcards] collection("decks") failed', e);
+    console.log("[Flashcards] collection(\"decks\") had no decks[].cards arrays");
+  } catch (e) {
+    console.warn("[Flashcards] collection(\"decks\") failed", e);
   }
 
   return [];

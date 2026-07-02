@@ -1,5 +1,11 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useCallback, useEffect, useState } from "react";
+import React, {
+  type Dispatch,
+  type SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
 
 import {
@@ -24,17 +30,12 @@ import {
   saveStoredProfile,
   type StoredUserProfile,
 } from "../../services/userService";
+import type { UserProfile } from "./useProfile";
 
 function makeRandomAnonName() {
   const n = Math.floor(1000 + Math.random() * 9000);
   return `Bruger${n}`;
 }
-
-type UserProfile = {
-  userId: string | null;
-  nickname: string;
-  isAnonymous: boolean;
-};
 
 type Props = {
   headingFont: number;
@@ -42,7 +43,7 @@ type Props = {
   buttonFont: number;
   firebaseUid: string | null;
   profile: UserProfile | null;
-  setProfile: (profile: UserProfile) => void;
+  setProfile: Dispatch<SetStateAction<UserProfile | null>>;
   onBack: () => void;
 };
 
@@ -76,6 +77,10 @@ export default function ProfileScreen({
     const updated: UserProfile = {
       userId: firebaseUid,
       nickname: name,
+      classId: profile?.classId ?? null,
+      role: profile?.role ?? null,
+      gender: profile?.gender ?? null,
+      region: profile?.region ?? null,
       isAnonymous: false,
     };
     setProfile(updated);
@@ -89,7 +94,7 @@ export default function ProfileScreen({
 
     Alert.alert("Gemt ✅", "Dit kaldenavn er opdateret.");
     onBack();
-  }, [firebaseUid, nickname, onBack, setProfile]);
+  }, [firebaseUid, nickname, onBack, profile, setProfile]);
 
   const resetLocalProfile = useCallback(() => {
     Alert.alert(
@@ -106,6 +111,10 @@ export default function ProfileScreen({
             const next: UserProfile = {
               userId: firebaseUid,
               nickname: newNick,
+              classId: profile?.classId ?? null,
+              role: profile?.role ?? null,
+              gender: profile?.gender ?? null,
+              region: profile?.region ?? null,
               isAnonymous: true,
             };
             setProfile(next);
@@ -122,7 +131,7 @@ export default function ProfileScreen({
         },
       ],
     );
-  }, [firebaseUid, setProfile]);
+  }, [firebaseUid, profile, setProfile]);
 
   return (
     <Screen>

@@ -1,4 +1,4 @@
-import { Flashcard } from "../../types/Flashcard";
+import type { Flashcard } from "../../types/Flashcard";
 
 // Samler alle flashcards fra akutte tilstande
 
@@ -21,7 +21,7 @@ import { tonsillektomiEfterblodningCards } from "./tonsillektomi";
 
 // Hvis du senere får nye filer, tilføjer du blot import + ind i arrayet
 
-export const akutteTilstandeCards = Flashcard[] = [
+export const akutteTilstandeCards: Flashcard[] = [
   ...akutAbdomenCards,
   ...akutBinyrebarkinsufficiensCards,
   ...akutKoronarSyndromCards,

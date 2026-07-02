@@ -4,8 +4,9 @@ import type { Flashcard } from "../types/Flashcard";
 export function getTopicsForSubject(subject: string): string[] {
   const topicSet = new Set(
     allFlashcards
-      .filter(card => card.subject === subject)
-      .map(card => card.topic)
+      .filter((card) => card.subject === subject)
+      .map((card) => card.topic)
+      .filter((topic): topic is string => topic !== undefined),
   );
   return Array.from(topicSet).sort();
 }
@@ -16,8 +17,10 @@ export function getCardsForSubjectAndTopics(
 ): Flashcard[] {
   const topicFilter = topics && topics.length > 0 ? topics : undefined;
 
-  return allFlashcards.filter(card =>
-    card.subject === subject &&
-    (!topicFilter || topicFilter.includes(card.topic))
+  return allFlashcards.filter(
+    (card) =>
+      card.subject === subject &&
+      (!topicFilter ||
+        (card.topic !== undefined && topicFilter.includes(card.topic))),
   );
 }

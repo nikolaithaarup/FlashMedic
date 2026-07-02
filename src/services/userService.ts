@@ -3,6 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export type StoredUserProfile = {
   userId: string | null;
   nickname: string;
+  classId?: number | null;
   isAnonymous: boolean;
 };
 

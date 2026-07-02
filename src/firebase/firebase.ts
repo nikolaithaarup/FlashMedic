@@ -1,11 +1,11 @@
 // src/firebase/firebase.ts
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getReactNativePersistence } from "@firebase/auth";
 import { Platform } from "react-native";
 
 import { getApp, getApps, initializeApp } from "firebase/app";
 import {
   getAuth,
-  getReactNativePersistence,
   initializeAuth,
   type Auth,
 } from "firebase/auth";
@@ -34,7 +34,7 @@ function initAuth(): Auth {
     return initializeAuth(app, {
       persistence: getReactNativePersistence(AsyncStorage),
     });
-  } catch (e: any) {
+  } catch {
     return getAuth(app);
   }
 }

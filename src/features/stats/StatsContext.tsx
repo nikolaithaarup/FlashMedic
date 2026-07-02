@@ -16,6 +16,9 @@ import {
 import { loadMatchPackByWeekKey } from "../../services/weeklyMatchService";
 import { loadMcqPackByWeekKey } from "../../services/weeklyMcqService";
 import { loadWordPackByWeekKey } from "../../services/weeklyWordService";
+import type { StatsMap } from "../../types/Stats";
+
+export type { CardStats, StatsMap } from "../../types/Stats";
 
 // --------------------
 // Types: weekly global
@@ -34,15 +37,6 @@ type WeeklyGlobalState = {
 // --------------------
 // Types: personal stats
 // --------------------
-export type CardStats = {
-  seen: number;
-  correct: number;
-  incorrect: number;
-  lastSeen: string | null;
-};
-
-export type StatsMap = Record<string, CardStats>;
-
 // --------------------
 // Context value
 // --------------------
