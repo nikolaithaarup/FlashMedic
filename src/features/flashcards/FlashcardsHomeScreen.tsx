@@ -1,98 +1,71 @@
-// src/features/flashcards/FlashcardsHomeScreen.tsx
-import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import React, { useMemo } from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
-import { styles } from "../../ui/flashmedicStyles";
+import {
+  ColorTokens,
+  Spacing,
+  Typography,
+} from "../../../constants/theme";
+import {
+  Card,
+  Chip,
+  EmptyState,
+  NoticeCard,
+  PrimaryButton,
+  Screen,
+  SecondaryButton,
+  ToolPageHeader,
+} from "../../ui/primitives";
 
-type TopicGroup = {
-  topic: string;
-  subtopics: string[];
-};
+type TopicGroup = { topic: string; subtopics: string[] };
 
 type FlashcardsHomeScreenProps = {
-  // Fonts
   headingFont: number;
   buttonFont: number;
   metaFont: number;
-
-  // Data
   subjects: string[];
   loadingCards: boolean;
-
   selectedSubject: string | null;
   setSelectedSubject: React.Dispatch<React.SetStateAction<string | null>>;
-
   selectedKeys: string[];
   setSelectedKeys: React.Dispatch<React.SetStateAction<string[]>>;
-
   topicGroupsForSelectedSubject: TopicGroup[];
-
   allSelectableKeys: string[];
   allTopicsSelected: boolean;
-
   cardsForSelectedSubjectCount: number;
-
-  // Actions
   onBack: () => void;
   onStartQuiz: () => void;
 };
 
-type ChipItem = {
-  key: string; // topic::<ALL> or topic::sub
-  label: string;
-  topic: string;
-  isTopicAll: boolean;
-};
+type ChipItem = { key: string; label: string };
 
 function buildChips(groups: TopicGroup[]): ChipItem[] {
-  const out: ChipItem[] = [];
+  const result: ChipItem[] = [];
 
   for (const group of groups ?? []) {
-    const topic = String((group as any)?.topic ?? "").trim();
-    const subtopics = Array.isArray((group as any)?.subtopics)
-      ? ((group as any).subtopics as unknown[]).map((s) => String(s))
+    const topic = String(group?.topic ?? "").trim();
+    const subtopics = Array.isArray(group?.subtopics)
+      ? group.subtopics.map(String)
       : [];
 
     if (!topic) continue;
-
-    // Topic-only (no subtopics)
     if (subtopics.length === 0) {
-      out.push({
-        key: `${topic}::<ALL>`,
-        label: topic,
-        topic,
-        isTopicAll: true,
-      });
+      result.push({ key: `${topic}::<ALL>`, label: topic });
       continue;
     }
 
-    // Subtopic chips
-    for (const subRaw of subtopics) {
-      const sub = String(subRaw ?? "");
+    for (const sub of subtopics) {
       if (!sub.trim()) continue;
-
-      const isNested = sub.includes("::");
-      const displayName = isNested ? sub.split("::")[1] : sub;
-
-      out.push({
-        key: `${topic}::${sub}`,
-        label: `${topic} – ${displayName}`,
-        topic,
-        isTopicAll: false,
-      });
+      const displayName = sub.includes("::") ? sub.split("::")[1] : sub;
+      result.push({ key: `${topic}::${sub}`, label: `${topic} – ${displayName}` });
     }
   }
 
-  out.sort((a, b) => a.label.localeCompare(b.label));
-  return out;
+  return result.sort((a, b) => a.label.localeCompare(b.label));
 }
 
 export default function FlashcardsHomeScreen({
-  headingFont,
-  buttonFont,
-  metaFont,
   subjects,
   loadingCards,
   selectedSubject,
@@ -106,193 +79,158 @@ export default function FlashcardsHomeScreen({
   onBack,
   onStartQuiz,
 }: FlashcardsHomeScreenProps) {
-  const chipsForSelectedSubject: ChipItem[] = useMemo(() => {
-    if (!selectedSubject) return [];
-    return buildChips(topicGroupsForSelectedSubject);
-  }, [topicGroupsForSelectedSubject, selectedSubject]);
-
-  const toggleKey = (key: string) => {
-    setSelectedKeys((prev) =>
-      prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key],
-    );
-  };
-
+  const topicChips = useMemo(
+    () => (selectedSubject ? buildChips(topicGroupsForSelectedSubject) : []),
+    [selectedSubject, topicGroupsForSelectedSubject],
+  );
   const startDisabled =
     loadingCards ||
     (!!selectedSubject &&
       cardsForSelectedSubjectCount === 0 &&
       selectedKeys.length === 0);
 
+  const toggleKey = (key: string) => {
+    setSelectedKeys((current) =>
+      current.includes(key)
+        ? current.filter((candidate) => candidate !== key)
+        : [...current, key],
+    );
+  };
+
   return (
-    <LinearGradient
-      colors={["#0e91a8ff", "#5e6e7eff"]}
-      style={styles.homeBackground}
-    >
+    <Screen>
       <StatusBar style="light" />
-      <ScrollView contentContainerStyle={styles.homeContainer}>
-        <View style={styles.headerRow}>
-          <Text
-            style={[
-              styles.appTitle,
-              { fontSize: headingFont, color: "#f8f9fa" },
-            ]}
-          >
-            Flashcards
-          </Text>
+      <ToolPageHeader
+        backLabel="Tilbage til forsiden"
+        onBack={onBack}
+        subtitle="Sammensæt din træning"
+        title="Flashcards"
+      />
 
-          <Pressable
-            style={[styles.smallButton, { borderColor: "#fff" }]}
-            onPress={onBack}
-            hitSlop={8}
-          >
-            <Text
-              style={[
-                styles.smallButtonText,
-                { color: "#fff", fontSize: buttonFont * 0.9 },
-              ]}
-            >
-              Home
-            </Text>
-          </Pressable>
+      <NoticeCard title="Sådan kommer du i gang">
+        Vælg først et fag og derefter de emner, du vil træne. Kort, du ikke kan,
+        kommer igen i quizzen.
+      </NoticeCard>
+
+      <View style={styles.sectionHeader}>
+        <Text style={styles.sectionLabel}>1 · FAG</Text>
+        <Text style={styles.sectionTitle}>Hvad vil du træne?</Text>
+      </View>
+
+      <Card variant="subtle" style={styles.sectionCard}>
+        <View style={styles.chipList}>
+          {subjects.map((subject) => {
+            const selected = selectedSubject === subject;
+            return (
+              <Chip
+                key={subject}
+                label={subject}
+                onPress={() => {
+                  setSelectedSubject(selected ? null : subject);
+                  setSelectedKeys([]);
+                }}
+                selected={selected}
+              />
+            );
+          })}
         </View>
+      </Card>
 
-        {/* Help card */}
-        <View
-          style={[
-            styles.statsCard,
-            {
-              marginTop: 14,
-              marginBottom: 14,
-              alignSelf: "stretch",
-              backgroundColor: "rgba(0,0,0,0.12)",
-            },
-          ]}
-        >
-          <Text style={[styles.statsSectionTitle, { color: "#f8f9fa" }]}>
-            Sådan bruger du Flashcards
-          </Text>
+      <View style={styles.sectionHeader}>
+        <Text style={styles.sectionLabel}>2 · EMNER</Text>
+        <Text style={styles.sectionTitle}>
+          {selectedSubject ? `Emner i ${selectedSubject}` : "Vælg et fag"}
+        </Text>
+      </View>
 
-          <Text
-            style={[
-              styles.statsLabel,
-              { color: "#e9ecef", marginTop: 8, lineHeight: 20 },
-            ]}
-          >
-            • Vælg et fag for at se emner og underemner.{"\n"}• Vælg ét eller
-            flere emner (eller tryk “Vælg alle”).{"\n"}• Start en quiz – du får
-            spørgsmål fra de valgte emner.{"\n"}• Under quizzen: “Jeg kunne den”
-            = tæller korrekt. “Jeg kunne den ikke” = kortet kommer igen.
-          </Text>
-        </View>
-
-        {/* Subjects */}
-        <View style={styles.subjectGrid}>
-          {subjects.map((subject) => (
-            <Pressable
-              key={subject}
-              onPress={() => {
-                setSelectedSubject(
-                  selectedSubject === subject ? null : subject,
-                );
-                setSelectedKeys([]);
-              }}
-            >
-              <Text
-                style={[
-                  styles.homeNavButtonText,
-                  selectedSubject === subject
-                    ? { textDecorationLine: "underline" }
-                    : undefined,
-                ]}
-              >
-                {subject}
+      <Card variant="subtle" style={styles.sectionCard}>
+        {!selectedSubject ? (
+          <EmptyState
+            message="Emnerne vises her, når du har valgt et fag ovenfor."
+            title="Intet fag valgt"
+          />
+        ) : topicGroupsForSelectedSubject.length === 0 ? (
+          <EmptyState
+            message="Der er endnu ingen emner tilgængelige i dette fag."
+            title="Ingen emner fundet"
+          />
+        ) : (
+          <>
+            <View style={styles.selectionHeader}>
+              <Text style={styles.selectionCount}>
+                {selectedKeys.length === 0
+                  ? "Alle emner bruges"
+                  : `${selectedKeys.length} valgt`}
               </Text>
-            </Pressable>
-          ))}
-        </View>
-
-        {/* Topics for selected subject */}
-        <View style={styles.topicSection}>
-          <View style={styles.topicHeaderRow}>
-            <Text style={[styles.topicTitle, { fontSize: metaFont }]}>
-              {selectedSubject
-                ? `Emner i ${selectedSubject}`
-                : "Vælg et fag for at se emner"}
-            </Text>
-
-            {!!selectedSubject && topicGroupsForSelectedSubject.length > 0 && (
-              <Pressable
+              <SecondaryButton
+                label={allTopicsSelected ? "Fravælg alle" : "Vælg alle"}
                 onPress={() =>
                   allTopicsSelected
                     ? setSelectedKeys([])
                     : setSelectedKeys(allSelectableKeys)
                 }
-                hitSlop={8}
-              >
-                <Text style={styles.topicLink}>
-                  {allTopicsSelected ? "Fravælg alle" : "Vælg alle"}
-                </Text>
-              </Pressable>
-            )}
-          </View>
-
-          {!selectedSubject ? (
-            <Text style={styles.topicEmptyText}>
-              Vælg et fag for at browse.
-            </Text>
-          ) : topicGroupsForSelectedSubject.length === 0 ? (
-            <Text style={styles.topicEmptyText}>
-              Ingen emner fundet for dette fag.
-            </Text>
-          ) : (
-            <View style={[styles.subtopicRow, { marginLeft: 0 }]}>
-              {chipsForSelectedSubject.map((chip) => {
-                const selected = selectedKeys.includes(chip.key);
-                return (
-                  <Pressable
-                    key={chip.key}
-                    onPress={() => toggleKey(chip.key)}
-                    style={[
-                      styles.topicChip,
-                      selected && { backgroundColor: "#1c7ed6" },
-                      selected && styles.topicChipSelected,
-                      chip.isTopicAll &&
-                        !selected && {
-                          backgroundColor: "rgba(255,255,255,0.9)",
-                        },
-                    ]}
-                  >
-                    <Text
-                      style={[
-                        styles.topicChipText,
-                        selected && { color: "#fff" },
-                        selected && styles.topicChipTextSelected,
-                      ]}
-                    >
-                      {chip.label}
-                    </Text>
-                  </Pressable>
-                );
-              })}
+                style={styles.selectAllButton}
+              />
             </View>
-          )}
+            <View style={styles.chipList}>
+              {topicChips.map((chip) => (
+                <Chip
+                  key={chip.key}
+                  label={chip.label}
+                  onPress={() => toggleKey(chip.key)}
+                  selected={selectedKeys.includes(chip.key)}
+                />
+              ))}
+            </View>
+          </>
+        )}
+      </Card>
 
-          <Pressable
-            style={[
-              styles.bigButton,
-              { backgroundColor: "#1c7ed6", marginTop: 20 },
-            ]}
-            onPress={onStartQuiz}
-            disabled={startDisabled}
-          >
-            <Text style={[styles.bigButtonText, { fontSize: buttonFont }]}>
-              {selectedKeys.length === 0
-                ? "Start quiz i alle emner"
-                : "Start quiz i valgte emner"}
-            </Text>
-          </Pressable>
-        </View>
-      </ScrollView>
-    </LinearGradient>
+      <PrimaryButton
+        disabled={startDisabled}
+        label={
+          selectedKeys.length === 0
+            ? "Start quiz i alle emner"
+            : "Start quiz i valgte emner"
+        }
+        loading={loadingCards}
+        onPress={onStartQuiz}
+        style={styles.startButton}
+      />
+    </Screen>
   );
 }
+
+const styles = StyleSheet.create({
+  sectionHeader: { marginTop: Spacing.xl, marginBottom: Spacing.sm },
+  sectionLabel: {
+    color: ColorTokens.accent.muted,
+    fontSize: Typography.sizes.caption,
+    lineHeight: Typography.lineHeights.caption,
+    fontWeight: Typography.weights.heavy,
+    letterSpacing: 0.8,
+  },
+  sectionTitle: {
+    color: ColorTokens.text.primary,
+    fontSize: Typography.sizes.sectionTitle,
+    lineHeight: Typography.lineHeights.sectionTitle,
+    fontWeight: Typography.weights.bold,
+    marginTop: 2,
+  },
+  sectionCard: { gap: Spacing.md },
+  chipList: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.sm },
+  selectionHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: Spacing.sm,
+  },
+  selectionCount: {
+    flex: 1,
+    color: ColorTokens.text.secondary,
+    fontSize: Typography.sizes.label,
+    lineHeight: Typography.lineHeights.label,
+  },
+  selectAllButton: { minWidth: 132 },
+  startButton: { marginTop: Spacing.xl, marginBottom: Spacing.lg },
+});

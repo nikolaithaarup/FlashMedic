@@ -1,33 +1,98 @@
-// src/features/home/HomeScreen.tsx
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import {
-  Dimensions,
   Image,
   Pressable,
   ScrollView,
+  StyleSheet,
   Text,
   View,
+  useWindowDimensions,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import { styles } from "../../ui/flashmedicStyles";
+import {
+  Borders,
+  ColorTokens,
+  Interaction,
+  Radii,
+  Spacing,
+  Typography,
+} from "../../../constants/theme";
+import { Card } from "../../ui/primitives";
 
-// ✅ Title logo (wordmark) from /assets
 const titleLogo = require("../../../assets/flashmedic-logo.png");
 
-function getAssetUri(asset: any): string | null {
-  // On native/Expo, require(...) often has a .uri or can be coerced to an object with uri.
-  // On web, sometimes it's a string URL, sometimes an object. We'll handle both.
-  if (!asset) return null;
-  if (typeof asset === "string") return asset;
-  if (typeof asset === "object" && typeof asset.uri === "string")
-    return asset.uri;
-  return null;
+type HomeScreenProps = {
+  headingFont: number;
+  subtitleFont: number;
+  loadingCards: boolean;
+  loadError: string | null;
+  profileNickname: string | null;
+  profileIsAnonymous: boolean;
+  classLabel: string;
+  appLogo: any;
+  onOpenProfile: () => void;
+  onOpenWeeklyHome: () => void;
+  onOpenWeeklyDev: () => void;
+  onOpenFlashcardsHome: () => void;
+  onStartAllSubjectsQuiz: () => void;
+  onOpenDrugCalcHome: () => void;
+  onOpenStats: () => void;
+  onOpenContact: () => void;
+  disableAllSubjectsQuiz: boolean;
+};
+
+type DestinationCardProps = {
+  title: string;
+  description: string;
+  eyebrow: string;
+  onPress: () => void;
+  onLongPress?: () => void;
+  delayLongPress?: number;
+  disabled?: boolean;
+};
+
+function DestinationCard({
+  title,
+  description,
+  eyebrow,
+  onPress,
+  onLongPress,
+  delayLongPress,
+  disabled = false,
+}: DestinationCardProps) {
+  return (
+    <Pressable
+      accessibilityLabel={`${title}. ${description}`}
+      accessibilityRole="button"
+      accessibilityState={{ disabled }}
+      delayLongPress={delayLongPress}
+      disabled={disabled}
+      onLongPress={onLongPress}
+      onPress={onPress}
+      style={({ pressed }) => [
+        styles.destinationPressable,
+        pressed && !disabled && styles.destinationPressed,
+        disabled && styles.disabled,
+      ]}
+    >
+      <Card variant="subtle" style={styles.destinationCard}>
+        <View style={styles.destinationCopy}>
+          <Text style={styles.eyebrow}>{eyebrow}</Text>
+          <Text style={styles.destinationTitle}>{title}</Text>
+          <Text style={styles.destinationDescription}>{description}</Text>
+        </View>
+        <Text style={styles.chevron} accessibilityElementsHidden>
+          ›
+        </Text>
+      </Card>
+    </Pressable>
+  );
 }
 
 export default function HomeScreen({
-  headingFont,
   subtitleFont,
   loadingCards,
   loadError,
@@ -35,7 +100,6 @@ export default function HomeScreen({
   profileIsAnonymous,
   classLabel,
   appLogo,
-
   onOpenProfile,
   onOpenWeeklyHome,
   onOpenWeeklyDev,
@@ -45,178 +109,308 @@ export default function HomeScreen({
   onOpenStats,
   onOpenContact,
   disableAllSubjectsQuiz,
-}: {
-  headingFont: number;
-  subtitleFont: number;
-
-  loadingCards: boolean;
-  loadError: string | null;
-
-  profileNickname: string | null;
-  profileIsAnonymous: boolean;
-  classLabel: string;
-
-  appLogo: any;
-
-  onOpenProfile: () => void;
-  onOpenWeeklyHome: () => void;
-  onOpenWeeklyDev: () => void;
-  onOpenFlashcardsHome: () => void;
-  onStartAllSubjectsQuiz: () => void;
-  onOpenDrugCalcHome: () => void;
-  onOpenStats: () => void;
-  onOpenContact: () => void;
-
-  disableAllSubjectsQuiz: boolean;
-}) {
-  // --- Auto aspect ratio for titleLogo (web-safe) ---
-  const [titleRatio, setTitleRatio] = React.useState<number>(3); // fallback
-
-  React.useEffect(() => {
-    // Try to obtain a URI for getSize()
-    const maybeUri = getAssetUri(titleLogo);
-
-    if (maybeUri) {
-      Image.getSize(
-        maybeUri,
-        (w, h) => {
-          if (w > 0 && h > 0) setTitleRatio(w / h);
-        },
-        () => {
-          // keep fallback ratio if getSize fails
-        },
-      );
-      return;
-    }
-
-    // If we don't have a URI (some bundler edge cases), we just keep fallback.
-  }, []);
-
-  // --- Sizing based on device width (reliable) ---
-  const screenWidth = Dimensions.get("window").width;
-
-  // 🔧 Tweak this number for size:
-  const titleWidth = Math.round(screenWidth * 0.8); // 0.6–0.95 feels sane for phones/tablets
-  const titleHeight = Math.max(24, Math.round(titleWidth / titleRatio));
+}: HomeScreenProps) {
+  const { width } = useWindowDimensions();
+  const titleWidth = Math.min(360, Math.max(220, width - Spacing.xl * 2));
 
   return (
     <LinearGradient
-      colors={["#0e91a8ff", "#5e6e7eff"]}
-      style={styles.homeBackground}
+      colors={[ColorTokens.background.top, ColorTokens.background.bottom]}
+      style={styles.background}
     >
       <StatusBar style="light" />
-      <ScrollView contentContainerStyle={styles.homeContainer}>
-        {/* Top row: profile badge */}
-        <View style={styles.homeTopRow}>
-          <View style={{ flex: 1 }} />
-          <Pressable
-            style={[
-              styles.profileBadge,
-              profileIsAnonymous && styles.profileBadgeAnon,
-            ]}
-            onPress={onOpenProfile}
-            hitSlop={16}
-          >
-            <Text style={styles.profileBadgeText}>
-              {profileNickname ?? "Profil"}
+      <SafeAreaView style={styles.safeArea}>
+        <ScrollView
+          contentContainerStyle={styles.content}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.profileRow}>
+            <Pressable
+              accessibilityLabel={`Åbn profil for ${profileNickname ?? "Profil"}`}
+              accessibilityRole="button"
+              hitSlop={Spacing.sm}
+              onPress={onOpenProfile}
+              style={({ pressed }) => [
+                styles.profileButton,
+                pressed && styles.profilePressed,
+              ]}
+            >
+              <View style={styles.profileText}>
+                <Text style={styles.profileName}>
+                  {profileNickname ?? "Profil"}
+                </Text>
+                {!profileIsAnonymous && classLabel ? (
+                  <Text style={styles.profileMeta}>{classLabel}</Text>
+                ) : null}
+              </View>
+              <Text style={styles.profileChevron} accessibilityElementsHidden>
+                ›
+              </Text>
+            </Pressable>
+          </View>
+
+          <View style={styles.hero}>
+            <Image
+              accessibilityIgnoresInvertColors
+              accessibilityLabel="FlashMedic ikon"
+              source={appLogo}
+              style={styles.appLogo}
+            />
+            <Image
+              accessibilityLabel="FlashMedic"
+              resizeMode="contain"
+              source={titleLogo}
+              style={[styles.wordmark, { width: titleWidth }]}
+            />
+            <Text style={[styles.subtitle, { fontSize: subtitleFont }]}>
+              Træn medicin, anatomi, EKG og meget mere.
             </Text>
+          </View>
 
-            {!profileIsAnonymous && classLabel ? (
-              <Text style={styles.profileBadgeSub}>{classLabel}</Text>
-            ) : null}
-          </Pressable>
-        </View>
+          {loadingCards ? (
+            <View style={styles.statusSurface}>
+              <Text style={styles.statusText}>Indlæser kort fra serveren…</Text>
+            </View>
+          ) : loadError ? (
+            <View style={[styles.statusSurface, styles.errorSurface]}>
+              <Text style={styles.errorText}>{loadError}</Text>
+            </View>
+          ) : null}
 
-        {/* Icon + title */}
-        <Image source={appLogo} style={styles.appLogo} />
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionEyebrow}>LÆRING</Text>
+            <Text style={styles.sectionTitle}>Vælg din træning</Text>
+          </View>
 
-        {/* ✅ Replace FlashMedic text with the logo title image (auto aspect ratio) */}
-        <Image
-          source={titleLogo}
-          resizeMode="contain"
-          accessibilityLabel="FlashMedic"
-          style={{
-            width: titleWidth,
-            height: titleHeight,
-            alignSelf: "center",
-            marginTop: 6,
-            marginBottom: 6,
-          }}
-        />
+          <View style={styles.destinationList}>
+            <DestinationCard
+              description="Ugens tre korte udfordringer."
+              delayLongPress={800}
+              eyebrow="UGENTLIGT"
+              onLongPress={onOpenWeeklyDev}
+              onPress={onOpenWeeklyHome}
+              title="Weekly Challenges"
+            />
+            <DestinationCard
+              description="Vælg fag, emner og dit eget kortsæt."
+              eyebrow="TILPASSET"
+              onPress={onOpenFlashcardsHome}
+              title="Flashcards"
+            />
+            <DestinationCard
+              description="Start direkte med kort fra hele biblioteket."
+              disabled={disableAllSubjectsQuiz}
+              eyebrow="HURTIG START"
+              onPress={onStartAllSubjectsQuiz}
+              title="Alle fag"
+            />
+            <DestinationCard
+              description="Træn doseringer, enheder og beregninger."
+              eyebrow="BEREGNING"
+              onPress={onOpenDrugCalcHome}
+              title="Lægemiddelregning"
+            />
+          </View>
 
-        {loadingCards ? (
-          <Text
-            style={[
-              styles.subtitle,
-              { fontSize: subtitleFont, color: "#e9ecef" },
-            ]}
-          >
-            Indlæser kort fra serveren…
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionEyebrow}>OVERBLIK</Text>
+            <Text style={styles.sectionTitle}>Mere i FlashMedic</Text>
+          </View>
+
+          <View style={styles.utilityRow}>
+            <Pressable
+              accessibilityRole="button"
+              onPress={onOpenStats}
+              style={({ pressed }) => [
+                styles.utilityButton,
+                pressed && styles.utilityPressed,
+              ]}
+            >
+              <Text style={styles.utilityTitle}>Statistik</Text>
+              <Text style={styles.utilityDescription}>Se din fremgang</Text>
+            </Pressable>
+            <Pressable
+              accessibilityRole="button"
+              onPress={onOpenContact}
+              style={({ pressed }) => [
+                styles.utilityButton,
+                pressed && styles.utilityPressed,
+              ]}
+            >
+              <Text style={styles.utilityTitle}>Kontakt</Text>
+              <Text style={styles.utilityDescription}>Ris, ros og hjælp</Text>
+            </Pressable>
+          </View>
+
+          <Text style={styles.attribution}>
+            Made by Nikolai Louis Kleftås Thaarup
           </Text>
-        ) : loadError ? (
-          <Text
-            style={[
-              styles.subtitle,
-              { fontSize: subtitleFont, color: "#ffdddd" },
-            ]}
-          >
-            {loadError}
-          </Text>
-        ) : (
-          <Text
-            style={[
-              styles.subtitle,
-              { fontSize: subtitleFont, color: "#e9ecef" },
-            ]}
-          >
-            Træn medicin, anatomi, EKG og meget mere.
-          </Text>
-        )}
-
-        {/* Big centered nav buttons */}
-        <View style={styles.homeButtonsContainer}>
-          <Pressable
-            style={styles.homeNavButton}
-            onPress={onOpenWeeklyHome}
-            onLongPress={onOpenWeeklyDev}
-            delayLongPress={800}
-          >
-            <Text style={styles.homeNavButtonText}>Weekly Challenges</Text>
-          </Pressable>
-
-          <Pressable
-            style={styles.homeNavButton}
-            onPress={onOpenFlashcardsHome}
-          >
-            <Text style={styles.homeNavButtonText}>Flashcards</Text>
-          </Pressable>
-
-          <Pressable
-            style={styles.homeNavButton}
-            onPress={onStartAllSubjectsQuiz}
-            disabled={disableAllSubjectsQuiz}
-          >
-            <Text style={styles.homeNavButtonText}>Flashcards i alle fag</Text>
-          </Pressable>
-
-          <Pressable style={styles.homeNavButton} onPress={onOpenDrugCalcHome}>
-            <Text style={styles.homeNavButtonText}>Lægemiddelregning</Text>
-          </Pressable>
-
-          <Pressable style={styles.homeNavButton} onPress={onOpenStats}>
-            <Text style={styles.homeNavButtonText}>Statistik</Text>
-          </Pressable>
-
-          <Pressable style={styles.homeNavButton} onPress={onOpenContact}>
-            <Text style={styles.homeNavButtonText}>Kontakt</Text>
-          </Pressable>
-        </View>
-
-        {/* Made by – ONLY on home */}
-        <Text style={styles.madeByText}>
-          Made by Nikolai Louis Kleftås Thaarup
-        </Text>
-      </ScrollView>
+        </ScrollView>
+      </SafeAreaView>
     </LinearGradient>
   );
 }
+
+const styles = StyleSheet.create({
+  background: { flex: 1 },
+  safeArea: { flex: 1 },
+  content: {
+    width: "100%",
+    maxWidth: 760,
+    alignSelf: "center",
+    paddingHorizontal: Spacing.lg,
+    paddingBottom: Spacing.xl,
+  },
+  profileRow: {
+    minHeight: Interaction.minimumTouchTarget,
+    alignItems: "flex-end",
+    marginTop: Spacing.xs,
+  },
+  profileButton: {
+    minHeight: Interaction.minimumTouchTarget,
+    maxWidth: "75%",
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: Radii.full,
+    borderWidth: Borders.hairline,
+    borderColor: ColorTokens.border.default,
+    backgroundColor: ColorTokens.surface.inverse,
+    paddingLeft: Spacing.md,
+    paddingRight: Spacing.sm,
+  },
+  profilePressed: {
+    opacity: Interaction.pressedOpacity,
+    transform: [{ scale: Interaction.controlPressedScale }],
+  },
+  profileText: { minWidth: 0, flexShrink: 1 },
+  profileName: {
+    color: ColorTokens.text.primary,
+    fontSize: Typography.sizes.label,
+    lineHeight: Typography.lineHeights.label,
+    fontWeight: Typography.weights.bold,
+  },
+  profileMeta: {
+    color: ColorTokens.text.secondary,
+    fontSize: Typography.sizes.caption,
+    lineHeight: Typography.lineHeights.caption,
+  },
+  profileChevron: {
+    color: ColorTokens.text.secondary,
+    fontSize: 24,
+    marginLeft: Spacing.xs,
+  },
+  hero: {
+    alignItems: "center",
+    paddingTop: Spacing.lg,
+    paddingBottom: Spacing.xl,
+  },
+  appLogo: { width: 88, height: 88, marginBottom: Spacing.sm },
+  wordmark: { height: 76, maxWidth: "100%" },
+  subtitle: {
+    color: ColorTokens.text.secondary,
+    lineHeight: Typography.lineHeights.body,
+    textAlign: "center",
+    marginTop: Spacing.xs,
+  },
+  statusSurface: {
+    borderRadius: Radii.md,
+    borderWidth: Borders.hairline,
+    borderColor: ColorTokens.border.default,
+    backgroundColor: ColorTokens.surface.subtle,
+    padding: Spacing.md,
+    marginBottom: Spacing.lg,
+  },
+  errorSurface: { borderColor: ColorTokens.semantic.danger },
+  statusText: { color: ColorTokens.text.secondary, textAlign: "center" },
+  errorText: { color: ColorTokens.text.primary, textAlign: "center" },
+  sectionHeader: { marginTop: Spacing.md, marginBottom: Spacing.sm },
+  sectionEyebrow: {
+    color: ColorTokens.accent.muted,
+    fontSize: Typography.sizes.caption,
+    lineHeight: Typography.lineHeights.caption,
+    fontWeight: Typography.weights.heavy,
+    letterSpacing: 0.9,
+  },
+  sectionTitle: {
+    color: ColorTokens.text.primary,
+    fontSize: Typography.sizes.sectionTitle,
+    lineHeight: Typography.lineHeights.sectionTitle,
+    fontWeight: Typography.weights.bold,
+    marginTop: 2,
+  },
+  destinationList: { gap: Spacing.sm },
+  destinationPressable: { width: "100%" },
+  destinationPressed: {
+    opacity: Interaction.pressedOpacity,
+    transform: [{ scale: Interaction.cardPressedScale }],
+  },
+  disabled: { opacity: Interaction.disabledOpacity },
+  destinationCard: {
+    minHeight: 108,
+    flexDirection: "row",
+    alignItems: "center",
+    borderColor: ColorTokens.border.default,
+    padding: Spacing.lg,
+  },
+  destinationCopy: { flex: 1, minWidth: 0 },
+  eyebrow: {
+    color: ColorTokens.accent.muted,
+    fontSize: Typography.sizes.caption,
+    lineHeight: Typography.lineHeights.caption,
+    fontWeight: Typography.weights.bold,
+    letterSpacing: 0.7,
+  },
+  destinationTitle: {
+    color: ColorTokens.text.primary,
+    fontSize: Typography.sizes.cardTitle,
+    lineHeight: Typography.lineHeights.cardTitle,
+    fontWeight: Typography.weights.bold,
+    marginTop: 3,
+  },
+  destinationDescription: {
+    color: ColorTokens.text.secondary,
+    fontSize: Typography.sizes.label,
+    lineHeight: Typography.lineHeights.label,
+    marginTop: Spacing.xs,
+  },
+  chevron: {
+    color: ColorTokens.accent.muted,
+    fontSize: 32,
+    lineHeight: 34,
+    marginLeft: Spacing.md,
+  },
+  utilityRow: { flexDirection: "row", gap: Spacing.sm },
+  utilityButton: {
+    flex: 1,
+    minHeight: 84,
+    justifyContent: "center",
+    borderRadius: Radii.md,
+    borderWidth: Borders.hairline,
+    borderColor: ColorTokens.border.default,
+    backgroundColor: ColorTokens.surface.inverse,
+    padding: Spacing.md,
+  },
+  utilityPressed: {
+    opacity: Interaction.pressedOpacity,
+    transform: [{ scale: Interaction.cardPressedScale }],
+  },
+  utilityTitle: {
+    color: ColorTokens.text.primary,
+    fontSize: Typography.sizes.body,
+    lineHeight: Typography.lineHeights.body,
+    fontWeight: Typography.weights.bold,
+  },
+  utilityDescription: {
+    color: ColorTokens.text.secondary,
+    fontSize: Typography.sizes.caption,
+    lineHeight: Typography.lineHeights.caption,
+    marginTop: 2,
+  },
+  attribution: {
+    color: ColorTokens.text.secondary,
+    fontSize: Typography.sizes.caption,
+    textAlign: "center",
+    opacity: 0.7,
+    marginTop: Spacing.xl,
+  },
+});

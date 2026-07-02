@@ -1,26 +1,40 @@
-// src/features/quiz/QuizScreen.tsx
 import { Asset } from "expo-asset";
-import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import React, { useMemo, useState } from "react";
 import {
   Image,
   Modal,
   Pressable,
+  StyleSheet,
   Text,
   View,
   useWindowDimensions,
 } from "react-native";
 
+import {
+  Borders,
+  ColorTokens,
+  Interaction,
+  Radii,
+  SemanticStates,
+  Spacing,
+  Typography,
+} from "../../../constants/theme";
 import type { Difficulty, Flashcard } from "../../types/Flashcard";
-import { styles } from "../../ui/flashmedicStyles";
+import {
+  Card,
+  PrimaryButton,
+  Screen,
+  SecondaryButton,
+  ToolPageHeader,
+} from "../../ui/primitives";
 
 type QuizScreenProps = {
   currentCard: Flashcard;
   historyCount: number;
   upcomingCount: number;
   showAnswer: boolean;
-  setShowAnswer: (v: boolean) => void;
+  setShowAnswer: (value: boolean) => void;
   headingFont: number;
   buttonFont: number;
   subjectFont: number;
@@ -34,41 +48,26 @@ type QuizScreenProps = {
   onReportError: () => void;
 };
 
-const difficultyTextMap: Record<Difficulty, string> = {
+const difficultyText: Record<Difficulty, string> = {
   easy: "Let",
   medium: "Mellem",
   hard: "Svær",
 };
 
-const difficultyColorMap: Record<Difficulty, string> = {
-  easy: "#12b886",
-  medium: "#fab005",
-  hard: "#fa5252",
+const difficultyColors: Record<Difficulty, string> = {
+  easy: SemanticStates.success.foreground,
+  medium: SemanticStates.warning.foreground,
+  hard: SemanticStates.danger.foreground,
 };
 
-function getSubjectGradient(_subject?: string | null): [string, string] {
-  return ["#343a40", "#1c7ed6"];
-}
-
-function getDifficultyColor(difficulty: Difficulty): string {
-  return difficultyColorMap[difficulty] ?? "#868e96";
-}
-
-function toImageUri(src: any): string | null {
-  if (!src) return null;
-  if (typeof src === "string") return src;
-
-  if (typeof src === "number") {
-    const asset = Asset.fromModule(src);
-    return asset?.uri ?? null;
+function toImageUri(source: any): string | null {
+  if (!source) return null;
+  if (typeof source === "string") return source;
+  if (typeof source === "number") return Asset.fromModule(source)?.uri ?? null;
+  if (typeof source === "object" && typeof source.uri === "string") {
+    return source.uri;
   }
-
-  if (typeof src === "object" && typeof src.uri === "string") {
-    return src.uri;
-  }
-
-  const resolved = (Image as any)?.resolveAssetSource?.(src);
-  return resolved?.uri ?? null;
+  return (Image as any)?.resolveAssetSource?.(source)?.uri ?? null;
 }
 
 export default function QuizScreen({
@@ -77,8 +76,6 @@ export default function QuizScreen({
   upcomingCount,
   showAnswer,
   setShowAnswer,
-  headingFont,
-  buttonFont,
   subjectFont,
   metaFont,
   questionFont,
@@ -90,249 +87,193 @@ export default function QuizScreen({
   onReportError,
 }: QuizScreenProps) {
   const { width: screenWidth, height: screenHeight } = useWindowDimensions();
-
   const [imageModalVisible, setImageModalVisible] = useState(false);
-
-  const difficultyText = difficultyTextMap[currentCard.difficulty];
-  const gradient = getSubjectGradient(currentCard.subject);
-
   const totalQuestions = historyCount + 1 + upcomingCount;
   const currentIndex = historyCount + 1;
-
   const imageUri = useMemo(
     () => toImageUri((currentCard as any).image),
     [currentCard],
   );
-
   const imageSource = useMemo(
     () =>
       imageUri
         ? ({ uri: imageUri } as any)
         : ((currentCard.image as any) ?? null),
-    [imageUri, currentCard.image],
+    [currentCard.image, imageUri],
   );
 
-  const openImageModal = async () => {
-    setImageModalVisible(true);
-  };
-
   return (
-    <LinearGradient colors={gradient} style={styles.quizBackground}>
-      <StatusBar style="light" />
-      <View style={styles.quizContainer}>
-        <View style={styles.headerRow}>
-          <Text
-            style={[
-              styles.appTitle,
-              { color: "#fff", marginBottom: 0, fontSize: headingFont },
-            ]}
-          >
-            FlashMedic
-          </Text>
-
-          <View style={styles.headerButtons}>
-            {historyCount > 0 && (
-              <Pressable
-                style={[styles.smallButton, { borderColor: "#fff" }]}
+    <>
+      <Screen>
+        <StatusBar style="light" />
+        <ToolPageHeader
+          action={
+            historyCount > 0 ? (
+              <SecondaryButton
+                label="Forrige"
                 onPress={onPrevious}
-                hitSlop={8}
-              >
-                <Text
-                  style={[
-                    styles.smallButtonText,
-                    { color: "#fff", fontSize: buttonFont * 0.9 },
-                  ]}
-                >
-                  Tilbage
-                </Text>
-              </Pressable>
-            )}
-
-            <Pressable
-              style={[styles.smallButton, { borderColor: "#fff" }]}
-              onPress={onHome}
-              hitSlop={8}
-            >
-              <Text
-                style={[
-                  styles.smallButtonText,
-                  { color: "#fff", fontSize: buttonFont * 0.9 },
-                ]}
-              >
-                Home
-              </Text>
-            </Pressable>
-          </View>
-        </View>
+                style={styles.previousButton}
+              />
+            ) : undefined
+          }
+          backLabel="Afslut quiz og gå til forsiden"
+          onBack={onHome}
+          subtitle={`Spørgsmål ${currentIndex} af ${totalQuestions}`}
+          title="FlashMedic"
+        />
 
         <View style={styles.metaRow}>
-          <View>
-            <Text
-              style={[
-                styles.subjectLabel,
-                { color: "#f8f9fa", fontSize: subjectFont },
-              ]}
-            >
+          <View style={styles.metaCopy}>
+            <Text style={[styles.subject, { fontSize: subjectFont }]}>
               {currentCard.subject ?? "Ukendt"}
             </Text>
-            <Text
-              style={[
-                styles.topicLabel,
-                { color: "#e9ecef", fontSize: metaFont },
-              ]}
-            >
+            <Text style={[styles.topic, { fontSize: metaFont }]}>
               {currentCard.topic ?? "Ukendt"}
               {currentCard.subtopic ? ` · ${currentCard.subtopic}` : ""}
             </Text>
-            <Text
-              style={[
-                styles.progressText,
-                { color: "#e9ecef", fontSize: metaFont },
-              ]}
-            >
-              Spørgsmål {currentIndex} af {totalQuestions}
-            </Text>
           </View>
-
           <View
             style={[
-              styles.difficultyPill,
-              { backgroundColor: getDifficultyColor(currentCard.difficulty) },
+              styles.difficulty,
+              { borderColor: difficultyColors[currentCard.difficulty] },
             ]}
           >
-            <Text
-              style={[styles.difficultyText, { fontSize: buttonFont * 0.9 }]}
-            >
-              {difficultyText}
-            </Text>
-          </View>
-        </View>
-
-        <View style={styles.cardContainer}>
-          <View style={styles.cardBox}>
-            {currentCard.image && (
-              <Pressable onPress={openImageModal}>
-                <Image
-                  source={currentCard.image as any}
-                  style={styles.questionImage}
-                  resizeMode="contain"
-                />
-                <Text style={styles.tapToZoomText}>Tryk for at se stort</Text>
-              </Pressable>
-            )}
-
-            <Text style={[styles.questionText, { fontSize: questionFont }]}>
-              {currentCard.question}
-            </Text>
-          </View>
-
-          <View style={styles.cardBox}>
-            {showAnswer ? (
-              <Text style={[styles.answerText, { fontSize: answerFont }]}>
-                {currentCard.answer}
-              </Text>
-            ) : (
-              <Text style={styles.placeholderText}>
-                Tryk på &apos;Vis svar&apos; for at se svaret.
-              </Text>
-            )}
-          </View>
-        </View>
-
-        {!showAnswer && (
-          <View style={styles.buttonRow}>
-            <Pressable
+            <View
               style={[
-                styles.bigButton,
-                styles.primaryButton,
-                { backgroundColor: "#1c7ed6" },
+                styles.difficultyDot,
+                { backgroundColor: difficultyColors[currentCard.difficulty] },
               ]}
-              onPress={() => setShowAnswer(true)}
-            >
-              <Text style={[styles.bigButtonText, { fontSize: buttonFont }]}>
-                Vis svar
-              </Text>
-            </Pressable>
+            />
+            <Text style={styles.difficultyText}>
+              {difficultyText[currentCard.difficulty]}
+            </Text>
           </View>
-        )}
+        </View>
 
-        {showAnswer && (
-          <View style={styles.ratingRow}>
+        <Text style={styles.semanticLabel}>SPØRGSMÅL</Text>
+        <Card variant="elevated" style={styles.questionCard}>
+          {currentCard.image ? (
             <Pressable
-              style={[styles.ratingButton, styles.knownButton]}
-              onPress={onMarkKnown}
+              accessibilityLabel="Åbn EKG-billede i fuld skærm"
+              accessibilityRole="button"
+              onPress={() => setImageModalVisible(true)}
+              style={({ pressed }) => [
+                styles.imageButton,
+                pressed && styles.imagePressed,
+              ]}
             >
-              <Text style={[styles.ratingButtonText, { fontSize: buttonFont }]}>
-                Jeg kunne den
-              </Text>
+              <Image
+                resizeMode="contain"
+                source={currentCard.image as any}
+                style={styles.questionImage}
+              />
+              <Text style={styles.imageHint}>Tryk for at se billedet stort</Text>
             </Pressable>
-
-            <Pressable
-              style={[styles.ratingButton, styles.unknownButton]}
-              onPress={onMarkUnknown}
-            >
-              <Text style={[styles.ratingButtonText, { fontSize: buttonFont }]}>
-                Jeg kunne den ikke
-              </Text>
-            </Pressable>
-          </View>
-        )}
-
-        <Pressable
-          style={[styles.bigButton, styles.outlineButton]}
-          onPress={onReportError}
-        >
-          <Text style={styles.outlineButtonText}>Rapportér fejl</Text>
-        </Pressable>
-      </View>
-
-      {currentCard.image && (
-        <Modal
-          visible={imageModalVisible}
-          transparent={false}
-          animationType="fade"
-          presentationStyle="fullScreen"
-          onRequestClose={() => setImageModalVisible(false)}
-        >
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: "#000",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
+          ) : null}
+          <Text
+            style={[
+              styles.question,
+              { fontSize: questionFont, lineHeight: questionFont * 1.35 },
+            ]}
           >
-            <Pressable
-              onPress={() => setImageModalVisible(false)}
-              hitSlop={12}
-              style={{
-                position: "absolute",
-                top: 56,
-                right: 18,
-                zIndex: 50,
-                width: 48,
-                height: 48,
-                borderRadius: 24,
-                backgroundColor: "rgba(0,0,0,0.6)",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
+            {currentCard.question}
+          </Text>
+        </Card>
+
+        <Text style={[styles.semanticLabel, styles.answerLabel]}>SVAR</Text>
+        <Card variant={showAnswer ? "elevated" : "subtle"} style={styles.answerCard}>
+          {showAnswer ? (
+            <Text
+              style={[
+                styles.answer,
+                { fontSize: answerFont, lineHeight: answerFont * 1.4 },
+              ]}
             >
-              <Text
-                style={{
-                  color: "#fff",
-                  fontSize: 28,
-                  fontWeight: "800",
-                  lineHeight: 28,
-                }}
+              {currentCard.answer}
+            </Text>
+          ) : (
+            <Text style={styles.answerPlaceholder}>
+              Svaret er skjult, indtil du er klar til at kontrollere dig selv.
+            </Text>
+          )}
+        </Card>
+
+        {!showAnswer ? (
+          <PrimaryButton
+            label="Vis svar"
+            onPress={() => setShowAnswer(true)}
+            style={styles.primaryAction}
+          />
+        ) : (
+          <View style={styles.assessmentSection}>
+            <Text style={styles.assessmentTitle}>Hvordan gik det?</Text>
+            <Text style={styles.assessmentHelp}>
+              Dit svar opdaterer statistikken og vælger det næste kort.
+            </Text>
+            <View style={styles.assessmentActions}>
+              <Pressable
+                accessibilityRole="button"
+                onPress={onMarkKnown}
+                style={({ pressed }) => [
+                  styles.assessmentButton,
+                  styles.knownButton,
+                  pressed && styles.assessmentPressed,
+                ]}
               >
-                ✕
+                <Text style={styles.assessmentButtonTitle}>Jeg kunne den</Text>
+                <Text style={styles.assessmentButtonMeta}>Markér som korrekt</Text>
+              </Pressable>
+              <Pressable
+                accessibilityRole="button"
+                onPress={onMarkUnknown}
+                style={({ pressed }) => [
+                  styles.assessmentButton,
+                  styles.unknownButton,
+                  pressed && styles.assessmentPressed,
+                ]}
+              >
+                <Text style={styles.assessmentButtonTitle}>
+                  Jeg kunne den ikke
+                </Text>
+                <Text style={styles.assessmentButtonMeta}>Vis kortet igen</Text>
+              </Pressable>
+            </View>
+          </View>
+        )}
+
+        <SecondaryButton
+          label="Rapportér fejl"
+          onPress={onReportError}
+          style={styles.reportButton}
+        />
+      </Screen>
+
+      {currentCard.image ? (
+        <Modal
+          animationType="fade"
+          onRequestClose={() => setImageModalVisible(false)}
+          presentationStyle="fullScreen"
+          transparent={false}
+          visible={imageModalVisible}
+        >
+          <View style={styles.modal}>
+            <Pressable
+              accessibilityLabel="Luk billede"
+              accessibilityRole="button"
+              hitSlop={Spacing.sm}
+              onPress={() => setImageModalVisible(false)}
+              style={({ pressed }) => [
+                styles.modalClose,
+                pressed && styles.modalClosePressed,
+              ]}
+            >
+              <Text style={styles.modalCloseText} accessibilityElementsHidden>
+                ×
               </Text>
             </Pressable>
-
             <Image
-              source={imageSource}
               resizeMode="contain"
+              source={imageSource}
               style={{
                 width: screenHeight * 0.94,
                 height: screenWidth * 0.94,
@@ -341,7 +282,154 @@ export default function QuizScreen({
             />
           </View>
         </Modal>
-      )}
-    </LinearGradient>
+      ) : null}
+    </>
   );
 }
+
+const styles = StyleSheet.create({
+  previousButton: { minWidth: 104 },
+  metaRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: Spacing.md,
+    marginBottom: Spacing.xl,
+  },
+  metaCopy: { flex: 1, minWidth: 0 },
+  subject: {
+    color: ColorTokens.text.primary,
+    lineHeight: Typography.lineHeights.cardTitle,
+    fontWeight: Typography.weights.bold,
+  },
+  topic: {
+    color: ColorTokens.text.secondary,
+    lineHeight: Typography.lineHeights.label,
+    marginTop: 2,
+  },
+  difficulty: {
+    minHeight: 36,
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: Radii.full,
+    borderWidth: Borders.hairline,
+    paddingHorizontal: Spacing.sm,
+    gap: Spacing.xs,
+  },
+  difficultyDot: { width: 8, height: 8, borderRadius: Radii.full },
+  difficultyText: {
+    color: ColorTokens.text.primary,
+    fontSize: Typography.sizes.label,
+    lineHeight: Typography.lineHeights.label,
+    fontWeight: Typography.weights.semibold,
+  },
+  semanticLabel: {
+    color: ColorTokens.accent.muted,
+    fontSize: Typography.sizes.caption,
+    lineHeight: Typography.lineHeights.caption,
+    fontWeight: Typography.weights.heavy,
+    letterSpacing: 0.9,
+    marginBottom: Spacing.xs,
+  },
+  questionCard: { minHeight: 160, justifyContent: "center" },
+  imageButton: { alignItems: "center", marginBottom: Spacing.md },
+  imagePressed: { opacity: Interaction.pressedOpacity },
+  questionImage: { width: "100%", height: 210 },
+  imageHint: {
+    color: ColorTokens.text.muted,
+    fontSize: Typography.sizes.caption,
+    lineHeight: Typography.lineHeights.caption,
+    marginTop: Spacing.xs,
+  },
+  question: {
+    color: ColorTokens.text.onSurface,
+    fontWeight: Typography.weights.bold,
+    textAlign: "left",
+  },
+  answerLabel: { marginTop: Spacing.lg },
+  answerCard: { minHeight: 120, justifyContent: "center" },
+  answer: {
+    color: ColorTokens.text.onSurface,
+    textAlign: "left",
+  },
+  answerPlaceholder: {
+    color: ColorTokens.text.secondary,
+    fontSize: Typography.sizes.body,
+    lineHeight: Typography.lineHeights.body,
+    textAlign: "center",
+  },
+  primaryAction: { marginTop: Spacing.lg },
+  assessmentSection: { marginTop: Spacing.xl },
+  assessmentTitle: {
+    color: ColorTokens.text.primary,
+    fontSize: Typography.sizes.sectionTitle,
+    lineHeight: Typography.lineHeights.sectionTitle,
+    fontWeight: Typography.weights.bold,
+  },
+  assessmentHelp: {
+    color: ColorTokens.text.secondary,
+    fontSize: Typography.sizes.label,
+    lineHeight: Typography.lineHeights.label,
+    marginTop: 2,
+    marginBottom: Spacing.sm,
+  },
+  assessmentActions: { flexDirection: "row", gap: Spacing.sm },
+  assessmentButton: {
+    flex: 1,
+    minHeight: 84,
+    justifyContent: "center",
+    borderRadius: Radii.md,
+    borderWidth: Borders.hairline,
+    padding: Spacing.md,
+  },
+  knownButton: {
+    borderColor: SemanticStates.success.foreground,
+    backgroundColor: SemanticStates.success.surface,
+  },
+  unknownButton: {
+    borderColor: SemanticStates.warning.foreground,
+    backgroundColor: SemanticStates.warning.surface,
+  },
+  assessmentPressed: {
+    opacity: Interaction.pressedOpacity,
+    transform: [{ scale: Interaction.controlPressedScale }],
+  },
+  assessmentButtonTitle: {
+    color: ColorTokens.text.onSurface,
+    fontSize: Typography.sizes.label,
+    lineHeight: Typography.lineHeights.label,
+    fontWeight: Typography.weights.bold,
+  },
+  assessmentButtonMeta: {
+    color: ColorTokens.text.muted,
+    fontSize: Typography.sizes.caption,
+    lineHeight: Typography.lineHeights.caption,
+    marginTop: 2,
+  },
+  reportButton: { marginTop: Spacing.lg, marginBottom: Spacing.lg },
+  modal: {
+    flex: 1,
+    backgroundColor: ColorTokens.background.base,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  modalClose: {
+    position: "absolute",
+    top: 56,
+    right: 18,
+    zIndex: 50,
+    width: Interaction.minimumTouchTarget,
+    height: Interaction.minimumTouchTarget,
+    borderRadius: Radii.full,
+    backgroundColor: ColorTokens.background.scrim,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  modalClosePressed: { opacity: Interaction.pressedOpacity },
+  modalCloseText: {
+    color: ColorTokens.text.primary,
+    fontSize: Typography.sizes.pageTitle,
+    lineHeight: Typography.lineHeights.pageTitle,
+    fontWeight: Typography.weights.heavy,
+  },
+});

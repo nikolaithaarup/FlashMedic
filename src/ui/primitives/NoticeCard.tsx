@@ -34,6 +34,8 @@ export function NoticeCard({
   testID,
 }: NoticeCardProps) {
   const state = SemanticStates[tone];
+  const contentColor =
+    tone === "info" ? ColorTokens.text.primary : ColorTokens.text.onSurface;
 
   return (
     <View
@@ -48,9 +50,9 @@ export function NoticeCard({
       <Text style={[styles.semanticLabel, { color: state.foreground }]}>
         {stateLabels[tone]}
       </Text>
-      <Text style={styles.title}>{title}</Text>
+      <Text style={[styles.title, { color: contentColor }]}>{title}</Text>
       {typeof children === "string" ? (
-        <Text style={styles.body}>{children}</Text>
+        <Text style={[styles.body, { color: contentColor }]}>{children}</Text>
       ) : (
         children
       )}
@@ -73,14 +75,12 @@ const styles = StyleSheet.create({
     letterSpacing: 0.6,
   },
   title: {
-    color: ColorTokens.text.onSurface,
     fontFamily: Typography.families.sans,
     fontSize: Typography.sizes.cardTitle,
     lineHeight: Typography.lineHeights.cardTitle,
     fontWeight: Typography.weights.bold,
   },
   body: {
-    color: ColorTokens.text.onSurface,
     fontFamily: Typography.families.sans,
     fontSize: Typography.sizes.body,
     lineHeight: Typography.lineHeights.body,
