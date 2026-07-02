@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   backButton: {
     width: Interaction.minimumTouchTarget,
     height: Interaction.minimumTouchTarget,
-    borderRadius: Radii.md,
+    borderRadius: Radii.control,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: ColorTokens.surface.inverse,

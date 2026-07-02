@@ -1,4 +1,4 @@
-import React, { type ReactNode } from "react";
+import React, { type ReactNode, useState } from "react";
 import {
   ActivityIndicator,
   Pressable,
@@ -49,6 +49,8 @@ export function ButtonBase({
   indicatorColor,
 }: ButtonBaseProps) {
   const unavailable = disabled || loading;
+  const [focused, setFocused] = useState(false);
+  const [hovered, setHovered] = useState(false);
 
   return (
     <Pressable
@@ -57,11 +59,17 @@ export function ButtonBase({
       accessibilityRole="button"
       accessibilityState={{ disabled: unavailable, busy: loading }}
       disabled={unavailable}
+      onBlur={() => setFocused(false)}
+      onFocus={() => setFocused(true)}
+      onHoverIn={() => setHovered(true)}
+      onHoverOut={() => setHovered(false)}
       onPress={onPress}
       testID={testID}
       style={({ pressed }) => [
         styles.base,
         containerStyle,
+        hovered && !unavailable && styles.hovered,
+        focused && !unavailable && styles.focused,
         pressed && !unavailable && pressedStyle,
         unavailable && styles.disabled,
         style,
@@ -82,7 +90,9 @@ export function ButtonBase({
 const styles = StyleSheet.create({
   base: {
     minHeight: Interaction.minimumTouchTarget,
-    borderRadius: Radii.md,
+    borderRadius: Radii.control,
+    borderWidth: 1,
+    borderColor: "transparent",
     paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.sm,
     flexDirection: "row",
@@ -93,6 +103,13 @@ const styles = StyleSheet.create({
   disabled: {
     opacity: Interaction.disabledOpacity,
     backgroundColor: ColorTokens.interaction.disabledSurface,
+  },
+  hovered: {
+    opacity: 0.94,
+  },
+  focused: {
+    borderColor: ColorTokens.interaction.focus,
+    borderWidth: 2,
   },
   label: {
     fontFamily: Typography.families.sans,

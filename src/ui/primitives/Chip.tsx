@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Pressable, StyleSheet, Text, type ViewStyle } from "react-native";
 
 import {
@@ -27,17 +27,26 @@ export function Chip({
   style,
   testID,
 }: ChipProps) {
+  const [focused, setFocused] = useState(false);
+  const [hovered, setHovered] = useState(false);
+
   return (
     <Pressable
       accessibilityLabel={label}
       accessibilityRole="button"
       accessibilityState={{ selected, disabled }}
       disabled={disabled}
+      onBlur={() => setFocused(false)}
+      onFocus={() => setFocused(true)}
+      onHoverIn={() => setHovered(true)}
+      onHoverOut={() => setHovered(false)}
       onPress={onPress}
       testID={testID}
       style={({ pressed }) => [
         styles.base,
         selected && styles.selected,
+        hovered && !disabled && styles.hovered,
+        focused && !disabled && styles.focused,
         pressed && !disabled && styles.pressed,
         disabled && styles.disabled,
         style,
@@ -52,7 +61,7 @@ const styles = StyleSheet.create({
   base: {
     minHeight: Interaction.minimumTouchTarget,
     justifyContent: "center",
-    borderRadius: Radii.full,
+    borderRadius: Radii.control,
     borderWidth: Borders.hairline,
     borderColor: ColorTokens.border.onSurface,
     backgroundColor: ColorTokens.surface.default,
@@ -66,6 +75,13 @@ const styles = StyleSheet.create({
   pressed: {
     opacity: Interaction.pressedOpacity,
     transform: [{ scale: Interaction.controlPressedScale }],
+  },
+  hovered: {
+    borderColor: ColorTokens.accent.muted,
+  },
+  focused: {
+    borderColor: ColorTokens.interaction.focus,
+    borderWidth: 2,
   },
   disabled: {
     opacity: Interaction.disabledOpacity,

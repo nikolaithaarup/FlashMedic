@@ -60,13 +60,13 @@ const styles = StyleSheet.create({
   swirlLayer: {
     ...StyleSheet.absoluteFillObject,
     overflow: "hidden",
-    opacity: 0.48,
+    opacity: 0.72,
   },
-  homeSwirls: { opacity: 0.72 },
+  homeSwirls: { opacity: 0.82 },
   swirl: {
     position: "absolute",
     borderWidth: 1,
-    borderColor: "rgba(77,171,247,0.10)",
+    borderColor: "rgba(77,171,247,0.14)",
     borderRadius: 999,
   },
   swirlOne: {
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     height: 150,
     top: 108,
     right: -230,
-    borderColor: "rgba(14,145,168,0.11)",
+    borderColor: "rgba(14,145,168,0.15)",
     transform: [{ rotate: "-17deg" }],
   },
   swirlThree: {
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     height: 115,
     top: 150,
     left: -40,
-    borderColor: "rgba(77,171,247,0.06)",
+    borderColor: "rgba(77,171,247,0.10)",
     transform: [{ rotate: "5deg" }],
   },
 });

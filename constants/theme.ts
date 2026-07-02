@@ -57,8 +57,8 @@ const palette = {
 export const ColorTokens = {
   background: {
     base: "#10161c",
-    top: "#0f8aa3",
-    center: "#123842",
+    top: "#0b5f72",
+    center: "#102f38",
     bottom: "#10161c",
     scrim: "rgba(0,0,0,0.55)",
   },
@@ -124,9 +124,10 @@ export const Radii = {
   none: 0,
   sm: 8,
   md: 12,
+  control: 12,
   lg: 16,
   xl: 24,
-  full: 999,
+  circular: 999,
 } as const;
 
 export const Borders = {

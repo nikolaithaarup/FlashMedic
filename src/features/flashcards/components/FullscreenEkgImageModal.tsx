@@ -13,6 +13,8 @@ import {
   View,
 } from "react-native";
 
+import { Radii } from "../../../../constants/theme";
+
 type FullscreenEkgImageModalProps = {
   visible: boolean;
   imageSource: any;
@@ -96,7 +98,7 @@ const styles = StyleSheet.create({
     marginRight: 14,
     width: 44,
     height: 44,
-    borderRadius: 22,
+    borderRadius: Radii.control,
     backgroundColor: "rgba(0,0,0,0.55)",
     alignItems: "center",
     justifyContent: "center",

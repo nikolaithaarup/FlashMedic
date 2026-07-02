@@ -184,7 +184,7 @@ export const styles = StyleSheet.create({
     borderColor: ColorTokens.border.strong,
     paddingVertical: Spacing.sm,
     paddingHorizontal: Spacing.md,
-    borderRadius: Radii.full,
+    borderRadius: Radii.control,
     marginLeft: 8,
     backgroundColor: "rgba(0,0,0,0.18)",
     alignItems: "center",
@@ -244,7 +244,7 @@ export const styles = StyleSheet.create({
   difficultyPill: {
     paddingVertical: 4,
     paddingHorizontal: 10,
-    borderRadius: 999,
+    borderRadius: Radii.control,
   },
 
   difficultyText: {
@@ -364,7 +364,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     paddingVertical: Spacing.xs,
     paddingHorizontal: Spacing.md,
-    borderRadius: Radii.full,
+    borderRadius: Radii.control,
     borderWidth: Borders.hairline,
     borderColor: ColorTokens.border.default,
     backgroundColor: ColorTokens.surface.inverse,
@@ -447,7 +447,7 @@ export const styles = StyleSheet.create({
     right: 14,
     width: 44,
     height: 44,
-    borderRadius: 22,
+    borderRadius: Radii.control,
     backgroundColor: "rgba(0,0,0,0.55)",
     alignItems: "center",
     justifyContent: "center",
@@ -583,7 +583,7 @@ export const styles = StyleSheet.create({
   gameCloseButton: {
     width: 42,
     height: 42,
-    borderRadius: 21,
+    borderRadius: Radii.control,
     borderWidth: 1.5,
     borderColor: "#ffffffcc",
     backgroundColor: "rgba(0,0,0,0.18)",
@@ -625,7 +625,7 @@ export const styles = StyleSheet.create({
   classChip: {
     paddingVertical: 6,
     paddingHorizontal: 10,
-    borderRadius: 999,
+    borderRadius: Radii.control,
     borderWidth: 1,
     borderColor: "#ced4da",
     backgroundColor: "#ffffff",
@@ -651,7 +651,7 @@ export const styles = StyleSheet.create({
   profileBadge: {
     paddingHorizontal: 12,
     paddingVertical: 6,
-    borderRadius: 999,
+    borderRadius: Radii.control,
     backgroundColor: "rgba(0,0,0,0.3)",
     borderWidth: 1,
     borderColor: "rgba(255,255,255,0.6)",

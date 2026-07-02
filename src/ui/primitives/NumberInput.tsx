@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     minHeight: Interaction.minimumTouchTarget,
     flexDirection: "row",
     alignItems: "center",
-    borderRadius: Radii.md,
+    borderRadius: Radii.control,
     borderWidth: Borders.hairline,
     borderColor: ColorTokens.border.onSurface,
     backgroundColor: ColorTokens.surface.default,

@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
     maxWidth: "75%",
     flexDirection: "row",
     alignItems: "center",
-    borderRadius: Radii.full,
+    borderRadius: Radii.control,
     borderWidth: Borders.hairline,
     borderColor: ColorTokens.border.default,
     backgroundColor: ColorTokens.surface.inverse,
