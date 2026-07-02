@@ -857,6 +857,8 @@ export default function Index() {
         allSelectableKeys={allSelectableKeys}
         allTopicsSelected={allTopicsSelected}
         cardsForSelectedSubjectCount={cardsForSelectedSubject.length}
+        onStartAllSubjectsQuiz={handleStartAllSubjectsQuiz}
+        disableAllSubjectsQuiz={loadingCards || cards.length === 0}
         onBack={() => setScreen("home")}
         onStartQuiz={handleStartQuiz}
       />
@@ -1027,11 +1029,9 @@ export default function Index() {
       onOpenWeeklyHome={() => setScreen("weeklyHome")}
       onOpenWeeklyDev={() => setScreen("weeklyDev")}
       onOpenFlashcardsHome={() => setScreen("flashcardsHome")}
-      onStartAllSubjectsQuiz={handleStartAllSubjectsQuiz}
       onOpenDrugCalcHome={() => setScreen("drugCalcHome")}
       onOpenStats={() => setScreen("stats")}
       onOpenContact={() => setScreen("contact")}
-      disableAllSubjectsQuiz={loadingCards || cards.length === 0}
     />
   );
 }

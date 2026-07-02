@@ -1,6 +1,5 @@
 // src/features/weekly/WeeklyMatchScreen.tsx
 
-import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useMemo, useState } from "react";
 import {
@@ -18,6 +17,7 @@ import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 import { saveWeeklyResult } from "../../services/weeklyResultsService";
 import { styles } from "../../ui/flashmedicStyles";
+import { Background } from "../../ui/primitives";
 import { useWeeklyLock } from "./useWeeklyLock";
 
 import {
@@ -490,7 +490,7 @@ export function WeeklyMatchScreen({
   const leftItemsToShow = leftItems.length > 0 ? leftItems : currentPairs;
 
   return (
-    <LinearGradient
+    <Background
       colors={["#0e91a8ff", "#5e6e7eff"]}
       style={styles.homeBackground}
     >
@@ -791,7 +791,9 @@ export function WeeklyMatchScreen({
                 styles.modalContent,
                 {
                   maxWidth: 700,
-                  backgroundColor: "#ffffff",
+                  backgroundColor: "#16262d",
+                  borderWidth: 1,
+                  borderColor: "rgba(255,255,255,0.20)",
                   borderRadius: 12,
                   padding: 20,
                 },
@@ -854,7 +856,7 @@ export function WeeklyMatchScreen({
           </View>
         </Modal>
       </ScrollView>
-    </LinearGradient>
+    </Background>
   );
 }
 

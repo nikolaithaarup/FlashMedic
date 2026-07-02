@@ -1,5 +1,4 @@
 // src/features/weekly/WeeklyDevScreen.tsx
-import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import React, { useMemo, useState } from "react";
 import {
@@ -17,6 +16,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 
 import { styles } from "../../ui/flashmedicStyles";
+import { Background } from "../../ui/primitives";
 import { useWeeklyLock } from "./useWeeklyLock";
 
 type WeeklyKind = "mcq" | "match" | "word";
@@ -249,7 +249,7 @@ export default function WeeklyDevScreen({
   };
 
   return (
-    <LinearGradient
+    <Background
       colors={["#0e91a8ff", "#5e6e7eff"]}
       style={styles.homeBackground}
     >
@@ -557,6 +557,6 @@ export default function WeeklyDevScreen({
           </View>
         )}
       </ScrollView>
-    </LinearGradient>
+    </Background>
   );
 }

@@ -34,6 +34,8 @@ type FlashcardsHomeScreenProps = {
   allSelectableKeys: string[];
   allTopicsSelected: boolean;
   cardsForSelectedSubjectCount: number;
+  onStartAllSubjectsQuiz: () => void;
+  disableAllSubjectsQuiz: boolean;
   onBack: () => void;
   onStartQuiz: () => void;
 };
@@ -76,6 +78,8 @@ export default function FlashcardsHomeScreen({
   allSelectableKeys,
   allTopicsSelected,
   cardsForSelectedSubjectCount,
+  onStartAllSubjectsQuiz,
+  disableAllSubjectsQuiz,
   onBack,
   onStartQuiz,
 }: FlashcardsHomeScreenProps) {
@@ -111,6 +115,21 @@ export default function FlashcardsHomeScreen({
         Vælg først et fag og derefter de emner, du vil træne. Kort, du ikke kan,
         kommer igen i quizzen.
       </NoticeCard>
+
+      <Card variant="subtle" style={styles.allSubjectsCard}>
+        <View style={styles.allSubjectsCopy}>
+          <Text style={styles.allSubjectsTitle}>Alle fag</Text>
+          <Text style={styles.allSubjectsDescription}>
+            Start direkte med kort fra hele biblioteket.
+          </Text>
+        </View>
+        <PrimaryButton
+          disabled={disableAllSubjectsQuiz}
+          label="Start"
+          onPress={onStartAllSubjectsQuiz}
+          style={styles.allSubjectsButton}
+        />
+      </Card>
 
       <View style={styles.sectionHeader}>
         <Text style={styles.sectionLabel}>1 · FAG</Text>
@@ -202,6 +221,26 @@ export default function FlashcardsHomeScreen({
 }
 
 const styles = StyleSheet.create({
+  allSubjectsCard: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.md,
+    marginTop: Spacing.md,
+  },
+  allSubjectsCopy: { flex: 1, minWidth: 0 },
+  allSubjectsTitle: {
+    color: ColorTokens.text.primary,
+    fontSize: Typography.sizes.cardTitle,
+    lineHeight: Typography.lineHeights.cardTitle,
+    fontWeight: Typography.weights.bold,
+  },
+  allSubjectsDescription: {
+    color: ColorTokens.text.secondary,
+    fontSize: Typography.sizes.label,
+    lineHeight: Typography.lineHeights.label,
+    marginTop: 2,
+  },
+  allSubjectsButton: { minWidth: 96 },
   sectionHeader: { marginTop: Spacing.xl, marginBottom: Spacing.sm },
   sectionLabel: {
     color: ColorTokens.accent.muted,

@@ -1,10 +1,10 @@
 // src/features/drugCalc/DrugCalcTheoryScreen.tsx
-import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import React, { useMemo, useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
 
 import { styles } from "../../ui/flashmedicStyles";
+import { Background } from "../../ui/primitives";
 import { DRUG_TOPICS, THEORY, type DrugCalcTopic } from "./drugCalcContent";
 
 type Props = {
@@ -25,7 +25,7 @@ export function DrugCalcTheoryScreen({
   const section = useMemo(() => THEORY.find((s) => s.topic === topic), [topic]);
 
   return (
-    <LinearGradient
+    <Background
       colors={["#0e91a8ff", "#5e6e7eff"]}
       style={styles.homeBackground}
     >
@@ -131,7 +131,7 @@ export function DrugCalcTheoryScreen({
           ) : null}
         </View>
       </ScrollView>
-    </LinearGradient>
+    </Background>
   );
 }
 

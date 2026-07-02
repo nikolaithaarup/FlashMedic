@@ -1,5 +1,13 @@
 // src/ui/flashmedicStyles.ts
 import { StyleSheet } from "react-native";
+import {
+  Borders,
+  ColorTokens,
+  Interaction,
+  Radii,
+  Spacing,
+  Typography,
+} from "../../constants/theme";
 
 export const styles = StyleSheet.create({
   // ------------------ STYLES --------------------
@@ -71,17 +79,23 @@ export const styles = StyleSheet.create({
 
   homeNavButton: {
     width: "100%",
-    paddingVertical: 14,
-    paddingHorizontal: 12,
-    alignItems: "center",
+    minHeight: Interaction.minimumTouchTarget,
+    paddingVertical: Spacing.md,
+    paddingHorizontal: Spacing.lg,
+    borderRadius: Radii.md,
+    borderWidth: Borders.hairline,
+    borderColor: ColorTokens.border.default,
+    backgroundColor: ColorTokens.surface.subtle,
+    alignItems: "flex-start",
     justifyContent: "center",
+    marginBottom: Spacing.sm,
   },
 
   homeNavButtonText: {
-    fontSize: 20,
-    fontWeight: "800",
-    color: "#f8f9fa",
-    textAlign: "center",
+    fontSize: Typography.sizes.cardTitle,
+    fontWeight: Typography.weights.bold,
+    color: ColorTokens.text.primary,
+    textAlign: "left",
     flexShrink: 1,
   },
 
@@ -118,12 +132,14 @@ export const styles = StyleSheet.create({
 
   questionText: {
     fontWeight: "800",
+    color: ColorTokens.text.primary,
     textAlign: "center",
     fontFamily: "System",
     flexShrink: 1,
   },
 
   answerText: {
+    color: ColorTokens.text.primary,
     textAlign: "center",
     fontFamily: "serif",
     flexShrink: 1,
@@ -139,7 +155,8 @@ export const styles = StyleSheet.create({
     width: "100%",
     paddingVertical: 14,
     paddingHorizontal: 16,
-    borderRadius: 16,
+    borderRadius: Radii.md,
+    minHeight: Interaction.minimumTouchTarget,
     minWidth: 0,
     alignItems: "center",
     justifyContent: "center",
@@ -147,11 +164,11 @@ export const styles = StyleSheet.create({
   },
 
   primaryButton: {
-    backgroundColor: "#1c7ed6",
+    backgroundColor: ColorTokens.accent.action,
   },
 
   secondaryButton: {
-    backgroundColor: "#495057",
+    backgroundColor: ColorTokens.surface.inverse,
   },
 
   bigButtonText: {
@@ -162,11 +179,12 @@ export const styles = StyleSheet.create({
   },
 
   smallButton: {
-    borderWidth: 1.5,
-    borderColor: "#ffffffcc",
-    paddingVertical: 8,
-    paddingHorizontal: 14,
-    borderRadius: 999,
+    minHeight: Interaction.minimumTouchTarget,
+    borderWidth: Borders.hairline,
+    borderColor: ColorTokens.border.strong,
+    paddingVertical: Spacing.sm,
+    paddingHorizontal: Spacing.md,
+    borderRadius: Radii.full,
     marginLeft: 8,
     backgroundColor: "rgba(0,0,0,0.18)",
     alignItems: "center",
@@ -342,23 +360,25 @@ export const styles = StyleSheet.create({
   },
 
   topicChip: {
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 999,
-    borderWidth: 1,
-    borderColor: "#ced4da",
-    backgroundColor: "#ffffff",
+    minHeight: Interaction.minimumTouchTarget,
+    justifyContent: "center",
+    paddingVertical: Spacing.xs,
+    paddingHorizontal: Spacing.md,
+    borderRadius: Radii.full,
+    borderWidth: Borders.hairline,
+    borderColor: ColorTokens.border.default,
+    backgroundColor: ColorTokens.surface.inverse,
     maxWidth: "100%",
   },
 
   topicChipSelected: {
-    backgroundColor: "#4c6ef5",
-    borderColor: "#364fc7",
+    backgroundColor: ColorTokens.interaction.selected,
+    borderColor: ColorTokens.interaction.selectedBorder,
   },
 
   topicChipText: {
     fontSize: 14,
-    color: "#343a40",
+    color: ColorTokens.text.primary,
     flexShrink: 1,
   },
 
@@ -444,14 +464,16 @@ export const styles = StyleSheet.create({
 
   statsCard: {
     width: "100%",
-    padding: 20,
-    borderRadius: 16,
-    backgroundColor: "rgba(255,255,255,0.95)",
+    padding: Spacing.lg,
+    borderRadius: Radii.lg,
+    backgroundColor: "rgba(20,33,39,0.88)",
+    borderWidth: Borders.hairline,
+    borderColor: ColorTokens.border.default,
     shadowColor: "#000",
-    shadowOpacity: 0.15,
-    shadowRadius: 10,
-    shadowOffset: { width: 0, height: 6 },
-    elevation: 6,
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 3 },
+    elevation: 2,
     marginBottom: 8,
     maxWidth: 900,
   },
@@ -465,7 +487,7 @@ export const styles = StyleSheet.create({
 
   statsLabel: {
     fontSize: 14,
-    color: "#495057",
+    color: ColorTokens.text.secondary,
     marginBottom: 2,
     flexShrink: 1,
   },
@@ -473,7 +495,7 @@ export const styles = StyleSheet.create({
   statsValue: {
     fontSize: 28,
     fontWeight: "800",
-    color: "#212529",
+    color: ColorTokens.text.primary,
   },
 
   statsGood: {
@@ -497,7 +519,7 @@ export const styles = StyleSheet.create({
   statsSectionTitle: {
     fontSize: 16,
     fontWeight: "700",
-    color: "#212529",
+    color: ColorTokens.text.primary,
     marginBottom: 8,
     flexShrink: 1,
   },
@@ -513,17 +535,17 @@ export const styles = StyleSheet.create({
   statsRankPosition: {
     width: 24,
     fontWeight: "700",
-    color: "#212529",
+    color: ColorTokens.text.primary,
   },
 
   statsRankName: {
     flex: 1,
-    color: "#343a40",
+    color: ColorTokens.text.primary,
     flexShrink: 1,
   },
 
   statsRankClass: {
-    color: "#868e96",
+    color: ColorTokens.text.secondary,
     fontSize: 12,
   },
 
@@ -541,12 +563,12 @@ export const styles = StyleSheet.create({
 
   subjectStatsTitle: {
     fontWeight: "600",
-    color: "#212529",
+    color: ColorTokens.text.primary,
   },
 
   subjectStatsSub: {
     fontSize: 13,
-    color: "#495057",
+    color: ColorTokens.text.secondary,
     flexShrink: 1,
   },
   gameHeaderRow: {
@@ -582,13 +604,13 @@ export const styles = StyleSheet.create({
     flex: 1,
     minWidth: 0,
     borderWidth: 1,
-    borderColor: "#ced4da",
-    borderRadius: 12,
+    borderColor: ColorTokens.border.default,
+    borderRadius: Radii.md,
     paddingHorizontal: 12,
     paddingVertical: 12,
     fontSize: 16,
-    color: "#212529",
-    backgroundColor: "#ffffff",
+    color: ColorTokens.text.primary,
+    backgroundColor: ColorTokens.surface.inverse,
     marginTop: 4,
   },
 
@@ -660,14 +682,14 @@ export const styles = StyleSheet.create({
 
   drugQuestionText: {
     fontSize: 16,
-    color: "#212529",
+    color: ColorTokens.text.primary,
     marginBottom: 8,
     lineHeight: 24,
   },
 
   drugHintText: {
     fontSize: 13,
-    color: "#868e96",
+    color: ColorTokens.text.secondary,
     marginBottom: 12,
     lineHeight: 20,
   },
@@ -677,8 +699,8 @@ export const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: "#ced4da",
-    backgroundColor: "#ffffff",
+    borderColor: ColorTokens.border.default,
+    backgroundColor: ColorTokens.surface.inverse,
     flexDirection: "row",
     alignItems: "center",
     gap: 8,
@@ -697,13 +719,13 @@ export const styles = StyleSheet.create({
 
   drugUnitText: {
     fontSize: 16,
-    color: "#495057",
+    color: ColorTokens.text.secondary,
     flexShrink: 0,
   },
 
   drugTheoryText: {
     fontSize: 15,
-    color: "#212529",
+    color: ColorTokens.text.primary,
     lineHeight: 22,
   },
 

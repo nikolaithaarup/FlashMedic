@@ -1,5 +1,4 @@
 // src/features/weekly/WeeklyWordScreen.tsx
-import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useMemo, useState } from "react";
 import {
@@ -17,6 +16,7 @@ import {
 import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
 
 import { styles } from "../../ui/flashmedicStyles";
+import { Background } from "../../ui/primitives";
 import { scrambleWord } from "./weeklyData";
 
 import { auth } from "../../firebase/firebase";
@@ -422,7 +422,7 @@ export function WeeklyWordScreen({
 
   // ---------- Render ----------
   return (
-    <LinearGradient
+    <Background
       colors={["#0e91a8ff", "#5e6e7eff"]}
       style={styles.homeBackground}
     >
@@ -747,7 +747,9 @@ export function WeeklyWordScreen({
                 styles.modalContent,
                 {
                   maxWidth: 700,
-                  backgroundColor: "#ffffff",
+                  backgroundColor: "#16262d",
+                  borderWidth: 1,
+                  borderColor: "rgba(255,255,255,0.20)",
                   borderRadius: 12,
                   padding: 20,
                 },
@@ -812,7 +814,7 @@ export function WeeklyWordScreen({
           </View>
         </Modal>
       </ScrollView>
-    </LinearGradient>
+    </Background>
   );
 }
 

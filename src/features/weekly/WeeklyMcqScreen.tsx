@@ -1,7 +1,6 @@
 // src/features/weekly/WeeklyMcqScreen.tsx
 // ✅ ONLY CHANGE: replace the plain instruction block with the same boxed help card styling.
 
-import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useMemo, useState } from "react";
 import {
@@ -19,6 +18,7 @@ import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 import { saveWeeklyResult } from "../../services/weeklyResultsService";
 import { styles } from "../../ui/flashmedicStyles";
+import { Background } from "../../ui/primitives";
 import { useWeeklyLock } from "./useWeeklyLock";
 
 import {
@@ -378,7 +378,7 @@ export function WeeklyMcqScreen({
 
   // ---------- Render ----------
   return (
-    <LinearGradient
+    <Background
       colors={["#0e91a8ff", "#5e6e7eff"]}
       style={styles.homeBackground}
     >
@@ -560,7 +560,9 @@ export function WeeklyMcqScreen({
                   maxWidth: 700,
                   padding: 12,
                   borderRadius: 12,
-                  backgroundColor: "#f8f9fad9",
+                  backgroundColor: "rgba(20,33,39,0.90)",
+                  borderWidth: 1,
+                  borderColor: "rgba(255,255,255,0.20)",
                 }}
               >
                 <Text
@@ -663,7 +665,9 @@ export function WeeklyMcqScreen({
                 styles.modalContent,
                 {
                   maxWidth: 700,
-                  backgroundColor: "#ffffff",
+                  backgroundColor: "#16262d",
+                  borderWidth: 1,
+                  borderColor: "rgba(255,255,255,0.20)",
                   borderRadius: 12,
                   padding: 20,
                 },
@@ -691,7 +695,7 @@ export function WeeklyMcqScreen({
           </View>
         </Modal>
       </ScrollView>
-    </LinearGradient>
+    </Background>
   );
 }
 

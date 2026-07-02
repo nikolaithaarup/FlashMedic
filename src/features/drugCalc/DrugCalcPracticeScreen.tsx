@@ -1,5 +1,4 @@
 // src/features/drugCalc/DrugCalcPracticeScreen.tsx
-import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import React, { useMemo } from "react";
 import {
@@ -13,6 +12,7 @@ import {
 } from "react-native";
 
 import { styles } from "../../ui/flashmedicStyles";
+import { Background } from "../../ui/primitives";
 import type { DrugCalcQuestion, DrugCalcTopic } from "./drugCalcContent";
 
 type TopicMeta = { id: DrugCalcTopic; title: string; desc: string };
@@ -82,7 +82,7 @@ export function DrugCalcPracticeScreen({
   );
 
   return (
-    <LinearGradient
+    <Background
       colors={["#0e91a8ff", "#5e6e7eff"]}
       style={styles.homeBackground}
     >
@@ -300,7 +300,7 @@ export function DrugCalcPracticeScreen({
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
-    </LinearGradient>
+    </Background>
   );
 }
 

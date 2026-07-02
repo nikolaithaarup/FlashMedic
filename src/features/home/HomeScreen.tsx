@@ -1,4 +1,3 @@
-import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import {
@@ -20,7 +19,7 @@ import {
   Spacing,
   Typography,
 } from "../../../constants/theme";
-import { Card } from "../../ui/primitives";
+import { Background, Card } from "../../ui/primitives";
 
 const titleLogo = require("../../../assets/flashmedic-logo.png");
 
@@ -37,11 +36,9 @@ type HomeScreenProps = {
   onOpenWeeklyHome: () => void;
   onOpenWeeklyDev: () => void;
   onOpenFlashcardsHome: () => void;
-  onStartAllSubjectsQuiz: () => void;
   onOpenDrugCalcHome: () => void;
   onOpenStats: () => void;
   onOpenContact: () => void;
-  disableAllSubjectsQuiz: boolean;
 };
 
 type DestinationCardProps = {
@@ -104,20 +101,15 @@ export default function HomeScreen({
   onOpenWeeklyHome,
   onOpenWeeklyDev,
   onOpenFlashcardsHome,
-  onStartAllSubjectsQuiz,
   onOpenDrugCalcHome,
   onOpenStats,
   onOpenContact,
-  disableAllSubjectsQuiz,
 }: HomeScreenProps) {
   const { width } = useWindowDimensions();
   const titleWidth = Math.min(360, Math.max(220, width - Spacing.xl * 2));
 
   return (
-    <LinearGradient
-      colors={[ColorTokens.background.top, ColorTokens.background.bottom]}
-      style={styles.background}
-    >
+    <Background variant="home">
       <StatusBar style="light" />
       <SafeAreaView style={styles.safeArea}>
         <ScrollView
@@ -198,13 +190,6 @@ export default function HomeScreen({
               title="Flashcards"
             />
             <DestinationCard
-              description="Start direkte med kort fra hele biblioteket."
-              disabled={disableAllSubjectsQuiz}
-              eyebrow="HURTIG START"
-              onPress={onStartAllSubjectsQuiz}
-              title="Alle fag"
-            />
-            <DestinationCard
               description="Træn doseringer, enheder og beregninger."
               eyebrow="BEREGNING"
               onPress={onOpenDrugCalcHome}
@@ -247,12 +232,11 @@ export default function HomeScreen({
           </Text>
         </ScrollView>
       </SafeAreaView>
-    </LinearGradient>
+    </Background>
   );
 }
 
 const styles = StyleSheet.create({
-  background: { flex: 1 },
   safeArea: { flex: 1 },
   content: {
     width: "100%",

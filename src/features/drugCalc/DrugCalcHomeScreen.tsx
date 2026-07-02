@@ -1,10 +1,10 @@
 // src/features/drugCalc/DrugCalcHomeScreen.tsx
-import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import React, { useMemo, useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
 
 import { styles } from "../../ui/flashmedicStyles";
+import { Background } from "../../ui/primitives";
 import { DRUG_TOPICS } from "./drugCalcContent";
 
 // Accept both strings and objects like {id,title,desc}
@@ -217,7 +217,7 @@ export default function DrugCalcHomeScreen({
   const [openSectionId, setOpenSectionId] = useState<string>("");
 
   return (
-    <LinearGradient
+    <Background
       colors={["#0e91a8ff", "#5e6e7eff"]}
       style={styles.homeBackground}
     >
@@ -364,6 +364,6 @@ export default function DrugCalcHomeScreen({
           })}
         </View>
       </ScrollView>
-    </LinearGradient>
+    </Background>
   );
 }

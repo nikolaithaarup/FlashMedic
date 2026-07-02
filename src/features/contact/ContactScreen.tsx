@@ -1,41 +1,38 @@
 import Constants from "expo-constants";
 import * as Device from "expo-device";
-import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import React, { useMemo } from "react";
-import {
-  Alert,
-  Platform,
-  Pressable,
-  ScrollView,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { Alert, Platform, StyleSheet, Text, TextInput } from "react-native";
 
-import { styles } from "../../ui/flashmedicStyles";
+import {
+  Borders,
+  ColorTokens,
+  Interaction,
+  Radii,
+  Spacing,
+  Typography,
+} from "../../../constants/theme";
+import {
+  Card,
+  PrimaryButton,
+  Screen,
+  ToolPageHeader,
+} from "../../ui/primitives";
 
 type Props = {
   headingFont: number;
   buttonFont: number;
-
   apiBaseUrl: string;
-
   contactName: string;
-  setContactName: (v: string) => void;
-
+  setContactName: (value: string) => void;
   contactEmail: string;
-  setContactEmail: (v: string) => void;
-
+  setContactEmail: (value: string) => void;
   contactMessage: string;
-  setContactMessage: (v: string) => void;
-
-  onBack: () => void; // go home
+  setContactMessage: (value: string) => void;
+  onBack: () => void;
 };
 
 export function ContactScreen({
-  headingFont,
-  buttonFont,
   apiBaseUrl,
   contactName,
   setContactName,
@@ -47,17 +44,18 @@ export function ContactScreen({
 }: Props) {
   const appName = Constants.expoConfig?.name ?? "FlashMedic";
   const appVersion = Constants.expoConfig?.version ?? "ukendt version";
-
-  const deviceInfo = useMemo(() => {
-    const deviceInfoParts = [
-      Device.manufacturer,
-      Device.modelName,
-      Device.osName,
-      Device.osVersion,
-    ].filter(Boolean);
-
-    return deviceInfoParts.join(" ");
-  }, []);
+  const deviceInfo = useMemo(
+    () =>
+      [
+        Device.manufacturer,
+        Device.modelName,
+        Device.osName,
+        Device.osVersion,
+      ]
+        .filter(Boolean)
+        .join(" "),
+    [],
+  );
 
   const handleSend = async () => {
     if (!contactMessage.trim()) {
@@ -66,7 +64,7 @@ export function ContactScreen({
     }
 
     try {
-      const res = await fetch(`${apiBaseUrl}/contact/send`, {
+      const response = await fetch(`${apiBaseUrl}/contact/send`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -80,155 +78,124 @@ export function ContactScreen({
         }),
       });
 
-      if (!res.ok) {
-        throw new Error("Serverfejl");
-      }
+      if (!response.ok) throw new Error("Serverfejl");
 
       Alert.alert("Tak!", "Din besked er sendt til serveren.");
       setContactName("");
       setContactEmail("");
       setContactMessage("");
-    } catch (err) {
+    } catch {
       Alert.alert("Fejl", "Kunne ikke sende beskeden. Prøv igen.");
     }
   };
 
   return (
-    <LinearGradient
-      colors={["#0e91a8ff", "#5e6e7eff"]}
-      style={styles.homeBackground}
-    >
+    <Screen>
       <StatusBar style="light" />
+      <ToolPageHeader
+        backLabel="Tilbage til forsiden"
+        onBack={onBack}
+        subtitle="Ris, ros og konstruktiv feedback"
+        title="Kontakt os"
+      />
 
-      <ScrollView
-        contentContainerStyle={[
-          styles.safeTopContainer ?? styles.homeContainer,
-          {
-            paddingTop: 80,
-            paddingHorizontal: 16,
-            paddingBottom: 40,
-            alignItems: "flex-start",
-          },
-        ]}
-      >
-        <View style={{ width: "100%", maxWidth: 700 }}>
-          <View style={styles.headerRow}>
-            <Text
-              style={[
-                styles.appTitle,
-                { fontSize: headingFont, color: "#f8f9fa" },
-              ]}
-            >
-              Kontakt os
-            </Text>
-            <Pressable
-              style={[styles.smallButton, { borderColor: "#ffffffdd" }]}
-              onPress={onBack}
-            >
-              <Text
-                style={[
-                  styles.smallButtonText,
-                  { color: "#fff", fontSize: buttonFont * 0.9 },
-                ]}
-              >
-                Tilbage
-              </Text>
-            </Pressable>
-          </View>
+      <Card variant="subtle" style={styles.introCard}>
+        <Text style={styles.introTitle}>Hjælp med at gøre FlashMedic bedre</Text>
+        <Text style={styles.introText}>
+          Appen er udviklet af en ambulancebehandlerelev til elever og
+          færdiguddannede, der vil træne anatomi, medicin, EKG og mere.
+        </Text>
+        <Text style={styles.metaText}>
+          {appName} · v{appVersion} · {deviceInfo || "Ukendt enhed"} ({Platform.OS})
+        </Text>
+      </Card>
 
-          <Text
-            style={[
-              styles.statsLabel,
-              {
-                marginTop: 12,
-                marginBottom: 8,
-                color: "#f1f3f5",
-              },
-            ]}
-          >
-            Denne besked bliver sendt til FlashMedic-teamet via serveren.
-            {"\n"}
-            App: {appName} – v{appVersion}
-            {"\n"}
-            Enhed: {deviceInfo || "Ukendt enhed"} ({Platform.OS})
-          </Text>
+      <Text style={styles.sectionLabel}>DIN BESKED</Text>
+      <Card variant="subtle" style={styles.formCard}>
+        <Text style={styles.label}>Navn (valgfrit)</Text>
+        <TextInput
+          onChangeText={setContactName}
+          placeholder="Fx Nikolai"
+          placeholderTextColor={ColorTokens.text.muted}
+          style={styles.input}
+          value={contactName}
+        />
 
-          <Text
-            style={[
-              styles.statsLabel,
-              {
-                marginBottom: 8,
-                color: "#f8f9fa",
-                fontSize: 24,
-              },
-            ]}
-          >
-            Denne app er lavet af en ambulancebehandlerelev og er rettet mod
-            både elever og færdiguddannede, som vil øve sig i anatomi, medicin,
-            EKG og meget mere.
-            {"\n\n"}
-            Ris, ros og konstruktiv kritik modtages meget gerne – det hjælper
-            med at gøre appen bedre for alle.
-          </Text>
+        <Text style={styles.label}>E-mail (valgfri)</Text>
+        <TextInput
+          autoCapitalize="none"
+          keyboardType="email-address"
+          onChangeText={setContactEmail}
+          placeholder="Fx nikolai@example.com"
+          placeholderTextColor={ColorTokens.text.muted}
+          style={styles.input}
+          value={contactEmail}
+        />
 
-          <Text style={[styles.statsLabel, { marginTop: 24 }]}>
-            Navn (valgfri)
-          </Text>
-          <TextInput
-            value={contactName}
-            onChangeText={setContactName}
-            style={[styles.textInput, { width: "100%" }]}
-            placeholder="Fx Nikolai"
-            placeholderTextColor="#adb5bd"
-          />
+        <Text style={styles.label}>Besked</Text>
+        <TextInput
+          multiline
+          onChangeText={setContactMessage}
+          placeholder="Skriv din besked her…"
+          placeholderTextColor={ColorTokens.text.muted}
+          style={[styles.input, styles.messageInput]}
+          textAlignVertical="top"
+          value={contactMessage}
+        />
 
-          <Text style={[styles.statsLabel, { marginTop: 16 }]}>
-            Email (valgfri)
-          </Text>
-          <TextInput
-            value={contactEmail}
-            onChangeText={setContactEmail}
-            style={[styles.textInput, { width: "100%" }]}
-            placeholder="Fx nikolai@example.com"
-            keyboardType="email-address"
-            autoCapitalize="none"
-            placeholderTextColor="#adb5bd"
-          />
-
-          <Text style={[styles.statsLabel, { marginTop: 16 }]}>Besked</Text>
-          <TextInput
-            value={contactMessage}
-            onChangeText={setContactMessage}
-            style={[
-              styles.textInput,
-              {
-                width: "100%",
-                height: 140,
-                textAlignVertical: "top",
-              },
-            ]}
-            placeholder="Skriv din besked her..."
-            placeholderTextColor="#adb5bd"
-            multiline
-          />
-
-          <Pressable
-            style={[
-              styles.bigButton,
-              styles.primaryButton,
-              {
-                marginTop: 24,
-                alignSelf: "flex-start",
-              },
-            ]}
-            onPress={handleSend}
-          >
-            <Text style={styles.bigButtonText}>SEND</Text>
-          </Pressable>
-        </View>
-      </ScrollView>
-    </LinearGradient>
+        <PrimaryButton label="Send besked" onPress={handleSend} />
+      </Card>
+    </Screen>
   );
 }
+
+const styles = StyleSheet.create({
+  introCard: { gap: Spacing.sm },
+  introTitle: {
+    color: ColorTokens.text.primary,
+    fontSize: Typography.sizes.cardTitle,
+    lineHeight: Typography.lineHeights.cardTitle,
+    fontWeight: Typography.weights.bold,
+  },
+  introText: {
+    color: ColorTokens.text.secondary,
+    fontSize: Typography.sizes.body,
+    lineHeight: Typography.lineHeights.body,
+  },
+  metaText: {
+    color: ColorTokens.text.muted,
+    fontSize: Typography.sizes.caption,
+    lineHeight: Typography.lineHeights.caption,
+  },
+  sectionLabel: {
+    color: ColorTokens.accent.muted,
+    fontSize: Typography.sizes.caption,
+    lineHeight: Typography.lineHeights.caption,
+    fontWeight: Typography.weights.heavy,
+    letterSpacing: 0.8,
+    marginTop: Spacing.xl,
+    marginBottom: Spacing.xs,
+  },
+  formCard: { gap: Spacing.sm, marginBottom: Spacing.lg },
+  label: {
+    color: ColorTokens.text.primary,
+    fontSize: Typography.sizes.label,
+    lineHeight: Typography.lineHeights.label,
+    fontWeight: Typography.weights.semibold,
+    marginTop: Spacing.xs,
+  },
+  input: {
+    minHeight: Interaction.minimumTouchTarget,
+    borderRadius: Radii.md,
+    borderWidth: Borders.hairline,
+    borderColor: ColorTokens.border.default,
+    backgroundColor: ColorTokens.surface.inverse,
+    color: ColorTokens.text.primary,
+    fontSize: Typography.sizes.body,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.sm,
+  },
+  messageInput: { minHeight: 150 },
+});
 
 export default ContactScreen;
