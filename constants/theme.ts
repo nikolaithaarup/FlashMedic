@@ -56,9 +56,10 @@ const palette = {
 
 export const ColorTokens = {
   background: {
-    base: palette.slate[950],
-    top: palette.teal[400],
-    bottom: palette.slate[700],
+    base: "#10161c",
+    top: "#0f8aa3",
+    center: "#123842",
+    bottom: "#10161c",
     scrim: "rgba(0,0,0,0.55)",
   },
   surface: {

@@ -1,21 +1,29 @@
-import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  Alert,
-  Pressable,
-  ScrollView,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
 
+import {
+  Borders,
+  ColorTokens,
+  Interaction,
+  Radii,
+  SemanticStates,
+  Spacing,
+  Typography,
+} from "../../../constants/theme";
+import {
+  Card,
+  NoticeCard,
+  PrimaryButton,
+  Screen,
+  SecondaryButton,
+  ToolPageHeader,
+} from "../../ui/primitives";
 import {
   clearStoredProfile,
   saveStoredProfile,
   type StoredUserProfile,
 } from "../../services/userService";
-import { styles } from "../../ui/flashmedicStyles";
 
 function makeRandomAnonName() {
   const n = Math.floor(1000 + Math.random() * 9000);
@@ -32,25 +40,20 @@ type Props = {
   headingFont: number;
   subtitleFont: number;
   buttonFont: number;
-
   firebaseUid: string | null;
-
   profile: UserProfile | null;
-  setProfile: (p: UserProfile) => void;
-
+  setProfile: (profile: UserProfile) => void;
   onBack: () => void;
 };
 
 export default function ProfileScreen({
-  headingFont,
-  subtitleFont,
-  buttonFont,
   firebaseUid,
   profile,
   setProfile,
   onBack,
 }: Props) {
   const [nickname, setNickname] = useState(profile?.nickname ?? "");
+  const [focused, setFocused] = useState(false);
 
   useEffect(() => {
     setNickname(profile?.nickname ?? "");
@@ -75,7 +78,6 @@ export default function ProfileScreen({
       nickname: name,
       isAnonymous: false,
     };
-
     setProfile(updated);
 
     const toStore: StoredUserProfile = {
@@ -83,7 +85,6 @@ export default function ProfileScreen({
       nickname: name,
       isAnonymous: false,
     };
-
     await saveStoredProfile(toStore);
 
     Alert.alert("Gemt ✅", "Dit kaldenavn er opdateret.");
@@ -101,14 +102,12 @@ export default function ProfileScreen({
           style: "destructive",
           onPress: async () => {
             await clearStoredProfile();
-
             const newNick = makeRandomAnonName();
             const next: UserProfile = {
               userId: firebaseUid,
               nickname: newNick,
               isAnonymous: true,
             };
-
             setProfile(next);
             setNickname(newNick);
 
@@ -118,7 +117,6 @@ export default function ProfileScreen({
               isAnonymous: true,
             };
             await saveStoredProfile(toStore);
-
             Alert.alert("Nulstil ✅", `Ny anonym profil: ${newNick}`);
           },
         },
@@ -127,106 +125,114 @@ export default function ProfileScreen({
   }, [firebaseUid, setProfile]);
 
   return (
-    <LinearGradient
-      colors={["#0e91a8ff", "#5e6e7eff"]}
-      style={styles.homeBackground}
-    >
+    <Screen>
       <StatusBar style="light" />
-      <ScrollView contentContainerStyle={styles.homeContainer}>
-        <View style={styles.headerRow}>
-          <Text
-            style={[
-              styles.appTitle,
-              { fontSize: headingFont, color: "#f8f9fa" },
-            ]}
-          >
-            Profil
-          </Text>
+      <ToolPageHeader
+        backLabel="Tilbage til forsiden"
+        onBack={onBack}
+        subtitle="Identitet og lokal profil"
+        title="Profil"
+      />
 
-          <Pressable
-            style={[styles.smallButton, { borderColor: "#fff" }]}
-            onPress={onBack}
-            hitSlop={8}
-          >
-            <Text
-              style={[
-                styles.smallButtonText,
-                { color: "#fff", fontSize: buttonFont * 0.9 },
-              ]}
-            >
-              Home
-            </Text>
-          </Pressable>
-        </View>
+      <NoticeCard title="Sådan bruges din profil">
+        Dit officielle Firebase-ID forbinder resultater med global statistik.
+        Kaldenavnet er det navn, andre kan se.
+      </NoticeCard>
 
-        <Text
-          style={[
-            styles.subtitle,
-            {
-              fontSize: subtitleFont,
-              color: "#e9ecef",
-              textAlign: "left",
-              alignSelf: "flex-start",
-            },
-          ]}
-        >
-          Dit officielle userId (Firebase UID) bruges i global statistik.
-          Nickname er frivilligt og kan ændres.
+      <Text style={styles.sectionLabel}>PROFILOPLYSNINGER</Text>
+      <Card variant="subtle" style={styles.profileCard}>
+        <Text style={styles.identityLabel}>Official User ID</Text>
+        <Text selectable style={styles.identityValue}>
+          {firebaseUid ?? "—"}
         </Text>
 
-        <View
-          style={[styles.statsCard, { alignSelf: "stretch", marginTop: 14 }]}
-        >
-          <Text style={styles.statsSectionTitle}>Official User ID</Text>
-          <Text style={[styles.statsLabel, { marginTop: 6 }]}>
-            {firebaseUid ?? "—"}
-          </Text>
+        <View style={styles.divider} />
 
-          <Text style={[styles.statsSectionTitle, { marginTop: 16 }]}>
-            Nickname (valgfri)
-          </Text>
-          <TextInput
-            value={nickname}
-            onChangeText={setNickname}
-            placeholder="Fx ParamedNick"
-            placeholderTextColor="#adb5bd"
-            style={styles.textInput}
-            autoCapitalize="none"
-          />
+        <Text style={styles.inputLabel}>Nickname (valgfri)</Text>
+        <TextInput
+          accessibilityLabel="Kaldenavn"
+          autoCapitalize="none"
+          onBlur={() => setFocused(false)}
+          onChangeText={setNickname}
+          onFocus={() => setFocused(true)}
+          placeholder="Fx ParamedNick"
+          placeholderTextColor={ColorTokens.text.muted}
+          returnKeyType="done"
+          style={[styles.input, focused && styles.inputFocused]}
+          value={nickname}
+        />
+        <Text style={styles.inputHelp}>
+          Navnet gemmes lokalt og bruges fremover på leaderboardet.
+        </Text>
+        <PrimaryButton label="Gem nickname" onPress={save} />
 
-          <Pressable
-            style={[
-              styles.bigButton,
-              {
-                backgroundColor: "#1c7ed6",
-                marginTop: 14,
-                alignSelf: "stretch",
-              },
-            ]}
-            onPress={save}
-          >
-            <Text style={[styles.bigButtonText, { fontSize: buttonFont }]}>
-              Gem nickname
-            </Text>
-          </Pressable>
-
-          <Pressable
-            style={[
-              styles.bigButton,
-              {
-                backgroundColor: "#e03131",
-                marginTop: 10,
-                alignSelf: "stretch",
-              },
-            ]}
-            onPress={resetLocalProfile}
-          >
-            <Text style={[styles.bigButtonText, { fontSize: buttonFont }]}>
-              Nulstil profil
-            </Text>
-          </Pressable>
-        </View>
-      </ScrollView>
-    </LinearGradient>
+        <SecondaryButton
+          label="Nulstil profil"
+          onPress={resetLocalProfile}
+          style={styles.resetButton}
+        />
+      </Card>
+    </Screen>
   );
 }
+
+const styles = StyleSheet.create({
+  sectionLabel: {
+    color: ColorTokens.accent.muted,
+    fontSize: Typography.sizes.caption,
+    lineHeight: Typography.lineHeights.caption,
+    fontWeight: Typography.weights.heavy,
+    letterSpacing: 0.8,
+    marginTop: Spacing.xl,
+    marginBottom: Spacing.xs,
+  },
+  profileCard: { gap: Spacing.sm, marginBottom: Spacing.lg },
+  identityLabel: {
+    color: ColorTokens.text.secondary,
+    fontSize: Typography.sizes.label,
+    lineHeight: Typography.lineHeights.label,
+  },
+  identityValue: {
+    color: ColorTokens.text.primary,
+    fontFamily: Typography.families.mono,
+    fontSize: Typography.sizes.label,
+    lineHeight: Typography.lineHeights.body,
+  },
+  divider: {
+    height: Borders.hairline,
+    backgroundColor: ColorTokens.border.divider,
+    marginVertical: Spacing.xs,
+  },
+  inputLabel: {
+    color: ColorTokens.text.primary,
+    fontSize: Typography.sizes.label,
+    lineHeight: Typography.lineHeights.label,
+    fontWeight: Typography.weights.semibold,
+    marginTop: Spacing.xs,
+  },
+  input: {
+    minHeight: Interaction.minimumTouchTarget,
+    borderRadius: Radii.md,
+    borderWidth: Borders.hairline,
+    borderColor: ColorTokens.border.default,
+    backgroundColor: ColorTokens.surface.inverse,
+    color: ColorTokens.text.primary,
+    fontSize: Typography.sizes.body,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.sm,
+  },
+  inputFocused: {
+    borderColor: ColorTokens.interaction.focus,
+    backgroundColor: ColorTokens.accent.surface,
+  },
+  inputHelp: {
+    color: ColorTokens.text.secondary,
+    fontSize: Typography.sizes.caption,
+    lineHeight: Typography.lineHeights.caption,
+    marginBottom: Spacing.xs,
+  },
+  resetButton: {
+    borderColor: SemanticStates.danger.foreground,
+    backgroundColor: "rgba(250,82,82,0.12)",
+  },
+});

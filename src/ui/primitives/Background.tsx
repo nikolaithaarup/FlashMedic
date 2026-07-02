@@ -26,11 +26,11 @@ export function Background({
     <View style={[styles.root, style]}>
       <LinearGradient
         colors={[
-          ColorTokens.background.base,
-          "#16262d",
-          ColorTokens.background.base,
+          ColorTokens.background.top,
+          ColorTokens.background.center,
+          ColorTokens.background.bottom,
         ]}
-        end={{ x: 1, y: 1 }}
+        end={{ x: 0.82, y: 1 }}
         pointerEvents="none"
         start={{ x: 0, y: 0 }}
         style={StyleSheet.absoluteFillObject}
@@ -60,13 +60,13 @@ const styles = StyleSheet.create({
   swirlLayer: {
     ...StyleSheet.absoluteFillObject,
     overflow: "hidden",
-    opacity: 0.58,
+    opacity: 0.48,
   },
-  homeSwirls: { opacity: 1 },
+  homeSwirls: { opacity: 0.72 },
   swirl: {
     position: "absolute",
     borderWidth: 1,
-    borderColor: "rgba(77,171,247,0.11)",
+    borderColor: "rgba(77,171,247,0.10)",
     borderRadius: 999,
   },
   swirlOne: {
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     height: 150,
     top: 108,
     right: -230,
-    borderColor: "rgba(14,145,168,0.13)",
+    borderColor: "rgba(14,145,168,0.11)",
     transform: [{ rotate: "-17deg" }],
   },
   swirlThree: {
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     height: 115,
     top: 150,
     left: -40,
-    borderColor: "rgba(77,171,247,0.07)",
+    borderColor: "rgba(77,171,247,0.06)",
     transform: [{ rotate: "5deg" }],
   },
 });
