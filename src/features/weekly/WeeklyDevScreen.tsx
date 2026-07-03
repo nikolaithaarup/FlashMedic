@@ -249,10 +249,7 @@ export default function WeeklyDevScreen({
   };
 
   return (
-    <Background
-      colors={["#0e91a8ff", "#5e6e7eff"]}
-      style={styles.homeBackground}
-    >
+    <Background style={styles.homeBackground}>
       <StatusBar style="light" />
       <ScrollView
         contentContainerStyle={[styles.homeContainer, styles.safeTopContainer]}

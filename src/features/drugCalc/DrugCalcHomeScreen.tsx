@@ -4,7 +4,7 @@ import React, { useMemo, useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
 
 import { styles } from "../../ui/flashmedicStyles";
-import { Background } from "../../ui/primitives";
+import { Background, ToolPageHeader } from "../../ui/primitives";
 import { DRUG_TOPICS } from "./drugCalcContent";
 
 // Accept both strings and objects like {id,title,desc}
@@ -122,7 +122,6 @@ function Collapsible({
 }
 
 export default function DrugCalcHomeScreen({
-  headingFont,
   subtitleFont,
   buttonFont,
   onBackHome,
@@ -217,39 +216,15 @@ export default function DrugCalcHomeScreen({
   const [openSectionId, setOpenSectionId] = useState<string>("");
 
   return (
-    <Background
-      colors={["#0e91a8ff", "#5e6e7eff"]}
-      style={styles.homeBackground}
-    >
+    <Background style={styles.homeBackground}>
       <StatusBar style="light" />
       <ScrollView contentContainerStyle={styles.homeContainer}>
-        <View style={styles.headerRow}>
-          <Text
-            style={[
-              styles.appTitle,
-              { fontSize: headingFont, color: "#f8f9fa" },
-            ]}
-            numberOfLines={1}
-            adjustsFontSizeToFit
-          >
-            Lægemiddelregning
-          </Text>
-
-          <Pressable
-            style={[styles.smallButton, { borderColor: "#fff" }]}
-            onPress={onBackHome}
-            hitSlop={8}
-          >
-            <Text
-              style={[
-                styles.smallButtonText,
-                { color: "#fff", fontSize: buttonFont * 0.9 },
-              ]}
-            >
-              Home
-            </Text>
-          </Pressable>
-        </View>
+        <ToolPageHeader
+          backLabel="Tilbage til forsiden"
+          onBack={onBackHome}
+          subtitle="Teori og træningsopgaver"
+          title="Lægemiddelregning"
+        />
 
         <Text
           style={[

@@ -4,7 +4,7 @@ import React, { useMemo, useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
 
 import { styles } from "../../ui/flashmedicStyles";
-import { Background } from "../../ui/primitives";
+import { Background, ToolPageHeader } from "../../ui/primitives";
 import { DRUG_TOPICS, THEORY, type DrugCalcTopic } from "./drugCalcContent";
 
 type Props = {
@@ -15,9 +15,6 @@ type Props = {
 };
 
 export function DrugCalcTheoryScreen({
-  headingFont,
-  subtitleFont,
-  buttonFont,
   onBack,
 }: Props) {
   const [topic, setTopic] = useState<DrugCalcTopic>("strength");
@@ -25,48 +22,16 @@ export function DrugCalcTheoryScreen({
   const section = useMemo(() => THEORY.find((s) => s.topic === topic), [topic]);
 
   return (
-    <Background
-      colors={["#0e91a8ff", "#5e6e7eff"]}
-      style={styles.homeBackground}
-    >
+    <Background style={styles.homeBackground}>
       <StatusBar style="light" />
       <ScrollView
         contentContainerStyle={[styles.homeContainer, styles.safeTopContainer]}
       >
-        <View style={styles.headerRow}>
-          <View style={{ flex: 1 }}>
-            <Text
-              style={[
-                styles.appTitle,
-                { fontSize: headingFont, color: "#f8f9fa" },
-              ]}
-              numberOfLines={1}
-              adjustsFontSizeToFit
-            >
-              Lægemiddelregning
-            </Text>
-            <View style={styles.subHeaderRow}>
-              <Text style={[styles.subHeaderText, { fontSize: subtitleFont }]}>
-                Teori
-              </Text>
-            </View>
-          </View>
-
-          <Pressable
-            style={[styles.smallButton, { borderColor: "#fff" }]}
-            onPress={onBack}
-            hitSlop={8}
-          >
-            <Text
-              style={[
-                styles.smallButtonText,
-                { color: "#fff", fontSize: buttonFont * 0.9 },
-              ]}
-            >
-              Tilbage
-            </Text>
-          </Pressable>
-        </View>
+        <ToolPageHeader
+          onBack={onBack}
+          subtitle="Forklaringer og gennemregnede eksempler"
+          title="Lægemiddelregning · Teori"
+        />
 
         {/* Topic picker */}
         <View

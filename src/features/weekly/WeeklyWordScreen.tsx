@@ -422,10 +422,7 @@ export function WeeklyWordScreen({
 
   // ---------- Render ----------
   return (
-    <Background
-      colors={["#0e91a8ff", "#5e6e7eff"]}
-      style={styles.homeBackground}
-    >
+    <Background style={styles.homeBackground}>
       <StatusBar style="light" />
       <ScrollView
         contentContainerStyle={[styles.homeContainer, styles.safeTopContainer]}
@@ -448,11 +445,13 @@ export function WeeklyWordScreen({
           </Text>
 
           <Pressable
+            accessibilityLabel="Tilbage til Weekly Challenges"
+            accessibilityRole="button"
             style={styles.gameCloseButton}
             onPress={handleBack}
             hitSlop={10}
           >
-            <Text style={styles.gameCloseButtonText}>✕</Text>
+            <Text style={styles.gameCloseButtonText}>‹</Text>
           </Pressable>
         </View>
 

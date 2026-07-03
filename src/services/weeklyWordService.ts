@@ -1,7 +1,7 @@
 // src/services/weeklyWordService.ts
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
-import { getActiveWeekKey } from "./weeklyIndexService";
+import { getWeeklyKeyCandidates } from "./weeklyIndexService";
 
 export type WeeklyWordRound = {
   round: number;
@@ -129,9 +129,11 @@ export async function loadThisWeeksWordPack(): Promise<{
   weekKey: string;
   pack: WeeklyWordPack;
 } | null> {
-  const activeWeekKey = await getActiveWeekKey();
-  if (!activeWeekKey) return null;
-  return await loadWordPackByWeekKey(activeWeekKey);
+  for (const weekKey of await getWeeklyKeyCandidates()) {
+    const result = await loadWordPackByWeekKey(weekKey);
+    if (result) return result;
+  }
+  return null;
 }
 
 export function pickWordFromRound(round: WeeklyWordRound): string | null {

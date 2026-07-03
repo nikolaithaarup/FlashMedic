@@ -6,7 +6,7 @@ module.exports = defineConfig([
   expoConfig,
 
   {
-    ignores: ["dist/*"],
+    ignores: ["dist/*", "src/legacyRouterApp/**"],
 
     rules: {
       "no-unused-vars": "warn",

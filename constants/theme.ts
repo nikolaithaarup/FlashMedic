@@ -57,9 +57,9 @@ const palette = {
 export const ColorTokens = {
   background: {
     base: "#10161c",
-    top: "#0b5f72",
-    center: "#102f38",
-    bottom: "#10161c",
+    top: "#083f4f",
+    center: "#0d2f38",
+    bottom: "#0d141b",
     scrim: "rgba(0,0,0,0.55)",
   },
   surface: {
@@ -88,6 +88,9 @@ export const ColorTokens = {
     strong: "rgba(255,255,255,0.80)",
     onSurface: palette.slate[400],
     divider: "rgba(255,255,255,0.12)",
+  },
+  shadow: {
+    color: "#071015",
   },
   interaction: {
     pressed: "rgba(0,0,0,0.18)",

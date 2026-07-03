@@ -1,64 +1,54 @@
-// src/services/weeklyIndexService.ts
 import { doc, getDoc } from "firebase/firestore";
+
 import { db } from "../firebase/firebase";
+import {
+  getCurrentIsoWeekInfo,
+  getLegacyWeekKeyCandidates,
+} from "../utils/week";
 
 type WeeklyIndexCurrent = {
   weekId?: string;
   weekKey?: string;
-  overrideWeekKey?: string; // optional manual override for testing
+  overrideWeekKey?: string;
 };
 
-function getIsoWeekKey(date = new Date()): string {
-  const d = new Date(
-    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()),
-  );
-
-  // Thursday decides ISO year
-  const dayNum = d.getUTCDay() || 7;
-  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
-
-  const isoYear = d.getUTCFullYear();
-  const yearStart = new Date(Date.UTC(isoYear, 0, 1));
-  const weekNo = Math.ceil(
-    ((d.getTime() - yearStart.getTime()) / 86400000 + 1) / 7,
-  );
-
-  return `${isoYear}-W${String(weekNo).padStart(2, "0")}`;
+async function loadWeeklyIndex(): Promise<WeeklyIndexCurrent | null> {
+  const snap = await getDoc(doc(db, "weekly_index", "current"));
+  return snap.exists() ? (snap.data() as WeeklyIndexCurrent) : null;
 }
 
-export async function getActiveWeekId(): Promise<string | null> {
-  const ref = doc(db, "weekly_index", "current");
-  const snap = await getDoc(ref);
-
-  if (!snap.exists()) {
-    return getIsoWeekKey();
-  }
-
-  const data = snap.data() as WeeklyIndexCurrent;
-  return data.overrideWeekKey
-    ? String(data.overrideWeekKey)
-    : data.weekId
-      ? String(data.weekId)
-      : getIsoWeekKey();
+function cleanKey(value: unknown): string | null {
+  return typeof value === "string" && value.trim() ? value.trim() : null;
 }
 
-export async function getActiveWeekKey(): Promise<string | null> {
-  const ref = doc(db, "weekly_index", "current");
-  const snap = await getDoc(ref);
+export async function getActiveWeekId(date = new Date()): Promise<string> {
+  const index = await loadWeeklyIndex();
+  return (
+    cleanKey(index?.overrideWeekKey) ?? getCurrentIsoWeekInfo(date).weekKey
+  );
+}
 
-  if (!snap.exists()) {
-    return getIsoWeekKey();
-  }
+export async function getActiveWeekKey(date = new Date()): Promise<string> {
+  return getActiveWeekId(date);
+}
 
-  const data = snap.data() as WeeklyIndexCurrent;
+/**
+ * Current ISO key first, followed by existing pointer/legacy keys. This makes
+ * normal weekly rotation automatic without breaking already seeded data.
+ */
+export async function getWeeklyKeyCandidates(
+  date = new Date(),
+): Promise<string[]> {
+  const index = await loadWeeklyIndex();
+  const override = cleanKey(index?.overrideWeekKey);
+  if (override) return [override];
 
-  if (data.overrideWeekKey) {
-    return String(data.overrideWeekKey);
-  }
+  const candidates = [
+    getCurrentIsoWeekInfo(date).weekKey,
+    cleanKey(index?.weekKey),
+    cleanKey(index?.weekId),
+    ...getLegacyWeekKeyCandidates(date),
+  ].filter((key): key is string => key !== null);
 
-  if (data.weekKey) {
-    return String(data.weekKey);
-  }
-
-  return getIsoWeekKey();
+  return [...new Set(candidates)];
 }

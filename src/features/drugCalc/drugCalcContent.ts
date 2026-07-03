@@ -5,8 +5,12 @@ export type DrugCalcTopic =
   | "dose"
   | "volume"
   | "percentage"
+  | "conversion"
+  | "tablets"
+  | "dilution"
   | "drops"
   | "infusion"
+  | "oxygen"
   | "time";
 
 export const DROPS_PER_ML = 20;
@@ -36,6 +40,21 @@ export const DRUG_TOPICS: { id: DrugCalcTopic; title: string; desc: string }[] =
       desc: "Glukose/NaCl: g i volumen og omvendt.",
     },
     {
+      id: "conversion",
+      title: "Enhedsomregning (ug, mg, g, mL, L)",
+      desc: "Træn sikre omregninger mellem almindelige enheder.",
+    },
+    {
+      id: "tablets",
+      title: "Tabletter",
+      desc: "Beregn antal tabletter ud fra ordination og tabletstyrke.",
+    },
+    {
+      id: "dilution",
+      title: "Fortynding",
+      desc: "Find slutkoncentration efter en enkel fortynding.",
+    },
+    {
       id: "drops",
       title: "Dråber (dr/min, dr/mL)",
       desc: `Dropset: ${DROPS_PER_ML} dr pr. mL.`,
@@ -44,6 +63,11 @@ export const DRUG_TOPICS: { id: DrugCalcTopic; title: string; desc: string }[] =
       id: "infusion",
       title: "Infusion (mL/t, mg/t, ug/min)",
       desc: "Hastigheder, blandinger, run-rate.",
+    },
+    {
+      id: "oxygen",
+      title: "Iltbeholdning (teoretisk varighed)",
+      desc: "Beregn estimeret varighed ud fra tryk, størrelse og flow.",
     },
     {
       id: "time",
@@ -151,6 +175,68 @@ export const THEORY: TheorySection[] = [
   },
 
   {
+    topic: "conversion",
+    title: "Enhedsomregning: mikrogram, milligram, gram og liter",
+    bullets: [
+      "1 g = 1000 mg, og 1 mg = 1000 ug.",
+      "1 L = 1000 mL.",
+      "Går du fra en stor enhed til en mindre, ganger du med 1000.",
+      "Går du fra en lille enhed til en større, dividerer du med 1000.",
+      "Skriv altid enheden ved hvert mellemtrin for at opdage fejl.",
+    ],
+    workedExamples: [
+      {
+        title: "0,25 mg til mikrogram",
+        steps: ["0,25 × 1000 = 250 ug"],
+      },
+      {
+        title: "750 mL til liter",
+        steps: ["750 ÷ 1000 = 0,75 L"],
+      },
+    ],
+  },
+
+  {
+    topic: "tablets",
+    title: "Tabletter: ordineret dosis og tabletstyrke",
+    bullets: [
+      "Antal tabletter = ordineret dosis ÷ styrke pr. tablet.",
+      "Kontrollér at dosis og tabletstyrke står i samme enhed.",
+      "Del kun tabletter, når præparatet og lokale retningslinjer tillader det.",
+    ],
+    workedExamples: [
+      {
+        title: "Ordination 1000 mg, tabletter á 500 mg",
+        steps: ["1000 ÷ 500 = 2 tabletter"],
+      },
+      {
+        title: "Ordination 750 mg, tabletter á 500 mg",
+        steps: ["750 ÷ 500 = 1,5 tablet"],
+      },
+    ],
+  },
+
+  {
+    topic: "dilution",
+    title: "Fortynding: find slutkoncentrationen",
+    bullets: [
+      "Ved en enkel fortynding ændres stofmængden ikke; kun totalvolumen ændres.",
+      "Slutstyrke = samlet stofmængde ÷ samlet volumen.",
+      "Medregn både lægemiddelvolumen og tilsat fortyndingsvæske.",
+    ],
+    workedExamples: [
+      {
+        title: "10 mg fortyndes til et totalvolumen på 20 mL",
+        steps: ["10 mg ÷ 20 mL = 0,5 mg/mL"],
+      },
+      {
+        title: "100 mg i et samlet volumen på 50 mL",
+        steps: ["100 mg ÷ 50 mL = 2 mg/mL"],
+      },
+    ],
+  },
+
+  {
     topic: "drops",
     title: "Dr: omregning mellem dr/min og mL/time",
     bullets: [
@@ -198,6 +284,22 @@ export const THEORY: TheorySection[] = [
           "V (mL/min) = D/S = 20 / 1000 = 0,02 mL/min",
           "mL/time = 0,02 × 60 = 1,2 mL/time",
         ],
+      },
+    ],
+  },
+
+  {
+    topic: "oxygen",
+    title: "Iltbeholdning: teoretisk varighed",
+    bullets: [
+      "Tilgængelige liter ≈ flaskestørrelse (L) × tryk (bar).",
+      "Varighed i minutter = tilgængelige liter ÷ flow (L/min).",
+      "Resultatet er et træningsestimat. Reserve, regulator og lokale procedurer skal altid medregnes i praksis.",
+    ],
+    workedExamples: [
+      {
+        title: "2 L flaske ved 150 bar og flow 10 L/min",
+        steps: ["2 × 150 = 300 L", "300 ÷ 10 = 30 minutter teoretisk"],
       },
     ],
   },
@@ -418,6 +520,90 @@ export function generateDrugCalcQuestion(
     };
   }
 
+  // ---------- conversion ----------
+  if (topic === "conversion") {
+    const kind = pick(["mg_to_ug", "g_to_mg", "ml_to_l"] as const);
+
+    if (kind === "mg_to_ug") {
+      const mg = pick([0.1, 0.25, 0.5, 1.5, 2.5]);
+      const ug = mg * 1000;
+      return {
+        id: counter++,
+        topic,
+        text: `Omregn ${mg} mg til mikrogram (ug).`,
+        correctAnswer: ug,
+        unit: "ug",
+        hint: "1 mg = 1000 ug.",
+        explanation: `${mg} × 1000 = ${ug} ug`,
+        tolerance: 0.01,
+      };
+    }
+
+    if (kind === "g_to_mg") {
+      const grams = pick([0.5, 1, 1.5, 2, 5]);
+      const mg = grams * 1000;
+      return {
+        id: counter++,
+        topic,
+        text: `Omregn ${grams} g til mg.`,
+        correctAnswer: mg,
+        unit: "mg",
+        hint: "1 g = 1000 mg.",
+        explanation: `${grams} × 1000 = ${mg} mg`,
+        tolerance: 0.01,
+      };
+    }
+
+    const ml = pick([250, 500, 750, 1000, 1500]);
+    const liters = ml / 1000;
+    return {
+      id: counter++,
+      topic,
+      text: `Omregn ${ml} mL til liter.`,
+      correctAnswer: liters,
+      unit: "L",
+      hint: "1000 mL = 1 L.",
+      explanation: `${ml} ÷ 1000 = ${roundTo(liters, 2)} L`,
+      tolerance: 0.01,
+    };
+  }
+
+  // ---------- tablets ----------
+  if (topic === "tablets") {
+    const tabletStrength = pick([250, 500, 1000]);
+    const tabletCount = pick([0.5, 1, 1.5, 2, 3]);
+    const prescribedMg = tabletStrength * tabletCount;
+
+    return {
+      id: counter++,
+      topic,
+      text: `Ordination: ${prescribedMg} mg. Hver tablet indeholder ${tabletStrength} mg.\nHvor mange tabletter svarer det til?`,
+      correctAnswer: tabletCount,
+      unit: "tabletter",
+      hint: "Antal tabletter = ordineret dosis ÷ styrke pr. tablet.",
+      explanation: `${prescribedMg} ÷ ${tabletStrength} = ${tabletCount} tabletter`,
+      tolerance: 0.01,
+    };
+  }
+
+  // ---------- dilution ----------
+  if (topic === "dilution") {
+    const drugMg = pick([10, 20, 50, 100, 200]);
+    const totalMl = pick([10, 20, 50, 100]);
+    const finalStrength = drugMg / totalMl;
+
+    return {
+      id: counter++,
+      topic,
+      text: `${drugMg} mg lægemiddel fortyndes til et samlet volumen på ${totalMl} mL.\nHvad er slutstyrken?`,
+      correctAnswer: finalStrength,
+      unit: "mg/mL",
+      hint: "Slutstyrke = samlet stofmængde ÷ samlet volumen.",
+      explanation: `${drugMg} ÷ ${totalMl} = ${roundTo(finalStrength, 2)} mg/mL`,
+      tolerance: 0.02,
+    };
+  }
+
   // ---------- drops ----------
   if (topic === "drops") {
     const which = pick(["to_mL_h", "to_dr_min"] as const);
@@ -477,6 +663,26 @@ export function generateDrugCalcQuestion(
         3,
       )} mL/min → ×60 = ${roundTo(mlH, 2)} mL/time`,
       tolerance: 0.05,
+    };
+  }
+
+  // ---------- oxygen ----------
+  if (topic === "oxygen") {
+    const cylinderLiters = pick([2, 3, 5, 10]);
+    const pressureBar = pick([100, 120, 150, 180, 200]);
+    const flowLitersPerMinute = pick([5, 10, 15]);
+    const durationMinutes =
+      (cylinderLiters * pressureBar) / flowLitersPerMinute;
+
+    return {
+      id: counter++,
+      topic,
+      text: `En ${cylinderLiters} L iltflaske viser ${pressureBar} bar. Flowet er ${flowLitersPerMinute} L/min.\nHvor mange minutter rækker flasken teoretisk?`,
+      correctAnswer: durationMinutes,
+      unit: "minutter",
+      hint: "Varighed = (flaskestørrelse × tryk) ÷ flow.",
+      explanation: `(${cylinderLiters} × ${pressureBar}) ÷ ${flowLitersPerMinute} = ${roundTo(durationMinutes, 1)} minutter. Husk reserve og lokale procedurer i praksis.`,
+      tolerance: 0.1,
     };
   }
 

@@ -118,14 +118,14 @@ export default function FlashcardsHomeScreen({
 
       <Card variant="subtle" style={styles.allSubjectsCard}>
         <View style={styles.allSubjectsCopy}>
-          <Text style={styles.allSubjectsTitle}>Alle fag</Text>
+          <Text style={styles.allSubjectsTitle}>Træn alle fag</Text>
           <Text style={styles.allSubjectsDescription}>
-            Start direkte med kort fra hele biblioteket.
+            Blandede flashcards fra hele FlashMedic.
           </Text>
         </View>
         <PrimaryButton
           disabled={disableAllSubjectsQuiz}
-          label="Start"
+          label="Start blandet træning"
           onPress={onStartAllSubjectsQuiz}
           style={styles.allSubjectsButton}
         />
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
     lineHeight: Typography.lineHeights.label,
     marginTop: 2,
   },
-  allSubjectsButton: { minWidth: 96 },
+  allSubjectsButton: { minWidth: 176 },
   sectionHeader: { marginTop: Spacing.xl, marginBottom: Spacing.sm },
   sectionLabel: {
     color: ColorTokens.accent.muted,

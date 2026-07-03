@@ -13,8 +13,6 @@ import { ColorTokens } from "../../../constants/theme";
 type BackgroundProps = PropsWithChildren<{
   variant?: "default" | "home";
   style?: StyleProp<ViewStyle>;
-  /** Transitional compatibility for screens migrating from LinearGradient. */
-  colors?: readonly string[];
 }>;
 
 export function Background({
@@ -31,14 +29,12 @@ export function Background({
           ColorTokens.background.bottom,
         ]}
         end={{ x: 0.82, y: 1 }}
-        pointerEvents="none"
         start={{ x: 0, y: 0 }}
-        style={StyleSheet.absoluteFillObject}
+        style={[StyleSheet.absoluteFillObject, styles.decorativeLayer]}
       />
       <View
         accessibilityElementsHidden
         importantForAccessibility="no-hide-descendants"
-        pointerEvents="none"
         style={[styles.swirlLayer, variant === "home" && styles.homeSwirls]}
       >
         <View style={[styles.swirl, styles.swirlOne]} />
@@ -57,10 +53,12 @@ const styles = StyleSheet.create({
     ...(Platform.OS === "web" ? ({ minHeight: "100vh" } as any) : null),
   },
   content: { flex: 1, backgroundColor: "transparent" },
+  decorativeLayer: { pointerEvents: "none" },
   swirlLayer: {
     ...StyleSheet.absoluteFillObject,
     overflow: "hidden",
     opacity: 0.72,
+    pointerEvents: "none",
   },
   homeSwirls: { opacity: 0.82 },
   swirl: {

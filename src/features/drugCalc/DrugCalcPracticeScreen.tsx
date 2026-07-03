@@ -12,7 +12,7 @@ import {
 } from "react-native";
 
 import { styles } from "../../ui/flashmedicStyles";
-import { Background } from "../../ui/primitives";
+import { Background, ToolPageHeader } from "../../ui/primitives";
 import type { DrugCalcQuestion, DrugCalcTopic } from "./drugCalcContent";
 
 type TopicMeta = { id: DrugCalcTopic; title: string; desc: string };
@@ -40,8 +40,6 @@ type Props = {
 };
 
 export function DrugCalcPracticeScreen({
-  headingFont,
-  subtitleFont,
   buttonFont,
   currentDrugQuestion,
   drugAnswer,
@@ -82,10 +80,7 @@ export function DrugCalcPracticeScreen({
   );
 
   return (
-    <Background
-      colors={["#0e91a8ff", "#5e6e7eff"]}
-      style={styles.homeBackground}
-    >
+    <Background style={styles.homeBackground}>
       <StatusBar style="light" />
 
       <KeyboardAvoidingView
@@ -102,51 +97,11 @@ export function DrugCalcPracticeScreen({
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
-          <View style={styles.headerRow}>
-            <View style={{ flex: 1, minWidth: 0, paddingRight: 8 }}>
-              <Text
-                style={[
-                  styles.appTitle,
-                  {
-                    fontSize: headingFont,
-                    color: "#f8f9fa",
-                    textAlign: "left",
-                    marginBottom: 4,
-                  },
-                ]}
-              >
-                Lægemiddelregning
-              </Text>
-
-              <View style={styles.subHeaderRow}>
-                <Text
-                  style={[styles.subHeaderText, { fontSize: subtitleFont }]}
-                  numberOfLines={1}
-                >
-                  Opgaver
-                </Text>
-              </View>
-            </View>
-
-            <Pressable
-              style={[
-                styles.smallButton,
-                { borderColor: "#fff", alignSelf: "flex-start" },
-              ]}
-              onPress={onBack}
-              hitSlop={8}
-            >
-              <Text
-                style={[
-                  styles.smallButtonText,
-                  { color: "#fff", fontSize: buttonFont * 0.9 },
-                ]}
-                numberOfLines={1}
-              >
-                Tilbage
-              </Text>
-            </Pressable>
-          </View>
+          <ToolPageHeader
+            onBack={onBack}
+            subtitle="Vælg emner og løs opgaver"
+            title="Lægemiddelregning · Opgaver"
+          />
 
           <View
             style={[

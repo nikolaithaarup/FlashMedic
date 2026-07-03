@@ -1,7 +1,7 @@
 // src/services/weeklyMatchService.ts
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
-import { getActiveWeekKey } from "./weeklyIndexService";
+import { getWeeklyKeyCandidates } from "./weeklyIndexService";
 
 export type WeeklyMatchPair = {
   id: string; // IMPORTANT: must be stable + unique within round
@@ -65,7 +65,9 @@ export async function loadThisWeeksMatchPack(): Promise<{
   weekKey: string;
   pack: WeeklyMatchPack;
 } | null> {
-  const activeWeekKey = await getActiveWeekKey();
-  if (!activeWeekKey) return null;
-  return await loadMatchPackByWeekKey(activeWeekKey);
+  for (const weekKey of await getWeeklyKeyCandidates()) {
+    const result = await loadMatchPackByWeekKey(weekKey);
+    if (result) return result;
+  }
+  return null;
 }
