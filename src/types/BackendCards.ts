@@ -1,4 +1,10 @@
-// src/types/BackendCard.ts
+import type {
+  CardKind,
+  ContentReviewStatus,
+  FlashcardMedia,
+  ScenarioVitals,
+  SourceReference,
+} from "./Learning";
 
 export type Difficulty = "easy" | "medium" | "hard";
 
@@ -30,4 +36,26 @@ export interface BackendCard {
 
   // link to a local asset on the client
   imageKey?: string;
+  imageCaption?: string;
+  imageOrientation?: "portrait" | "landscape" | "rotate-90";
+  schemaVersion?: 1 | 2;
+  kind?: CardKind;
+  learningObjectiveId?: string;
+  rationale?: string;
+  commonMistakes?: string[];
+  prehospitalRelevance?: string;
+  examTip?: string;
+  redFlag?: string;
+  references?: SourceReference[];
+  media?: FlashcardMedia;
+  scenario?: {
+    presentation: string;
+    ageGroup?: "child" | "adult" | "older-adult" | "pregnant";
+    history?: string[];
+    vitals?: ScenarioVitals;
+  };
+  reviewStatus?: ContentReviewStatus;
+  reviewedAt?: string;
+  contentRevision?: number;
+  deckId?: string;
 }
