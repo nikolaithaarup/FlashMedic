@@ -27,19 +27,18 @@ import { auth, db } from "../src/firebase/firebase";
 
 import { useStats } from "../src/features/stats/StatsContext";
 import StatsScreen from "../src/features/stats/StatsScreen";
-import { getPersonalTotals } from "../src/features/stats/statsSelectors";
 
 import WeeklyDevScreen from "../src/features/weekly/WeeklyDevScreen";
-import WeeklyHomeScreen from "../src/features/weekly/WeeklyHomeScreen";
-import WeeklyMatchScreen from "../src/features/weekly/WeeklyMatchScreen";
-import WeeklyMcqScreen from "../src/features/weekly/WeeklyMcqScreen";
-import WeeklyWordScreen from "../src/features/weekly/WeeklyWordScreen";
+import { WeeklyHomeScreen } from "../src/features/weekly/WeeklyHomeScreen";
+import { WeeklyMatchScreen } from "../src/features/weekly/WeeklyMatchScreen";
+import { WeeklyMcqScreen } from "../src/features/weekly/WeeklyMcqScreen";
+import { WeeklyWordScreen } from "../src/features/weekly/WeeklyWordScreen";
 
 import DrugCalcHomeScreen from "../src/features/drugCalc/DrugCalcHomeScreen";
-import DrugCalcPracticeScreen from "../src/features/drugCalc/DrugCalcPracticeScreen";
-import DrugCalcTheoryScreen from "../src/features/drugCalc/DrugCalcTheoryScreen";
+import { DrugCalcPracticeScreen } from "../src/features/drugCalc/DrugCalcPracticeScreen";
+import { DrugCalcTheoryScreen } from "../src/features/drugCalc/DrugCalcTheoryScreen";
 
-import ContactScreen from "../src/features/contact/ContactScreen";
+import { ContactScreen } from "../src/features/contact/ContactScreen";
 import AuthScreen from "../src/features/profile/AuthScreen";
 import ProfileScreen from "../src/features/profile/ProfileScreen";
 
@@ -152,12 +151,6 @@ function scoreCardForQuiz(card: Flashcard, stats?: StatsMap | null): number {
   return accuracy + s.seen * 0.05;
 }
 
-const MAX_STUDENT_CLASS = 60;
-const STUDENT_CLASSES = Array.from(
-  { length: MAX_STUDENT_CLASS },
-  (_, i) => i + 1,
-);
-
 // ---------- MAIN COMPONENT ----------
 
 export default function Index() {
@@ -184,27 +177,7 @@ export default function Index() {
     return `Behandler ${profile.classId}`;
   }, [profile]);
 
-  const { personalStats, markCard, resetPersonalStats } = useStats();
-
-  // ✅ Don’t compute-and-ignore
-  const personalTotals = useMemo(
-    () => getPersonalTotals(personalStats),
-    [personalStats],
-  );
-  // (personalTotals is currently unused in this file, but computed correctly.)
-
-  // Profile edit state (used by your existing ProfileScreen)
-  const [profileEditNickname, setProfileEditNickname] = useState("");
-  const [profileEditClassId, setProfileEditClassId] = useState<number | null>(
-    null,
-  );
-  const [profileEditRole, setProfileEditRole] = useState<UserRole | null>(null);
-  const [profileEditGender, setProfileEditGender] = useState<Gender | null>(
-    null,
-  );
-  const [profileEditRegion, setProfileEditRegion] = useState<Region | null>(
-    null,
-  );
+  const { personalStats, markCard } = useStats();
 
   // -------- Subject selection --------
   const [selectedSubject, setSelectedSubject] = useState<string | null>(null);
@@ -267,13 +240,6 @@ export default function Index() {
 
         setProfile(loadedProfile);
 
-        // Prep edit fields
-        setProfileEditNickname(loadedProfile.nickname);
-        setProfileEditClassId(loadedProfile.classId);
-        setProfileEditRole(loadedProfile.role);
-        setProfileEditGender(loadedProfile.gender);
-        setProfileEditRegion(loadedProfile.region);
-
         setScreen("home");
         return;
       }
@@ -324,17 +290,6 @@ export default function Index() {
 
     return unsubscribe;
   }, []);
-
-  // When entering profile screen, sync edit fields with current profile
-  useEffect(() => {
-    if (screen === "profile" && profile) {
-      setProfileEditNickname(profile.nickname);
-      setProfileEditClassId(profile.classId);
-      setProfileEditRole(profile.role);
-      setProfileEditGender(profile.gender);
-      setProfileEditRegion(profile.region);
-    }
-  }, [screen, profile]);
 
   // -------- Load cards from Firestore --------
   useEffect(() => {
@@ -613,39 +568,6 @@ export default function Index() {
     Linking.openURL(url);
   };
 
-  const handleSendContactEmail = async () => {
-    if (!contactMessage.trim()) {
-      Alert.alert("Besked mangler", "Skriv en besked, før du sender.");
-      return;
-    }
-
-    try {
-      const res = await fetch(`${API_BASE_URL}/contact/send`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: contactName.trim() || "Ukendt bruger",
-          email: contactEmail.trim() || "Ikke oplyst",
-          message: contactMessage.trim(),
-        }),
-      });
-
-      if (!res.ok) throw new Error("Server error");
-
-      Alert.alert("Sendt!", "Din besked er sendt til udvikleren.");
-
-      setContactName("");
-      setContactEmail("");
-      setContactMessage("");
-    } catch (error) {
-      console.error(error);
-      Alert.alert(
-        "Fejl",
-        "Kunne ikke sende beskeden. Tjek internetforbindelsen og prøv igen.",
-      );
-    }
-  };
-
   // ---------- Spaced repetition actions ----------
   const handleMarkKnown = () => {
     if (!currentCard) return;
@@ -658,21 +580,6 @@ export default function Index() {
     markCard((currentCard as any).id, false);
     setUpcoming((prev) => [...prev, currentCard]);
     handleNextQuestion();
-  };
-
-  const handleResetStats = () => {
-    Alert.alert(
-      "Nulstil statistik",
-      "Er du sikker på, at du vil slette al statistik?",
-      [
-        { text: "Annuller", style: "cancel" },
-        {
-          text: "Ja, nulstil",
-          style: "destructive",
-          onPress: () => resetPersonalStats(),
-        },
-      ],
-    );
   };
 
   // ---------- Drug calc helpers ----------
@@ -751,11 +658,6 @@ export default function Index() {
     };
 
     setProfile(newProfile);
-    setProfileEditNickname(newProfile.nickname);
-    setProfileEditClassId(newProfile.classId);
-    setProfileEditRole(newProfile.role);
-    setProfileEditGender(newProfile.gender);
-    setProfileEditRegion(newProfile.region);
 
     const toStore: StoredUserProfile = {
       userId: uid,
