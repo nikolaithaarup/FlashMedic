@@ -11,6 +11,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { ekgImageLookup } from "../../data/ekg/imageLookup";
 import { auth, db } from "../../firebase/firebase";
+import { validateFlashcardDocuments } from "../../services/flashcardValidation";
 import type { Flashcard } from "../../types/Flashcard";
 
 export type TopicGroup = {
@@ -18,42 +19,14 @@ export type TopicGroup = {
   subtopics: string[];
 };
 
-function safeStr(v: unknown) {
-  return String(v ?? "").trim();
-}
-
-function extractFields(card: any): {
-  subject: string;
-  topic: string;
-  subtopic: string;
-} {
-  const subject =
-    safeStr(card?.subject) ||
-    safeStr(card?.fag) ||
-    safeStr(card?.Subject) ||
-    "";
-
-  const topic =
-    safeStr(card?.topic) || safeStr(card?.emne) || safeStr(card?.Topic) || "";
-
-  const subtopic =
-    safeStr(card?.subtopic) ||
-    safeStr(card?.underemne) ||
-    safeStr(card?.subTopic) ||
-    safeStr(card?.Underemne) ||
-    "";
-
-  return { subject, topic, subtopic };
-}
-
 function buildTopicGroupsBySubject(
   cards: Flashcard[],
 ): Record<string, TopicGroup[]> {
   // subject -> topic -> subtopics
   const map = new Map<string, Map<string, Set<string>>>();
 
-  for (const c of cards as any[]) {
-    const { subject, topic, subtopic } = extractFields(c);
+  for (const card of cards) {
+    const { subject, topic = "", subtopic = "" } = card;
     if (!subject || !topic) continue;
 
     if (!map.has(subject)) map.set(subject, new Map());
@@ -83,7 +56,23 @@ function buildTopicGroupsBySubject(
   return out;
 }
 
-async function tryLoadCardsFromFirestore(): Promise<any[]> {
+type RawFlashcardDocument = {
+  data: unknown;
+  fallbackId?: string;
+  source: string;
+};
+
+function documentsFromSnapshot(
+  docs: { id: string; data: () => unknown; ref: { path: string } }[],
+): RawFlashcardDocument[] {
+  return docs.map((document) => ({
+    data: document.data(),
+    fallbackId: document.id,
+    source: document.ref.path,
+  }));
+}
+
+async function tryLoadCardsFromFirestore(): Promise<RawFlashcardDocument[]> {
   // NOTE:
   // - We try multiple likely structures so your app works even if you seeded differently.
   // - If you KNOW your structure, we can simplify later.
@@ -100,7 +89,7 @@ async function tryLoadCardsFromFirestore(): Promise<any[]> {
         snap.size,
         "via collectionGroup(\"cards\")",
       );
-      return snap.docs.map((d) => d.data());
+      return documentsFromSnapshot(snap.docs);
     }
     console.log("[Flashcards] collectionGroup(\"cards\") returned 0 docs");
   } catch (e) {
@@ -114,7 +103,7 @@ async function tryLoadCardsFromFirestore(): Promise<any[]> {
 
     if (!snap.empty) {
       console.log("[Flashcards] Loaded", snap.size, "via collection(\"cards\")");
-      return snap.docs.map((d) => d.data());
+      return documentsFromSnapshot(snap.docs);
     }
     console.log("[Flashcards] collection(\"cards\") returned 0 docs");
   } catch (e) {
@@ -132,7 +121,7 @@ async function tryLoadCardsFromFirestore(): Promise<any[]> {
         snap.size,
         "via collection(\"flashcards\")",
       );
-      return snap.docs.map((d) => d.data());
+      return documentsFromSnapshot(snap.docs);
     }
     console.log("[Flashcards] collection(\"flashcards\") returned 0 docs");
   } catch (e) {
@@ -142,11 +131,18 @@ async function tryLoadCardsFromFirestore(): Promise<any[]> {
   // 4) Deck docs containing { cards: [] }
   try {
     const snap = await getDocs(query(collection(db, "decks"), limit(2000)));
-    const all: any[] = [];
+    const all: RawFlashcardDocument[] = [];
 
-    for (const d of snap.docs) {
-      const data = d.data() as any;
-      if (Array.isArray(data?.cards)) all.push(...data.cards);
+    for (const document of snap.docs) {
+      const data: Record<string, unknown> = document.data();
+      if (!Array.isArray(data.cards)) continue;
+      data.cards.forEach((card, index) => {
+        all.push({
+          data: card,
+          fallbackId: `${document.id}:${index}`,
+          source: `${document.ref.path}.cards[${index}]`,
+        });
+      });
     }
 
     if (all.length > 0) {
@@ -229,13 +225,17 @@ export function useFlashcards() {
         setLoadError(null);
         setLoadingCards(true);
 
-        const rawCards = await withTimeout(tryLoadCardsFromFirestore(), 12000);
+        const rawDocuments = await withTimeout(
+          tryLoadCardsFromFirestore(),
+          12000,
+        );
+        const validCards = validateFlashcardDocuments(rawDocuments);
 
-        const hydrated: Flashcard[] = rawCards.map((c: any) => {
-          if (c?.imageKey && ekgImageLookup[c.imageKey]) {
-            return { ...c, image: ekgImageLookup[c.imageKey] };
+        const hydrated: Flashcard[] = validCards.map((card) => {
+          if (card.imageKey && ekgImageLookup[card.imageKey]) {
+            return { ...card, image: ekgImageLookup[card.imageKey] };
           }
-          return c;
+          return card;
         });
 
         console.log("[Flashcards] Final hydrated count:", hydrated.length);

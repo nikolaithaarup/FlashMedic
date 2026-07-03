@@ -19,4 +19,30 @@ for (const { id } of DRUG_TOPICS) {
   }
 }
 
-console.log(`Validated ${DRUG_TOPICS.length} medication topics.`);
+const toleranceCases = [
+  { user: 1, correct: 1, tolerance: 0.02, expected: true },
+  { user: 1.02, correct: 1, tolerance: 0.02, expected: true },
+  { user: 1.021, correct: 1, tolerance: 0.02, expected: false },
+  { user: 0.49, correct: 0.01, tolerance: 0.02, expected: false },
+  { user: 1.49, correct: 0.51, tolerance: 0.02, expected: false },
+  { user: -1, correct: 1, tolerance: 0.02, expected: false },
+  { user: Number.NaN, correct: 1, tolerance: 0.02, expected: false },
+  { user: Number.POSITIVE_INFINITY, correct: 1, tolerance: 0.02, expected: false },
+] as const;
+
+for (const testCase of toleranceCases) {
+  const actual = isDrugAnswerCorrect(
+    testCase.user,
+    testCase.correct,
+    testCase.tolerance,
+  );
+  if (actual !== testCase.expected) {
+    throw new Error(
+      `Tolerance case failed: ${JSON.stringify(testCase)} returned ${actual}`,
+    );
+  }
+}
+
+console.log(
+  `Validated ${DRUG_TOPICS.length} medication topics and ${toleranceCases.length} tolerance cases.`,
+);

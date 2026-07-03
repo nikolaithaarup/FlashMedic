@@ -31,6 +31,7 @@ import {
 
 type QuizScreenProps = {
   currentCard: Flashcard;
+  completed: boolean;
   historyCount: number;
   upcomingCount: number;
   showAnswer: boolean;
@@ -72,6 +73,7 @@ function toImageUri(source: any): string | null {
 
 export default function QuizScreen({
   currentCard,
+  completed,
   historyCount,
   upcomingCount,
   showAnswer,
@@ -108,7 +110,7 @@ export default function QuizScreen({
         <StatusBar style="light" />
         <ToolPageHeader
           action={
-            historyCount > 0 ? (
+            historyCount > 0 && !completed ? (
               <SecondaryButton
                 label="Forrige"
                 onPress={onPrevious}
@@ -198,7 +200,16 @@ export default function QuizScreen({
           )}
         </Card>
 
-        {!showAnswer ? (
+        {completed ? (
+          <Card variant="subtle" style={styles.completionCard}>
+            <Text style={styles.completionTitle}>Træningen er gennemført</Text>
+            <Text style={styles.completionText}>
+              Det sidste kort er registreret. Du kan nu vende tilbage til
+              forsiden.
+            </Text>
+            <PrimaryButton label="Tilbage til forsiden" onPress={onHome} />
+          </Card>
+        ) : !showAnswer ? (
           <PrimaryButton
             label="Vis svar"
             onPress={() => setShowAnswer(true)}
@@ -348,6 +359,18 @@ const styles = StyleSheet.create({
   },
   answerLabel: { marginTop: Spacing.lg },
   answerCard: { minHeight: 120, justifyContent: "center" },
+  completionCard: { marginTop: Spacing.lg, gap: Spacing.sm },
+  completionTitle: {
+    color: ColorTokens.text.primary,
+    fontSize: Typography.sizes.cardTitle,
+    lineHeight: Typography.lineHeights.cardTitle,
+    fontWeight: Typography.weights.bold,
+  },
+  completionText: {
+    color: ColorTokens.text.secondary,
+    fontSize: Typography.sizes.body,
+    lineHeight: Typography.lineHeights.body,
+  },
   answer: {
     color: ColorTokens.text.onSurface,
     textAlign: "left",

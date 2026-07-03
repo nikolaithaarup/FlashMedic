@@ -1,7 +1,7 @@
 // app/index.tsx
 import * as Linking from "expo-linking";
 import * as MailComposer from "expo-mail-composer";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Alert, useWindowDimensions } from "react-native";
 
 import {
@@ -19,6 +19,7 @@ import {
 } from "../src/features/drugCalc/drugCalcContent";
 
 import { ekgImageLookup } from "../src/data/ekg/imageLookup";
+import { validateFlashcardDocuments } from "../src/services/flashcardValidation";
 import type { Flashcard } from "../src/types/Flashcard";
 
 import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
@@ -43,6 +44,7 @@ import AuthScreen from "../src/features/profile/AuthScreen";
 import ProfileScreen from "../src/features/profile/ProfileScreen";
 
 import FlashcardsHomeScreen from "../src/features/flashcards/FlashcardsHomeScreen";
+import { getQueueAfterFlashcardScore } from "../src/features/flashcards/quizSession";
 import HomeScreen from "../src/features/home/HomeScreen";
 import QuizScreen from "../src/features/quiz/QuizScreen";
 
@@ -188,6 +190,8 @@ export default function Index() {
   const [history, setHistory] = useState<Flashcard[]>([]);
   const [upcoming, setUpcoming] = useState<Flashcard[]>([]);
   const [showAnswer, setShowAnswer] = useState(false);
+  const [quizCompleted, setQuizCompleted] = useState(false);
+  const quizCompletedRef = useRef(false);
 
   // -------- Drug calc state --------
   const [selectedDrugTopics, setSelectedDrugTopics] = useState<DrugCalcTopic[]>(
@@ -317,13 +321,19 @@ export default function Index() {
         const q = query(collectionGroup(db, "cards"));
         const snap = await withTimeout(getDocs(q), 12000);
 
-        const rawCards = snap.docs.map((d) => d.data() as any);
+        const validatedCards = validateFlashcardDocuments(
+          snap.docs.map((document) => ({
+            data: document.data(),
+            fallbackId: document.id,
+            source: document.ref.path,
+          })),
+        );
 
-        const hydrated: Flashcard[] = rawCards.map((c: any) => {
-          if (c.imageKey && ekgImageLookup[c.imageKey]) {
-            return { ...c, image: ekgImageLookup[c.imageKey] };
+        const hydrated: Flashcard[] = validatedCards.map((card) => {
+          if (card.imageKey && ekgImageLookup[card.imageKey]) {
+            return { ...card, image: ekgImageLookup[card.imageKey] };
           }
-          return c;
+          return card;
         });
 
         if (!cancelled) {
@@ -445,6 +455,8 @@ export default function Index() {
     setUpcoming(rest);
     setCurrentCard(first);
     setShowAnswer(false);
+    setQuizCompleted(false);
+    quizCompletedRef.current = false;
     setScreen("quiz");
   };
 
@@ -473,28 +485,24 @@ export default function Index() {
     setUpcoming(rest);
     setCurrentCard(first);
     setShowAnswer(false);
+    setQuizCompleted(false);
+    quizCompletedRef.current = false;
     setScreen("quiz");
   };
 
   // ... (rest of your file is unchanged)
   // KEEP EVERYTHING BELOW EXACTLY AS YOU HAD IT
 
-  const handleNextQuestion = () => {
-    if (!currentCard) return;
-
-    if (upcoming.length === 0) {
-      Alert.alert("Slut", "Du har været igennem alle spørgsmål i denne runde.");
-      return;
-    }
-
+  const advanceToNextCard = (nextCards: Flashcard[]) => {
+    if (!currentCard || nextCards.length === 0) return;
     setHistory((prev) => [...prev, currentCard]);
-    setCurrentCard(upcoming[0]);
-    setUpcoming((prev) => prev.slice(1));
+    setCurrentCard(nextCards[0]);
+    setUpcoming(nextCards.slice(1));
     setShowAnswer(false);
   };
 
   const handlePreviousQuestion = () => {
-    if (!currentCard || history.length === 0) return;
+    if (quizCompleted || !currentCard || history.length === 0) return;
 
     const newHistory = [...history];
     const previous = newHistory.pop()!;
@@ -511,6 +519,8 @@ export default function Index() {
     setShowAnswer(false);
     setHistory([]);
     setUpcoming([]);
+    setQuizCompleted(false);
+    quizCompletedRef.current = false;
   };
 
   // ---------- Report error via MailComposer ----------
@@ -570,16 +580,27 @@ export default function Index() {
 
   // ---------- Spaced repetition actions ----------
   const handleMarkKnown = () => {
-    if (!currentCard) return;
-    markCard((currentCard as any).id, true);
-    handleNextQuestion();
+    if (!currentCard || quizCompletedRef.current) return;
+    const nextCards = getQueueAfterFlashcardScore(currentCard, upcoming, true);
+
+    if (nextCards.length === 0) {
+      quizCompletedRef.current = true;
+      markCard(currentCard.id, true);
+      setQuizCompleted(true);
+      return;
+    }
+    markCard(currentCard.id, true);
+    advanceToNextCard(nextCards);
   };
 
   const handleMarkUnknown = () => {
-    if (!currentCard) return;
-    markCard((currentCard as any).id, false);
-    setUpcoming((prev) => [...prev, currentCard]);
-    handleNextQuestion();
+    if (!currentCard || quizCompletedRef.current) return;
+    markCard(currentCard.id, false);
+
+    // Unknown cards stay in the current session and are shown again.
+    advanceToNextCard(
+      getQueueAfterFlashcardScore(currentCard, upcoming, false),
+    );
   };
 
   // ---------- Drug calc helpers ----------
@@ -724,6 +745,7 @@ export default function Index() {
     return (
       <QuizScreen
         currentCard={currentCard}
+        completed={quizCompleted}
         historyCount={history.length}
         upcomingCount={upcoming.length}
         showAnswer={showAnswer}

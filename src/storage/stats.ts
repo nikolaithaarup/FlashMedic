@@ -7,7 +7,26 @@ export async function loadStats(): Promise<StatsMap> {
   try {
     const raw = await AsyncStorage.getItem(STATS_KEY);
     if (!raw) return {};
-    return JSON.parse(raw);
+    const parsed: unknown = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+      console.warn("Stored flashcard stats have an invalid shape; ignoring them.");
+      return {};
+    }
+
+    const stats: StatsMap = {};
+    for (const [cardId, value] of Object.entries(parsed)) {
+      if (!cardId.trim() || !value || typeof value !== "object") continue;
+
+      const candidate = value as Record<string, unknown>;
+      const seen = toSafeCount(candidate.seen);
+      const correct = toSafeCount(candidate.correct);
+      const incorrect = toSafeCount(candidate.incorrect);
+      const lastSeen =
+        typeof candidate.lastSeen === "string" ? candidate.lastSeen : null;
+
+      stats[cardId] = { seen, correct, incorrect, lastSeen };
+    }
+    return stats;
   } catch (e) {
     console.warn("Failed to load stats", e);
     return {};
@@ -15,11 +34,13 @@ export async function loadStats(): Promise<StatsMap> {
 }
 
 export async function saveStats(stats: StatsMap): Promise<void> {
-  try {
-    await AsyncStorage.setItem(STATS_KEY, JSON.stringify(stats));
-  } catch (e) {
-    console.warn("Failed to save stats", e);
-  }
+  await AsyncStorage.setItem(STATS_KEY, JSON.stringify(stats));
+}
+
+function toSafeCount(value: unknown): number {
+  return typeof value === "number" && Number.isFinite(value) && value >= 0
+    ? Math.floor(value)
+    : 0;
 }
 
 export function updateStatsForCard(

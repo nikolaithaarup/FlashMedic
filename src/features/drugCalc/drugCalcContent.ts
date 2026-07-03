@@ -357,14 +357,26 @@ function roundTo(n: number, decimals: number) {
   return Math.round(n * p) / p;
 }
 
+/**
+ * Drug answers use only the question's explicit absolute tolerance. We do not
+ * infer whole-number rounding: that can accept materially different sub-unit
+ * answers. Generated questions currently expect non-negative quantities.
+ */
 export function isDrugAnswerCorrect(user: number, correct: number, tol = 0.02) {
-  const diff = Math.abs(user - correct);
-  if (diff <= tol) return true;
+  if (
+    !Number.isFinite(user) ||
+    !Number.isFinite(correct) ||
+    !Number.isFinite(tol) ||
+    user < 0 ||
+    correct < 0 ||
+    tol < 0
+  ) {
+    return false;
+  }
 
-  // If user rounds differently (common in practice)
-  if (Math.round(user) === Math.round(correct)) return true;
-
-  return false;
+  const floatingPointMargin =
+    Number.EPSILON * Math.max(1, Math.abs(user), Math.abs(correct)) * 4;
+  return Math.abs(user - correct) <= tol + floatingPointMargin;
 }
 
 export function generateDrugCalcQuestion(

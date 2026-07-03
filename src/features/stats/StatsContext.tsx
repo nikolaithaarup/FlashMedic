@@ -3,7 +3,9 @@ import React, {
   createContext,
   PropsWithChildren,
   useContext,
+  useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 
@@ -16,6 +18,11 @@ import {
 import { loadMatchPackByWeekKey } from "../../services/weeklyMatchService";
 import { loadMcqPackByWeekKey } from "../../services/weeklyMcqService";
 import { loadWordPackByWeekKey } from "../../services/weeklyWordService";
+import {
+  loadPersonalStats,
+  savePersonalStats,
+} from "./statsService";
+import { updateStatsForCard } from "../../storage/stats";
 import type { StatsMap } from "../../types/Stats";
 
 export type { CardStats, StatsMap } from "../../types/Stats";
@@ -62,46 +69,76 @@ function safeText(v: unknown): string | null {
   return s.length > 0 ? s : null;
 }
 
-function safeInt(n: unknown): number {
-  const x = typeof n === "number" && Number.isFinite(n) ? Math.floor(n) : 0;
-  return x < 0 ? 0 : x;
-}
-
 // --------------------
 // Provider
 // --------------------
 export function StatsProvider({ children }: PropsWithChildren) {
   // Personal stats
   const [personalStats, setPersonalStats] = useState<StatsMap>({});
+  const statsHydratedRef = useRef(false);
+  const pendingOperationsRef = useRef<
+    ({ kind: "mark"; cardId: string; known: boolean } | { kind: "reset" })[]
+  >([]);
+  const persistenceQueueRef = useRef<Promise<void>>(Promise.resolve());
+
+  useEffect(() => {
+    let cancelled = false;
+
+    void loadPersonalStats().then((storedStats) => {
+      if (cancelled) return;
+
+      const hydratedStats = pendingOperationsRef.current.reduce<StatsMap>(
+        (current, operation) =>
+          operation.kind === "reset"
+            ? {}
+            : updateStatsForCard(
+                current,
+                operation.cardId,
+                operation.known,
+              ),
+        storedStats,
+      );
+
+      pendingOperationsRef.current = [];
+      statsHydratedRef.current = true;
+      setPersonalStats(hydratedStats);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!statsHydratedRef.current) return;
+
+    const snapshot = personalStats;
+    persistenceQueueRef.current = persistenceQueueRef.current
+      .catch(() => undefined)
+      .then(() => savePersonalStats(snapshot))
+      .catch((error: unknown) => {
+        console.warn(
+          "Failed to persist flashcard stats; keeping in-memory progress.",
+          error,
+        );
+      });
+  }, [personalStats]);
 
   const markCard = (cardId: string, known: boolean) => {
     if (!cardId) return;
 
-    setPersonalStats((prev) => {
-      const current = prev[cardId] ?? {
-        seen: 0,
-        correct: 0,
-        incorrect: 0,
-        lastSeen: null,
-      };
-
-      const nextSeen = safeInt(current.seen) + 1;
-      const nextCorrect = safeInt(current.correct) + (known ? 1 : 0);
-      const nextIncorrect = safeInt(current.incorrect) + (known ? 0 : 1);
-
-      return {
-        ...prev,
-        [cardId]: {
-          seen: nextSeen,
-          correct: nextCorrect,
-          incorrect: nextIncorrect,
-          lastSeen: new Date().toISOString(),
-        },
-      };
-    });
+    if (!statsHydratedRef.current) {
+      pendingOperationsRef.current.push({ kind: "mark", cardId, known });
+    }
+    setPersonalStats((prev) => updateStatsForCard(prev, cardId, known));
   };
 
-  const resetPersonalStats = () => setPersonalStats({});
+  const resetPersonalStats = () => {
+    if (!statsHydratedRef.current) {
+      pendingOperationsRef.current.push({ kind: "reset" });
+    }
+    setPersonalStats({});
+  };
 
   // Weekly global
   const [weeklyGlobal, setWeeklyGlobal] = useState<WeeklyGlobalState | null>(

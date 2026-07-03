@@ -13,8 +13,16 @@ type WeeklyIndexCurrent = {
 };
 
 async function loadWeeklyIndex(): Promise<WeeklyIndexCurrent | null> {
-  const snap = await getDoc(doc(db, "weekly_index", "current"));
-  return snap.exists() ? (snap.data() as WeeklyIndexCurrent) : null;
+  try {
+    const snap = await getDoc(doc(db, "weekly_index", "current"));
+    return snap.exists() ? (snap.data() as WeeklyIndexCurrent) : null;
+  } catch (error) {
+    console.warn(
+      "Failed to load weekly_index/current; continuing with local ISO week candidates.",
+      error,
+    );
+    return null;
+  }
 }
 
 function cleanKey(value: unknown): string | null {
