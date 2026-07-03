@@ -15,9 +15,20 @@ import {
 import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
 
 import { auth } from "../../firebase/firebase";
-import { saveWeeklyResult } from "../../services/weeklyResultsService";
+import {
+  createDirectWeeklyBundle,
+  type ResolvedWeeklyBundle,
+} from "../../services/weeklyIndexService";
+import { WeeklyPackValidationError } from "../../services/weeklyPackValidation";
+import { submitWeeklyResultReliably } from "../../services/weeklyPendingUploadService";
 import { styles } from "../../ui/flashmedicStyles";
-import { Background } from "../../ui/primitives";
+import {
+  Background,
+  EmptyState,
+  ErrorState,
+  NoticeCard,
+  SecondaryButton,
+} from "../../ui/primitives";
 import { useWeeklyLock } from "./useWeeklyLock";
 
 import {
@@ -96,6 +107,14 @@ export function WeeklyMatchScreen({
 }: WeeklyMatchScreenProps) {
   // ---- Pack state ----
   const [packLoaded, setPackLoaded] = useState(false);
+  const [loadStatus, setLoadStatus] = useState<
+    "loading" | "ready" | "missing" | "invalid" | "error"
+  >("loading");
+  const [loadMessage, setLoadMessage] = useState("");
+  const [loadVersion, setLoadVersion] = useState(0);
+  const [resolution, setResolution] =
+    useState<ResolvedWeeklyBundle | null>(null);
+  const [uploadPending, setUploadPending] = useState(false);
   const [weekKey, setWeekKey] = useState<string | null>(null);
   const [topicTitle, setTopicTitle] = useState<string>("Ugens emne");
   const [rounds, setRounds] = useState<WeeklyMatchRound[]>([]);
@@ -151,6 +170,8 @@ export function WeeklyMatchScreen({
 
     (async () => {
       setPackLoaded(false);
+      setLoadStatus("loading");
+      setLoadMessage("");
 
       try {
         const res = devWeekKey
@@ -165,15 +186,27 @@ export function WeeklyMatchScreen({
             devWeekKey ? `Ingen Match pack for ${devWeekKey}` : "Ugens emne",
           );
           setRounds([]);
+          setResolution(null);
+          setLoadStatus("missing");
           return;
         }
 
         setWeekKey(res.weekKey);
+        setResolution(res.resolution);
         setTopicTitle(res.pack.topicTitle || "Ugens emne");
         setRounds(res.pack.rounds || []);
+        setLoadStatus("ready");
       } catch (e) {
         console.error("Failed to load weekly Match pack", e);
-        if (!cancelled) setRounds([]);
+        if (!cancelled) {
+          setRounds([]);
+          setLoadStatus(
+            e instanceof WeeklyPackValidationError ? "invalid" : "error",
+          );
+          setLoadMessage(
+            e instanceof Error ? e.message : "Ugens Match pack kunne ikke hentes.",
+          );
+        }
       } finally {
         if (!cancelled) setPackLoaded(true);
       }
@@ -182,7 +215,7 @@ export function WeeklyMatchScreen({
     return () => {
       cancelled = true;
     };
-  }, [devWeekKey]);
+  }, [devWeekKey, loadVersion]);
 
   // reset local force lock when week changes
   useEffect(() => {
@@ -427,14 +460,20 @@ export function WeeklyMatchScreen({
 
     try {
       const uid = await ensureAuthUid();
-      await saveWeeklyResult({
+      const activeResolution =
+        resolution ??
+        createDirectWeeklyBundle(effectiveWeekKey ?? "unknown", "match");
+      const upload = await submitWeeklyResultReliably({
         uid,
         nickname: profileNickname ?? "Ukendt",
-        weekKey: effectiveWeekKey,
-        matchScore: finalScore,
+        resolution: activeResolution,
+        game: "match",
+        score: finalScore,
       });
+      setUploadPending(upload.status === "pending");
     } catch (err) {
       console.error("Failed to save Match weekly result", err);
+      setUploadPending(true);
     }
   };
 
@@ -523,7 +562,20 @@ export function WeeklyMatchScreen({
           </Pressable>
         </View>
 
-        {!packLoaded && (
+        {resolution?.isFallback ? (
+          <NoticeCard title="Kompatibilitetsindhold">
+            Ugens spil er hentet via en ældre indholdsnøgle. Resultatet gemmes
+            under den samme nøgle.
+          </NoticeCard>
+        ) : null}
+        {uploadPending ? (
+          <NoticeCard title="Resultat gemt på enheden" tone="warning">
+            Upload kunne ikke gennemføres nu. Resultatet forsøges sendt igen
+            fra Weekly Challenges.
+          </NoticeCard>
+        ) : null}
+
+        {loadStatus === "loading" && (
           <View style={styles.weeklyGameCenter}>
             <ActivityIndicator />
             <Text style={[styles.weeklyPlaceholderText, { marginTop: 12 }]}>
@@ -532,7 +584,30 @@ export function WeeklyMatchScreen({
           </View>
         )}
 
-        {packLoaded && !started && !finished && (
+        {loadStatus === "missing" ? (
+          <EmptyState
+            message="Der er endnu ikke udgivet Match-indhold til den valgte uge."
+            title="Ingen Match-runder denne uge"
+          />
+        ) : null}
+        {loadStatus === "invalid" || loadStatus === "error" ? (
+          <ErrorState
+            action={
+              <SecondaryButton
+                label="Prøv igen"
+                onPress={() => setLoadVersion((version) => version + 1)}
+              />
+            }
+            message={loadMessage}
+            title={
+              loadStatus === "invalid"
+                ? "Ugyldig ugepakke"
+                : "Ugens Match pack kunne ikke hentes"
+            }
+          />
+        ) : null}
+
+        {packLoaded && loadStatus === "ready" && !started && !finished && (
           <View style={styles.weeklyGameCenter}>
             <Text style={styles.weeklyGameTitle}>Match Game</Text>
 

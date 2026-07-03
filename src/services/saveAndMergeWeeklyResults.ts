@@ -22,8 +22,8 @@ export async function saveAndMergeWeeklyResult(params: {
   await saveWeeklyResult({
     uid,
     nickname: params.nickname,
-    mcqScore: params.scores.mcqScore ?? 0,
-    matchScore: params.scores.matchScore ?? 0,
-    wordScore: params.scores.wordScore ?? 0,
+    mcqScore: params.scores.mcqScore,
+    matchScore: params.scores.matchScore,
+    wordScore: params.scores.wordScore,
   });
 }

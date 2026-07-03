@@ -20,4 +20,5 @@ export type Flashcard = {
   imageKey?: string;              // JSON-safe key
   image?: ImageSourcePropType;    // actual require() image
   imageCaption?: string;
+  imageOrientation?: "portrait" | "landscape" | "rotate-90";
 };

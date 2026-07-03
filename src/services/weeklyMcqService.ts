@@ -1,7 +1,15 @@
 // src/services/weeklyMcqService.ts
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
-import { getWeeklyKeyCandidates } from "./weeklyIndexService";
+import {
+  createDirectWeeklyBundle,
+  resolveWeeklyBundle,
+  type ResolvedWeeklyBundle,
+} from "./weeklyIndexService";
+import {
+  validateWeeklyMcqPack,
+  WeeklyPackValidationError,
+} from "./weeklyPackValidation";
 
 export type WeeklyMcqOption = { id: string; text: string; isCorrect?: boolean };
 
@@ -105,24 +113,34 @@ function normalizeMcqPack(raw: any, fallbackWeekKey: string): WeeklyMcqPack {
 export async function loadThisWeeksMcqPack(): Promise<{
   weekKey: string;
   pack: WeeklyMcqPack;
+  resolution: ResolvedWeeklyBundle;
 } | null> {
-  for (const weekKey of await getWeeklyKeyCandidates()) {
-    const result = await loadMcqPackByWeekKey(weekKey);
-    if (result) return result;
-  }
-  return null;
+  const resolution = await resolveWeeklyBundle();
+  if (!resolution) return null;
+  const result = await loadMcqPackByWeekKey(resolution.contentKey);
+  return result ? { ...result, weekKey: resolution.contentKey, resolution } : null;
 }
 
 // ✅ DEV MODE / OVERRIDE (direct doc by weekKey)
 export async function loadMcqPackByWeekKey(
   weekKey: string,
-): Promise<{ weekKey: string; pack: WeeklyMcqPack } | null> {
+): Promise<{
+  weekKey: string;
+  pack: WeeklyMcqPack;
+  resolution: ResolvedWeeklyBundle;
+} | null> {
   const ref = doc(db, "weekly_mcq_packs", weekKey);
   const snap = await getDoc(ref);
   if (!snap.exists()) return null;
 
   const data = snap.data() as any;
   const pack = normalizeMcqPack(data, weekKey);
+  const issues = validateWeeklyMcqPack(pack);
+  if (issues.length) throw new WeeklyPackValidationError("MCQ", issues);
 
-  return { weekKey: pack.weekKey, pack };
+  return {
+    weekKey,
+    pack,
+    resolution: createDirectWeeklyBundle(weekKey, "mcq"),
+  };
 }

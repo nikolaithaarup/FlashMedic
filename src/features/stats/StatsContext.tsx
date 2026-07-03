@@ -9,7 +9,10 @@ import React, {
   useState,
 } from "react";
 
-import { getActiveWeekId } from "../../services/weeklyIndexService";
+import {
+  resolveWeeklyBundle,
+  type ResolvedWeeklyBundle,
+} from "../../services/weeklyIndexService";
 import {
   getWeeklyLeaderboard,
   type WeeklyLeaderboardRow,
@@ -18,6 +21,7 @@ import {
 import { loadMatchPackByWeekKey } from "../../services/weeklyMatchService";
 import { loadMcqPackByWeekKey } from "../../services/weeklyMcqService";
 import { loadWordPackByWeekKey } from "../../services/weeklyWordService";
+import { flushPendingWeeklyResults } from "../../services/weeklyPendingUploadService";
 import {
   loadPersonalStats,
   savePersonalStats,
@@ -37,7 +41,11 @@ type WeeklyTopics = {
 };
 
 type WeeklyGlobalState = {
-  week: { weekId: string; topics: WeeklyTopics } | null;
+  week: {
+    weekId: string;
+    topics: WeeklyTopics;
+    resolution: ResolvedWeeklyBundle;
+  } | null;
   leaderboard: { userId: string; nickname: string; points: number }[];
 };
 
@@ -56,6 +64,8 @@ type StatsContextValue = {
   // Weekly global stats (leaderboard + topics)
   weeklyGlobal: WeeklyGlobalState | null;
   loadingWeekly: boolean;
+  weeklyError: string | null;
+  pendingWeeklyUploads: number;
   refreshWeeklyGlobal: () => Promise<void>;
 };
 
@@ -145,29 +155,34 @@ export function StatsProvider({ children }: PropsWithChildren) {
     null,
   );
   const [loadingWeekly, setLoadingWeekly] = useState(false);
+  const [weeklyError, setWeeklyError] = useState<string | null>(null);
+  const [pendingWeeklyUploads, setPendingWeeklyUploads] = useState(0);
 
   const refreshWeeklyGlobal = async () => {
     setLoadingWeekly(true);
+    setWeeklyError(null);
 
     try {
-      const weekId = await getActiveWeekId();
+      const uploadResult = await flushPendingWeeklyResults();
+      setPendingWeeklyUploads(uploadResult.remaining.length);
+      const resolution = await resolveWeeklyBundle();
 
-      if (!weekId) {
+      if (!resolution) {
         setWeeklyGlobal({ week: null, leaderboard: [] });
         return;
       }
 
       // 1) Leaderboard
       const rows: WeeklyLeaderboardRow[] = await getWeeklyLeaderboard(
-        weekId,
+        resolution.resultKey,
         10,
       );
 
       // 2) Topics from packs (best-effort)
       const [mcqRes, matchRes, wordRes] = await Promise.allSettled([
-        loadMcqPackByWeekKey(weekId),
-        loadMatchPackByWeekKey(weekId),
-        loadWordPackByWeekKey(weekId),
+        loadMcqPackByWeekKey(resolution.contentKey),
+        loadMatchPackByWeekKey(resolution.contentKey),
+        loadWordPackByWeekKey(resolution.contentKey),
       ]);
 
       const mcqTopic =
@@ -202,7 +217,7 @@ export function StatsProvider({ children }: PropsWithChildren) {
       };
 
       setWeeklyGlobal({
-        week: { weekId, topics },
+        week: { weekId: resolution.canonicalWeekKey, topics, resolution },
         leaderboard: rows.map((r) => ({
           userId: r.uid,
           nickname: r.nickname,
@@ -211,6 +226,11 @@ export function StatsProvider({ children }: PropsWithChildren) {
       });
     } catch (e) {
       console.error("refreshWeeklyGlobal failed", e);
+      setWeeklyError(
+        e instanceof Error
+          ? e.message
+          : "Weekly Challenges kunne ikke hentes. Prøv igen.",
+      );
       setWeeklyGlobal((prev) => prev ?? { week: null, leaderboard: [] });
     } finally {
       setLoadingWeekly(false);
@@ -225,9 +245,17 @@ export function StatsProvider({ children }: PropsWithChildren) {
 
       weeklyGlobal,
       loadingWeekly,
+      weeklyError,
+      pendingWeeklyUploads,
       refreshWeeklyGlobal,
     }),
-    [personalStats, weeklyGlobal, loadingWeekly],
+    [
+      personalStats,
+      weeklyGlobal,
+      loadingWeekly,
+      weeklyError,
+      pendingWeeklyUploads,
+    ],
   );
 
   return (

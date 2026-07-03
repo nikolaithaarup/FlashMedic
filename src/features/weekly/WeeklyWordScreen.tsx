@@ -16,11 +16,22 @@ import {
 import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
 
 import { styles } from "../../ui/flashmedicStyles";
-import { Background } from "../../ui/primitives";
+import {
+  Background,
+  EmptyState,
+  ErrorState,
+  NoticeCard,
+  SecondaryButton,
+} from "../../ui/primitives";
 import { scrambleWord } from "./weeklyData";
 
 import { auth } from "../../firebase/firebase";
-import { saveWeeklyResult } from "../../services/weeklyResultsService";
+import {
+  createDirectWeeklyBundle,
+  type ResolvedWeeklyBundle,
+} from "../../services/weeklyIndexService";
+import { WeeklyPackValidationError } from "../../services/weeklyPackValidation";
+import { submitWeeklyResultReliably } from "../../services/weeklyPendingUploadService";
 import { useWeeklyLock } from "./useWeeklyLock";
 
 import {
@@ -86,6 +97,14 @@ export function WeeklyWordScreen({
 }: WeeklyWordScreenProps) {
   // ---- Pack state ----
   const [packLoaded, setPackLoaded] = useState(false);
+  const [loadStatus, setLoadStatus] = useState<
+    "loading" | "ready" | "missing" | "invalid" | "error"
+  >("loading");
+  const [loadMessage, setLoadMessage] = useState("");
+  const [loadVersion, setLoadVersion] = useState(0);
+  const [resolution, setResolution] =
+    useState<ResolvedWeeklyBundle | null>(null);
+  const [uploadPending, setUploadPending] = useState(false);
   const [weekKey, setWeekKey] = useState<string | null>(null);
   const [topicTitle, setTopicTitle] = useState<string>("Ugens emne");
   const [rounds, setRounds] = useState<WeeklyWordRound[]>([]);
@@ -145,6 +164,8 @@ export function WeeklyWordScreen({
 
     (async () => {
       setPackLoaded(false);
+      setLoadStatus("loading");
+      setLoadMessage("");
 
       try {
         const res = devWeekKey
@@ -159,15 +180,27 @@ export function WeeklyWordScreen({
             devWeekKey ? `Ingen Word pack for ${devWeekKey}` : "Ugens emne",
           );
           setRounds([]);
+          setResolution(null);
+          setLoadStatus("missing");
           return;
         }
 
         setWeekKey(res.weekKey);
+        setResolution(res.resolution);
         setTopicTitle(res.pack.topicTitle || "Ugens emne");
         setRounds(res.pack.rounds || []);
+        setLoadStatus("ready");
       } catch (e) {
         console.error("Failed to load weekly Word pack", e);
-        if (!cancelled) setRounds([]);
+        if (!cancelled) {
+          setRounds([]);
+          setLoadStatus(
+            e instanceof WeeklyPackValidationError ? "invalid" : "error",
+          );
+          setLoadMessage(
+            e instanceof Error ? e.message : "Ugens Word pack kunne ikke hentes.",
+          );
+        }
       } finally {
         if (!cancelled) setPackLoaded(true);
       }
@@ -176,7 +209,7 @@ export function WeeklyWordScreen({
     return () => {
       cancelled = true;
     };
-  }, [devWeekKey]);
+  }, [devWeekKey, loadVersion]);
 
   // ---- Timer ----
   useEffect(() => {
@@ -361,14 +394,20 @@ export function WeeklyWordScreen({
 
     try {
       const uid = await ensureAuthUid();
-      await saveWeeklyResult({
+      const activeResolution =
+        resolution ??
+        createDirectWeeklyBundle(effectiveWeekKey ?? "unknown", "word");
+      const upload = await submitWeeklyResultReliably({
         uid,
         nickname: profileNickname ?? "Ukendt",
-        weekKey: effectiveWeekKey,
-        wordScore: finalScore,
+        resolution: activeResolution,
+        game: "word",
+        score: finalScore,
       });
+      setUploadPending(upload.status === "pending");
     } catch (err) {
       console.error("Failed to save Word weekly result", err);
+      setUploadPending(true);
     }
   };
 
@@ -455,7 +494,20 @@ export function WeeklyWordScreen({
           </Pressable>
         </View>
 
-        {!packLoaded && (
+        {resolution?.isFallback ? (
+          <NoticeCard title="Kompatibilitetsindhold">
+            Ugens spil er hentet via en ældre indholdsnøgle. Resultatet gemmes
+            under den samme nøgle.
+          </NoticeCard>
+        ) : null}
+        {uploadPending ? (
+          <NoticeCard title="Resultat gemt på enheden" tone="warning">
+            Upload kunne ikke gennemføres nu. Resultatet forsøges sendt igen
+            fra Weekly Challenges.
+          </NoticeCard>
+        ) : null}
+
+        {loadStatus === "loading" && (
           <View style={styles.weeklyGameCenter}>
             <ActivityIndicator />
             <Text style={[styles.weeklyPlaceholderText, { marginTop: 12 }]}>
@@ -464,7 +516,30 @@ export function WeeklyWordScreen({
           </View>
         )}
 
-        {packLoaded && !started && !finished && (
+        {loadStatus === "missing" ? (
+          <EmptyState
+            message="Der er endnu ikke udgivet Word-indhold til den valgte uge."
+            title="Ingen ord denne uge"
+          />
+        ) : null}
+        {loadStatus === "invalid" || loadStatus === "error" ? (
+          <ErrorState
+            action={
+              <SecondaryButton
+                label="Prøv igen"
+                onPress={() => setLoadVersion((version) => version + 1)}
+              />
+            }
+            message={loadMessage}
+            title={
+              loadStatus === "invalid"
+                ? "Ugyldig ugepakke"
+                : "Ugens Word pack kunne ikke hentes"
+            }
+          />
+        ) : null}
+
+        {packLoaded && loadStatus === "ready" && !started && !finished && (
           <View style={styles.weeklyGameCenter}>
             <Text style={styles.weeklyGameTitle}>Word of The Week</Text>
 

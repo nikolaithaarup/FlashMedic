@@ -1,7 +1,15 @@
 // src/services/weeklyMatchService.ts
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
-import { getWeeklyKeyCandidates } from "./weeklyIndexService";
+import {
+  createDirectWeeklyBundle,
+  resolveWeeklyBundle,
+  type ResolvedWeeklyBundle,
+} from "./weeklyIndexService";
+import {
+  validateWeeklyMatchPack,
+  WeeklyPackValidationError,
+} from "./weeklyPackValidation";
 
 export type WeeklyMatchPair = {
   id: string; // IMPORTANT: must be stable + unique within round
@@ -40,7 +48,11 @@ function normalizeRound(r: any, fallbackRound: number): WeeklyMatchRound {
 
 export async function loadMatchPackByWeekKey(
   weekKey: string,
-): Promise<{ weekKey: string; pack: WeeklyMatchPack } | null> {
+): Promise<{
+  weekKey: string;
+  pack: WeeklyMatchPack;
+  resolution: ResolvedWeeklyBundle;
+} | null> {
   const ref = doc(db, "weekly_match_packs", weekKey);
   const snap = await getDoc(ref);
   if (!snap.exists()) return null;
@@ -57,17 +69,23 @@ export async function loadMatchPackByWeekKey(
     topicTitle: typeof data?.topicTitle === "string" ? data.topicTitle : "",
     rounds,
   };
+  const issues = validateWeeklyMatchPack(pack);
+  if (issues.length) throw new WeeklyPackValidationError("Match", issues);
 
-  return { weekKey: pack.weekKey, pack };
+  return {
+    weekKey,
+    pack,
+    resolution: createDirectWeeklyBundle(weekKey, "match"),
+  };
 }
 
 export async function loadThisWeeksMatchPack(): Promise<{
   weekKey: string;
   pack: WeeklyMatchPack;
+  resolution: ResolvedWeeklyBundle;
 } | null> {
-  for (const weekKey of await getWeeklyKeyCandidates()) {
-    const result = await loadMatchPackByWeekKey(weekKey);
-    if (result) return result;
-  }
-  return null;
+  const resolution = await resolveWeeklyBundle();
+  if (!resolution) return null;
+  const result = await loadMatchPackByWeekKey(resolution.contentKey);
+  return result ? { ...result, weekKey: resolution.contentKey, resolution } : null;
 }

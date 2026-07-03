@@ -2291,7 +2291,7 @@
     "deckId": "lungesygdommeCards"
   },
   {
-    "id": "neuro_001",
+    "id": "syg_neuro_001",
     "subject": "Sygdomslære",
     "topic": "Neurologi",
     "question": "Hvad er den præhospitale definition på apopleksi?",
@@ -2304,7 +2304,7 @@
     "deckId": "neurologiCards"
   },
   {
-    "id": "neuro_002",
+    "id": "syg_neuro_002",
     "subject": "Sygdomslære",
     "topic": "Neurologi",
     "question": "Hvad står FAST for ved stroke-screening?",
@@ -2317,7 +2317,7 @@
     "deckId": "neurologiCards"
   },
   {
-    "id": "neuro_003",
+    "id": "syg_neuro_003",
     "subject": "Sygdomslære",
     "topic": "Neurologi",
     "question": "Hvilke symptomer ses typisk ved en TCI (transitorisk cerebral iskæmi)?",
@@ -2330,7 +2330,7 @@
     "deckId": "neurologiCards"
   },
   {
-    "id": "neuro_004",
+    "id": "syg_neuro_004",
     "subject": "Sygdomslære",
     "topic": "Neurologi",
     "question": "Hvordan kan du præhospitalt mistænke en intracerebral blødning fremfor iskæmisk stroke?",
@@ -2343,7 +2343,7 @@
     "deckId": "neurologiCards"
   },
   {
-    "id": "neuro_005",
+    "id": "syg_neuro_005",
     "subject": "Sygdomslære",
     "topic": "Neurologi",
     "question": "Hvad er et fokalt neurologisk udfald?",
@@ -2356,7 +2356,7 @@
     "deckId": "neurologiCards"
   },
   {
-    "id": "neuro_006",
+    "id": "syg_neuro_006",
     "subject": "Sygdomslære",
     "topic": "Neurologi",
     "question": "Hvad er en epileptisk krampe?",
@@ -2369,7 +2369,7 @@
     "deckId": "neurologiCards"
   },
   {
-    "id": "neuro_007",
+    "id": "syg_neuro_007",
     "subject": "Sygdomslære",
     "topic": "Neurologi",
     "question": "Hvad er status epilepticus?",
@@ -2382,7 +2382,7 @@
     "deckId": "neurologiCards"
   },
   {
-    "id": "neuro_008",
+    "id": "syg_neuro_008",
     "subject": "Sygdomslære",
     "topic": "Neurologi",
     "question": "Hvordan behandles kramper præhospitalt?",
@@ -2395,7 +2395,7 @@
     "deckId": "neurologiCards"
   },
   {
-    "id": "neuro_009",
+    "id": "syg_neuro_009",
     "subject": "Sygdomslære",
     "topic": "Neurologi",
     "question": "Hvad bruges GCS til?",
@@ -2408,7 +2408,7 @@
     "deckId": "neurologiCards"
   },
   {
-    "id": "neuro_010",
+    "id": "syg_neuro_010",
     "subject": "Sygdomslære",
     "topic": "Neurologi",
     "question": "Hvad definerer en bevidsthedspåvirket patient?",
@@ -2421,7 +2421,7 @@
     "deckId": "neurologiCards"
   },
   {
-    "id": "neuro_011",
+    "id": "syg_neuro_011",
     "subject": "Sygdomslære",
     "topic": "Neurologi",
     "question": "Hvad er anisokori, og hvorfor er det vigtigt?",
@@ -2434,7 +2434,7 @@
     "deckId": "neurologiCards"
   },
   {
-    "id": "neuro_012",
+    "id": "syg_neuro_012",
     "subject": "Sygdomslære",
     "topic": "Neurologi",
     "question": "Hvad er et konfusionstilstand?",
@@ -2447,7 +2447,7 @@
     "deckId": "neurologiCards"
   },
   {
-    "id": "neuro_013",
+    "id": "syg_neuro_013",
     "subject": "Sygdomslære",
     "topic": "Neurologi",
     "question": "Hvordan kan hypoglykæmi give neurologiske symptomer?",
@@ -2460,7 +2460,7 @@
     "deckId": "neurologiCards"
   },
   {
-    "id": "neuro_014",
+    "id": "syg_neuro_014",
     "subject": "Sygdomslære",
     "topic": "Neurologi",
     "question": "Hvad er patofysiologien bag meningitis?",
@@ -2473,7 +2473,7 @@
     "deckId": "neurologiCards"
   },
   {
-    "id": "neuro_015",
+    "id": "syg_neuro_015",
     "subject": "Sygdomslære",
     "topic": "Neurologi",
     "question": "Hvilke symptomer ses ofte ved meningitis?",
@@ -2486,7 +2486,7 @@
     "deckId": "neurologiCards"
   },
   {
-    "id": "neuro_016",
+    "id": "syg_neuro_016",
     "subject": "Sygdomslære",
     "topic": "Neurologi",
     "question": "Hvad er forskellen på bevidstløshed og koma?",
@@ -2499,7 +2499,7 @@
     "deckId": "neurologiCards"
   },
   {
-    "id": "neuro_017",
+    "id": "syg_neuro_017",
     "subject": "Sygdomslære",
     "topic": "Neurologi",
     "question": "Hvad er en postiktal fase?",
@@ -2512,7 +2512,7 @@
     "deckId": "neurologiCards"
   },
   {
-    "id": "neuro_018",
+    "id": "syg_neuro_018",
     "subject": "Sygdomslære",
     "topic": "Neurologi",
     "question": "Hvordan vurderes pupilreaktion præhospitalt?",
@@ -2525,7 +2525,7 @@
     "deckId": "neurologiCards"
   },
   {
-    "id": "neuro_019",
+    "id": "syg_neuro_019",
     "subject": "Sygdomslære",
     "topic": "Neurologi",
     "question": "Hvorfor er aphasi et vigtigt fund ved stroke?",
@@ -2538,7 +2538,7 @@
     "deckId": "neurologiCards"
   },
   {
-    "id": "neuro_020",
+    "id": "syg_neuro_020",
     "subject": "Sygdomslære",
     "topic": "Neurologi",
     "question": "Hvilke neurologiske tilstande kan give akut bevidsthedstab?",

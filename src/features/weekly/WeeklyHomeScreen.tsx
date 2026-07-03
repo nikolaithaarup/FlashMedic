@@ -13,7 +13,10 @@ import {
 import {
   Card,
   EmptyState,
+  ErrorState,
   LoadingState,
+  NoticeCard,
+  PrimaryButton,
   Screen,
   SecondaryButton,
   ToolPageHeader,
@@ -74,7 +77,13 @@ export function WeeklyHomeScreen({
   onOpenMatch,
   onOpenWord,
 }: WeeklyHomeScreenProps) {
-  const { weeklyGlobal, loadingWeekly, refreshWeeklyGlobal } = useStats();
+  const {
+    weeklyGlobal,
+    loadingWeekly,
+    weeklyError,
+    pendingWeeklyUploads,
+    refreshWeeklyGlobal,
+  } = useStats();
 
   useEffect(() => {
     if (!weeklyGlobal) refreshWeeklyGlobal();
@@ -84,6 +93,7 @@ export function WeeklyHomeScreen({
   const weekId = weeklyGlobal?.week?.weekId ?? null;
   const top10 = weeklyGlobal?.leaderboard ?? [];
   const topics = weeklyGlobal?.week?.topics ?? null;
+  const resolution = weeklyGlobal?.week?.resolution ?? null;
 
   return (
     <Screen>
@@ -96,6 +106,17 @@ export function WeeklyHomeScreen({
       />
 
       <Text style={styles.sectionLabel}>UGENS SPIL</Text>
+      {resolution?.isFallback ? (
+        <NoticeCard title="Kompatibilitetsindhold" tone="info">
+          Ugens spil bruger et ældre indholdsnøgleformat. Resultater og
+          leaderboard bruger samme nøgle.
+        </NoticeCard>
+      ) : null}
+      {pendingWeeklyUploads > 0 ? (
+        <NoticeCard title="Resultat afventer upload" tone="warning">
+          {`${pendingWeeklyUploads} resultat${pendingWeeklyUploads === 1 ? "" : "er"} er gemt sikkert på enheden. Tryk Opdatér for at prøve igen.`}
+        </NoticeCard>
+      ) : null}
       <View style={styles.gameList}>
         <GameCard
           description="Vælg det korrekte svar."
@@ -136,6 +157,22 @@ export function WeeklyHomeScreen({
       <Card variant="subtle">
         {loadingWeekly ? (
           <LoadingState title="Henter leaderboard" />
+        ) : weeklyError ? (
+          <ErrorState
+            action={
+              <PrimaryButton
+                label="Prøv igen"
+                onPress={refreshWeeklyGlobal}
+              />
+            }
+            message={weeklyError}
+            title="Weekly Challenges er ikke tilgængelig"
+          />
+        ) : !weeklyGlobal?.week ? (
+          <EmptyState
+            message="Der er endnu ikke udgivet indhold til denne uge."
+            title="Ingen ugepakke"
+          />
         ) : top10.length === 0 ? (
           <EmptyState title="Ingen resultater endnu" />
         ) : (

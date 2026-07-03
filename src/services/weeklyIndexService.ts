@@ -1,16 +1,25 @@
 import { doc, getDoc } from "firebase/firestore";
 
 import { db } from "../firebase/firebase";
+import { getCurrentIsoWeekInfo } from "../utils/week";
 import {
-  getCurrentIsoWeekInfo,
-  getLegacyWeekKeyCandidates,
-} from "../utils/week";
+  buildWeeklyKeyCandidates,
+  createResolvedWeeklyBundle,
+  type ResolvedWeeklyBundle,
+  type WeeklyGameKind,
+  type WeeklyIndexCurrent,
+} from "./weeklyKeyResolution";
 
-type WeeklyIndexCurrent = {
-  weekId?: string;
-  weekKey?: string;
-  overrideWeekKey?: string;
-};
+export * from "./weeklyKeyResolution";
+
+export class WeeklyResolutionError extends Error {
+  readonly retryable = true;
+
+  constructor(message: string) {
+    super(message);
+    this.name = "WeeklyResolutionError";
+  }
+}
 
 async function loadWeeklyIndex(): Promise<WeeklyIndexCurrent | null> {
   try {
@@ -25,14 +34,53 @@ async function loadWeeklyIndex(): Promise<WeeklyIndexCurrent | null> {
   }
 }
 
-function cleanKey(value: unknown): string | null {
-  return typeof value === "string" && value.trim() ? value.trim() : null;
+const collectionByGame: Record<WeeklyGameKind, string> = {
+  mcq: "weekly_mcq_packs",
+  match: "weekly_match_packs",
+  word: "weekly_word_packs",
+};
+
+export async function resolveWeeklyBundle(
+  date = new Date(),
+): Promise<ResolvedWeeklyBundle | null> {
+  const index = await loadWeeklyIndex();
+  const canonicalWeekKey = getCurrentIsoWeekInfo(date).weekKey;
+  const candidates = buildWeeklyKeyCandidates(date, index);
+  let hadReadFailure = false;
+
+  for (const candidate of candidates) {
+    const games = Object.keys(collectionByGame) as WeeklyGameKind[];
+    const reads = await Promise.allSettled(
+      games.map((game) =>
+        getDoc(doc(db, collectionByGame[game], candidate.key)),
+      ),
+    );
+    const availableGames = games.filter(
+      (_, index) =>
+        reads[index].status === "fulfilled" && reads[index].value.exists(),
+    );
+    if (availableGames.length) {
+      return createResolvedWeeklyBundle(
+        canonicalWeekKey,
+        candidate,
+        availableGames,
+      );
+    }
+    if (reads.some((read) => read.status === "rejected")) hadReadFailure = true;
+  }
+
+  if (hadReadFailure) {
+    throw new WeeklyResolutionError(
+      "Ugens indhold kunne ikke kontrolleres. Tjek forbindelsen og prøv igen.",
+    );
+  }
+  return null;
 }
 
 export async function getActiveWeekId(date = new Date()): Promise<string> {
-  const index = await loadWeeklyIndex();
   return (
-    cleanKey(index?.overrideWeekKey) ?? getCurrentIsoWeekInfo(date).weekKey
+    (await resolveWeeklyBundle(date))?.resultKey ??
+    getCurrentIsoWeekInfo(date).weekKey
   );
 }
 
@@ -40,23 +88,10 @@ export async function getActiveWeekKey(date = new Date()): Promise<string> {
   return getActiveWeekId(date);
 }
 
-/**
- * Current ISO key first, followed by existing pointer/legacy keys. This makes
- * normal weekly rotation automatic without breaking already seeded data.
- */
 export async function getWeeklyKeyCandidates(
   date = new Date(),
 ): Promise<string[]> {
-  const index = await loadWeeklyIndex();
-  const override = cleanKey(index?.overrideWeekKey);
-  if (override) return [override];
-
-  const candidates = [
-    getCurrentIsoWeekInfo(date).weekKey,
-    cleanKey(index?.weekKey),
-    cleanKey(index?.weekId),
-    ...getLegacyWeekKeyCandidates(date),
-  ].filter((key): key is string => key !== null);
-
-  return [...new Set(candidates)];
+  return buildWeeklyKeyCandidates(date, await loadWeeklyIndex()).map(
+    (candidate) => candidate.key,
+  );
 }

@@ -1,7 +1,15 @@
 // src/services/weeklyWordService.ts
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
-import { getWeeklyKeyCandidates } from "./weeklyIndexService";
+import {
+  createDirectWeeklyBundle,
+  resolveWeeklyBundle,
+  type ResolvedWeeklyBundle,
+} from "./weeklyIndexService";
+import {
+  validateWeeklyWordPack,
+  WeeklyPackValidationError,
+} from "./weeklyPackValidation";
 
 export type WeeklyWordRound = {
   round: number;
@@ -114,26 +122,36 @@ function extractWordPack(data: any, fallbackWeekKey: string): WeeklyWordPack {
 
 export async function loadWordPackByWeekKey(
   weekKey: string,
-): Promise<{ weekKey: string; pack: WeeklyWordPack } | null> {
+): Promise<{
+  weekKey: string;
+  pack: WeeklyWordPack;
+  resolution: ResolvedWeeklyBundle;
+} | null> {
   const ref = doc(db, "weekly_word_packs", weekKey);
   const snap = await getDoc(ref);
   if (!snap.exists()) return null;
 
   const data = snap.data() as any;
   const pack = extractWordPack(data, weekKey);
+  const issues = validateWeeklyWordPack(pack);
+  if (issues.length) throw new WeeklyPackValidationError("Word", issues);
 
-  return { weekKey: pack.weekKey, pack };
+  return {
+    weekKey,
+    pack,
+    resolution: createDirectWeeklyBundle(weekKey, "word"),
+  };
 }
 
 export async function loadThisWeeksWordPack(): Promise<{
   weekKey: string;
   pack: WeeklyWordPack;
+  resolution: ResolvedWeeklyBundle;
 } | null> {
-  for (const weekKey of await getWeeklyKeyCandidates()) {
-    const result = await loadWordPackByWeekKey(weekKey);
-    if (result) return result;
-  }
-  return null;
+  const resolution = await resolveWeeklyBundle();
+  if (!resolution) return null;
+  const result = await loadWordPackByWeekKey(resolution.contentKey);
+  return result ? { ...result, weekKey: resolution.contentKey, resolution } : null;
 }
 
 export function pickWordFromRound(round: WeeklyWordRound): string | null {

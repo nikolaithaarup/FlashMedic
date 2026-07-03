@@ -16,9 +16,20 @@ import {
 import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
 
 import { auth } from "../../firebase/firebase";
-import { saveWeeklyResult } from "../../services/weeklyResultsService";
+import {
+  createDirectWeeklyBundle,
+  type ResolvedWeeklyBundle,
+} from "../../services/weeklyIndexService";
+import { WeeklyPackValidationError } from "../../services/weeklyPackValidation";
+import { submitWeeklyResultReliably } from "../../services/weeklyPendingUploadService";
 import { styles } from "../../ui/flashmedicStyles";
-import { Background } from "../../ui/primitives";
+import {
+  Background,
+  EmptyState,
+  ErrorState,
+  NoticeCard,
+  SecondaryButton,
+} from "../../ui/primitives";
 import { useWeeklyLock } from "./useWeeklyLock";
 
 import {
@@ -82,6 +93,14 @@ export function WeeklyMcqScreen({
 }: WeeklyMcqScreenProps) {
   // Pack state
   const [packLoaded, setPackLoaded] = useState(false);
+  const [loadStatus, setLoadStatus] = useState<
+    "loading" | "ready" | "missing" | "invalid" | "error"
+  >("loading");
+  const [loadMessage, setLoadMessage] = useState("");
+  const [loadVersion, setLoadVersion] = useState(0);
+  const [resolution, setResolution] =
+    useState<ResolvedWeeklyBundle | null>(null);
+  const [uploadPending, setUploadPending] = useState(false);
   const [weekKey, setWeekKey] = useState<string | null>(null);
   const [topicTitle, setTopicTitle] = useState<string>("Ugens emne");
   const [timeLimit, setTimeLimit] = useState<number>(30);
@@ -130,6 +149,8 @@ export function WeeklyMcqScreen({
 
     (async () => {
       setPackLoaded(false);
+      setLoadStatus("loading");
+      setLoadMessage("");
 
       try {
         const res = devWeekKey
@@ -145,16 +166,30 @@ export function WeeklyMcqScreen({
           );
           setTimeLimit(30);
           setQuestions([]);
+          setResolution(null);
+          setLoadStatus("missing");
           return;
         }
 
         setWeekKey(res.weekKey);
+        setResolution(res.resolution);
         setTopicTitle(res.pack.topicTitle || "Ugens emne");
         setTimeLimit(res.pack.timeLimitSec || 30);
         setQuestions(res.pack.questions || []);
+        setLoadStatus("ready");
       } catch (e) {
         console.error("Failed to load weekly MCQ pack", e);
-        if (!cancelled) setQuestions([]);
+        if (!cancelled) {
+          setQuestions([]);
+          setLoadStatus(
+            e instanceof WeeklyPackValidationError ? "invalid" : "error",
+          );
+          setLoadMessage(
+            e instanceof Error
+              ? e.message
+              : "Ugens spørgsmål kunne ikke hentes.",
+          );
+        }
       } finally {
         if (!cancelled) setPackLoaded(true);
       }
@@ -163,7 +198,7 @@ export function WeeklyMcqScreen({
     return () => {
       cancelled = true;
     };
-  }, [devWeekKey]);
+  }, [devWeekKey, loadVersion]);
 
   useEffect(() => {
     if (!started) setSecondsLeft(timeLimit);
@@ -335,14 +370,20 @@ export function WeeklyMcqScreen({
 
     try {
       const uid = await ensureAuthUid();
-      await saveWeeklyResult({
+      const activeResolution =
+        resolution ??
+        createDirectWeeklyBundle(effectiveWeekKey ?? "unknown", "mcq");
+      const upload = await submitWeeklyResultReliably({
         uid,
         nickname: profileNickname ?? "Ukendt",
-        weekKey: effectiveWeekKey,
-        mcqScore: finalScore,
+        resolution: activeResolution,
+        game: "mcq",
+        score: finalScore,
       });
+      setUploadPending(upload.status === "pending");
     } catch (err) {
       console.error("Failed to save MCQ weekly result", err);
+      setUploadPending(true);
     }
   };
 
@@ -411,7 +452,20 @@ export function WeeklyMcqScreen({
           </Pressable>
         </View>
 
-        {!packLoaded && (
+        {resolution?.isFallback ? (
+          <NoticeCard title="Kompatibilitetsindhold">
+            Ugens spil er hentet via en ældre indholdsnøgle. Resultatet gemmes
+            under den samme nøgle.
+          </NoticeCard>
+        ) : null}
+        {uploadPending ? (
+          <NoticeCard title="Resultat gemt på enheden" tone="warning">
+            Upload kunne ikke gennemføres nu. Resultatet forsøges sendt igen
+            fra Weekly Challenges.
+          </NoticeCard>
+        ) : null}
+
+        {loadStatus === "loading" && (
           <View style={styles.weeklyGameCenter}>
             <ActivityIndicator />
             <Text style={[styles.weeklyPlaceholderText, { marginTop: 12 }]}>
@@ -420,7 +474,30 @@ export function WeeklyMcqScreen({
           </View>
         )}
 
-        {packLoaded && !started && !finished && (
+        {loadStatus === "missing" ? (
+          <EmptyState
+            message="Der er endnu ikke udgivet Multiple Choice-indhold til den valgte uge."
+            title="Ingen spørgsmål denne uge"
+          />
+        ) : null}
+        {loadStatus === "invalid" || loadStatus === "error" ? (
+          <ErrorState
+            action={
+              <SecondaryButton
+                label="Prøv igen"
+                onPress={() => setLoadVersion((version) => version + 1)}
+              />
+            }
+            message={loadMessage}
+            title={
+              loadStatus === "invalid"
+                ? "Ugyldig ugepakke"
+                : "Ugens spørgsmål kunne ikke hentes"
+            }
+          />
+        ) : null}
+
+        {packLoaded && loadStatus === "ready" && !started && !finished && (
           <View style={styles.weeklyGameCenter}>
             <Text style={styles.weeklyGameTitle}>Multiple Choice Game</Text>
 

@@ -37,7 +37,7 @@ export const ekgGenereltCards: Flashcard[] = [
     subject: "EKG",
     topic: "Grundlæggende EKG",
     tags: ["ST-elevation", "STEMI"],
-    imageKey: "stemi_inferior" // nøgle du selv mapper til et billede
+    imageKey: "ekg_img_inferior_stemi_1"
   },
   {
     id: "ekg_005",
@@ -48,7 +48,7 @@ export const ekgGenereltCards: Flashcard[] = [
     subject: "EKG",
     topic: "Grundlæggende EKG",
     tags: ["AFLI"],
-    imageKey: "afli_example"
+    imageKey: "ekg_img_atrial_fib_1"
   },
   {
     id: "ekg_006",

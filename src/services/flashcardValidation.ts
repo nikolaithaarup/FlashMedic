@@ -85,10 +85,21 @@ export function parseFlashcardDocument(
   const explanation = optionalText(input.explanation);
   const imageKey = optionalText(input.imageKey);
   const imageCaption = optionalText(input.imageCaption);
+  const imageOrientation = optionalText(input.imageOrientation);
+  const validOrientation =
+    imageOrientation === "portrait" ||
+    imageOrientation === "landscape" ||
+    imageOrientation === "rotate-90"
+      ? imageOrientation
+      : undefined;
+  const warnings = warning ? [warning] : [];
+  if (imageOrientation && !validOrientation) {
+    warnings.push(`invalid image orientation: ${imageOrientation}`);
+  }
 
   return {
     ok: true,
-    warnings: warning ? [warning] : [],
+    warnings,
     card: {
       id,
       subject,
@@ -101,6 +112,7 @@ export function parseFlashcardDocument(
       ...(explanation ? { explanation } : {}),
       ...(imageKey ? { imageKey } : {}),
       ...(imageCaption ? { imageCaption } : {}),
+      ...(validOrientation ? { imageOrientation: validOrientation } : {}),
     },
   };
 }
