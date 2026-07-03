@@ -2036,13 +2036,37 @@
     "subject": "Sygdomslære",
     "topic": "Lungesygdomme",
     "question": "Hvordan defineres akut respirationssvigt?",
-    "answer": "Manglende evne til at opretholde normal iltning eller udskille CO₂. Typisk Sat < 90% eller RF > 30 eller < 8.",
+    "answer": "Utilstrækkelig oxygenation og/eller ventilation, vurderet sammen med kliniske tegn, ikke kun SpO₂.",
     "difficulty": "medium",
     "tags": [
       "respirationssvigt",
-      "ABCDE"
+      "ABCDE",
+      "respiration",
+      "reviewed-v2"
     ],
-    "deckId": "lungesygdommeCards"
+    "deckId": "lungesygdommeCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.sygdomslaere.lungesygdomme.grundlag",
+    "explanation": "Utilstrækkelig oxygenation og/eller ventilation, vurderet sammen med kliniske tegn, ikke kun SpO₂. Fundet skal sættes ind i en samlet ABCDE-vurdering; en enkelt SpO₂- eller RF-måling beskriver ikke alene ventilation eller klinisk reserve.",
+    "commonMistakes": [
+      "At sidestille normal SpO₂ med normal ventilation",
+      "At overse udtrætning, når respirationslydene bliver svagere"
+    ],
+    "prehospitalRelevance": "Præhospitalt skal oxygenation, ventilation og respirationsarbejde vurderes hver for sig og følges over tid.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "redFlag": "Faldende respirationsarbejde sammen med tiltagende træthed, stille thorax eller ændret bevidsthed kan være forværring—ikke bedring.",
+    "references": [
+      {
+        "title": "ABCDE approach and assessment of breathing",
+        "publisher": "Resuscitation Council UK",
+        "editionOrDate": "Current online educational guidance",
+        "note": "Used as general educational support; local clinical instructions take precedence."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1
   },
   {
     "id": "lung_002",
@@ -2061,40 +2085,115 @@
     "id": "lung_003",
     "subject": "Sygdomslære",
     "topic": "Lungesygdomme",
-    "question": "Hvorfor bør man være forsigtig med høj ilttilførsel til KOL-patienter?",
-    "answer": "Kan fjerne hypoksidrevet respiration og medføre CO₂-retention og bevidsthedspåvirkning.",
+    "question": "Hvorfor skal iltbehandling hos patienter med risiko for hyperkapni titreres og revurderes?",
+    "answer": "For at behandle hypoksæmi uden at overse tiltagende CO₂-retention; hypoksi må ikke efterlades ubehandlet.",
     "difficulty": "hard",
     "tags": [
       "KOL",
-      "iltbehandling"
+      "iltbehandling",
+      "respiration",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "lungesygdommeCards"
+    "deckId": "lungesygdommeCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.sygdomslaere.lungesygdomme.grundlag",
+    "explanation": "For at behandle hypoksæmi uden at overse tiltagende CO₂-retention; hypoksi må ikke efterlades ubehandlet. Fundet skal sættes ind i en samlet ABCDE-vurdering; en enkelt SpO₂- eller RF-måling beskriver ikke alene ventilation eller klinisk reserve.",
+    "commonMistakes": [
+      "At sidestille normal SpO₂ med normal ventilation",
+      "At overse udtrætning, når respirationslydene bliver svagere"
+    ],
+    "prehospitalRelevance": "Præhospitalt skal oxygenation, ventilation og respirationsarbejde vurderes hver for sig og følges over tid.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "redFlag": "Faldende respirationsarbejde sammen med tiltagende træthed, stille thorax eller ændret bevidsthed kan være forværring—ikke bedring.",
+    "references": [
+      {
+        "title": "ABCDE approach and assessment of breathing",
+        "publisher": "Resuscitation Council UK",
+        "editionOrDate": "Current online educational guidance",
+        "note": "Used as general educational support; local clinical instructions take precedence."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1
   },
   {
     "id": "lung_004",
     "subject": "Sygdomslære",
     "topic": "Lungesygdomme",
     "question": "Hvordan adskiller astma sig fra KOL præhospitalt?",
-    "answer": "Astma: pludselig bronkospasme, ofte yngre patient, god respons på bronkodilatatorer. KOL: gradvis forværring, kronisk.",
+    "answer": "Astma og KOL kan begge give obstruktion; alder, anamnese, baseline, udløsere og udvikling hjælper, men overlap er almindeligt.",
     "difficulty": "medium",
     "tags": [
       "astma",
-      "KOL"
+      "KOL",
+      "respiration",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "lungesygdommeCards"
+    "deckId": "lungesygdommeCards",
+    "schemaVersion": 2,
+    "kind": "applied",
+    "learningObjectiveId": "lo.sygdomslaere.lungesygdomme.grundlag",
+    "explanation": "Astma og KOL kan begge give obstruktion; alder, anamnese, baseline, udløsere og udvikling hjælper, men overlap er almindeligt. Fundet skal sættes ind i en samlet ABCDE-vurdering; en enkelt SpO₂- eller RF-måling beskriver ikke alene ventilation eller klinisk reserve.",
+    "commonMistakes": [
+      "At sidestille normal SpO₂ med normal ventilation",
+      "At overse udtrætning, når respirationslydene bliver svagere"
+    ],
+    "prehospitalRelevance": "Præhospitalt skal oxygenation, ventilation og respirationsarbejde vurderes hver for sig og følges over tid.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "redFlag": "Faldende respirationsarbejde sammen med tiltagende træthed, stille thorax eller ændret bevidsthed kan være forværring—ikke bedring.",
+    "references": [
+      {
+        "title": "ABCDE approach and assessment of breathing",
+        "publisher": "Resuscitation Council UK",
+        "editionOrDate": "Current online educational guidance",
+        "note": "Used as general educational support; local clinical instructions take precedence."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1
   },
   {
     "id": "lung_005",
     "subject": "Sygdomslære",
     "topic": "Lungesygdomme",
     "question": "Hvilke fund tyder på svær astma-forværring?",
-    "answer": "RF >30, puls >120, stilhed over lungerne, cyanose, udtrætning og bevidsthedspåvirkning.",
+    "answer": "Udtalt respirationsarbejde, manglende taleevne, udtrætning, ændret bevidsthed eller svage/stille respirationslyde.",
     "difficulty": "hard",
     "tags": [
       "astma",
-      "livstruende"
+      "livstruende",
+      "respiration",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "lungesygdommeCards"
+    "deckId": "lungesygdommeCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.sygdomslaere.lungesygdomme.grundlag",
+    "explanation": "Udtalt respirationsarbejde, manglende taleevne, udtrætning, ændret bevidsthed eller svage/stille respirationslyde. Fundet skal sættes ind i en samlet ABCDE-vurdering; en enkelt SpO₂- eller RF-måling beskriver ikke alene ventilation eller klinisk reserve.",
+    "commonMistakes": [
+      "At sidestille normal SpO₂ med normal ventilation",
+      "At overse udtrætning, når respirationslydene bliver svagere"
+    ],
+    "prehospitalRelevance": "Præhospitalt skal oxygenation, ventilation og respirationsarbejde vurderes hver for sig og følges over tid.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "redFlag": "Faldende respirationsarbejde sammen med tiltagende træthed, stille thorax eller ændret bevidsthed kan være forværring—ikke bedring.",
+    "references": [
+      {
+        "title": "ABCDE approach and assessment of breathing",
+        "publisher": "Resuscitation Council UK",
+        "editionOrDate": "Current online educational guidance",
+        "note": "Used as general educational support; local clinical instructions take precedence."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1
   },
   {
     "id": "lung_006",
@@ -2152,14 +2251,39 @@
     "id": "lung_010",
     "subject": "Sygdomslære",
     "topic": "Lungesygdomme",
-    "question": "Hvordan kan lungeødem identificeres præhospitalt?",
-    "answer": "Skummende evt. lyserødt sputum, gispende vejrtrækning, crepitationer bilateralt og ortopnø.",
+    "question": "Hvilke fund taler mere for lungeødem end for isoleret obstruktiv lungesygdom?",
+    "answer": "Ortopnø, bilaterale krepitationer og tegn på hjertesvigt; fundene skal vurderes samlet.",
     "difficulty": "medium",
     "tags": [
       "lungeødem",
-      "hjertesvigt"
+      "hjertesvigt",
+      "respiration",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "lungesygdommeCards"
+    "deckId": "lungesygdommeCards",
+    "schemaVersion": 2,
+    "kind": "applied",
+    "learningObjectiveId": "lo.sygdomslaere.lungesygdomme.grundlag",
+    "explanation": "Ortopnø, bilaterale krepitationer og tegn på hjertesvigt; fundene skal vurderes samlet. Fundet skal sættes ind i en samlet ABCDE-vurdering; en enkelt SpO₂- eller RF-måling beskriver ikke alene ventilation eller klinisk reserve.",
+    "commonMistakes": [
+      "At sidestille normal SpO₂ med normal ventilation",
+      "At overse udtrætning, når respirationslydene bliver svagere"
+    ],
+    "prehospitalRelevance": "Præhospitalt skal oxygenation, ventilation og respirationsarbejde vurderes hver for sig og følges over tid.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "redFlag": "Faldende respirationsarbejde sammen med tiltagende træthed, stille thorax eller ændret bevidsthed kan være forværring—ikke bedring.",
+    "references": [
+      {
+        "title": "ABCDE approach and assessment of breathing",
+        "publisher": "Resuscitation Council UK",
+        "editionOrDate": "Current online educational guidance",
+        "note": "Used as general educational support; local clinical instructions take precedence."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1
   },
   {
     "id": "lung_011",
@@ -2216,14 +2340,39 @@
     "id": "lung_015",
     "subject": "Sygdomslære",
     "topic": "Lungesygdomme",
-    "question": "Hvordan vurderes dyspnø klinisk?",
-    "answer": "RF, iltmætning, brug af accessoriske muskler, cyanose, bevidsthed og påvirket tale.",
+    "question": "Hvilke observationer indgår i en ABCDE-vurdering af dyspnø ud over SpO₂?",
+    "answer": "RF, dybde, respirationsarbejde, taleevne, respirationslyde, hud, mental status og udvikling over tid.",
     "difficulty": "easy",
     "tags": [
       "dyspnø",
-      "vurdering"
+      "vurdering",
+      "respiration",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "lungesygdommeCards"
+    "deckId": "lungesygdommeCards",
+    "schemaVersion": 2,
+    "kind": "applied",
+    "learningObjectiveId": "lo.sygdomslaere.lungesygdomme.grundlag",
+    "explanation": "RF, dybde, respirationsarbejde, taleevne, respirationslyde, hud, mental status og udvikling over tid. Fundet skal sættes ind i en samlet ABCDE-vurdering; en enkelt SpO₂- eller RF-måling beskriver ikke alene ventilation eller klinisk reserve.",
+    "commonMistakes": [
+      "At sidestille normal SpO₂ med normal ventilation",
+      "At overse udtrætning, når respirationslydene bliver svagere"
+    ],
+    "prehospitalRelevance": "Præhospitalt skal oxygenation, ventilation og respirationsarbejde vurderes hver for sig og følges over tid.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "redFlag": "Faldende respirationsarbejde sammen med tiltagende træthed, stille thorax eller ændret bevidsthed kan være forværring—ikke bedring.",
+    "references": [
+      {
+        "title": "ABCDE approach and assessment of breathing",
+        "publisher": "Resuscitation Council UK",
+        "editionOrDate": "Current online educational guidance",
+        "note": "Used as general educational support; local clinical instructions take precedence."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1
   },
   {
     "id": "lung_016",
@@ -2243,13 +2392,37 @@
     "subject": "Sygdomslære",
     "topic": "Lungesygdomme",
     "question": "Hvad tyder bradypnø og lav respons ved hypoksi på?",
-    "answer": "Respirationsinsufficiens og risiko for respirationsstop. Kræver akut ventilationsstøtte.",
+    "answer": "Mulig udtrætning og truende respirationsstop; ventilation og luftvej skal vurderes straks efter gældende instruks.",
     "difficulty": "hard",
     "tags": [
       "insufficiens",
-      "ABCDE"
+      "ABCDE",
+      "respiration",
+      "reviewed-v2"
     ],
-    "deckId": "lungesygdommeCards"
+    "deckId": "lungesygdommeCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.sygdomslaere.lungesygdomme.grundlag",
+    "explanation": "Mulig udtrætning og truende respirationsstop; ventilation og luftvej skal vurderes straks efter gældende instruks. Fundet skal sættes ind i en samlet ABCDE-vurdering; en enkelt SpO₂- eller RF-måling beskriver ikke alene ventilation eller klinisk reserve.",
+    "commonMistakes": [
+      "At sidestille normal SpO₂ med normal ventilation",
+      "At overse udtrætning, når respirationslydene bliver svagere"
+    ],
+    "prehospitalRelevance": "Præhospitalt skal oxygenation, ventilation og respirationsarbejde vurderes hver for sig og følges over tid.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "redFlag": "Faldende respirationsarbejde sammen med tiltagende træthed, stille thorax eller ændret bevidsthed kan være forværring—ikke bedring.",
+    "references": [
+      {
+        "title": "ABCDE approach and assessment of breathing",
+        "publisher": "Resuscitation Council UK",
+        "editionOrDate": "Current online educational guidance",
+        "note": "Used as general educational support; local clinical instructions take precedence."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1
   },
   {
     "id": "lung_018",

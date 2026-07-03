@@ -196,9 +196,33 @@
     "tags": [
       "ventilation",
       "respiration",
-      "definition"
+      "definition",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "respirationCards"
+    "deckId": "respirationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.anatomi-fysiologi.respiration.grundlag",
+    "explanation": "Ventilation er luftens bevægelse ind og ud af lungerne. Respiration er gasudvekslingen i alveoler og ude i vævene. Fundet skal sættes ind i en samlet ABCDE-vurdering; en enkelt SpO₂- eller RF-måling beskriver ikke alene ventilation eller klinisk reserve.",
+    "commonMistakes": [
+      "At sidestille normal SpO₂ med normal ventilation",
+      "At overse udtrætning, når respirationslydene bliver svagere"
+    ],
+    "prehospitalRelevance": "Præhospitalt skal oxygenation, ventilation og respirationsarbejde vurderes hver for sig og følges over tid.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "references": [
+      {
+        "title": "ABCDE approach and assessment of breathing",
+        "publisher": "Resuscitation Council UK",
+        "editionOrDate": "Current online educational guidance",
+        "note": "Used as general educational support; local clinical instructions take precedence."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1,
+    "redFlag": "Faldende respirationsarbejde sammen med tiltagende træthed, stille thorax eller ændret bevidsthed kan være forværring—ikke bedring."
   },
   {
     "id": "resp_002",
@@ -209,9 +233,34 @@
     "difficulty": "easy",
     "tags": [
       "gasudveksling",
-      "alveoler"
+      "alveoler",
+      "respiration",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "respirationCards"
+    "deckId": "respirationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.anatomi-fysiologi.respiration.grundlag",
+    "explanation": "I alveolerne diffunderer O₂ fra luften til blodet og CO₂ fra blodet til alveoleluften, styret af partialtryk. Fundet skal sættes ind i en samlet ABCDE-vurdering; en enkelt SpO₂- eller RF-måling beskriver ikke alene ventilation eller klinisk reserve.",
+    "commonMistakes": [
+      "At sidestille normal SpO₂ med normal ventilation",
+      "At overse udtrætning, når respirationslydene bliver svagere"
+    ],
+    "prehospitalRelevance": "Præhospitalt skal oxygenation, ventilation og respirationsarbejde vurderes hver for sig og følges over tid.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "references": [
+      {
+        "title": "ABCDE approach and assessment of breathing",
+        "publisher": "Resuscitation Council UK",
+        "editionOrDate": "Current online educational guidance",
+        "note": "Used as general educational support; local clinical instructions take precedence."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1,
+    "redFlag": "Faldende respirationsarbejde sammen med tiltagende træthed, stille thorax eller ændret bevidsthed kan være forværring—ikke bedring."
   },
   {
     "id": "resp_003",
@@ -222,22 +271,72 @@
     "difficulty": "medium",
     "tags": [
       "partialtryk",
-      "gasudveksling"
+      "gasudveksling",
+      "respiration",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "respirationCards"
+    "deckId": "respirationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.anatomi-fysiologi.respiration.grundlag",
+    "explanation": "Partialtryk beskriver koncentrationen af en gas i en blanding. pO₂ og pCO₂ afgør diffusion mellem blod og alveole. Fundet skal sættes ind i en samlet ABCDE-vurdering; en enkelt SpO₂- eller RF-måling beskriver ikke alene ventilation eller klinisk reserve.",
+    "commonMistakes": [
+      "At sidestille normal SpO₂ med normal ventilation",
+      "At overse udtrætning, når respirationslydene bliver svagere"
+    ],
+    "prehospitalRelevance": "Præhospitalt skal oxygenation, ventilation og respirationsarbejde vurderes hver for sig og følges over tid.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "references": [
+      {
+        "title": "ABCDE approach and assessment of breathing",
+        "publisher": "Resuscitation Council UK",
+        "editionOrDate": "Current online educational guidance",
+        "note": "Used as general educational support; local clinical instructions take precedence."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1,
+    "redFlag": "Faldende respirationsarbejde sammen med tiltagende træthed, stille thorax eller ændret bevidsthed kan være forværring—ikke bedring."
   },
   {
     "id": "resp_004",
     "subject": "Anatomi og fysiologi",
     "topic": "Respiration",
     "question": "Hvordan transporteres størstedelen af ilt i blodet?",
-    "answer": "Omkring 98% binder til hæmoglobin, mens kun 2% transporteres frit opløst i plasma.",
+    "answer": "Primært bundet til hæmoglobin; en mindre del er fysisk opløst i plasma.",
     "difficulty": "easy",
     "tags": [
       "ilttransport",
-      "hæmoglobin"
+      "hæmoglobin",
+      "respiration",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "respirationCards"
+    "deckId": "respirationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.anatomi-fysiologi.respiration.grundlag",
+    "explanation": "Primært bundet til hæmoglobin; en mindre del er fysisk opløst i plasma. Fundet skal sættes ind i en samlet ABCDE-vurdering; en enkelt SpO₂- eller RF-måling beskriver ikke alene ventilation eller klinisk reserve.",
+    "commonMistakes": [
+      "At sidestille normal SpO₂ med normal ventilation",
+      "At overse udtrætning, når respirationslydene bliver svagere"
+    ],
+    "prehospitalRelevance": "Præhospitalt skal oxygenation, ventilation og respirationsarbejde vurderes hver for sig og følges over tid.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "references": [
+      {
+        "title": "ABCDE approach and assessment of breathing",
+        "publisher": "Resuscitation Council UK",
+        "editionOrDate": "Current online educational guidance",
+        "note": "Used as general educational support; local clinical instructions take precedence."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1,
+    "redFlag": "Faldende respirationsarbejde sammen med tiltagende træthed, stille thorax eller ændret bevidsthed kan være forværring—ikke bedring."
   },
   {
     "id": "resp_005",
@@ -248,35 +347,125 @@
     "difficulty": "medium",
     "tags": [
       "kurve",
-      "hæmoglobin"
+      "hæmoglobin",
+      "respiration",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "respirationCards"
+    "deckId": "respirationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.anatomi-fysiologi.respiration.grundlag",
+    "explanation": "En kurve der viser forholdet mellem pO₂ og hæmoglobins iltmætning (SaO₂). Forklarer hvorfor ilt afgives lettere i væv med lav pO₂. Fundet skal sættes ind i en samlet ABCDE-vurdering; en enkelt SpO₂- eller RF-måling beskriver ikke alene ventilation eller klinisk reserve.",
+    "commonMistakes": [
+      "At sidestille normal SpO₂ med normal ventilation",
+      "At overse udtrætning, når respirationslydene bliver svagere"
+    ],
+    "prehospitalRelevance": "Præhospitalt skal oxygenation, ventilation og respirationsarbejde vurderes hver for sig og følges over tid.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "references": [
+      {
+        "title": "ABCDE approach and assessment of breathing",
+        "publisher": "Resuscitation Council UK",
+        "editionOrDate": "Current online educational guidance",
+        "note": "Used as general educational support; local clinical instructions take precedence."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1,
+    "redFlag": "Faldende respirationsarbejde sammen med tiltagende træthed, stille thorax eller ændret bevidsthed kan være forværring—ikke bedring."
   },
   {
     "id": "resp_006",
     "subject": "Anatomi og fysiologi",
     "topic": "Respiration",
-    "question": "Hvad betyder høj resp.frekvens (takypnø) fysiologisk?",
-    "answer": "Øget RF kan være et tegn på hypoxi, acidose, smerte, angst eller kompensation for metabolisk acidose.",
+    "question": "En patient har RF 30, taler i korte sætninger og bruger accessoriske muskler. Hvad er vigtigst at konkludere?",
+    "answer": "Der er betydeligt øget respirationsarbejde og risiko for udtrætning.",
     "difficulty": "medium",
     "tags": [
       "rf",
-      "kompensation"
+      "kompensation",
+      "respiration",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "respirationCards"
+    "deckId": "respirationCards",
+    "scenario": {
+      "presentation": "Tiltagende dyspnø og korte sætninger.",
+      "vitals": {
+        "respiratoryRate": 30,
+        "spo2": 93
+      }
+    },
+    "schemaVersion": 2,
+    "kind": "scenario",
+    "learningObjectiveId": "lo.anatomi-fysiologi.respiration.grundlag",
+    "explanation": "Der er betydeligt øget respirationsarbejde og risiko for udtrætning. Fundet skal sættes ind i en samlet ABCDE-vurdering; en enkelt SpO₂- eller RF-måling beskriver ikke alene ventilation eller klinisk reserve.",
+    "commonMistakes": [
+      "At sidestille normal SpO₂ med normal ventilation",
+      "At overse udtrætning, når respirationslydene bliver svagere"
+    ],
+    "prehospitalRelevance": "Præhospitalt skal oxygenation, ventilation og respirationsarbejde vurderes hver for sig og følges over tid.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "references": [
+      {
+        "title": "ABCDE approach and assessment of breathing",
+        "publisher": "Resuscitation Council UK",
+        "editionOrDate": "Current online educational guidance",
+        "note": "Used as general educational support; local clinical instructions take precedence."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1,
+    "redFlag": "Faldende respirationsarbejde sammen med tiltagende træthed, stille thorax eller ændret bevidsthed kan være forværring—ikke bedring."
   },
   {
     "id": "resp_007",
     "subject": "Anatomi og fysiologi",
     "topic": "Respiration",
-    "question": "Hvorfor får KOL-patienter nedsat gasudveksling?",
-    "answer": "Ødelagte alveoler og tab af elastic recoil medfører mindre diffusionsoverflade og luftfangst.",
+    "question": "En KOL-patient bliver mere træt trods mindre hørbar hvæsen. Hvad kan udviklingen betyde?",
+    "answer": "Faldende ventilation og begyndende respiratorisk udtrætning.",
     "difficulty": "medium",
     "tags": [
       "kol",
-      "alveoler"
+      "alveoler",
+      "respiration",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "respirationCards"
+    "deckId": "respirationCards",
+    "scenario": {
+      "presentation": "Kendt KOL, tiltagende træthed og svagere respirationslyde.",
+      "ageGroup": "older-adult",
+      "vitals": {
+        "respiratoryRate": 10,
+        "spo2": 88
+      }
+    },
+    "schemaVersion": 2,
+    "kind": "scenario",
+    "learningObjectiveId": "lo.anatomi-fysiologi.respiration.grundlag",
+    "explanation": "Faldende ventilation og begyndende respiratorisk udtrætning. Fundet skal sættes ind i en samlet ABCDE-vurdering; en enkelt SpO₂- eller RF-måling beskriver ikke alene ventilation eller klinisk reserve.",
+    "commonMistakes": [
+      "At sidestille normal SpO₂ med normal ventilation",
+      "At overse udtrætning, når respirationslydene bliver svagere"
+    ],
+    "prehospitalRelevance": "Præhospitalt skal oxygenation, ventilation og respirationsarbejde vurderes hver for sig og følges over tid.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "references": [
+      {
+        "title": "ABCDE approach and assessment of breathing",
+        "publisher": "Resuscitation Council UK",
+        "editionOrDate": "Current online educational guidance",
+        "note": "Used as general educational support; local clinical instructions take precedence."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1,
+    "redFlag": "Faldende respirationsarbejde sammen med tiltagende træthed, stille thorax eller ændret bevidsthed kan være forværring—ikke bedring."
   },
   {
     "id": "resp_008",
@@ -286,9 +475,34 @@
     "answer": "Hypoxi: utilstrækkelig ilt til kroppens væv. Hypoxæmi: nedsat iltindhold i blodet (lav pO₂/SaO₂).",
     "difficulty": "medium",
     "tags": [
-      "iltmangel"
+      "iltmangel",
+      "respiration",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "respirationCards"
+    "deckId": "respirationCards",
+    "schemaVersion": 2,
+    "kind": "applied",
+    "learningObjectiveId": "lo.anatomi-fysiologi.respiration.grundlag",
+    "explanation": "Hypoxi: utilstrækkelig ilt til kroppens væv. Hypoxæmi: nedsat iltindhold i blodet (lav pO₂/SaO₂). Fundet skal sættes ind i en samlet ABCDE-vurdering; en enkelt SpO₂- eller RF-måling beskriver ikke alene ventilation eller klinisk reserve.",
+    "commonMistakes": [
+      "At sidestille normal SpO₂ med normal ventilation",
+      "At overse udtrætning, når respirationslydene bliver svagere"
+    ],
+    "prehospitalRelevance": "Præhospitalt skal oxygenation, ventilation og respirationsarbejde vurderes hver for sig og følges over tid.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "references": [
+      {
+        "title": "ABCDE approach and assessment of breathing",
+        "publisher": "Resuscitation Council UK",
+        "editionOrDate": "Current online educational guidance",
+        "note": "Used as general educational support; local clinical instructions take precedence."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1,
+    "redFlag": "Faldende respirationsarbejde sammen med tiltagende træthed, stille thorax eller ændret bevidsthed kan være forværring—ikke bedring."
   },
   {
     "id": "resp_009",
@@ -299,9 +513,34 @@
     "difficulty": "hard",
     "tags": [
       "acidose",
-      "co2"
+      "co2",
+      "respiration",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "respirationCards"
+    "deckId": "respirationCards",
+    "schemaVersion": 2,
+    "kind": "applied",
+    "learningObjectiveId": "lo.anatomi-fysiologi.respiration.grundlag",
+    "explanation": "CO₂ ophobes i blodet pga. hypoventilation, hvilket sænker pH og giver acidose. Fundet skal sættes ind i en samlet ABCDE-vurdering; en enkelt SpO₂- eller RF-måling beskriver ikke alene ventilation eller klinisk reserve.",
+    "commonMistakes": [
+      "At sidestille normal SpO₂ med normal ventilation",
+      "At overse udtrætning, når respirationslydene bliver svagere"
+    ],
+    "prehospitalRelevance": "Præhospitalt skal oxygenation, ventilation og respirationsarbejde vurderes hver for sig og følges over tid.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "references": [
+      {
+        "title": "ABCDE approach and assessment of breathing",
+        "publisher": "Resuscitation Council UK",
+        "editionOrDate": "Current online educational guidance",
+        "note": "Used as general educational support; local clinical instructions take precedence."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1,
+    "redFlag": "Faldende respirationsarbejde sammen med tiltagende træthed, stille thorax eller ændret bevidsthed kan være forværring—ikke bedring."
   },
   {
     "id": "resp_010",
@@ -311,9 +550,34 @@
     "answer": "Ved hyperventilation udskilles ekstra CO₂, hvilket reducerer syre og øger pH (respiratorisk alkalose).",
     "difficulty": "hard",
     "tags": [
-      "alkalose"
+      "alkalose",
+      "respiration",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "respirationCards"
+    "deckId": "respirationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.anatomi-fysiologi.respiration.grundlag",
+    "explanation": "Ved hyperventilation udskilles ekstra CO₂, hvilket reducerer syre og øger pH (respiratorisk alkalose). Fundet skal sættes ind i en samlet ABCDE-vurdering; en enkelt SpO₂- eller RF-måling beskriver ikke alene ventilation eller klinisk reserve.",
+    "commonMistakes": [
+      "At sidestille normal SpO₂ med normal ventilation",
+      "At overse udtrætning, når respirationslydene bliver svagere"
+    ],
+    "prehospitalRelevance": "Præhospitalt skal oxygenation, ventilation og respirationsarbejde vurderes hver for sig og følges over tid.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "references": [
+      {
+        "title": "ABCDE approach and assessment of breathing",
+        "publisher": "Resuscitation Council UK",
+        "editionOrDate": "Current online educational guidance",
+        "note": "Used as general educational support; local clinical instructions take precedence."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1,
+    "redFlag": "Faldende respirationsarbejde sammen med tiltagende træthed, stille thorax eller ændret bevidsthed kan være forværring—ikke bedring."
   },
   {
     "id": "resp_011",
@@ -324,9 +588,33 @@
     "difficulty": "medium",
     "tags": [
       "sympaticus",
-      "respiration"
+      "respiration",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "respirationCards"
+    "deckId": "respirationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.anatomi-fysiologi.respiration.grundlag",
+    "explanation": "RF øges, bronkier dilateres og vejrtrækningen bliver dybere for at forbedre ilttilførsel. Fundet skal sættes ind i en samlet ABCDE-vurdering; en enkelt SpO₂- eller RF-måling beskriver ikke alene ventilation eller klinisk reserve.",
+    "commonMistakes": [
+      "At sidestille normal SpO₂ med normal ventilation",
+      "At overse udtrætning, når respirationslydene bliver svagere"
+    ],
+    "prehospitalRelevance": "Præhospitalt skal oxygenation, ventilation og respirationsarbejde vurderes hver for sig og følges over tid.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "references": [
+      {
+        "title": "ABCDE approach and assessment of breathing",
+        "publisher": "Resuscitation Council UK",
+        "editionOrDate": "Current online educational guidance",
+        "note": "Used as general educational support; local clinical instructions take precedence."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1,
+    "redFlag": "Faldende respirationsarbejde sammen med tiltagende træthed, stille thorax eller ændret bevidsthed kan være forværring—ikke bedring."
   },
   {
     "id": "resp_012",
@@ -337,9 +625,34 @@
     "difficulty": "easy",
     "tags": [
       "VT",
-      "volumen"
+      "volumen",
+      "respiration",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "respirationCards"
+    "deckId": "respirationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.anatomi-fysiologi.respiration.grundlag",
+    "explanation": "Den mængde luft, man normalt indånder eller udånder ved hver vejrtrækning (~500 ml hos voksne). Fundet skal sættes ind i en samlet ABCDE-vurdering; en enkelt SpO₂- eller RF-måling beskriver ikke alene ventilation eller klinisk reserve.",
+    "commonMistakes": [
+      "At sidestille normal SpO₂ med normal ventilation",
+      "At overse udtrætning, når respirationslydene bliver svagere"
+    ],
+    "prehospitalRelevance": "Præhospitalt skal oxygenation, ventilation og respirationsarbejde vurderes hver for sig og følges over tid.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "references": [
+      {
+        "title": "ABCDE approach and assessment of breathing",
+        "publisher": "Resuscitation Council UK",
+        "editionOrDate": "Current online educational guidance",
+        "note": "Used as general educational support; local clinical instructions take precedence."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1,
+    "redFlag": "Faldende respirationsarbejde sammen med tiltagende træthed, stille thorax eller ændret bevidsthed kan være forværring—ikke bedring."
   },
   {
     "id": "resp_013",
@@ -349,9 +662,34 @@
     "answer": "RF × tidalvolumen (VT). Fx 12 vejrtrækninger/min × 500 ml = 6 liter/min.",
     "difficulty": "medium",
     "tags": [
-      "minutventilation"
+      "minutventilation",
+      "respiration",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "respirationCards"
+    "deckId": "respirationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.anatomi-fysiologi.respiration.grundlag",
+    "explanation": "RF × tidalvolumen (VT). Fx 12 vejrtrækninger/min × 500 ml = 6 liter/min. Fundet skal sættes ind i en samlet ABCDE-vurdering; en enkelt SpO₂- eller RF-måling beskriver ikke alene ventilation eller klinisk reserve.",
+    "commonMistakes": [
+      "At sidestille normal SpO₂ med normal ventilation",
+      "At overse udtrætning, når respirationslydene bliver svagere"
+    ],
+    "prehospitalRelevance": "Præhospitalt skal oxygenation, ventilation og respirationsarbejde vurderes hver for sig og følges over tid.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "references": [
+      {
+        "title": "ABCDE approach and assessment of breathing",
+        "publisher": "Resuscitation Council UK",
+        "editionOrDate": "Current online educational guidance",
+        "note": "Used as general educational support; local clinical instructions take precedence."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1,
+    "redFlag": "Faldende respirationsarbejde sammen med tiltagende træthed, stille thorax eller ændret bevidsthed kan være forværring—ikke bedring."
   },
   {
     "id": "resp_014",
@@ -362,22 +700,82 @@
     "difficulty": "hard",
     "tags": [
       "DKA",
-      "kompensation"
+      "kompensation",
+      "respiration",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "respirationCards"
+    "deckId": "respirationCards",
+    "schemaVersion": 2,
+    "kind": "applied",
+    "learningObjectiveId": "lo.anatomi-fysiologi.respiration.grundlag",
+    "explanation": "Man hyperventilerer for at udskille CO₂ og kompensere, fx ved ketoacidose. Fundet skal sættes ind i en samlet ABCDE-vurdering; en enkelt SpO₂- eller RF-måling beskriver ikke alene ventilation eller klinisk reserve.",
+    "commonMistakes": [
+      "At sidestille normal SpO₂ med normal ventilation",
+      "At overse udtrætning, når respirationslydene bliver svagere"
+    ],
+    "prehospitalRelevance": "Præhospitalt skal oxygenation, ventilation og respirationsarbejde vurderes hver for sig og følges over tid.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "references": [
+      {
+        "title": "ABCDE approach and assessment of breathing",
+        "publisher": "Resuscitation Council UK",
+        "editionOrDate": "Current online educational guidance",
+        "note": "Used as general educational support; local clinical instructions take precedence."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1,
+    "redFlag": "Faldende respirationsarbejde sammen med tiltagende træthed, stille thorax eller ændret bevidsthed kan være forværring—ikke bedring."
   },
   {
     "id": "resp_015",
     "subject": "Anatomi og fysiologi",
     "topic": "Respiration",
-    "question": "Hvorfor kan pneumothorax give respirationssvigt?",
-    "answer": "Luft i pleurahulen trykker på lungen og reducerer ventilation og gasudveksling.",
+    "question": "Efter thoraxtraume får en patient ensidigt svækkede respirationslyde, dyspnø og kredsløbspåvirkning. Hvad skal mistænkes?",
+    "answer": "Trykpneumothorax skal mistænkes som en tidskritisk differentialdiagnose.",
     "difficulty": "medium",
     "tags": [
       "trauma",
-      "pneumothorax"
+      "pneumothorax",
+      "respiration",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "respirationCards"
+    "deckId": "respirationCards",
+    "scenario": {
+      "presentation": "Akut forværring efter stumpt thoraxtraume.",
+      "ageGroup": "adult",
+      "vitals": {
+        "pulse": 128,
+        "systolicBp": 86,
+        "respiratoryRate": 34,
+        "spo2": 87
+      }
+    },
+    "schemaVersion": 2,
+    "kind": "scenario",
+    "learningObjectiveId": "lo.anatomi-fysiologi.respiration.grundlag",
+    "explanation": "Trykpneumothorax skal mistænkes som en tidskritisk differentialdiagnose. Fundet skal sættes ind i en samlet ABCDE-vurdering; en enkelt SpO₂- eller RF-måling beskriver ikke alene ventilation eller klinisk reserve.",
+    "commonMistakes": [
+      "At sidestille normal SpO₂ med normal ventilation",
+      "At overse udtrætning, når respirationslydene bliver svagere"
+    ],
+    "prehospitalRelevance": "Præhospitalt skal oxygenation, ventilation og respirationsarbejde vurderes hver for sig og følges over tid.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "references": [
+      {
+        "title": "ABCDE approach and assessment of breathing",
+        "publisher": "Resuscitation Council UK",
+        "editionOrDate": "Current online educational guidance",
+        "note": "Used as general educational support; local clinical instructions take precedence."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1,
+    "redFlag": "Faldende respirationsarbejde sammen med tiltagende træthed, stille thorax eller ændret bevidsthed kan være forværring—ikke bedring."
   },
   {
     "id": "resp_016",
@@ -388,22 +786,79 @@
     "difficulty": "medium",
     "tags": [
       "alveoler",
-      "surfaktant"
+      "surfaktant",
+      "respiration",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "respirationCards"
+    "deckId": "respirationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.anatomi-fysiologi.respiration.grundlag",
+    "explanation": "Surfaktant nedsætter overfladespændingen i alveolerne og forhindrer sammenklapning ved udånding. Fundet skal sættes ind i en samlet ABCDE-vurdering; en enkelt SpO₂- eller RF-måling beskriver ikke alene ventilation eller klinisk reserve.",
+    "commonMistakes": [
+      "At sidestille normal SpO₂ med normal ventilation",
+      "At overse udtrætning, når respirationslydene bliver svagere"
+    ],
+    "prehospitalRelevance": "Præhospitalt skal oxygenation, ventilation og respirationsarbejde vurderes hver for sig og følges over tid.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "references": [
+      {
+        "title": "ABCDE approach and assessment of breathing",
+        "publisher": "Resuscitation Council UK",
+        "editionOrDate": "Current online educational guidance",
+        "note": "Used as general educational support; local clinical instructions take precedence."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1,
+    "redFlag": "Faldende respirationsarbejde sammen med tiltagende træthed, stille thorax eller ændret bevidsthed kan være forværring—ikke bedring."
   },
   {
     "id": "resp_017",
     "subject": "Anatomi og fysiologi",
     "topic": "Respiration",
-    "question": "Hvad sker der ved respiratorisk insufficiens?",
-    "answer": "Utilstrækkelig gasudveksling medfører hypoxæmi og/eller hyperkapni.",
+    "question": "En patient har normal SpO₂, men bliver sløv med langsom, overfladisk respiration. Hvilket problem kan saturation ikke udelukke?",
+    "answer": "Hypoventilation med hyperkapni.",
     "difficulty": "hard",
     "tags": [
       "insufficiens",
-      "respiration"
+      "respiration",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "respirationCards"
+    "deckId": "respirationCards",
+    "scenario": {
+      "presentation": "Tiltagende sløvhed og ineffektiv ventilation trods normal SpO₂.",
+      "vitals": {
+        "respiratoryRate": 7,
+        "spo2": 96,
+        "gcs": 12
+      }
+    },
+    "schemaVersion": 2,
+    "kind": "scenario",
+    "learningObjectiveId": "lo.anatomi-fysiologi.respiration.grundlag",
+    "explanation": "Hypoventilation med hyperkapni. Fundet skal sættes ind i en samlet ABCDE-vurdering; en enkelt SpO₂- eller RF-måling beskriver ikke alene ventilation eller klinisk reserve.",
+    "commonMistakes": [
+      "At sidestille normal SpO₂ med normal ventilation",
+      "At overse udtrætning, når respirationslydene bliver svagere"
+    ],
+    "prehospitalRelevance": "Præhospitalt skal oxygenation, ventilation og respirationsarbejde vurderes hver for sig og følges over tid.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "references": [
+      {
+        "title": "ABCDE approach and assessment of breathing",
+        "publisher": "Resuscitation Council UK",
+        "editionOrDate": "Current online educational guidance",
+        "note": "Used as general educational support; local clinical instructions take precedence."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1,
+    "redFlag": "Faldende respirationsarbejde sammen med tiltagende træthed, stille thorax eller ændret bevidsthed kan være forværring—ikke bedring."
   },
   {
     "id": "resp_018",
@@ -413,35 +868,119 @@
     "answer": "Den del af luftvejene hvor der ikke foregår gasudveksling (mund, trachea, bronkier).",
     "difficulty": "medium",
     "tags": [
-      "ventilation"
+      "ventilation",
+      "respiration",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "respirationCards"
+    "deckId": "respirationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.anatomi-fysiologi.respiration.grundlag",
+    "explanation": "Den del af luftvejene hvor der ikke foregår gasudveksling (mund, trachea, bronkier). Fundet skal sættes ind i en samlet ABCDE-vurdering; en enkelt SpO₂- eller RF-måling beskriver ikke alene ventilation eller klinisk reserve.",
+    "commonMistakes": [
+      "At sidestille normal SpO₂ med normal ventilation",
+      "At overse udtrætning, når respirationslydene bliver svagere"
+    ],
+    "prehospitalRelevance": "Præhospitalt skal oxygenation, ventilation og respirationsarbejde vurderes hver for sig og følges over tid.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "references": [
+      {
+        "title": "ABCDE approach and assessment of breathing",
+        "publisher": "Resuscitation Council UK",
+        "editionOrDate": "Current online educational guidance",
+        "note": "Used as general educational support; local clinical instructions take precedence."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1,
+    "redFlag": "Faldende respirationsarbejde sammen med tiltagende træthed, stille thorax eller ændret bevidsthed kan være forværring—ikke bedring."
   },
   {
     "id": "resp_019",
     "subject": "Anatomi og fysiologi",
     "topic": "Respiration",
-    "question": "Hvordan påvirker højre og venstresidig hjertesvigt respirationen?",
-    "answer": "Venstresidig svigt → lungeødem. Højresidig svigt → væskeophobning og nedsat lungeperfusion.",
+    "question": "En dyspnøisk patient har krepitation, ortopnø og kold hud. Hvilken mekanisme er mest sandsynlig?",
+    "answer": "Venstresidigt hjertesvigt med pulmonal stase/lungeødem.",
     "difficulty": "hard",
     "tags": [
       "hjertesvigt",
-      "respiration"
+      "respiration",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "respirationCards"
+    "deckId": "respirationCards",
+    "scenario": {
+      "presentation": "Akut dyspnø, ortopnø og bilaterale krepitationer.",
+      "ageGroup": "older-adult",
+      "vitals": {
+        "pulse": 112,
+        "systolicBp": 168,
+        "respiratoryRate": 30,
+        "spo2": 89
+      }
+    },
+    "schemaVersion": 2,
+    "kind": "scenario",
+    "learningObjectiveId": "lo.anatomi-fysiologi.respiration.grundlag",
+    "explanation": "Venstresidigt hjertesvigt med pulmonal stase/lungeødem. Fundet skal sættes ind i en samlet ABCDE-vurdering; en enkelt SpO₂- eller RF-måling beskriver ikke alene ventilation eller klinisk reserve.",
+    "commonMistakes": [
+      "At sidestille normal SpO₂ med normal ventilation",
+      "At overse udtrætning, når respirationslydene bliver svagere"
+    ],
+    "prehospitalRelevance": "Præhospitalt skal oxygenation, ventilation og respirationsarbejde vurderes hver for sig og følges over tid.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "references": [
+      {
+        "title": "ABCDE approach and assessment of breathing",
+        "publisher": "Resuscitation Council UK",
+        "editionOrDate": "Current online educational guidance",
+        "note": "Used as general educational support; local clinical instructions take precedence."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1,
+    "redFlag": "Faldende respirationsarbejde sammen med tiltagende træthed, stille thorax eller ændret bevidsthed kan være forværring—ikke bedring."
   },
   {
     "id": "resp_020",
     "subject": "Anatomi og fysiologi",
     "topic": "Respiration",
     "question": "Hvorfor kan hyperventilation føre til svimmelhed og paræstesier?",
-    "answer": "CO₂ tab sænker ionkoncentrationer i blodet (respiratorisk alkalose), hvilket påvirker nervefunktion.",
+    "answer": "Hypokapni giver respiratorisk alkalose og cerebral vasokonstriktion, som kan udløse svimmelhed og paræstesier.",
     "difficulty": "medium",
     "tags": [
       "hyperventilation",
-      "nerve"
+      "nerve",
+      "respiration",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "respirationCards"
+    "deckId": "respirationCards",
+    "schemaVersion": 2,
+    "kind": "applied",
+    "learningObjectiveId": "lo.anatomi-fysiologi.respiration.grundlag",
+    "explanation": "Hypokapni giver respiratorisk alkalose og cerebral vasokonstriktion, som kan udløse svimmelhed og paræstesier. Fundet skal sættes ind i en samlet ABCDE-vurdering; en enkelt SpO₂- eller RF-måling beskriver ikke alene ventilation eller klinisk reserve.",
+    "commonMistakes": [
+      "At sidestille normal SpO₂ med normal ventilation",
+      "At overse udtrætning, når respirationslydene bliver svagere"
+    ],
+    "prehospitalRelevance": "Præhospitalt skal oxygenation, ventilation og respirationsarbejde vurderes hver for sig og følges over tid.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "references": [
+      {
+        "title": "ABCDE approach and assessment of breathing",
+        "publisher": "Resuscitation Council UK",
+        "editionOrDate": "Current online educational guidance",
+        "note": "Used as general educational support; local clinical instructions take precedence."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1,
+    "redFlag": "Faldende respirationsarbejde sammen med tiltagende træthed, stille thorax eller ændret bevidsthed kan være forværring—ikke bedring."
   },
   {
     "id": "neuro_001",
@@ -563,26 +1102,74 @@
     "id": "neuro_010",
     "subject": "Anatomi og fysiologi",
     "topic": "Nervesystemet",
-    "question": "Hvordan vurderes bevidsthed præhospitalt?",
-    "answer": "Typisk med AVPU eller Glasgow Coma Scale (GCS). GCS vurderer øjenåbning, verbalt og motorisk respons.",
+    "question": "Hvad bruges AVPU eller en RAS-lignende hurtig vurdering til?",
+    "answer": "Til hurtigt at beskrive patientens reaktionsniveau; unormale fund uddybes systematisk, fx med GCS.",
     "difficulty": "easy",
     "tags": [
       "GCS",
-      "AVPU"
+      "AVPU",
+      "consciousness",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "nervesystemetCards"
+    "deckId": "nervesystemetCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.anatomi-fysiologi.nervesystemet.grundlag",
+    "explanation": "Til hurtigt at beskrive patientens reaktionsniveau; unormale fund uddybes systematisk, fx med GCS. Beskriv øjen-, verbal- og motorisk respons, vurder mulige konfunderende faktorer og gentag undersøgelsen; trenden er ofte vigtigere end én totalscore.",
+    "commonMistakes": [
+      "At dokumentere kun total GCS",
+      "At antage intoxikation uden at udelukke hypoksi, hypoglykæmi, shock, sepsis eller stroke"
+    ],
+    "prehospitalRelevance": "Ændret bevidsthed kan true luftvejen og skyldes reversible ABCDE-problemer, som skal opspores parallelt med neurologisk vurdering.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "references": [
+      {
+        "title": "The Glasgow Structured Approach to Assessment of the Glasgow Coma Scale",
+        "publisher": "Glasgow Coma Scale / University of Glasgow",
+        "note": "Emphasises component reporting, confounders and serial assessment."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1,
+    "redFlag": "Faldende reaktionsniveau, ny anisokori eller lateraliserende udfald kræver hurtig revurdering af ABCDE og neurologisk status."
   },
   {
     "id": "neuro_011",
     "subject": "Anatomi og fysiologi",
     "topic": "Nervesystemet",
-    "question": "Hvad måler en GCS-score?",
-    "answer": "GCS vurderer hjernens funktion baseret på øjenåbning, motorisk respons og verbalt respons. Score 3-15.",
+    "question": "Hvilke tre komponenter skal rapporteres ved GCS?",
+    "answer": "Øjenåbning, verbal respons og motorisk respons.",
     "difficulty": "medium",
     "tags": [
-      "GCS"
+      "GCS",
+      "consciousness",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "nervesystemetCards"
+    "deckId": "nervesystemetCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.anatomi-fysiologi.nervesystemet.grundlag",
+    "explanation": "Øjenåbning, verbal respons og motorisk respons. Beskriv øjen-, verbal- og motorisk respons, vurder mulige konfunderende faktorer og gentag undersøgelsen; trenden er ofte vigtigere end én totalscore.",
+    "commonMistakes": [
+      "At dokumentere kun total GCS",
+      "At antage intoxikation uden at udelukke hypoksi, hypoglykæmi, shock, sepsis eller stroke"
+    ],
+    "prehospitalRelevance": "Ændret bevidsthed kan true luftvejen og skyldes reversible ABCDE-problemer, som skal opspores parallelt med neurologisk vurdering.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "references": [
+      {
+        "title": "The Glasgow Structured Approach to Assessment of the Glasgow Coma Scale",
+        "publisher": "Glasgow Coma Scale / University of Glasgow",
+        "note": "Emphasises component reporting, confounders and serial assessment."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1,
+    "redFlag": "Faldende reaktionsniveau, ny anisokori eller lateraliserende udfald kræver hurtig revurdering af ABCDE og neurologisk status."
   },
   {
     "id": "neuro_012",

@@ -326,13 +326,37 @@
     "subject": "Traumatologi og ITLS",
     "topic": "Traumatisk hjerneskade og neurologi",
     "question": "Hvad betyder anisokori præhospitalt?",
-    "answer": "Forskellige pupilstørrelser som kan indikere alvorlig intrakraniel trykstigning eller blødning.",
+    "answer": "Forskellig pupilstørrelse; det kan være et alarmsignal, men skal sammenholdes med øvrige neurologiske fund og udviklingen.",
     "difficulty": "medium",
     "tags": [
       "anisokori",
-      "ICP"
+      "ICP",
+      "consciousness",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "tbiNeurologiCards"
+    "deckId": "tbiNeurologiCards",
+    "schemaVersion": 2,
+    "kind": "applied",
+    "learningObjectiveId": "lo.traumatologi-itls.traumatisk-hjerneskade-og-neurologi.grundlag",
+    "explanation": "Forskellig pupilstørrelse; det kan være et alarmsignal, men skal sammenholdes med øvrige neurologiske fund og udviklingen. Beskriv øjen-, verbal- og motorisk respons, vurder mulige konfunderende faktorer og gentag undersøgelsen; trenden er ofte vigtigere end én totalscore.",
+    "commonMistakes": [
+      "At dokumentere kun total GCS",
+      "At antage intoxikation uden at udelukke hypoksi, hypoglykæmi, shock, sepsis eller stroke"
+    ],
+    "prehospitalRelevance": "Ændret bevidsthed kan true luftvejen og skyldes reversible ABCDE-problemer, som skal opspores parallelt med neurologisk vurdering.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "references": [
+      {
+        "title": "The Glasgow Structured Approach to Assessment of the Glasgow Coma Scale",
+        "publisher": "Glasgow Coma Scale / University of Glasgow",
+        "note": "Emphasises component reporting, confounders and serial assessment."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1,
+    "redFlag": "Faldende reaktionsniveau, ny anisokori eller lateraliserende udfald kræver hurtig revurdering af ABCDE og neurologisk status."
   },
   {
     "id": "tbi_007",
@@ -378,26 +402,74 @@
     "subject": "Traumatologi og ITLS",
     "topic": "Traumatisk hjerneskade og neurologi",
     "question": "Hvad er formålet med GCS præhospitalt?",
-    "answer": "At vurdere niveau af bevidsthed og monitorere neurologisk udvikling over tid.",
+    "answer": "At beskrive øjen-, verbal- og motorisk respons og følge ændringer over tid.",
     "difficulty": "easy",
     "tags": [
       "GCS",
-      "neurologi"
+      "neurologi",
+      "consciousness",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "tbiNeurologiCards"
+    "deckId": "tbiNeurologiCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.traumatologi-itls.traumatisk-hjerneskade-og-neurologi.grundlag",
+    "explanation": "At beskrive øjen-, verbal- og motorisk respons og følge ændringer over tid. Beskriv øjen-, verbal- og motorisk respons, vurder mulige konfunderende faktorer og gentag undersøgelsen; trenden er ofte vigtigere end én totalscore.",
+    "commonMistakes": [
+      "At dokumentere kun total GCS",
+      "At antage intoxikation uden at udelukke hypoksi, hypoglykæmi, shock, sepsis eller stroke"
+    ],
+    "prehospitalRelevance": "Ændret bevidsthed kan true luftvejen og skyldes reversible ABCDE-problemer, som skal opspores parallelt med neurologisk vurdering.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "references": [
+      {
+        "title": "The Glasgow Structured Approach to Assessment of the Glasgow Coma Scale",
+        "publisher": "Glasgow Coma Scale / University of Glasgow",
+        "note": "Emphasises component reporting, confounders and serial assessment."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1,
+    "redFlag": "Faldende reaktionsniveau, ny anisokori eller lateraliserende udfald kræver hurtig revurdering af ABCDE og neurologisk status."
   },
   {
     "id": "tbi_011",
     "subject": "Traumatologi og ITLS",
     "topic": "Traumatisk hjerneskade og neurologi",
     "question": "Hvad betyder det, hvis en TBI-patient går fra GCS 15 til 13?",
-    "answer": "Neurologisk forværring og mulig intrakraniel blødning — skal vurderes akut.",
+    "answer": "En klinisk relevant neurologisk forværring, som kræver ny ABCDE- og neurologisk vurdering.",
     "difficulty": "medium",
     "tags": [
       "GCS",
-      "forværring"
+      "forværring",
+      "consciousness",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "tbiNeurologiCards"
+    "deckId": "tbiNeurologiCards",
+    "schemaVersion": 2,
+    "kind": "applied",
+    "learningObjectiveId": "lo.traumatologi-itls.traumatisk-hjerneskade-og-neurologi.grundlag",
+    "explanation": "En klinisk relevant neurologisk forværring, som kræver ny ABCDE- og neurologisk vurdering. Beskriv øjen-, verbal- og motorisk respons, vurder mulige konfunderende faktorer og gentag undersøgelsen; trenden er ofte vigtigere end én totalscore.",
+    "commonMistakes": [
+      "At dokumentere kun total GCS",
+      "At antage intoxikation uden at udelukke hypoksi, hypoglykæmi, shock, sepsis eller stroke"
+    ],
+    "prehospitalRelevance": "Ændret bevidsthed kan true luftvejen og skyldes reversible ABCDE-problemer, som skal opspores parallelt med neurologisk vurdering.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "references": [
+      {
+        "title": "The Glasgow Structured Approach to Assessment of the Glasgow Coma Scale",
+        "publisher": "Glasgow Coma Scale / University of Glasgow",
+        "note": "Emphasises component reporting, confounders and serial assessment."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1,
+    "redFlag": "Faldende reaktionsniveau, ny anisokori eller lateraliserende udfald kræver hurtig revurdering af ABCDE og neurologisk status."
   },
   {
     "id": "tbi_012",
@@ -469,13 +541,37 @@
     "subject": "Traumatologi og ITLS",
     "topic": "Traumatisk hjerneskade og neurologi",
     "question": "Hvordan kan du vurdere cerebrale funktioner ved grov neurologisk undersøgelse?",
-    "answer": "Kontakt, pupiller, ekstremitetsmotorik, smerterespons og bevidsthedsniveau (AVPU/GCS).",
+    "answer": "Kontakt, pupiller, lateraliserende udfald, ekstremitetsmotorik og systematisk reaktionsniveau/GCS.",
     "difficulty": "medium",
     "tags": [
       "neurologi",
-      "motorik"
+      "motorik",
+      "consciousness",
+      "ABCDE",
+      "reviewed-v2"
     ],
-    "deckId": "tbiNeurologiCards"
+    "deckId": "tbiNeurologiCards",
+    "schemaVersion": 2,
+    "kind": "applied",
+    "learningObjectiveId": "lo.traumatologi-itls.traumatisk-hjerneskade-og-neurologi.grundlag",
+    "explanation": "Kontakt, pupiller, lateraliserende udfald, ekstremitetsmotorik og systematisk reaktionsniveau/GCS. Beskriv øjen-, verbal- og motorisk respons, vurder mulige konfunderende faktorer og gentag undersøgelsen; trenden er ofte vigtigere end én totalscore.",
+    "commonMistakes": [
+      "At dokumentere kun total GCS",
+      "At antage intoxikation uden at udelukke hypoksi, hypoglykæmi, shock, sepsis eller stroke"
+    ],
+    "prehospitalRelevance": "Ændret bevidsthed kan true luftvejen og skyldes reversible ABCDE-problemer, som skal opspores parallelt med neurologisk vurdering.",
+    "examTip": "Begrund svaret med ABCDE, klinisk helhed og udvikling over tid.",
+    "references": [
+      {
+        "title": "The Glasgow Structured Approach to Assessment of the Glasgow Coma Scale",
+        "publisher": "Glasgow Coma Scale / University of Glasgow",
+        "note": "Emphasises component reporting, confounders and serial assessment."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-03",
+    "contentRevision": 1,
+    "redFlag": "Faldende reaktionsniveau, ny anisokori eller lateraliserende udfald kræver hurtig revurdering af ABCDE og neurologisk status."
   },
   {
     "id": "tbi_018",

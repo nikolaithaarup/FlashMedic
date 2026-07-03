@@ -1,4 +1,5 @@
 import type { Flashcard } from "../types/Flashcard";
+import { enrichReviewedV2Cards } from "./reviewedV2Content";
 
 // Akutte tilstande
 import { akutAbdomenCards } from "./akutte tilstande/akut_abdomen";
@@ -92,7 +93,7 @@ console.log("FLASHCARDS FILE LOADED");
 
 type DeckMap = { [name: string]: Flashcard[] | undefined };
 
-const decks: DeckMap = {
+const sourceDecks: DeckMap = {
   // Akutte tilstande
   akutAbdomenCards,
   akutBinyrebarkinsufficiensCards,
@@ -181,17 +182,22 @@ const decks: DeckMap = {
 };
 
 // Log any broken decks clearly instead of cryptic "arraySpread" errors
-Object.entries(decks).forEach(([name, deck]) => {
+Object.entries(sourceDecks).forEach(([name, deck]) => {
   if (!Array.isArray(deck)) {
     console.warn(`❗ Deck "${name}" is NOT an array:`, deck);
   }
 });
 
 // NEW: export the deck map so the exporter can attach deckId to each card
-export const allDecks = decks;
+export const allDecks: DeckMap = Object.fromEntries(
+  Object.entries(sourceDecks).map(([name, deck]) => [
+    name,
+    Array.isArray(deck) ? enrichReviewedV2Cards(deck) : deck,
+  ]),
+);
 
 // Existing: flat list used by the app
-export const allFlashcards: Flashcard[] = Object.entries(decks).flatMap(
+export const allFlashcards: Flashcard[] = Object.entries(allDecks).flatMap(
   ([name, deck]) => {
     if (!Array.isArray(deck)) {
       // Skip broken decks so the app still loads

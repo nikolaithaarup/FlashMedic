@@ -83,15 +83,24 @@ export const CONTENT_TAXONOMY: readonly TaxonomySubject[] = [
 
 export const LEARNING_OBJECTIVES: readonly LearningObjective[] =
   CONTENT_TAXONOMY.flatMap((subject) =>
-    subject.topics.map((topic) => ({
-      id: `lo.${subject.id}.${topic.id}.grundlag`,
+    subject.topics.map((topic) => {
+      const id = `lo.${subject.id}.${topic.id}.grundlag`;
+      const reviewed = id === "lo.anatomi-fysiologi.respiration.grundlag" ||
+        id === "lo.anatomi-fysiologi.nervesystemet.grundlag" ||
+        id === "lo.kliniske-parametre.shock.grundlag" ||
+        id === "lo.kliniske-parametre.differentialdiagnoser.grundlag" ||
+        id === "lo.sygdomslaere.lungesygdomme.grundlag" ||
+        id === "lo.traumatologi-itls.traumatisk-hjerneskade-og-neurologi.grundlag";
+      return {
+      id,
       subject: subject.label,
       topic: topic.label,
-      title: `Forstå grundlaget i ${topic.label}`,
+      title: reviewed ? `Vurdér og forklar ${topic.label.toLowerCase()} præhospitalt` : `Forstå grundlaget i ${topic.label}`,
+      description: reviewed ? "Anvend ABCDE, kliniske fund og udvikling over tid til at begrunde en sikker præhospital vurdering." : undefined,
       priority: "core" as const,
       tags: [subject.id, topic.id],
-      reviewStatus: "draft" as const,
-    })),
+      reviewStatus: reviewed ? "reviewed" as const : "draft" as const,
+    };}),
   );
 
 export function findTaxonomySubject(label: string): TaxonomySubject | undefined {
