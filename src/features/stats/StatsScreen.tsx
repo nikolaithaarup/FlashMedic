@@ -12,7 +12,8 @@ import {
   Typography,
 } from "../../../constants/theme";
 import type { Flashcard } from "../../types/Flashcard";
-import { Card, EmptyState, Screen, ToolPageHeader } from "../../ui/primitives";
+import { deriveTopicStats, selectMistakeReviewCards } from "../flashcards/learningSelectors";
+import { Card, EmptyState, PrimaryButton, Screen, SecondaryButton, ToolPageHeader } from "../../ui/primitives";
 import { useStats, type StatsMap } from "./StatsContext";
 import { getPersonalTotals } from "./statsSelectors";
 
@@ -22,6 +23,8 @@ type Props = {
   subtitleFont: number;
   cards: Flashcard[];
   onBack: () => void;
+  onTrainMistakes: () => void;
+  onTrainWeakTopics: () => void;
 };
 
 function asStatsMap(value: unknown): StatsMap {
@@ -29,8 +32,8 @@ function asStatsMap(value: unknown): StatsMap {
   return value as StatsMap;
 }
 
-export default function StatsScreen({ cards, onBack }: Props) {
-  const { personalStats, resetPersonalStats } = useStats();
+export default function StatsScreen({ cards, onBack, onTrainMistakes, onTrainWeakTopics }: Props) {
+  const { personalStats, resetPersonalStats, mistakes } = useStats();
   const statsMap = useMemo(() => asStatsMap(personalStats), [personalStats]);
   const { totalSeen, totalCorrect, totalIncorrect, accuracy } = useMemo(
     () => getPersonalTotals(statsMap),
@@ -59,6 +62,14 @@ export default function StatsScreen({ cards, onBack }: Props) {
   }, [cards, statsMap]);
 
   const safeAccuracy = Number.isFinite(accuracy) ? accuracy : 0;
+  const pendingMistakes = useMemo(
+    () => selectMistakeReviewCards(mistakes, cards).cards.length,
+    [mistakes, cards],
+  );
+  const weakTopics = useMemo(
+    () => deriveTopicStats(statsMap, cards).filter(({ dataQuality }) => dataQuality === "usable").slice(0, 3),
+    [statsMap, cards],
+  );
 
   return (
     <Screen>
@@ -90,6 +101,41 @@ export default function StatsScreen({ cards, onBack }: Props) {
             </Text>
           </View>
         </View>
+      </Card>
+
+      <Text style={[styles.sectionLabel, styles.subjectLabel]}>REPETITION</Text>
+      <Card variant="subtle" style={styles.learningCard}>
+        <View style={styles.learningRow}>
+          <View style={styles.subjectCopy}>
+            <Text style={styles.subjectTitle}>Forkerte svar</Text>
+            <Text style={styles.subjectMeta}>{pendingMistakes} kort venter på repetition</Text>
+          </View>
+          <PrimaryButton
+            disabled={pendingMistakes === 0}
+            label="Træn"
+            onPress={onTrainMistakes}
+            style={styles.learningButton}
+          />
+        </View>
+        <View style={styles.learningDivider} />
+        <Text style={styles.subjectTitle}>Svage emner</Text>
+        {weakTopics.length === 0 ? (
+          <Text style={styles.subjectMeta}>
+            Ikke nok data endnu. Der kræves mindst fem besvarelser i et emne.
+          </Text>
+        ) : (
+          weakTopics.map((topic) => (
+            <Text key={topic.key} style={styles.subjectMeta}>
+              {topic.subject} · {topic.topic}{topic.subtopic ? ` · ${topic.subtopic}` : ""} · {Math.round(topic.accuracy * 100)}%
+            </Text>
+          ))
+        )}
+        <SecondaryButton
+          disabled={weakTopics.length === 0}
+          label="Træn svage emner"
+          onPress={onTrainWeakTopics}
+          style={styles.weakButton}
+        />
       </Card>
 
       <Text style={[styles.sectionLabel, styles.subjectLabel]}>PR. FAG</Text>
@@ -189,4 +235,9 @@ const styles = StyleSheet.create({
     transform: [{ scale: Interaction.controlPressedScale }],
   },
   resetText: { color: ColorTokens.text.onSurface, fontWeight: Typography.weights.bold },
+  learningCard: { gap: Spacing.sm },
+  learningRow: { flexDirection: "row", alignItems: "center", gap: Spacing.md },
+  learningButton: { minWidth: 96 },
+  learningDivider: { height: Borders.hairline, backgroundColor: ColorTokens.border.divider },
+  weakButton: { marginTop: Spacing.xs },
 });

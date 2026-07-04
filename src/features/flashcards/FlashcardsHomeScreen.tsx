@@ -17,6 +17,7 @@ import {
   SecondaryButton,
   ToolPageHeader,
 } from "../../ui/primitives";
+import type { TopicStats } from "../../types/Learning";
 
 type TopicGroup = { topic: string; subtopics: string[] };
 
@@ -38,6 +39,10 @@ type FlashcardsHomeScreenProps = {
   disableAllSubjectsQuiz: boolean;
   onBack: () => void;
   onStartQuiz: () => void;
+  pendingMistakeCount: number;
+  weakestTopics: TopicStats[];
+  onStartMistakeReview: () => void;
+  onStartWeakTopics: () => void;
 };
 
 type ChipItem = { key: string; label: string };
@@ -82,6 +87,10 @@ export default function FlashcardsHomeScreen({
   disableAllSubjectsQuiz,
   onBack,
   onStartQuiz,
+  pendingMistakeCount,
+  weakestTopics,
+  onStartMistakeReview,
+  onStartWeakTopics,
 }: FlashcardsHomeScreenProps) {
   const topicChips = useMemo(
     () => (selectedSubject ? buildChips(topicGroupsForSelectedSubject) : []),
@@ -130,6 +139,55 @@ export default function FlashcardsHomeScreen({
           style={styles.allSubjectsButton}
         />
       </Card>
+
+      <View style={styles.sectionHeader}>
+        <Text style={styles.sectionLabel}>DIN REPETITION</Text>
+        <Text style={styles.sectionTitle}>Træn ud fra dine svar</Text>
+      </View>
+
+      <View style={styles.learningGrid}>
+        <Card variant="subtle" style={styles.learningCard}>
+          <Text style={styles.allSubjectsTitle}>Forkerte svar</Text>
+          <Text style={styles.allSubjectsDescription}>
+            Gennemgå de kort, du tidligere har svaret forkert på.
+          </Text>
+          <Text style={styles.learningMeta}>
+            {pendingMistakeCount === 0
+              ? "Ingen kort venter på repetition"
+              : `${pendingMistakeCount} kort venter`}
+          </Text>
+          <PrimaryButton
+            disabled={pendingMistakeCount === 0 || loadingCards}
+            label="Træn forkerte svar"
+            onPress={onStartMistakeReview}
+          />
+        </Card>
+
+        <Card variant="subtle" style={styles.learningCard}>
+          <Text style={styles.allSubjectsTitle}>Svage emner</Text>
+          <Text style={styles.allSubjectsDescription}>
+            Træn de emner, hvor dine svar viser, at du har mest brug for repetition.
+          </Text>
+          {weakestTopics.length === 0 ? (
+            <Text style={styles.learningMeta}>
+              Ikke nok data endnu. Lav mindst fem besvarelser i et emne—prøv Træn alle fag.
+            </Text>
+          ) : (
+            <View style={styles.weakTopicList}>
+              {weakestTopics.map((topic) => (
+                <Text key={topic.key} style={styles.learningMeta}>
+                  {topic.topic}{topic.subtopic ? ` · ${topic.subtopic}` : ""} · {Math.round(topic.accuracy * 100)}%
+                </Text>
+              ))}
+            </View>
+          )}
+          <SecondaryButton
+            disabled={weakestTopics.length === 0 || loadingCards}
+            label="Træn svage emner"
+            onPress={onStartWeakTopics}
+          />
+        </Card>
+      </View>
 
       <View style={styles.sectionHeader}>
         <Text style={styles.sectionLabel}>1 · FAG</Text>
@@ -272,4 +330,12 @@ const styles = StyleSheet.create({
   },
   selectAllButton: { minWidth: 132 },
   startButton: { marginTop: Spacing.xl, marginBottom: Spacing.lg },
+  learningGrid: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.md },
+  learningCard: { flex: 1, minWidth: 260, gap: Spacing.sm },
+  learningMeta: {
+    color: ColorTokens.accent.muted,
+    fontSize: Typography.sizes.caption,
+    lineHeight: Typography.lineHeights.caption,
+  },
+  weakTopicList: { gap: Spacing.xs },
 });

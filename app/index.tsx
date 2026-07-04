@@ -45,6 +45,12 @@ import ProfileScreen from "../src/features/profile/ProfileScreen";
 
 import FlashcardsHomeScreen from "../src/features/flashcards/FlashcardsHomeScreen";
 import { getQueueAfterFlashcardScore } from "../src/features/flashcards/quizSession";
+import {
+  deriveTopicStats,
+  selectMistakeReviewCards,
+  selectWeakTopicCards,
+} from "../src/features/flashcards/learningSelectors";
+import type { FlashcardTrainingMode } from "../src/types/Learning";
 import HomeScreen from "../src/features/home/HomeScreen";
 import QuizScreen from "../src/features/quiz/QuizScreen";
 
@@ -179,7 +185,7 @@ export default function Index() {
     return `Behandler ${profile.classId}`;
   }, [profile]);
 
-  const { personalStats, markCard } = useStats();
+  const { personalStats, markCard, mistakes, recordMistakeAttempt } = useStats();
 
   // -------- Subject selection --------
   const [selectedSubject, setSelectedSubject] = useState<string | null>(null);
@@ -192,6 +198,7 @@ export default function Index() {
   const [showAnswer, setShowAnswer] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const quizCompletedRef = useRef(false);
+  const [trainingMode, setTrainingMode] = useState<FlashcardTrainingMode>("normal");
 
   // -------- Drug calc state --------
   const [selectedDrugTopics, setSelectedDrugTopics] = useState<DrugCalcTopic[]>(
@@ -422,6 +429,36 @@ export default function Index() {
     });
   }, [selectedSubject, selectedKeys, cardsForSelectedSubject]);
 
+  const topicStats = useMemo(
+    () => deriveTopicStats(personalStats ?? {}, cards),
+    [personalStats, cards],
+  );
+  const weakestTopics = useMemo(
+    () => topicStats.filter(({ dataQuality }) => dataQuality === "usable").slice(0, 3),
+    [topicStats],
+  );
+  const mistakeSelection = useMemo(
+    () => selectMistakeReviewCards(mistakes, cards),
+    [mistakes, cards],
+  );
+
+  const beginQuizSession = (
+    sessionCards: Flashcard[],
+    mode: FlashcardTrainingMode,
+  ) => {
+    const [first, ...rest] = shuffle(sessionCards);
+    if (!first) return false;
+    setHistory([]);
+    setUpcoming(rest);
+    setCurrentCard(first);
+    setShowAnswer(false);
+    setQuizCompleted(false);
+    quizCompletedRef.current = false;
+    setTrainingMode(mode);
+    setScreen("quiz");
+    return true;
+  };
+
   // ---------- Quiz control ----------
 
   const handleStartQuiz = () => {
@@ -457,6 +494,7 @@ export default function Index() {
     setShowAnswer(false);
     setQuizCompleted(false);
     quizCompletedRef.current = false;
+    setTrainingMode("normal");
     setScreen("quiz");
   };
 
@@ -487,7 +525,29 @@ export default function Index() {
     setShowAnswer(false);
     setQuizCompleted(false);
     quizCompletedRef.current = false;
+    setTrainingMode("normal");
     setScreen("quiz");
+  };
+
+  const handleStartMistakeReview = () => {
+    if (!beginQuizSession(mistakeSelection.cards, "mistakes")) {
+      Alert.alert(
+        "Ingen forkerte svar",
+        mistakeSelection.orphanedCardIds.length
+          ? "De gemte kort findes ikke længere i den aktuelle kortbank. Prøv almindelig blandet træning."
+          : "Du har ingen kort, der venter på repetition. Prøv almindelig blandet træning.",
+      );
+    }
+  };
+
+  const handleStartWeakTopics = () => {
+    const weakCards = selectWeakTopicCards(topicStats, cards);
+    if (!beginQuizSession(weakCards, "weak-topics")) {
+      Alert.alert(
+        "Ikke nok data endnu",
+        "Besvar flere flashcards i samme emne, før FlashMedic kan sammensætte denne træning.",
+      );
+    }
   };
 
   // ... (rest of your file is unchanged)
@@ -521,6 +581,7 @@ export default function Index() {
     setUpcoming([]);
     setQuizCompleted(false);
     quizCompletedRef.current = false;
+    setTrainingMode("normal");
   };
 
   // ---------- Report error via MailComposer ----------
@@ -586,16 +647,19 @@ export default function Index() {
     if (nextCards.length === 0) {
       quizCompletedRef.current = true;
       markCard(currentCard.id, true);
+      recordMistakeAttempt(currentCard, true, trainingMode);
       setQuizCompleted(true);
       return;
     }
     markCard(currentCard.id, true);
+    recordMistakeAttempt(currentCard, true, trainingMode);
     advanceToNextCard(nextCards);
   };
 
   const handleMarkUnknown = () => {
     if (!currentCard || quizCompletedRef.current) return;
     markCard(currentCard.id, false);
+    recordMistakeAttempt(currentCard, false, trainingMode);
 
     // Unknown cards stay in the current session and are shown again.
     advanceToNextCard(
@@ -737,6 +801,8 @@ export default function Index() {
         subtitleFont={subtitleFont}
         cards={cards}
         onBack={() => setScreen("home")}
+        onTrainMistakes={handleStartMistakeReview}
+        onTrainWeakTopics={handleStartWeakTopics}
       />
     );
   }
@@ -785,6 +851,10 @@ export default function Index() {
         disableAllSubjectsQuiz={loadingCards || cards.length === 0}
         onBack={() => setScreen("home")}
         onStartQuiz={handleStartQuiz}
+        pendingMistakeCount={mistakeSelection.cards.length}
+        weakestTopics={weakestTopics}
+        onStartMistakeReview={handleStartMistakeReview}
+        onStartWeakTopics={handleStartWeakTopics}
       />
     );
   }

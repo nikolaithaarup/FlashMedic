@@ -14,6 +14,7 @@
     "validate:content": "tsx scripts/validateFlashcards.ts",
     "validate:weekly-safety": "tsx scripts/validateWeeklySafety.ts",
     "validate:firestore-migration": "tsx scripts/validateFlashcardMigration.ts",
+    "validate:learning": "tsx scripts/validateLearning.ts",
     "migrate:flashcards:dry-run": "tsx scripts/migrateFlashcardsFirestore.ts --dry-run",
     "migrate:flashcards:apply": "tsx scripts/migrateFlashcardsFirestore.ts --apply",
     "lint": "expo lint"

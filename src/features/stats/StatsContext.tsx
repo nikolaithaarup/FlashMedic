@@ -27,6 +27,16 @@ import {
   savePersonalStats,
 } from "./statsService";
 import { updateStatsForCard } from "../../storage/stats";
+import {
+  loadMistakes,
+  saveMistakes,
+  updateMistakeForAttempt,
+} from "../../storage/mistakes";
+import type { Flashcard } from "../../types/Flashcard";
+import type {
+  FlashcardTrainingMode,
+  MistakeReviewItem,
+} from "../../types/Learning";
 import type { StatsMap } from "../../types/Stats";
 
 export type { CardStats, StatsMap } from "../../types/Stats";
@@ -60,6 +70,14 @@ type StatsContextValue = {
   personalStats: StatsMap;
   markCard: (cardId: string, known: boolean) => void;
   resetPersonalStats: () => void;
+  mistakes: MistakeReviewItem[];
+  mistakesHydrated: boolean;
+  recordMistakeAttempt: (
+    card: Flashcard,
+    known: boolean,
+    mode: FlashcardTrainingMode,
+  ) => void;
+  clearUnderstoodMistakes: () => void;
 
   // Weekly global stats (leaderboard + topics)
   weeklyGlobal: WeeklyGlobalState | null;
@@ -90,6 +108,16 @@ export function StatsProvider({ children }: PropsWithChildren) {
     ({ kind: "mark"; cardId: string; known: boolean } | { kind: "reset" })[]
   >([]);
   const persistenceQueueRef = useRef<Promise<void>>(Promise.resolve());
+  const [mistakes, setMistakes] = useState<MistakeReviewItem[]>([]);
+  const [mistakesHydrated, setMistakesHydrated] = useState(false);
+  const mistakesHydratedRef = useRef(false);
+  const pendingMistakeOperationsRef = useRef<
+    (
+      | { kind: "attempt"; card: Flashcard; known: boolean; mode: FlashcardTrainingMode }
+      | { kind: "clear-understood" }
+    )[]
+  >([]);
+  const mistakesPersistenceQueueRef = useRef<Promise<void>>(Promise.resolve());
 
   useEffect(() => {
     let cancelled = false;
@@ -120,6 +148,35 @@ export function StatsProvider({ children }: PropsWithChildren) {
   }, []);
 
   useEffect(() => {
+    let cancelled = false;
+    void loadMistakes().then((storedMistakes) => {
+      if (cancelled) return;
+      const hydrated = pendingMistakeOperationsRef.current.reduce<MistakeReviewItem[]>(
+        (current, operation) => operation.kind === "clear-understood"
+          ? current.filter(({ reviewStatus }) => reviewStatus !== "understood")
+          : updateMistakeForAttempt(current, operation.card, operation.known, operation.mode),
+        storedMistakes,
+      );
+      pendingMistakeOperationsRef.current = [];
+      mistakesHydratedRef.current = true;
+      setMistakesHydrated(true);
+      setMistakes(hydrated);
+    });
+    return () => { cancelled = true; };
+  }, []);
+
+  useEffect(() => {
+    if (!mistakesHydratedRef.current) return;
+    const snapshot = mistakes;
+    mistakesPersistenceQueueRef.current = mistakesPersistenceQueueRef.current
+      .catch(() => undefined)
+      .then(() => saveMistakes(snapshot))
+      .catch((error: unknown) => {
+        console.warn("Failed to persist mistakes; keeping in-memory review data.", error);
+      });
+  }, [mistakes]);
+
+  useEffect(() => {
     if (!statsHydratedRef.current) return;
 
     const snapshot = personalStats;
@@ -148,6 +205,24 @@ export function StatsProvider({ children }: PropsWithChildren) {
       pendingOperationsRef.current.push({ kind: "reset" });
     }
     setPersonalStats({});
+  };
+
+  const recordMistakeAttempt = (
+    card: Flashcard,
+    known: boolean,
+    mode: FlashcardTrainingMode,
+  ) => {
+    if (!mistakesHydratedRef.current) {
+      pendingMistakeOperationsRef.current.push({ kind: "attempt", card, known, mode });
+    }
+    setMistakes((current) => updateMistakeForAttempt(current, card, known, mode));
+  };
+
+  const clearUnderstoodMistakes = () => {
+    if (!mistakesHydratedRef.current) {
+      pendingMistakeOperationsRef.current.push({ kind: "clear-understood" });
+    }
+    setMistakes((current) => current.filter(({ reviewStatus }) => reviewStatus !== "understood"));
   };
 
   // Weekly global
@@ -242,6 +317,10 @@ export function StatsProvider({ children }: PropsWithChildren) {
       personalStats,
       markCard,
       resetPersonalStats,
+      mistakes,
+      mistakesHydrated,
+      recordMistakeAttempt,
+      clearUnderstoodMistakes,
 
       weeklyGlobal,
       loadingWeekly,
@@ -251,6 +330,8 @@ export function StatsProvider({ children }: PropsWithChildren) {
     }),
     [
       personalStats,
+      mistakes,
+      mistakesHydrated,
       weeklyGlobal,
       loadingWeekly,
       weeklyError,

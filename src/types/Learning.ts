@@ -1,5 +1,40 @@
 export type ContentReviewStatus = "draft" | "reviewed" | "retired";
 export type CardKind = "recall" | "applied" | "scenario" | "media";
+export type FlashcardTrainingMode = "normal" | "mistakes" | "weak-topics";
+export type MistakeReviewStatus = "pending" | "learning" | "understood";
+
+export interface MistakeReviewItem {
+  cardId: string;
+  subject: string;
+  topic?: string;
+  subtopic?: string;
+  addedAt: string;
+  lastReviewedAt?: string;
+  incorrectCount: number;
+  reviewStatus: MistakeReviewStatus;
+}
+
+export interface CardPerformance {
+  cardId: string;
+  attempts: number;
+  correct: number;
+  incorrect: number;
+  lastPracticedAt?: string;
+}
+
+export interface TopicStats {
+  key: string;
+  subject: string;
+  topic: string;
+  subtopic?: string;
+  attempts: number;
+  correct: number;
+  incorrect: number;
+  accuracy: number;
+  lastPracticedAt?: string;
+  weaknessScore: number;
+  dataQuality: "insufficient" | "usable";
+}
 
 export interface SourceReference {
   title: string;
