@@ -10,6 +10,7 @@
     "web": "expo start --web",
     "validate:iso-week": "tsx scripts/validateIsoWeek.ts",
     "validate:drug-calc": "tsx scripts/validateDrugCalc.ts",
+    "validate:ekg-image-drills": "tsx scripts/validateEkgImageDrills.ts",
     "validate:flashcards": "tsx scripts/validateFlashcards.ts",
     "validate:content": "tsx scripts/validateFlashcards.ts",
     "validate:weekly-safety": "tsx scripts/validateWeeklySafety.ts",

@@ -14,6 +14,9 @@ import { Card, PrimaryButton, Screen, ToolPageHeader } from "../../ui/primitives
 type Props = {
   onBack: () => void;
   onStartRhythmTrainer: () => void;
+  onStartImageDrill: () => void;
+  imageDrillCount: number;
+  imageDrillLoading: boolean;
 };
 
 type StepItem = {
@@ -86,6 +89,9 @@ function BulletText({ children }: { children: string }) {
 export function EkgTrainingHomeScreen({
   onBack,
   onStartRhythmTrainer,
+  onStartImageDrill,
+  imageDrillCount,
+  imageDrillLoading,
 }: Props) {
   return (
     <Screen contentContainerStyle={styles.content} testID="ekg-training-screen">
@@ -137,6 +143,27 @@ export function EkgTrainingHomeScreen({
           label="Start rytmeanalyse"
           onPress={onStartRhythmTrainer}
           testID="start-ekg-rhythm-analysis-button"
+        />
+      </Card>
+
+      <Card variant="subtle" style={styles.sectionCard}>
+        <SectionTitle>Træn EKG-billeder</SectionTitle>
+        <Text style={styles.bodyText}>
+          Vurder rytmestrimler og EKG-billeder med den samme systematiske
+          metode.
+        </Text>
+        <Text style={styles.learningMeta}>
+          {imageDrillLoading
+            ? "Billedkort hentes fra kortbanken."
+            : imageDrillCount > 0
+              ? `${imageDrillCount} EKG-billeder klar`
+              : "Ingen gyldige EKG-billeder fundet endnu."}
+        </Text>
+        <PrimaryButton
+          disabled={imageDrillLoading || imageDrillCount === 0}
+          label="Start billedtræning"
+          onPress={onStartImageDrill}
+          testID="start-ekg-image-drill-button"
         />
       </Card>
 
@@ -252,6 +279,12 @@ const styles = StyleSheet.create({
     fontSize: Typography.sizes.label,
     lineHeight: Typography.lineHeights.label,
     marginTop: 2,
+  },
+  learningMeta: {
+    color: ColorTokens.accent.muted,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.caption,
+    lineHeight: Typography.lineHeights.caption,
   },
   rhythmGrid: {
     flexDirection: "row",

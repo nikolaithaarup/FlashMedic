@@ -49,8 +49,10 @@ import { WeeklyWordScreen } from "../src/features/weekly/WeeklyWordScreen";
 import DrugCalcHomeScreen from "../src/features/drugCalc/DrugCalcHomeScreen";
 import { DrugCalcPracticeScreen } from "../src/features/drugCalc/DrugCalcPracticeScreen";
 import { DrugCalcTheoryScreen } from "../src/features/drugCalc/DrugCalcTheoryScreen";
+import { EkgImageDrillScreen } from "../src/features/ekgTraining/EkgImageDrillScreen";
 import { EkgTrainingHomeScreen } from "../src/features/ekgTraining/EkgTrainingHomeScreen";
 import { EkgRhythmTrainerScreen } from "../src/features/ekgTraining/EkgRhythmTrainerScreen";
+import { buildEkgImageDrillPool } from "../src/features/ekgTraining/ekgImageDrills";
 
 import { ContactScreen } from "../src/features/contact/ContactScreen";
 import AuthScreen from "../src/features/profile/AuthScreen";
@@ -100,6 +102,7 @@ type Screen =
   | "contact"
   | "ekgTrainingHome"
   | "ekgRhythmTrainer"
+  | "ekgImageDrill"
   | "drugCalcHome"
   | "drugCalcPractice"
   | "drugCalcTheory";
@@ -507,6 +510,10 @@ export default function Index() {
         topicStats,
       }),
     [cards, personalStats, mistakes, topicStats],
+  );
+  const ekgImageDrillCount = useMemo(
+    () => buildEkgImageDrillPool(cards, { imageLookup: ekgImageLookup }).length,
+    [cards],
   );
 
   const handleStartDailyTen = () => {
@@ -1197,7 +1204,10 @@ export default function Index() {
   if (screen === "ekgTrainingHome") {
     return (
       <EkgTrainingHomeScreen
+        imageDrillCount={ekgImageDrillCount}
+        imageDrillLoading={loadingCards}
         onBack={() => setScreen("home")}
+        onStartImageDrill={() => setScreen("ekgImageDrill")}
         onStartRhythmTrainer={() => setScreen("ekgRhythmTrainer")}
       />
     );
@@ -1205,6 +1215,16 @@ export default function Index() {
 
   if (screen === "ekgRhythmTrainer") {
     return <EkgRhythmTrainerScreen onBack={() => setScreen("ekgTrainingHome")} />;
+  }
+
+  if (screen === "ekgImageDrill") {
+    return (
+      <EkgImageDrillScreen
+        cards={cards}
+        loadingCards={loadingCards}
+        onBack={() => setScreen("ekgTrainingHome")}
+      />
+    );
   }
 
   // HOME
