@@ -9,10 +9,11 @@ import {
   Spacing,
   Typography,
 } from "../../../constants/theme";
-import { Card, Screen, ToolPageHeader } from "../../ui/primitives";
+import { Card, PrimaryButton, Screen, ToolPageHeader } from "../../ui/primitives";
 
 type Props = {
   onBack: () => void;
+  onStartRhythmTrainer: () => void;
 };
 
 type StepItem = {
@@ -82,7 +83,10 @@ function BulletText({ children }: { children: string }) {
   );
 }
 
-export function EkgTrainingHomeScreen({ onBack }: Props) {
+export function EkgTrainingHomeScreen({
+  onBack,
+  onStartRhythmTrainer,
+}: Props) {
   return (
     <Screen contentContainerStyle={styles.content} testID="ekg-training-screen">
       <StatusBar style="light" />
@@ -102,7 +106,7 @@ export function EkgTrainingHomeScreen({ onBack }: Props) {
         </Text>
       </Card>
 
-      <Card style={styles.sectionCard}>
+      <Card variant="subtle" style={styles.sectionCard}>
         <SectionTitle>Lær rytmeanalyse</SectionTitle>
         <Text style={styles.bodyText}>
           Gå systematisk gennem rytmen, før du beslutter hvad den betyder.
@@ -122,15 +126,21 @@ export function EkgTrainingHomeScreen({ onBack }: Props) {
         </View>
       </Card>
 
-      <Card style={styles.sectionCard}>
+      <Card variant="subtle" style={styles.sectionCard}>
         <SectionTitle>Rytmetræning</SectionTitle>
         <Text style={styles.bodyText}>
-          Næste trin bliver en guidet rytmetræner, hvor du vurderer rytmen trin
-          for trin.
+          Start en guidet rytmetræner, hvor du vurderer frekvens,
+          regelmæssighed, P-takker, PR-interval, QRS-bredde og rytmeforslag
+          trin for trin.
         </Text>
+        <PrimaryButton
+          label="Start rytmeanalyse"
+          onPress={onStartRhythmTrainer}
+          testID="start-ekg-rhythm-analysis-button"
+        />
       </Card>
 
-      <Card style={styles.sectionCard}>
+      <Card variant="subtle" style={styles.sectionCard}>
         <SectionTitle>Akutte rytmer</SectionTitle>
         <Text style={styles.bodyText}>
           Hold særligt øje med rytmer, der hurtigt kan ændre behandling,
@@ -145,7 +155,7 @@ export function EkgTrainingHomeScreen({ onBack }: Props) {
         </View>
       </Card>
 
-      <Card style={styles.sectionCard}>
+      <Card variant="subtle" style={styles.sectionCard}>
         <SectionTitle>Ambulancefokus</SectionTitle>
         <View style={styles.bulletList}>
           {ambulanceFocus.map((item) => (

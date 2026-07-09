@@ -50,6 +50,7 @@ import DrugCalcHomeScreen from "../src/features/drugCalc/DrugCalcHomeScreen";
 import { DrugCalcPracticeScreen } from "../src/features/drugCalc/DrugCalcPracticeScreen";
 import { DrugCalcTheoryScreen } from "../src/features/drugCalc/DrugCalcTheoryScreen";
 import { EkgTrainingHomeScreen } from "../src/features/ekgTraining/EkgTrainingHomeScreen";
+import { EkgRhythmTrainerScreen } from "../src/features/ekgTraining/EkgRhythmTrainerScreen";
 
 import { ContactScreen } from "../src/features/contact/ContactScreen";
 import AuthScreen from "../src/features/profile/AuthScreen";
@@ -98,6 +99,7 @@ type Screen =
   | "weeklyWord"
   | "contact"
   | "ekgTrainingHome"
+  | "ekgRhythmTrainer"
   | "drugCalcHome"
   | "drugCalcPractice"
   | "drugCalcTheory";
@@ -1193,7 +1195,16 @@ export default function Index() {
   }
 
   if (screen === "ekgTrainingHome") {
-    return <EkgTrainingHomeScreen onBack={() => setScreen("home")} />;
+    return (
+      <EkgTrainingHomeScreen
+        onBack={() => setScreen("home")}
+        onStartRhythmTrainer={() => setScreen("ekgRhythmTrainer")}
+      />
+    );
+  }
+
+  if (screen === "ekgRhythmTrainer") {
+    return <EkgRhythmTrainerScreen onBack={() => setScreen("ekgTrainingHome")} />;
   }
 
   // HOME
