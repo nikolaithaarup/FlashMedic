@@ -29,6 +29,10 @@ import { auth, db } from "../src/firebase/firebase";
 import { useStats } from "../src/features/stats/StatsContext";
 import StatsScreen from "../src/features/stats/StatsScreen";
 
+import {
+  DAILY_TEN_CARD_COUNT,
+  selectDailyTenCards,
+} from "../src/features/daily/dailyTen";
 import WeeklyDevScreen from "../src/features/weekly/WeeklyDevScreen";
 import { WeeklyHomeScreen } from "../src/features/weekly/WeeklyHomeScreen";
 import { WeeklyMatchScreen } from "../src/features/weekly/WeeklyMatchScreen";
@@ -445,8 +449,11 @@ export default function Index() {
   const beginQuizSession = (
     sessionCards: Flashcard[],
     mode: FlashcardTrainingMode,
+    options?: { shuffleCards?: boolean },
   ) => {
-    const [first, ...rest] = shuffle(sessionCards);
+    const deck =
+      options?.shuffleCards === false ? sessionCards : shuffle(sessionCards);
+    const [first, ...rest] = deck;
     if (!first) return false;
     setHistory([]);
     setUpcoming(rest);
@@ -460,6 +467,31 @@ export default function Index() {
   };
 
   // ---------- Quiz control ----------
+
+  const dailyTenCards = useMemo(
+    () => selectDailyTenCards(cards),
+    [cards],
+  );
+
+  const handleStartDailyTen = () => {
+    if (loadingCards) {
+      Alert.alert(
+        "IndlÃ¦ser kort",
+        "Vent et øjeblik, mens kortbanken hentes.",
+      );
+      return;
+    }
+
+    if (dailyTenCards.length === 0) {
+      Alert.alert(
+        "Ingen kort",
+        "Der er ingen flashcards klar til Dagens 10 endnu.",
+      );
+      return;
+    }
+
+    beginQuizSession(dailyTenCards, "daily-10", { shuffleCards: false });
+  };
 
   const handleStartQuiz = () => {
     if (!selectedSubject) {
@@ -1022,6 +1054,9 @@ export default function Index() {
       onOpenProfile={() => setScreen("profile")}
       onOpenWeeklyHome={() => setScreen("weeklyHome")}
       onOpenWeeklyDev={() => setScreen("weeklyDev")}
+      onStartDailyTen={handleStartDailyTen}
+      dailyTenDisabled={loadingCards || dailyTenCards.length === 0}
+      dailyTenCount={Math.min(DAILY_TEN_CARD_COUNT, dailyTenCards.length)}
       onOpenFlashcardsHome={() => setScreen("flashcardsHome")}
       onOpenDrugCalcHome={() => setScreen("drugCalcHome")}
       onOpenStats={() => setScreen("stats")}

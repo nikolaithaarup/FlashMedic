@@ -35,6 +35,9 @@ type HomeScreenProps = {
   onOpenProfile: () => void;
   onOpenWeeklyHome: () => void;
   onOpenWeeklyDev: () => void;
+  onStartDailyTen: () => void;
+  dailyTenDisabled: boolean;
+  dailyTenCount: number;
   onOpenFlashcardsHome: () => void;
   onOpenDrugCalcHome: () => void;
   onOpenStats: () => void;
@@ -100,6 +103,9 @@ export default function HomeScreen({
   onOpenProfile,
   onOpenWeeklyHome,
   onOpenWeeklyDev,
+  onStartDailyTen,
+  dailyTenDisabled,
+  dailyTenCount,
   onOpenFlashcardsHome,
   onOpenDrugCalcHome,
   onOpenStats,
@@ -175,6 +181,17 @@ export default function HomeScreen({
           </View>
 
           <View style={styles.destinationList}>
+            <DestinationCard
+              description={
+                dailyTenCount >= 10
+                  ? "10 faste kort for i dag."
+                  : `${dailyTenCount} kort klar for i dag.`
+              }
+              disabled={dailyTenDisabled}
+              eyebrow="DAGLIGT"
+              onPress={onStartDailyTen}
+              title="Dagens 10"
+            />
             <DestinationCard
               description="Ugens tre korte udfordringer."
               delayLongPress={800}

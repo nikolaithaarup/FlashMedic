@@ -1,6 +1,10 @@
 export type ContentReviewStatus = "draft" | "reviewed" | "retired";
 export type CardKind = "recall" | "applied" | "scenario" | "media";
-export type FlashcardTrainingMode = "normal" | "mistakes" | "weak-topics";
+export type FlashcardTrainingMode =
+  | "normal"
+  | "mistakes"
+  | "weak-topics"
+  | "daily-10";
 export type MistakeReviewStatus = "pending" | "learning" | "understood";
 
 export interface MistakeReviewItem {
