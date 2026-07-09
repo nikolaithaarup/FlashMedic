@@ -52,7 +52,7 @@ import { DrugCalcTheoryScreen } from "../src/features/drugCalc/DrugCalcTheoryScr
 import { EkgImageDrillScreen } from "../src/features/ekgTraining/EkgImageDrillScreen";
 import { EkgTrainingHomeScreen } from "../src/features/ekgTraining/EkgTrainingHomeScreen";
 import { EkgRhythmTrainerScreen } from "../src/features/ekgTraining/EkgRhythmTrainerScreen";
-import { buildEkgImageDrillPool } from "../src/features/ekgTraining/ekgImageDrills";
+import { buildEkgInteractiveImageDrillPool } from "../src/features/ekgTraining/ekgImageDrills";
 
 import { ContactScreen } from "../src/features/contact/ContactScreen";
 import AuthScreen from "../src/features/profile/AuthScreen";
@@ -512,7 +512,10 @@ export default function Index() {
     [cards, personalStats, mistakes, topicStats],
   );
   const ekgImageDrillCount = useMemo(
-    () => buildEkgImageDrillPool(cards, { imageLookup: ekgImageLookup }).length,
+    () =>
+      buildEkgInteractiveImageDrillPool(cards, {
+        imageLookup: ekgImageLookup,
+      }).length,
     [cards],
   );
 

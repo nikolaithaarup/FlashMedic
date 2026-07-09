@@ -14,12 +14,12 @@ import {
   ColorTokens,
   Interaction,
   Radii,
+  SemanticStates,
   Spacing,
   Typography,
 } from "../../../constants/theme";
 import { ekgImageLookup } from "../../data/ekg/imageLookup";
 import type { Flashcard } from "../../types/Flashcard";
-import FullscreenEkgImageModal from "../flashcards/components/FullscreenEkgImageModal";
 import {
   Card,
   EmptyState,
@@ -29,11 +29,16 @@ import {
   SecondaryButton,
   ToolPageHeader,
 } from "../../ui/primitives";
+import FullscreenEkgImageModal from "../flashcards/components/FullscreenEkgImageModal";
 import {
-  buildEkgImageAssessment,
-  selectEkgImageDrillCards,
-  type EkgImageAssessment,
-} from "./ekgImageDrills";
+  ekgAssessmentStepOrder,
+  ekgStepLabels,
+  ekgStepOptions,
+  getEkgStepOptionLabel,
+  type EkgAssessmentStep,
+  type EkgInteractiveAssessment,
+} from "./ekgInteractiveAssessments";
+import { selectEkgInteractiveImageDrillCards } from "./ekgImageDrills";
 
 type Props = {
   cards: Flashcard[];
@@ -41,71 +46,121 @@ type Props = {
   onBack: () => void;
 };
 
-type AssessmentRowProps = {
-  label: string;
-  value: string;
+type AnswerMap = Partial<Record<EkgAssessmentStep, string>>;
+
+type StepCardProps = {
+  stepName: EkgAssessmentStep;
+  assessment: EkgInteractiveAssessment;
+  selectedOptionId?: string;
+  checked: boolean;
+  onSelect: (stepName: EkgAssessmentStep, optionId: string) => void;
 };
 
 function makeDeckSeed() {
   return `${Date.now()}-${Math.random()}`;
 }
 
-function AssessmentRow({ label, value }: AssessmentRowProps) {
+function StepCard({
+  stepName,
+  assessment,
+  selectedOptionId,
+  checked,
+  onSelect,
+}: StepCardProps) {
+  const stepAssessment = assessment.steps[stepName];
+  const correct = selectedOptionId === stepAssessment.correctOptionId;
+  const missing = !selectedOptionId;
+
   return (
-    <View style={styles.assessmentRow}>
-      <Text style={styles.assessmentLabel}>{label}</Text>
-      <Text style={styles.assessmentValue}>{value}</Text>
-    </View>
+    <Card variant="subtle" style={styles.stepCard}>
+      <View style={styles.stepHeader}>
+        <View style={styles.stepHeaderCopy}>
+          <Text style={styles.eyebrow}>{ekgStepLabels[stepName]}</Text>
+          <Text style={styles.selectedText}>
+            {selectedOptionId
+              ? getEkgStepOptionLabel(stepName, selectedOptionId)
+              : "Vælg observation"}
+          </Text>
+        </View>
+        {checked ? (
+          <View
+            style={[
+              styles.feedbackBadge,
+              correct ? styles.correctBadge : styles.incorrectBadge,
+            ]}
+          >
+            <Text style={styles.feedbackBadgeText}>
+              {correct ? "Rigtig" : "Tjek"}
+            </Text>
+          </View>
+        ) : null}
+      </View>
+
+      <View style={styles.optionGrid}>
+        {ekgStepOptions[stepName].map((option) => {
+          const selected = selectedOptionId === option.id;
+          const isCorrectOption = checked && option.id === stepAssessment.correctOptionId;
+          const isWrongSelected = checked && selected && !isCorrectOption;
+          return (
+            <Pressable
+              accessibilityRole="button"
+              accessibilityState={{ selected }}
+              disabled={checked}
+              key={option.id}
+              onPress={() => onSelect(stepName, option.id)}
+              style={({ pressed }) => [
+                styles.optionButton,
+                selected && styles.optionSelected,
+                isCorrectOption && styles.optionCorrect,
+                isWrongSelected && styles.optionIncorrect,
+                pressed && !checked && styles.optionPressed,
+              ]}
+            >
+              <Text
+                style={[
+                  styles.optionText,
+                  (selected || isCorrectOption || isWrongSelected) &&
+                    styles.optionTextSelected,
+                ]}
+              >
+                {option.label}
+              </Text>
+            </Pressable>
+          );
+        })}
+      </View>
+
+      {checked ? (
+        <View
+          style={[
+            styles.feedbackBox,
+            correct ? styles.feedbackBoxCorrect : styles.feedbackBoxIncorrect,
+          ]}
+        >
+          <Text style={styles.feedbackTitle}>
+            {correct
+              ? "Korrekt observation"
+              : missing
+                ? "Intet valg angivet"
+                : "Andet svar end vurderingen"}
+          </Text>
+          <Text style={styles.feedbackText}>
+            Korrekt svar:{" "}
+            {getEkgStepOptionLabel(stepName, stepAssessment.correctOptionId)}
+          </Text>
+          <Text style={styles.feedbackText}>{stepAssessment.explanation}</Text>
+        </View>
+      ) : null}
+    </Card>
   );
 }
 
-function AssessmentBlock({
-  assessment,
-}: {
-  assessment: EkgImageAssessment;
-}) {
-  const sourceText =
-    assessment.source === "structured"
-      ? "Vurderingen bruger struktureret EKG-metadata."
-      : "Vurderingen bruger eksisterende flashcard-svar og evt. forklaring. Felter uden metadata er markeret som ikke angivet.";
-
+function BulletText({ children }: { children: string }) {
   return (
-    <Card variant="subtle" style={styles.assessmentCard}>
-      <Text style={styles.sectionTitle}>Vurdering</Text>
-      <Text style={styles.sourceText}>{sourceText}</Text>
-
-      <View style={styles.assessmentList}>
-        <AssessmentRow label="Frekvens" value={assessment.rateDescription} />
-        <AssessmentRow label="Regelmæssighed" value={assessment.regularity} />
-        <AssessmentRow label="P-takker" value={assessment.pWaveDescription} />
-        <AssessmentRow label="PR-interval" value={assessment.prDescription} />
-        <AssessmentRow label="QRS-bredde" value={assessment.qrsDescription} />
-        <AssessmentRow label="Rytmeforslag" value={assessment.likelyRhythm} />
-        <AssessmentRow
-          label="Ambulancefaglig betydning"
-          value={assessment.ambulanceRelevance}
-        />
-        <AssessmentRow
-          label="Typiske faldgruber"
-          value={assessment.commonPitfall}
-        />
-      </View>
-
-      {assessment.explanation ? (
-        <View style={styles.explanationBlock}>
-          <Text style={styles.explanationLabel}>Forklaring</Text>
-          <Text style={styles.bodyText}>{assessment.explanation}</Text>
-        </View>
-      ) : null}
-
-      <View style={styles.explanationBlock}>
-        <Text style={styles.explanationLabel}>Annotationer</Text>
-        <Text style={styles.bodyText}>
-          Der er ingen billedannotationer til dette kort endnu. Fremtidig
-          metadata kan koble markeringer til rytmetrin uden at ændre drillen.
-        </Text>
-      </View>
-    </Card>
+    <View style={styles.bulletRow}>
+      <View style={styles.bullet} />
+      <Text style={styles.bodyText}>{children}</Text>
+    </View>
   );
 }
 
@@ -113,12 +168,13 @@ export function EkgImageDrillScreen({ cards, loadingCards, onBack }: Props) {
   const { width } = useWindowDimensions();
   const [deckSeed, setDeckSeed] = useState(makeDeckSeed);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [revealed, setRevealed] = useState(false);
+  const [answers, setAnswers] = useState<AnswerMap>({});
+  const [checked, setChecked] = useState(false);
   const [imageModalVisible, setImageModalVisible] = useState(false);
 
   const deck = useMemo(
     () =>
-      selectEkgImageDrillCards(cards, {
+      selectEkgInteractiveImageDrillCards(cards, {
         imageLookup: ekgImageLookup,
         seed: deckSeed,
       }),
@@ -126,27 +182,44 @@ export function EkgImageDrillScreen({ cards, loadingCards, onBack }: Props) {
   );
 
   const currentCard = currentIndex < deck.length ? deck[currentIndex] : null;
-  const assessment = useMemo(
-    () => (currentCard ? buildEkgImageAssessment(currentCard) : null),
-    [currentCard],
-  );
+  const assessment = currentCard?.interactiveAssessment ?? null;
   const imageHeight = Math.min(280, Math.max(170, width * 0.52));
   const isComplete = deck.length > 0 && currentIndex >= deck.length;
+  const answeredCount = ekgAssessmentStepOrder.filter((stepName) =>
+    Boolean(answers[stepName]),
+  ).length;
+  const correctCount =
+    assessment && checked
+      ? ekgAssessmentStepOrder.filter(
+          (stepName) =>
+            answers[stepName] === assessment.steps[stepName].correctOptionId,
+        ).length
+      : 0;
+
+  const updateAnswer = (stepName: EkgAssessmentStep, optionId: string) => {
+    setAnswers((current) => ({ ...current, [stepName]: optionId }));
+  };
+
+  const resetItemState = () => {
+    setAnswers({});
+    setChecked(false);
+    setImageModalVisible(false);
+  };
 
   const restartSameOrder = () => {
     setCurrentIndex(0);
-    setRevealed(false);
+    resetItemState();
   };
 
   const reshuffle = () => {
     setDeckSeed(makeDeckSeed());
     setCurrentIndex(0);
-    setRevealed(false);
+    resetItemState();
   };
 
   const goNext = () => {
-    setRevealed(false);
     setCurrentIndex((index) => index + 1);
+    resetItemState();
   };
 
   return (
@@ -159,14 +232,14 @@ export function EkgImageDrillScreen({ cards, loadingCards, onBack }: Props) {
         <ToolPageHeader
           backLabel="Tilbage til EKG-træning"
           onBack={onBack}
-          subtitle="Billedbaseret rytmetræning uden scoring."
+          subtitle="Interaktiv billedbaseret rytmetræning uden scoring."
           title="EKG-billedtræning"
         />
 
         <NoticeCard title="Uddannelsestræning" tone="info" style={styles.notice}>
           <Text style={styles.noticeText}>
-            Brug billedet til at tænke systematisk: frekvens, regelmæssighed,
-            P-takker, PR-interval, QRS-bredde og samlet rytmeforslag.
+            Vælg observationer trin for trin. Når du trykker Tjek svar, får du
+            feedback uden at noget gemmes i statistik eller fejl-køer.
           </Text>
         </NoticeCard>
 
@@ -180,8 +253,8 @@ export function EkgImageDrillScreen({ cards, loadingCards, onBack }: Props) {
         ) : deck.length === 0 ? (
           <Card variant="subtle" style={styles.sectionCard}>
             <EmptyState
-              message="Der blev ikke fundet EKG-kort med gyldige billednøgler."
-              title="Ingen EKG-billeder klar"
+              message="Interaktiv billedtræning kræver gennemgået EKG-metadata. Flere billeder bliver tilføjet, når de er kurateret."
+              title="Ingen interaktive EKG-billeder klar"
             />
             <SecondaryButton label="Tilbage til EKG-træning" onPress={onBack} />
           </Card>
@@ -189,8 +262,8 @@ export function EkgImageDrillScreen({ cards, loadingCards, onBack }: Props) {
           <Card variant="subtle" style={styles.sectionCard}>
             <Text style={styles.sectionTitle}>Runden er færdig</Text>
             <Text style={styles.bodyText}>
-              Du har været gennem alle {deck.length} EKG-billeder i denne
-              blanding.
+              Du har været gennem alle {deck.length} interaktive EKG-billeder i
+              denne blanding.
             </Text>
             <PrimaryButton label="Bland igen" onPress={reshuffle} />
             <SecondaryButton label="Start forfra" onPress={restartSameOrder} />
@@ -204,12 +277,11 @@ export function EkgImageDrillScreen({ cards, loadingCards, onBack }: Props) {
                   <Text style={styles.eyebrow}>
                     BILLEDE {currentIndex + 1} AF {deck.length}
                   </Text>
-                  <Text style={styles.sectionTitle}>
-                    {currentCard.imageCaption ?? currentCard.topic ?? "EKG"}
+                  <Text style={styles.sectionTitle}>{assessment.title}</Text>
+                  <Text style={styles.bodyText}>
+                    Interaktiv træning: {deck.length} billeder. Flere
+                    EKG-billeder bliver tilføjet, når de er gennemgået.
                   </Text>
-                  {currentCard.subtopic ? (
-                    <Text style={styles.bodyText}>{currentCard.subtopic}</Text>
-                  ) : null}
                 </View>
                 <View style={styles.countBadge}>
                   <Text style={styles.countBadgeText}>
@@ -236,38 +308,69 @@ export function EkgImageDrillScreen({ cards, loadingCards, onBack }: Props) {
               </Pressable>
             </Card>
 
-            <Card variant="subtle" style={styles.sectionCard}>
-              <Text style={styles.sectionTitle}>Systematisk gennemgang</Text>
-              <Text style={styles.bodyText}>
-                Vurder billedet trin for trin, før du viser vurderingen.
+            <View style={styles.progressRow}>
+              <Text style={styles.progressText}>
+                {checked
+                  ? `${correctCount} af ${ekgAssessmentStepOrder.length} rigtige`
+                  : `${answeredCount} af ${ekgAssessmentStepOrder.length} valgt`}
               </Text>
-              <View style={styles.stepGrid}>
-                {[
-                  "Frekvens",
-                  "Regelmæssighed",
-                  "P-takker",
-                  "PR-interval",
-                  "QRS-bredde",
-                  "Rytmeforslag",
-                  "Ambulancefaglig betydning",
-                ].map((step) => (
-                  <View key={step} style={styles.stepChip}>
-                    <Text style={styles.stepChipText}>{step}</Text>
-                  </View>
-                ))}
-              </View>
-            </Card>
+            </View>
 
-            {revealed ? <AssessmentBlock assessment={assessment} /> : null}
+            {ekgAssessmentStepOrder.map((stepName) => (
+              <StepCard
+                assessment={assessment}
+                checked={checked}
+                key={stepName}
+                onSelect={updateAnswer}
+                selectedOptionId={answers[stepName]}
+                stepName={stepName}
+              />
+            ))}
+
+            {checked ? (
+              <Card variant="subtle" style={styles.summaryCard}>
+                <Text style={styles.sectionTitle}>Opsummering</Text>
+                <Text style={styles.summaryScore}>
+                  {correctCount} af {ekgAssessmentStepOrder.length} rigtige
+                </Text>
+                <Text style={styles.summaryRhythm}>
+                  Rytmeforslag: {assessment.rhythmName}
+                </Text>
+
+                <View style={styles.summaryBlock}>
+                  <Text style={styles.summaryLabel}>Nøglefund</Text>
+                  <View style={styles.bulletList}>
+                    {assessment.keyFindings.map((finding) => (
+                      <BulletText key={finding}>{finding}</BulletText>
+                    ))}
+                  </View>
+                </View>
+
+                {assessment.commonPitfall ? (
+                  <View style={styles.summaryBlock}>
+                    <Text style={styles.summaryLabel}>Typisk faldgrube</Text>
+                    <Text style={styles.bodyText}>{assessment.commonPitfall}</Text>
+                  </View>
+                ) : null}
+
+                <View style={styles.summaryBlock}>
+                  <Text style={styles.summaryLabel}>Ambulancefaglig relevans</Text>
+                  <Text style={styles.bodyText}>
+                    {assessment.ambulanceRelevance}
+                  </Text>
+                </View>
+
+                {assessment.sourceNote ? (
+                  <Text style={styles.sourceNote}>{assessment.sourceNote}</Text>
+                ) : null}
+              </Card>
+            ) : null}
 
             <View style={styles.buttonStack}>
-              {revealed ? (
+              {checked ? (
                 <PrimaryButton label="Næste billede" onPress={goNext} />
               ) : (
-                <PrimaryButton
-                  label="Vis vurdering"
-                  onPress={() => setRevealed(true)}
-                />
+                <PrimaryButton label="Tjek svar" onPress={() => setChecked(true)} />
               )}
               <SecondaryButton label="Bland igen" onPress={reshuffle} />
               <SecondaryButton label="Tilbage til EKG-træning" onPress={onBack} />
@@ -380,69 +483,183 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.xs,
     textAlign: "center",
   },
-  stepGrid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: Spacing.xs,
-  },
-  stepChip: {
-    minHeight: 34,
+  progressRow: {
+    minHeight: 40,
     justifyContent: "center",
     borderRadius: Radii.control,
     borderWidth: Borders.hairline,
     borderColor: ColorTokens.border.default,
     backgroundColor: ColorTokens.surface.inverse,
-    paddingHorizontal: Spacing.sm,
+    paddingHorizontal: Spacing.md,
+    marginBottom: Spacing.md,
   },
-  stepChipText: {
+  progressText: {
+    color: ColorTokens.accent.muted,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.label,
+    lineHeight: Typography.lineHeights.label,
+    fontWeight: Typography.weights.bold,
+    textAlign: "center",
+  },
+  stepCard: {
+    gap: Spacing.md,
+    marginBottom: Spacing.md,
+  },
+  stepHeader: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: Spacing.sm,
+  },
+  stepHeaderCopy: {
+    flex: 1,
+    minWidth: 0,
+  },
+  selectedText: {
     color: ColorTokens.text.primary,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.cardTitle,
+    lineHeight: Typography.lineHeights.cardTitle,
+    fontWeight: Typography.weights.bold,
+    marginTop: 2,
+  },
+  optionGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: Spacing.xs,
+  },
+  optionButton: {
+    minHeight: Interaction.minimumTouchTarget,
+    justifyContent: "center",
+    borderRadius: Radii.control,
+    borderWidth: Borders.hairline,
+    borderColor: ColorTokens.border.default,
+    backgroundColor: ColorTokens.surface.inverse,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.xs,
+  },
+  optionSelected: {
+    borderColor: ColorTokens.accent.muted,
+    backgroundColor: ColorTokens.accent.surface,
+  },
+  optionCorrect: {
+    borderColor: SemanticStates.success.foreground,
+    backgroundColor: "rgba(18,184,134,0.18)",
+  },
+  optionIncorrect: {
+    borderColor: SemanticStates.danger.foreground,
+    backgroundColor: "rgba(250,82,82,0.16)",
+  },
+  optionPressed: {
+    opacity: Interaction.pressedOpacity,
+    transform: [{ scale: Interaction.controlPressedScale }],
+  },
+  optionText: {
+    color: ColorTokens.text.secondary,
     fontFamily: Typography.families.sans,
     fontSize: Typography.sizes.label,
     lineHeight: Typography.lineHeights.label,
     fontWeight: Typography.weights.semibold,
   },
-  assessmentCard: {
+  optionTextSelected: {
+    color: ColorTokens.text.primary,
+  },
+  feedbackBadge: {
+    minHeight: 30,
+    justifyContent: "center",
+    borderRadius: Radii.control,
+    borderWidth: Borders.hairline,
+    paddingHorizontal: Spacing.sm,
+  },
+  correctBadge: {
+    borderColor: SemanticStates.success.foreground,
+    backgroundColor: "rgba(18,184,134,0.18)",
+  },
+  incorrectBadge: {
+    borderColor: SemanticStates.danger.foreground,
+    backgroundColor: "rgba(250,82,82,0.16)",
+  },
+  feedbackBadgeText: {
+    color: ColorTokens.text.primary,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.caption,
+    lineHeight: Typography.lineHeights.caption,
+    fontWeight: Typography.weights.heavy,
+  },
+  feedbackBox: {
+    borderRadius: Radii.md,
+    borderWidth: Borders.hairline,
+    padding: Spacing.md,
+    gap: Spacing.xs,
+  },
+  feedbackBoxCorrect: {
+    borderColor: SemanticStates.success.foreground,
+    backgroundColor: "rgba(18,184,134,0.12)",
+  },
+  feedbackBoxIncorrect: {
+    borderColor: SemanticStates.danger.foreground,
+    backgroundColor: "rgba(250,82,82,0.11)",
+  },
+  feedbackTitle: {
+    color: ColorTokens.text.primary,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.label,
+    lineHeight: Typography.lineHeights.label,
+    fontWeight: Typography.weights.bold,
+  },
+  feedbackText: {
+    color: ColorTokens.text.secondary,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.label,
+    lineHeight: Typography.lineHeights.label,
+  },
+  summaryCard: {
     gap: Spacing.md,
     marginBottom: Spacing.md,
   },
-  sourceText: {
+  summaryScore: {
     color: ColorTokens.accent.muted,
     fontFamily: Typography.families.sans,
-    fontSize: Typography.sizes.label,
-    lineHeight: Typography.lineHeights.label,
-  },
-  assessmentList: {
-    borderTopWidth: Borders.hairline,
-    borderTopColor: ColorTokens.border.divider,
-  },
-  assessmentRow: {
-    gap: Spacing.xs,
-    borderBottomWidth: Borders.hairline,
-    borderBottomColor: ColorTokens.border.divider,
-    paddingVertical: Spacing.sm,
-  },
-  assessmentLabel: {
-    color: ColorTokens.text.primary,
-    fontFamily: Typography.families.sans,
-    fontSize: Typography.sizes.label,
-    lineHeight: Typography.lineHeights.label,
+    fontSize: Typography.sizes.cardTitle,
+    lineHeight: Typography.lineHeights.cardTitle,
     fontWeight: Typography.weights.bold,
   },
-  assessmentValue: {
-    color: ColorTokens.text.secondary,
+  summaryRhythm: {
+    color: ColorTokens.text.primary,
     fontFamily: Typography.families.sans,
     fontSize: Typography.sizes.body,
     lineHeight: Typography.lineHeights.body,
+    fontWeight: Typography.weights.bold,
   },
-  explanationBlock: {
+  summaryBlock: {
     gap: Spacing.xs,
   },
-  explanationLabel: {
+  summaryLabel: {
     color: ColorTokens.text.primary,
     fontFamily: Typography.families.sans,
     fontSize: Typography.sizes.label,
     lineHeight: Typography.lineHeights.label,
     fontWeight: Typography.weights.bold,
+  },
+  bulletList: {
+    gap: Spacing.sm,
+  },
+  bulletRow: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: Spacing.sm,
+  },
+  bullet: {
+    width: 7,
+    height: 7,
+    borderRadius: Radii.circular,
+    backgroundColor: ColorTokens.accent.muted,
+    marginTop: 8,
+  },
+  sourceNote: {
+    color: ColorTokens.text.secondary,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.caption,
+    lineHeight: Typography.lineHeights.caption,
   },
   buttonStack: {
     gap: Spacing.sm,

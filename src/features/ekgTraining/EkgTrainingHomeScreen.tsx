@@ -156,9 +156,14 @@ export function EkgTrainingHomeScreen({
           {imageDrillLoading
             ? "Billedkort hentes fra kortbanken."
             : imageDrillCount > 0
-              ? `${imageDrillCount} EKG-billeder klar`
-              : "Ingen gyldige EKG-billeder fundet endnu."}
+              ? `Interaktiv træning: ${imageDrillCount} billeder`
+              : "Ingen interaktive EKG-billeder er gennemgået endnu."}
         </Text>
+        {imageDrillCount > 0 ? (
+          <Text style={styles.bodyText}>
+            Flere EKG-billeder bliver tilføjet, når de er gennemgået.
+          </Text>
+        ) : null}
         <PrimaryButton
           disabled={imageDrillLoading || imageDrillCount === 0}
           label="Start billedtræning"

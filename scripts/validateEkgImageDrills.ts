@@ -4,11 +4,18 @@ import path from "path";
 import {
   buildEkgImageAssessment,
   buildEkgImageDrillPool,
+  buildEkgInteractiveImageDrillPool,
   isPercentageAnnotation,
   selectEkgImageDrillCards,
+  selectEkgInteractiveImageDrillCards,
   shuffleEkgImageDrillCards,
   type EkgImageAnnotation,
 } from "../src/features/ekgTraining/ekgImageDrills";
+import {
+  ekgAssessmentStepOrder,
+  ekgInteractiveAssessments,
+  ekgStepOptions,
+} from "../src/features/ekgTraining/ekgInteractiveAssessments";
 import type { Flashcard } from "../src/types/Flashcard";
 
 function extractStringValues(source: string, key: string) {
@@ -169,6 +176,87 @@ if (isPercentageAnnotation(invalidAnnotation)) {
   throw new Error("Invalid percentage annotation was accepted.");
 }
 
+const interactiveIds = new Set<string>();
+for (const assessment of ekgInteractiveAssessments) {
+  if (interactiveIds.has(assessment.cardId)) {
+    throw new Error(`Duplicate interactive EKG assessment ID: ${assessment.cardId}`);
+  }
+  interactiveIds.add(assessment.cardId);
+  if (!localImageIds.includes(assessment.cardId)) {
+    throw new Error(
+      `Interactive EKG assessment references missing image card: ${assessment.cardId}`,
+    );
+  }
+  if (assessment.imageKey && assessment.imageKey !== assessment.cardId) {
+    throw new Error(
+      `Interactive EKG assessment imageKey mismatch for ${assessment.cardId}`,
+    );
+  }
+  if (!assessment.rhythmName.trim()) {
+    throw new Error(`Interactive EKG assessment missing rhythmName: ${assessment.cardId}`);
+  }
+  if (assessment.keyFindings.length === 0) {
+    throw new Error(`Interactive EKG assessment missing key findings: ${assessment.cardId}`);
+  }
+  if (!assessment.ambulanceRelevance.trim()) {
+    throw new Error(`Interactive EKG assessment missing ambulance relevance: ${assessment.cardId}`);
+  }
+
+  for (const stepName of ekgAssessmentStepOrder) {
+    const stepAssessment = assessment.steps[stepName];
+    if (!stepAssessment) {
+      throw new Error(`Missing ${stepName} step for ${assessment.cardId}`);
+    }
+    if (stepAssessment.step !== stepName) {
+      throw new Error(`Step key mismatch for ${assessment.cardId} ${stepName}`);
+    }
+    if (!stepAssessment.explanation.trim()) {
+      throw new Error(`Missing explanation for ${assessment.cardId} ${stepName}`);
+    }
+    if (
+      !ekgStepOptions[stepName].some(
+        (option) => option.id === stepAssessment.correctOptionId,
+      )
+    ) {
+      throw new Error(
+        `Invalid correctOptionId ${stepAssessment.correctOptionId} for ${assessment.cardId} ${stepName}`,
+      );
+    }
+  }
+}
+
+const interactivePool = buildEkgInteractiveImageDrillPool(fixtureCards, {
+  imageLookup: fakeLookup,
+});
+if (interactivePool.length !== ekgInteractiveAssessments.length) {
+  throw new Error(
+    `Expected ${ekgInteractiveAssessments.length} interactive EKG cards, got ${interactivePool.length}.`,
+  );
+}
+if (new Set(interactivePool.map((card) => card.id)).size !== interactivePool.length) {
+  throw new Error("Interactive EKG image drill pool returned duplicate IDs.");
+}
+if (interactivePool.some((card) => !card.interactiveAssessment)) {
+  throw new Error("Interactive EKG image drill pool returned a card without metadata.");
+}
+
+const interactiveSeededA = selectEkgInteractiveImageDrillCards(fixtureCards, {
+  imageLookup: fakeLookup,
+  seed: "interactive-seed",
+}).map((card) => card.id);
+const interactiveSeededB = selectEkgInteractiveImageDrillCards(fixtureCards, {
+  imageLookup: fakeLookup,
+  seed: "interactive-seed",
+}).map((card) => card.id);
+if (interactiveSeededA.join("|") !== interactiveSeededB.join("|")) {
+  throw new Error("Seeded interactive EKG image shuffle is not deterministic.");
+}
+if (
+  buildEkgInteractiveImageDrillPool([], { imageLookup: fakeLookup }).length !== 0
+) {
+  throw new Error("Empty interactive EKG image pool was not handled safely.");
+}
+
 console.log(
-  `Validated ${pool.length} usable EKG image drill cards, deterministic shuffle, fallback assessment, empty pool handling, and annotation coordinate guards.`,
+  `Validated ${pool.length} usable EKG image drill cards, ${interactivePool.length} interactive assessments, deterministic shuffle, fallback assessment, empty pool handling, and annotation coordinate guards.`,
 );

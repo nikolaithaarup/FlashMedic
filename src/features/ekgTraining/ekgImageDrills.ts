@@ -1,6 +1,10 @@
 import type { ImageSourcePropType } from "react-native";
 
 import type { Flashcard } from "../../types/Flashcard";
+import {
+  getEkgInteractiveAssessment,
+  type EkgInteractiveAssessment,
+} from "./ekgInteractiveAssessments";
 
 export type EkgAnnotationStep =
   | "rate"
@@ -41,6 +45,10 @@ export type EkgStructuredAssessment = {
 export type EkgImageDrillCard = Flashcard & {
   imageKey: string;
   image: ImageSourcePropType;
+};
+
+export type EkgInteractiveImageDrillCard = EkgImageDrillCard & {
+  interactiveAssessment: EkgInteractiveAssessment;
 };
 
 export type EkgImageAssessment = {
@@ -151,6 +159,33 @@ export function selectEkgImageDrillCards(
 ) {
   return shuffleEkgImageDrillCards(
     buildEkgImageDrillPool(cards, options),
+    options.seed,
+  );
+}
+
+export function buildEkgInteractiveImageDrillPool(
+  cards: Flashcard[],
+  options: Pick<SelectOptions, "imageLookup"> = {},
+) {
+  return buildEkgImageDrillPool(cards, options).flatMap((card) => {
+    const interactiveAssessment = getEkgInteractiveAssessment(card.id);
+    if (!interactiveAssessment) return [];
+    if (
+      interactiveAssessment.imageKey &&
+      interactiveAssessment.imageKey !== card.imageKey
+    ) {
+      return [];
+    }
+    return [{ ...card, interactiveAssessment }];
+  });
+}
+
+export function selectEkgInteractiveImageDrillCards(
+  cards: Flashcard[],
+  options: SelectOptions = {},
+) {
+  return shuffleEkgImageDrillCards(
+    buildEkgInteractiveImageDrillPool(cards, options),
     options.seed,
   );
 }
