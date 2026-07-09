@@ -53,7 +53,9 @@ type StepCardProps = {
   assessment: EkgInteractiveAssessment;
   selectedOptionId?: string;
   checked: boolean;
+  expanded: boolean;
   onSelect: (stepName: EkgAssessmentStep, optionId: string) => void;
+  onToggle: (stepName: EkgAssessmentStep) => void;
 };
 
 function makeDeckSeed() {
@@ -65,15 +67,40 @@ function StepCard({
   assessment,
   selectedOptionId,
   checked,
+  expanded,
   onSelect,
+  onToggle,
 }: StepCardProps) {
   const stepAssessment = assessment.steps[stepName];
   const correct = selectedOptionId === stepAssessment.correctOptionId;
   const missing = !selectedOptionId;
+  const statusLabel = checked
+    ? correct
+      ? "Rigtig"
+      : "Tjek"
+    : selectedOptionId
+      ? "Valgt"
+      : "Åbn";
 
   return (
     <Card variant="subtle" style={styles.stepCard}>
-      <View style={styles.stepHeader}>
+      <Pressable
+        accessibilityHint={
+          expanded ? "Skjul svarmuligheder" : "Vis svarmuligheder"
+        }
+        accessibilityLabel={`${ekgStepLabels[stepName]}. ${
+          selectedOptionId
+            ? getEkgStepOptionLabel(stepName, selectedOptionId)
+            : "Intet valg endnu"
+        }`}
+        accessibilityRole="button"
+        accessibilityState={{ expanded }}
+        onPress={() => onToggle(stepName)}
+        style={({ pressed }) => [
+          styles.stepHeader,
+          pressed && styles.stepHeaderPressed,
+        ]}
+      >
         <View style={styles.stepHeaderCopy}>
           <Text style={styles.eyebrow}>{ekgStepLabels[stepName]}</Text>
           <Text style={styles.selectedText}>
@@ -82,74 +109,84 @@ function StepCard({
               : "Vælg observation"}
           </Text>
         </View>
-        {checked ? (
-          <View
-            style={[
-              styles.feedbackBadge,
-              correct ? styles.correctBadge : styles.incorrectBadge,
-            ]}
-          >
-            <Text style={styles.feedbackBadgeText}>
-              {correct ? "Rigtig" : "Tjek"}
-            </Text>
-          </View>
-        ) : null}
-      </View>
-
-      <View style={styles.optionGrid}>
-        {ekgStepOptions[stepName].map((option) => {
-          const selected = selectedOptionId === option.id;
-          const isCorrectOption = checked && option.id === stepAssessment.correctOptionId;
-          const isWrongSelected = checked && selected && !isCorrectOption;
-          return (
-            <Pressable
-              accessibilityRole="button"
-              accessibilityState={{ selected }}
-              disabled={checked}
-              key={option.id}
-              onPress={() => onSelect(stepName, option.id)}
-              style={({ pressed }) => [
-                styles.optionButton,
-                selected && styles.optionSelected,
-                isCorrectOption && styles.optionCorrect,
-                isWrongSelected && styles.optionIncorrect,
-                pressed && !checked && styles.optionPressed,
-              ]}
-            >
-              <Text
-                style={[
-                  styles.optionText,
-                  (selected || isCorrectOption || isWrongSelected) &&
-                    styles.optionTextSelected,
-                ]}
-              >
-                {option.label}
-              </Text>
-            </Pressable>
-          );
-        })}
-      </View>
-
-      {checked ? (
         <View
           style={[
-            styles.feedbackBox,
-            correct ? styles.feedbackBoxCorrect : styles.feedbackBoxIncorrect,
+            styles.feedbackBadge,
+            checked
+              ? correct
+                ? styles.correctBadge
+                : styles.incorrectBadge
+              : selectedOptionId
+                ? styles.selectedBadge
+                : styles.neutralBadge,
           ]}
         >
-          <Text style={styles.feedbackTitle}>
-            {correct
-              ? "Korrekt observation"
-              : missing
-                ? "Intet valg angivet"
-                : "Andet svar end vurderingen"}
-          </Text>
-          <Text style={styles.feedbackText}>
-            Korrekt svar:{" "}
-            {getEkgStepOptionLabel(stepName, stepAssessment.correctOptionId)}
-          </Text>
-          <Text style={styles.feedbackText}>{stepAssessment.explanation}</Text>
+          <Text style={styles.feedbackBadgeText}>{statusLabel}</Text>
         </View>
+        <Text style={styles.expandIcon} accessibilityElementsHidden>
+          {expanded ? "⌃" : "⌄"}
+        </Text>
+      </Pressable>
+
+      {expanded ? (
+        <>
+          <View style={styles.optionGrid}>
+            {ekgStepOptions[stepName].map((option) => {
+              const selected = selectedOptionId === option.id;
+              const isCorrectOption =
+                checked && option.id === stepAssessment.correctOptionId;
+              const isWrongSelected = checked && selected && !isCorrectOption;
+              return (
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityState={{ selected }}
+                  disabled={checked}
+                  key={option.id}
+                  onPress={() => onSelect(stepName, option.id)}
+                  style={({ pressed }) => [
+                    styles.optionButton,
+                    selected && styles.optionSelected,
+                    isCorrectOption && styles.optionCorrect,
+                    isWrongSelected && styles.optionIncorrect,
+                    pressed && !checked && styles.optionPressed,
+                  ]}
+                >
+                  <Text
+                    style={[
+                      styles.optionText,
+                      (selected || isCorrectOption || isWrongSelected) &&
+                        styles.optionTextSelected,
+                    ]}
+                  >
+                    {option.label}
+                  </Text>
+                </Pressable>
+              );
+            })}
+          </View>
+
+          {checked ? (
+            <View
+              style={[
+                styles.feedbackBox,
+                correct ? styles.feedbackBoxCorrect : styles.feedbackBoxIncorrect,
+              ]}
+            >
+              <Text style={styles.feedbackTitle}>
+                {correct
+                  ? "Korrekt observation"
+                  : missing
+                    ? "Intet valg angivet"
+                    : "Andet svar end vurderingen"}
+              </Text>
+              <Text style={styles.feedbackText}>
+                Korrekt svar:{" "}
+                {getEkgStepOptionLabel(stepName, stepAssessment.correctOptionId)}
+              </Text>
+              <Text style={styles.feedbackText}>{stepAssessment.explanation}</Text>
+            </View>
+          ) : null}
+        </>
       ) : null}
     </Card>
   );
@@ -170,6 +207,9 @@ export function EkgImageDrillScreen({ cards, loadingCards, onBack }: Props) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<AnswerMap>({});
   const [checked, setChecked] = useState(false);
+  const [expandedStep, setExpandedStep] = useState<EkgAssessmentStep | null>(
+    null,
+  );
   const [imageModalVisible, setImageModalVisible] = useState(false);
 
   const deck = useMemo(
@@ -198,11 +238,18 @@ export function EkgImageDrillScreen({ cards, loadingCards, onBack }: Props) {
 
   const updateAnswer = (stepName: EkgAssessmentStep, optionId: string) => {
     setAnswers((current) => ({ ...current, [stepName]: optionId }));
+    const currentStepIndex = ekgAssessmentStepOrder.indexOf(stepName);
+    setExpandedStep(ekgAssessmentStepOrder[currentStepIndex + 1] ?? null);
+  };
+
+  const toggleStep = (stepName: EkgAssessmentStep) => {
+    setExpandedStep((current) => (current === stepName ? null : stepName));
   };
 
   const resetItemState = () => {
     setAnswers({});
     setChecked(false);
+    setExpandedStep(null);
     setImageModalVisible(false);
   };
 
@@ -320,8 +367,10 @@ export function EkgImageDrillScreen({ cards, loadingCards, onBack }: Props) {
               <StepCard
                 assessment={assessment}
                 checked={checked}
+                expanded={expandedStep === stepName}
                 key={stepName}
                 onSelect={updateAnswer}
+                onToggle={toggleStep}
                 selectedOptionId={answers[stepName]}
                 stepName={stepName}
               />
@@ -510,6 +559,9 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     gap: Spacing.sm,
   },
+  stepHeaderPressed: {
+    opacity: Interaction.pressedOpacity,
+  },
   stepHeaderCopy: {
     flex: 1,
     minWidth: 0,
@@ -578,12 +630,27 @@ const styles = StyleSheet.create({
     borderColor: SemanticStates.danger.foreground,
     backgroundColor: "rgba(250,82,82,0.16)",
   },
+  selectedBadge: {
+    borderColor: ColorTokens.accent.muted,
+    backgroundColor: ColorTokens.accent.surface,
+  },
+  neutralBadge: {
+    borderColor: ColorTokens.border.default,
+    backgroundColor: ColorTokens.surface.inverse,
+  },
   feedbackBadgeText: {
     color: ColorTokens.text.primary,
     fontFamily: Typography.families.sans,
     fontSize: Typography.sizes.caption,
     lineHeight: Typography.lineHeights.caption,
     fontWeight: Typography.weights.heavy,
+  },
+  expandIcon: {
+    color: ColorTokens.text.secondary,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.cardTitle,
+    lineHeight: Typography.lineHeights.cardTitle,
+    fontWeight: Typography.weights.bold,
   },
   feedbackBox: {
     borderRadius: Radii.md,

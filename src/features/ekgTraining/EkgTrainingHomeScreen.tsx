@@ -130,10 +130,6 @@ export function EkgTrainingHomeScreen({
             </View>
           ))}
         </View>
-      </Card>
-
-      <Card variant="subtle" style={styles.sectionCard}>
-        <SectionTitle>Rytmetræning</SectionTitle>
         <Text style={styles.bodyText}>
           Start en guidet rytmetræner, hvor du vurderer frekvens,
           regelmæssighed, P-takker, PR-interval, QRS-bredde og rytmeforslag
