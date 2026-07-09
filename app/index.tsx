@@ -49,6 +49,7 @@ import { WeeklyWordScreen } from "../src/features/weekly/WeeklyWordScreen";
 import DrugCalcHomeScreen from "../src/features/drugCalc/DrugCalcHomeScreen";
 import { DrugCalcPracticeScreen } from "../src/features/drugCalc/DrugCalcPracticeScreen";
 import { DrugCalcTheoryScreen } from "../src/features/drugCalc/DrugCalcTheoryScreen";
+import { EkgTrainingHomeScreen } from "../src/features/ekgTraining/EkgTrainingHomeScreen";
 
 import { ContactScreen } from "../src/features/contact/ContactScreen";
 import AuthScreen from "../src/features/profile/AuthScreen";
@@ -96,6 +97,7 @@ type Screen =
   | "weeklyMatch"
   | "weeklyWord"
   | "contact"
+  | "ekgTrainingHome"
   | "drugCalcHome"
   | "drugCalcPractice"
   | "drugCalcTheory";
@@ -394,8 +396,6 @@ export default function Index() {
       a.localeCompare(b),
     );
   }, [cards]);
-  const hasEkgTraining = subjects.includes("EKG");
-
   const cardsForSelectedSubject = useMemo(() => {
     if (!selectedSubject) return [];
     return cards.filter((c) => c.subject === selectedSubject);
@@ -638,12 +638,6 @@ export default function Index() {
         "Besvar flere flashcards i samme emne, før FlashMedic kan sammensætte denne træning.",
       );
     }
-  };
-
-  const handleOpenEkgTraining = () => {
-    setSelectedSubject("EKG");
-    setSelectedKeys([]);
-    setScreen("flashcardsHome");
   };
 
   // ... (rest of your file is unchanged)
@@ -1198,6 +1192,10 @@ export default function Index() {
     );
   }
 
+  if (screen === "ekgTrainingHome") {
+    return <EkgTrainingHomeScreen onBack={() => setScreen("home")} />;
+  }
+
   // HOME
   return (
     <HomeScreen
@@ -1216,9 +1214,8 @@ export default function Index() {
       dailyTenDisabled={loadingCards || dailyTenCards.length === 0}
       dailyTenCount={Math.min(DAILY_TEN_CARD_COUNT, dailyTenCards.length)}
       onOpenFlashcardsHome={() => setScreen("flashcardsHome")}
-      onOpenEkgTraining={handleOpenEkgTraining}
-      showEkgTraining={hasEkgTraining}
       onOpenDrugCalcHome={() => setScreen("drugCalcHome")}
+      onOpenEkgTraining={() => setScreen("ekgTrainingHome")}
       onOpenStats={() => setScreen("stats")}
       onOpenContact={() => setScreen("contact")}
     />

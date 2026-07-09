@@ -39,9 +39,8 @@ type HomeScreenProps = {
   dailyTenDisabled: boolean;
   dailyTenCount: number;
   onOpenFlashcardsHome: () => void;
-  onOpenEkgTraining: () => void;
-  showEkgTraining: boolean;
   onOpenDrugCalcHome: () => void;
+  onOpenEkgTraining: () => void;
   onOpenStats: () => void;
   onOpenContact: () => void;
 };
@@ -109,9 +108,8 @@ export default function HomeScreen({
   dailyTenDisabled,
   dailyTenCount,
   onOpenFlashcardsHome,
-  onOpenEkgTraining,
-  showEkgTraining,
   onOpenDrugCalcHome,
+  onOpenEkgTraining,
   onOpenStats,
   onOpenContact,
 }: HomeScreenProps) {
@@ -216,14 +214,12 @@ export default function HomeScreen({
               onPress={onOpenDrugCalcHome}
               title="Lægemiddelregning"
             />
-            {showEkgTraining ? (
-              <DestinationCard
-                description="Træn EKG-emner og billedkort i FlashMedic."
-                eyebrow="RYTME OG BILLEDER"
-                onPress={onOpenEkgTraining}
-                title="EKG-træning"
-              />
-            ) : null}
+            <DestinationCard
+              description="Lær rytmeanalyse trin for trin og træn akutte rytmer."
+              eyebrow="RYTME OG TEORI"
+              onPress={onOpenEkgTraining}
+              title="EKG-træning"
+            />
           </View>
 
           <View style={styles.sectionHeader}>
