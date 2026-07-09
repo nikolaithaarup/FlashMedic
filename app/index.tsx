@@ -1211,7 +1211,6 @@ export default function Index() {
         imageDrillLoading={loadingCards}
         onBack={() => setScreen("home")}
         onStartImageDrill={() => setScreen("ekgImageDrill")}
-        onStartRhythmTrainer={() => setScreen("ekgRhythmTrainer")}
       />
     );
   }
