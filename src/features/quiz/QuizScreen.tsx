@@ -21,6 +21,7 @@ import {
   Typography,
 } from "../../../constants/theme";
 import type { Difficulty, Flashcard } from "../../types/Flashcard";
+import type { FlashcardTrainingMode } from "../../types/Learning";
 import {
   Card,
   PrimaryButton,
@@ -42,6 +43,7 @@ type QuizScreenProps = {
   metaFont: number;
   questionFont: number;
   answerFont: number;
+  trainingMode?: FlashcardTrainingMode;
   onPrevious: () => void;
   onHome: () => void;
   onMarkKnown: () => void;
@@ -82,6 +84,7 @@ export default function QuizScreen({
   metaFont,
   questionFont,
   answerFont,
+  trainingMode = "normal",
   onPrevious,
   onHome,
   onMarkKnown,
@@ -92,6 +95,7 @@ export default function QuizScreen({
   const [imageModalVisible, setImageModalVisible] = useState(false);
   const totalQuestions = historyCount + 1 + upcomingCount;
   const currentIndex = historyCount + 1;
+  const isExamMode = trainingMode === "exam";
   const imageUri = useMemo(
     () => toImageUri((currentCard as any).image),
     [currentCard],
@@ -110,7 +114,7 @@ export default function QuizScreen({
         <StatusBar style="light" />
         <ToolPageHeader
           action={
-            historyCount > 0 && !completed ? (
+            historyCount > 0 && !completed && !isExamMode ? (
               <SecondaryButton
                 label="Forrige"
                 onPress={onPrevious}
@@ -121,7 +125,7 @@ export default function QuizScreen({
           backLabel="Afslut quiz og gå til forsiden"
           onBack={onHome}
           subtitle={`Spørgsmål ${currentIndex} af ${totalQuestions}`}
-          title="FlashMedic"
+          title={isExamMode ? "Eksamensmode" : "FlashMedic"}
         />
 
         <View style={styles.metaRow}>
@@ -195,7 +199,9 @@ export default function QuizScreen({
             </Text>
           ) : (
             <Text style={styles.answerPlaceholder}>
-              Svaret er skjult, indtil du er klar til at kontrollere dig selv.
+              {isExamMode
+                ? "Tænk dit svar igennem, og vis facit når du er klar til at vurdere dig selv."
+                : "Svaret er skjult, indtil du er klar til at kontrollere dig selv."}
             </Text>
           )}
         </Card>
@@ -218,7 +224,12 @@ export default function QuizScreen({
         ) : (
           <View style={styles.assessmentSection}>
             <Text style={styles.assessmentTitle}>Hvordan gik det?</Text>
-            <Text style={styles.assessmentHelp}>
+            {isExamMode ? (
+              <Text style={styles.assessmentHelp}>
+                Dit valg gemmes til den samlede gennemgang. Statistik opdateres først, når eksamen afsluttes.
+              </Text>
+            ) : null}
+            <Text style={[styles.assessmentHelp, isExamMode && styles.hidden]}>
               Dit svar opdaterer statistikken og vælger det næste kort.
             </Text>
             <View style={styles.assessmentActions}>
@@ -430,6 +441,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   reportButton: { marginTop: Spacing.lg, marginBottom: Spacing.lg },
+  hidden: { display: "none" },
   modal: {
     flex: 1,
     backgroundColor: ColorTokens.background.base,

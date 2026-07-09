@@ -39,6 +39,8 @@ type HomeScreenProps = {
   dailyTenDisabled: boolean;
   dailyTenCount: number;
   onOpenFlashcardsHome: () => void;
+  onOpenEkgTraining: () => void;
+  showEkgTraining: boolean;
   onOpenDrugCalcHome: () => void;
   onOpenStats: () => void;
   onOpenContact: () => void;
@@ -107,6 +109,8 @@ export default function HomeScreen({
   dailyTenDisabled,
   dailyTenCount,
   onOpenFlashcardsHome,
+  onOpenEkgTraining,
+  showEkgTraining,
   onOpenDrugCalcHome,
   onOpenStats,
   onOpenContact,
@@ -161,13 +165,13 @@ export default function HomeScreen({
               style={[styles.wordmark, { width: titleWidth }]}
             />
             <Text style={[styles.subtitle, { fontSize: subtitleFont }]}>
-              Træn medicin, anatomi, EKG og meget mere.
+              Ambulancefag, flashcards og klinisk repetition.
             </Text>
           </View>
 
           {loadingCards ? (
             <View style={styles.statusSurface}>
-              <Text style={styles.statusText}>Indlæser kort fra serveren…</Text>
+              <Text style={styles.statusText}>Indlæser kort fra serveren...</Text>
             </View>
           ) : loadError ? (
             <View style={[styles.statusSurface, styles.errorSurface]}>
@@ -177,23 +181,29 @@ export default function HomeScreen({
 
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionEyebrow}>LÆRING</Text>
-            <Text style={styles.sectionTitle}>Vælg din træning</Text>
+            <Text style={styles.sectionTitle}>Vælg din læringsvej</Text>
           </View>
 
           <View style={styles.destinationList}>
             <DestinationCard
+              description="Træn ambulancefag, emner og svage punkter med flashcards."
+              eyebrow="KERNETRÆNING"
+              onPress={onOpenFlashcardsHome}
+              title="FlashMedic"
+            />
+            <DestinationCard
               description={
                 dailyTenCount >= 10
-                  ? "10 faste kort for i dag."
-                  : `${dailyTenCount} kort klar for i dag.`
+                  ? "Din daglige fokuserede repetition."
+                  : `${dailyTenCount} kort klar i dag.`
               }
               disabled={dailyTenDisabled}
               eyebrow="DAGLIGT"
               onPress={onStartDailyTen}
-              title="Dagens 10"
+              title="Daily10"
             />
             <DestinationCard
-              description="Ugens tre korte udfordringer."
+              description="Ugentlig tematræning og let konkurrence."
               delayLongPress={800}
               eyebrow="UGENTLIGT"
               onLongPress={onOpenWeeklyDev}
@@ -201,22 +211,24 @@ export default function HomeScreen({
               title="Weekly Challenges"
             />
             <DestinationCard
-              description="Vælg fag, emner og dit eget kortsæt."
-              eyebrow="TILPASSET"
-              onPress={onOpenFlashcardsHome}
-              title="Flashcards"
-            />
-            <DestinationCard
               description="Træn doseringer, enheder og beregninger."
               eyebrow="BEREGNING"
               onPress={onOpenDrugCalcHome}
               title="Lægemiddelregning"
             />
+            {showEkgTraining ? (
+              <DestinationCard
+                description="Træn EKG-emner og billedkort i FlashMedic."
+                eyebrow="RYTME OG BILLEDER"
+                onPress={onOpenEkgTraining}
+                title="EKG-træning"
+              />
+            ) : null}
           </View>
 
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionEyebrow}>OVERBLIK</Text>
-            <Text style={styles.sectionTitle}>Mere i FlashMedic</Text>
+            <Text style={styles.sectionEyebrow}>SUPPORT</Text>
+            <Text style={styles.sectionTitle}>Progression og hjælp</Text>
           </View>
 
           <View style={styles.utilityRow}>

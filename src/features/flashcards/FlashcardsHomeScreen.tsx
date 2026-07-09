@@ -43,6 +43,9 @@ type FlashcardsHomeScreenProps = {
   weakestTopics: TopicStats[];
   onStartMistakeReview: () => void;
   onStartWeakTopics: () => void;
+  onStartExamMode: () => void;
+  examCardCount: number;
+  disableExamMode: boolean;
 };
 
 type ChipItem = { key: string; label: string };
@@ -65,7 +68,7 @@ function buildChips(groups: TopicGroup[]): ChipItem[] {
     for (const sub of subtopics) {
       if (!sub.trim()) continue;
       const displayName = sub.includes("::") ? sub.split("::")[1] : sub;
-      result.push({ key: `${topic}::${sub}`, label: `${topic} – ${displayName}` });
+      result.push({ key: `${topic}::${sub}`, label: `${topic} - ${displayName}` });
     }
   }
 
@@ -91,6 +94,9 @@ export default function FlashcardsHomeScreen({
   weakestTopics,
   onStartMistakeReview,
   onStartWeakTopics,
+  onStartExamMode,
+  examCardCount,
+  disableExamMode,
 }: FlashcardsHomeScreenProps) {
   const topicChips = useMemo(
     () => (selectedSubject ? buildChips(topicGroupsForSelectedSubject) : []),
@@ -116,19 +122,24 @@ export default function FlashcardsHomeScreen({
       <ToolPageHeader
         backLabel="Tilbage til forsiden"
         onBack={onBack}
-        subtitle="Sammensæt din træning"
-        title="Flashcards"
+        subtitle="Flashcard-træning til ambulancefag, eksamen og faglig genopfriskning."
+        title="FlashMedic"
       />
 
       <NoticeCard title="Sådan kommer du i gang">
-        Vælg først et fag og derefter de emner, du vil træne. Kort, du ikke kan,
-        kommer igen i quizzen.
+        Vælg et fag og de emner, du vil træne, eller start hurtigt med blandet
+        træning fra hele kortbanken.
       </NoticeCard>
+
+      <View style={styles.sectionHeader}>
+        <Text style={styles.sectionLabel}>HURTIG START</Text>
+        <Text style={styles.sectionTitle}>Kom i gang med det samme</Text>
+      </View>
 
       <Card variant="subtle" style={styles.allSubjectsCard}>
         <View style={styles.allSubjectsCopy}>
-          <Text style={styles.allSubjectsTitle}>Træn alle fag</Text>
-          <Text style={styles.allSubjectsDescription}>
+          <Text style={styles.cardTitle}>Træn alle fag</Text>
+          <Text style={styles.cardDescription}>
             Blandede flashcards fra hele FlashMedic.
           </Text>
         </View>
@@ -141,14 +152,14 @@ export default function FlashcardsHomeScreen({
       </Card>
 
       <View style={styles.sectionHeader}>
-        <Text style={styles.sectionLabel}>DIN REPETITION</Text>
+        <Text style={styles.sectionLabel}>PERSONLIG TRÆNING</Text>
         <Text style={styles.sectionTitle}>Træn ud fra dine svar</Text>
       </View>
 
       <View style={styles.learningGrid}>
         <Card variant="subtle" style={styles.learningCard}>
-          <Text style={styles.allSubjectsTitle}>Forkerte svar</Text>
-          <Text style={styles.allSubjectsDescription}>
+          <Text style={styles.cardTitle}>Forkerte svar</Text>
+          <Text style={styles.cardDescription}>
             Gennemgå de kort, du tidligere har svaret forkert på.
           </Text>
           <Text style={styles.learningMeta}>
@@ -164,19 +175,21 @@ export default function FlashcardsHomeScreen({
         </Card>
 
         <Card variant="subtle" style={styles.learningCard}>
-          <Text style={styles.allSubjectsTitle}>Svage emner</Text>
-          <Text style={styles.allSubjectsDescription}>
+          <Text style={styles.cardTitle}>Svage emner</Text>
+          <Text style={styles.cardDescription}>
             Træn de emner, hvor dine svar viser, at du har mest brug for repetition.
           </Text>
           {weakestTopics.length === 0 ? (
             <Text style={styles.learningMeta}>
-              Ikke nok data endnu. Lav mindst fem besvarelser i et emne—prøv Træn alle fag.
+              Ikke nok data endnu. Lav mindst fem besvarelser i et emne.
             </Text>
           ) : (
             <View style={styles.weakTopicList}>
               {weakestTopics.map((topic) => (
                 <Text key={topic.key} style={styles.learningMeta}>
-                  {topic.topic}{topic.subtopic ? ` · ${topic.subtopic}` : ""} · {Math.round(topic.accuracy * 100)}%
+                  {topic.topic}
+                  {topic.subtopic ? ` · ${topic.subtopic}` : ""} ·{" "}
+                  {Math.round(topic.accuracy * 100)}%
                 </Text>
               ))}
             </View>
@@ -190,7 +203,30 @@ export default function FlashcardsHomeScreen({
       </View>
 
       <View style={styles.sectionHeader}>
-        <Text style={styles.sectionLabel}>1 · FAG</Text>
+        <Text style={styles.sectionLabel}>SELVTEST</Text>
+        <Text style={styles.sectionTitle}>Test dig selv uden feedback undervejs</Text>
+      </View>
+
+      <Card variant="subtle" style={styles.examCard}>
+        <View style={styles.examCopy}>
+          <Text style={styles.cardTitle}>Eksamensmode</Text>
+          <Text style={styles.cardDescription}>
+            20 blandede kort uden feedback undervejs. Få en samlet gennemgang til sidst.
+          </Text>
+          <Text style={styles.learningMeta}>
+            God til selvtest før prøver. {examCardCount} kort klar.
+          </Text>
+        </View>
+        <PrimaryButton
+          disabled={disableExamMode}
+          label="Start eksamensmode"
+          onPress={onStartExamMode}
+          style={styles.examButton}
+        />
+      </Card>
+
+      <View style={styles.sectionHeader}>
+        <Text style={styles.sectionLabel}>VÆLG FAG OG EMNER</Text>
         <Text style={styles.sectionTitle}>Hvad vil du træne?</Text>
       </View>
 
@@ -214,7 +250,7 @@ export default function FlashcardsHomeScreen({
       </Card>
 
       <View style={styles.sectionHeader}>
-        <Text style={styles.sectionLabel}>2 · EMNER</Text>
+        <Text style={styles.sectionLabel}>EMNER</Text>
         <Text style={styles.sectionTitle}>
           {selectedSubject ? `Emner i ${selectedSubject}` : "Vælg et fag"}
         </Text>
@@ -286,13 +322,13 @@ const styles = StyleSheet.create({
     marginTop: Spacing.md,
   },
   allSubjectsCopy: { flex: 1, minWidth: 0 },
-  allSubjectsTitle: {
+  cardTitle: {
     color: ColorTokens.text.primary,
     fontSize: Typography.sizes.cardTitle,
     lineHeight: Typography.lineHeights.cardTitle,
     fontWeight: Typography.weights.bold,
   },
-  allSubjectsDescription: {
+  cardDescription: {
     color: ColorTokens.text.secondary,
     fontSize: Typography.sizes.label,
     lineHeight: Typography.lineHeights.label,
@@ -331,6 +367,13 @@ const styles = StyleSheet.create({
   selectAllButton: { minWidth: 132 },
   startButton: { marginTop: Spacing.xl, marginBottom: Spacing.lg },
   learningGrid: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.md },
+  examCard: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.md,
+  },
+  examCopy: { flex: 1, minWidth: 0 },
+  examButton: { minWidth: 188 },
   learningCard: { flex: 1, minWidth: 260, gap: Spacing.sm },
   learningMeta: {
     color: ColorTokens.accent.muted,

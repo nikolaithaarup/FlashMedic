@@ -4,8 +4,48 @@ export type FlashcardTrainingMode =
   | "normal"
   | "mistakes"
   | "weak-topics"
-  | "daily-10";
+  | "daily-10"
+  | "exam";
 export type MistakeReviewStatus = "pending" | "learning" | "understood";
+
+export type ExamAnswerResult = "correct" | "incorrect";
+
+export interface ExamSessionAnswer {
+  cardId: string;
+  subject: string;
+  topic?: string;
+  subtopic?: string;
+  result: ExamAnswerResult;
+  answeredAt: string;
+}
+
+export interface ExamBreakdownRow {
+  key: string;
+  label: string;
+  answered: number;
+  correct: number;
+  incorrect: number;
+  accuracy: number;
+}
+
+export interface ExamSummary {
+  totalAnswered: number;
+  correct: number;
+  incorrect: number;
+  accuracy: number;
+  bySubject: ExamBreakdownRow[];
+  byTopic: ExamBreakdownRow[];
+  incorrectCardIds: string[];
+}
+
+export interface ExamSession {
+  id: string;
+  startedAt: string;
+  cardIds: string[];
+  answers: ExamSessionAnswer[];
+  submittedAt?: string;
+  summary?: ExamSummary;
+}
 
 export interface MistakeReviewItem {
   cardId: string;

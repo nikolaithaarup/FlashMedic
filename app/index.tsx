@@ -33,6 +33,13 @@ import {
   DAILY_TEN_CARD_COUNT,
   selectDailyTenCards,
 } from "../src/features/daily/dailyTen";
+import ExamSummaryScreen from "../src/features/flashcards/ExamSummaryScreen";
+import {
+  createExamAnswer,
+  EXAM_CARD_COUNT,
+  selectExamCards,
+  summarizeExamAnswers,
+} from "../src/features/flashcards/examMode";
 import WeeklyDevScreen from "../src/features/weekly/WeeklyDevScreen";
 import { WeeklyHomeScreen } from "../src/features/weekly/WeeklyHomeScreen";
 import { WeeklyMatchScreen } from "../src/features/weekly/WeeklyMatchScreen";
@@ -54,7 +61,12 @@ import {
   selectMistakeReviewCards,
   selectWeakTopicCards,
 } from "../src/features/flashcards/learningSelectors";
-import type { FlashcardTrainingMode } from "../src/types/Learning";
+import type {
+  ExamAnswerResult,
+  ExamSessionAnswer,
+  ExamSummary,
+  FlashcardTrainingMode,
+} from "../src/types/Learning";
 import HomeScreen from "../src/features/home/HomeScreen";
 import QuizScreen from "../src/features/quiz/QuizScreen";
 
@@ -75,6 +87,7 @@ type Screen =
   | "home"
   | "flashcardsHome"
   | "quiz"
+  | "examSummary"
   | "stats"
   | "profile"
   | "weeklyDev"
@@ -203,6 +216,10 @@ export default function Index() {
   const [quizCompleted, setQuizCompleted] = useState(false);
   const quizCompletedRef = useRef(false);
   const [trainingMode, setTrainingMode] = useState<FlashcardTrainingMode>("normal");
+  const [examSessionCards, setExamSessionCards] = useState<Flashcard[]>([]);
+  const [examAnswers, setExamAnswers] = useState<ExamSessionAnswer[]>([]);
+  const [examSummary, setExamSummary] = useState<ExamSummary | null>(null);
+  const examSubmittedRef = useRef(false);
 
   // -------- Drug calc state --------
   const [selectedDrugTopics, setSelectedDrugTopics] = useState<DrugCalcTopic[]>(
@@ -377,6 +394,7 @@ export default function Index() {
       a.localeCompare(b),
     );
   }, [cards]);
+  const hasEkgTraining = subjects.includes("EKG");
 
   const cardsForSelectedSubject = useMemo(() => {
     if (!selectedSubject) return [];
@@ -462,6 +480,12 @@ export default function Index() {
     setQuizCompleted(false);
     quizCompletedRef.current = false;
     setTrainingMode(mode);
+    if (mode !== "exam") {
+      setExamSessionCards([]);
+      setExamAnswers([]);
+      setExamSummary(null);
+      examSubmittedRef.current = false;
+    }
     setScreen("quiz");
     return true;
   };
@@ -471,6 +495,16 @@ export default function Index() {
   const dailyTenCards = useMemo(
     () => selectDailyTenCards(cards),
     [cards],
+  );
+  const examCandidateCards = useMemo(
+    () =>
+      selectExamCards({
+        cards,
+        stats: personalStats ?? {},
+        mistakes,
+        topicStats,
+      }),
+    [cards, personalStats, mistakes, topicStats],
   );
 
   const handleStartDailyTen = () => {
@@ -491,6 +525,30 @@ export default function Index() {
     }
 
     beginQuizSession(dailyTenCards, "daily-10", { shuffleCards: false });
+  };
+
+  const handleStartExamMode = () => {
+    if (loadingCards) {
+      Alert.alert(
+        "Indlæser kort",
+        "Vent et øjeblik, mens kortbanken hentes.",
+      );
+      return;
+    }
+
+    if (examCandidateCards.length === 0) {
+      Alert.alert(
+        "Ingen kort",
+        "Der er ingen flashcards klar til eksamensmode endnu.",
+      );
+      return;
+    }
+
+    setExamSessionCards(examCandidateCards);
+    setExamAnswers([]);
+    setExamSummary(null);
+    examSubmittedRef.current = false;
+    beginQuizSession(examCandidateCards, "exam", { shuffleCards: false });
   };
 
   const handleStartQuiz = () => {
@@ -582,6 +640,12 @@ export default function Index() {
     }
   };
 
+  const handleOpenEkgTraining = () => {
+    setSelectedSubject("EKG");
+    setSelectedKeys([]);
+    setScreen("flashcardsHome");
+  };
+
   // ... (rest of your file is unchanged)
   // KEEP EVERYTHING BELOW EXACTLY AS YOU HAD IT
 
@@ -614,6 +678,10 @@ export default function Index() {
     setQuizCompleted(false);
     quizCompletedRef.current = false;
     setTrainingMode("normal");
+    setExamSessionCards([]);
+    setExamAnswers([]);
+    setExamSummary(null);
+    examSubmittedRef.current = false;
   };
 
   // ---------- Report error via MailComposer ----------
@@ -672,7 +740,58 @@ export default function Index() {
   };
 
   // ---------- Spaced repetition actions ----------
+  const submitExamAnswers = (answers: ExamSessionAnswer[]) => {
+    if (examSubmittedRef.current) return;
+    examSubmittedRef.current = true;
+
+    const uniqueAnswers = [
+      ...new Map(answers.map((answer) => [answer.cardId, answer])).values(),
+    ];
+    const cardById = new Map(examSessionCards.map((card) => [card.id, card]));
+
+    for (const answer of uniqueAnswers) {
+      const card = cardById.get(answer.cardId);
+      if (!card) continue;
+      const known = answer.result === "correct";
+      markCard(card.id, known);
+      recordMistakeAttempt(card, known, "exam");
+    }
+
+    setExamAnswers(uniqueAnswers);
+    setExamSummary(summarizeExamAnswers(uniqueAnswers));
+    setCurrentCard(null);
+    setShowAnswer(false);
+    setHistory([]);
+    setUpcoming([]);
+    setQuizCompleted(true);
+    quizCompletedRef.current = true;
+    setScreen("examSummary");
+  };
+
+  const handleExamAnswer = (result: ExamAnswerResult) => {
+    if (!currentCard || examSubmittedRef.current) return;
+    const nextAnswers = [
+      ...examAnswers.filter((answer) => answer.cardId !== currentCard.id),
+      createExamAnswer(currentCard, result),
+    ];
+
+    if (upcoming.length === 0) {
+      submitExamAnswers(nextAnswers);
+      return;
+    }
+
+    setExamAnswers(nextAnswers);
+    setHistory((prev) => [...prev, currentCard]);
+    setCurrentCard(upcoming[0]);
+    setUpcoming(upcoming.slice(1));
+    setShowAnswer(false);
+  };
+
   const handleMarkKnown = () => {
+    if (trainingMode === "exam") {
+      handleExamAnswer("correct");
+      return;
+    }
     if (!currentCard || quizCompletedRef.current) return;
     const nextCards = getQueueAfterFlashcardScore(currentCard, upcoming, true);
 
@@ -689,6 +808,10 @@ export default function Index() {
   };
 
   const handleMarkUnknown = () => {
+    if (trainingMode === "exam") {
+      handleExamAnswer("incorrect");
+      return;
+    }
     if (!currentCard || quizCompletedRef.current) return;
     markCard(currentCard.id, false);
     recordMistakeAttempt(currentCard, false, trainingMode);
@@ -787,6 +910,21 @@ export default function Index() {
     setScreen("home");
   };
 
+  const handleBackToFlashcards = () => {
+    setCurrentCard(null);
+    setShowAnswer(false);
+    setHistory([]);
+    setUpcoming([]);
+    setQuizCompleted(false);
+    quizCompletedRef.current = false;
+    setTrainingMode("normal");
+    setScreen("flashcardsHome");
+  };
+
+  const handleRetryExamMode = () => {
+    handleStartExamMode();
+  };
+
   // ---------- SCREENS ----------
   // (everything below unchanged)
   if (screen === "auth") {
@@ -854,11 +992,28 @@ export default function Index() {
         metaFont={metaFont}
         questionFont={questionFont}
         answerFont={answerFont}
+        trainingMode={trainingMode}
         onPrevious={handlePreviousQuestion}
         onHome={handleHome}
         onMarkKnown={handleMarkKnown}
         onMarkUnknown={handleMarkUnknown}
         onReportError={handleReportError}
+      />
+    );
+  }
+
+  if (screen === "examSummary" && examSummary) {
+    const incorrectCards = examSummary.incorrectCardIds
+      .map((cardId) => examSessionCards.find((card) => card.id === cardId))
+      .filter(Boolean) as Flashcard[];
+
+    return (
+      <ExamSummaryScreen
+        summary={examSummary}
+        incorrectCards={incorrectCards}
+        onBackToFlashcards={handleBackToFlashcards}
+        onRetry={handleRetryExamMode}
+        onTrainMistakes={handleStartMistakeReview}
       />
     );
   }
@@ -887,6 +1042,9 @@ export default function Index() {
         weakestTopics={weakestTopics}
         onStartMistakeReview={handleStartMistakeReview}
         onStartWeakTopics={handleStartWeakTopics}
+        onStartExamMode={handleStartExamMode}
+        examCardCount={Math.min(EXAM_CARD_COUNT, examCandidateCards.length)}
+        disableExamMode={loadingCards || examCandidateCards.length === 0}
       />
     );
   }
@@ -1058,6 +1216,8 @@ export default function Index() {
       dailyTenDisabled={loadingCards || dailyTenCards.length === 0}
       dailyTenCount={Math.min(DAILY_TEN_CARD_COUNT, dailyTenCards.length)}
       onOpenFlashcardsHome={() => setScreen("flashcardsHome")}
+      onOpenEkgTraining={handleOpenEkgTraining}
+      showEkgTraining={hasEkgTraining}
       onOpenDrugCalcHome={() => setScreen("drugCalcHome")}
       onOpenStats={() => setScreen("stats")}
       onOpenContact={() => setScreen("contact")}
