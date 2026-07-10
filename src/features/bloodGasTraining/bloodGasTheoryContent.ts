@@ -21,31 +21,31 @@ export type BloodGasPattern = {
 export const acidBaseMethodSteps = [
   {
     label: "1. Start med pH",
-    text: "Vurder om prøven viser acidæmi, ligger i apparatets referenceområde eller viser alkalæmi.",
+    text: "Acidæmi, referenceområde eller alkalæmi?",
   },
   {
     label: "2. Se på pCO₂",
-    text: "Vurder om CO₂-retningen kan bidrage respiratorisk til pH-forandringen. Husk at prøven er venøs.",
+    text: "Vurder det respiratoriske bidrag; prøven er venøs.",
   },
   {
     label: "3. Se på HCO₃⁻ og BE",
-    text: "Brug bicarbonat og base excess som støtte til den metaboliske del af syre-base-billedet.",
+    text: "Vurder det metaboliske bidrag.",
   },
   {
     label: "4. Overvej kompensation",
-    text: "Spørg om den anden komponent bevæger sig i en forventelig retning, uden at antage at kompensation gør patienten upåvirket.",
+    text: "Bevæger den anden komponent sig forventeligt?",
   },
   {
     label: "5. Find støtteværdier",
-    text: "Se på laktat, glukose, elektrolytter, urea, kreatinin og CRP for at beskrive det samlede mønster.",
+    text: "Se på laktat, glukose, elektrolytter, renalmarkører og CRP.",
   },
   {
     label: "6. Sammenhold med patienten",
-    text: "Kobl fundene til symptomer, ABCDE, vitale værdier, tidsforløb og årsager der stadig skal undersøges.",
+    text: "Kobl fund til ABCDE, symptomer, vitalparametre og forløb.",
   },
   {
     label: "7. Kontrollér begrænsninger",
-    text: "Notér prøvetype, prøvekvalitet, apparatets referenceområder, trends og lokal vejledning før du konkluderer noget.",
+    text: "Tjek prøvetype, kvalitet, trends og lokale referenceområder.",
   },
 ] as const;
 
