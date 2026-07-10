@@ -69,6 +69,7 @@ export const ekgStepOptions: Record<EkgAssessmentStep, EkgStepOption[]> = {
   pWaves: [
     { id: "visible-before-qrs", label: "Synlige P-takker før hvert QRS" },
     { id: "none-clear", label: "Ingen sikre P-takker" },
+    { id: "flutter-waves", label: "Flutterbølger / savtaksmønster" },
     { id: "more-p-than-qrs", label: "Flere P-takker end QRS-komplekser" },
     { id: "variable-relation", label: "P-takker ses, men relationen varierer" },
     { id: "uncertain", label: "Kan ikke vurderes sikkert" },
@@ -76,6 +77,7 @@ export const ekgStepOptions: Record<EkgAssessmentStep, EkgStepOption[]> = {
   prInterval: [
     { id: "normal", label: "Normalt" },
     { id: "prolonged", label: "Forlænget" },
+    { id: "constant-conducted", label: "Konstant ved overledte slag" },
     { id: "variable", label: "Varierende" },
     { id: "not-assessable", label: "Ikke relevant / kan ikke vurderes" },
   ],
@@ -125,7 +127,7 @@ export const ekgStepOptions: Record<EkgAssessmentStep, EkgStepOption[]> = {
 };
 
 const sourceNote =
-  "Lokal EKG-4B metadata baseret på eksisterende billedkorttitel og konservativ rytmefortolkning.";
+  "Lokal EKG-4C metadata baseret på eksisterende billedkorttitel og konservativ rytmefortolkning.";
 
 function step(
   stepName: EkgAssessmentStep,
@@ -133,6 +135,302 @@ function step(
   explanation: string,
 ): EkgStepAssessment {
   return { step: stepName, correctOptionId, explanation };
+}
+
+type AssessmentOptionId = string;
+
+function makeAtrialFibrillationAssessment({
+  cardId,
+  title,
+  rate,
+  rateExplanation,
+  clinicalMeaning = "clinical-context",
+}: {
+  cardId: string;
+  title: string;
+  rate: AssessmentOptionId;
+  rateExplanation: string;
+  clinicalMeaning?: AssessmentOptionId;
+}): EkgInteractiveAssessment {
+  return {
+    cardId,
+    imageKey: cardId,
+    title,
+    rhythmName: "Atrieflimren",
+    sourceNote,
+    steps: {
+      rate: step("rate", rate, rateExplanation),
+      regularity: step(
+        "regularity",
+        "irregularly-irregular",
+        "RR-intervallerne varierer uden et gentaget mønster, hvilket er klassisk for atrieflimren.",
+      ),
+      pWaves: step(
+        "pWaves",
+        "none-clear",
+        "Der ses ikke sikre, ensartede P-takker før hvert QRS.",
+      ),
+      prInterval: step(
+        "prInterval",
+        "not-assessable",
+        "PR-intervallet kan ikke vurderes sikkert, fordi der ikke ses stabile P-takker med fast relation til QRS.",
+      ),
+      qrsWidth: step(
+        "qrsWidth",
+        "narrow",
+        "QRS-komplekserne fremstår smalle i dette atrieflimren-eksempel.",
+      ),
+      rhythm: step(
+        "rhythm",
+        "atrial-fibrillation",
+        "Uregelmæssigt uregelmæssige RR-intervaller uden sikre P-takker støtter atrieflimren.",
+      ),
+      clinicalMeaning: step(
+        "clinicalMeaning",
+        clinicalMeaning,
+        "Rytmen skal vurderes sammen med frekvens, symptomer, perfusion og patientens udvikling.",
+      ),
+    },
+    keyFindings: [
+      "Uregelmæssigt uregelmæssige RR-intervaller",
+      "Ingen sikre P-takker",
+      "PR-interval kan ikke vurderes sikkert",
+    ],
+    commonPitfall:
+      "At kalde enhver uregelmæssig rytme atrieflimren uden at kontrollere P-takker og RR-mønster.",
+    ambulanceRelevance:
+      "Overlever rytme, ventrikelfrekvens, symptomer, vitale værdier og tegn på kredsløbspåvirkning.",
+  };
+}
+
+function makeAtrialFlutterAssessment({
+  cardId,
+  title,
+  rate,
+  rateExplanation,
+  regularity,
+  regularityExplanation,
+  clinicalMeaning = "clinical-context",
+}: {
+  cardId: string;
+  title: string;
+  rate: AssessmentOptionId;
+  rateExplanation: string;
+  regularity: AssessmentOptionId;
+  regularityExplanation: string;
+  clinicalMeaning?: AssessmentOptionId;
+}): EkgInteractiveAssessment {
+  return {
+    cardId,
+    imageKey: cardId,
+    title,
+    rhythmName: "Atrieflagren",
+    sourceNote,
+    steps: {
+      rate: step("rate", rate, rateExplanation),
+      regularity: step("regularity", regularity, regularityExplanation),
+      pWaves: step(
+        "pWaves",
+        "flutter-waves",
+        "Der ses organiserede flutterbølger med et savtakslignende mønster frem for normale P-takker.",
+      ),
+      prInterval: step(
+        "prInterval",
+        "not-assessable",
+        "Et normalt PR-interval kan ikke måles, fordi atrieaktiviteten består af gentagne flutterbølger.",
+      ),
+      qrsWidth: step(
+        "qrsWidth",
+        "narrow",
+        "De overledte QRS-komplekser fremstår smalle i dette flutter-eksempel.",
+      ),
+      rhythm: step(
+        "rhythm",
+        "atrial-flutter",
+        "Flutterbølger og det beskrevne overledningsmønster peger på atrieflagren.",
+      ),
+      clinicalMeaning: step(
+        "clinicalMeaning",
+        clinicalMeaning,
+        "Betydningen afhænger af ventrikelfrekvens, symptomer, perfusion og øvrige kliniske fund.",
+      ),
+    },
+    keyFindings: [
+      "Flutterbølger / savtaksmønster",
+      "Flere atriale impulser end QRS-komplekser",
+      "Overledningsforholdet bestemmer ventrikelrytmen",
+    ],
+    commonPitfall:
+      "At forveksle flutter med atrieflimren uden at lede efter organiserede, gentagne flutterbølger.",
+    ambulanceRelevance:
+      "Beskriv ventrikelfrekvens, regelmæssighed, symptomer og klinisk påvirkning ved overlevering.",
+  };
+}
+
+function makeSvtAssessment(cardId: string, title: string): EkgInteractiveAssessment {
+  return {
+    cardId,
+    imageKey: cardId,
+    title,
+    rhythmName: "Supraventrikulær takykardi (AVNRT)",
+    sourceNote,
+    steps: {
+      rate: step(
+        "rate",
+        "fast",
+        "Frekvensen vurderes som høj, fordi RR-intervallerne er korte og rytmen ligger tydeligt over normalområdet.",
+      ),
+      regularity: step(
+        "regularity",
+        "regular",
+        "RR-intervallerne er ensartede, så rytmen fremstår regelmæssig.",
+      ),
+      pWaves: step(
+        "pWaves",
+        "none-clear",
+        "Der ses ikke sikre P-takker før hvert QRS; ved AVNRT kan atrieaktiviteten være skjult i eller tæt på QRS.",
+      ),
+      prInterval: step(
+        "prInterval",
+        "not-assessable",
+        "PR-intervallet kan ikke vurderes sikkert, når P-takkerne ikke kan afgrænses.",
+      ),
+      qrsWidth: step(
+        "qrsWidth",
+        "narrow",
+        "QRS-komplekserne fremstår smalle, hvilket støtter en supraventrikulær takykardi.",
+      ),
+      rhythm: step(
+        "rhythm",
+        "svt",
+        "En hurtig, regelmæssig smalkomplekset rytme uden sikre P-takker passer med SVT/AVNRT.",
+      ),
+      clinicalMeaning: step(
+        "clinicalMeaning",
+        "potentially-unstable",
+        "En hurtig SVT kan være symptomgivende; vurder perfusion, bevidsthed, blodtryk og øvrige symptomer.",
+      ),
+    },
+    keyFindings: ["Hurtig frekvens", "Regelmæssig rytme", "Smalle QRS-komplekser"],
+    commonPitfall:
+      "At navngive den hurtige rytme uden først at kontrollere regelmæssighed og QRS-bredde.",
+    ambulanceRelevance:
+      "Overlever debut, frekvens, QRS-bredde, symptomer, vitale værdier og ændringer under observation.",
+  };
+}
+
+function makeVtAssessment(cardId: string, title: string): EkgInteractiveAssessment {
+  return {
+    cardId,
+    imageKey: cardId,
+    title,
+    rhythmName: "Monomorf ventrikulær takykardi",
+    sourceNote,
+    steps: {
+      rate: step("rate", "fast", "De korte RR-intervaller viser en hurtig ventrikulær rytme."),
+      regularity: step(
+        "regularity",
+        "regular",
+        "Komplekserne gentages med ensartede RR-intervaller, som ved monomorf VT.",
+      ),
+      pWaves: step(
+        "pWaves",
+        "none-clear",
+        "Der ses ikke sikre P-takker med fast relation til hvert bredt QRS-kompleks.",
+      ),
+      prInterval: step(
+        "prInterval",
+        "not-assessable",
+        "PR-intervallet kan ikke vurderes sikkert uden en stabil P-QRS relation.",
+      ),
+      qrsWidth: step(
+        "qrsWidth",
+        "wide",
+        "QRS-komplekserne er tydeligt brede sammenlignet med et normalt smalt QRS.",
+      ),
+      rhythm: step(
+        "rhythm",
+        "ventricular-tachycardia",
+        "Kortets eksisterende diagnose og den hurtige, regelmæssige bredkomplekse rytme støtter monomorf VT.",
+      ),
+      clinicalMeaning: step(
+        "clinicalMeaning",
+        "life-threatening",
+        "VT er en højrisikorytme; rytmefundet skal straks kobles til puls, perfusion og patientens kliniske tilstand.",
+      ),
+    },
+    keyFindings: ["Hurtig frekvens", "Regelmæssig bredkomplekset rytme", "Ingen sikker P-QRS relation"],
+    commonPitfall:
+      "At antage at en bred takykardi er ufarlig uden at betragte mulig VT som en central forklaring.",
+    ambulanceRelevance:
+      "Kommuniker rytme, frekvens, QRS-bredde, puls, perfusion og patientens kliniske påvirkning tydeligt.",
+  };
+}
+
+function makeVfAssessment(cardId: string, title: string): EkgInteractiveAssessment {
+  return {
+    cardId,
+    imageKey: cardId,
+    title,
+    rhythmName: "Ventrikelflimren",
+    sourceNote,
+    steps: {
+      rate: step("rate", "uncertain", "Der er ingen organiserede komplekser, så en meningsfuld frekvens kan ikke beregnes."),
+      regularity: step("regularity", "irregular", "Aktiviteten er kaotisk uden et organiseret RR-mønster."),
+      pWaves: step("pWaves", "none-clear", "Der ses ingen sikre P-takker i den kaotiske aktivitet."),
+      prInterval: step("prInterval", "not-assessable", "PR-intervallet kan ikke vurderes uden organiserede P-takker og QRS-komplekser."),
+      qrsWidth: step("qrsWidth", "uncertain", "Der er ingen sikre, organiserede QRS-komplekser at måle bredden på."),
+      rhythm: step("rhythm", "ventricular-fibrillation", "Kaotisk aktivitet uden organiserede QRS-komplekser passer med ventrikelflimren."),
+      clinicalMeaning: step("clinicalMeaning", "life-threatening", "VF er en livstruende rytmebeskrivelse, men signalet skal altid sammenholdes med patienten og teknisk kvalitet."),
+    },
+    keyFindings: ["Kaotisk elektrisk aktivitet", "Ingen organiserede QRS-komplekser", "Ingen målbar PR-relation"],
+    commonPitfall: "At forveksle bevægelsesartefakt eller dårlig elektrodekontakt med VF uden at kontrollere patient og signal.",
+    ambulanceRelevance: "Bekræft patienttilstand og signalets troværdighed, og overlever rytmefundet og den kliniske situation klart.",
+  };
+}
+
+function makeCompleteHeartBlockAssessment(cardId: string, title: string): EkgInteractiveAssessment {
+  return {
+    cardId,
+    imageKey: cardId,
+    title,
+    rhythmName: "3. grads AV-blok",
+    sourceNote,
+    steps: {
+      rate: step("rate", "slow", "Den ventrikulære escape-rytme fremstår langsom i dette komplette AV-blok-eksempel."),
+      regularity: step("regularity", "regular", "Ventrikulernes escape-rytme kan være regelmæssig, selv om atrier og ventrikler arbejder uafhængigt."),
+      pWaves: step("pWaves", "variable-relation", "P-takker ses, men deres placering i forhold til QRS varierer, hvilket viser AV-dissociation."),
+      prInterval: step("prInterval", "variable", "PR-forholdet varierer, fordi P-takker og QRS-komplekser ikke har fast relation."),
+      qrsWidth: step("qrsWidth", "uncertain", "QRS-bredden afhænger af escape-rytmens oprindelse og skal vurderes særskilt på strimlen."),
+      rhythm: step("rhythm", "third-degree-av-block", "Uafhængig atrie- og ventrikelaktivitet støtter 3. grads AV-blok."),
+      clinicalMeaning: step("clinicalMeaning", "rapid-assessment", "Komplet AV-blok kræver hurtig vurdering af frekvens, perfusion, blodtryk, bevidsthed og symptomer."),
+    },
+    keyFindings: ["AV-dissociation", "P-takker og QRS følges ikke ad", "Langsom ventrikulær escape-rytme"],
+    commonPitfall: "At beskrive rytmen som simpel bradykardi uden systematisk at undersøge P-QRS relationen.",
+    ambulanceRelevance: "Overlever frekvens, tegn på AV-dissociation, symptomer, blodtryk, bevidsthed og klinisk udvikling.",
+  };
+}
+
+function makeMobitzIAssessment(cardId: string, title: string): EkgInteractiveAssessment {
+  return {
+    cardId,
+    imageKey: cardId,
+    title,
+    rhythmName: "2. grads AV-blok type I (Mobitz I)",
+    sourceNote,
+    steps: {
+      rate: step("rate", "slow", "Droppede QRS-komplekser reducerer den samlede ventrikelfrekvens."),
+      regularity: step("regularity", "irregular", "Det droppede QRS giver en pause og gør ventrikelrytmen uregelmæssig."),
+      pWaves: step("pWaves", "more-p-than-qrs", "Der ses flere P-takker end QRS-komplekser, fordi en atrial impuls ikke overledes."),
+      prInterval: step("prInterval", "variable", "PR-intervallet forlænges gradvist før det droppede QRS, som ved Mobitz I."),
+      qrsWidth: step("qrsWidth", "narrow", "De overledte QRS-komplekser fremstår smalle i dette eksempel."),
+      rhythm: step("rhythm", "mobitz-i", "Gradvis PR-forlængelse efterfulgt af et droppet QRS passer med Mobitz I."),
+      clinicalMeaning: step("clinicalMeaning", "clinical-context", "Betydningen afhænger af ventrikelfrekvens, symptomer, perfusion og patientens udvikling."),
+    },
+    keyFindings: ["Tiltagende PR-interval", "Droppet QRS-kompleks", "Flere P-takker end QRS-komplekser"],
+    commonPitfall: "At se pausen, men overse den gradvise PR-forlængelse før udfaldet.",
+    ambulanceRelevance: "Beskriv frekvens, pauser, AV-ledningsmønster, symptomer og tegn på kredsløbspåvirkning.",
+  };
 }
 
 export const ekgInteractiveAssessments: EkgInteractiveAssessment[] = [
@@ -325,6 +623,172 @@ export const ekgInteractiveAssessments: EkgInteractiveAssessment[] = [
     keyFindings: ["ST-elevationsmønster i inferior fordeling", "Rytme alene er ikke nok", "12-afledning og klinik er centrale"],
     commonPitfall: "At kalde dette en rytmediagnose; det er primært et iskæmi-/STEMI-mønster.",
     ambulanceRelevance: "Overlever EKG-mønster, symptomer, vitale værdier, debut og udvikling uden at gøre rytmen til eneste fokus.",
+  },
+  makeAtrialFibrillationAssessment({
+    cardId: "ekg_img_af_slow_vr",
+    title: "Atrieflimren med langsom ventrikelrespons",
+    rate: "slow",
+    rateExplanation:
+      "Frekvensen vurderes som langsom, hvilket stemmer med kortets eksisterende beskrivelse af langsom ventrikelrespons.",
+  }),
+  makeAtrialFibrillationAssessment({
+    cardId: "ekg_img_atrial_fib_2",
+    title: "Atrieflimren 2",
+    rate: "uncertain",
+    rateExplanation:
+      "Atrieflimren fastlægger ikke i sig selv ventrikelfrekvensen; den skal beregnes på den konkrete strimmel.",
+  }),
+  makeAtrialFibrillationAssessment({
+    cardId: "ekg_img_atrial_fib_3",
+    title: "Atrieflimren 3",
+    rate: "uncertain",
+    rateExplanation:
+      "Ventrikelfrekvensen kan variere ved atrieflimren og skal vurderes konkret frem for at udledes af rytmenavnet.",
+  }),
+  makeAtrialFlutterAssessment({
+    cardId: "ekg_img_aflutter_2_1",
+    title: "Atrieflagren med 2:1-overledning",
+    rate: "fast",
+    rateExplanation:
+      "Ved 2:1-overledning når hver anden flutterimpuls ventriklerne, hvilket typisk giver en hurtig ventrikelfrekvens.",
+    regularity: "regular",
+    regularityExplanation:
+      "Fast 2:1-overledning giver typisk ensartede RR-intervaller og en regelmæssig ventrikelrytme.",
+    clinicalMeaning: "potentially-unstable",
+  }),
+  makeAtrialFlutterAssessment({
+    cardId: "ekg_img_aflutter_4_1",
+    title: "Atrieflagren med 4:1-overledning",
+    rate: "normal",
+    rateExplanation:
+      "Ved fast 4:1-overledning er ventrikelfrekvensen ofte omkring normalområdet, selv om atriefrekvensen er høj.",
+    regularity: "regular",
+    regularityExplanation:
+      "Fast 4:1-overledning giver et gentaget mønster med regelmæssige RR-intervaller.",
+  }),
+  makeAtrialFlutterAssessment({
+    cardId: "ekg_img_aflutter_variable",
+    title: "Atrieflagren med varierende overledning",
+    rate: "uncertain",
+    rateExplanation:
+      "Når overledningsforholdet varierer, kan ventrikelfrekvensen ikke udledes sikkert uden at tælle på strimlen.",
+    regularity: "irregular",
+    regularityExplanation:
+      "Varierende AV-overledning giver skiftende RR-intervaller og dermed en uregelmæssig ventrikelrytme.",
+  }),
+  {
+    cardId: "ekg_img_normal_sinus_1deg_av",
+    imageKey: "ekg_img_normal_sinus_1deg_av",
+    title: "Sinusrytme med 1. grads AV-blok",
+    rhythmName: "Sinusrytme med 1. grads AV-blok",
+    sourceNote,
+    steps: {
+      rate: step(
+        "rate",
+        "normal",
+        "Kortets eksisterende beskrivelse angiver normal sinusrytme, så frekvensen ligger i normalområdet.",
+      ),
+      regularity: step(
+        "regularity",
+        "regular",
+        "Sinusrytmen fremstår regelmæssig med ensartede RR-intervaller.",
+      ),
+      pWaves: step(
+        "pWaves",
+        "visible-before-qrs",
+        "Der ses en P-tak før hvert QRS, hvilket støtter sinusrytme med bevaret 1:1-overledning.",
+      ),
+      prInterval: step(
+        "prInterval",
+        "prolonged",
+        "PR-intervallet er forlænget og stabilt, hvilket er det centrale fund ved 1. grads AV-blok.",
+      ),
+      qrsWidth: step(
+        "qrsWidth",
+        "narrow",
+        "QRS-komplekserne fremstår smalle i dette eksempel med forsinkelse på AV-ledningsniveau.",
+      ),
+      rhythm: step(
+        "rhythm",
+        "first-degree-av-block",
+        "Sinusrytme med fast, forlænget PR-interval passer med 1. grads AV-blok.",
+      ),
+      clinicalMeaning: step(
+        "clinicalMeaning",
+        "not-acute-alone",
+        "Et isoleret 1. grads AV-blok-fund er ikke nødvendigvis akut; vurder symptomer, øvrige EKG-fund og klinisk sammenhæng.",
+      ),
+    },
+    keyFindings: [
+      "Normal og regelmæssig sinusrytme",
+      "P-tak før hvert QRS",
+      "Fast forlænget PR-interval",
+    ],
+    commonPitfall:
+      "At overse det forlængede PR-interval, fordi hvert QRS stadig følger efter en P-tak.",
+    ambulanceRelevance:
+      "Overlever rytme, frekvens, PR-fund, symptomer og eventuelle samtidige lednings- eller iskæmiforandringer.",
+  },
+  makeSvtAssessment("ekg_img_svt_avnrt_1", "SVT / AVNRT 1"),
+  makeSvtAssessment("ekg_img_svt_avnrt_2", "SVT / AVNRT 2"),
+  makeVtAssessment("ekg_img_monomorphic_vt_2", "Monomorf ventrikulær takykardi 2"),
+  makeVtAssessment("ekg_img_monomorphic_vt_3", "Monomorf ventrikulær takykardi 3"),
+  makeVfAssessment("ekg_img_vf_2", "Ventrikelflimren 2"),
+  makeCompleteHeartBlockAssessment("ekg_img_chb_2", "3. grads AV-blok 2"),
+  makeCompleteHeartBlockAssessment("ekg_img_chb_3", "3. grads AV-blok 3"),
+  makeMobitzIAssessment("ekg_img_mobitz1_2", "2. grads AV-blok type I 2"),
+  {
+    cardId: "ekg_img_mobitz2",
+    imageKey: "ekg_img_mobitz2",
+    title: "2. grads AV-blok type II",
+    rhythmName: "2. grads AV-blok type II (Mobitz II)",
+    sourceNote,
+    steps: {
+      rate: step(
+        "rate",
+        "slow",
+        "Ikke-overledte P-takker reducerer den samlede ventrikelfrekvens og giver en langsom rytme.",
+      ),
+      regularity: step(
+        "regularity",
+        "irregular",
+        "Et pludseligt droppet QRS skaber en pause og gør ventrikelrytmen uregelmæssig.",
+      ),
+      pWaves: step(
+        "pWaves",
+        "more-p-than-qrs",
+        "Der ses flere P-takker end QRS-komplekser, fordi enkelte atriale impulser ikke overledes.",
+      ),
+      prInterval: step(
+        "prInterval",
+        "constant-conducted",
+        "PR-intervallet er konstant ved de overledte slag og forlænges ikke gradvist før udfaldet.",
+      ),
+      qrsWidth: step(
+        "qrsWidth",
+        "uncertain",
+        "QRS-bredden skal vurderes særskilt; Mobitz II-navnet alene fastlægger ikke bredden sikkert.",
+      ),
+      rhythm: step(
+        "rhythm",
+        "mobitz-ii",
+        "Konstant PR ved overledte slag med pludseligt droppet QRS passer med Mobitz II.",
+      ),
+      clinicalMeaning: step(
+        "clinicalMeaning",
+        "rapid-assessment",
+        "Mobitz II kan være klinisk betydende; vurder frekvens, perfusion, bevidsthed, blodtryk og symptomer hurtigt.",
+      ),
+    },
+    keyFindings: [
+      "Flere P-takker end QRS-komplekser",
+      "Konstant PR ved overledte slag",
+      "Pludseligt droppet QRS uden gradvis PR-forlængelse",
+    ],
+    commonPitfall:
+      "At forveksle Mobitz II med Mobitz I uden at sammenligne PR-intervallerne før det droppede slag.",
+    ambulanceRelevance:
+      "Overlever frekvens, ledningsmønster, pauser, symptomer, perfusion og patientens udvikling.",
   },
 ];
 

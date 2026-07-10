@@ -192,10 +192,19 @@ for (const assessment of ekgInteractiveAssessments) {
       `Interactive EKG assessment imageKey mismatch for ${assessment.cardId}`,
     );
   }
+  const resolvedImageKey = assessment.imageKey ?? assessment.cardId;
+  if (!lookupKeys.has(resolvedImageKey)) {
+    throw new Error(
+      `Interactive EKG assessment imageKey does not resolve: ${resolvedImageKey}`,
+    );
+  }
   if (!assessment.rhythmName.trim()) {
     throw new Error(`Interactive EKG assessment missing rhythmName: ${assessment.cardId}`);
   }
-  if (assessment.keyFindings.length === 0) {
+  if (
+    assessment.keyFindings.length === 0 ||
+    assessment.keyFindings.some((finding) => !finding.trim())
+  ) {
     throw new Error(`Interactive EKG assessment missing key findings: ${assessment.cardId}`);
   }
   if (!assessment.ambulanceRelevance.trim()) {
@@ -238,6 +247,9 @@ if (new Set(interactivePool.map((card) => card.id)).size !== interactivePool.len
 }
 if (interactivePool.some((card) => !card.interactiveAssessment)) {
   throw new Error("Interactive EKG image drill pool returned a card without metadata.");
+}
+if (interactivePool.some((card) => !interactiveIds.has(card.id))) {
+  throw new Error("Interactive EKG image drill pool included a non-curated card.");
 }
 
 const interactiveSeededA = selectEkgInteractiveImageDrillCards(fixtureCards, {
