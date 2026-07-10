@@ -1,344 +1,238 @@
-// src/features/drugCalc/DrugCalcHomeScreen.tsx
 import { StatusBar } from "expo-status-bar";
 import React, { useMemo, useState } from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
-import { styles } from "../../ui/flashmedicStyles";
-import { Background, ToolPageHeader } from "../../ui/primitives";
-import { DRUG_TOPICS } from "./drugCalcContent";
-
-// Accept both strings and objects like {id,title,desc}
-type TopicLike =
-  | string
-  | {
-      id: string;
-      title: string;
-      desc?: string;
-    };
+import {
+  Borders,
+  ColorTokens,
+  Interaction,
+  Radii,
+  Spacing,
+  Typography,
+} from "../../../constants/theme";
+import {
+  Card,
+  NoticeCard,
+  PrimaryButton,
+  Screen,
+  SecondaryButton,
+  ToolPageHeader,
+} from "../../ui/primitives";
+import { COMMON_PITFALLS, DRUG_TOPICS, WORKED_EXAMPLES } from "./drugCalcContent";
 
 type Props = {
   headingFont: number;
   subtitleFont: number;
   buttonFont: number;
-
   onBackHome: () => void;
-
-  // IMPORTANT: we pass topic IDs (strings) back up
   onStartPractice: (topicIds: string[]) => void;
-
   onOpenTheory?: () => void;
 };
 
-type TheorySection = {
-  id: string;
-  title: string;
-  body: string;
-};
-
-function TopicPill({
-  label,
-  selected,
-  onPress,
-  subLabel,
-}: {
-  label: string;
-  selected: boolean;
-  onPress: () => void;
-  subLabel?: string;
-}) {
+function BulletText({ children }: { children: string }) {
   return (
-    <Pressable
-      onPress={onPress}
-      style={[
-        styles.topicChip,
-        selected && styles.topicChipSelected,
-        { marginBottom: 8 },
-      ]}
-    >
-      <Text
-        style={[styles.topicChipText, selected && styles.topicChipTextSelected]}
-      >
-        {label}
-      </Text>
-      {subLabel ? (
-        <Text
-          style={[
-            styles.topicChipText,
-            {
-              fontSize: 11,
-              marginTop: 2,
-              opacity: selected ? 1 : 0.75,
-            },
-            selected && { color: "#ffffff" },
-          ]}
-        >
-          {subLabel}
-        </Text>
-      ) : null}
-    </Pressable>
-  );
-}
-
-function Collapsible({
-  title,
-  open,
-  onToggle,
-  children,
-}: {
-  title: string;
-  open: boolean;
-  onToggle: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <View style={{ marginBottom: 12 }}>
-      <Pressable
-        onPress={onToggle}
-        style={[
-          styles.statsCard,
-          {
-            alignSelf: "stretch",
-            paddingVertical: 14,
-            paddingHorizontal: 16,
-            backgroundColor: "rgba(0,0,0,0.12)",
-          },
-        ]}
-      >
-        <Text style={[styles.statsSectionTitle, { color: "#f8f9fa" }]}>
-          {open ? "▼ " : "▶︎ "}
-          {title}
-        </Text>
-      </Pressable>
-
-      {open ? (
-        <View
-          style={[styles.statsCard, { alignSelf: "stretch", marginTop: 8 }]}
-        >
-          {children}
-        </View>
-      ) : null}
+    <View style={styles.bulletRow}>
+      <View style={styles.bullet} />
+      <Text style={styles.bodyText}>{children}</Text>
     </View>
   );
 }
 
 export default function DrugCalcHomeScreen({
-  subtitleFont,
-  buttonFont,
   onBackHome,
   onStartPractice,
   onOpenTheory,
 }: Props) {
-  // Normalize DRUG_TOPICS into {id,label,desc?}
-  const topics = useMemo(() => {
-    const raw = (DRUG_TOPICS as unknown as TopicLike[]) ?? [];
-    return raw.map((t) => {
-      if (typeof t === "string") {
-        return { id: t, label: t, desc: "" };
-      }
-      return { id: t.id, label: t.title, desc: t.desc ?? "" };
-    });
-  }, []);
-
-  const [selectedPracticeTopicIds, setSelectedPracticeTopicIds] = useState<
-    string[]
-  >([]);
-
-  const allSelected = useMemo(() => {
-    if (!topics.length) return false;
-    return selectedPracticeTopicIds.length === topics.length;
-  }, [selectedPracticeTopicIds, topics.length]);
+  const [selectedTopicIds, setSelectedTopicIds] = useState<string[]>([]);
+  const selectedCount = selectedTopicIds.length;
+  const selectedLabel = useMemo(
+    () =>
+      selectedCount === 0
+        ? "Vælg mindst ét emne"
+        : `Start ${selectedCount} valgte ${selectedCount === 1 ? "emne" : "emner"}`,
+    [selectedCount],
+  );
 
   const toggleTopic = (id: string) => {
-    setSelectedPracticeTopicIds((prev) =>
-      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
+    setSelectedTopicIds((current) =>
+      current.includes(id)
+        ? current.filter((topicId) => topicId !== id)
+        : [...current, id],
     );
   };
 
-  const toggleAll = () => {
-    setSelectedPracticeTopicIds(allSelected ? [] : topics.map((t) => t.id));
-  };
-
-  const theorySections: TheorySection[] = useMemo(
-    () => [
-      {
-        id: "core",
-        title: "Grundformler (D, S, V)",
-        body:
-          "Tre størrelser går igen i næsten al lægemiddelregning:\n\n" +
-          // CHANGED: mcg/µg -> ug
-          "• D = dosis (mg, ug, IE, mmol osv.)\n" +
-          "• S = styrke (mg/mL, ug/mL, IE/mL, % osv.)\n" +
-          "• V = volumen (mL) eller antal enheder\n\n" +
-          "Formler:\n" +
-          "• D = S × V\n" +
-          "• V = D / S\n" +
-          "• S = D / V\n\n" +
-          // CHANGED: µg -> ug
-          "Eksempel: Ordineret 100 ug, styrke 50 ug/mL → V = 100/50 = 2 mL.",
-      },
-      {
-        id: "percent",
-        title: "Procentopløsninger (glukose, NaCl)",
-        body:
-          "X% betyder X gram pr. 100 mL.\n\n" +
-          "Eksempel:\n" +
-          "• Glukose 10% = 10 g/100 mL\n" +
-          "• I 250 mL er der (10/100)×250 = 25 g\n\n" +
-          "Glukose 50%: 50 g/100 mL = 0.5 g/mL.\n" +
-          "Så 20 mL indeholder 10 g.",
-      },
-      {
-        id: "drops",
-        // CHANGED: Dråber title uses dr
-        title: "Dråber (20 dr = 1 mL)",
-        body:
-          // CHANGED: dråber -> dr
-          "I jeres standard: 20 dr = 1 mL.\n\n" +
-          "• mL = dr / 20\n" +
-          "• dr = mL × 20\n\n" +
-          // CHANGED: dråber/min -> dr/min
-          "Hvis du har dr/min → mL/min → mL/time.",
-      },
-      {
-        id: "infusion",
-        title: "Infusion og tid (mL/time, mg/time)",
-        body:
-          "Først: find hastighed i mL/time.\n" +
-          "• mL/time = total mL / timer\n\n" +
-          "Hvis du skal have dosis pr. tid:\n" +
-          "• mg/time = (mg/mL) × (mL/time)\n\n" +
-          "Eksempel: 5 mg/mL og 12 mL/time → 60 mg/time.",
-      },
-    ],
-    [],
-  );
-
-  const [openSectionId, setOpenSectionId] = useState<string>("");
-
   return (
-    <Background style={styles.homeBackground}>
+    <Screen contentContainerStyle={styles.content} testID="drug-calc-home-screen">
       <StatusBar style="light" />
-      <ScrollView contentContainerStyle={styles.homeContainer}>
-        <ToolPageHeader
-          backLabel="Tilbage til forsiden"
-          onBack={onBackHome}
-          subtitle="Teori og træningsopgaver"
-          title="Lægemiddelregning"
-        />
+      <ToolPageHeader
+        backLabel="Tilbage til forsiden"
+        onBack={onBackHome}
+        subtitle="Metoder, gennemregnede eksempler og genererede træningsopgaver."
+        title="Lægemiddelregning"
+      />
 
-        <Text
-          style={[
-            styles.subtitle,
-            {
-              fontSize: subtitleFont,
-              color: "#e9ecef",
-              textAlign: "left",
-              alignSelf: "flex-start",
-            },
-          ]}
-        >
-          Træn doser, styrker, mængder, procent, dr og infusioner.
+      <NoticeCard title="Uddannelsestræning" tone="info" style={styles.section}>
+        <Text style={styles.noticeText}>
+          Opgaverne træner beregning og enhedskontrol. De erstatter ikke klinisk
+          vurdering, præparatkontrol eller lokale instrukser.
+        </Text>
+      </NoticeCard>
+
+      <Card variant="subtle" style={styles.section}>
+        <Text style={styles.eyebrow}>TEORI</Text>
+        <Text style={styles.sectionTitle}>Lær metoden</Text>
+        <Text style={styles.bodyText}>
+          Arbejd systematisk med formel, enheder, mellemregninger, afrunding og
+          plausibilitetskontrol.
+        </Text>
+        <View style={styles.bulletList}>
+          <BulletText>Dosis = styrke × volumen</BulletText>
+          <BulletText>Volumen = dosis ÷ styrke</BulletText>
+          <BulletText>Styrke = dosis ÷ volumen</BulletText>
+          <BulletText>Behold enhederne, og afrund først til sidst</BulletText>
+        </View>
+        {onOpenTheory ? (
+          <SecondaryButton label="Åbn teori" onPress={onOpenTheory} />
+        ) : null}
+      </Card>
+
+      <Card variant="subtle" style={styles.section}>
+        <Text style={styles.eyebrow}>PRAKSIS</Text>
+        <Text style={styles.sectionTitle}>Træn beregninger</Text>
+        <Text style={styles.bodyText}>
+          Vælg et eller flere emner til fokuseret træning, eller start en blandet
+          runde med alle emner.
         </Text>
 
-        {/* PRACTICE */}
-        <View style={[styles.statsCard, { alignSelf: "stretch" }]}>
-          <Text style={styles.statsSectionTitle}>Opgaver</Text>
-          <Text style={[styles.statsLabel, { marginTop: 6 }]}>
-            Vælg emner (valgfrit) — eller start med alt.
-          </Text>
-
-          <View style={[styles.subtopicRow, { marginTop: 10, marginLeft: 0 }]}>
-            <Pressable
-              onPress={toggleAll}
-              style={[
-                styles.topicChip,
-                allSelected && styles.topicChipSelected,
-              ]}
-            >
-              <Text
-                style={[
-                  styles.topicChipText,
-                  allSelected && styles.topicChipTextSelected,
+        <View style={styles.topicGrid}>
+          {DRUG_TOPICS.map((topic) => {
+            const selected = selectedTopicIds.includes(topic.id);
+            return (
+              <Pressable
+                accessibilityRole="button"
+                accessibilityState={{ selected }}
+                key={topic.id}
+                onPress={() => toggleTopic(topic.id)}
+                style={({ pressed }) => [
+                  styles.topicButton,
+                  selected && styles.topicButtonSelected,
+                  pressed && styles.pressed,
                 ]}
               >
-                {allSelected ? "Fravælg alle" : "Vælg alle"}
-              </Text>
-            </Pressable>
-
-            {topics.map((t) => (
-              <TopicPill
-                key={t.id}
-                label={t.label}
-                subLabel={t.desc}
-                selected={selectedPracticeTopicIds.includes(t.id)}
-                onPress={() => toggleTopic(t.id)}
-              />
-            ))}
-          </View>
-
-          <Pressable
-            style={[
-              styles.bigButton,
-              styles.primaryButton,
-              { backgroundColor: "#1c7ed6", marginTop: 12 },
-            ]}
-            onPress={() => onStartPractice(selectedPracticeTopicIds)}
-          >
-            <Text style={[styles.bigButtonText, { fontSize: buttonFont }]}>
-              Start opgaver
-            </Text>
-          </Pressable>
-        </View>
-
-        {/* THEORY */}
-        <View style={{ height: 14 }} />
-
-        <View
-          style={[
-            styles.statsCard,
-            {
-              alignSelf: "stretch",
-              backgroundColor: "rgba(0,0,0,0.12)",
-            },
-          ]}
-        >
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
-          >
-            <Text style={[styles.statsSectionTitle, { color: "#f8f9fa" }]}>
-              Teori
-            </Text>
-
-            {onOpenTheory ? (
-              <Pressable onPress={onOpenTheory} hitSlop={8}>
-                <Text style={[styles.topicLink, { color: "#e9ecef" }]}>
-                  Åbn fuld teori
+                <Text style={[styles.topicTitle, selected && styles.topicTitleSelected]}>
+                  {topic.title}
                 </Text>
+                <Text style={styles.topicDescription}>{topic.desc}</Text>
               </Pressable>
-            ) : null}
-          </View>
-
-          <Text style={[styles.statsLabel, { color: "#e9ecef", marginTop: 8 }]}>
-            Tryk for at folde ud.
-          </Text>
-        </View>
-
-        <View style={{ marginTop: 10, alignSelf: "stretch" }}>
-          {theorySections.map((sec) => {
-            const open = openSectionId === sec.id;
-            return (
-              <Collapsible
-                key={sec.id}
-                title={sec.title}
-                open={open}
-                onToggle={() => setOpenSectionId(open ? "" : sec.id)}
-              >
-                <Text style={styles.drugTheoryText}>{sec.body}</Text>
-              </Collapsible>
             );
           })}
         </View>
-      </ScrollView>
-    </Background>
+
+        <View style={styles.buttonStack}>
+          <PrimaryButton
+            disabled={selectedCount === 0}
+            label={selectedLabel}
+            onPress={() => onStartPractice(selectedTopicIds)}
+          />
+          <SecondaryButton
+            label="Start blandet træning"
+            onPress={() => onStartPractice([])}
+          />
+        </View>
+      </Card>
+
+      <Card variant="subtle" style={styles.section}>
+        <Text style={styles.eyebrow}>GENNEMREGNET</Text>
+        <Text style={styles.sectionTitle}>Eksempler trin for trin</Text>
+        <Text style={styles.bodyText}>
+          {WORKED_EXAMPLES.length} løste eksempler viser problem, formel,
+          mellemregning, slutsvar og typisk faldgrube.
+        </Text>
+        {onOpenTheory ? (
+          <SecondaryButton label="Se gennemregnede eksempler" onPress={onOpenTheory} />
+        ) : null}
+      </Card>
+
+      <Card variant="subtle" style={styles.section}>
+        <Text style={styles.eyebrow}>KONTROL</Text>
+        <Text style={styles.sectionTitle}>Typiske fejl</Text>
+        <View style={styles.bulletList}>
+          {COMMON_PITFALLS.map((pitfall) => (
+            <BulletText key={pitfall}>{pitfall}</BulletText>
+          ))}
+        </View>
+      </Card>
+    </Screen>
   );
 }
+
+const styles = StyleSheet.create({
+  content: { paddingBottom: Spacing.xl },
+  section: { gap: Spacing.md, marginBottom: Spacing.md },
+  noticeText: {
+    color: ColorTokens.text.primary,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.body,
+    lineHeight: Typography.lineHeights.body,
+  },
+  eyebrow: {
+    color: ColorTokens.accent.muted,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.caption,
+    lineHeight: Typography.lineHeights.caption,
+    fontWeight: Typography.weights.heavy,
+  },
+  sectionTitle: {
+    color: ColorTokens.text.primary,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.sectionTitle,
+    lineHeight: Typography.lineHeights.sectionTitle,
+    fontWeight: Typography.weights.bold,
+  },
+  bodyText: {
+    color: ColorTokens.text.secondary,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.body,
+    lineHeight: Typography.lineHeights.body,
+    flex: 1,
+  },
+  bulletList: { gap: Spacing.sm },
+  bulletRow: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.sm },
+  bullet: {
+    width: 7,
+    height: 7,
+    borderRadius: Radii.circular,
+    backgroundColor: ColorTokens.accent.muted,
+    marginTop: 8,
+  },
+  topicGrid: { gap: Spacing.sm },
+  topicButton: {
+    minHeight: Interaction.minimumTouchTarget,
+    borderRadius: Radii.md,
+    borderWidth: Borders.hairline,
+    borderColor: ColorTokens.border.default,
+    backgroundColor: ColorTokens.surface.inverse,
+    padding: Spacing.md,
+    gap: Spacing.xs,
+  },
+  topicButtonSelected: {
+    borderColor: ColorTokens.accent.muted,
+    backgroundColor: ColorTokens.accent.surface,
+  },
+  topicTitle: {
+    color: ColorTokens.text.primary,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.label,
+    lineHeight: Typography.lineHeights.label,
+    fontWeight: Typography.weights.bold,
+  },
+  topicTitleSelected: { color: ColorTokens.accent.muted },
+  topicDescription: {
+    color: ColorTokens.text.secondary,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.caption,
+    lineHeight: Typography.lineHeights.caption,
+  },
+  pressed: { opacity: Interaction.pressedOpacity },
+  buttonStack: { gap: Spacing.sm },
+});

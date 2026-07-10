@@ -11,7 +11,9 @@ export type DrugCalcTopic =
   | "drops"
   | "infusion"
   | "oxygen"
-  | "time";
+  | "time"
+  | "multiStep"
+  | "errorCheck";
 
 export const DROPS_PER_ML = 20;
 
@@ -74,18 +76,42 @@ export const DRUG_TOPICS: { id: DrugCalcTopic; title: string; desc: string }[] =
       title: "Tid (hvor længe rækker det?)",
       desc: "Tid ud fra volumen og hastighed.",
     },
+    {
+      id: "multiStep",
+      title: "Flere trin: dosis til volumen",
+      desc: "Kombinér vægtbaseret dosis, styrke og volumen.",
+    },
+    {
+      id: "errorCheck",
+      title: "Find regnefejlen",
+      desc: "Kontrollér enheder, regneretning og plausibilitet.",
+    },
   ];
 
 // -------------------- Theory --------------------
 
-export type TheorySection = {
+type TheorySectionBase = {
   topic: DrugCalcTopic;
   title: string;
   bullets: string[];
   workedExamples: { title: string; steps: string[] }[];
 };
 
-export const THEORY: TheorySection[] = [
+export type WorkedExample = {
+  topic: DrugCalcTopic;
+  title: string;
+  problem: string;
+  formula: string;
+  calculation: string[];
+  finalAnswer: string;
+  commonPitfall: string;
+};
+
+export type TheorySection = Omit<TheorySectionBase, "workedExamples"> & {
+  workedExamples: WorkedExample[];
+};
+
+const THEORY_BASE: TheorySectionBase[] = [
   {
     topic: "strength",
     title: "Styrke: hvad betyder mg/mL, ug/mL, IE/mL?",
@@ -327,7 +353,105 @@ export const THEORY: TheorySection[] = [
       },
     ],
   },
+  {
+    topic: "multiStep",
+    title: "Flere trin: fra vægtbaseret dosis til volumen",
+    bullets: [
+      "Del opgaven op: beregn først total dosis, og beregn derefter volumen.",
+      "Total dosis = dosis pr. kg × vægt.",
+      "Volumen = total dosis ÷ styrke.",
+      "Behold enheden ved hvert trin, og afrund først til sidst.",
+    ],
+    workedExamples: [
+      {
+        title: "0,5 mg/kg til 70 kg med en styrke på 10 mg/mL",
+        steps: [
+          "Total dosis = 0,5 mg/kg × 70 kg = 35 mg",
+          "Volumen = 35 mg ÷ 10 mg/mL = 3,5 mL",
+        ],
+      },
+    ],
+  },
+  {
+    topic: "errorCheck",
+    title: "Find regnefejlen med enhedstjek og plausibilitet",
+    bullets: [
+      "Læs først hvilken enhed svaret skal ende i.",
+      "Kontrollér om omregningen skal gange eller dividere med 1000.",
+      "Sæt resultatet tilbage i grundformlen for at kontrollere det.",
+      "Et svar kan være matematisk pænt og stadig være usandsynligt.",
+    ],
+    workedExamples: [
+      {
+        title: "Fejl: 0,4 mg er skrevet som 40 ug",
+        steps: [
+          "1 mg = 1000 ug",
+          "0,4 mg × 1000 = 400 ug",
+          "40 ug er derfor en faktor 10 for lavt",
+        ],
+      },
+    ],
+  },
 ];
+
+export const COMMON_PITFALLS = [
+  "Bland ikke mg og mikrogram: 1 mg er 1000 ug.",
+  "Behold kg i mellemregningen ved vægtbaseret dosis.",
+  "mg/mL betyder stof pr. volumen; det er ikke det samme som mL/mg.",
+  "Afrund først det afsluttende svar, medmindre opgaven siger andet.",
+  "Dråber pr. minut er et praktisk estimat og ikke en eksakt pumpehastighed.",
+  "Iltvarighed er et teoretisk estimat, ikke en garanti for faktisk driftstid.",
+  "Kontrollér altid om størrelsesordenen og enheden virker plausible.",
+] as const;
+
+const FORMULA_BY_TOPIC: Record<DrugCalcTopic, string> = {
+  strength: "Styrke = dosis ÷ volumen",
+  dose: "Total dosis = dosis pr. kg × vægt",
+  volume: "Volumen = dosis ÷ styrke",
+  percentage: "Stofmængde = (procent ÷ 100) × volumen",
+  conversion: "Stor til mindre enhed: × 1000. Mindre til større: ÷ 1000",
+  tablets: "Antal tabletter = ordineret dosis ÷ styrke pr. tablet",
+  dilution: "Slutstyrke = samlet stofmængde ÷ samlet volumen",
+  drops: "dr/min = (mL/time ÷ 60) × dr/mL",
+  infusion: "mL/time = (dosis pr. minut ÷ styrke) × 60",
+  oxygen: "Varighed = (flaskestørrelse × tryk) ÷ flow",
+  time: "Tid = resterende volumen ÷ hastighed",
+  multiStep: "Total dosis = dosis pr. kg × vægt; volumen = dosis ÷ styrke",
+  errorCheck: "Kontrollér enhederne og indsæt resultatet i grundformlen",
+};
+
+const PITFALL_BY_TOPIC: Record<DrugCalcTopic, string> = {
+  strength: "At vende mg/mL om til mL/mg.",
+  dose: "At glemme at gange dosis pr. kg med patientens vægt.",
+  volume: "At gange med styrken, selv om volumen skal findes ved division.",
+  percentage: "At læse procent som gram pr. mL i stedet for gram pr. 100 mL.",
+  conversion: "At gange med 1000 i den forkerte retning.",
+  tablets: "At bruge forskellige enheder for ordination og tabletstyrke.",
+  dilution: "At bruge tilsat væske alene i stedet for det samlede slutvolumen.",
+  drops: "At behandle dråber pr. minut som en helt eksakt hastighed.",
+  infusion: "At glemme omregningen fra minutter til timer.",
+  oxygen: "At opfatte den teoretiske varighed som en garanteret driftstid.",
+  time: "At blande minutter og timer i samme beregning.",
+  multiStep: "At springe direkte til volumen uden først at beregne total dosis.",
+  errorCheck: "At acceptere et tal uden at kontrollere enhed og størrelsesorden.",
+};
+
+export const THEORY: TheorySection[] = THEORY_BASE.map((section) => ({
+  ...section,
+  workedExamples: section.workedExamples.map((example) => ({
+    topic: section.topic,
+    title: example.title,
+    problem: example.title,
+    formula: FORMULA_BY_TOPIC[section.topic],
+    calculation: example.steps,
+    finalAnswer: example.steps[example.steps.length - 1],
+    commonPitfall: PITFALL_BY_TOPIC[section.topic],
+  })),
+}));
+
+export const WORKED_EXAMPLES = THEORY.flatMap(
+  (section) => section.workedExamples,
+);
 
 // -------------------- Questions --------------------
 
@@ -338,9 +462,25 @@ export type DrugCalcQuestion = {
   correctAnswer: number;
   unit: string;
   hint?: string;
-  explanation?: string; // shown after answer
-  tolerance?: number; // absolute tolerance (e.g. 0.05)
+  explanation: string;
+  formula: string;
+  calculationSteps: string[];
+  commonPitfall: string;
+  plausibilityCheck: string;
+  roundingNote: string;
+  answerDecimals: number;
+  tolerance: number;
 };
+
+type DrugCalcQuestionBase = Omit<
+  DrugCalcQuestion,
+  | "formula"
+  | "calculationSteps"
+  | "commonPitfall"
+  | "plausibilityCheck"
+  | "roundingNote"
+  | "answerDecimals"
+>;
 
 let counter = 1;
 
@@ -379,9 +519,9 @@ export function isDrugAnswerCorrect(user: number, correct: number, tol = 0.02) {
   return Math.abs(user - correct) <= tol + floatingPointMargin;
 }
 
-export function generateDrugCalcQuestion(
+function generateBaseDrugCalcQuestion(
   selectedTopics: DrugCalcTopic[],
-): DrugCalcQuestion {
+): DrugCalcQuestionBase {
   const topics =
     selectedTopics.length > 0 ? selectedTopics : DRUG_TOPICS.map((t) => t.id);
   const topic = pick(topics);
@@ -398,12 +538,12 @@ export function generateDrugCalcQuestion(
       return {
         id: counter++,
         topic,
-        text: `Fentanyl ordineres ${doseUgPerKg} ug/kg.\nPatienten vejer ${weight} kg.\nHvad er total dosis i ug?`,
+        text: `I en teoretisk beregningsopgave er dosis ${doseUgPerKg} ug/kg ved en vægt på ${weight} kg.\nHvad er den beregnede totale dosis i ug?`,
         correctAnswer: total,
         unit: "ug",
         hint: "Total dosis = (ug/kg) × (kg).",
         explanation: `${doseUgPerKg} × ${weight} = ${total} ug`,
-        tolerance: 0.5,
+        tolerance: 0.01,
       };
     }
 
@@ -413,12 +553,12 @@ export function generateDrugCalcQuestion(
     return {
       id: counter++,
       topic,
-      text: `Ketamin ordineres ${doseMgPerKg} mg/kg.\nPatienten vejer ${weight} kg.\nHvad er total dosis i mg?`,
+      text: `I en teoretisk beregningsopgave er dosis ${doseMgPerKg} mg/kg ved en vægt på ${weight} kg.\nHvad er den beregnede totale dosis i mg?`,
       correctAnswer: totalMg,
       unit: "mg",
       hint: "Total dosis = (mg/kg) × (kg).",
       explanation: `${doseMgPerKg} × ${weight} = ${totalMg} mg`,
-      tolerance: 0.2,
+      tolerance: 0.01,
     };
   }
 
@@ -434,12 +574,12 @@ export function generateDrugCalcQuestion(
       return {
         id: counter++,
         topic,
-        text: `Du blander GTN: ${mg} mg i ${ml} mL.\nHvad er styrken i mg/mL?`,
+        text: `En træningsblanding indeholder ${mg} mg i et totalvolumen på ${ml} mL.\nHvad er styrken i mg/mL?`,
         correctAnswer: strength,
         unit: "mg/mL",
         hint: "S = D / V.",
         explanation: `${mg} / ${ml} = ${roundTo(strength, 2)} mg/mL`,
-        tolerance: 0.02,
+        tolerance: 0.01,
       };
     }
 
@@ -450,12 +590,12 @@ export function generateDrugCalcQuestion(
     return {
       id: counter++,
       topic,
-      text: `Ketamin-blanding: ${mg} mg i ${ml} mL.\nHvad er styrken i mg/mL?`,
+      text: `En træningsblanding indeholder ${mg} mg i et totalvolumen på ${ml} mL.\nHvad er styrken i mg/mL?`,
       correctAnswer: strength,
       unit: "mg/mL",
       hint: "S = D / V.",
       explanation: `${mg} / ${ml} = ${roundTo(strength, 2)} mg/mL`,
-      tolerance: 0.02,
+      tolerance: 0.01,
     };
   }
 
@@ -471,12 +611,12 @@ export function generateDrugCalcQuestion(
       return {
         id: counter++,
         topic,
-        text: `Fentanyl: ${strength} ug/mL.\nDu skal give ${target} ug.\nHvor mange mL skal du give?`,
+        text: `En opløsning har styrken ${strength} ug/mL. Den teoretisk beregnede dosis er ${target} ug.\nHvor mange mL svarer det til?`,
         correctAnswer: vol,
         unit: "mL",
         hint: "V = D / S.",
         explanation: `${target} / ${strength} = ${roundTo(vol, 2)} mL`,
-        tolerance: 0.05,
+        tolerance: 0.01,
       };
     }
 
@@ -488,12 +628,12 @@ export function generateDrugCalcQuestion(
       return {
         id: counter++,
         topic,
-        text: `Ketamin: ${strength} mg/mL.\nDu skal give ${target} mg.\nHvor mange mL skal du give?`,
+        text: `En opløsning har styrken ${strength} mg/mL. Den teoretisk beregnede dosis er ${target} mg.\nHvor mange mL svarer det til?`,
         correctAnswer: vol,
         unit: "mL",
         hint: "V = D / S.",
         explanation: `${target} / ${strength} = ${roundTo(vol, 2)} mL`,
-        tolerance: 0.05,
+        tolerance: 0.01,
       };
     }
 
@@ -505,12 +645,12 @@ export function generateDrugCalcQuestion(
     return {
       id: counter++,
       topic,
-      text: `Insulin (U-100): ${strength} IE/mL.\nDu skal give ${target} IE.\nHvor mange mL er det?`,
+      text: `En opløsning har styrken ${strength} IE/mL. Den teoretisk beregnede dosis er ${target} IE.\nHvor mange mL svarer det til?`,
       correctAnswer: vol,
       unit: "mL",
       hint: "V = D / S.",
       explanation: `${target} / ${strength} = ${roundTo(vol, 3)} mL`,
-      tolerance: 0.01,
+      tolerance: 0.001,
     };
   }
 
@@ -528,7 +668,7 @@ export function generateDrugCalcQuestion(
       unit: "g",
       hint: "X% = X g pr. 100 mL. g = (X/100) × mL.",
       explanation: `(${percent}/100) × ${vol} = ${roundTo(grams, 2)} g`,
-      tolerance: 0.05,
+      tolerance: 0.01,
     };
   }
 
@@ -547,7 +687,7 @@ export function generateDrugCalcQuestion(
         unit: "ug",
         hint: "1 mg = 1000 ug.",
         explanation: `${mg} × 1000 = ${ug} ug`,
-        tolerance: 0.01,
+        tolerance: 0.001,
       };
     }
 
@@ -562,7 +702,7 @@ export function generateDrugCalcQuestion(
         unit: "mg",
         hint: "1 g = 1000 mg.",
         explanation: `${grams} × 1000 = ${mg} mg`,
-        tolerance: 0.01,
+        tolerance: 0.001,
       };
     }
 
@@ -576,7 +716,7 @@ export function generateDrugCalcQuestion(
       unit: "L",
       hint: "1000 mL = 1 L.",
       explanation: `${ml} ÷ 1000 = ${roundTo(liters, 2)} L`,
-      tolerance: 0.01,
+      tolerance: 0.001,
     };
   }
 
@@ -612,7 +752,7 @@ export function generateDrugCalcQuestion(
       unit: "mg/mL",
       hint: "Slutstyrke = samlet stofmængde ÷ samlet volumen.",
       explanation: `${drugMg} ÷ ${totalMl} = ${roundTo(finalStrength, 2)} mg/mL`,
-      tolerance: 0.02,
+      tolerance: 0.01,
     };
   }
 
@@ -636,7 +776,7 @@ export function generateDrugCalcQuestion(
           mlMin,
           2,
         )} mL/min → ×60 = ${roundTo(mlH, 1)} mL/time`,
-        tolerance: 0.2,
+        tolerance: 0.01,
       };
     }
 
@@ -651,7 +791,7 @@ export function generateDrugCalcQuestion(
       unit: "dr/min",
       hint: `dr/min = (mL/time ÷ 60) × ${DROPS_PER_ML}.`,
       explanation: `(${mlH}/60)×${DROPS_PER_ML} = ${roundTo(drMin, 1)} dr/min`,
-      tolerance: 0.5,
+      tolerance: 0.01,
     };
   }
 
@@ -666,7 +806,7 @@ export function generateDrugCalcQuestion(
     return {
       id: counter++,
       topic,
-      text: `GTN-blanding: 50 mg i 50 mL (≈ ${strengthUgMl} ug/mL).\nOrdineret ${ugMin} ug/min.\nHvad er hastigheden i mL/time?`,
+      text: `En træningsblanding indeholder 50 mg i 50 mL (≈ ${strengthUgMl} ug/mL). Den teoretiske dosisrate er ${ugMin} ug/min.\nHvad er hastigheden i mL/time?`,
       correctAnswer: mlH,
       unit: "mL/time",
       hint: "V = D/S (i mL/min), gang derefter med 60.",
@@ -674,7 +814,7 @@ export function generateDrugCalcQuestion(
         mlMin,
         3,
       )} mL/min → ×60 = ${roundTo(mlH, 2)} mL/time`,
-      tolerance: 0.05,
+      tolerance: 0.01,
     };
   }
 
@@ -694,7 +834,63 @@ export function generateDrugCalcQuestion(
       unit: "minutter",
       hint: "Varighed = (flaskestørrelse × tryk) ÷ flow.",
       explanation: `(${cylinderLiters} × ${pressureBar}) ÷ ${flowLitersPerMinute} = ${roundTo(durationMinutes, 1)} minutter. Husk reserve og lokale procedurer i praksis.`,
-      tolerance: 0.1,
+      tolerance: 0.05,
+    };
+  }
+
+  // ---------- multi-step dose to volume ----------
+  if (topic === "multiStep") {
+    const weight = pick([50, 60, 70, 80, 90, 100]);
+    const doseMgPerKg = pick([0.1, 0.2, 0.5, 1]);
+    const strengthMgMl = pick([5, 10, 20]);
+    const totalDoseMg = doseMgPerKg * weight;
+    const volumeMl = totalDoseMg / strengthMgMl;
+
+    return {
+      id: counter++,
+      topic,
+      text: `En teoretisk beregnet dosis er ${doseMgPerKg} mg/kg til en person på ${weight} kg. Styrken er ${strengthMgMl} mg/mL.\nHvor mange mL svarer den beregnede dosis til?`,
+      correctAnswer: volumeMl,
+      unit: "mL",
+      hint: "Beregn først total dosis i mg. Brug derefter V = D / S.",
+      explanation: `${doseMgPerKg} × ${weight} = ${roundTo(totalDoseMg, 2)} mg. ${roundTo(totalDoseMg, 2)} ÷ ${strengthMgMl} = ${roundTo(volumeMl, 2)} mL.`,
+      tolerance: 0.01,
+    };
+  }
+
+  // ---------- error detection ----------
+  if (topic === "errorCheck") {
+    const kind = pick(["conversion", "concentration"] as const);
+
+    if (kind === "conversion") {
+      const mg = pick([0.2, 0.4, 0.5, 1.5]);
+      const incorrectUg = mg * 100;
+      const correctUg = mg * 1000;
+      return {
+        id: counter++,
+        topic,
+        text: `En beregning siger: ${mg} mg = ${incorrectUg} ug.\nHvad er den korrekte omregning i ug?`,
+        correctAnswer: correctUg,
+        unit: "ug",
+        hint: "Kontrollér omregningsfaktoren mellem mg og ug.",
+        explanation: `1 mg = 1000 ug, så ${mg} × 1000 = ${correctUg} ug. Det viste svar er en faktor 10 for lavt.`,
+        tolerance: 0.001,
+      };
+    }
+
+    const doseMg = pick([50, 100, 200]);
+    const volumeMl = pick([10, 20, 50]);
+    const correctStrength = doseMg / volumeMl;
+    const incorrectStrength = volumeMl / doseMg;
+    return {
+      id: counter++,
+      topic,
+      text: `En blanding indeholder ${doseMg} mg i ${volumeMl} mL. En beregning angiver styrken som ${roundTo(incorrectStrength, 2)} mg/mL.\nHvad er den korrekte styrke?`,
+      correctAnswer: correctStrength,
+      unit: "mg/mL",
+      hint: "Styrke er stofmængde divideret med volumen.",
+      explanation: `${doseMg} ÷ ${volumeMl} = ${roundTo(correctStrength, 2)} mg/mL. Den viste beregning har vendt brøken om.`,
+      tolerance: 0.01,
     };
   }
 
@@ -711,6 +907,73 @@ export function generateDrugCalcQuestion(
     unit: "timer",
     hint: "Tid = volumen ÷ hastighed.",
     explanation: `${totalMl}/${rateMlH} = ${roundTo(hours, 2)} timer`,
-    tolerance: 0.05,
+    tolerance: 0.005,
+  };
+}
+
+const PLAUSIBILITY_BY_TOPIC: Record<DrugCalcTopic, string> = {
+  strength: "Gang svaret med volumen; du bør få den oprindelige stofmængde.",
+  dose: "En større vægt skal give en større total dosis ved samme dosis pr. kg.",
+  volume: "Gang volumen med styrken; resultatet bør være den ønskede dosis.",
+  percentage: "Resultatet skal passe med antal gram pr. 100 mL og det valgte volumen.",
+  conversion: "Kontrollér om tallet bør blive større eller mindre, når enheden ændres.",
+  tablets: "Gang antal tabletter med styrken pr. tablet og sammenlign med ordinationen.",
+  dilution: "Gang slutstyrken med totalvolumen; stofmængden skal være uændret.",
+  drops: "Sammenlign med mL/time og husk, at dråber er et praktisk estimat.",
+  infusion: "Gang mL/time med styrken og omregn tiden tilbage for at kontrollere dosisraten.",
+  oxygen: "Kortere varighed forventes ved højere flow; beregningen er kun et teoretisk estimat.",
+  time: "Højere hastighed skal give kortere resterende tid.",
+  multiStep: "Gang slutvolumen med styrken; du bør få den beregnede totale dosis.",
+  errorCheck: "Indsæt det korrigerede svar i grundformlen og kontrollér størrelsesordenen.",
+};
+
+function getAnswerDecimals(question: DrugCalcQuestionBase) {
+  if (question.topic === "drops") return 0;
+  if (question.topic === "oxygen") return 1;
+  if (question.topic === "time") return 2;
+  if (question.topic === "tablets") return 1;
+  if (question.topic === "dose") {
+    if (Number.isInteger(question.correctAnswer)) return 0;
+    return Number.isInteger(question.correctAnswer * 10) ? 1 : 2;
+  }
+  if (question.topic === "conversion" || question.topic === "errorCheck") {
+    return Number.isInteger(question.correctAnswer) ? 0 : 2;
+  }
+  if (question.topic === "volume" && question.correctAnswer < 0.2) return 3;
+  return 2;
+}
+
+function getRoundingNote(answerDecimals: number) {
+  if (answerDecimals === 0) {
+    return "Angiv svaret som et helt tal. Afrund først efter hele beregningen.";
+  }
+  const decimalLabel = answerDecimals === 1 ? "én decimal" : `${answerDecimals} decimaler`;
+  return `Angiv svaret med ${decimalLabel}. Afrund først efter hele beregningen.`;
+}
+
+export function formatDrugAnswer(question: DrugCalcQuestion) {
+  return question.correctAnswer
+    .toFixed(question.answerDecimals)
+    .replace(".", ",");
+}
+
+export function generateDrugCalcQuestion(
+  selectedTopics: DrugCalcTopic[],
+): DrugCalcQuestion {
+  const question = generateBaseDrugCalcQuestion(selectedTopics);
+  const answerDecimals = getAnswerDecimals(question);
+  const calculationSteps = question.explanation
+    .split(" → ")
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+  return {
+    ...question,
+    formula: FORMULA_BY_TOPIC[question.topic],
+    calculationSteps,
+    commonPitfall: PITFALL_BY_TOPIC[question.topic],
+    plausibilityCheck: PLAUSIBILITY_BY_TOPIC[question.topic],
+    roundingNote: getRoundingNote(answerDecimals),
+    answerDecimals,
   };
 }

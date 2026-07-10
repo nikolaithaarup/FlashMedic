@@ -1,19 +1,29 @@
-// src/features/drugCalc/DrugCalcPracticeScreen.tsx
 import { StatusBar } from "expo-status-bar";
-import React, { useMemo } from "react";
-import {
-  KeyboardAvoidingView,
-  Platform,
-  Pressable,
-  ScrollView,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import React from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
-import { styles } from "../../ui/flashmedicStyles";
-import { Background, ToolPageHeader } from "../../ui/primitives";
-import type { DrugCalcQuestion, DrugCalcTopic } from "./drugCalcContent";
+import {
+  Borders,
+  ColorTokens,
+  Interaction,
+  Radii,
+  SemanticStates,
+  Spacing,
+  Typography,
+} from "../../../constants/theme";
+import {
+  Card,
+  NumberInput,
+  PrimaryButton,
+  Screen,
+  SecondaryButton,
+  ToolPageHeader,
+} from "../../ui/primitives";
+import {
+  formatDrugAnswer,
+  type DrugCalcQuestion,
+  type DrugCalcTopic,
+} from "./drugCalcContent";
 
 type TopicMeta = { id: DrugCalcTopic; title: string; desc: string };
 
@@ -21,26 +31,29 @@ type Props = {
   headingFont: number;
   subtitleFont: number;
   buttonFont: number;
-
   currentDrugQuestion: DrugCalcQuestion | null;
-
   drugAnswer: string;
-  setDrugAnswer: (v: string) => void;
-
+  setDrugAnswer: (value: string) => void;
   drugAnswerStatus: "neutral" | "correct" | "incorrect";
-
   onCheckAnswer: () => void;
   onNextQuestion: () => void;
   onBack: () => void;
-
   availableTopics: TopicMeta[];
   selectedTopics: DrugCalcTopic[];
   setSelectedTopics: React.Dispatch<React.SetStateAction<DrugCalcTopic[]>>;
   onStartWithTopics: (topics: DrugCalcTopic[]) => void;
 };
 
+function DetailBlock({ label, children }: { label: string; children: string }) {
+  return (
+    <View style={styles.detailBlock}>
+      <Text style={styles.detailLabel}>{label}</Text>
+      <Text style={styles.bodyText}>{children}</Text>
+    </View>
+  );
+}
+
 export function DrugCalcPracticeScreen({
-  buttonFont,
   currentDrugQuestion,
   drugAnswer,
   setDrugAnswer,
@@ -53,210 +66,271 @@ export function DrugCalcPracticeScreen({
   setSelectedTopics,
   onStartWithTopics,
 }: Props) {
-  const allSelected = selectedTopics.length === availableTopics.length;
-  const hasStarted = !!currentDrugQuestion;
+  const hasStarted = currentDrugQuestion !== null;
+  const feedbackVisible = drugAnswerStatus !== "neutral" && currentDrugQuestion;
 
   const toggleTopic = (id: DrugCalcTopic) => {
-    setSelectedTopics((prev) =>
-      prev.includes(id) ? prev.filter((t) => t !== id) : [...prev, id],
+    setSelectedTopics((current) =>
+      current.includes(id)
+        ? current.filter((topic) => topic !== id)
+        : [...current, id],
     );
   };
 
-  const toggleAll = () => {
-    if (allSelected) {
-      setSelectedTopics([]);
-    } else {
-      setSelectedTopics(availableTopics.map((t) => t.id));
-    }
-  };
-
-  const answerBoxStyle = useMemo(
-    () => [
-      styles.drugAnswerBox,
-      drugAnswerStatus === "correct" && styles.drugAnswerBoxCorrect,
-      drugAnswerStatus === "incorrect" && styles.drugAnswerBoxIncorrect,
-    ],
-    [drugAnswerStatus],
-  );
-
   return (
-    <Background style={styles.homeBackground}>
+    <Screen
+      contentContainerStyle={styles.content}
+      scrollViewProps={{ keyboardShouldPersistTaps: "handled" }}
+      testID="drug-calc-practice-screen"
+    >
       <StatusBar style="light" />
+      <ToolPageHeader
+        backLabel="Tilbage til Lægemiddelregning"
+        onBack={onBack}
+        subtitle="Fokuseret eller blandet beregningstræning uden scoring."
+        title="Træn beregninger"
+      />
 
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        keyboardVerticalOffset={20}
-      >
-        <ScrollView
-          contentContainerStyle={[
-            styles.homeContainer,
-            styles.safeTopContainer,
-            { paddingBottom: 140 },
-          ]}
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}
-        >
-          <ToolPageHeader
-            onBack={onBack}
-            subtitle="Vælg emner og løs opgaver"
-            title="Lægemiddelregning · Opgaver"
-          />
+      <Card variant="subtle" style={styles.section}>
+        <Text style={styles.sectionTitle}>Emner</Text>
+        <Text style={styles.bodyText}>
+          Ingen valgte emner betyder blandet træning med hele opgavebanken.
+        </Text>
+        <View style={styles.topicGrid}>
+          {availableTopics.map((topic) => {
+            const selected = selectedTopics.includes(topic.id);
+            return (
+              <Pressable
+                accessibilityRole="button"
+                accessibilityState={{ selected }}
+                key={topic.id}
+                onPress={() => toggleTopic(topic.id)}
+                style={({ pressed }) => [
+                  styles.topicButton,
+                  selected && styles.topicButtonSelected,
+                  pressed && styles.pressed,
+                ]}
+              >
+                <Text style={[styles.topicText, selected && styles.topicTextSelected]}>
+                  {topic.title}
+                </Text>
+              </Pressable>
+            );
+          })}
+        </View>
+        <SecondaryButton
+          label={selectedTopics.length === 0 ? "Start blandet træning" : "Start med valgte emner"}
+          onPress={() => onStartWithTopics(selectedTopics)}
+        />
+      </Card>
 
-          <View
-            style={[
-              styles.statsCard,
-              { alignSelf: "stretch", marginBottom: 12 },
-            ]}
-          >
-            <Text style={styles.statsSectionTitle}>Vælg emner</Text>
+      {currentDrugQuestion ? (
+        <>
+          <Card variant="subtle" style={styles.section}>
+            <Text style={styles.eyebrow}>OPGAVE</Text>
+            <Text style={styles.questionText}>{currentDrugQuestion.text}</Text>
 
-            <Text style={[styles.statsLabel, { marginTop: 6 }]}>
-              Vælg ét eller flere emner. Hvis du ikke vælger noget, bruges alle
-              emner.
-            </Text>
-
-            <Pressable
-              onPress={toggleAll}
-              hitSlop={8}
-              style={[styles.smallButton, { marginTop: 10, marginLeft: 0 }]}
-            >
-              <Text style={styles.smallButtonText}>
-                {allSelected ? "Fravælg alle" : "Vælg alle"}
-              </Text>
-            </Pressable>
-
-            <View
-              style={[styles.subtopicRow, { marginLeft: 0, marginTop: 10 }]}
-            >
-              {availableTopics.map((t) => {
-                const selected = selectedTopics.includes(t.id);
-
-                return (
-                  <Pressable
-                    key={t.id}
-                    onPress={() => toggleTopic(t.id)}
-                    style={[
-                      styles.topicChip,
-                      selected && styles.topicChipSelected,
-                    ]}
-                  >
-                    <Text
-                      style={[
-                        styles.topicChipText,
-                        selected && styles.topicChipTextSelected,
-                      ]}
-                    >
-                      {t.title}
-                    </Text>
-                  </Pressable>
-                );
-              })}
+            <View style={styles.unitCallout}>
+              <Text style={styles.unitLabel}>SVARENHED</Text>
+              <Text style={styles.unitValue}>{currentDrugQuestion.unit}</Text>
             </View>
 
-            <Pressable
-              style={[
-                styles.bigButton,
-                { backgroundColor: "#1c7ed6", marginTop: 14 },
-              ]}
-              onPress={() => onStartWithTopics(selectedTopics)}
-            >
-              <Text
-                style={[styles.bigButtonText, { fontSize: buttonFont }]}
-                numberOfLines={2}
-              >
-                {selectedTopics.length === 0
-                  ? "Start (alle emner)"
-                  : "Start (valgte emner)"}
-              </Text>
-            </Pressable>
-          </View>
-
-          <View style={[styles.statsCard, { alignSelf: "stretch" }]}>
-            <Text style={styles.statsSectionTitle}>Spørgsmål</Text>
-
-            <Text style={styles.drugQuestionText}>
-              {hasStarted
-                ? currentDrugQuestion?.text
-                : "Tryk Start ovenfor for at begynde."}
-            </Text>
-
-            {currentDrugQuestion?.hint ? (
-              <Text style={styles.drugHintText}>
-                {currentDrugQuestion.hint}
-              </Text>
+            {currentDrugQuestion.hint ? (
+              <DetailBlock label="Hjælp">{currentDrugQuestion.hint}</DetailBlock>
             ) : null}
 
-            <View style={answerBoxStyle}>
-              <TextInput
-                value={drugAnswer}
-                onChangeText={setDrugAnswer}
-                placeholder="Skriv dit svar"
-                placeholderTextColor="#adb5bd"
-                keyboardType={Platform.OS === "ios" ? "decimal-pad" : "numeric"}
-                style={styles.textInput}
-                editable={hasStarted}
-                returnKeyType="done"
-              />
+            <NumberInput
+              clearable
+              helperText={currentDrugQuestion.roundingNote}
+              inputProps={{ placeholder: "Skriv kun tallet" }}
+              label={`Dit svar i ${currentDrugQuestion.unit}`}
+              onChangeText={setDrugAnswer}
+              unit={currentDrugQuestion.unit}
+              value={drugAnswer}
+            />
 
-              {currentDrugQuestion?.unit ? (
-                <Text style={styles.drugUnitText}>
-                  {currentDrugQuestion.unit}
+            <PrimaryButton
+              disabled={!hasStarted || drugAnswer.trim().length === 0}
+              label="Tjek svar"
+              onPress={onCheckAnswer}
+            />
+          </Card>
+
+          {feedbackVisible ? (
+            <Card
+              variant="subtle"
+              style={[
+                styles.section,
+                styles.feedbackCard,
+                drugAnswerStatus === "correct"
+                  ? styles.feedbackCorrect
+                  : styles.feedbackIncorrect,
+              ]}
+            >
+              <View style={styles.feedbackContent}>
+                <Text
+                  style={[
+                    styles.feedbackTitle,
+                    drugAnswerStatus === "correct"
+                      ? styles.feedbackTitleCorrect
+                      : styles.feedbackTitleIncorrect,
+                  ]}
+                >
+                  {drugAnswerStatus === "correct"
+                    ? "Korrekt beregnet"
+                    : "Gennemgå beregningen"}
                 </Text>
-              ) : null}
-            </View>
-
-            <View style={styles.buttonRow}>
-              <Pressable
-                style={[
-                  styles.bigButton,
-                  styles.primaryButton,
-                  { backgroundColor: "#1c7ed6", flex: 1 },
-                ]}
-                onPress={onCheckAnswer}
-                disabled={!hasStarted}
-              >
-                <Text style={styles.bigButtonText}>Tjek svar</Text>
-              </Pressable>
-            </View>
-
-            {drugAnswerStatus !== "neutral" && currentDrugQuestion && (
-              <View style={{ marginTop: 8 }}>
-                <Text style={[styles.statsLabel, { marginTop: 6 }]}>
-                  Korrekt svar:{" "}
-                  <Text style={{ fontWeight: "800" }}>
-                    {Number.isFinite(currentDrugQuestion.correctAnswer)
-                      ? String(currentDrugQuestion.correctAnswer)
-                      : ""}
-                  </Text>{" "}
-                  {currentDrugQuestion.unit}
+                <Text style={styles.feedbackAnswer}>
+                  Korrekt svar: {formatDrugAnswer(currentDrugQuestion)} {currentDrugQuestion.unit}
                 </Text>
-
-                {currentDrugQuestion.explanation ? (
-                  <Text style={[styles.drugHintText, { marginTop: 6 }]}>
-                    {currentDrugQuestion.explanation}
-                  </Text>
-                ) : null}
-
-                <View style={styles.buttonRow}>
-                  <Pressable
-                    style={[
-                      styles.bigButton,
-                      styles.secondaryButton,
-                      { backgroundColor: "#495057", flex: 1 },
-                    ]}
-                    onPress={onNextQuestion}
-                  >
-                    <Text style={styles.bigButtonText}>Næste spørgsmål</Text>
-                  </Pressable>
+                <DetailBlock label="Formel">{currentDrugQuestion.formula}</DetailBlock>
+                <View style={styles.detailBlock}>
+                  <Text style={styles.detailLabel}>Beregning trin for trin</Text>
+                  {currentDrugQuestion.calculationSteps.map((step, index) => (
+                    <Text key={`${step}-${index}`} style={styles.bodyText}>
+                      {index + 1}. {step}
+                    </Text>
+                  ))}
                 </View>
+                <DetailBlock label="Forklaring">
+                  {currentDrugQuestion.explanation}
+                </DetailBlock>
+                <DetailBlock label="Typisk faldgrube">
+                  {currentDrugQuestion.commonPitfall}
+                </DetailBlock>
+                <DetailBlock label="Plausibilitetskontrol">
+                  {currentDrugQuestion.plausibilityCheck}
+                </DetailBlock>
+                <DetailBlock label="Afrunding">
+                  {currentDrugQuestion.roundingNote}
+                </DetailBlock>
               </View>
-            )}
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </Background>
+            </Card>
+          ) : null}
+
+          {feedbackVisible ? (
+            <View style={styles.buttonStack}>
+              <PrimaryButton label="Næste opgave" onPress={onNextQuestion} />
+              <SecondaryButton label="Tilbage til Lægemiddelregning" onPress={onBack} />
+            </View>
+          ) : null}
+        </>
+      ) : (
+        <Card variant="subtle" style={styles.section}>
+          <Text style={styles.bodyText}>Vælg træningsform ovenfor for at begynde.</Text>
+        </Card>
+      )}
+    </Screen>
   );
 }
 
 export default DrugCalcPracticeScreen;
+
+const styles = StyleSheet.create({
+  content: { paddingBottom: Spacing.xxl },
+  section: { gap: Spacing.md, marginBottom: Spacing.md },
+  eyebrow: {
+    color: ColorTokens.accent.muted,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.caption,
+    lineHeight: Typography.lineHeights.caption,
+    fontWeight: Typography.weights.heavy,
+  },
+  sectionTitle: {
+    color: ColorTokens.text.primary,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.sectionTitle,
+    lineHeight: Typography.lineHeights.sectionTitle,
+    fontWeight: Typography.weights.bold,
+  },
+  questionText: {
+    color: ColorTokens.text.primary,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.cardTitle,
+    lineHeight: Typography.lineHeights.sectionTitle,
+    fontWeight: Typography.weights.semibold,
+  },
+  bodyText: {
+    color: ColorTokens.text.secondary,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.body,
+    lineHeight: Typography.lineHeights.body,
+  },
+  topicGrid: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.xs },
+  topicButton: {
+    minHeight: Interaction.compactTouchTarget,
+    justifyContent: "center",
+    borderRadius: Radii.control,
+    borderWidth: Borders.hairline,
+    borderColor: ColorTokens.border.default,
+    backgroundColor: ColorTokens.surface.inverse,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.xs,
+  },
+  topicButtonSelected: {
+    borderColor: ColorTokens.accent.muted,
+    backgroundColor: ColorTokens.accent.surface,
+  },
+  topicText: {
+    color: ColorTokens.text.secondary,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.label,
+    lineHeight: Typography.lineHeights.label,
+    fontWeight: Typography.weights.semibold,
+  },
+  topicTextSelected: { color: ColorTokens.text.primary },
+  pressed: { opacity: Interaction.pressedOpacity },
+  unitCallout: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    borderRadius: Radii.md,
+    borderWidth: Borders.hairline,
+    borderColor: ColorTokens.accent.border,
+    backgroundColor: ColorTokens.accent.surface,
+    padding: Spacing.md,
+    gap: Spacing.md,
+  },
+  unitLabel: {
+    color: ColorTokens.accent.muted,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.caption,
+    lineHeight: Typography.lineHeights.caption,
+    fontWeight: Typography.weights.heavy,
+  },
+  unitValue: {
+    color: ColorTokens.text.primary,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.cardTitle,
+    lineHeight: Typography.lineHeights.cardTitle,
+    fontWeight: Typography.weights.bold,
+  },
+  detailBlock: { gap: Spacing.xs },
+  detailLabel: {
+    color: ColorTokens.text.primary,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.label,
+    lineHeight: Typography.lineHeights.label,
+    fontWeight: Typography.weights.bold,
+  },
+  feedbackContent: { gap: Spacing.md },
+  feedbackCard: { borderWidth: Borders.emphasized },
+  feedbackCorrect: { borderColor: SemanticStates.success.foreground },
+  feedbackIncorrect: { borderColor: SemanticStates.danger.foreground },
+  feedbackTitle: {
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.cardTitle,
+    lineHeight: Typography.lineHeights.cardTitle,
+    fontWeight: Typography.weights.bold,
+  },
+  feedbackTitleCorrect: { color: SemanticStates.success.foreground },
+  feedbackTitleIncorrect: { color: SemanticStates.danger.foreground },
+  feedbackAnswer: {
+    color: ColorTokens.text.primary,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.cardTitle,
+    lineHeight: Typography.lineHeights.cardTitle,
+    fontWeight: Typography.weights.bold,
+  },
+  buttonStack: { gap: Spacing.sm },
+});

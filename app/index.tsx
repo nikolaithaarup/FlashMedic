@@ -874,6 +874,11 @@ export default function Index() {
       return;
     }
 
+    if (parsed < 0) {
+      Alert.alert("Ugyldigt svar", "Svaret kan ikke være negativt i denne opgave.");
+      return;
+    }
+
     const isCorrect = isDrugAnswerCorrect(
       parsed,
       currentDrugQuestion.correctAnswer,
