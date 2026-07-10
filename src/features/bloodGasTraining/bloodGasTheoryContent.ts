@@ -18,6 +18,34 @@ export type BloodGasPattern = {
   commonPitfall: string;
 };
 
+export type BloodGasValueDirection =
+  | "low"
+  | "reference"
+  | "high"
+  | "uncertain";
+
+export type BloodGasExampleValue = {
+  analyteId: string;
+  label: string;
+  value: string;
+  unit: string;
+  direction: BloodGasValueDirection;
+  note?: string;
+};
+
+export type BloodGasPatternExample = {
+  id: string;
+  title: string;
+  oneLineSummary: string;
+  clinicalContext: string;
+  values: BloodGasExampleValue[];
+  interpretation: string;
+  reasoning: string[];
+  commonPitfall: string;
+  prehospitalRelevance: string;
+  limitation: string;
+};
+
 export const acidBaseMethodSteps = [
   {
     label: "1. Start med pH",
@@ -240,6 +268,184 @@ export const bloodGasPatterns: BloodGasPattern[] = [
     supportingValues: "Baseline, diurese, væskestatus, medicin, EKG og sygdomsforløb er vigtige.",
     prehospitalRelevance: "Beskriv de konkrete afvigelser og klinikken; prøven afgør ikke om påvirkningen er akut eller kronisk.",
     commonPitfall: "At kalde en ukendt kreatininværdi akut eller forklare alle elektrolytafvigelser med nyresvigt.",
+  },
+];
+
+export const bloodGasPatternExamples: BloodGasPatternExample[] = [
+  {
+    id: "normal-ish",
+    title: "Normal-ish VGAS",
+    oneLineSummary: "pH, pCO₂, HCO₃⁻, BE og laktat uden tydelig hovedafvigelse.",
+    clinicalContext: "Eksempel på en venøs prøve uden et markant syre-base-mønster.",
+    values: [
+      { analyteId: "ph", label: "pH", value: "7,37", unit: "uden enhed", direction: "reference" },
+      { analyteId: "pco2", label: "pCO₂", value: "5,8", unit: "kPa", direction: "reference" },
+      { analyteId: "hco3", label: "HCO₃⁻", value: "25", unit: "mmol/L", direction: "reference" },
+      { analyteId: "be", label: "BE", value: "0", unit: "mmol/L", direction: "reference" },
+      { analyteId: "lactate", label: "Lactate", value: "1,3", unit: "mmol/L", direction: "reference" },
+    ],
+    interpretation: "Mønstret er foreneligt med en prøve uden tydelig større syre-base-afvigelse.",
+    reasoning: [
+      "pH ligger i eksempelapparatets referenceområde.",
+      "pCO₂, HCO₃⁻ og BE peger ikke på én tydelig primær komponent.",
+      "Laktat er ikke forhøjet i dette eksempel.",
+    ],
+    commonPitfall: "At antage at en normal-ish blodgas betyder, at patienten er upåvirket.",
+    prehospitalRelevance: "Brug fortsat ABCDE, symptomer og vitalparametre; blodgassen er kun ét øjebliksbillede.",
+    limitation: "Referenceområder varierer, og andre målte værdier kan stadig være afvigende.",
+  },
+  {
+    id: "metabolic-acidosis",
+    title: "Primær metabolisk acidose",
+    oneLineSummary: "Lav pH, lav HCO₃⁻, negativ BE og lav pCO₂ som mulig kompensation.",
+    clinicalContext: "Statisk eksempel på et metabolisk acidosemønster med respiratorisk modreaktion.",
+    values: [
+      { analyteId: "ph", label: "pH", value: "7,22", unit: "uden enhed", direction: "low" },
+      { analyteId: "pco2", label: "pCO₂", value: "4,0", unit: "kPa", direction: "low", note: "Kan passe med respiratorisk kompensation." },
+      { analyteId: "hco3", label: "HCO₃⁻", value: "13", unit: "mmol/L", direction: "low" },
+      { analyteId: "be", label: "BE", value: "-13", unit: "mmol/L", direction: "low", note: "Negativ base excess støtter metabolisk bidrag." },
+      { analyteId: "lactate", label: "Lactate", value: "2,1", unit: "mmol/L", direction: "uncertain" },
+    ],
+    interpretation: "Værdierne danner et mønster foreneligt med primær metabolisk acidose.",
+    reasoning: [
+      "Lav pH viser acidæmi.",
+      "Lav HCO₃⁻ og negativ BE støtter et metabolisk hovedbidrag.",
+      "Lav pCO₂ kan være en respiratorisk kompensationsretning.",
+    ],
+    commonPitfall: "At udpege årsagen alene fra syre-base-mønstret.",
+    prehospitalRelevance: "Sammenhold med perfusion, respiration, glukose, laktat, elektrolytter og sygdomsforløb.",
+    limitation: "Eksemplet vurderer ikke om kompensationen er tilstrækkelig eller om der findes en blandet forstyrrelse.",
+  },
+  {
+    id: "respiratory-acidosis",
+    title: "Respiratorisk acidose",
+    oneLineSummary: "Lav pH og høj venøs pCO₂; HCO₃⁻ og BE afhænger blandt andet af varighed.",
+    clinicalContext: "Eksempel på et respiratorisk CO₂-mønster i en venøs prøve.",
+    values: [
+      { analyteId: "ph", label: "pH", value: "7,24", unit: "uden enhed", direction: "low" },
+      { analyteId: "pco2", label: "pCO₂", value: "8,2", unit: "kPa", direction: "high", note: "Venøs pCO₂ skal fortolkes forsigtigt." },
+      { analyteId: "hco3", label: "HCO₃⁻", value: "26", unit: "mmol/L", direction: "uncertain" },
+      { analyteId: "be", label: "BE", value: "+1", unit: "mmol/L", direction: "uncertain" },
+    ],
+    interpretation: "Mønstret kan støtte mistanke om et primært respiratorisk bidrag til acidæmien.",
+    reasoning: [
+      "pH viser acidæmi.",
+      "pCO₂ er høj i den venøse prøve og bevæger sig i acidotisk retning.",
+      "HCO₃⁻ og BE kan ikke alene afgøre varighed eller årsag.",
+    ],
+    commonPitfall: "At læse venøs pCO₂ som en præcis arteriel værdi.",
+    prehospitalRelevance: "Kobl mønstret til respirationsarbejde, frekvens, bevidsthed, SpO₂ og klinisk udvikling.",
+    limitation: "Prøven beskriver ikke arteriel oxygenation og fastslår ikke årsagen til ændret ventilation.",
+  },
+  {
+    id: "respiratory-alkalosis",
+    title: "Respiratorisk alkalose",
+    oneLineSummary: "Høj pH og lav pCO₂; HCO₃⁻ og BE kan variere med varigheden.",
+    clinicalContext: "Eksempel på et respiratorisk lavt-CO₂-mønster.",
+    values: [
+      { analyteId: "ph", label: "pH", value: "7,48", unit: "uden enhed", direction: "high" },
+      { analyteId: "pco2", label: "pCO₂", value: "3,5", unit: "kPa", direction: "low" },
+      { analyteId: "hco3", label: "HCO₃⁻", value: "21", unit: "mmol/L", direction: "uncertain" },
+      { analyteId: "be", label: "BE", value: "-2", unit: "mmol/L", direction: "uncertain" },
+    ],
+    interpretation: "Mønstret er foreneligt med et primært respiratorisk alkalotisk bidrag.",
+    reasoning: [
+      "pH er høj.",
+      "Lav pCO₂ bevæger pH i alkalotisk retning.",
+      "HCO₃⁻ og BE skal vurderes i forhold til varighed og øvrig klinik.",
+    ],
+    commonPitfall: "At antage én årsag til hyperventilation uden at undersøge patienten bredt.",
+    prehospitalRelevance: "Sammenhold med respirationsmønster, kredsløb, temperatur, smerter og øvrige symptomer.",
+    limitation: "Et enkelt prøvesæt viser ikke sikkert varighed eller om en blandet proces er til stede.",
+  },
+  {
+    id: "hyperglycaemic-acidosis",
+    title: "Svær hyperglykæmi med metabolisk-acidose-mønster",
+    oneLineSummary: "Høj glukose sammen med lav pH, lav HCO₃⁻ og negativ BE.",
+    clinicalContext: "Eksempel på metabolisk påvirkning ved svær hyperglykæmi.",
+    values: [
+      { analyteId: "glucose", label: "Glucose", value: "28", unit: "mmol/L", direction: "high" },
+      { analyteId: "ph", label: "pH", value: "7,18", unit: "uden enhed", direction: "low" },
+      { analyteId: "hco3", label: "HCO₃⁻", value: "11", unit: "mmol/L", direction: "low" },
+      { analyteId: "be", label: "BE", value: "-15", unit: "mmol/L", direction: "low" },
+      { analyteId: "pco2", label: "pCO₂", value: "3,6", unit: "kPa", direction: "low" },
+      { analyteId: "potassium", label: "K⁺", value: "5,3", unit: "mmol/L", direction: "uncertain", note: "Kalium skal ses i samlet metabolisk kontekst." },
+    ],
+    interpretation: "Mønstret kan støtte mistanke om metabolisk påvirkning ved svær hyperglykæmi.",
+    reasoning: [
+      "Glukose er markant forhøjet i eksemplet.",
+      "Lav pH, lav HCO₃⁻ og negativ BE viser et metabolisk acidosebidrag.",
+      "Lav pCO₂ kan passe med respiratorisk kompensation.",
+    ],
+    commonPitfall: "At konkludere en bestemt tilstand uden ketoner, klinik og differentialdiagnoser.",
+    prehospitalRelevance: "Beskriv bevidsthed, væskestatus, vitalparametre, glukose, syre-base og elektrolytter ved overlevering.",
+    limitation: "Værdierne kan ikke alene fastslå årsagen til hyperglykæmi eller acidose.",
+  },
+  {
+    id: "hypoperfusion-lactate",
+    title: "Hypoperfusion / forhøjet-laktat-mønster",
+    oneLineSummary: "Højt laktat med mulig acidæmi og negativ BE; vitalparametre er afgørende.",
+    clinicalContext: "Eksempel på et forhøjet-laktat-mønster ved fysiologisk belastning.",
+    values: [
+      { analyteId: "lactate", label: "Lactate", value: "5,8", unit: "mmol/L", direction: "high" },
+      { analyteId: "ph", label: "pH", value: "7,28", unit: "uden enhed", direction: "low" },
+      { analyteId: "be", label: "BE", value: "-8", unit: "mmol/L", direction: "low" },
+      { analyteId: "hco3", label: "HCO₃⁻", value: "18", unit: "mmol/L", direction: "low" },
+      { analyteId: "pco2", label: "pCO₂", value: "4,7", unit: "kPa", direction: "uncertain" },
+    ],
+    interpretation: "Mønstret kan støtte mistanke om fysiologisk belastning med metabolisk syrepåvirkning.",
+    reasoning: [
+      "Laktat er forhøjet.",
+      "Lav pH, lav HCO₃⁻ og negativ BE viser samtidig metabolisk påvirkning.",
+      "Årsagen kan ikke udledes af laktat alene.",
+    ],
+    commonPitfall: "At sidestille ethvert forhøjet laktat med shock.",
+    prehospitalRelevance: "Vurder trend sammen med blodtryk, hud, kapillærrespons, puls, bevidsthed og temperatur.",
+    limitation: "Laktat påvirkes af flere mekanismer, medicin, muskelarbejde, prøvetagning og timing.",
+  },
+  {
+    id: "inflammation-crp",
+    title: "Inflammation / forhøjet-CRP-mønster",
+    oneLineSummary: "Høj CRP med ellers variabel VGAS; tidsforløb og klinik vejer tungt.",
+    clinicalContext: "Eksempel på forhøjet inflammationsmarkør uden et specifikt syre-base-mønster.",
+    values: [
+      { analyteId: "crp", label: "CRP", value: "180", unit: "mg/L", direction: "high" },
+      { analyteId: "ph", label: "pH", value: "7,38", unit: "uden enhed", direction: "reference" },
+      { analyteId: "lactate", label: "Lactate", value: "1,8", unit: "mmol/L", direction: "uncertain" },
+      { analyteId: "glucose", label: "Glucose", value: "7,5", unit: "mmol/L", direction: "uncertain" },
+    ],
+    interpretation: "Forhøjet CRP kan støtte mistanke om en inflammatorisk proces, men mønstret er uspecifikt.",
+    reasoning: [
+      "CRP er forhøjet i eksemplet.",
+      "Syre-base-værdierne viser ikke samtidig en tydelig hovedforstyrrelse.",
+      "CRP skal forstås ud fra symptomer, timing, vitalparametre og fokus.",
+    ],
+    commonPitfall: "At bruge CRP som bevis for bakteriel infektion eller som mål for hele patientens risiko.",
+    prehospitalRelevance: "Overlever CRP sammen med prøvetidspunkt, klinisk fokus, vitalparametre og kendt udvikling.",
+    limitation: "CRP er ikke infektionsspecifik, ændrer sig over tid og kan halte efter den kliniske tilstand.",
+  },
+  {
+    id: "renal-electrolyte",
+    title: "Renal påvirkning / elektrolyt-mønster",
+    oneLineSummary: "Høj creatinine og urea, afvigende K⁺ og muligt metabolisk acidosebidrag.",
+    clinicalContext: "Eksempel på et renal- og elektrolytmønster med ukendt baseline.",
+    values: [
+      { analyteId: "creatinine", label: "Creatinine", value: "320", unit: "µmol/L", direction: "high" },
+      { analyteId: "urea", label: "Urea", value: "22", unit: "mmol/L", direction: "high" },
+      { analyteId: "potassium", label: "K⁺", value: "6,1", unit: "mmol/L", direction: "high", note: "Prøvekvalitet og EKG-kontekst er vigtige." },
+      { analyteId: "ph", label: "pH", value: "7,25", unit: "uden enhed", direction: "low" },
+      { analyteId: "hco3", label: "HCO₃⁻", value: "15", unit: "mmol/L", direction: "low" },
+      { analyteId: "be", label: "BE", value: "-10", unit: "mmol/L", direction: "low" },
+    ],
+    interpretation: "Mønstret kan støtte mistanke om renal eller væskerelateret påvirkning med elektrolyt- og syre-base-afvigelser.",
+    reasoning: [
+      "Creatinine og urea er forhøjede i eksemplet.",
+      "Kalium er forhøjet og skal vurderes sammen med prøvekvalitet og EKG.",
+      "Lav pH, lav HCO₃⁻ og negativ BE viser et metabolisk acidosebidrag.",
+    ],
+    commonPitfall: "At kalde påvirkningen akut uden baseline eller at forklare alle fund med nyresvigt.",
+    prehospitalRelevance: "Overlever konkrete værdier, prøvekvalitet, EKG-fund, væskestatus, medicin og kendt nyrehistorik.",
+    limitation: "Én prøve kan ikke afgøre om renal påvirkning er akut eller kronisk.",
   },
 ];
 

@@ -15,7 +15,9 @@ import {
   acidBaseMethodSteps,
   ambulanceFocusPoints,
   bloodGasAnalytes,
-  bloodGasPatterns,
+  bloodGasPatternExamples,
+  type BloodGasExampleValue,
+  type BloodGasValueDirection,
   venousLimitations,
 } from "./bloodGasTheoryContent";
 
@@ -49,6 +51,46 @@ function InfoBlock({ label, text }: { label: string; text: string }) {
     <View style={styles.infoBlock}>
       <Text style={styles.infoLabel}>{label}</Text>
       <Text style={styles.detailText}>{text}</Text>
+    </View>
+  );
+}
+
+const directionLabels: Record<BloodGasValueDirection, string> = {
+  low: "Lav",
+  reference: "Reference",
+  high: "Høj",
+  uncertain: "Usikker / kontekstafhængig",
+};
+
+function ValueTile({ value }: { value: BloodGasExampleValue }) {
+  const isReference = value.direction === "reference";
+  const isAbnormal = value.direction === "low" || value.direction === "high";
+
+  return (
+    <View
+      style={[
+        styles.valueTile,
+        isReference && styles.valueTileReference,
+        isAbnormal && styles.valueTileAbnormal,
+      ]}
+    >
+      <View style={styles.valueTileMain}>
+        <Text style={styles.valueLabel}>{value.label}</Text>
+        <View style={styles.valueReading}>
+          <Text style={styles.valueNumber}>{value.value}</Text>
+          {value.unit ? <Text style={styles.valueUnit}>{value.unit}</Text> : null}
+        </View>
+        <Text
+          style={[
+            styles.valueDirection,
+            isReference && styles.valueDirectionReference,
+            isAbnormal && styles.valueDirectionAbnormal,
+          ]}
+        >
+          {directionLabels[value.direction]}
+        </Text>
+      </View>
+      {value.note ? <Text style={styles.valueNote}>{value.note}</Text> : null}
     </View>
   );
 }
@@ -205,13 +247,12 @@ export function BloodGasTrainingHomeScreen({ onBack }: Props) {
           expanded={expandedSection === "patterns"}
           id="patterns"
           onToggle={toggleSection}
-          summary="8 statiske eksempler, som kan støtte en samlet mistanke."
-          title="Typiske mønstre"
+          summary="8 statiske eksempler med konkrete værdier."
+          title="Eksempler med værdier"
         >
           <View style={styles.nestedList}>
-            {bloodGasPatterns.map((pattern) => {
+            {bloodGasPatternExamples.map((pattern) => {
               const expanded = expandedPatternId === pattern.id;
-              const directionPreview = pattern.directions.slice(0, 3).join(" · ");
               return (
                 <View key={pattern.id} style={styles.nestedItem}>
                   <Pressable
@@ -228,7 +269,9 @@ export function BloodGasTrainingHomeScreen({ onBack }: Props) {
                   >
                     <View style={styles.headerCopy}>
                       <Text style={styles.cardTitle}>{pattern.title}</Text>
-                      <Text style={styles.patternPreview}>{directionPreview}</Text>
+                      <Text style={styles.patternPreview}>
+                        {pattern.oneLineSummary}
+                      </Text>
                     </View>
                     <Text style={styles.nestedExpandIcon} accessibilityElementsHidden>
                       {expanded ? "⌃" : "⌄"}
@@ -237,20 +280,33 @@ export function BloodGasTrainingHomeScreen({ onBack }: Props) {
 
                   {expanded ? (
                     <View style={styles.nestedContent}>
-                      <Text style={styles.detailText}>{pattern.summary}</Text>
-                      <View style={styles.directionList}>
-                        {pattern.directions.map((direction) => (
-                          <View key={direction} style={styles.directionTag}>
-                            <Text style={styles.directionText}>{direction}</Text>
-                          </View>
+                      <InfoBlock label="Kontekst" text={pattern.clinicalContext} />
+                      <View style={styles.valueList}>
+                        {pattern.values.map((value) => (
+                          <ValueTile
+                            key={`${pattern.id}-${value.analyteId}`}
+                            value={value}
+                          />
                         ))}
                       </View>
-                      <InfoBlock label="Støtteværdier" text={pattern.supportingValues} />
+                      <InfoBlock
+                        label="Fortolkning"
+                        text={pattern.interpretation}
+                      />
+                      <View style={styles.infoBlock}>
+                        <Text style={styles.infoLabel}>Hvorfor passer værdierne?</Text>
+                        <View style={styles.bulletList}>
+                          {pattern.reasoning.map((reason) => (
+                            <BulletText key={reason}>{reason}</BulletText>
+                          ))}
+                        </View>
+                      </View>
                       <InfoBlock
                         label="Præhospital relevans"
                         text={pattern.prehospitalRelevance}
                       />
                       <InfoBlock label="Faldgrube" text={pattern.commonPitfall} />
+                      <InfoBlock label="Begrænsning" text={pattern.limitation} />
                     </View>
                   ) : null}
                 </View>
@@ -456,20 +512,66 @@ const styles = StyleSheet.create({
     backgroundColor: ColorTokens.accent.muted,
     marginTop: 7,
   },
-  directionList: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.xs },
-  directionTag: {
+  valueList: { gap: Spacing.xs },
+  valueTile: {
     borderRadius: Radii.sm,
     borderWidth: Borders.hairline,
     borderColor: ColorTokens.border.default,
-    backgroundColor: ColorTokens.accent.surface,
-    paddingHorizontal: Spacing.sm,
-    paddingVertical: 4,
+    backgroundColor: ColorTokens.surface.subtle,
+    padding: Spacing.sm,
+    gap: Spacing.xs,
   },
-  directionText: {
+  valueTileReference: { borderColor: ColorTokens.accent.border },
+  valueTileAbnormal: { borderColor: ColorTokens.semantic.warning },
+  valueTileMain: {
+    minHeight: Interaction.compactTouchTarget,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.sm,
+  },
+  valueLabel: {
+    width: 72,
     color: ColorTokens.text.primary,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.label,
+    lineHeight: Typography.lineHeights.label,
+    fontWeight: Typography.weights.bold,
+  },
+  valueReading: {
+    minWidth: 88,
+    flexDirection: "row",
+    alignItems: "baseline",
+    flexWrap: "wrap",
+    gap: 4,
+  },
+  valueNumber: {
+    color: ColorTokens.text.primary,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.body,
+    lineHeight: Typography.lineHeights.body,
+    fontWeight: Typography.weights.bold,
+  },
+  valueUnit: {
+    color: ColorTokens.text.secondary,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.caption,
+    lineHeight: Typography.lineHeights.caption,
+  },
+  valueDirection: {
+    flex: 1,
+    color: ColorTokens.text.secondary,
     fontFamily: Typography.families.sans,
     fontSize: Typography.sizes.caption,
     lineHeight: Typography.lineHeights.caption,
     fontWeight: Typography.weights.semibold,
+    textAlign: "right",
+  },
+  valueDirectionReference: { color: ColorTokens.accent.muted },
+  valueDirectionAbnormal: { color: ColorTokens.semantic.warning },
+  valueNote: {
+    color: ColorTokens.text.secondary,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.caption,
+    lineHeight: Typography.lineHeights.caption,
   },
 });
