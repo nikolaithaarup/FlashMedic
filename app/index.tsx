@@ -53,6 +53,7 @@ import { EkgImageDrillScreen } from "../src/features/ekgTraining/EkgImageDrillSc
 import { EkgTrainingHomeScreen } from "../src/features/ekgTraining/EkgTrainingHomeScreen";
 import { EkgRhythmTrainerScreen } from "../src/features/ekgTraining/EkgRhythmTrainerScreen";
 import { buildEkgInteractiveImageDrillPool } from "../src/features/ekgTraining/ekgImageDrills";
+import { BloodGasTrainingHomeScreen } from "../src/features/bloodGasTraining/BloodGasTrainingHomeScreen";
 
 import { ContactScreen } from "../src/features/contact/ContactScreen";
 import AuthScreen from "../src/features/profile/AuthScreen";
@@ -103,6 +104,7 @@ type Screen =
   | "ekgTrainingHome"
   | "ekgRhythmTrainer"
   | "ekgImageDrill"
+  | "bloodGasTrainingHome"
   | "drugCalcHome"
   | "drugCalcPractice"
   | "drugCalcTheory";
@@ -1220,6 +1222,10 @@ export default function Index() {
     );
   }
 
+  if (screen === "bloodGasTrainingHome") {
+    return <BloodGasTrainingHomeScreen onBack={() => setScreen("home")} />;
+  }
+
   if (screen === "ekgRhythmTrainer") {
     return <EkgRhythmTrainerScreen onBack={() => setScreen("ekgTrainingHome")} />;
   }
@@ -1254,6 +1260,7 @@ export default function Index() {
       onOpenFlashcardsHome={() => setScreen("flashcardsHome")}
       onOpenDrugCalcHome={() => setScreen("drugCalcHome")}
       onOpenEkgTraining={() => setScreen("ekgTrainingHome")}
+      onOpenBloodGasTraining={() => setScreen("bloodGasTrainingHome")}
       onOpenStats={() => setScreen("stats")}
       onOpenContact={() => setScreen("contact")}
     />

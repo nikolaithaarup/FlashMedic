@@ -41,6 +41,7 @@ type HomeScreenProps = {
   onOpenFlashcardsHome: () => void;
   onOpenDrugCalcHome: () => void;
   onOpenEkgTraining: () => void;
+  onOpenBloodGasTraining: () => void;
   onOpenStats: () => void;
   onOpenContact: () => void;
 };
@@ -110,6 +111,7 @@ export default function HomeScreen({
   onOpenFlashcardsHome,
   onOpenDrugCalcHome,
   onOpenEkgTraining,
+  onOpenBloodGasTraining,
   onOpenStats,
   onOpenContact,
 }: HomeScreenProps) {
@@ -219,6 +221,12 @@ export default function HomeScreen({
               eyebrow="RYTME OG TEORI"
               onPress={onOpenEkgTraining}
               title="EKG-træning"
+            />
+            <DestinationCard
+              description="Træn præhospital tolkning af syre-base, elektrolytter, laktat, glukose og inflammation."
+              eyebrow="AVANCERET"
+              onPress={onOpenBloodGasTraining}
+              title="VGAS & CRP"
             />
           </View>
 
