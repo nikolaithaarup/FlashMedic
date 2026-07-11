@@ -1047,7 +1047,6 @@ export default function Index() {
         topicGroupsForSelectedSubject={topicGroupsForSelectedSubject}
         allSelectableKeys={allSelectableKeys}
         allTopicsSelected={allTopicsSelected}
-        cardsForSelectedSubjectCount={cardsForSelectedSubject.length}
         onStartAllSubjectsQuiz={handleStartAllSubjectsQuiz}
         disableAllSubjectsQuiz={loadingCards || cards.length === 0}
         onBack={() => setScreen("home")}

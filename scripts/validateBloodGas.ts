@@ -89,9 +89,19 @@ const phStatuses = new Set(phStatusOptions.map((option) => option.id));
 const primaryProcesses = new Set(primaryProcessOptions.map((option) => option.id));
 const patternIds = new Set(patternOptions.map((option) => option.id));
 const caseIds = bloodGasTrainingCases.map((trainingCase) => trainingCase.id);
+const caseTitles = bloodGasTrainingCases.map((trainingCase) => trainingCase.title);
+
+if (bloodGasTrainingCases.length < 16 || bloodGasTrainingCases.length > 20) {
+  errors.push(
+    `Expected 16-20 blood-gas training cases, found ${bloodGasTrainingCases.length}.`,
+  );
+}
 
 for (const duplicate of new Set(findDuplicates(caseIds))) {
   errors.push(`Duplicate training case id: ${duplicate}.`);
+}
+for (const duplicate of new Set(findDuplicates(caseTitles))) {
+  errors.push(`Duplicate training case title: ${duplicate}.`);
 }
 
 for (const trainingCase of bloodGasTrainingCases) {
@@ -158,5 +168,5 @@ if (errors.length > 0) {
 }
 
 console.log(
-  `Blood-gas validation passed: ${bloodGasPatternExamples.length} examples, ${bloodGasTrainingCases.length} training cases, and ${bloodGasAnalytes.length} analytes.`,
+  `Blood-gas validation passed: ${bloodGasPatternExamples.length} examples, ${bloodGasTrainingCases.length} training cases, ${new Set(bloodGasTrainingCases.map((trainingCase) => trainingCase.expected.patternId)).size} covered patterns, and ${bloodGasAnalytes.length} analytes.`,
 );

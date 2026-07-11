@@ -279,14 +279,14 @@ export function EkgImageDrillScreen({ cards, loadingCards, onBack }: Props) {
         <ToolPageHeader
           backLabel="Tilbage til EKG-træning"
           onBack={onBack}
-          subtitle="Interaktiv billedbaseret rytmetræning uden scoring."
+          subtitle="Vurder rytmen systematisk ud fra EKG-billedet."
           title="EKG-billedtræning"
         />
 
-        <NoticeCard title="Uddannelsestræning" tone="info" style={styles.notice}>
+        <NoticeCard title="Træn rytmetolkning" tone="info" style={styles.notice}>
           <Text style={styles.noticeText}>
-            Vælg observationer trin for trin. Når du trykker Tjek svar, får du
-            feedback uden at noget gemmes i statistik eller fejl-køer.
+            Vurder billedet trin for trin. Feedback vises først, når du tjekker
+            svaret.
           </Text>
         </NoticeCard>
 
@@ -300,8 +300,8 @@ export function EkgImageDrillScreen({ cards, loadingCards, onBack }: Props) {
         ) : deck.length === 0 ? (
           <Card variant="subtle" style={styles.sectionCard}>
             <EmptyState
-              message="Interaktiv billedtræning kræver gennemgået EKG-metadata. Flere billeder bliver tilføjet, når de er kurateret."
-              title="Ingen interaktive EKG-billeder klar"
+              message="Der er ingen EKG-billeder tilgængelige i billedtræningen lige nu."
+              title="Ingen EKG-billeder klar"
             />
             <SecondaryButton label="Tilbage til EKG-træning" onPress={onBack} />
           </Card>
@@ -324,10 +324,11 @@ export function EkgImageDrillScreen({ cards, loadingCards, onBack }: Props) {
                   <Text style={styles.eyebrow}>
                     BILLEDE {currentIndex + 1} AF {deck.length}
                   </Text>
-                  <Text style={styles.sectionTitle}>{assessment.title}</Text>
+                  <Text style={styles.sectionTitle}>
+                    Rytmecase {currentIndex + 1}
+                  </Text>
                   <Text style={styles.bodyText}>
-                    Interaktiv træning: {deck.length} billeder. Flere
-                    EKG-billeder bliver tilføjet, når de er gennemgået.
+                    Vurder rytmen ud fra billedet og observationerne nedenfor.
                   </Text>
                 </View>
                 <View style={styles.countBadge}>
@@ -383,7 +384,7 @@ export function EkgImageDrillScreen({ cards, loadingCards, onBack }: Props) {
                   {correctCount} af {ekgAssessmentStepOrder.length} rigtige
                 </Text>
                 <Text style={styles.summaryRhythm}>
-                  Rytmeforslag: {assessment.rhythmName}
+                  Rytmen passer bedst med: {assessment.rhythmName}
                 </Text>
 
                 <View style={styles.summaryBlock}>

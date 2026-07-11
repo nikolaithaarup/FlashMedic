@@ -34,7 +34,6 @@ type FlashcardsHomeScreenProps = {
   topicGroupsForSelectedSubject: TopicGroup[];
   allSelectableKeys: string[];
   allTopicsSelected: boolean;
-  cardsForSelectedSubjectCount: number;
   onStartAllSubjectsQuiz: () => void;
   disableAllSubjectsQuiz: boolean;
   onBack: () => void;
@@ -82,7 +81,6 @@ export default function FlashcardsHomeScreen({
   topicGroupsForSelectedSubject,
   allSelectableKeys,
   allTopicsSelected,
-  cardsForSelectedSubjectCount,
   onStartAllSubjectsQuiz,
   disableAllSubjectsQuiz,
   onBack,
@@ -96,12 +94,6 @@ export default function FlashcardsHomeScreen({
     () => (selectedSubject ? buildChips(topicGroupsForSelectedSubject) : []),
     [selectedSubject, topicGroupsForSelectedSubject],
   );
-  const startDisabled =
-    loadingCards ||
-    (!!selectedSubject &&
-      cardsForSelectedSubjectCount === 0 &&
-      selectedKeys.length === 0);
-
   const toggleKey = (key: string) => {
     setSelectedKeys((current) =>
       current.includes(key)
@@ -242,7 +234,7 @@ export default function FlashcardsHomeScreen({
             <View style={styles.selectionHeader}>
               <Text style={styles.selectionCount}>
                 {selectedKeys.length === 0
-                  ? "Alle emner bruges"
+                  ? "Vælg et eller flere emner for at starte en målrettet quiz."
                   : `${selectedKeys.length} valgt`}
               </Text>
               <SecondaryButton
@@ -269,17 +261,15 @@ export default function FlashcardsHomeScreen({
         )}
       </Card>
 
-      <PrimaryButton
-        disabled={startDisabled}
-        label={
-          selectedKeys.length === 0
-            ? "Start quiz i alle emner"
-            : "Start quiz i valgte emner"
-        }
-        loading={loadingCards}
-        onPress={onStartQuiz}
-        style={styles.startButton}
-      />
+      {selectedSubject && selectedKeys.length > 0 ? (
+        <PrimaryButton
+          disabled={loadingCards}
+          label="Start quiz i valgte emner"
+          loading={loadingCards}
+          onPress={onStartQuiz}
+          style={styles.startButton}
+        />
+      ) : null}
     </Screen>
   );
 }
