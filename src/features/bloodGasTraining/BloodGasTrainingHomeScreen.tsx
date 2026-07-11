@@ -21,8 +21,8 @@ import {
   acidBaseMethodSteps,
   ambulanceFocusPoints,
   bloodGasAnalytes,
-  bloodGasPatternExamples,
   type BloodGasExampleValue,
+  bloodGasPatternExamples,
   type BloodGasValueDirection,
   venousLimitations,
 } from "./bloodGasTheoryContent";
@@ -86,7 +86,9 @@ function ValueTile({ value }: { value: BloodGasExampleValue }) {
         <Text style={styles.valueLabel}>{value.label}</Text>
         <View style={styles.valueReading}>
           <Text style={styles.valueNumber}>{value.value}</Text>
-          {value.unit ? <Text style={styles.valueUnit}>{value.unit}</Text> : null}
+          {value.unit ? (
+            <Text style={styles.valueUnit}>{value.unit}</Text>
+          ) : null}
         </View>
         <Text
           style={[
@@ -143,43 +145,48 @@ export function BloodGasTrainingHomeScreen({
   onStartValueTrainer,
   onStartPatternTrainer,
 }: Props) {
-  const [expandedSection, setExpandedSection] = useState<SectionId | null>(null);
-  const [expandedAnalyteId, setExpandedAnalyteId] = useState<string | null>(null);
-  const [expandedPatternId, setExpandedPatternId] = useState<string | null>(null);
+  const [expandedSection, setExpandedSection] = useState<SectionId | null>(
+    null,
+  );
+  const [expandedAnalyteId, setExpandedAnalyteId] = useState<string | null>(
+    null,
+  );
+  const [expandedPatternId, setExpandedPatternId] = useState<string | null>(
+    null,
+  );
 
   const toggleSection = (sectionId: SectionId) => {
     setExpandedSection((current) => (current === sectionId ? null : sectionId));
   };
 
   return (
-    <Screen contentContainerStyle={styles.content} testID="blood-gas-training-screen">
+    <Screen
+      contentContainerStyle={styles.content}
+      testID="blood-gas-training-screen"
+    >
       <StatusBar style="light" />
       <ToolPageHeader
         backLabel="Tilbage til forsiden"
         onBack={onBack}
-        subtitle="Avanceret præhospital laboratorieforståelse."
+        subtitle="Praktisk træning i VGAS og CRP"
         title="VGAS & CRP"
       />
 
-      <NoticeCard title="Avanceret uddannelsestræning" tone="info" style={styles.section}>
-        <Text style={styles.noticeText}>
-          Ikke klinisk beslutningsstøtte. Se værdier sammen med symptomer,
-          vitalparametre, prøvetype, trends, apparatets referenceområder og lokal
-          vejledning.
-        </Text>
+      <NoticeCard title="Til faglig træning" tone="info" style={styles.section}>
+        <Text style={styles.noticeText}></Text>
       </NoticeCard>
 
       <Card variant="subtle" style={styles.trainerCard}>
         <View style={styles.headerCopy}>
           <Text style={styles.eyebrow}>INTERAKTIV TRÆNING</Text>
-          <Text style={styles.sectionTitle}>Træn værdier</Text>
+          <Text style={styles.sectionTitle}>Tolk en blodgas</Text>
           <Text style={styles.summaryText}>
             Vurder værdier trin for trin og vælg mønsteret, der passer bedst.
             Værdier alene er ikke en klinisk diagnose.
           </Text>
         </View>
         <PrimaryButton
-          label="Start værditræning"
+          label="Start tolkning"
           onPress={onStartValueTrainer}
           testID="start-blood-gas-value-trainer"
         />
@@ -188,13 +195,17 @@ export function BloodGasTrainingHomeScreen({
       <Card variant="subtle" style={styles.trainerCard}>
         <View style={styles.headerCopy}>
           <Text style={styles.eyebrow}>OMVENDT TRÆNING</Text>
-          <Text style={styles.sectionTitle}>Træn forventede værdier</Text>
+          <Text style={styles.sectionTitle}>Forudsig værdier</Text>
           <Text style={styles.summaryText}>
             Se et mønster og vurder, hvilke værdier der typisk er lave, normale,
             høje eller usikre.
           </Text>
         </View>
-        <PrimaryButton label="Start mønstertræning" onPress={onStartPatternTrainer} testID="start-blood-gas-pattern-trainer" />
+        <PrimaryButton
+          label="Start værdiforudsigelse"
+          onPress={onStartPatternTrainer}
+          testID="start-blood-gas-pattern-trainer"
+        />
       </Card>
 
       <Card variant="subtle" style={styles.methodCard}>
@@ -246,7 +257,10 @@ export function BloodGasTrainingHomeScreen({
                       </View>
                       <Text style={styles.previewText}>{analyte.reflects}</Text>
                     </View>
-                    <Text style={styles.nestedExpandIcon} accessibilityElementsHidden>
+                    <Text
+                      style={styles.nestedExpandIcon}
+                      accessibilityElementsHidden
+                    >
                       {expanded ? "⌃" : "⌄"}
                     </Text>
                   </Pressable>
@@ -257,8 +271,14 @@ export function BloodGasTrainingHomeScreen({
                         label="Præhospital relevans"
                         text={analyte.prehospitalRelevance}
                       />
-                      <InfoBlock label="Faldgrube" text={analyte.commonPitfall} />
-                      <InfoBlock label="Begrænsning" text={analyte.limitations} />
+                      <InfoBlock
+                        label="Faldgrube"
+                        text={analyte.commonPitfall}
+                      />
+                      <InfoBlock
+                        label="Begrænsning"
+                        text={analyte.limitations}
+                      />
                     </View>
                   ) : null}
                 </View>
@@ -313,14 +333,20 @@ export function BloodGasTrainingHomeScreen({
                         {pattern.oneLineSummary}
                       </Text>
                     </View>
-                    <Text style={styles.nestedExpandIcon} accessibilityElementsHidden>
+                    <Text
+                      style={styles.nestedExpandIcon}
+                      accessibilityElementsHidden
+                    >
                       {expanded ? "⌃" : "⌄"}
                     </Text>
                   </Pressable>
 
                   {expanded ? (
                     <View style={styles.nestedContent}>
-                      <InfoBlock label="Kontekst" text={pattern.clinicalContext} />
+                      <InfoBlock
+                        label="Kontekst"
+                        text={pattern.clinicalContext}
+                      />
                       <View style={styles.valueList}>
                         {pattern.values.map((value) => (
                           <ValueTile
@@ -334,7 +360,9 @@ export function BloodGasTrainingHomeScreen({
                         text={pattern.interpretation}
                       />
                       <View style={styles.infoBlock}>
-                        <Text style={styles.infoLabel}>Hvorfor passer værdierne?</Text>
+                        <Text style={styles.infoLabel}>
+                          Hvorfor passer værdierne?
+                        </Text>
                         <View style={styles.bulletList}>
                           {pattern.reasoning.map((reason) => (
                             <BulletText key={reason}>{reason}</BulletText>
@@ -345,8 +373,14 @@ export function BloodGasTrainingHomeScreen({
                         label="Præhospital relevans"
                         text={pattern.prehospitalRelevance}
                       />
-                      <InfoBlock label="Faldgrube" text={pattern.commonPitfall} />
-                      <InfoBlock label="Begrænsning" text={pattern.limitation} />
+                      <InfoBlock
+                        label="Faldgrube"
+                        text={pattern.commonPitfall}
+                      />
+                      <InfoBlock
+                        label="Begrænsning"
+                        text={pattern.limitation}
+                      />
                     </View>
                   ) : null}
                 </View>
@@ -545,7 +579,11 @@ const styles = StyleSheet.create({
     fontWeight: Typography.weights.bold,
   },
   bulletList: { gap: Spacing.sm },
-  bulletRow: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.sm },
+  bulletRow: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: Spacing.sm,
+  },
   bullet: {
     width: 6,
     height: 6,

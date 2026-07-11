@@ -102,18 +102,18 @@ export function WeeklyHomeScreen({
         backLabel="Tilbage til forsiden"
         onBack={onBackToHome}
         subtitle="Tre udfordringer · én deltagelse pr. spil"
-        title="Weekly Challenges"
+        title="Ugens udfordringer"
       />
 
       <Text style={styles.sectionLabel}>UGENS SPIL</Text>
       {resolution?.isFallback ? (
         <NoticeCard title="Kompatibilitetsindhold" tone="info">
-          Ugens spil bruger et ældre indholdsnøgleformat. Resultater og
-          leaderboard bruger samme nøgle.
+          Ugens spil bruger en ældre version af indholdet. Du kan stadig spille
+          og gemme dit resultat.
         </NoticeCard>
       ) : null}
       {pendingWeeklyUploads > 0 ? (
-        <NoticeCard title="Resultat afventer upload" tone="warning">
+        <NoticeCard title="Resultat venter på at blive sendt" tone="warning">
           {`${pendingWeeklyUploads} resultat${pendingWeeklyUploads === 1 ? "" : "er"} er gemt sikkert på enheden. Tryk Opdatér for at prøve igen.`}
         </NoticeCard>
       ) : null}
@@ -122,27 +122,27 @@ export function WeeklyHomeScreen({
           description="Vælg det korrekte svar."
           locked={weeklyMcqLocked}
           onPress={onOpenMcq}
-          title="Multiple Choice"
+          title="Ugens quiz"
         />
         <GameCard
           description="Forbind begreber og forklaringer."
           locked={weeklyMatchLocked}
           onPress={onOpenMatch}
-          title="Match Game"
+          title="Match parrene"
         />
         <GameCard
           description="Find ugens medicinske ord."
           locked={weeklyWordLocked}
           onPress={onOpenWord}
-          title="Word of the Week"
+          title="Ugens ord"
         />
       </View>
 
       <View style={styles.leaderboardHeader}>
         <View style={styles.headerCopy}>
-          <Text style={styles.sectionLabel}>GLOBAL STATISTIK</Text>
+          <Text style={styles.sectionLabel}>FÆLLES STATISTIK</Text>
           <Text style={styles.sectionTitle}>
-            Leaderboard{weekId ? ` · ${weekId}` : ""}
+            Rangliste{weekId ? ` · ${weekId}` : ""}
           </Text>
         </View>
         <SecondaryButton
@@ -156,7 +156,7 @@ export function WeeklyHomeScreen({
 
       <Card variant="subtle">
         {loadingWeekly ? (
-          <LoadingState title="Henter leaderboard" />
+          <LoadingState title="Henter rangliste" />
         ) : weeklyError ? (
           <ErrorState
             action={
@@ -166,12 +166,12 @@ export function WeeklyHomeScreen({
               />
             }
             message={weeklyError}
-            title="Weekly Challenges er ikke tilgængelig"
+            title="Ugens udfordringer er ikke tilgængelige"
           />
         ) : !weeklyGlobal?.week ? (
           <EmptyState
             message="Der er endnu ikke udgivet indhold til denne uge."
-            title="Ingen ugepakke"
+            title="Intet indhold denne uge"
           />
         ) : top10.length === 0 ? (
           <EmptyState title="Ingen resultater endnu" />
@@ -188,7 +188,7 @@ export function WeeklyHomeScreen({
                   <Text style={styles.rankMeta}>Behandler {result.classId}</Text>
                 ) : null}
               </View>
-              <Text style={styles.rankScore}>{result.points} pts</Text>
+              <Text style={styles.rankScore}>{result.points} point</Text>
             </View>
           ))
         )}
@@ -196,11 +196,11 @@ export function WeeklyHomeScreen({
         {topics ? (
           <View style={styles.topicSummary}>
             <Text style={styles.topicSummaryTitle}>Ugens emner</Text>
-            <Text style={styles.topicSummaryText}>MCQ · {topics.mcq ?? "—"}</Text>
+            <Text style={styles.topicSummaryText}>Quiz · {topics.mcq ?? "—"}</Text>
             <Text style={styles.topicSummaryText}>
               Match · {topics.match ?? "—"}
             </Text>
-            <Text style={styles.topicSummaryText}>Word · {topics.word ?? "—"}</Text>
+            <Text style={styles.topicSummaryText}>Ord · {topics.word ?? "—"}</Text>
           </View>
         ) : null}
       </Card>

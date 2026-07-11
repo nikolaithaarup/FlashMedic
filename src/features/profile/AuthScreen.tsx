@@ -65,7 +65,7 @@ export default function AuthScreen({
         <Text style={styles.eyebrow}>VELKOMMEN TIL</Text>
         <Text style={styles.title}>FlashMedic</Text>
         <Text style={styles.subtitle}>
-          Vælg, hvordan du vil fremstå i statistik og på leaderboardet.
+          Vælg, hvordan du vil fremstå i statistik og på ranglisten.
         </Text>
       </View>
 
@@ -93,7 +93,7 @@ export default function AuthScreen({
       <Card variant="subtle" style={styles.card}>
         <Text style={styles.cardTitle}>Opret profil</Text>
         <Text style={styles.cardDescription}>
-          Kaldenavnet vises på leaderboardet og kan altid ændres under Profil.
+          Kaldenavnet vises på ranglisten og kan altid ændres under Profil.
         </Text>
 
         <Text style={styles.inputLabel}>Kaldenavn</Text>

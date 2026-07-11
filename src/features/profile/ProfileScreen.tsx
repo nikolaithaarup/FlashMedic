@@ -70,7 +70,7 @@ export default function ProfileScreen({
       return;
     }
     if (!firebaseUid) {
-      Alert.alert("Ingen userId endnu", "Vent et øjeblik og prøv igen.");
+      Alert.alert("Profilen er ikke klar endnu", "Vent et øjeblik og prøv igen.");
       return;
     }
 
@@ -92,7 +92,7 @@ export default function ProfileScreen({
     };
     await saveStoredProfile(toStore);
 
-    Alert.alert("Gemt ✅", "Dit kaldenavn er opdateret.");
+    Alert.alert("Kaldenavn gemt", "Dit kaldenavn er opdateret.");
     onBack();
   }, [firebaseUid, nickname, onBack, profile, setProfile]);
 
@@ -126,7 +126,7 @@ export default function ProfileScreen({
               isAnonymous: true,
             };
             await saveStoredProfile(toStore);
-            Alert.alert("Nulstil ✅", `Ny anonym profil: ${newNick}`);
+            Alert.alert("Profil nulstillet", `Ny anonym profil: ${newNick}`);
           },
         },
       ],
@@ -139,25 +139,25 @@ export default function ProfileScreen({
       <ToolPageHeader
         backLabel="Tilbage til forsiden"
         onBack={onBack}
-        subtitle="Identitet og lokal profil"
+        subtitle="Dit kaldenavn og dine profiloplysninger"
         title="Profil"
       />
 
       <NoticeCard title="Sådan bruges din profil">
-        Dit officielle Firebase-ID forbinder resultater med global statistik.
-        Kaldenavnet er det navn, andre kan se.
+        Dit bruger-id forbinder resultater med den fælles statistik. Kaldenavnet
+        er det navn, andre kan se.
       </NoticeCard>
 
       <Text style={styles.sectionLabel}>PROFILOPLYSNINGER</Text>
       <Card variant="subtle" style={styles.profileCard}>
-        <Text style={styles.identityLabel}>Official User ID</Text>
+        <Text style={styles.identityLabel}>Bruger-id</Text>
         <Text selectable style={styles.identityValue}>
           {firebaseUid ?? "—"}
         </Text>
 
         <View style={styles.divider} />
 
-        <Text style={styles.inputLabel}>Nickname (valgfri)</Text>
+        <Text style={styles.inputLabel}>Kaldenavn (valgfrit)</Text>
         <TextInput
           accessibilityLabel="Kaldenavn"
           autoCapitalize="none"
@@ -171,9 +171,9 @@ export default function ProfileScreen({
           value={nickname}
         />
         <Text style={styles.inputHelp}>
-          Navnet gemmes lokalt og bruges fremover på leaderboardet.
+          Navnet gemmes lokalt og bruges fremover på ranglisten.
         </Text>
-        <PrimaryButton label="Gem nickname" onPress={save} />
+        <PrimaryButton label="Gem kaldenavn" onPress={save} />
 
         <SecondaryButton
           label="Nulstil profil"

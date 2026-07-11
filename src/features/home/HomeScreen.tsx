@@ -171,7 +171,7 @@ export default function HomeScreen({
 
           {loadingCards ? (
             <View style={styles.statusSurface}>
-              <Text style={styles.statusText}>Indlæser kort fra serveren...</Text>
+              <Text style={styles.statusText}>Henter kort…</Text>
             </View>
           ) : loadError ? (
             <View style={[styles.statusSurface, styles.errorSurface]}>
@@ -181,12 +181,12 @@ export default function HomeScreen({
 
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionEyebrow}>LÆRING</Text>
-            <Text style={styles.sectionTitle}>Vælg din læringsvej</Text>
+            <Text style={styles.sectionTitle}>Hvad vil du træne?</Text>
           </View>
 
           <View style={styles.destinationList}>
             <DestinationCard
-              description="Træn ambulancefag, emner og svage punkter med flashcards."
+              description="Træn ambulancefag og de emner, du har sværest ved."
               eyebrow="KERNETRÆNING"
               onPress={onOpenFlashcardsHome}
               title="FlashMedic"
@@ -208,7 +208,7 @@ export default function HomeScreen({
               eyebrow="UGENTLIGT"
               onLongPress={onOpenWeeklyDev}
               onPress={onOpenWeeklyHome}
-              title="Weekly Challenges"
+              title="Ugens udfordringer"
             />
             <DestinationCard
               description="Træn doseringer, enheder og beregninger."
@@ -223,7 +223,7 @@ export default function HomeScreen({
               title="EKG-træning"
             />
             <DestinationCard
-              description="Træn præhospital tolkning af syre-base, elektrolytter, laktat, glukose og inflammation."
+              description="Træn tolkning af VGAS, elektrolytter, laktat og CRP."
               eyebrow="AVANCERET"
               onPress={onOpenBloodGasTraining}
               title="VGAS & CRP"
@@ -232,7 +232,7 @@ export default function HomeScreen({
 
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionEyebrow}>SUPPORT</Text>
-            <Text style={styles.sectionTitle}>Progression og hjælp</Text>
+            <Text style={styles.sectionTitle}>Din fremgang og hjælp</Text>
           </View>
 
           <View style={styles.utilityRow}>
@@ -261,7 +261,7 @@ export default function HomeScreen({
           </View>
 
           <Text style={styles.attribution}>
-            Made by Nikolai Louis Kleftås Thaarup
+            Udviklet af Nikolai Louis Kleftås Thaarup
           </Text>
         </ScrollView>
       </SafeAreaView>

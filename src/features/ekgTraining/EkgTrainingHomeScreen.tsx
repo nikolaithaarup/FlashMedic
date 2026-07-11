@@ -202,7 +202,7 @@ export function EkgTrainingHomeScreen({
 
         <Card variant="subtle" style={styles.introCard}>
           <Text style={styles.eyebrow}>RYTME OG TEORI</Text>
-          <Text style={styles.introTitle}>Et fast blik før rytmeforslaget</Text>
+          <Text style={styles.introTitle}>Vurder EKG’et i samme rækkefølge hver gang</Text>
           <Text style={styles.bodyText}>
             Start med den samme metode hver gang. Det gør rytmevurderingen mere
             rolig, mere præcis og lettere at overlevere.
@@ -237,7 +237,7 @@ export function EkgTrainingHomeScreen({
         </Text>
         <Text style={styles.learningMeta}>
           {imageDrillLoading
-            ? "Billedkort hentes fra kortbanken."
+            ? "EKG-billederne hentes."
             : imageDrillCount > 0
               ? `${imageDrillCount} EKG-billeder klar til træning`
               : "Ingen EKG-billeder er tilgængelige lige nu."}

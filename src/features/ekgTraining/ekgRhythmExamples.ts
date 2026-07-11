@@ -62,7 +62,7 @@ export const ekgRhythmSteps: EkgRhythmStep[] = [
   {
     key: "ambulanceRelevance",
     title: "Ambulancefaglig betydning",
-    prompt: "Kobl rytmen til klinik, urgency og tydelig overlevering.",
+    prompt: "Vurder, hvor akut situationen er, og overlever rytmefundene tydeligt.",
   },
 ];
 

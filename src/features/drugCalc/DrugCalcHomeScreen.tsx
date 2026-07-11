@@ -3,7 +3,6 @@ import React, { useMemo, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import {
-  Borders,
   ColorTokens,
   Interaction,
   Radii,
@@ -12,13 +11,18 @@ import {
 } from "../../../constants/theme";
 import {
   Card,
+  Chip,
   NoticeCard,
   PrimaryButton,
   Screen,
   SecondaryButton,
   ToolPageHeader,
 } from "../../ui/primitives";
-import { COMMON_PITFALLS, DRUG_TOPICS, WORKED_EXAMPLES } from "./drugCalcContent";
+import {
+  COMMON_PITFALLS,
+  DRUG_TOPICS,
+  WORKED_EXAMPLES,
+} from "./drugCalcContent";
 
 type Props = {
   headingFont: number;
@@ -44,12 +48,13 @@ export default function DrugCalcHomeScreen({
   onOpenTheory,
 }: Props) {
   const [selectedTopicIds, setSelectedTopicIds] = useState<string[]>([]);
+  const [topicsExpanded, setTopicsExpanded] = useState(false);
   const selectedCount = selectedTopicIds.length;
-  const selectedLabel = useMemo(
+  const selectionSummary = useMemo(
     () =>
       selectedCount === 0
-        ? "Vælg mindst ét emne"
-        : `Start ${selectedCount} valgte ${selectedCount === 1 ? "emne" : "emner"}`,
+        ? "Alle emner"
+        : `${selectedCount} ${selectedCount === 1 ? "emne" : "emner"} valgt`,
     [selectedCount],
   );
 
@@ -62,7 +67,10 @@ export default function DrugCalcHomeScreen({
   };
 
   return (
-    <Screen contentContainerStyle={styles.content} testID="drug-calc-home-screen">
+    <Screen
+      contentContainerStyle={styles.content}
+      testID="drug-calc-home-screen"
+    >
       <StatusBar style="light" />
       <ToolPageHeader
         backLabel="Tilbage til forsiden"
@@ -73,8 +81,7 @@ export default function DrugCalcHomeScreen({
 
       <NoticeCard title="Uddannelsestræning" tone="info" style={styles.section}>
         <Text style={styles.noticeText}>
-          Opgaverne træner beregning og enhedskontrol. De erstatter ikke klinisk
-          vurdering, præparatkontrol eller lokale instrukser.
+          Opgaverne træner beregning og enhedskontrol.
         </Text>
       </NoticeCard>
 
@@ -99,45 +106,48 @@ export default function DrugCalcHomeScreen({
       <Card variant="subtle" style={styles.section}>
         <Text style={styles.eyebrow}>PRAKSIS</Text>
         <Text style={styles.sectionTitle}>Træn beregninger</Text>
-        <Text style={styles.bodyText}>
-          Vælg et eller flere emner til fokuseret træning, eller start en blandet
-          runde med alle emner.
-        </Text>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityState={{ expanded: topicsExpanded }}
+          onPress={() => setTopicsExpanded((current) => !current)}
+          style={({ pressed }) => [
+            styles.selectorHeader,
+            pressed && styles.pressed,
+          ]}
+        >
+          <View style={styles.selectorText}>
+            <Text style={styles.selectorTitle}>Vælg emner</Text>
+            <Text style={styles.selectorSummary}>{selectionSummary}</Text>
+          </View>
+          <Text style={styles.selectorAction}>
+            {topicsExpanded ? "Skjul −" : "Vælg +"}
+          </Text>
+        </Pressable>
 
-        <View style={styles.topicGrid}>
-          {DRUG_TOPICS.map((topic) => {
-            const selected = selectedTopicIds.includes(topic.id);
-            return (
-              <Pressable
-                accessibilityRole="button"
-                accessibilityState={{ selected }}
+        {topicsExpanded ? (
+          <View style={styles.topicGrid}>
+            {DRUG_TOPICS.map((topic) => (
+              <Chip
                 key={topic.id}
+                label={topic.title}
                 onPress={() => toggleTopic(topic.id)}
-                style={({ pressed }) => [
-                  styles.topicButton,
-                  selected && styles.topicButtonSelected,
-                  pressed && styles.pressed,
-                ]}
-              >
-                <Text style={[styles.topicTitle, selected && styles.topicTitleSelected]}>
-                  {topic.title}
-                </Text>
-                <Text style={styles.topicDescription}>{topic.desc}</Text>
-              </Pressable>
-            );
-          })}
-        </View>
+                selected={selectedTopicIds.includes(topic.id)}
+              />
+            ))}
+          </View>
+        ) : null}
 
         <View style={styles.buttonStack}>
           <PrimaryButton
-            disabled={selectedCount === 0}
-            label={selectedLabel}
-            onPress={() => onStartPractice(selectedTopicIds)}
-          />
-          <SecondaryButton
             label="Start blandet træning"
             onPress={() => onStartPractice([])}
           />
+          {selectedCount > 0 ? (
+            <SecondaryButton
+              label="Træn valgte emner"
+              onPress={() => onStartPractice(selectedTopicIds)}
+            />
+          ) : null}
         </View>
       </Card>
 
@@ -149,7 +159,10 @@ export default function DrugCalcHomeScreen({
           mellemregning, slutsvar og typisk faldgrube.
         </Text>
         {onOpenTheory ? (
-          <SecondaryButton label="Se gennemregnede eksempler" onPress={onOpenTheory} />
+          <SecondaryButton
+            label="Se gennemregnede eksempler"
+            onPress={onOpenTheory}
+          />
         ) : null}
       </Card>
 
@@ -197,7 +210,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   bulletList: { gap: Spacing.sm },
-  bulletRow: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.sm },
+  bulletRow: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: Spacing.sm,
+  },
   bullet: {
     width: 7,
     height: 7,
@@ -205,34 +222,35 @@ const styles = StyleSheet.create({
     backgroundColor: ColorTokens.accent.muted,
     marginTop: 8,
   },
-  topicGrid: { gap: Spacing.sm },
-  topicButton: {
+  selectorHeader: {
     minHeight: Interaction.minimumTouchTarget,
-    borderRadius: Radii.md,
-    borderWidth: Borders.hairline,
-    borderColor: ColorTokens.border.default,
-    backgroundColor: ColorTokens.surface.inverse,
-    padding: Spacing.md,
-    gap: Spacing.xs,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: Spacing.md,
   },
-  topicButtonSelected: {
-    borderColor: ColorTokens.accent.muted,
-    backgroundColor: ColorTokens.accent.surface,
-  },
-  topicTitle: {
+  selectorText: { flex: 1, gap: Spacing.xs },
+  selectorTitle: {
     color: ColorTokens.text.primary,
     fontFamily: Typography.families.sans,
     fontSize: Typography.sizes.label,
     lineHeight: Typography.lineHeights.label,
     fontWeight: Typography.weights.bold,
   },
-  topicTitleSelected: { color: ColorTokens.accent.muted },
-  topicDescription: {
+  selectorSummary: {
     color: ColorTokens.text.secondary,
     fontFamily: Typography.families.sans,
     fontSize: Typography.sizes.caption,
     lineHeight: Typography.lineHeights.caption,
   },
+  selectorAction: {
+    color: ColorTokens.accent.muted,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.label,
+    lineHeight: Typography.lineHeights.label,
+    fontWeight: Typography.weights.bold,
+  },
+  topicGrid: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.xs },
   pressed: { opacity: Interaction.pressedOpacity },
   buttonStack: { gap: Spacing.sm },
 });

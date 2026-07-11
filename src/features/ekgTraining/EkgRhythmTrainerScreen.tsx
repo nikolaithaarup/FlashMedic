@@ -87,10 +87,7 @@ export function EkgRhythmTrainerScreen({ onBack }: Props) {
       />
 
       <NoticeCard title="Uddannelsestræning" tone="info" style={styles.notice}>
-        <Text style={styles.noticeText}>
-          Dette er træning i systematisk vurdering, ikke klinisk
-          beslutningsstøtte. Sammenhold altid rytmefund med patientens tilstand.
-        </Text>
+        <Text style={styles.noticeText}></Text>
       </NoticeCard>
 
       <Card variant="subtle" style={styles.exampleCard}>

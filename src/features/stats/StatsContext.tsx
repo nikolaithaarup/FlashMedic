@@ -304,7 +304,7 @@ export function StatsProvider({ children }: PropsWithChildren) {
       setWeeklyError(
         e instanceof Error
           ? e.message
-          : "Weekly Challenges kunne ikke hentes. Prøv igen.",
+          : "Ugens udfordringer kunne ikke hentes. Prøv igen.",
       );
       setWeeklyGlobal((prev) => prev ?? { week: null, leaderboard: [] });
     } finally {

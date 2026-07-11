@@ -122,7 +122,7 @@ export default function QuizScreen({
               />
             ) : undefined
           }
-          backLabel="Afslut quiz og gå til forsiden"
+          backLabel="Afslut træningen"
           onBack={onHome}
           subtitle={`Spørgsmål ${currentIndex} af ${totalQuestions}`}
           title={isExamMode ? "Eksamensmode" : "FlashMedic"}

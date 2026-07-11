@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useMemo, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import {
@@ -13,6 +13,7 @@ import {
 } from "../../../constants/theme";
 import {
   Card,
+  Chip,
   NumberInput,
   PrimaryButton,
   Screen,
@@ -68,6 +69,17 @@ export function DrugCalcPracticeScreen({
 }: Props) {
   const hasStarted = currentDrugQuestion !== null;
   const feedbackVisible = drugAnswerStatus !== "neutral" && currentDrugQuestion;
+  const [topicsExpanded, setTopicsExpanded] = useState(false);
+  const selectionSummary = useMemo(() => {
+    if (selectedTopics.length === 0) return "Alle emner";
+    if (selectedTopics.length === 1) {
+      return (
+        availableTopics.find((topic) => topic.id === selectedTopics[0])?.title ??
+        "1 emne valgt"
+      );
+    }
+    return `${selectedTopics.length} emner valgt`;
+  }, [availableTopics, selectedTopics]);
 
   const toggleTopic = (id: DrugCalcTopic) => {
     setSelectedTopics((current) =>
@@ -87,41 +99,47 @@ export function DrugCalcPracticeScreen({
       <ToolPageHeader
         backLabel="Tilbage til Lægemiddelregning"
         onBack={onBack}
-        subtitle="Fokuseret eller blandet beregningstræning uden scoring."
+        subtitle="Træn ét eller flere regneemner."
         title="Træn beregninger"
       />
 
       <Card variant="subtle" style={styles.section}>
-        <Text style={styles.sectionTitle}>Emner</Text>
-        <Text style={styles.bodyText}>
-          Ingen valgte emner betyder blandet træning med hele opgavebanken.
-        </Text>
-        <View style={styles.topicGrid}>
-          {availableTopics.map((topic) => {
-            const selected = selectedTopics.includes(topic.id);
-            return (
-              <Pressable
-                accessibilityRole="button"
-                accessibilityState={{ selected }}
-                key={topic.id}
-                onPress={() => toggleTopic(topic.id)}
-                style={({ pressed }) => [
-                  styles.topicButton,
-                  selected && styles.topicButtonSelected,
-                  pressed && styles.pressed,
-                ]}
-              >
-                <Text style={[styles.topicText, selected && styles.topicTextSelected]}>
-                  {topic.title}
-                </Text>
-              </Pressable>
-            );
-          })}
-        </View>
-        <SecondaryButton
-          label={selectedTopics.length === 0 ? "Start blandet træning" : "Start med valgte emner"}
-          onPress={() => onStartWithTopics(selectedTopics)}
-        />
+        <Pressable
+          accessibilityRole="button"
+          accessibilityState={{ expanded: topicsExpanded }}
+          onPress={() => setTopicsExpanded((current) => !current)}
+          style={({ pressed }) => [styles.selectorHeader, pressed && styles.pressed]}
+        >
+          <View style={styles.selectorText}>
+            <Text style={styles.selectorTitle}>Du træner</Text>
+            <Text style={styles.selectorSummary}>{selectionSummary}</Text>
+          </View>
+          <Text style={styles.selectorAction}>
+            {topicsExpanded ? "Skjul −" : "Skift emner +"}
+          </Text>
+        </Pressable>
+        {topicsExpanded ? (
+          <>
+            <View style={styles.topicGrid}>
+              {availableTopics.map((topic) => (
+                <Chip
+                  key={topic.id}
+                  label={topic.title}
+                  onPress={() => toggleTopic(topic.id)}
+                  selected={selectedTopics.includes(topic.id)}
+                />
+              ))}
+            </View>
+            {hasStarted ? (
+              <Text style={styles.changeHint}>Ændringer gælder næste opgave.</Text>
+            ) : (
+              <SecondaryButton
+                label={selectedTopics.length === 0 ? "Start blandet træning" : "Træn valgte emner"}
+                onPress={() => onStartWithTopics(selectedTopics)}
+              />
+            )}
+          </>
+        ) : null}
       </Card>
 
       {currentDrugQuestion ? (
@@ -217,7 +235,7 @@ export function DrugCalcPracticeScreen({
         </>
       ) : (
         <Card variant="subtle" style={styles.section}>
-          <Text style={styles.bodyText}>Vælg træningsform ovenfor for at begynde.</Text>
+          <Text style={styles.bodyText}>Vælg emner, og start træningen.</Text>
         </Card>
       )}
     </Screen>
@@ -257,28 +275,40 @@ const styles = StyleSheet.create({
     lineHeight: Typography.lineHeights.body,
   },
   topicGrid: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.xs },
-  topicButton: {
-    minHeight: Interaction.compactTouchTarget,
-    justifyContent: "center",
-    borderRadius: Radii.control,
-    borderWidth: Borders.hairline,
-    borderColor: ColorTokens.border.default,
-    backgroundColor: ColorTokens.surface.inverse,
-    paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.xs,
+  selectorHeader: {
+    minHeight: Interaction.minimumTouchTarget,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: Spacing.md,
   },
-  topicButtonSelected: {
-    borderColor: ColorTokens.accent.muted,
-    backgroundColor: ColorTokens.accent.surface,
-  },
-  topicText: {
-    color: ColorTokens.text.secondary,
+  selectorText: { flex: 1, gap: Spacing.xs },
+  selectorTitle: {
+    color: ColorTokens.text.primary,
     fontFamily: Typography.families.sans,
     fontSize: Typography.sizes.label,
     lineHeight: Typography.lineHeights.label,
     fontWeight: Typography.weights.semibold,
   },
-  topicTextSelected: { color: ColorTokens.text.primary },
+  selectorSummary: {
+    color: ColorTokens.text.secondary,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.caption,
+    lineHeight: Typography.lineHeights.caption,
+  },
+  selectorAction: {
+    color: ColorTokens.accent.muted,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.label,
+    lineHeight: Typography.lineHeights.label,
+    fontWeight: Typography.weights.bold,
+  },
+  changeHint: {
+    color: ColorTokens.text.secondary,
+    fontFamily: Typography.families.sans,
+    fontSize: Typography.sizes.caption,
+    lineHeight: Typography.lineHeights.caption,
+  },
   pressed: { opacity: Interaction.pressedOpacity },
   unitCallout: {
     flexDirection: "row",

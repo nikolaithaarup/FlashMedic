@@ -59,7 +59,7 @@ export function ContactScreen({
 
   const handleSend = async () => {
     if (!contactMessage.trim()) {
-      Alert.alert("Fejl", "Skriv venligst en besked.");
+      Alert.alert("Fejl", "Skriv en besked først.");
       return;
     }
 
@@ -80,7 +80,7 @@ export function ContactScreen({
 
       if (!response.ok) throw new Error("Serverfejl");
 
-      Alert.alert("Tak!", "Din besked er sendt til serveren.");
+      Alert.alert("Tak!", "Tak – din besked er sendt.");
       setContactName("");
       setContactEmail("");
       setContactMessage("");
@@ -95,7 +95,7 @@ export function ContactScreen({
       <ToolPageHeader
         backLabel="Tilbage til forsiden"
         onBack={onBack}
-        subtitle="Ris, ros og konstruktiv feedback"
+        subtitle="Spørgsmål, ris og ros"
         title="Kontakt os"
       />
 

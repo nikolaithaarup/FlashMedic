@@ -293,7 +293,7 @@ export function EkgImageDrillScreen({ cards, loadingCards, onBack }: Props) {
         {loadingCards ? (
           <Card variant="subtle" style={styles.sectionCard}>
             <EmptyState
-              message="Billedkortene hentes fra kortbanken."
+              message="EKG-billederne hentes."
               title="Indlæser EKG-billeder"
             />
           </Card>

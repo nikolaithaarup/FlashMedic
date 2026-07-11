@@ -183,7 +183,7 @@ export function WeeklyMatchScreen({
         if (!res) {
           setWeekKey(devWeekKey ?? null);
           setTopicTitle(
-            devWeekKey ? `Ingen Match pack for ${devWeekKey}` : "Ugens emne",
+            devWeekKey ? `Ingen matchindhold for ${devWeekKey}` : "Ugens emne",
           );
           setRounds([]);
           setResolution(null);
@@ -204,7 +204,7 @@ export function WeeklyMatchScreen({
             e instanceof WeeklyPackValidationError ? "invalid" : "error",
           );
           setLoadMessage(
-            e instanceof Error ? e.message : "Ugens Match pack kunne ikke hentes.",
+            e instanceof Error ? e.message : "Ugens matchopgave kunne ikke hentes.",
           );
         }
       } finally {
@@ -309,7 +309,7 @@ export function WeeklyMatchScreen({
     const pairs = rd?.pairs ?? [];
 
     if (!rd || pairs.length === 0) {
-      Alert.alert("Ingen indhold", `Runde ${roundNumber} har ingen par endnu.`);
+      Alert.alert("Intet indhold", `Runde ${roundNumber} har ingen par endnu.`);
       return;
     }
 
@@ -339,19 +339,19 @@ export function WeeklyMatchScreen({
 
   const handleStart = () => {
     if (!packLoaded) {
-      Alert.alert("Indlæser", "Henter ugens Match pack...");
+      Alert.alert("Indlæser", "Henter ugens matchopgave…");
       return;
     }
     if (isLocked) {
       Alert.alert(
         "Spillet er låst",
-        "Du har allerede spillet denne uges Match Game.",
+        "Du har allerede spillet denne uges matchopgave.",
       );
       return;
     }
     if (!rounds || rounds.length === 0) {
       Alert.alert(
-        "Ingen indhold",
+        "Intet indhold",
         devWeekKey
           ? `Ingen Match-runder for ${devWeekKey}.`
           : "Ingen Match-runder til denne uge endnu.",
@@ -548,11 +548,11 @@ export function WeeklyMatchScreen({
             ]}
             numberOfLines={2}
           >
-            Weekly Challenges
+            Ugens udfordringer
           </Text>
 
           <Pressable
-            accessibilityLabel="Tilbage til Weekly Challenges"
+            accessibilityLabel="Tilbage til Ugens udfordringer"
             accessibilityRole="button"
             style={styles.gameCloseButton}
             onPress={handleBack}
@@ -564,14 +564,14 @@ export function WeeklyMatchScreen({
 
         {resolution?.isFallback ? (
           <NoticeCard title="Kompatibilitetsindhold">
-            Ugens spil er hentet via en ældre indholdsnøgle. Resultatet gemmes
-            under den samme nøgle.
+            Ugens spil bruger en ældre version af indholdet. Du kan stadig
+            spille og gemme dit resultat.
           </NoticeCard>
         ) : null}
         {uploadPending ? (
           <NoticeCard title="Resultat gemt på enheden" tone="warning">
-            Upload kunne ikke gennemføres nu. Resultatet forsøges sendt igen
-            fra Weekly Challenges.
+            Resultatet kunne ikke sendes nu. Det forsøges sendt igen
+            fra Ugens udfordringer.
           </NoticeCard>
         ) : null}
 
@@ -579,7 +579,7 @@ export function WeeklyMatchScreen({
           <View style={styles.weeklyGameCenter}>
             <ActivityIndicator />
             <Text style={[styles.weeklyPlaceholderText, { marginTop: 12 }]}>
-              Henter Match pack...
+              Henter ugens matchopgave…
             </Text>
           </View>
         )}
@@ -601,15 +601,15 @@ export function WeeklyMatchScreen({
             message={loadMessage}
             title={
               loadStatus === "invalid"
-                ? "Ugyldig ugepakke"
-                : "Ugens Match pack kunne ikke hentes"
+                ? "Ugens indhold kunne ikke åbnes"
+                : "Ugens matchopgave kunne ikke hentes"
             }
           />
         ) : null}
 
         {packLoaded && loadStatus === "ready" && !started && !finished && (
           <View style={styles.weeklyGameCenter}>
-            <Text style={styles.weeklyGameTitle}>Match Game</Text>
+            <Text style={styles.weeklyGameTitle}>Match parrene</Text>
 
             <Text
               style={[
@@ -617,7 +617,7 @@ export function WeeklyMatchScreen({
                 { textAlign: "left", alignSelf: "flex-start", marginTop: 16 },
               ]}
             >
-              Match elementer korrekt – fx præparat og virkning, organ og
+              Find de par, der hører sammen – fx præparat og virkning, organ og
               hormon, eller suffiks og lægemiddeltype.
             </Text>
 
@@ -643,10 +643,10 @@ export function WeeklyMatchScreen({
                   { color: "#e9ecef", marginTop: 8, lineHeight: 20 },
                 ]}
               >
-                • Tryk først venstre, derefter højre for at lave et match{"\n"}•
+                • Tryk først venstre, derefter højre for at danne et par{"\n"}•
                 Farver viser hvilke to felter der hører sammen{"\n"}• Tryk
                 “Aflever” når du er færdig{"\n\n"}Point:{"\n"}• 1000 point pr.
-                korrekt match{"\n"}• −50 point pr. sekund (per runde)
+                korrekt par{"\n"}• −50 point pr. sekund (pr. runde)
                 {"\n\n"}Du kan kun spille dette spil én gang pr. uge.
               </Text>
             </View>
@@ -663,7 +663,7 @@ export function WeeklyMatchScreen({
               <Text
                 style={[styles.bigButtonText, styles.weeklyStartButtonText]}
               >
-                {isLocked ? "LÅST (allerede spillet)" : "START SPILLET"}
+                {isLocked ? "Allerede spillet" : "Start spil"}
               </Text>
             </Pressable>
 
@@ -691,7 +691,7 @@ export function WeeklyMatchScreen({
                 ]}
               >
                 {devWeekKey
-                  ? `Preview uge: ${devWeekKey}`
+                  ? `Forhåndsvisning af uge: ${devWeekKey}`
                   : "Denne uges emner:"}
               </Text>
 
@@ -716,7 +716,7 @@ export function WeeklyMatchScreen({
             </View>
 
             <View style={[styles.weeklyGameCenter, { alignItems: "stretch" }]}>
-              <Text style={styles.weeklyGameTitle}>Match Game</Text>
+              <Text style={styles.weeklyGameTitle}>Match parrene</Text>
 
               <Text style={[styles.subjectStatsSub, { textAlign: "center" }]}>
                 Emne: {topicTitle}
@@ -727,7 +727,7 @@ export function WeeklyMatchScreen({
               </Text>
 
               <Text style={styles.statsLabel}>
-                Match alle {totalPairs} par og tryk derefter på “Aflever”.
+                Find alle {totalPairs} par, og tryk derefter på “Aflever”.
               </Text>
 
               <View style={{ width: "100%", maxWidth: 800, marginTop: 16 }}>
@@ -874,7 +874,7 @@ export function WeeklyMatchScreen({
               ]}
             >
               <Text style={styles.statsSectionTitle}>
-                Resultat – Match Game
+                Resultat – Match parrene
               </Text>
 
               <Text style={[styles.statsLabel, { marginTop: 8 }]}>
@@ -887,7 +887,7 @@ export function WeeklyMatchScreen({
               </Text>
 
               <Text style={styles.statsLabel}>
-                Korrekte matches: {correctCount} / {totalPairs}
+                Korrekte par: {correctCount} / {totalPairs}
               </Text>
 
               <Text style={styles.statsLabel}>

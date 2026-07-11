@@ -264,7 +264,7 @@ export default function FlashcardsHomeScreen({
       {selectedSubject && selectedKeys.length > 0 ? (
         <PrimaryButton
           disabled={loadingCards}
-          label="Start quiz i valgte emner"
+          label="Træn valgte emner"
           loading={loadingCards}
           onPress={onStartQuiz}
           style={styles.startButton}

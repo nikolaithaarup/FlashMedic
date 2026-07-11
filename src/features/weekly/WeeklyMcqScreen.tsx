@@ -162,7 +162,7 @@ export function WeeklyMcqScreen({
         if (!res) {
           setWeekKey(devWeekKey ?? null);
           setTopicTitle(
-            devWeekKey ? `Ingen MCQ pack for ${devWeekKey}` : "Ugens emne",
+            devWeekKey ? `Ingen quizindhold for ${devWeekKey}` : "Ugens emne",
           );
           setTimeLimit(30);
           setQuestions([]);
@@ -297,7 +297,7 @@ export function WeeklyMcqScreen({
     if (isLocked) {
       Alert.alert(
         "Spillet er låst",
-        "Du har allerede spillet denne uges Multiple Choice Game.",
+        "Du har allerede spillet denne uges quiz.",
       );
       return;
     }
@@ -438,11 +438,11 @@ export function WeeklyMcqScreen({
             ]}
             numberOfLines={2}
           >
-            Weekly Challenges
+            Ugens udfordringer
           </Text>
 
           <Pressable
-            accessibilityLabel="Tilbage til Weekly Challenges"
+            accessibilityLabel="Tilbage til Ugens udfordringer"
             accessibilityRole="button"
             style={styles.gameCloseButton}
             onPress={handleBack}
@@ -454,14 +454,14 @@ export function WeeklyMcqScreen({
 
         {resolution?.isFallback ? (
           <NoticeCard title="Kompatibilitetsindhold">
-            Ugens spil er hentet via en ældre indholdsnøgle. Resultatet gemmes
-            under den samme nøgle.
+            Ugens spil bruger en ældre version af indholdet. Du kan stadig
+            spille og gemme dit resultat.
           </NoticeCard>
         ) : null}
         {uploadPending ? (
           <NoticeCard title="Resultat gemt på enheden" tone="warning">
-            Upload kunne ikke gennemføres nu. Resultatet forsøges sendt igen
-            fra Weekly Challenges.
+            Resultatet kunne ikke sendes nu. Det forsøges sendt igen
+            fra Ugens udfordringer.
           </NoticeCard>
         ) : null}
 
@@ -476,7 +476,7 @@ export function WeeklyMcqScreen({
 
         {loadStatus === "missing" ? (
           <EmptyState
-            message="Der er endnu ikke udgivet Multiple Choice-indhold til den valgte uge."
+            message="Der er endnu ikke udgivet quizindhold til den valgte uge."
             title="Ingen spørgsmål denne uge"
           />
         ) : null}
@@ -491,7 +491,7 @@ export function WeeklyMcqScreen({
             message={loadMessage}
             title={
               loadStatus === "invalid"
-                ? "Ugyldig ugepakke"
+                ? "Ugens indhold kunne ikke åbnes"
                 : "Ugens spørgsmål kunne ikke hentes"
             }
           />
@@ -499,7 +499,7 @@ export function WeeklyMcqScreen({
 
         {packLoaded && loadStatus === "ready" && !started && !finished && (
           <View style={styles.weeklyGameCenter}>
-            <Text style={styles.weeklyGameTitle}>Multiple Choice Game</Text>
+            <Text style={styles.weeklyGameTitle}>Ugens quiz</Text>
 
             <Text
               style={[
@@ -554,7 +554,7 @@ export function WeeklyMcqScreen({
               <Text
                 style={[styles.bigButtonText, styles.weeklyStartButtonText]}
               >
-                {isLocked ? "LÅST (allerede spillet)" : "START SPILLET"}
+                {isLocked ? "Allerede spillet" : "Start spil"}
               </Text>
             </Pressable>
 
@@ -581,7 +581,7 @@ export function WeeklyMcqScreen({
                   },
                 ]}
               >
-                {devWeekKey ? `Preview uge: ${devWeekKey}` : "Denne uges emne:"}
+                {devWeekKey ? `Forhåndsvisning af uge: ${devWeekKey}` : "Denne uges emne:"}
               </Text>
 
               <Text
@@ -605,7 +605,7 @@ export function WeeklyMcqScreen({
             </View>
 
             <View style={styles.weeklyGameCenter}>
-              <Text style={styles.weeklyGameTitle}>Multiple Choice Game</Text>
+              <Text style={styles.weeklyGameTitle}>Ugens quiz</Text>
 
               <View
                 style={{
@@ -750,7 +750,7 @@ export function WeeklyMcqScreen({
               ]}
             >
               <Text style={styles.statsSectionTitle}>
-                Resultat – Multiple Choice Game
+                Resultat – Ugens quiz
               </Text>
 
               <Text style={[styles.statsLabel, { marginTop: 12 }]}>

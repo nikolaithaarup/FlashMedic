@@ -59,12 +59,12 @@ export const DRUG_TOPICS: { id: DrugCalcTopic; title: string; desc: string }[] =
     {
       id: "drops",
       title: "Dråber (dr/min, dr/mL)",
-      desc: `Dropset: ${DROPS_PER_ML} dr pr. mL.`,
+      desc: `Dråbesæt: ${DROPS_PER_ML} dr pr. mL.`,
     },
     {
       id: "infusion",
       title: "Infusion (mL/t, mg/t, ug/min)",
-      desc: "Hastigheder, blandinger, run-rate.",
+      desc: "Hastigheder, blandinger og infusionshastighed.",
     },
     {
       id: "oxygen",
@@ -266,7 +266,7 @@ const THEORY_BASE: TheorySectionBase[] = [
     topic: "drops",
     title: "Dr: omregning mellem dr/min og mL/time",
     bullets: [
-      `Standard dropset: ${DROPS_PER_ML} dr = 1 mL.`,
+      `Standard dråbesæt: ${DROPS_PER_ML} dr = 1 mL.`,
       "mL/min = dr/min ÷ (dr/mL).",
       "mL/time = (mL/min) × 60.",
       "Omvendt: dr/min = (mL/time ÷ 60) × (dr/mL).",

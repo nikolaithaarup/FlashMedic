@@ -528,7 +528,7 @@ export default function Index() {
     if (loadingCards) {
       Alert.alert(
         "IndlÃ¦ser kort",
-        "Vent et øjeblik, mens kortbanken hentes.",
+        "Vent et øjeblik, mens kortene hentes.",
       );
       return;
     }
@@ -536,7 +536,7 @@ export default function Index() {
     if (dailyTenCards.length === 0) {
       Alert.alert(
         "Ingen kort",
-        "Der er ingen flashcards klar til Dagens 10 endnu.",
+        "Der er ingen kort klar til Dagens 10 endnu.",
       );
       return;
     }
@@ -548,7 +548,7 @@ export default function Index() {
     if (loadingCards) {
       Alert.alert(
         "Indlæser kort",
-        "Vent et øjeblik, mens kortbanken hentes.",
+        "Vent et øjeblik, mens kortene hentes.",
       );
       return;
     }
@@ -607,7 +607,7 @@ export default function Index() {
 
   const handleStartAllSubjectsQuiz = () => {
     if (!cards || cards.length === 0) {
-      Alert.alert("Ingen kort", "Der er ingen flashcards at quizze i endnu.");
+      Alert.alert("Ingen kort", "Der er ingen kort klar til træning endnu.");
       return;
     }
 
@@ -641,7 +641,7 @@ export default function Index() {
       Alert.alert(
         "Ingen forkerte svar",
         mistakeSelection.orphanedCardIds.length
-          ? "De gemte kort findes ikke længere i den aktuelle kortbank. Prøv almindelig blandet træning."
+          ? "De gemte kort er ikke længere tilgængelige. Prøv almindelig blandet træning."
           : "Du har ingen kort, der venter på repetition. Prøv almindelig blandet træning.",
       );
     }

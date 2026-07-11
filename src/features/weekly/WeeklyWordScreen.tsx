@@ -177,7 +177,7 @@ export function WeeklyWordScreen({
         if (!res) {
           setWeekKey(devWeekKey ?? null);
           setTopicTitle(
-            devWeekKey ? `Ingen Word pack for ${devWeekKey}` : "Ugens emne",
+            devWeekKey ? `Ingen ordindhold for ${devWeekKey}` : "Ugens emne",
           );
           setRounds([]);
           setResolution(null);
@@ -198,7 +198,7 @@ export function WeeklyWordScreen({
             e instanceof WeeklyPackValidationError ? "invalid" : "error",
           );
           setLoadMessage(
-            e instanceof Error ? e.message : "Ugens Word pack kunne ikke hentes.",
+            e instanceof Error ? e.message : "Ugens ord kunne ikke hentes.",
           );
         }
       } finally {
@@ -287,7 +287,7 @@ export function WeeklyWordScreen({
     const rd = getRound(rounds, roundNumber);
 
     if (!rd) {
-      Alert.alert("Ingen indhold", "Ingen Word-runder til denne uge endnu.");
+      Alert.alert("Intet indhold", "Der er ingen ordrunder til denne uge endnu.");
       return;
     }
 
@@ -322,22 +322,22 @@ export function WeeklyWordScreen({
       return;
     }
     if (!packLoaded) {
-      Alert.alert("Indlæser", "Henter Word pack...");
+      Alert.alert("Indlæser", "Henter ugens ord…");
       return;
     }
     if (isLocked) {
       Alert.alert(
         "Spillet er låst",
-        "Du har allerede spillet denne uges Word of The Week.",
+        "Du har allerede spillet Ugens ord.",
       );
       return;
     }
     if (!rounds || rounds.length === 0) {
       Alert.alert(
-        "Ingen indhold",
+        "Intet indhold",
         devWeekKey
-          ? `Ingen Word-runder for ${devWeekKey}.`
-          : "Ingen Word-runder til denne uge endnu.",
+          ? `Ingen ordrunder for ${devWeekKey}.`
+          : "Der er ingen ordrunder til denne uge endnu.",
       );
       return;
     }
@@ -480,11 +480,11 @@ export function WeeklyWordScreen({
             ]}
             numberOfLines={2}
           >
-            Weekly Challenges
+            Ugens udfordringer
           </Text>
 
           <Pressable
-            accessibilityLabel="Tilbage til Weekly Challenges"
+            accessibilityLabel="Tilbage til Ugens udfordringer"
             accessibilityRole="button"
             style={styles.gameCloseButton}
             onPress={handleBack}
@@ -496,14 +496,14 @@ export function WeeklyWordScreen({
 
         {resolution?.isFallback ? (
           <NoticeCard title="Kompatibilitetsindhold">
-            Ugens spil er hentet via en ældre indholdsnøgle. Resultatet gemmes
-            under den samme nøgle.
+            Ugens spil bruger en ældre version af indholdet. Du kan stadig
+            spille og gemme dit resultat.
           </NoticeCard>
         ) : null}
         {uploadPending ? (
           <NoticeCard title="Resultat gemt på enheden" tone="warning">
-            Upload kunne ikke gennemføres nu. Resultatet forsøges sendt igen
-            fra Weekly Challenges.
+            Resultatet kunne ikke sendes nu. Det forsøges sendt igen
+            fra Ugens udfordringer.
           </NoticeCard>
         ) : null}
 
@@ -511,7 +511,7 @@ export function WeeklyWordScreen({
           <View style={styles.weeklyGameCenter}>
             <ActivityIndicator />
             <Text style={[styles.weeklyPlaceholderText, { marginTop: 12 }]}>
-              Henter Word pack...
+              Henter ugens ord…
             </Text>
           </View>
         )}
@@ -533,15 +533,15 @@ export function WeeklyWordScreen({
             message={loadMessage}
             title={
               loadStatus === "invalid"
-                ? "Ugyldig ugepakke"
-                : "Ugens Word pack kunne ikke hentes"
+                ? "Ugens indhold kunne ikke åbnes"
+                : "Ugens ord kunne ikke hentes"
             }
           />
         ) : null}
 
         {packLoaded && loadStatus === "ready" && !started && !finished && (
           <View style={styles.weeklyGameCenter}>
-            <Text style={styles.weeklyGameTitle}>Word of The Week</Text>
+            <Text style={styles.weeklyGameTitle}>Ugens ord</Text>
 
             <Text
               style={[
@@ -587,7 +587,7 @@ export function WeeklyWordScreen({
               <Text
                 style={[styles.bigButtonText, styles.weeklyStartButtonText]}
               >
-                {isLocked ? "LÅST (allerede spillet)" : "START SPILLET"}
+                {isLocked ? "Allerede spillet" : "Start spil"}
               </Text>
             </Pressable>
 
@@ -615,7 +615,7 @@ export function WeeklyWordScreen({
                 ]}
               >
                 {devWeekKey
-                  ? `Preview uge: ${devWeekKey}`
+                  ? `Forhåndsvisning af uge: ${devWeekKey}`
                   : "Denne uges emner:"}
               </Text>
 
@@ -640,7 +640,7 @@ export function WeeklyWordScreen({
             </View>
 
             <View style={styles.weeklyGameCenter}>
-              <Text style={styles.weeklyGameTitle}>Word of The Week</Text>
+              <Text style={styles.weeklyGameTitle}>Ugens ord</Text>
 
               <Text
                 style={[
@@ -696,7 +696,7 @@ export function WeeklyWordScreen({
                     ))
                   ) : (
                     <Text style={styles.weeklyPlaceholderText}>
-                      Tryk START for at se ugens ord.
+                      Tryk på Start spil for at se ugens ord.
                     </Text>
                   )}
                 </View>
@@ -830,7 +830,7 @@ export function WeeklyWordScreen({
               ]}
             >
               <Text style={styles.statsSectionTitle}>
-                Resultat – Word of The Week
+                Resultat – Ugens ord
               </Text>
 
               <Text style={[styles.statsLabel, { marginTop: 8 }]}>
