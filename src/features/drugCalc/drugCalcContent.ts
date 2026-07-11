@@ -768,7 +768,7 @@ function generateBaseDrugCalcQuestion(
       return {
         id: counter++,
         topic,
-        text: `Dropset = ${DROPS_PER_ML} dr/mL.\nInfusionen løber ${drMin} dr/min.\nHvad er hastigheden i mL/time?`,
+        text: `Dråbefaktor = ${DROPS_PER_ML} dr/mL.\nInfusionen løber ${drMin} dr/min.\nHvad er hastigheden i mL/time?`,
         correctAnswer: mlH,
         unit: "mL/time",
         hint: `mL/min = dr/min ÷ ${DROPS_PER_ML}. mL/time = mL/min × 60.`,
@@ -786,7 +786,7 @@ function generateBaseDrugCalcQuestion(
     return {
       id: counter++,
       topic,
-      text: `Dropset = ${DROPS_PER_ML} dr/mL.\nDu vil give ${mlH} mL/time.\nHvor mange dr/min er det?`,
+      text: `Dråbefaktor = ${DROPS_PER_ML} dr/mL.\nDu vil give ${mlH} mL/time.\nHvor mange dr/min er det?`,
       correctAnswer: drMin,
       unit: "dr/min",
       hint: `dr/min = (mL/time ÷ 60) × ${DROPS_PER_ML}.`,

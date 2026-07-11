@@ -2,7 +2,7 @@
 import * as Linking from "expo-linking";
 import * as MailComposer from "expo-mail-composer";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Alert, useWindowDimensions } from "react-native";
+import { Alert, BackHandler, Platform, useWindowDimensions } from "react-native";
 
 import {
   loadStoredProfile,
@@ -253,6 +253,62 @@ export default function Index() {
   const notifyWeeklyLockChanged = () => {
     setWeeklyLockRefreshToken((current) => current + 1);
   };
+
+  useEffect(() => {
+    if (Platform.OS !== "android") return;
+
+    const subscription = BackHandler.addEventListener(
+      "hardwareBackPress",
+      () => {
+        switch (screen) {
+          case "flashcardsHome":
+          case "stats":
+          case "profile":
+          case "contact":
+          case "weeklyHome":
+          case "drugCalcHome":
+          case "ekgTrainingHome":
+          case "bloodGasTrainingHome":
+            setScreen("home");
+            return true;
+          case "drugCalcPractice":
+          case "drugCalcTheory":
+            setScreen("drugCalcHome");
+            return true;
+          case "ekgRhythmTrainer":
+          case "ekgImageDrill":
+            setScreen("ekgTrainingHome");
+            return true;
+          case "bloodGasValueTrainer":
+          case "bloodGasPatternTrainer":
+            setScreen("bloodGasTrainingHome");
+            return true;
+          case "examSummary":
+            handleBackToFlashcards();
+            return true;
+          case "quiz":
+            handleHome();
+            return true;
+          case "weeklyMcq":
+          case "weeklyMatch":
+          case "weeklyWord":
+            return false;
+          case "weeklyDev":
+            if (__DEV__) {
+              setScreen("home");
+              return true;
+            }
+            return false;
+          case "auth":
+          case "home":
+          default:
+            return false;
+        }
+      },
+    );
+
+    return () => subscription.remove();
+  }, [screen]);
 
   // -------- Responsive typography --------
   const { width: screenWidth } = useWindowDimensions();
@@ -528,7 +584,7 @@ export default function Index() {
   const handleStartDailyTen = () => {
     if (loadingCards) {
       Alert.alert(
-        "IndlÃ¦ser kort",
+        "Henter kort…",
         "Vent et øjeblik, mens kortene hentes.",
       );
       return;
@@ -957,7 +1013,7 @@ export default function Index() {
     );
   }
 
-  if (screen === "weeklyDev") {
+  if (__DEV__ && screen === "weeklyDev") {
     return (
       <WeeklyDevScreen
         headingFont={headingFont}
@@ -1266,7 +1322,7 @@ export default function Index() {
       appLogo={APP_LOGO}
       onOpenProfile={() => setScreen("profile")}
       onOpenWeeklyHome={() => setScreen("weeklyHome")}
-      onOpenWeeklyDev={() => setScreen("weeklyDev")}
+      onOpenWeeklyDev={__DEV__ ? () => setScreen("weeklyDev") : undefined}
       onStartDailyTen={handleStartDailyTen}
       dailyTenDisabled={loadingCards || dailyTenCards.length === 0}
       dailyTenCount={Math.min(DAILY_TEN_CARD_COUNT, dailyTenCards.length)}

@@ -199,7 +199,7 @@ export const venousLimitations = [
 export const bloodGasPatterns: BloodGasPattern[] = [
   {
     id: "normal-ish",
-    title: "Normal-ish VGAS",
+    title: "Ingen tydelig syre-base-afvigelse",
     summary: "Et mønster uden en tydelig større syre-base-afvigelse i de viste værdier.",
     directions: ["pH: referenceområde", "pCO₂: ingen tydelig hovedafvigelse", "HCO₃⁻/BE: ingen tydelig hovedafvigelse"],
     supportingValues: "Laktat, glukose, elektrolytter, nyretal og CRP kan stadig være afvigende.",
@@ -255,7 +255,7 @@ export const bloodGasPatterns: BloodGasPattern[] = [
     id: "inflammation-crp",
     title: "Inflammation / forhøjet-CRP-mønster",
     summary: "En forhøjet CRP kan støtte at der foregår en inflammatorisk proces.",
-    directions: ["CRP: høj", "VGAS: kan være normal-ish eller vise andre samtidige forstyrrelser"],
+    directions: ["CRP: høj", "VGAS: kan være uden tydelig syre-base-afvigelse eller vise andre samtidige forstyrrelser"],
     supportingValues: "Temperatur, symptomer, tidsforløb, vitalparametre, laktat og klinisk fokus er vigtigere end CRP alene.",
     prehospitalRelevance: "CRP kan bidrage til overleveringen, men kan hverken alene bekræfte infektion eller graduere hele patientens risiko.",
     commonPitfall: "At fortolke høj CRP som sikkert bakteriel infektion eller lav CRP som sikkert fravær af alvorlig sygdom.",

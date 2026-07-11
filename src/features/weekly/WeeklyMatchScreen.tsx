@@ -5,7 +5,9 @@ import React, { useEffect, useMemo, useState } from "react";
 import {
   ActivityIndicator,
   Alert,
+  BackHandler,
   Modal,
+  Platform,
   Pressable,
   ScrollView,
   Text,
@@ -299,6 +301,18 @@ export function WeeklyMatchScreen({
     hardResetUi();
     onBack();
   };
+
+  useEffect(() => {
+    if (Platform.OS !== "android") return;
+    const subscription = BackHandler.addEventListener(
+      "hardwareBackPress",
+      () => {
+        handleBack();
+        return true;
+      },
+    );
+    return () => subscription.remove();
+  });
 
   const startRound = (roundNumber: number, resetSession: boolean) => {
     const rd = rounds[roundNumber - 1];

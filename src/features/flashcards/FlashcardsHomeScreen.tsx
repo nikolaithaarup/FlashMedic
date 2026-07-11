@@ -234,7 +234,7 @@ export default function FlashcardsHomeScreen({
             <View style={styles.selectionHeader}>
               <Text style={styles.selectionCount}>
                 {selectedKeys.length === 0
-                  ? "Vælg et eller flere emner for at starte en målrettet quiz."
+                  ? "Vælg et eller flere emner for at starte en målrettet træning."
                   : `${selectedKeys.length} valgt`}
               </Text>
               <SecondaryButton

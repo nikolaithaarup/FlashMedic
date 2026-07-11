@@ -34,7 +34,7 @@ type HomeScreenProps = {
   appLogo: any;
   onOpenProfile: () => void;
   onOpenWeeklyHome: () => void;
-  onOpenWeeklyDev: () => void;
+  onOpenWeeklyDev?: () => void;
   onStartDailyTen: () => void;
   dailyTenDisabled: boolean;
   dailyTenCount: number;
@@ -212,7 +212,7 @@ export default function HomeScreen({
             />
             <DestinationCard
               description="Ugentlig tematræning og let konkurrence."
-              delayLongPress={800}
+              delayLongPress={onOpenWeeklyDev ? 800 : undefined}
               eyebrow="UGENTLIGT"
               onLongPress={onOpenWeeklyDev}
               onPress={onOpenWeeklyHome}

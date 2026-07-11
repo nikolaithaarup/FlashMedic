@@ -6,7 +6,9 @@ import React, { useEffect, useMemo, useState } from "react";
 import {
   ActivityIndicator,
   Alert,
+  BackHandler,
   Modal,
+  Platform,
   Pressable,
   ScrollView,
   Text,
@@ -280,6 +282,18 @@ export function WeeklyMcqScreen({
     hardResetUi();
     onBack();
   };
+
+  useEffect(() => {
+    if (Platform.OS !== "android") return;
+    const subscription = BackHandler.addEventListener(
+      "hardwareBackPress",
+      () => {
+        handleBack();
+        return true;
+      },
+    );
+    return () => subscription.remove();
+  });
 
   const handleStart = async () => {
     if (!lock.loaded) {
