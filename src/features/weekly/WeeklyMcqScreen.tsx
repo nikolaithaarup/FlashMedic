@@ -30,7 +30,7 @@ import {
   NoticeCard,
   SecondaryButton,
 } from "../../ui/primitives";
-import { useWeeklyLock } from "./useWeeklyLock";
+import { getWeeklyLockKey, useWeeklyLock } from "./useWeeklyLock";
 
 import {
   loadMcqPackByWeekKey,
@@ -72,10 +72,8 @@ type WeeklyMcqScreenProps = {
   headingFont: number;
   buttonFont: number;
 
-  weeklyMcqLocked: boolean; // backward compat
-  setWeeklyMcqLocked: (locked: boolean) => void;
-
   profileNickname?: string | null;
+  onAttemptLocked: () => void;
   onBack: () => void;
 
   // ✅ DEV: force-load specific week doc id (e.g. "2026-W06")
@@ -85,9 +83,8 @@ type WeeklyMcqScreenProps = {
 export function WeeklyMcqScreen({
   headingFont,
   buttonFont,
-  weeklyMcqLocked,
-  setWeeklyMcqLocked,
   profileNickname,
+  onAttemptLocked,
   onBack,
   devWeekKey = null,
 }: WeeklyMcqScreenProps) {
@@ -125,16 +122,16 @@ export function WeeklyMcqScreen({
   const [shuffledOptions, setShuffledOptions] = useState<WeeklyMcqOption[]>([]);
 
   // Use the effective weekKey for lock keys
-  const effectiveWeekKey = weekKey ?? devWeekKey ?? null;
+  const effectiveWeekKey =
+    resolution?.canonicalWeekKey ?? devWeekKey ?? weekKey ?? null;
 
   const lockKey = effectiveWeekKey
-    ? `weekly_lock_mcq_${effectiveWeekKey}`
+    ? getWeeklyLockKey("mcq", effectiveWeekKey)
     : "weekly_lock_mcq_unknown";
   const lock = useWeeklyLock(lockKey);
   const [forceLocked, setForceLocked] = useState(false);
 
-  const isLocked =
-    (weeklyMcqLocked || lock.locked || forceLocked) && !lock.ignoreLocks;
+  const isLocked = (lock.locked || forceLocked) && !lock.ignoreLocks;
 
   const currentQuestion = questions[index];
   const totalQuestions = questions.length;
@@ -251,11 +248,10 @@ export function WeeklyMcqScreen({
 
   const lockAndExit = async () => {
     setForceLocked(true);
-    setWeeklyMcqLocked(true);
-
     if (!lock.ignoreLocks) {
       try {
         await lock.lock();
+        onAttemptLocked();
       } catch (err) {
         console.error("Failed to lock MCQ game on exit", err);
       }
@@ -285,7 +281,7 @@ export function WeeklyMcqScreen({
     onBack();
   };
 
-  const handleStart = () => {
+  const handleStart = async () => {
     if (!lock.loaded) {
       Alert.alert("Indlæser", "Tjekker spilstatus...");
       return;
@@ -309,6 +305,19 @@ export function WeeklyMcqScreen({
           : "Ingen MCQ-spørgsmål til denne uge endnu.",
       );
       return;
+    }
+
+    if (!lock.ignoreLocks) {
+      setForceLocked(true);
+      try {
+        await lock.lock();
+        onAttemptLocked();
+      } catch (err) {
+        setForceLocked(false);
+        console.error("Failed to lock MCQ attempt on start", err);
+        Alert.alert("Kunne ikke starte", "Forsøget kunne ikke gemmes sikkert. Prøv igen.");
+        return;
+      }
     }
 
     setStarted(true);
@@ -358,11 +367,10 @@ export function WeeklyMcqScreen({
 
   const finishRun = async (finalScore: number) => {
     setForceLocked(true);
-    setWeeklyMcqLocked(true);
-
     if (!lock.ignoreLocks) {
       try {
         await lock.lock();
+        onAttemptLocked();
       } catch (err) {
         console.error("Failed to lock MCQ game on finish", err);
       }

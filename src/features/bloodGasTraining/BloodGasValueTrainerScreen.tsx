@@ -236,7 +236,9 @@ export function BloodGasValueTrainerScreen({ onBack }: Props) {
         onBack={onBack}
       />
 
-      <NoticeCard title="Til faglig træning" tone="info"></NoticeCard>
+      <NoticeCard title="Til faglig træning" tone="info">
+        Brug resultatet som træning og ikke som grundlag for patientbehandling.
+      </NoticeCard>
 
       <Card variant="subtle" style={styles.caseCard}>
         <View style={styles.badgeRow}>

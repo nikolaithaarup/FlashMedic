@@ -161,7 +161,9 @@ export function BloodGasPatternTrainerScreen({ onBack }: Props) {
         subtitle={`Case ${caseIndex + 1} af ${deck.length}`}
         onBack={onBack}
       />
-      <NoticeCard title="Til faglig træning" tone="info"></NoticeCard>
+      <NoticeCard title="Til faglig træning" tone="info">
+        Brug resultatet som træning og ikke som grundlag for patientbehandling.
+      </NoticeCard>
       <Card variant="subtle" style={styles.caseCard}>
         <View style={styles.badges}>
           <Text style={styles.badge}>

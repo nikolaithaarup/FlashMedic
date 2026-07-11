@@ -29,7 +29,7 @@ import {
   NoticeCard,
   SecondaryButton,
 } from "../../ui/primitives";
-import { useWeeklyLock } from "./useWeeklyLock";
+import { getWeeklyLockKey, useWeeklyLock } from "./useWeeklyLock";
 
 import {
   loadMatchPackByWeekKey,
@@ -87,10 +87,8 @@ type WeeklyMatchScreenProps = {
   headingFont: number;
   buttonFont: number;
 
-  weeklyMatchLocked: boolean;
-  setWeeklyMatchLocked: (locked: boolean) => void;
-
   profileNickname?: string | null;
+  onAttemptLocked: () => void;
   onBack: () => void;
 
   devWeekKey?: string | null;
@@ -99,9 +97,8 @@ type WeeklyMatchScreenProps = {
 export function WeeklyMatchScreen({
   headingFont,
   buttonFont,
-  weeklyMatchLocked,
-  setWeeklyMatchLocked,
   profileNickname,
+  onAttemptLocked,
   onBack,
   devWeekKey = null,
 }: WeeklyMatchScreenProps) {
@@ -121,19 +118,19 @@ export function WeeklyMatchScreen({
 
   const maxRounds = rounds.length > 0 ? rounds.length : 1;
 
-  const effectiveWeekKey = weekKey ?? devWeekKey ?? null;
+  const effectiveWeekKey =
+    resolution?.canonicalWeekKey ?? devWeekKey ?? weekKey ?? null;
 
   // ---- Week lock ----
   const lockKey = effectiveWeekKey
-    ? `weekly_lock_match_${effectiveWeekKey}`
+    ? getWeeklyLockKey("match", effectiveWeekKey)
     : "weekly_lock_match_unknown";
   const lock = useWeeklyLock(lockKey);
 
   // local immediate lock so UI locks instantly on quit/finish
   const [forceLocked, setForceLocked] = useState(false);
 
-  const isLocked =
-    (weeklyMatchLocked || lock.locked || forceLocked) && !lock.ignoreLocks;
+  const isLocked = (lock.locked || forceLocked) && !lock.ignoreLocks;
 
   // ---- Game state ----
   const [started, setStarted] = useState(false);
@@ -269,11 +266,10 @@ export function WeeklyMatchScreen({
 
   const lockAndExit = async () => {
     setForceLocked(true);
-    setWeeklyMatchLocked(true);
-
     if (!lock.ignoreLocks) {
       try {
         await lock.lock();
+        onAttemptLocked();
       } catch (err) {
         console.error("Failed to lock match game on exit", err);
       }
@@ -337,7 +333,11 @@ export function WeeklyMatchScreen({
     setShowResults(false);
   };
 
-  const handleStart = () => {
+  const handleStart = async () => {
+    if (!lock.loaded) {
+      Alert.alert("Indlæser", "Tjekker spilstatus...");
+      return;
+    }
     if (!packLoaded) {
       Alert.alert("Indlæser", "Henter ugens matchopgave…");
       return;
@@ -357,6 +357,19 @@ export function WeeklyMatchScreen({
           : "Ingen Match-runder til denne uge endnu.",
       );
       return;
+    }
+
+    if (!lock.ignoreLocks) {
+      setForceLocked(true);
+      try {
+        await lock.lock();
+        onAttemptLocked();
+      } catch (err) {
+        setForceLocked(false);
+        console.error("Failed to lock Match attempt on start", err);
+        Alert.alert("Kunne ikke starte", "Forsøget kunne ikke gemmes sikkert. Prøv igen.");
+        return;
+      }
     }
 
     startRound(1, true);
@@ -448,11 +461,10 @@ export function WeeklyMatchScreen({
 
   const finishRun = async (finalScore: number) => {
     setForceLocked(true);
-    setWeeklyMatchLocked(true);
-
     if (!lock.ignoreLocks) {
       try {
         await lock.lock();
+        onAttemptLocked();
       } catch (err) {
         console.error("Failed to lock match game on finish", err);
       }

@@ -116,6 +116,7 @@ export default function HomeScreen({
   onOpenContact,
 }: HomeScreenProps) {
   const { width } = useWindowDimensions();
+  const isPhone = width < 600;
   const titleWidth = Math.min(360, Math.max(220, width - Spacing.xl * 2));
 
   return (
@@ -151,18 +152,23 @@ export default function HomeScreen({
             </Pressable>
           </View>
 
-          <View style={styles.hero}>
+          <View style={[styles.hero, isPhone && styles.heroPhone]}>
             <Image
               accessibilityIgnoresInvertColors
               accessibilityLabel="FlashMedic ikon"
+              resizeMode="contain"
               source={appLogo}
-              style={styles.appLogo}
+              style={[styles.appLogo, isPhone && styles.appLogoPhone]}
             />
             <Image
               accessibilityLabel="FlashMedic"
               resizeMode="contain"
               source={titleLogo}
-              style={[styles.wordmark, { width: titleWidth }]}
+              style={[
+                styles.wordmark,
+                isPhone && styles.wordmarkPhone,
+                { width: titleWidth },
+              ]}
             />
             <Text style={[styles.subtitle, { fontSize: subtitleFont }]}>
               Ambulancefag, flashcards og klinisk repetition.
@@ -179,7 +185,9 @@ export default function HomeScreen({
             </View>
           ) : null}
 
-          <View style={styles.sectionHeader}>
+          <View
+            style={[styles.sectionHeader, isPhone && styles.sectionHeaderPhone]}
+          >
             <Text style={styles.sectionEyebrow}>LÆRING</Text>
             <Text style={styles.sectionTitle}>Hvad vil du træne?</Text>
           </View>
@@ -321,13 +329,19 @@ const styles = StyleSheet.create({
     paddingTop: Spacing.lg,
     paddingBottom: Spacing.xl,
   },
-  appLogo: { width: 88, height: 88, marginBottom: Spacing.sm },
+  heroPhone: {
+    paddingTop: 2,
+    paddingBottom: Spacing.sm,
+  },
+  appLogo: { width: 140, height: 64, marginBottom: Spacing.sm },
+  appLogoPhone: { width: 104, height: 46, marginBottom: 2 },
   wordmark: { height: 76, maxWidth: "100%" },
+  wordmarkPhone: { height: 38 },
   subtitle: {
     color: ColorTokens.text.secondary,
     lineHeight: Typography.lineHeights.body,
     textAlign: "center",
-    marginTop: Spacing.xs,
+    marginTop: 2,
   },
   statusSurface: {
     borderRadius: Radii.md,
@@ -341,6 +355,7 @@ const styles = StyleSheet.create({
   statusText: { color: ColorTokens.text.secondary, textAlign: "center" },
   errorText: { color: ColorTokens.text.primary, textAlign: "center" },
   sectionHeader: { marginTop: Spacing.md, marginBottom: Spacing.sm },
+  sectionHeaderPhone: { marginTop: 2, marginBottom: Spacing.xs },
   sectionEyebrow: {
     color: ColorTokens.accent.muted,
     fontSize: Typography.sizes.caption,
@@ -363,11 +378,12 @@ const styles = StyleSheet.create({
   },
   disabled: { opacity: Interaction.disabledOpacity },
   destinationCard: {
-    minHeight: 108,
+    minHeight: 92,
     flexDirection: "row",
     alignItems: "center",
     borderColor: ColorTokens.border.default,
-    padding: Spacing.lg,
+    paddingHorizontal: Spacing.lg,
+    paddingVertical: Spacing.sm,
   },
   destinationCopy: { flex: 1, minWidth: 0 },
   eyebrow: {

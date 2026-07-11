@@ -248,10 +248,11 @@ export default function Index() {
   const [contactName, setContactName] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [contactMessage, setContactMessage] = useState("");
+  const [weeklyLockRefreshToken, setWeeklyLockRefreshToken] = useState(0);
 
-  const [weeklyMcqLocked, setWeeklyMcqLocked] = useState(false);
-  const [weeklyMatchLocked, setWeeklyMatchLocked] = useState(false);
-  const [weeklyWordLocked, setWeeklyWordLocked] = useState(false);
+  const notifyWeeklyLockChanged = () => {
+    setWeeklyLockRefreshToken((current) => current + 1);
+  };
 
   // -------- Responsive typography --------
   const { width: screenWidth } = useWindowDimensions();
@@ -1067,9 +1068,7 @@ export default function Index() {
         headingFont={headingFont}
         subtitleFont={subtitleFont}
         buttonFont={buttonFont}
-        weeklyMcqLocked={weeklyMcqLocked}
-        weeklyMatchLocked={weeklyMatchLocked}
-        weeklyWordLocked={weeklyWordLocked}
+        lockRefreshToken={weeklyLockRefreshToken}
         onBackToHome={() => setScreen("home")}
         onOpenMcq={() => setScreen("weeklyMcq")}
         onOpenMatch={() => setScreen("weeklyMatch")}
@@ -1083,9 +1082,8 @@ export default function Index() {
       <WeeklyMcqScreen
         headingFont={headingFont}
         buttonFont={buttonFont}
-        weeklyMcqLocked={weeklyMcqLocked}
-        setWeeklyMcqLocked={setWeeklyMcqLocked}
         profileNickname={profile?.nickname}
+        onAttemptLocked={notifyWeeklyLockChanged}
         onBack={() => {
           setScreen("weeklyHome");
         }}
@@ -1103,9 +1101,8 @@ export default function Index() {
       <WeeklyMatchScreen
         headingFont={headingFont}
         buttonFont={buttonFont}
-        weeklyMatchLocked={weeklyMatchLocked}
-        setWeeklyMatchLocked={setWeeklyMatchLocked}
         profileNickname={profile?.nickname}
+        onAttemptLocked={notifyWeeklyLockChanged}
         onBack={() => setScreen("weeklyHome")}
         devWeekKey={
           weeklyDevOverride.enabled && weeklyDevOverride.kind === "match"
@@ -1121,9 +1118,8 @@ export default function Index() {
       <WeeklyWordScreen
         headingFont={headingFont}
         buttonFont={buttonFont}
-        weeklyWordLocked={weeklyWordLocked}
-        setWeeklyWordLocked={setWeeklyWordLocked}
         profileNickname={profile?.nickname}
+        onAttemptLocked={notifyWeeklyLockChanged}
         onBack={() => setScreen("weeklyHome")}
         devWeekKey={
           weeklyDevOverride.enabled && weeklyDevOverride.kind === "word"

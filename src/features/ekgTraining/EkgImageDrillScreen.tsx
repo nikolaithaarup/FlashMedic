@@ -433,7 +433,6 @@ export function EkgImageDrillScreen({ cards, loadingCards, onBack }: Props) {
         <FullscreenEkgImageModal
           imageSource={currentCard.image}
           onClose={() => setImageModalVisible(false)}
-          rotate={currentCard.imageOrientation === "rotate-90"}
           visible={imageModalVisible}
         />
       ) : null}

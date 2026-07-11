@@ -81,10 +81,14 @@ export default function WeeklyDevScreen({
   const [devShowJson, setDevShowJson] = useState(false);
 
   // ✅ Global dev toggle (ignore locks) — assumes useWeeklyLock shares ignoreLocks globally
-  const globalLock = useWeeklyLock("weekly_dev_dummy_key");
+  const globalLock = useWeeklyLock("weekly_dev_dummy_key", {
+    allowDevOverride: true,
+  });
 
   const wk = weekKeyFrom(devYear, devWeek);
-  const thisKindLock = useWeeklyLock(lockKeyFor(devKind, wk));
+  const thisKindLock = useWeeklyLock(lockKeyFor(devKind, wk), {
+    allowDevOverride: true,
+  });
   const effectiveLocked = thisKindLock.locked;
 
   const slotChoices = useMemo(() => {

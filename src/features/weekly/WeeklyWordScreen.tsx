@@ -32,7 +32,7 @@ import {
 } from "../../services/weeklyIndexService";
 import { WeeklyPackValidationError } from "../../services/weeklyPackValidation";
 import { submitWeeklyResultReliably } from "../../services/weeklyPendingUploadService";
-import { useWeeklyLock } from "./useWeeklyLock";
+import { getWeeklyLockKey, useWeeklyLock } from "./useWeeklyLock";
 
 import {
   loadThisWeeksWordPack,
@@ -76,9 +76,7 @@ type WeeklyWordScreenProps = {
   headingFont: number;
   buttonFont: number;
   profileNickname?: string | null;
-
-  weeklyWordLocked: boolean; // backward compat
-  setWeeklyWordLocked: (locked: boolean) => void;
+  onAttemptLocked: () => void;
 
   onBack: () => void;
 
@@ -90,8 +88,7 @@ export function WeeklyWordScreen({
   headingFont,
   buttonFont,
   profileNickname,
-  weeklyWordLocked,
-  setWeeklyWordLocked,
+  onAttemptLocked,
   onBack,
   devWeekKey = null,
 }: WeeklyWordScreenProps) {
@@ -111,16 +108,16 @@ export function WeeklyWordScreen({
 
   const maxRounds = rounds.length > 0 ? rounds.length : 3;
 
-  const effectiveWeekKey = weekKey ?? devWeekKey ?? null;
+  const effectiveWeekKey =
+    resolution?.canonicalWeekKey ?? devWeekKey ?? weekKey ?? null;
 
   // ---- Week lock ----
   const lockKey = effectiveWeekKey
-    ? `weekly_lock_word_${effectiveWeekKey}`
+    ? getWeeklyLockKey("word", effectiveWeekKey)
     : "weekly_lock_word_unknown";
   const lock = useWeeklyLock(lockKey);
   const [forceLocked, setForceLocked] = useState(false);
-  const isLocked =
-    (weeklyWordLocked || lock.locked || forceLocked) && !lock.ignoreLocks;
+  const isLocked = (lock.locked || forceLocked) && !lock.ignoreLocks;
 
   // ---- Game state ----
   const [started, setStarted] = useState(false);
@@ -249,11 +246,10 @@ export function WeeklyWordScreen({
 
   const lockAndExit = async () => {
     setForceLocked(true);
-    setWeeklyWordLocked(true);
-
     if (!lock.ignoreLocks) {
       try {
         await lock.lock();
+        onAttemptLocked();
       } catch (err) {
         console.error("Failed to lock Word game on exit", err);
       }
@@ -316,7 +312,7 @@ export function WeeklyWordScreen({
     setShowResults(false);
   };
 
-  const handleStart = () => {
+  const handleStart = async () => {
     if (!lock.loaded) {
       Alert.alert("Indlæser", "Tjekker spilstatus...");
       return;
@@ -344,6 +340,19 @@ export function WeeklyWordScreen({
 
     const firstRound =
       rounds.slice().sort((a, b) => a.round - b.round)[0]?.round ?? 1;
+
+    if (!lock.ignoreLocks) {
+      setForceLocked(true);
+      try {
+        await lock.lock();
+        onAttemptLocked();
+      } catch (err) {
+        setForceLocked(false);
+        console.error("Failed to lock Word attempt on start", err);
+        Alert.alert("Kunne ikke starte", "Forsøget kunne ikke gemmes sikkert. Prøv igen.");
+        return;
+      }
+    }
 
     startRound(firstRound, true);
   };
@@ -382,11 +391,10 @@ export function WeeklyWordScreen({
 
   const finishRun = async (finalScore: number) => {
     setForceLocked(true);
-    setWeeklyWordLocked(true);
-
     if (!lock.ignoreLocks) {
       try {
         await lock.lock();
+        onAttemptLocked();
       } catch (err) {
         console.error("Failed to lock Word game on finish", err);
       }

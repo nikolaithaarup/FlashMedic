@@ -3,12 +3,10 @@ import { StatusBar } from "expo-status-bar";
 import React, { useMemo, useState } from "react";
 import {
   Image,
-  Modal,
   Pressable,
   StyleSheet,
   Text,
   View,
-  useWindowDimensions,
 } from "react-native";
 
 import {
@@ -22,6 +20,7 @@ import {
 } from "../../../constants/theme";
 import type { Difficulty, Flashcard } from "../../types/Flashcard";
 import type { FlashcardTrainingMode } from "../../types/Learning";
+import FullscreenEkgImageModal from "../flashcards/components/FullscreenEkgImageModal";
 import {
   Card,
   PrimaryButton,
@@ -91,7 +90,6 @@ export default function QuizScreen({
   onMarkUnknown,
   onReportError,
 }: QuizScreenProps) {
-  const { width: screenWidth, height: screenHeight } = useWindowDimensions();
   const [imageModalVisible, setImageModalVisible] = useState(false);
   const totalQuestions = historyCount + 1 + upcomingCount;
   const currentIndex = historyCount + 1;
@@ -271,39 +269,11 @@ export default function QuizScreen({
       </Screen>
 
       {currentCard.image ? (
-        <Modal
-          animationType="fade"
-          onRequestClose={() => setImageModalVisible(false)}
-          presentationStyle="fullScreen"
-          transparent={false}
+        <FullscreenEkgImageModal
+          imageSource={imageSource}
+          onClose={() => setImageModalVisible(false)}
           visible={imageModalVisible}
-        >
-          <View style={styles.modal}>
-            <Pressable
-              accessibilityLabel="Luk billede"
-              accessibilityRole="button"
-              hitSlop={Spacing.sm}
-              onPress={() => setImageModalVisible(false)}
-              style={({ pressed }) => [
-                styles.modalClose,
-                pressed && styles.modalClosePressed,
-              ]}
-            >
-              <Text style={styles.modalCloseText} accessibilityElementsHidden>
-                ×
-              </Text>
-            </Pressable>
-            <Image
-              resizeMode="contain"
-              source={imageSource}
-              style={{
-                width: screenHeight * 0.94,
-                height: screenWidth * 0.94,
-                transform: [{ rotate: "90deg" }],
-              }}
-            />
-          </View>
-        </Modal>
+        />
       ) : null}
     </>
   );
@@ -442,29 +412,4 @@ const styles = StyleSheet.create({
   },
   reportButton: { marginTop: Spacing.lg, marginBottom: Spacing.lg },
   hidden: { display: "none" },
-  modal: {
-    flex: 1,
-    backgroundColor: ColorTokens.background.base,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  modalClose: {
-    position: "absolute",
-    top: 56,
-    right: 18,
-    zIndex: 50,
-    width: Interaction.minimumTouchTarget,
-    height: Interaction.minimumTouchTarget,
-    borderRadius: Radii.control,
-    backgroundColor: ColorTokens.background.scrim,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  modalClosePressed: { opacity: Interaction.pressedOpacity },
-  modalCloseText: {
-    color: ColorTokens.text.primary,
-    fontSize: Typography.sizes.pageTitle,
-    lineHeight: Typography.lineHeights.pageTitle,
-    fontWeight: Typography.weights.heavy,
-  },
 });

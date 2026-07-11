@@ -9,6 +9,13 @@ import {
 } from "../src/services/weeklyPackValidation";
 import { mergeWeeklyResult } from "../src/services/weeklyResultMerge";
 import {
+  applyWeeklyAttemptEvent,
+  getWeeklyLockKey,
+  persistWeeklyAttemptLock,
+  readWeeklyAttemptLock,
+  shouldIgnoreWeeklyLocks,
+} from "../src/features/weekly/useWeeklyLock";
+import {
   createPendingWeeklyResult,
   parsePendingWeeklyResults,
 } from "../src/storage/weeklyPendingModel";
@@ -23,6 +30,56 @@ const expectedKeys = ["2026-W27", "week_27", "W27", "27"];
 if (JSON.stringify(keys) !== JSON.stringify(expectedKeys)) {
   throw new Error(`Unexpected weekly fallback order: ${keys.join(", ")}`);
 }
+
+const lockKeys = [
+  getWeeklyLockKey("mcq", "2026-W27"),
+  getWeeklyLockKey("match", "2026-W27"),
+  getWeeklyLockKey("word", "2026-W27"),
+  getWeeklyLockKey("mcq", "2026-W28"),
+];
+if (new Set(lockKeys).size !== lockKeys.length) {
+  throw new Error("Weekly lock keys must be isolated by game and week.");
+}
+if (
+  lockKeys[0] !== "weekly_lock_mcq_2026-W27" ||
+  lockKeys[3] !== "weekly_lock_mcq_2026-W28"
+) {
+  throw new Error("Weekly lock key serialization changed unexpectedly.");
+}
+if (applyWeeklyAttemptEvent(false, "view")) {
+  throw new Error("Viewing a weekly game must not create an attempt lock.");
+}
+for (const event of ["start", "complete", "abandon"] as const) {
+  if (!applyWeeklyAttemptEvent(false, event)) {
+    throw new Error(`${event} must create a weekly attempt lock.`);
+  }
+  if (!applyWeeklyAttemptEvent(true, event)) {
+    throw new Error(`${event} must preserve an existing weekly attempt lock.`);
+  }
+}
+
+const storageValidation = (async () => {
+  const simulatedStorageValues = new Map<string, string>();
+  const simulatedStorage = {
+    getItem: async (key: string) => simulatedStorageValues.get(key) ?? null,
+    setItem: async (key: string, value: string) => {
+      simulatedStorageValues.set(key, value);
+    },
+  };
+  await persistWeeklyAttemptLock(simulatedStorage, lockKeys[0]);
+  if (!(await readWeeklyAttemptLock(simulatedStorage, lockKeys[0]))) {
+    throw new Error("Started attempt lock did not survive a simulated reload.");
+  }
+  if (
+    (await readWeeklyAttemptLock(simulatedStorage, lockKeys[1])) ||
+    (await readWeeklyAttemptLock(simulatedStorage, lockKeys[3]))
+  ) {
+    throw new Error("Attempt lock leaked to another game or ISO week.");
+  }
+  if (shouldIgnoreWeeklyLocks(false, true)) {
+    throw new Error("Normal weekly gameplay must never honor the dev bypass.");
+  }
+})();
 
 const resolution = createResolvedWeeklyBundle(
   "2026-W27",
@@ -109,6 +166,13 @@ if (
   throw new Error("Valid weekly packs were rejected.");
 }
 
-console.log(
-  "Validated weekly key resolution, pack schemas, atomic merge, and pending-result serialization.",
-);
+storageValidation
+  .then(() => {
+    console.log(
+      "Validated weekly key resolution, per-game/per-week locks, persisted attempt lifecycle, dev-bypass isolation, pack schemas, atomic merge, and pending-result serialization.",
+    );
+  })
+  .catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+  });

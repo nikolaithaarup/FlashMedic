@@ -22,14 +22,13 @@ import {
   ToolPageHeader,
 } from "../../ui/primitives";
 import { useStats } from "../stats/StatsContext";
+import { getWeeklyLockKey, useWeeklyLock } from "./useWeeklyLock";
 
 type WeeklyHomeScreenProps = {
   headingFont: number;
   subtitleFont: number;
   buttonFont: number;
-  weeklyMcqLocked: boolean;
-  weeklyMatchLocked: boolean;
-  weeklyWordLocked: boolean;
+  lockRefreshToken: number;
   onBackToHome: () => void;
   onOpenMcq: () => void;
   onOpenMatch: () => void;
@@ -48,6 +47,8 @@ function GameCard({ title, description, locked, onPress }: GameCardProps) {
     <Pressable
       accessibilityLabel={`${title}. ${locked ? "Låst til næste uge" : description}`}
       accessibilityRole="button"
+      accessibilityState={{ disabled: locked }}
+      disabled={locked}
       onPress={onPress}
       style={({ pressed }) => [
         styles.gameCard,
@@ -58,7 +59,7 @@ function GameCard({ title, description, locked, onPress }: GameCardProps) {
       <View style={styles.gameCopy}>
         <Text style={styles.gameTitle}>{title}</Text>
         <Text style={styles.gameDescription}>
-          {locked ? "Gennemført · låst til næste uge" : description}
+          {locked ? "Allerede spillet · låst til næste uge" : description}
         </Text>
       </View>
       <Text style={styles.gameArrow} accessibilityElementsHidden>
@@ -69,13 +70,11 @@ function GameCard({ title, description, locked, onPress }: GameCardProps) {
 }
 
 export function WeeklyHomeScreen({
-  weeklyMcqLocked,
-  weeklyMatchLocked,
-  weeklyWordLocked,
   onBackToHome,
   onOpenMcq,
   onOpenMatch,
   onOpenWord,
+  lockRefreshToken,
 }: WeeklyHomeScreenProps) {
   const {
     weeklyGlobal,
@@ -91,6 +90,16 @@ export function WeeklyHomeScreen({
   }, []);
 
   const weekId = weeklyGlobal?.week?.weekId ?? null;
+  const lockWeekKey = weekId ?? "unknown";
+  const mcqLock = useWeeklyLock(getWeeklyLockKey("mcq", lockWeekKey), {
+    refreshToken: lockRefreshToken,
+  });
+  const matchLock = useWeeklyLock(getWeeklyLockKey("match", lockWeekKey), {
+    refreshToken: lockRefreshToken,
+  });
+  const wordLock = useWeeklyLock(getWeeklyLockKey("word", lockWeekKey), {
+    refreshToken: lockRefreshToken,
+  });
   const top10 = weeklyGlobal?.leaderboard ?? [];
   const topics = weeklyGlobal?.week?.topics ?? null;
   const resolution = weeklyGlobal?.week?.resolution ?? null;
@@ -120,19 +129,19 @@ export function WeeklyHomeScreen({
       <View style={styles.gameList}>
         <GameCard
           description="Vælg det korrekte svar."
-          locked={weeklyMcqLocked}
+          locked={mcqLock.locked}
           onPress={onOpenMcq}
           title="Ugens quiz"
         />
         <GameCard
           description="Forbind begreber og forklaringer."
-          locked={weeklyMatchLocked}
+          locked={matchLock.locked}
           onPress={onOpenMatch}
           title="Match parrene"
         />
         <GameCard
           description="Find ugens medicinske ord."
-          locked={weeklyWordLocked}
+          locked={wordLock.locked}
           onPress={onOpenWord}
           title="Ugens ord"
         />

@@ -31,8 +31,8 @@ export default function FullscreenEkgImageModal({
   const { width, height } = useWindowDimensions();
 
   // After a 90° rotation, the image wrapper should use swapped dimensions.
-  const rotatedBoxWidth = height;
-  const rotatedBoxHeight = width;
+  const rotatedBoxWidth = height * 0.94;
+  const rotatedBoxHeight = width * 0.94;
 
   return (
     <Modal
@@ -44,7 +44,13 @@ export default function FullscreenEkgImageModal({
     >
       <View style={styles.root}>
         <SafeAreaView style={styles.safeArea}>
-          <Pressable onPress={onClose} style={styles.closeButton} hitSlop={12}>
+          <Pressable
+            accessibilityLabel="Luk billede"
+            accessibilityRole="button"
+            onPress={onClose}
+            style={styles.closeButton}
+            hitSlop={12}
+          >
             <Text style={styles.closeButtonText}>✕</Text>
           </Pressable>
         </SafeAreaView>
