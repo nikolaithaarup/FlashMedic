@@ -172,7 +172,7 @@ export function BloodGasTrainingHomeScreen({
           <Text style={styles.eyebrow}>INTERAKTIV TRÆNING</Text>
           <Text style={styles.sectionTitle}>Træn værdier</Text>
           <Text style={styles.summaryText}>
-            Vurder værdier trin for trin og vælg det bedst understøttede mønster.
+            Vurder værdier trin for trin og vælg mønsteret, der passer bedst.
             Værdier alene er ikke en klinisk diagnose.
           </Text>
         </View>

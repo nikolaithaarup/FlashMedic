@@ -33,6 +33,7 @@ import {
 
 type Props = { onBack: () => void };
 type DirectionAnswers = Record<string, BloodGasValueDirection>;
+type FeedbackSection = "reasoning" | "abnormalities" | "pitfall" | "ambulance" | "limitation";
 
 const levelLabels: Record<BloodGasTrainingCase["level"], string> = {
   intro: "Intro",
@@ -83,9 +84,38 @@ function ChoiceGroup<T extends string>({
       </View>
       {checked ? (
         <Text style={[styles.feedbackLabel, correct ? styles.correctText : styles.incorrectText]}>
-          {correct ? "Korrekt vurdering" : `Ikke helt. Bedst understøttet: ${options.find((item) => item.id === expected)?.label}`}
+          {correct ? "Det passer" : `Se især: ${options.find((item) => item.id === expected)?.label}`}
         </Text>
       ) : null}
+    </Card>
+  );
+}
+
+function FeedbackAccordion({
+  id,
+  title,
+  expanded,
+  onToggle,
+  children,
+}: {
+  id: FeedbackSection;
+  title: string;
+  expanded: boolean;
+  onToggle: (id: FeedbackSection) => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <Card variant="subtle" style={styles.detailCard}>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityState={{ expanded }}
+        onPress={() => onToggle(id)}
+        style={({ pressed }) => [styles.detailHeader, pressed && styles.pressed]}
+      >
+        <Text style={styles.detailTitle}>{title}</Text>
+        <Text style={styles.detailIcon}>{expanded ? "−" : "+"}</Text>
+      </Pressable>
+      {expanded ? <View style={styles.detailContent}>{children}</View> : null}
     </Card>
   );
 }
@@ -99,6 +129,8 @@ export function BloodGasValueTrainerScreen({ onBack }: Props) {
   const [patternId, setPatternId] = useState<BloodGasPatternId | null>(null);
   const [checked, setChecked] = useState(false);
   const [prompt, setPrompt] = useState<string | null>(null);
+  const [contextExpanded, setContextExpanded] = useState(false);
+  const [expandedFeedback, setExpandedFeedback] = useState<FeedbackSection | null>(null);
 
   const currentCase = deck[caseIndex];
   const resetAnswers = () => {
@@ -108,13 +140,15 @@ export function BloodGasValueTrainerScreen({ onBack }: Props) {
     setPatternId(null);
     setChecked(false);
     setPrompt(null);
+    setContextExpanded(false);
+    setExpandedFeedback(null);
   };
 
   const checkAnswers = () => {
     if (!currentCase) return;
     const missingValues = currentCase.values.filter((value) => !directions[value.analyteId]);
     if (missingValues.length || !phStatus || !primaryProcess || !patternId) {
-      setPrompt("Vurder alle viste værdier og vælg svar i de tre fortolkningstrin først.");
+      setPrompt("Vurder alle værdier, og vælg et svar i de tre felter nedenfor.");
       return;
     }
     setPrompt(null);
@@ -157,8 +191,9 @@ export function BloodGasValueTrainerScreen({ onBack }: Props) {
         onBack={onBack}
       />
 
-      <NoticeCard title="Avanceret uddannelsestræning" tone="info">
-        Værdierne skal vurderes i klinisk kontekst og er ikke tilstrækkelige alene til en diagnose.
+      <NoticeCard title="Avanceret træning" tone="info">
+        Ikke klinisk beslutningsstøtte. Se altid tallene sammen med patienten,
+        vitalparametre, prøvetype, udvikling og lokal vejledning.
       </NoticeCard>
 
       <Card variant="subtle" style={styles.caseCard}>
@@ -166,8 +201,17 @@ export function BloodGasValueTrainerScreen({ onBack }: Props) {
           <Text style={styles.badge}>Venøs prøve</Text>
           <Text style={styles.badge}>{levelLabels[currentCase.level]}</Text>
         </View>
-        <Text style={styles.caseTitle}>{currentCase.title}</Text>
-        <Text style={styles.bodyText}>{currentCase.clinicalContext}</Text>
+        <Text style={styles.caseTitle}>{`VGAS-case ${caseIndex + 1}`}</Text>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityState={{ expanded: contextExpanded }}
+          onPress={() => setContextExpanded((value) => !value)}
+          style={({ pressed }) => [styles.contextToggle, pressed && styles.pressed]}
+        >
+          <Text style={styles.contextLabel}>Kontekst</Text>
+          <Text style={styles.detailIcon}>{contextExpanded ? "−" : "+"}</Text>
+        </Pressable>
+        {contextExpanded ? <Text style={styles.bodyText}>{currentCase.clinicalContext}</Text> : null}
       </Card>
 
       <View style={styles.sectionGap}>
@@ -215,8 +259,8 @@ export function BloodGasValueTrainerScreen({ onBack }: Props) {
       </View>
 
       <ChoiceGroup label="2. pH-status" options={phStatusOptions} selected={phStatus} expected={currentCase.expected.phStatus} accepted={currentCase.acceptedAlternatives?.phStatus} checked={checked} onSelect={setPhStatus} />
-      <ChoiceGroup label="3. Primær proces" options={primaryProcessOptions} selected={primaryProcess} expected={currentCase.expected.primaryProcess} accepted={currentCase.acceptedAlternatives?.primaryProcess} checked={checked} onSelect={setPrimaryProcess} />
-      <ChoiceGroup label="4. Bedst understøttede mønster" options={patternOptions} selected={patternId} expected={currentCase.expected.patternId} accepted={currentCase.acceptedAlternatives?.patternId} checked={checked} onSelect={setPatternId} />
+      <ChoiceGroup label="3. Overvejende påvirkning" options={primaryProcessOptions} selected={primaryProcess} expected={currentCase.expected.primaryProcess} accepted={currentCase.acceptedAlternatives?.primaryProcess} checked={checked} onSelect={setPrimaryProcess} />
+      <ChoiceGroup label="4. Mønsteret der passer bedst" options={patternOptions} selected={patternId} expected={currentCase.expected.patternId} accepted={currentCase.acceptedAlternatives?.patternId} checked={checked} onSelect={setPatternId} />
 
       {prompt ? <NoticeCard title="Mangler svar" tone="warning">{prompt}</NoticeCard> : null}
 
@@ -224,19 +268,24 @@ export function BloodGasValueTrainerScreen({ onBack }: Props) {
 
       {checked ? (
         <View style={styles.feedbackSection} testID="blood-gas-feedback">
-          <NoticeCard title="Her er det vigtigste mønster" tone="info">
-            {currentCase.reasoning.join(" ")}
+          <NoticeCard title="Samlet vurdering" tone="info">
+            {`Mønsteret der passer bedst: ${patternOptions.find((option) => option.id === currentCase.expected.patternId)?.label}. ${currentCase.keyAbnormalities.join(" · ")}. ${currentCase.limitation}`}
           </NoticeCard>
-          <Card variant="subtle" style={styles.feedbackCard}>
-            <Text style={styles.feedbackHeading}>Nøgleafvigelser</Text>
+          <FeedbackAccordion id="reasoning" title="Se begrundelse" expanded={expandedFeedback === "reasoning"} onToggle={(id) => setExpandedFeedback((value) => value === id ? null : id)}>
+            {currentCase.reasoning.map((item) => <Text key={item} style={styles.bodyText}>• {item}</Text>)}
+          </FeedbackAccordion>
+          <FeedbackAccordion id="abnormalities" title="Nøgleafvigelser" expanded={expandedFeedback === "abnormalities"} onToggle={(id) => setExpandedFeedback((value) => value === id ? null : id)}>
             {currentCase.keyAbnormalities.map((item) => <Text key={item} style={styles.bodyText}>• {item}</Text>)}
-            <Text style={styles.feedbackHeading}>Typisk faldgrube</Text>
+          </FeedbackAccordion>
+          <FeedbackAccordion id="pitfall" title="Typisk faldgrube" expanded={expandedFeedback === "pitfall"} onToggle={(id) => setExpandedFeedback((value) => value === id ? null : id)}>
             <Text style={styles.bodyText}>{currentCase.commonPitfall}</Text>
-            <Text style={styles.feedbackHeading}>Ambulancefokus</Text>
+          </FeedbackAccordion>
+          <FeedbackAccordion id="ambulance" title="Ambulancefokus" expanded={expandedFeedback === "ambulance"} onToggle={(id) => setExpandedFeedback((value) => value === id ? null : id)}>
             <Text style={styles.bodyText}>{currentCase.prehospitalRelevance}</Text>
-            <Text style={styles.feedbackHeading}>Begrænsning</Text>
+          </FeedbackAccordion>
+          <FeedbackAccordion id="limitation" title="Begrænsning" expanded={expandedFeedback === "limitation"} onToggle={(id) => setExpandedFeedback((value) => value === id ? null : id)}>
             <Text style={styles.bodyText}>{currentCase.limitation}</Text>
-          </Card>
+          </FeedbackAccordion>
           <PrimaryButton label={caseIndex === deck.length - 1 ? "Afslut runde" : "Næste case"} onPress={nextCase} />
         </View>
       ) : null}
@@ -247,8 +296,8 @@ export function BloodGasValueTrainerScreen({ onBack }: Props) {
 }
 
 const styles = StyleSheet.create({
-  content: { gap: Spacing.md, paddingBottom: Spacing.xxl },
-  caseCard: { gap: Spacing.sm },
+  content: { gap: Spacing.sm, paddingBottom: Spacing.xl },
+  caseCard: { gap: Spacing.xs, padding: Spacing.sm },
   badgeRow: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.xs },
   badge: { color: ColorTokens.accent.muted, fontFamily: Typography.families.sans, fontSize: Typography.sizes.caption, lineHeight: Typography.lineHeights.caption, fontWeight: Typography.weights.bold, borderWidth: Borders.hairline, borderColor: ColorTokens.accent.border, borderRadius: Radii.sm, paddingHorizontal: Spacing.sm, paddingVertical: 4 },
   caseTitle: { color: ColorTokens.text.primary, fontFamily: Typography.families.sans, fontSize: Typography.sizes.sectionTitle, lineHeight: Typography.lineHeights.sectionTitle, fontWeight: Typography.weights.bold },
@@ -259,21 +308,26 @@ const styles = StyleSheet.create({
   valueHeader: { flexDirection: "row", alignItems: "baseline", justifyContent: "space-between", gap: Spacing.sm },
   valueLabel: { color: ColorTokens.text.primary, fontFamily: Typography.families.sans, fontSize: Typography.sizes.body, lineHeight: Typography.lineHeights.body, fontWeight: Typography.weights.bold },
   valueReading: { color: ColorTokens.text.primary, fontFamily: Typography.families.sans, fontSize: Typography.sizes.body, lineHeight: Typography.lineHeights.body, fontWeight: Typography.weights.semibold },
-  compactOptions: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.xs },
-  compactOption: { minHeight: Interaction.compactTouchTarget, justifyContent: "center", borderRadius: Radii.control, borderWidth: Borders.hairline, borderColor: ColorTokens.border.default, backgroundColor: ColorTokens.surface.inverse, paddingHorizontal: Spacing.sm, paddingVertical: Spacing.xs },
+  contextToggle: { minHeight: Interaction.compactTouchTarget, flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
+  contextLabel: { color: ColorTokens.accent.muted, fontFamily: Typography.families.sans, fontSize: Typography.sizes.label, lineHeight: Typography.lineHeights.label, fontWeight: Typography.weights.bold },
+  compactOptions: { flexDirection: "row", gap: 4 },
+  compactOption: { flex: 1, minWidth: 0, minHeight: Interaction.compactTouchTarget, alignItems: "center", justifyContent: "center", borderRadius: Radii.sm, borderWidth: Borders.hairline, borderColor: ColorTokens.border.default, backgroundColor: ColorTokens.surface.inverse, paddingHorizontal: 4, paddingVertical: Spacing.xs },
   compactOptionText: { color: ColorTokens.text.secondary, fontFamily: Typography.families.sans, fontSize: Typography.sizes.caption, lineHeight: Typography.lineHeights.caption, fontWeight: Typography.weights.semibold },
-  answerCard: { gap: Spacing.sm },
-  answerTitle: { color: ColorTokens.text.primary, fontFamily: Typography.families.sans, fontSize: Typography.sizes.cardTitle, lineHeight: Typography.lineHeights.cardTitle, fontWeight: Typography.weights.bold },
-  optionList: { gap: Spacing.xs },
-  option: { minHeight: Interaction.minimumTouchTarget, justifyContent: "center", borderRadius: Radii.control, borderWidth: Borders.hairline, borderColor: ColorTokens.border.default, backgroundColor: ColorTokens.surface.inverse, paddingHorizontal: Spacing.md, paddingVertical: Spacing.sm },
+  answerCard: { gap: Spacing.xs, padding: Spacing.sm },
+  answerTitle: { color: ColorTokens.text.primary, fontFamily: Typography.families.sans, fontSize: Typography.sizes.body, lineHeight: Typography.lineHeights.body, fontWeight: Typography.weights.bold },
+  optionList: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.xs },
+  option: { minHeight: Interaction.compactTouchTarget, flexGrow: 1, flexBasis: "46%", justifyContent: "center", borderRadius: Radii.sm, borderWidth: Borders.hairline, borderColor: ColorTokens.border.default, backgroundColor: ColorTokens.surface.inverse, paddingHorizontal: Spacing.sm, paddingVertical: Spacing.xs },
   optionSelected: { borderColor: ColorTokens.interaction.selectedBorder, backgroundColor: ColorTokens.interaction.selected },
   optionText: { color: ColorTokens.text.secondary, fontFamily: Typography.families.sans, fontSize: Typography.sizes.label, lineHeight: Typography.lineHeights.label, fontWeight: Typography.weights.medium },
   optionTextSelected: { color: ColorTokens.text.onAccent, fontWeight: Typography.weights.bold },
   feedbackLabel: { fontFamily: Typography.families.sans, fontSize: Typography.sizes.label, lineHeight: Typography.lineHeights.label, fontWeight: Typography.weights.bold },
   correctText: { color: ColorTokens.semantic.success },
   incorrectText: { color: ColorTokens.semantic.warning },
-  feedbackSection: { gap: Spacing.md },
-  feedbackCard: { gap: Spacing.xs },
-  feedbackHeading: { color: ColorTokens.accent.muted, fontFamily: Typography.families.sans, fontSize: Typography.sizes.label, lineHeight: Typography.lineHeights.label, fontWeight: Typography.weights.bold, marginTop: Spacing.xs },
+  feedbackSection: { gap: Spacing.xs },
+  detailCard: { padding: 0, overflow: "hidden" },
+  detailHeader: { minHeight: Interaction.compactTouchTarget, flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: Spacing.sm },
+  detailTitle: { color: ColorTokens.text.primary, fontFamily: Typography.families.sans, fontSize: Typography.sizes.label, lineHeight: Typography.lineHeights.label, fontWeight: Typography.weights.bold },
+  detailIcon: { color: ColorTokens.accent.muted, fontFamily: Typography.families.sans, fontSize: Typography.sizes.sectionTitle, lineHeight: Typography.lineHeights.sectionTitle, fontWeight: Typography.weights.bold },
+  detailContent: { gap: Spacing.xs, borderTopWidth: Borders.hairline, borderTopColor: ColorTokens.border.divider, padding: Spacing.sm },
   pressed: { opacity: Interaction.pressedOpacity },
 });

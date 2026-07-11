@@ -68,14 +68,14 @@ export type BloodGasTrainingCase = {
 
 export const valueDirectionOptions: { id: BloodGasValueDirection; label: string }[] = [
   { id: "low", label: "Lav" },
-  { id: "reference", label: "Reference" },
+  { id: "reference", label: "Ref." },
   { id: "high", label: "Høj" },
   { id: "uncertain", label: "Usikker" },
 ];
 
 export const phStatusOptions: { id: BloodGasPhStatus; label: string }[] = [
   { id: "acidaemia", label: "Acidæmi" },
-  { id: "reference", label: "Reference / normal-ish" },
+  { id: "reference", label: "Forventet område" },
   { id: "alkalaemia", label: "Alkalæmi" },
   { id: "uncertain", label: "Usikker" },
 ];
@@ -88,12 +88,12 @@ export const primaryProcessOptions: { id: BloodGasPrimaryProcess; label: string 
 ];
 
 export const patternOptions: { id: BloodGasPatternId; label: string }[] = [
-  { id: "normalish", label: "Normal-ish VGAS" },
+  { id: "normalish", label: "Ingen tydelig hovedafvigelse" },
   { id: "primary-metabolic-acidosis", label: "Primær metabolisk acidose" },
   { id: "respiratory-acidosis", label: "Respiratorisk acidose" },
   { id: "respiratory-alkalosis", label: "Respiratorisk alkalose" },
   { id: "hyperglycaemia-metabolic-acidosis", label: "Svær hyperglykæmi + metabolisk acidose" },
-  { id: "hypoperfusion-elevated-lactate", label: "Forhøjet laktat / mulig hypoperfusion-stress" },
+  { id: "hypoperfusion-elevated-lactate", label: "Forhøjet laktat / mulig fysiologisk belastning" },
   { id: "inflammation-elevated-crp", label: "Forhøjet CRP / inflammationsmønster" },
   { id: "renal-electrolyte-disturbance", label: "Nyrepåvirkning / elektrolytforstyrrelse" },
   { id: "mixed-or-uncertain", label: "Blandet eller usikkert mønster" },
@@ -134,7 +134,7 @@ function createCase(
       ? values
           .filter((value) => value.direction === "low" || value.direction === "high")
           .map((value) => `${value.label}: ${value.value} ${value.unit}`)
-      : ["Ingen tydelig hovedafvigelse i de viste værdier"],
+      : ["De viste værdier er inden for forventet område"],
     commonPitfall: example.commonPitfall,
     prehospitalRelevance: example.prehospitalRelevance,
     limitation: example.limitation,

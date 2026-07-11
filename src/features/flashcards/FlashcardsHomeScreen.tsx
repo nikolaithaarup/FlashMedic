@@ -43,9 +43,6 @@ type FlashcardsHomeScreenProps = {
   weakestTopics: TopicStats[];
   onStartMistakeReview: () => void;
   onStartWeakTopics: () => void;
-  onStartExamMode: () => void;
-  examCardCount: number;
-  disableExamMode: boolean;
 };
 
 type ChipItem = { key: string; label: string };
@@ -94,9 +91,6 @@ export default function FlashcardsHomeScreen({
   weakestTopics,
   onStartMistakeReview,
   onStartWeakTopics,
-  onStartExamMode,
-  examCardCount,
-  disableExamMode,
 }: FlashcardsHomeScreenProps) {
   const topicChips = useMemo(
     () => (selectedSubject ? buildChips(topicGroupsForSelectedSubject) : []),
@@ -126,9 +120,8 @@ export default function FlashcardsHomeScreen({
         title="FlashMedic"
       />
 
-      <NoticeCard title="Sådan kommer du i gang">
-        Vælg et fag og de emner, du vil træne, eller start hurtigt med blandet
-        træning fra hele kortbanken.
+      <NoticeCard title="Sådan træner du">
+        Start blandet træning, eller vælg fag og emner længere nede.
       </NoticeCard>
 
       <View style={styles.sectionHeader}>
@@ -201,29 +194,6 @@ export default function FlashcardsHomeScreen({
           />
         </Card>
       </View>
-
-      <View style={styles.sectionHeader}>
-        <Text style={styles.sectionLabel}>SELVTEST</Text>
-        <Text style={styles.sectionTitle}>Test dig selv uden feedback undervejs</Text>
-      </View>
-
-      <Card variant="subtle" style={styles.examCard}>
-        <View style={styles.examCopy}>
-          <Text style={styles.cardTitle}>Eksamensmode</Text>
-          <Text style={styles.cardDescription}>
-            20 blandede kort uden feedback undervejs. Få en samlet gennemgang til sidst.
-          </Text>
-          <Text style={styles.learningMeta}>
-            God til selvtest før prøver. {examCardCount} kort klar.
-          </Text>
-        </View>
-        <PrimaryButton
-          disabled={disableExamMode}
-          label="Start eksamensmode"
-          onPress={onStartExamMode}
-          style={styles.examButton}
-        />
-      </Card>
 
       <View style={styles.sectionHeader}>
         <Text style={styles.sectionLabel}>VÆLG FAG OG EMNER</Text>
@@ -367,13 +337,6 @@ const styles = StyleSheet.create({
   selectAllButton: { minWidth: 132 },
   startButton: { marginTop: Spacing.xl, marginBottom: Spacing.lg },
   learningGrid: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.md },
-  examCard: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.md,
-  },
-  examCopy: { flex: 1, minWidth: 0 },
-  examButton: { minWidth: 188 },
   learningCard: { flex: 1, minWidth: 260, gap: Spacing.sm },
   learningMeta: {
     color: ColorTokens.accent.muted,

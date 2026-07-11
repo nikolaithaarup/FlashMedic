@@ -36,7 +36,6 @@ import {
 import ExamSummaryScreen from "../src/features/flashcards/ExamSummaryScreen";
 import {
   createExamAnswer,
-  EXAM_CARD_COUNT,
   selectExamCards,
   summarizeExamAnswers,
 } from "../src/features/flashcards/examMode";
@@ -1057,9 +1056,6 @@ export default function Index() {
         weakestTopics={weakestTopics}
         onStartMistakeReview={handleStartMistakeReview}
         onStartWeakTopics={handleStartWeakTopics}
-        onStartExamMode={handleStartExamMode}
-        examCardCount={Math.min(EXAM_CARD_COUNT, examCandidateCards.length)}
-        disableExamMode={loadingCards || examCandidateCards.length === 0}
       />
     );
   }
