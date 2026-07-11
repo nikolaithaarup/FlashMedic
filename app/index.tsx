@@ -54,6 +54,7 @@ import { EkgTrainingHomeScreen } from "../src/features/ekgTraining/EkgTrainingHo
 import { EkgRhythmTrainerScreen } from "../src/features/ekgTraining/EkgRhythmTrainerScreen";
 import { buildEkgInteractiveImageDrillPool } from "../src/features/ekgTraining/ekgImageDrills";
 import { BloodGasTrainingHomeScreen } from "../src/features/bloodGasTraining/BloodGasTrainingHomeScreen";
+import { BloodGasValueTrainerScreen } from "../src/features/bloodGasTraining/BloodGasValueTrainerScreen";
 
 import { ContactScreen } from "../src/features/contact/ContactScreen";
 import AuthScreen from "../src/features/profile/AuthScreen";
@@ -105,6 +106,7 @@ type Screen =
   | "ekgRhythmTrainer"
   | "ekgImageDrill"
   | "bloodGasTrainingHome"
+  | "bloodGasValueTrainer"
   | "drugCalcHome"
   | "drugCalcPractice"
   | "drugCalcTheory";
@@ -1223,7 +1225,20 @@ export default function Index() {
   }
 
   if (screen === "bloodGasTrainingHome") {
-    return <BloodGasTrainingHomeScreen onBack={() => setScreen("home")} />;
+    return (
+      <BloodGasTrainingHomeScreen
+        onBack={() => setScreen("home")}
+        onStartValueTrainer={() => setScreen("bloodGasValueTrainer")}
+      />
+    );
+  }
+
+  if (screen === "bloodGasValueTrainer") {
+    return (
+      <BloodGasValueTrainerScreen
+        onBack={() => setScreen("bloodGasTrainingHome")}
+      />
+    );
   }
 
   if (screen === "ekgRhythmTrainer") {

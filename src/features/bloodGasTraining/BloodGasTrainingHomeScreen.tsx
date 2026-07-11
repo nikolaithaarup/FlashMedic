@@ -10,7 +10,13 @@ import {
   Spacing,
   Typography,
 } from "../../../constants/theme";
-import { Card, NoticeCard, Screen, ToolPageHeader } from "../../ui/primitives";
+import {
+  Card,
+  NoticeCard,
+  PrimaryButton,
+  Screen,
+  ToolPageHeader,
+} from "../../ui/primitives";
 import {
   acidBaseMethodSteps,
   ambulanceFocusPoints,
@@ -23,6 +29,7 @@ import {
 
 type Props = {
   onBack: () => void;
+  onStartValueTrainer: () => void;
 };
 
 type SectionId = "analytes" | "venous" | "patterns" | "ambulance";
@@ -130,7 +137,10 @@ function SectionAccordion({
   );
 }
 
-export function BloodGasTrainingHomeScreen({ onBack }: Props) {
+export function BloodGasTrainingHomeScreen({
+  onBack,
+  onStartValueTrainer,
+}: Props) {
   const [expandedSection, setExpandedSection] = useState<SectionId | null>(null);
   const [expandedAnalyteId, setExpandedAnalyteId] = useState<string | null>(null);
   const [expandedPatternId, setExpandedPatternId] = useState<string | null>(null);
@@ -156,6 +166,22 @@ export function BloodGasTrainingHomeScreen({ onBack }: Props) {
           vejledning.
         </Text>
       </NoticeCard>
+
+      <Card variant="subtle" style={styles.trainerCard}>
+        <View style={styles.headerCopy}>
+          <Text style={styles.eyebrow}>INTERAKTIV TRÆNING</Text>
+          <Text style={styles.sectionTitle}>Træn værdier</Text>
+          <Text style={styles.summaryText}>
+            Vurder værdier trin for trin og vælg det bedst understøttede mønster.
+            Værdier alene er ikke en klinisk diagnose.
+          </Text>
+        </View>
+        <PrimaryButton
+          label="Start værditræning"
+          onPress={onStartValueTrainer}
+          testID="start-blood-gas-value-trainer"
+        />
+      </Card>
 
       <Card variant="subtle" style={styles.methodCard}>
         <Text style={styles.eyebrow}>METODE</Text>
@@ -339,6 +365,7 @@ export default BloodGasTrainingHomeScreen;
 const styles = StyleSheet.create({
   content: { paddingBottom: Spacing.xl },
   section: { marginBottom: Spacing.md },
+  trainerCard: { gap: Spacing.md, marginBottom: Spacing.md },
   noticeText: {
     color: ColorTokens.text.primary,
     fontFamily: Typography.families.sans,
