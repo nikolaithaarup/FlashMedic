@@ -12,8 +12,13 @@ import {
   primaryProcessOptions,
   valueDirectionOptions,
 } from "../src/features/bloodGasTraining/bloodGasTrainingCases";
+import {
+  bloodGasPatternTrainingCases,
+  buildBloodGasPatternTrainingDeck,
+} from "../src/features/bloodGasTraining/bloodGasPatternTrainingCases";
 
 const errors: string[] = [];
+const previousPatternTrainingCaseCount = 10;
 const validDirections = new Set<BloodGasValueDirection>([
   "low",
   "reference",
@@ -161,6 +166,31 @@ if (buildBloodGasTrainingDeck([], () => 0).length !== 0) {
   errors.push("Empty deck handling must return an empty deck.");
 }
 
+const patternCaseIds = bloodGasPatternTrainingCases.map((item) => item.id);
+const patternCaseTitles = bloodGasPatternTrainingCases.map((item) => item.title);
+for (const duplicate of new Set(findDuplicates(patternCaseIds))) errors.push(`Duplicate pattern-training case id: ${duplicate}.`);
+for (const duplicate of new Set(findDuplicates(patternCaseTitles))) errors.push(`Duplicate pattern-training case title: ${duplicate}.`);
+for (const trainingCase of bloodGasPatternTrainingCases) {
+  const prefix = `Pattern-training case ${trainingCase.id}`;
+  requireText(trainingCase.id, `${prefix}.id`); requireText(trainingCase.title, `${prefix}.title`); requireText(trainingCase.neutralTitle, `${prefix}.neutralTitle`); requireText(trainingCase.level, `${prefix}.level`); requireText(trainingCase.patternId, `${prefix}.patternId`); requireText(trainingCase.scenario, `${prefix}.scenario`); requireText(trainingCase.taskPrompt, `${prefix}.taskPrompt`); requireText(trainingCase.keyLearningPoint, `${prefix}.keyLearningPoint`); requireText(trainingCase.commonPitfall, `${prefix}.commonPitfall`); requireText(trainingCase.prehospitalRelevance, `${prefix}.prehospitalRelevance`); requireText(trainingCase.limitation, `${prefix}.limitation`);
+  if (!patternIds.has(trainingCase.patternId)) errors.push(`${prefix} has invalid patternId.`);
+  if (!trainingCase.valuesToPredict.length) errors.push(`${prefix}.valuesToPredict must not be empty.`);
+  const present = new Set(trainingCase.valuesToPredict.map((item) => item.analyteId));
+  for (const item of trainingCase.valuesToPredict) {
+    requireText(item.analyteId, `${prefix}.value.analyteId`); requireText(item.label, `${prefix}.${item.analyteId}.label`); requireText(item.unit, `${prefix}.${item.analyteId}.unit`); requireText(item.explanation, `${prefix}.${item.analyteId}.explanation`);
+    if (!knownAnalyteIds.has(item.analyteId)) errors.push(`${prefix} references unknown analyte: ${item.analyteId}.`);
+    if (!trainingDirections.has(item.expectedDirection)) errors.push(`${prefix}.${item.analyteId} has invalid expectedDirection.`);
+  }
+  for (const [analyteId, alternatives] of Object.entries(trainingCase.acceptedAlternatives ?? {})) {
+    if (!present.has(analyteId)) errors.push(`${prefix}.acceptedAlternatives references absent analyte: ${analyteId}.`);
+    for (const direction of alternatives) if (!trainingDirections.has(direction)) errors.push(`${prefix}.${analyteId} has invalid accepted alternative.`);
+  }
+}
+const patternDeck = buildBloodGasPatternTrainingDeck(bloodGasPatternTrainingCases, () => 0);
+if (patternDeck.length !== bloodGasPatternTrainingCases.length) errors.push("Pattern deck selector changed the number of cases.");
+if (new Set(patternDeck.map((item) => item.id)).size !== patternDeck.length) errors.push("Pattern deck selector returned repeated cases.");
+if (buildBloodGasPatternTrainingDeck([], () => 0).length !== 0) errors.push("Empty pattern deck handling must return an empty deck.");
+
 if (errors.length > 0) {
   console.error(`Blood-gas validation failed with ${errors.length} error(s):`);
   errors.forEach((error) => console.error(`- ${error}`));
@@ -168,5 +198,5 @@ if (errors.length > 0) {
 }
 
 console.log(
-  `Blood-gas validation passed: ${bloodGasPatternExamples.length} examples, ${bloodGasTrainingCases.length} training cases, ${new Set(bloodGasTrainingCases.map((trainingCase) => trainingCase.expected.patternId)).size} covered patterns, and ${bloodGasAnalytes.length} analytes.`,
+  `Blood-gas validation passed: ${bloodGasPatternExamples.length} examples, ${bloodGasTrainingCases.length} value-training cases, pattern-training cases ${previousPatternTrainingCaseCount} -> ${bloodGasPatternTrainingCases.length} across ${new Set(bloodGasPatternTrainingCases.map((trainingCase) => trainingCase.patternId)).size} patterns, ${new Set(bloodGasTrainingCases.map((trainingCase) => trainingCase.expected.patternId)).size} value-training patterns, and ${bloodGasAnalytes.length} analytes.`,
 );

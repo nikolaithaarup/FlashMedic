@@ -30,6 +30,7 @@ import {
 type Props = {
   onBack: () => void;
   onStartValueTrainer: () => void;
+  onStartPatternTrainer: () => void;
 };
 
 type SectionId = "analytes" | "venous" | "patterns" | "ambulance";
@@ -140,6 +141,7 @@ function SectionAccordion({
 export function BloodGasTrainingHomeScreen({
   onBack,
   onStartValueTrainer,
+  onStartPatternTrainer,
 }: Props) {
   const [expandedSection, setExpandedSection] = useState<SectionId | null>(null);
   const [expandedAnalyteId, setExpandedAnalyteId] = useState<string | null>(null);
@@ -181,6 +183,18 @@ export function BloodGasTrainingHomeScreen({
           onPress={onStartValueTrainer}
           testID="start-blood-gas-value-trainer"
         />
+      </Card>
+
+      <Card variant="subtle" style={styles.trainerCard}>
+        <View style={styles.headerCopy}>
+          <Text style={styles.eyebrow}>OMVENDT TRÆNING</Text>
+          <Text style={styles.sectionTitle}>Træn forventede værdier</Text>
+          <Text style={styles.summaryText}>
+            Se et mønster og vurder, hvilke værdier der typisk er lave, normale,
+            høje eller usikre.
+          </Text>
+        </View>
+        <PrimaryButton label="Start mønstertræning" onPress={onStartPatternTrainer} testID="start-blood-gas-pattern-trainer" />
       </Card>
 
       <Card variant="subtle" style={styles.methodCard}>
