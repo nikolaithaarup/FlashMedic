@@ -1,7 +1,7 @@
 {
   "name": "flashmedic",
   "main": "expo-router/entry",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
@@ -19,7 +19,11 @@
     "validate:learning": "tsx scripts/validateLearning.ts",
     "migrate:flashcards:dry-run": "tsx scripts/migrateFlashcardsFirestore.ts --dry-run",
     "migrate:flashcards:apply": "tsx scripts/migrateFlashcardsFirestore.ts --apply",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "release:check": "npm run lint && npm run validate:iso-week && npm run validate:drug-calc && npm run validate:ekg-image-drills && npm run validate:blood-gas && npm run validate:flashcards && npm run validate:weekly-safety && npm run validate:learning",
+    "release:build": "eas build --platform all --profile production",
+    "release:submit": "eas build --platform all --profile production --auto-submit",
+    "release": "npm run release:check && npm run release:submit"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
