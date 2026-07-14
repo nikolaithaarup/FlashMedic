@@ -10,20 +10,54 @@
       "gram",
       "cellevæg"
     ],
-    "deckId": "mikroBakterierCards"
+    "deckId": "mikroBakterierCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.bakterier.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_bakt_002",
     "subject": "Mikrobiologi",
     "topic": "Bakterier",
-    "question": "Hvorfor er gram-negative bakterier ofte mere farlige ved sepsis?",
-    "answer": "De indeholder endotoksin (LPS) i cellevæggen, som udløser stærk immunreaktion og øger risiko for septisk shock.",
+    "question": "Er gramnegative bakterier generelt farligere ved sepsis?",
+    "answer": "Nej. Lipopolysakkarid fra gramnegative bakterier kan udløse stærk inflammation, men både grampositive, gramnegative, svampe og andre infektioner kan give svær sepsis. Værten, fokus og behandlingsforsinkelse er afgørende.",
     "difficulty": "hard",
     "tags": [
       "LPS",
       "sepsis"
     ],
-    "deckId": "mikroBakterierCards"
+    "deckId": "mikroBakterierCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.bakterier.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_bakt_003",
@@ -35,33 +69,84 @@
     "tags": [
       "sepsis"
     ],
-    "deckId": "mikroBakterierCards"
+    "deckId": "mikroBakterierCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.bakterier.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_bakt_004",
     "subject": "Mikrobiologi",
     "topic": "Bakterier",
     "question": "Hvilke kliniske tegn tyder på sepsis præhospitalt?",
-    "answer": "RF >22, BT <100, påvirket mental status, febril eller hypoterm, tachykardi og påvirket perifer perfusion.",
+    "answer": "Mistænkt infektion sammen med ny organpåvirkning, eksempelvis ændret mental status, påvirket respiration, blodtryk eller perfusion. qSOFA-lignende tærskler kan støtte risikovurdering, men diagnosticerer ikke sepsis.",
     "difficulty": "medium",
     "tags": [
       "sepsis",
       "vitalparametre"
     ],
-    "deckId": "mikroBakterierCards"
+    "deckId": "mikroBakterierCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.bakterier.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_bakt_005",
     "subject": "Mikrobiologi",
     "topic": "Bakterier",
-    "question": "Hvilken bakterie er hyppigste årsag til meningitis og sepsis hos voksne?",
-    "answer": "Streptococcus pneumoniae.",
+    "question": "Hvilke bakterier er vigtige årsager til bakteriel meningitis hos voksne?",
+    "answer": "Streptococcus pneumoniae og Neisseria meningitidis er centrale årsager; Listeria monocytogenes er særlig relevant hos ældre, gravide og immunsvækkede. Fordelingen afhænger af alder og population.",
     "difficulty": "hard",
     "tags": [
       "pneumokok",
       "meningitis"
     ],
-    "deckId": "mikroBakterierCards"
+    "deckId": "mikroBakterierCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.bakterier.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_bakt_006",
@@ -74,20 +159,54 @@
       "meningitis",
       "nakkestiv"
     ],
-    "deckId": "mikroBakterierCards"
+    "deckId": "mikroBakterierCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.bakterier.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_bakt_007",
     "subject": "Mikrobiologi",
     "topic": "Bakterier",
-    "question": "Hvilken bakterie kan give flesh-eating disease (nekrotiserende fasciitis)?",
-    "answer": "Streptococcus pyogenes (gruppe A streptokok).",
+    "question": "Hvilke bakterier kan give nekrotiserende bløddelsinfektion?",
+    "answer": "Gruppe A-streptokokker kan give monomikrobiel sygdom, men infektionen kan også være polymikrobiel eller skyldes andre bakterier. 'Kødædende bakterie' er et upræcist populærudtryk.",
     "difficulty": "hard",
     "tags": [
       "streptokok",
       "nekrotiserende"
     ],
-    "deckId": "mikroBakterierCards"
+    "deckId": "mikroBakterierCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.bakterier.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_bakt_008",
@@ -99,19 +218,53 @@
     "tags": [
       "hudinfektion"
     ],
-    "deckId": "mikroBakterierCards"
+    "deckId": "mikroBakterierCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.bakterier.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_bakt_009",
     "subject": "Mikrobiologi",
     "topic": "Bakterier",
     "question": "Hvilke bakterier giver typisk lungebetændelse?",
-    "answer": "Streptococcus pneumoniae, Haemophilus influenzae og Staphylococcus aureus.",
+    "answer": "Bakteriel pneumoni kan blandt andet skyldes pneumokokker, Haemophilus influenzae, stafylokokker og gramnegative bakterier. Sandsynligheden varierer med alder, aspiration, komorbiditet og smittemiljø.",
     "difficulty": "medium",
     "tags": [
       "pneumoni"
     ],
-    "deckId": "mikroBakterierCards"
+    "deckId": "mikroBakterierCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.bakterier.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_bakt_010",
@@ -124,7 +277,24 @@
       "pneumoni",
       "respiration"
     ],
-    "deckId": "mikroBakterierCards"
+    "deckId": "mikroBakterierCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.bakterier.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_bakt_011",
@@ -136,7 +306,24 @@
     "tags": [
       "urosepsis"
     ],
-    "deckId": "mikroBakterierCards"
+    "deckId": "mikroBakterierCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.bakterier.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_bakt_012",
@@ -148,20 +335,54 @@
     "tags": [
       "nyrebetændelse"
     ],
-    "deckId": "mikroBakterierCards"
+    "deckId": "mikroBakterierCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.bakterier.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_bakt_013",
     "subject": "Mikrobiologi",
     "topic": "Bakterier",
     "question": "Hvad står MRSA for, og hvorfor er det vigtigt præhospitalt?",
-    "answer": "Methicillin-resistent Staphylococcus aureus – smittefare og begrænset antibiotikaval.",
+    "answer": "Methicillin-resistent Staphylococcus aureus. Resistensen påvirker antibiotikavalg, men MRSA-bærertilstand er ikke i sig selv tegn på akut infektion; infektionshygiejne følger gældende risikovurdering.",
     "difficulty": "hard",
     "tags": [
       "MRSA",
       "resistens"
     ],
-    "deckId": "mikroBakterierCards"
+    "deckId": "mikroBakterierCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.bakterier.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_bakt_014",
@@ -174,32 +395,83 @@
       "clostridium",
       "diarre"
     ],
-    "deckId": "mikroBakterierCards"
+    "deckId": "mikroBakterierCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.bakterier.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_bakt_015",
     "subject": "Mikrobiologi",
     "topic": "Bakterier",
     "question": "Hvad er endotoksiner i bakterier?",
-    "answer": "Giftstoffer i den gram-negative cellevæg (LPS), som kan udløse systemisk inflammation og shock.",
+    "answer": "Lipopolysakkarid i gramnegative bakteriers ydre membran. Det frigives blandt andet ved vækst og celledød og kan aktivere innate immunreceptorer og systemisk inflammation.",
     "difficulty": "hard",
     "tags": [
       "LPS",
       "endotoksin"
     ],
-    "deckId": "mikroBakterierCards"
+    "deckId": "mikroBakterierCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.bakterier.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_bakt_016",
     "subject": "Mikrobiologi",
     "topic": "Bakterier",
     "question": "Hvad er eksotoksiner?",
-    "answer": "Proteiner udskilt af bakterier, som kan skade væv, fx tetanus og botulisme.",
+    "answer": "Bakterielle proteiner med specifikke skadelige virkninger på værtsceller. De kan udskilles eller frigives og omfatter blandt andet tetanus- og botulinumtoksin.",
     "difficulty": "hard",
     "tags": [
       "eksotoksin"
     ],
-    "deckId": "mikroBakterierCards"
+    "deckId": "mikroBakterierCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.bakterier.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_bakt_017",
@@ -211,7 +483,24 @@
     "tags": [
       "fasciitis"
     ],
-    "deckId": "mikroBakterierCards"
+    "deckId": "mikroBakterierCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.bakterier.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_bakt_018",
@@ -223,7 +512,24 @@
     "tags": [
       "erysipelas"
     ],
-    "deckId": "mikroBakterierCards"
+    "deckId": "mikroBakterierCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.bakterier.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_bakt_019",
@@ -236,7 +542,24 @@
       "shock",
       "sepsis"
     ],
-    "deckId": "mikroBakterierCards"
+    "deckId": "mikroBakterierCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.bakterier.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_bakt_020",
@@ -249,7 +572,24 @@
       "SIRS",
       "diagnostik"
     ],
-    "deckId": "mikroBakterierCards"
+    "deckId": "mikroBakterierCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.bakterier.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_svamp_001",
@@ -262,7 +602,24 @@
       "svamp",
       "bakterie"
     ],
-    "deckId": "mikroSvampeParasitterCards"
+    "deckId": "mikroSvampeParasitterCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.svampe-og-parasitter.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_svamp_002",
@@ -275,19 +632,53 @@
       "opportunistisk",
       "immunsvækkede"
     ],
-    "deckId": "mikroSvampeParasitterCards"
+    "deckId": "mikroSvampeParasitterCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.svampe-og-parasitter.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_svamp_003",
     "subject": "Mikrobiologi",
     "topic": "Svampe og parasitter",
-    "question": "Hvilken svamp er hyppigst årsag til infektion hos immunsvækkede?",
-    "answer": "Candida albicans.",
+    "question": "Er Candida albicans den eneste vigtige Candida-art ved invasiv infektion?",
+    "answer": "Nej. C. albicans er hyppig, men flere non-albicans-arter giver invasiv candidiasis, og artsfordelingen afhænger af patientgruppe og geografi.",
     "difficulty": "easy",
     "tags": [
       "candida"
     ],
-    "deckId": "mikroSvampeParasitterCards"
+    "deckId": "mikroSvampeParasitterCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.svampe-og-parasitter.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_svamp_004",
@@ -300,59 +691,144 @@
       "candida",
       "sepsis"
     ],
-    "deckId": "mikroSvampeParasitterCards"
+    "deckId": "mikroSvampeParasitterCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.svampe-og-parasitter.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_svamp_005",
     "subject": "Mikrobiologi",
     "topic": "Svampe og parasitter",
     "question": "Hvad er Aspergillus, og hvorfor er den farlig?",
-    "answer": "En skimmelsvamp, der kan give alvorlig lungeinfektion og sepsis ved immunsvækkelse.",
+    "answer": "Aspergillus er en slægt af skimmelsvampe. Inhalation er almindelig, men invasiv lunge- eller dissemineret sygdom rammer især personer med udtalt immunsuppression eller særlige lungesygdomme.",
     "difficulty": "hard",
     "tags": [
       "aspergillus",
       "lunge"
     ],
-    "deckId": "mikroSvampeParasitterCards"
+    "deckId": "mikroSvampeParasitterCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.svampe-og-parasitter.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_svamp_006",
     "subject": "Mikrobiologi",
     "topic": "Svampe og parasitter",
     "question": "Hvordan kan svampeinfektion ligne bakteriel pneumoni præhospitalt?",
-    "answer": "Hoste, feber, dyspnø, infiltrater på røntgen og påvirket AT.",
+    "answer": "Feber, hoste, dyspnø og hypoksæmi kan ligne anden pneumoni. Infiltrater er et billeddiagnostisk fund og kan ikke konstateres præhospitalt uden relevant billedmodalitet.",
     "difficulty": "medium",
     "tags": [
       "pneumoni",
       "aspiration"
     ],
-    "deckId": "mikroSvampeParasitterCards"
+    "deckId": "mikroSvampeParasitterCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.svampe-og-parasitter.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_svamp_007",
     "subject": "Mikrobiologi",
     "topic": "Svampe og parasitter",
-    "question": "Nævn et nøglesignal på parasit-infektion efter udlandsrejse.",
-    "answer": "Vedvarende diarré, feber, anæmi, vægttab eller gulfarvning (malaria/hepatitis).",
+    "question": "Hvilke rejseoplysninger er vigtige ved mulig parasitinfektion?",
+    "answer": "Land og område, datoer, mygge- eller dyreeksponering, mad og vand, ferskvandskontakt, profylakse samt symptomdebut. Gulsot kan også skyldes viral hepatitis, som ikke er en parasit.",
     "difficulty": "medium",
     "tags": [
       "rejse",
       "parasitter"
     ],
-    "deckId": "mikroSvampeParasitterCards"
+    "deckId": "mikroSvampeParasitterCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.svampe-og-parasitter.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_svamp_008",
     "subject": "Mikrobiologi",
     "topic": "Svampe og parasitter",
     "question": "Hvilken parasit er klassisk årsag til malaria?",
-    "answer": "Plasmodium falciparum (mest alvorlig form).",
+    "answer": "Malaria skyldes Plasmodium-arter. P. falciparum er forbundet med størst risiko for hurtigt alvorligt forløb, men også andre arter kan give betydelig sygdom.",
     "difficulty": "hard",
     "tags": [
       "malaria",
       "plasmodium"
     ],
-    "deckId": "mikroSvampeParasitterCards"
+    "deckId": "mikroSvampeParasitterCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.svampe-og-parasitter.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_svamp_009",
@@ -365,20 +841,54 @@
       "malaria",
       "feber"
     ],
-    "deckId": "mikroSvampeParasitterCards"
+    "deckId": "mikroSvampeParasitterCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.svampe-og-parasitter.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_svamp_010",
     "subject": "Mikrobiologi",
     "topic": "Svampe og parasitter",
-    "question": "Hvilken parasit kan give alvorlig diarré og dehydrering?",
-    "answer": "Giardia lamblia.",
+    "question": "Hvilke parasitter kan give alvorlig diarré og dehydrering?",
+    "answer": "Giardia kan give længerevarende diarré, mens blandt andet Cryptosporidium og Entamoeba histolytica også er relevante. Alvor afhænger af væsketab, alder og immunsuppression.",
     "difficulty": "medium",
     "tags": [
       "giardia",
       "diarre"
     ],
-    "deckId": "mikroSvampeParasitterCards"
+    "deckId": "mikroSvampeParasitterCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.svampe-og-parasitter.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_svamp_011",
@@ -390,32 +900,83 @@
     "tags": [
       "anæmi"
     ],
-    "deckId": "mikroSvampeParasitterCards"
+    "deckId": "mikroSvampeParasitterCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.svampe-og-parasitter.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_svamp_012",
     "subject": "Mikrobiologi",
     "topic": "Svampe og parasitter",
     "question": "Hvad er vigtig præhospital observation ved mistanke om malaria?",
-    "answer": "Mentalt status, febercyklus, BT, bevidsthed og tegn på shock eller organpåvirkning.",
+    "answer": "Rejse og profylakse, mental status, temperatur, glukose, kredsløb, respiration, urin og tegn på anæmi eller organsvigt. Feber følger ikke nødvendigvis en tydelig cyklus.",
     "difficulty": "medium",
     "tags": [
       "malaria",
       "triage"
     ],
-    "deckId": "mikroSvampeParasitterCards"
+    "deckId": "mikroSvampeParasitterCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.svampe-og-parasitter.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_svamp_013",
     "subject": "Mikrobiologi",
     "topic": "Svampe og parasitter",
     "question": "Hvordan smitter parasitter typisk?",
-    "answer": "Via kontamineret vand, mad, jord eller dyrebid.",
+    "answer": "Smittevejen afhænger af organismen: føde og vand, jord, hudpenetration, vektorer som myg og flåter, seksuel eller vertikal smitte samt sjældnere andre veje.",
     "difficulty": "easy",
     "tags": [
       "smitteveje"
     ],
-    "deckId": "mikroSvampeParasitterCards"
+    "deckId": "mikroSvampeParasitterCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.svampe-og-parasitter.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_svamp_014",
@@ -428,7 +989,24 @@
       "malaria",
       "CNS"
     ],
-    "deckId": "mikroSvampeParasitterCards"
+    "deckId": "mikroSvampeParasitterCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.svampe-og-parasitter.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_svamp_015",
@@ -441,20 +1019,54 @@
       "rejse",
       "differentialdiagnose"
     ],
-    "deckId": "mikroSvampeParasitterCards"
+    "deckId": "mikroSvampeParasitterCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.svampe-og-parasitter.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_svamp_016",
     "subject": "Mikrobiologi",
     "topic": "Svampe og parasitter",
-    "question": "Hvorfor er svampeinfektion sjældent akut præhospitalt – men farlig når det sker?",
-    "answer": "Fordi den ofte rammer immunsvækkede og kan ligne almindelig sepsis og føre til multiorgansvigt.",
+    "question": "Hvorfor kan invasiv svampeinfektion være svær at genkende præhospitalt?",
+    "answer": "Den rammer ofte risikopatienter og giver uspecifikke sepsis- eller luftvejssymptomer. Den er ikke nødvendigvis langsom eller sjælden i alle immunsupprimerede populationer.",
     "difficulty": "hard",
     "tags": [
       "immun",
       "sepsis"
     ],
-    "deckId": "mikroSvampeParasitterCards"
+    "deckId": "mikroSvampeParasitterCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.svampe-og-parasitter.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_svamp_017",
@@ -467,7 +1079,24 @@
       "kryptokok",
       "meningitis"
     ],
-    "deckId": "mikroSvampeParasitterCards"
+    "deckId": "mikroSvampeParasitterCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.svampe-og-parasitter.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_svamp_018",
@@ -480,7 +1109,24 @@
       "toxoplasma",
       "gravid"
     ],
-    "deckId": "mikroSvampeParasitterCards"
+    "deckId": "mikroSvampeParasitterCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.svampe-og-parasitter.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_svamp_019",
@@ -493,7 +1139,24 @@
       "børn",
       "dehydrering"
     ],
-    "deckId": "mikroSvampeParasitterCards"
+    "deckId": "mikroSvampeParasitterCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.svampe-og-parasitter.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_svamp_020",
@@ -506,7 +1169,24 @@
       "ambulance",
       "ABC"
     ],
-    "deckId": "mikroSvampeParasitterCards"
+    "deckId": "mikroSvampeParasitterCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.svampe-og-parasitter.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "draft",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_sepsis_001",
@@ -519,19 +1199,53 @@
       "sepsis",
       "definition"
     ],
-    "deckId": "mikroSepsisCards"
+    "deckId": "mikroSepsisCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.sepsis-og-immunrespons.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_sepsis_002",
     "subject": "Mikrobiologi",
     "topic": "Sepsis og immunrespons",
     "question": "Hvilke tre vitale parametre indgår i qSOFA?",
-    "answer": "Respirationsfrekvens >22, systolisk BT <100 og påvirket bevidsthed (GCS <15).",
+    "answer": "qSOFA bruger respirationsfrekvens mindst 22/min, systolisk blodtryk højst 100 mmHg og ændret mental status. Scoren er en risikomarkør uden for intensivafdeling og må ikke bruges alene til at udelukke eller diagnosticere sepsis.",
     "difficulty": "medium",
     "tags": [
       "qSOFA"
     ],
-    "deckId": "mikroSepsisCards"
+    "deckId": "mikroSepsisCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.sepsis-og-immunrespons.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_sepsis_003",
@@ -544,20 +1258,54 @@
       "infektion",
       "vitalparametre"
     ],
-    "deckId": "mikroSepsisCards"
+    "deckId": "mikroSepsisCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.sepsis-og-immunrespons.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_sepsis_004",
     "subject": "Mikrobiologi",
     "topic": "Sepsis og immunrespons",
     "question": "Hvad er septisk shock?",
-    "answer": "Sepsis med vedvarende hypotension trods væske og behov for vasopressor for at opretholde MAP ≥65 mmHg.",
+    "answer": "En klinisk undergruppe af sepsis med vedvarende kredsløbs- og metabolisk påvirkning, som i Sepsis-3 på hospital defineres ved vasopressorbehov for MAP mindst 65 mmHg og laktat over 2 mmol/l trods tilstrækkelig volumen. Den fulde definition kan ikke fastslås præhospitalt uden data og behandling.",
     "difficulty": "hard",
     "tags": [
       "shock",
       "vasopressor"
     ],
-    "deckId": "mikroSepsisCards"
+    "deckId": "mikroSepsisCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.sepsis-og-immunrespons.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_sepsis_005",
@@ -569,33 +1317,84 @@
     "tags": [
       "SIRS"
     ],
-    "deckId": "mikroSepsisCards"
+    "deckId": "mikroSepsisCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.sepsis-og-immunrespons.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_sepsis_006",
     "subject": "Mikrobiologi",
     "topic": "Sepsis og immunrespons",
     "question": "Hvordan kan man klinisk kende septisk shock fra hypovolæmisk shock?",
-    "answer": "Ved septisk shock kan huden være varm og rød (vasodilatation), mens hypovolæmi giver kold og bleg hud.",
+    "answer": "Det kan ikke skelnes sikkert på hudtemperatur. Tidlig distributiv påvirkning kan være varm, men sepsis kan også give kold hud, og blandet hypovolæmi eller hjertedysfunktion er almindelig.",
     "difficulty": "hard",
     "tags": [
       "shock",
       "vaskulært"
     ],
-    "deckId": "mikroSepsisCards"
+    "deckId": "mikroSepsisCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.sepsis-og-immunrespons.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_sepsis_007",
     "subject": "Mikrobiologi",
     "topic": "Sepsis og immunrespons",
     "question": "Hvad udløser cytokinstorm ved sepsis?",
-    "answer": "Immunreaktion på patogener, især gram-negative bakteriers endotoksiner (LPS).",
+    "answer": "Mikrobielle strukturer og vævsskadesignaler aktiverer medfødt og adaptiv immunitet. Sepsis er en dysreguleret blanding af pro- og antiinflammatoriske, koagulatoriske, endoteliale og metaboliske reaktioner, ikke blot en LPS-'cytokinstorm'.",
     "difficulty": "hard",
     "tags": [
       "cytokin",
       "LPS"
     ],
-    "deckId": "mikroSepsisCards"
+    "deckId": "mikroSepsisCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.sepsis-og-immunrespons.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_sepsis_008",
@@ -607,7 +1406,24 @@
     "tags": [
       "kliniske tegn"
     ],
-    "deckId": "mikroSepsisCards"
+    "deckId": "mikroSepsisCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.sepsis-og-immunrespons.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_sepsis_009",
@@ -620,19 +1436,53 @@
       "hypoxi",
       "celle"
     ],
-    "deckId": "mikroSepsisCards"
+    "deckId": "mikroSepsisCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.sepsis-og-immunrespons.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_sepsis_010",
     "subject": "Mikrobiologi",
     "topic": "Sepsis og immunrespons",
-    "question": "Hvilken infektion er hyppigst årsag til sepsis?",
-    "answer": "Luftvejsinfektioner, primært pneumoni.",
+    "question": "Hvilke infektionsfoci er hyppige ved sepsis?",
+    "answer": "Lunger, urinveje, abdomen samt hud og bløddele er hyppige, men fordelingen varierer, og fokus kan være ukendt. 'Hyppigst' kræver en defineret population.",
     "difficulty": "medium",
     "tags": [
       "pneumoni"
     ],
-    "deckId": "mikroSepsisCards"
+    "deckId": "mikroSepsisCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.sepsis-og-immunrespons.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_sepsis_011",
@@ -645,20 +1495,54 @@
       "petechier",
       "meningokok"
     ],
-    "deckId": "mikroSepsisCards"
+    "deckId": "mikroSepsisCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.sepsis-og-immunrespons.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_sepsis_012",
     "subject": "Mikrobiologi",
     "topic": "Sepsis og immunrespons",
-    "question": "Hvilket organ rammes oftest først ved sepsis?",
-    "answer": "Lungerne (ARDS), efterfulgt af nyrer og hjerne.",
+    "question": "Findes der ét organ, som altid rammes først ved sepsis?",
+    "answer": "Nej. Hjerne, kredsløb, lunger, nyrer, lever og koagulation kan påvirkes i forskellig rækkefølge afhængigt af patient og infektionsfokus.",
     "difficulty": "hard",
     "tags": [
       "ARDS",
       "organsvigt"
     ],
-    "deckId": "mikroSepsisCards"
+    "deckId": "mikroSepsisCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.sepsis-og-immunrespons.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_sepsis_013",
@@ -671,7 +1555,24 @@
       "GCS",
       "mentalstatus"
     ],
-    "deckId": "mikroSepsisCards"
+    "deckId": "mikroSepsisCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.sepsis-og-immunrespons.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_sepsis_014",
@@ -684,32 +1585,83 @@
       "DIC",
       "koagulation"
     ],
-    "deckId": "mikroSepsisCards"
+    "deckId": "mikroSepsisCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.sepsis-og-immunrespons.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_sepsis_015",
     "subject": "Mikrobiologi",
     "topic": "Sepsis og immunrespons",
     "question": "Hvorfor bliver huden ofte kold og marmoreret ved fremskreden sepsis?",
-    "answer": "Mikrocirkulationen kollapser pga. kapillærlækage og vasodilatation.",
+    "answer": "Perifer vasokonstriktion, lavt flow og mikrocirkulatorisk dysfunktion kan give kold, marmoreret hud. Kapillærlækage og vasodilatation er dele af sepsis, men forklarer ikke alene hudfundet.",
     "difficulty": "medium",
     "tags": [
       "hud",
       "shock"
     ],
-    "deckId": "mikroSepsisCards"
+    "deckId": "mikroSepsisCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.sepsis-og-immunrespons.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_sepsis_016",
     "subject": "Mikrobiologi",
     "topic": "Sepsis og immunrespons",
     "question": "Hvilken rolle spiller leukocytter ved infektion?",
-    "answer": "De bekæmper patogener via fagocytose, antistoffer og cytokiner.",
+    "answer": "Leukocytter omfatter flere celletyper: neutrofile og monocytter fagocyterer, lymfocytter medierer cellulær immunitet eller antistofrespons, og cellerne kommunikerer via cytokiner. Leukocytter producerer ikke alle antistoffer.",
     "difficulty": "medium",
     "tags": [
       "leukocyt"
     ],
-    "deckId": "mikroSepsisCards"
+    "deckId": "mikroSepsisCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.sepsis-og-immunrespons.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_sepsis_017",
@@ -722,59 +1674,144 @@
       "væske",
       "shocktype"
     ],
-    "deckId": "mikroSepsisCards"
+    "deckId": "mikroSepsisCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.sepsis-og-immunrespons.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_sepsis_018",
     "subject": "Mikrobiologi",
     "topic": "Sepsis og immunrespons",
     "question": "Hvorfor hjælper væske intravenøst ofte kun midlertidigt ved septisk shock?",
-    "answer": "Kapillærlækage gør, at væsken hurtigt forlader blodbanen.",
+    "answer": "Væske kan kortvarigt øge cirkulerende volumen, men ved vedvarende vasodilatation eller hjertedysfunktion er effekten begrænset. Kapillærlækage er én mekanisme, og gentagne bolus kræver revurdering.",
     "difficulty": "hard",
     "tags": [
       "væske",
       "IV"
     ],
-    "deckId": "mikroSepsisCards"
+    "deckId": "mikroSepsisCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.sepsis-og-immunrespons.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "draft",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_sepsis_019",
     "subject": "Mikrobiologi",
     "topic": "Sepsis og immunrespons",
     "question": "Hvorfor må man ikke bare 'vente og se' ved mistanke om sepsis?",
-    "answer": "Organskade kan udvikles hurtigt, og tidlig behandling reducerer mortalitet betydeligt.",
+    "answer": "Fordi organpåvirkning kan udvikle sig, og tidskritisk vurdering og målrettet behandling kan være nødvendig. Hastegrad bestemmes af fysiologi og risiko, ikke mistankeordet alene.",
     "difficulty": "medium",
     "tags": [
       "behandlingstid",
       "prognose"
     ],
-    "deckId": "mikroSepsisCards"
+    "deckId": "mikroSepsisCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.sepsis-og-immunrespons.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_sepsis_020",
     "subject": "Mikrobiologi",
     "topic": "Sepsis og immunrespons",
     "question": "Hvad er paramedicinerens primære rolle ved mistanke om sepsis?",
-    "answer": "Identificere risiko, sikre vitale funktioner, iv-adgang, væske, ilt og hurtig transport.",
+    "answer": "Identificere infektion med mulig organpåvirkning, behandle konkrete ABC-problemer, følge trends, varsle og transportere efter gældende instruks. IV-adgang, væske og ilt er ikke automatisk nødvendige hos alle.",
     "difficulty": "easy",
     "tags": [
       "ambulance",
       "behandling"
     ],
-    "deckId": "mikroSepsisCards"
+    "deckId": "mikroSepsisCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.sepsis-og-immunrespons.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "draft",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_smitte_001",
     "subject": "Mikrobiologi",
     "topic": "Smitteveje og isolation",
     "question": "Hvad er forskellen på kolonisation og infektion?",
-    "answer": "Kolonisation betyder at bakterier findes på kroppen uden symptomer. Infektion giver sygdomstegn som feber, smerte og inflammation.",
+    "answer": "Kolonisation er tilstedeværelse og vækst af mikroorganismer uden vævsskade eller symptomer. Infektion indebærer invasion eller værtsreaktion; infektion kan være symptomfri, og feber er ikke et krav.",
     "difficulty": "medium",
     "tags": [
       "kolonisation",
       "infektion"
     ],
-    "deckId": "mikroSmitteCards"
+    "deckId": "mikroSmitteCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.smitteveje-og-isolation.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_smitte_002",
@@ -787,7 +1824,24 @@
       "kontakt",
       "smitte"
     ],
-    "deckId": "mikroSmitteCards"
+    "deckId": "mikroSmitteCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.smitteveje-og-isolation.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_smitte_003",
@@ -800,46 +1854,114 @@
       "MRSA",
       "clostridium"
     ],
-    "deckId": "mikroSmitteCards"
+    "deckId": "mikroSmitteCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.smitteveje-og-isolation.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_smitte_004",
     "subject": "Mikrobiologi",
     "topic": "Smitteveje og isolation",
     "question": "Hvad er dråbesmitte?",
-    "answer": "Smitte via hoste og nys, hvor dråber transporterer patogener og lander inden for ca. 1-2 meter.",
+    "answer": "Spredning af respiratoriske partikler på kortere afstand ved hoste, tale eller procedurer. Moderne risikovurdering ser et kontinuum af partikelstørrelser og påvirkes af afstand, ventilation, tid og procedure.",
     "difficulty": "easy",
     "tags": [
       "dråber",
       "hoste"
     ],
-    "deckId": "mikroSmitteCards"
+    "deckId": "mikroSmitteCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.smitteveje-og-isolation.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_smitte_005",
     "subject": "Mikrobiologi",
     "topic": "Smitteveje og isolation",
     "question": "Nævn tre sygdomme der smitter via dråbesmitte.",
-    "answer": "Influenza, pneumoni og COVID-19.",
+    "answer": "Influenza og flere andre luftvejsvirus kan spredes via respiratoriske partikler og kontakt. 'Pneumoni' er en diagnose med mange årsager, ikke én smittevej, og SARS-CoV-2-risiko afhænger stærkt af luft og nærkontakt.",
     "difficulty": "medium",
     "tags": [
       "influenza",
       "pneumoni"
     ],
-    "deckId": "mikroSmitteCards"
+    "deckId": "mikroSmitteCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.smitteveje-og-isolation.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_smitte_006",
     "subject": "Mikrobiologi",
     "topic": "Smitteveje og isolation",
     "question": "Hvad er luftbåren smitte, og hvorfor er det særligt farligt?",
-    "answer": "Meget små partikler kan svæve i luften i lang tid og smitte over større afstande.",
+    "answer": "Spredning gennem små respiratoriske partikler, som kan forblive i luften og transporteres med luftstrømme. Risikoen afhænger blandt andet af ventilation, varighed, afstand og partikelproduktion.",
     "difficulty": "hard",
     "tags": [
       "luftbåren",
       "aerosol"
     ],
-    "deckId": "mikroSmitteCards"
+    "deckId": "mikroSmitteCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.smitteveje-og-isolation.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_smitte_007",
@@ -852,33 +1974,84 @@
       "TB",
       "mæslinger"
     ],
-    "deckId": "mikroSmitteCards"
+    "deckId": "mikroSmitteCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.smitteveje-og-isolation.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_smitte_008",
     "subject": "Mikrobiologi",
     "topic": "Smitteveje og isolation",
     "question": "Hvad er vigtige værnemidler ved håndtering af Norovirus?",
-    "answer": "Handsker, kitler og sæbe-vand håndvask (håndsprit virker dårligt).",
+    "answer": "Værnemidler, håndhygiejne og rengøring vælges efter SSI's og den lokale risikovurdering. Sæbe og vand er vigtigt ved synligt snavs og kan være relevant ved norovirus, mens dokumenteret virucid effekt af produkt og korrekt metode afgør desinfektion.",
     "difficulty": "medium",
     "tags": [
       "norovirus",
       "værnemidler"
     ],
-    "deckId": "mikroSmitteCards"
+    "deckId": "mikroSmitteCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.smitteveje-og-isolation.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "draft",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_smitte_009",
     "subject": "Mikrobiologi",
     "topic": "Smitteveje og isolation",
     "question": "Hvorfor kan man ikke stole på håndsprit ved Clostridium difficile?",
-    "answer": "Den danner sporer som ikke dræbes af sprit – kræver sæbe og vand samt desinfektion med klor.",
+    "answer": "C. difficile danner sporer, som er mindre følsomme for alkohol. Håndvask ved relevant eksponering og sporicid rengøring/desinfektion anvendes efter gældende infektionshygiejnisk instruks.",
     "difficulty": "hard",
     "tags": [
       "sporer",
       "clostridium"
     ],
-    "deckId": "mikroSmitteCards"
+    "deckId": "mikroSmitteCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.smitteveje-og-isolation.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "draft",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_smitte_010",
@@ -890,33 +2063,84 @@
     "tags": [
       "smitteforebyggelse"
     ],
-    "deckId": "mikroSmitteCards"
+    "deckId": "mikroSmitteCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.smitteveje-og-isolation.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "draft",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_smitte_011",
     "subject": "Mikrobiologi",
     "topic": "Smitteveje og isolation",
     "question": "Hvad betyder 'airborne precautions'?",
-    "answer": "Isolation med maske (FFP3) og ventilation for at forhindre aerosolsmitte.",
+    "answer": "Supplerende forholdsregler mod smitte gennem luft vælges efter risikovurdering og kan omfatte egnet åndedrætsværn, ventilation og begrænsning af eksponering. 'FFP3 og isolation' er ikke en universel præhospital opskrift.",
     "difficulty": "hard",
     "tags": [
       "FFP3",
       "airborne"
     ],
-    "deckId": "mikroSmitteCards"
+    "deckId": "mikroSmitteCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.smitteveje-og-isolation.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "draft",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_smitte_012",
     "subject": "Mikrobiologi",
     "topic": "Smitteveje og isolation",
-    "question": "Hvornår skal ambulance isolere patient pretransport?",
-    "answer": "Ved mistanke om luftbåren, dråbe- eller kontaktsmitte med høj risiko eller alvorlig infektion.",
+    "question": "Hvordan begrænses smitte før og under præhospital transport?",
+    "answer": "Med kildekontrol, håndhygiejne, relevante værnemidler, ventilation, planlagt patientplacering og information til modtagested efter gældende national og lokal instruks. Hospitalets isolationsbegreb bruges ikke ukritisk i primærsektoren.",
     "difficulty": "medium",
     "tags": [
       "isolation",
       "ambulance"
     ],
-    "deckId": "mikroSmitteCards"
+    "deckId": "mikroSmitteCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.smitteveje-og-isolation.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "draft",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_smitte_013",
@@ -928,32 +2152,83 @@
     "tags": [
       "vektor"
     ],
-    "deckId": "mikroSmitteCards"
+    "deckId": "mikroSmitteCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.smitteveje-og-isolation.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_smitte_014",
     "subject": "Mikrobiologi",
     "topic": "Smitteveje og isolation",
     "question": "Hvad er forskellen på desinfektion og sterilisation?",
-    "answer": "Desinfektion reducerer mikroorganismer. Sterilisation dræber alle, inkl. sporer.",
+    "answer": "Desinfektion inaktiverer mikroorganismer til et bestemt sikkert niveau, men ikke nødvendigvis sporer. Sterilisation er en valideret proces, som fjerner eller dræber alle former for levedygtige mikroorganismer inklusive sporer.",
     "difficulty": "hard",
     "tags": [
       "rengøring"
     ],
-    "deckId": "mikroSmitteCards"
+    "deckId": "mikroSmitteCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.smitteveje-og-isolation.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_smitte_015",
     "subject": "Mikrobiologi",
     "topic": "Smitteveje og isolation",
-    "question": "Hvorfor skal ambulance spritte flader efter isolationstransport?",
-    "answer": "For at forhindre indirekte kontaktsmitte fra spyt, sved, blod eller sekreter.",
+    "question": "Hvordan rengøres og desinficeres ambulanceflader efter smitterisiko?",
+    "answer": "Efter materiale, synlig forurening, mikroorganisme og produktets dokumenterede virkningsspektrum og kontakttid. Alkohol er ikke korrekt til alle organismer eller forurenede flader.",
     "difficulty": "easy",
     "tags": [
       "ambulance",
       "desinfektion"
     ],
-    "deckId": "mikroSmitteCards"
+    "deckId": "mikroSmitteCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.smitteveje-og-isolation.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "draft",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_smitte_016",
@@ -966,33 +2241,84 @@
       "MRSA",
       "kontakt"
     ],
-    "deckId": "mikroSmitteCards"
+    "deckId": "mikroSmitteCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.smitteveje-og-isolation.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "draft",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_smitte_017",
     "subject": "Mikrobiologi",
     "topic": "Smitteveje og isolation",
-    "question": "Hvornår er kirurgisk maske tilstrækkelig?",
-    "answer": "Ved dråbesmitte som influenza, pneumoni og COVID-19 (basisniveau).",
+    "question": "Hvornår anvendes medicinsk maske eller åndedrætsværn?",
+    "answer": "Efter eksponeringstype og konkret infektionshygiejnisk risikovurdering. Patientens kildekontrol, nærkontakt, ventilation og aerosolgenererende procedure indgår; diagnoseetiketten alene afgør det ikke.",
     "difficulty": "easy",
     "tags": [
       "maske",
       "dråbe"
     ],
-    "deckId": "mikroSmitteCards"
+    "deckId": "mikroSmitteCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.smitteveje-og-isolation.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "draft",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_smitte_018",
     "subject": "Mikrobiologi",
     "topic": "Smitteveje og isolation",
-    "question": "Hvornår skal man bruge FFP3-maske fremfor kirurgisk?",
-    "answer": "Ved luftbåren smitte som tuberkulose, mæslinger og mistanke om aerosolgenererende procedurer.",
+    "question": "Hvordan vælges FFP2/FFP3 frem for medicinsk maske?",
+    "answer": "Efter SSI's og lokal instruks for luftbåren risiko, procedure, pasform og eksponeringsniveau. Åndedrætsværn skal være korrekt tilpasset og bruges sammen med øvrige relevante forholdsregler.",
     "difficulty": "hard",
     "tags": [
       "FFP3",
       "luftbåren"
     ],
-    "deckId": "mikroSmitteCards"
+    "deckId": "mikroSmitteCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.smitteveje-og-isolation.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "draft",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_smitte_019",
@@ -1005,7 +2331,24 @@
       "sepsis",
       "triage"
     ],
-    "deckId": "mikroSmitteCards"
+    "deckId": "mikroSmitteCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.smitteveje-og-isolation.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_smitte_020",
@@ -1018,7 +2361,24 @@
       "beredskab",
       "overlevering"
     ],
-    "deckId": "mikroSmitteCards"
+    "deckId": "mikroSmitteCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.smitteveje-og-isolation.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "draft",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_virus_001",
@@ -1031,32 +2391,83 @@
       "virus",
       "bakterie"
     ],
-    "deckId": "mikroVirusCards"
+    "deckId": "mikroVirusCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.virus.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_virus_002",
     "subject": "Mikrobiologi",
     "topic": "Virus",
-    "question": "Hvad er et nøglesymptom på viral infektion kontra bakteriel?",
-    "answer": "Myalgier, udtalt træthed og gradvis debut, ofte uden høj CRP.",
+    "question": "Kan symptomer sikkert skelne viral fra bakteriel infektion?",
+    "answer": "Nej. Myalgi, træthed, febermønster og CRP overlapper. Ætiologien kræver samlet klinik og ofte mikrobiologisk diagnostik.",
     "difficulty": "medium",
     "tags": [
       "viral",
       "bakteriel"
     ],
-    "deckId": "mikroVirusCards"
+    "deckId": "mikroVirusCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.virus.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_virus_003",
     "subject": "Mikrobiologi",
     "topic": "Virus",
     "question": "Hvorfor kan man ikke behandle virus med antibiotika?",
-    "answer": "Antibiotika virker på bakteriers cellevæg og metabolisme – virus har ingen af delene.",
+    "answer": "Antibiotika rammer bakterielle strukturer eller processer, som virus ikke har. De virker derfor ikke mod selve virusinfektionen, men kan være nødvendige ved samtidig bakteriel infektion.",
     "difficulty": "easy",
     "tags": [
       "antibiotika"
     ],
-    "deckId": "mikroVirusCards"
+    "deckId": "mikroVirusCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.virus.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_virus_004",
@@ -1069,7 +2480,24 @@
       "pneumoni",
       "virus"
     ],
-    "deckId": "mikroVirusCards"
+    "deckId": "mikroVirusCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.virus.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_virus_005",
@@ -1081,33 +2509,84 @@
     "tags": [
       "encefalitis"
     ],
-    "deckId": "mikroVirusCards"
+    "deckId": "mikroVirusCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.virus.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_virus_006",
     "subject": "Mikrobiologi",
     "topic": "Virus",
     "question": "Hvordan kan COVID-19 præsentere sig atypisk præhospitalt?",
-    "answer": "Silent hypoxia med lav saturation uden dyspnø, udtalt træthed og konfusion.",
+    "answer": "COVID-19 kan give hypoksæmi med mindre oplevet dyspnø end forventet, men 'silent hypoxia' er ikke en særskilt diagnose. Træthed, feber, hoste, konfusion og mange andre mønstre forekommer.",
     "difficulty": "hard",
     "tags": [
       "COVID",
       "hypoxi"
     ],
-    "deckId": "mikroVirusCards"
+    "deckId": "mikroVirusCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.virus.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_virus_007",
     "subject": "Mikrobiologi",
     "topic": "Virus",
     "question": "Hvordan spredes influenza hovedsageligt?",
-    "answer": "Dråbesmitte og kontaktsmitte via hænder og overflader.",
+    "answer": "Influenza spredes via respiratoriske partikler ved nærkontakt og kan også overføres via forurenede hænder og overflader. Den relative betydning afhænger af miljø og adfærd.",
     "difficulty": "easy",
     "tags": [
       "influenza",
       "smitte"
     ],
-    "deckId": "mikroVirusCards"
+    "deckId": "mikroVirusCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.virus.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_virus_008",
@@ -1120,20 +2599,54 @@
       "gastro",
       "dehydrering"
     ],
-    "deckId": "mikroVirusCards"
+    "deckId": "mikroVirusCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.virus.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_virus_009",
     "subject": "Mikrobiologi",
     "topic": "Virus",
     "question": "Hvad er serøs meningitis oftest forårsaget af?",
-    "answer": "Virus, især enterovirus og herpes simplex.",
+    "answer": "Aseptisk meningitis skyldes ofte enterovirus, men også andre virus og ikke-infektiøse årsager forekommer. HSV forbindes især med encefalitis, selv om det også kan give meningitis.",
     "difficulty": "medium",
     "tags": [
       "meningitis",
       "viral"
     ],
-    "deckId": "mikroVirusCards"
+    "deckId": "mikroVirusCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.virus.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_virus_010",
@@ -1146,7 +2659,24 @@
       "herpes",
       "VZV"
     ],
-    "deckId": "mikroVirusCards"
+    "deckId": "mikroVirusCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.virus.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_virus_011",
@@ -1159,7 +2689,24 @@
       "VZV",
       "smitte"
     ],
-    "deckId": "mikroVirusCards"
+    "deckId": "mikroVirusCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.virus.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_virus_012",
@@ -1172,7 +2719,24 @@
       "gastro",
       "væske"
     ],
-    "deckId": "mikroVirusCards"
+    "deckId": "mikroVirusCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.virus.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_virus_013",
@@ -1185,7 +2749,24 @@
       "hepatitis",
       "lever"
     ],
-    "deckId": "mikroVirusCards"
+    "deckId": "mikroVirusCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.virus.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_virus_014",
@@ -1198,20 +2779,54 @@
       "tachykardi",
       "feber"
     ],
-    "deckId": "mikroVirusCards"
+    "deckId": "mikroVirusCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.virus.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_virus_015",
     "subject": "Mikrobiologi",
     "topic": "Virus",
-    "question": "Hvad er forskellen på viremi og septikæmi?",
-    "answer": "Viremi er virus i blodet, septikæmi er bakterier i blodet.",
+    "question": "Hvad betyder viræmi, bakteriæmi og sepsis?",
+    "answer": "Viræmi er virus i blodet, bakteriæmi bakterier i blodet. Sepsis er livstruende organpåvirkning fra en dysreguleret værtsrespons på infektion og kræver ikke påviste mikroorganismer i blodet.",
     "difficulty": "hard",
     "tags": [
       "viremi",
       "sepsis"
     ],
-    "deckId": "mikroVirusCards"
+    "deckId": "mikroVirusCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.virus.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_virus_016",
@@ -1224,20 +2839,54 @@
       "sepsis",
       "differentialdiagnose"
     ],
-    "deckId": "mikroVirusCards"
+    "deckId": "mikroVirusCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.virus.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_virus_017",
     "subject": "Mikrobiologi",
     "topic": "Virus",
     "question": "Hvad er viralt udslæt (exanthem) og hvornår ses det?",
-    "answer": "Hududslæt ved virusinfektioner som mæslinger, rubella og Varicella zoster.",
+    "answer": "Et eksantem er et udbredt hududslæt, som blandt andet kan ses ved mæslinger, røde hunde, skoldkopper og mange andre infektiøse eller ikke-infektiøse tilstande.",
     "difficulty": "medium",
     "tags": [
       "udslæt",
       "exanthem"
     ],
-    "deckId": "mikroVirusCards"
+    "deckId": "mikroVirusCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.virus.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_virus_018",
@@ -1250,7 +2899,24 @@
       "encefalitis",
       "meningitis"
     ],
-    "deckId": "mikroVirusCards"
+    "deckId": "mikroVirusCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.virus.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_virus_019",
@@ -1262,19 +2928,778 @@
     "tags": [
       "væsketab"
     ],
-    "deckId": "mikroVirusCards"
+    "deckId": "mikroVirusCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.virus.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   },
   {
     "id": "mikro_virus_020",
     "subject": "Mikrobiologi",
     "topic": "Virus",
-    "question": "Hvilken livstruende virusinfektion kan give hæmoragisk feber?",
-    "answer": "Ebola, Marburg, Lassa og Dengue i svære tilfælde.",
+    "question": "Hvilke virusfamilier kan give viral hæmoragisk feber?",
+    "answer": "Blandt andet filovirus som ebola og Marburg samt arenavirus som Lassa. Svær dengue kan give blødning og shock, men sygdomsgrupperne og smittevejene er forskellige.",
     "difficulty": "hard",
     "tags": [
       "ebola",
       "hæmoragisk"
     ],
-    "deckId": "mikroVirusCards"
+    "deckId": "mikroVirusCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.virus.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "mikro_bakt_021",
+    "subject": "Mikrobiologi",
+    "topic": "Bakterier",
+    "question": "Hvad er forskellen på bakteriæmi og bakteriel infektion?",
+    "answer": "Bakteriæmi er påvisning af bakterier i blodet. En bakteriel infektion kan være lokal eller systemisk og kan forekomme med eller uden bakteriæmi.",
+    "difficulty": "medium",
+    "tags": [
+      "bakterier",
+      "mikrobiologi"
+    ],
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.bakterier.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "mikro_bakt_022",
+    "subject": "Mikrobiologi",
+    "topic": "Bakterier",
+    "question": "Hvad er en biofilm?",
+    "answer": "Et organiseret mikrobielt samfund i en selvproduceret matrix på væv eller overflader; biofilm kan øge vedhæftning og tolerance over for immunforsvar og behandling.",
+    "difficulty": "medium",
+    "tags": [
+      "bakterier",
+      "mikrobiologi"
+    ],
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.bakterier.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "mikro_bakt_023",
+    "subject": "Mikrobiologi",
+    "topic": "Bakterier",
+    "question": "Hvad er forskellen på resistens og tolerance?",
+    "answer": "Resistens gør mikroorganismen i stand til at vokse ved en antibiotikakoncentration, mens tolerance kan gøre, at den overlever længere uden nødvendigvis at vokse.",
+    "difficulty": "medium",
+    "tags": [
+      "bakterier",
+      "mikrobiologi"
+    ],
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.bakterier.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "mikro_bakt_024",
+    "subject": "Mikrobiologi",
+    "topic": "Bakterier",
+    "question": "Hvorfor identificerer Gramfarvning ikke en bakterieart?",
+    "answer": "Den viser cellevægs-/farvningsmønster og morfologi, men artsidentifikation kræver dyrkning, massespektrometri, molekylære eller andre tests.",
+    "difficulty": "medium",
+    "tags": [
+      "bakterier",
+      "mikrobiologi"
+    ],
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.bakterier.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "mikro_bakt_025",
+    "subject": "Mikrobiologi",
+    "topic": "Bakterier",
+    "question": "Kan normal temperatur udelukke bakteriel infektion?",
+    "answer": "Nej. Tidspunkt, alder, immunsuppression og lægemidler kan ændre temperaturresponsen.",
+    "difficulty": "medium",
+    "tags": [
+      "bakterier",
+      "mikrobiologi"
+    ],
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.bakterier.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "mikro_svamp_021",
+    "subject": "Mikrobiologi",
+    "topic": "Svampe og parasitter",
+    "question": "Hvad er forskellen på kolonisation og invasiv candidiasis?",
+    "answer": "Candida kan findes på hud og slimhinder uden sygdom. Invasiv candidiasis indebærer vævs- eller blodbaneinfektion og kræver klinisk og mikrobiologisk diagnostik.",
+    "difficulty": "medium",
+    "tags": [
+      "svampe og parasitter",
+      "mikrobiologi"
+    ],
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.svampe-og-parasitter.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "mikro_svamp_022",
+    "subject": "Mikrobiologi",
+    "topic": "Svampe og parasitter",
+    "question": "Hvorfor er immunsuppression relevant i anamnesen?",
+    "answer": "Neutropeni, transplantation, høj dosis steroid, kemoterapi eller avanceret immunsygdom ændrer risikoen for invasive svampe- og parasitinfektioner.",
+    "difficulty": "medium",
+    "tags": [
+      "svampe og parasitter",
+      "mikrobiologi"
+    ],
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.svampe-og-parasitter.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "mikro_svamp_023",
+    "subject": "Mikrobiologi",
+    "topic": "Svampe og parasitter",
+    "question": "Hvorfor er feber efter malariaområde tidskritisk?",
+    "answer": "Falciparum-malaria kan udvikle sig hurtigt, og symptomer kan opstå efter hjemkomst; hurtig test og hospital vurdering må ikke afvente et klassisk febermønster.",
+    "difficulty": "medium",
+    "tags": [
+      "svampe og parasitter",
+      "mikrobiologi"
+    ],
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.svampe-og-parasitter.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "mikro_svamp_024",
+    "subject": "Mikrobiologi",
+    "topic": "Svampe og parasitter",
+    "question": "Kan eosinofili diagnosticere en parasitinfektion præhospitalt?",
+    "answer": "Nej. Eosinofili kan støtte nogle vævsinvasive helminthinfektioner, men mangler ved mange parasitter og har flere ikke-parasitære årsager.",
+    "difficulty": "medium",
+    "tags": [
+      "svampe og parasitter",
+      "mikrobiologi"
+    ],
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.svampe-og-parasitter.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "mikro_svamp_025",
+    "subject": "Mikrobiologi",
+    "topic": "Svampe og parasitter",
+    "question": "Hvad er forskellen på protozoer og helminther?",
+    "answer": "Protozoer er encellede eukaryote parasitter; helminther er flercellede parasitiske orme med meget forskellige livscykler og sygdomsbilleder.",
+    "difficulty": "medium",
+    "tags": [
+      "svampe og parasitter",
+      "mikrobiologi"
+    ],
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.svampe-og-parasitter.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "mikro_sepsis_021",
+    "subject": "Mikrobiologi",
+    "topic": "Sepsis og immunrespons",
+    "question": "Kan sepsis skyldes virus eller svampe?",
+    "answer": "Ja. Sepsisdefinitionen afhænger af infektion og organdysfunktion, ikke af om agens er bakterie, virus, svamp eller parasit.",
+    "difficulty": "medium",
+    "tags": [
+      "sepsis og immunrespons",
+      "mikrobiologi"
+    ],
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.sepsis-og-immunrespons.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "mikro_sepsis_022",
+    "subject": "Mikrobiologi",
+    "topic": "Sepsis og immunrespons",
+    "question": "Hvad er medfødt immunitet?",
+    "answer": "Hurtige, ikke-klonale forsvarsmekanismer som barrierer, komplement, fagocytter og mønstergenkendelsesreceptorer.",
+    "difficulty": "medium",
+    "tags": [
+      "sepsis og immunrespons",
+      "mikrobiologi"
+    ],
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.sepsis-og-immunrespons.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "mikro_sepsis_023",
+    "subject": "Mikrobiologi",
+    "topic": "Sepsis og immunrespons",
+    "question": "Hvad er adaptiv immunitet?",
+    "answer": "Antigen-specifik respons fra B- og T-lymfocytter med klonal ekspansion og mulighed for immunologisk hukommelse.",
+    "difficulty": "medium",
+    "tags": [
+      "sepsis og immunrespons",
+      "mikrobiologi"
+    ],
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.sepsis-og-immunrespons.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "mikro_sepsis_024",
+    "subject": "Mikrobiologi",
+    "topic": "Sepsis og immunrespons",
+    "question": "Hvorfor kan immunsuppression forekomme under sepsis?",
+    "answer": "Dysreguleringen kan samtidig udmatte eller hæmme dele af immunresponsen, så patienten både har inflammation og nedsat evne til at kontrollere infektion.",
+    "difficulty": "medium",
+    "tags": [
+      "sepsis og immunrespons",
+      "mikrobiologi"
+    ],
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.sepsis-og-immunrespons.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "mikro_sepsis_025",
+    "subject": "Mikrobiologi",
+    "topic": "Sepsis og immunrespons",
+    "question": "Hvorfor er sepsis ikke synonymt med positiv bloddyrkning?",
+    "answer": "Bloddyrkning kan være negativ ved lokal infektion, forudgående antibiotika eller lav mikrobiel mængde; sepsis er en klinisk organdysfunktionstilstand.",
+    "difficulty": "medium",
+    "tags": [
+      "sepsis og immunrespons",
+      "mikrobiologi"
+    ],
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.sepsis-og-immunrespons.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "mikro_smitte_021",
+    "subject": "Mikrobiologi",
+    "topic": "Smitteveje og isolation",
+    "question": "Hvad er kildekontrol?",
+    "answer": "Tiltag hos smittekilden, eksempelvis maske ved relevant respiratorisk smitte, afdækning af sår eller kontrol af sekreter, som reducerer spredning.",
+    "difficulty": "medium",
+    "tags": [
+      "smitteveje og isolation",
+      "mikrobiologi"
+    ],
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.smitteveje-og-isolation.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "mikro_smitte_022",
+    "subject": "Mikrobiologi",
+    "topic": "Smitteveje og isolation",
+    "question": "Hvorfor udføres håndhygiejne også efter handsker?",
+    "answer": "Handsker kan lække eller forurene hænder ved aftagning, og de erstatter ikke håndhygiejne.",
+    "difficulty": "medium",
+    "tags": [
+      "smitteveje og isolation",
+      "mikrobiologi"
+    ],
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.smitteveje-og-isolation.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "mikro_smitte_023",
+    "subject": "Mikrobiologi",
+    "topic": "Smitteveje og isolation",
+    "question": "Hvad afgør valg af desinfektionsmiddel?",
+    "answer": "Målorganisme, organisk forurening, overflademateriale, dokumenteret virkningsspektrum, koncentration, kontakttid og arbejdsmiljø.",
+    "difficulty": "medium",
+    "tags": [
+      "smitteveje og isolation",
+      "mikrobiologi"
+    ],
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.smitteveje-og-isolation.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "mikro_smitte_024",
+    "subject": "Mikrobiologi",
+    "topic": "Smitteveje og isolation",
+    "question": "Hvad er en infektionshygiejnisk risikovurdering?",
+    "answer": "En vurdering af smittekilde, smittevej, eksponering, procedure, miljø og modtagelig person, som bruges til at vælge proportionale forholdsregler.",
+    "difficulty": "medium",
+    "tags": [
+      "smitteveje og isolation",
+      "mikrobiologi"
+    ],
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.smitteveje-og-isolation.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "mikro_smitte_025",
+    "subject": "Mikrobiologi",
+    "topic": "Smitteveje og isolation",
+    "question": "Hvorfor må smitteforholdsregler ikke forsinke livreddende behandling unødigt?",
+    "answer": "Risikoen for personale og andre skal reduceres hurtigt, men tiltag planlægges, så tidskritisk ABC-behandling fortsat kan gennemføres sikkert.",
+    "difficulty": "medium",
+    "tags": [
+      "smitteveje og isolation",
+      "mikrobiologi"
+    ],
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.smitteveje-og-isolation.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "mikro_virus_021",
+    "subject": "Mikrobiologi",
+    "topic": "Virus",
+    "question": "Hvad er forskellen på virusinfektion og virussygdom?",
+    "answer": "Infektion betyder, at virus replikerer i værten; sygdom betyder, at infektionen giver klinisk vævsskade eller symptomer. Infektion kan være asymptomatisk.",
+    "difficulty": "medium",
+    "tags": [
+      "virus",
+      "mikrobiologi"
+    ],
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.virus.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "mikro_virus_022",
+    "subject": "Mikrobiologi",
+    "topic": "Virus",
+    "question": "Hvad er et kappevirus?",
+    "answer": "Et virus med lipidmembran omkring kapsidet. Kappen påvirker blandt andet miljøstabilitet og følsomhed for visse desinfektionsmidler.",
+    "difficulty": "medium",
+    "tags": [
+      "virus",
+      "mikrobiologi"
+    ],
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.virus.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "mikro_virus_023",
+    "subject": "Mikrobiologi",
+    "topic": "Virus",
+    "question": "Hvad er antigen drift?",
+    "answer": "Gradvis ophobning af mutationer i virale antigener, som kan ændre immun genkendelse, klassisk ved influenza.",
+    "difficulty": "medium",
+    "tags": [
+      "virus",
+      "mikrobiologi"
+    ],
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.virus.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "mikro_virus_024",
+    "subject": "Mikrobiologi",
+    "topic": "Virus",
+    "question": "Hvorfor virker nogle antivirale midler kun tidligt?",
+    "answer": "De hæmmer bestemte trin i virusreplikationen og har størst effekt, før stor virusmængde og værtsmedieret vævsskade er udviklet; det afhænger af virus og præparat.",
+    "difficulty": "medium",
+    "tags": [
+      "virus",
+      "mikrobiologi"
+    ],
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.virus.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "mikro_virus_025",
+    "subject": "Mikrobiologi",
+    "topic": "Virus",
+    "question": "Kan en virusinfektion udløse bakteriel superinfektion?",
+    "answer": "Ja. Skade på slimhinder og ændret immunforsvar kan øge risikoen for efterfølgende bakteriel infektion, eksempelvis efter influenza.",
+    "difficulty": "medium",
+    "tags": [
+      "virus",
+      "mikrobiologi"
+    ],
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.mikrobiologi.virus.grundlag",
+    "rationale": "Mikroorganisme, værtsrespons og smittevej skal holdes adskilt; kliniske fund kan sjældent identificere agens alene.",
+    "prehospitalRelevance": "Præhospitalt prioriteres sygdomsgrad, infektionshygiejnisk risikovurdering, konkrete ABC-problemer og korrekt information til modtagested.",
+    "references": [
+      {
+        "title": "Nationale Infektionshygiejniske Retningslinjer",
+        "publisher": "Statens Serum Institut",
+        "editionOrDate": "Senest redigeret 29. juni 2026",
+        "url": "https://hygiejne.ssi.dk/retningslinjer/nir",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   }
 ]
