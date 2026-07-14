@@ -3,1267 +3,3487 @@
     "id": "administration_001",
     "subject": "Farmakologi",
     "topic": "Administration",
-    "question": "Hvad betyder administreringsvej?",
-    "answer": "Den måde et lægemiddel gives på, fx IV, PO, IM, IN eller SC.",
+    "question": "Hvad er en administrationsvej?",
+    "answer": "Den vej et lægemiddel tilføres kroppen ad, fx peroralt (PO), intravenøst (IV), intramuskulært (IM), intranasalt (IN) eller subkutant (SC).",
     "difficulty": "easy",
     "tags": [
       "administrationsvej"
     ],
-    "deckId": "administrationCards"
+    "deckId": "administrationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.administration.grundlag",
+    "rationale": "Administrationsvej og formulering er en del af både farmakokinetik og lægemiddelsikkerhed.",
+    "prehospitalRelevance": "Administrationsvejen påvirker indsættende virkning, eksponering og risiko og skal vurderes sammen med patientens tilstand og gældende instruks.",
+    "references": [
+      {
+        "title": "Medication Routes of Administration",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK568677/",
+        "accessedAt": "2026-07-13",
+        "note": "General route and absorption principles; local instructions govern operational use."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "administration_002",
     "subject": "Farmakologi",
     "topic": "Administration",
     "question": "Hvad er forskellen på enteral og parenteral administration?",
-    "answer": "Enteral sker via mave-tarm-systemet, parenteral udenom GI, fx injektion eller inhalation.",
+    "answer": "Enteral administration sker via mave-tarm-kanalen. Parenteral administration sker ved injektion eller infusion uden om mave-tarm-kanalen.",
     "difficulty": "easy",
     "tags": [
       "enteral",
       "parenteral"
     ],
-    "deckId": "administrationCards"
+    "deckId": "administrationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.administration.grundlag",
+    "explanation": "Inhalation og intranasal administration er ikke enterale, men omtales normalt som selvstændige administrationsveje frem for parenterale injektionsveje.",
+    "rationale": "Administrationsvej og formulering er en del af både farmakokinetik og lægemiddelsikkerhed.",
+    "prehospitalRelevance": "Administrationsvejen påvirker indsættende virkning, eksponering og risiko og skal vurderes sammen med patientens tilstand og gældende instruks.",
+    "references": [
+      {
+        "title": "Medication Routes of Administration",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK568677/",
+        "accessedAt": "2026-07-13",
+        "note": "General route and absorption principles; local instructions govern operational use."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "administration_003",
     "subject": "Farmakologi",
     "topic": "Administration",
-    "question": "Hvad betyder IV-administration, og hvad er fordelen?",
-    "answer": "Intravenøs administration giver 100% biotilgængelighed og hurtig effekt.",
+    "question": "Hvad kendetegner intravenøs administration?",
+    "answer": "Det aktive stof tilføres direkte til blodbanen, så absorption omgås og biotilgængeligheden er 100 %.",
     "difficulty": "medium",
     "tags": [
       "IV",
       "biotilgængelighed"
     ],
-    "deckId": "administrationCards"
+    "deckId": "administrationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.administration.grundlag",
+    "rationale": "Administrationsvej og formulering er en del af både farmakokinetik og lægemiddelsikkerhed.",
+    "prehospitalRelevance": "Administrationsvejen påvirker indsættende virkning, eksponering og risiko og skal vurderes sammen med patientens tilstand og gældende instruks.",
+    "references": [
+      {
+        "title": "Medication Routes of Administration",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK568677/",
+        "accessedAt": "2026-07-13",
+        "note": "General route and absorption principles; local instructions govern operational use."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "administration_004",
     "subject": "Farmakologi",
     "topic": "Administration",
-    "question": "Hvad er ulempen ved IV-administration?",
-    "answer": "Kræver adgang til vene, risiko for infektion, luftemboli og hurtig toksicitet.",
+    "question": "Hvilke generelle risici er forbundet med IV-administration?",
+    "answer": "Fejl eller uønskede effekter kan opstå hurtigt, og der er blandt andet risiko for ekstravasation, infektion og komplikationer ved den intravenøse adgang.",
     "difficulty": "medium",
     "tags": [
       "IV",
       "komplikation"
     ],
-    "deckId": "administrationCards"
+    "deckId": "administrationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.administration.grundlag",
+    "rationale": "Administrationsvej og formulering er en del af både farmakokinetik og lægemiddelsikkerhed.",
+    "prehospitalRelevance": "Administrationsvejen påvirker indsættende virkning, eksponering og risiko og skal vurderes sammen med patientens tilstand og gældende instruks.",
+    "references": [
+      {
+        "title": "Medication Routes of Administration",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK568677/",
+        "accessedAt": "2026-07-13",
+        "note": "General route and absorption principles; local instructions govern operational use."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "administration_005",
     "subject": "Farmakologi",
     "topic": "Administration",
-    "question": "Hvad betyder IM-administration, og hvornår bruges det præhospitalt?",
-    "answer": "Intramuskulær injektion, fx ved adrenalin til anafylaksi når IV ikke er muligt.",
+    "question": "Hvad betyder intramuskulær administration?",
+    "answer": "Lægemidlet injiceres i muskelvæv og absorberes derfra til kredsløbet.",
     "difficulty": "easy",
     "tags": [
       "IM",
       "anafylaksi"
     ],
-    "deckId": "administrationCards"
+    "deckId": "administrationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.administration.grundlag",
+    "explanation": "Valg af lægemiddel, injektionssted og indikation afhænger af produktinformation og gældende instruks.",
+    "rationale": "Administrationsvej og formulering er en del af både farmakokinetik og lægemiddelsikkerhed.",
+    "prehospitalRelevance": "Administrationsvejen påvirker indsættende virkning, eksponering og risiko og skal vurderes sammen med patientens tilstand og gældende instruks.",
+    "reviewStatus": "draft",
+    "contentRevision": 2
   },
   {
     "id": "administration_006",
     "subject": "Farmakologi",
     "topic": "Administration",
-    "question": "Hvad er en fordel ved intranasal administration (IN)?",
-    "answer": "Giver hurtig absorption via slimhinder og kræver ingen kanyle.",
+    "question": "Hvad kan være en fordel ved intranasal administration?",
+    "answer": "Slimhinden er velvaskulariseret, så egnede lægemidler kan absorberes uden venøs adgang.",
     "difficulty": "medium",
     "tags": [
       "IN",
       "slimhinde"
     ],
-    "deckId": "administrationCards"
-  },
-  {
-    "id": "administration_007",
-    "subject": "Farmakologi",
-    "topic": "Administration",
-    "question": "Nævn et eksempel på medicin, der kan gives intranasalt præhospitalt.",
-    "answer": "Naloxon, midazolam eller fentanyl.",
-    "difficulty": "easy",
-    "tags": [
-      "IN",
-      "naloxon"
+    "deckId": "administrationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.administration.grundlag",
+    "explanation": "Absorptionen kan påvirkes af blandt andet sekret, blødning, slimhindeskade, volumen og lægemidlets formulering.",
+    "rationale": "Administrationsvej og formulering er en del af både farmakokinetik og lægemiddelsikkerhed.",
+    "prehospitalRelevance": "Administrationsvejen påvirker indsættende virkning, eksponering og risiko og skal vurderes sammen med patientens tilstand og gældende instruks.",
+    "references": [
+      {
+        "title": "Medication Routes of Administration",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK568677/",
+        "accessedAt": "2026-07-13",
+        "note": "General route and absorption principles; local instructions govern operational use."
+      }
     ],
-    "deckId": "administrationCards"
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "administration_008",
     "subject": "Farmakologi",
     "topic": "Administration",
-    "question": "Hvad betyder subkutan administration (SC)?",
-    "answer": "Injektion i underhudens fedtvæv, langsom og længerevarende effekt.",
+    "question": "Hvad er subkutan administration?",
+    "answer": "Lægemidlet injiceres i underhuden og absorberes derfra; hastighed og varighed afhænger af stoffet, formuleringen og den lokale perfusion.",
     "difficulty": "medium",
     "tags": [
       "SC"
     ],
-    "deckId": "administrationCards"
+    "deckId": "administrationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.administration.grundlag",
+    "rationale": "Administrationsvej og formulering er en del af både farmakokinetik og lægemiddelsikkerhed.",
+    "prehospitalRelevance": "Administrationsvejen påvirker indsættende virkning, eksponering og risiko og skal vurderes sammen med patientens tilstand og gældende instruks.",
+    "references": [
+      {
+        "title": "Medication Routes of Administration",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK568677/",
+        "accessedAt": "2026-07-13",
+        "note": "General route and absorption principles; local instructions govern operational use."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "administration_009",
     "subject": "Farmakologi",
     "topic": "Administration",
-    "question": "Hvorfor bør man ofte undgå peroral administration præhospitalt?",
-    "answer": "Langsom absorption, kan ikke bruges ved kvalme, bevidstløshed eller shock.",
+    "question": "Hvornår kan peroral administration være uegnet i en akut situation?",
+    "answer": "Fx ved nedsat bevidsthed, synkeproblemer, opkastning eller behov for en anden og mere forudsigelig administrationsvej.",
     "difficulty": "medium",
     "tags": [
       "PO",
       "shock"
     ],
-    "deckId": "administrationCards"
+    "deckId": "administrationCards",
+    "schemaVersion": 2,
+    "kind": "applied",
+    "learningObjectiveId": "lo.farmakologi.administration.grundlag",
+    "explanation": "Peroral administration er ikke generelt uegnet præhospitalt; valget afhænger af patient, lægemiddel og instruks.",
+    "rationale": "Administrationsvej og formulering er en del af både farmakokinetik og lægemiddelsikkerhed.",
+    "prehospitalRelevance": "Administrationsvejen påvirker indsættende virkning, eksponering og risiko og skal vurderes sammen med patientens tilstand og gældende instruks.",
+    "reviewStatus": "draft",
+    "contentRevision": 2
   },
   {
     "id": "administration_010",
     "subject": "Farmakologi",
     "topic": "Administration",
-    "question": "Hvad er fordelene ved inhalationsmedicin?",
-    "answer": "Direkte virkning i luftvejene, hurtig effekt og lille systemisk påvirkning.",
+    "question": "Hvad er en mulig fordel ved inhalationsbehandling?",
+    "answer": "Et egnet lægemiddel kan leveres direkte til luftvejene og opnå lokal effekt med relativt begrænset systemisk eksponering.",
     "difficulty": "easy",
     "tags": [
       "inhalation",
       "bronkodilator"
     ],
-    "deckId": "administrationCards"
+    "deckId": "administrationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.administration.grundlag",
+    "explanation": "Den faktisk leverede dosis afhænger blandt andet af teknik, udstyr, partikelstørrelse og patientens ventilation.",
+    "rationale": "Administrationsvej og formulering er en del af både farmakokinetik og lægemiddelsikkerhed.",
+    "prehospitalRelevance": "Administrationsvejen påvirker indsættende virkning, eksponering og risiko og skal vurderes sammen med patientens tilstand og gældende instruks.",
+    "references": [
+      {
+        "title": "Medication Routes of Administration",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK568677/",
+        "accessedAt": "2026-07-13",
+        "note": "General route and absorption principles; local instructions govern operational use."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "administration_011",
     "subject": "Farmakologi",
     "topic": "Administration",
-    "question": "Forklar hvad rektal administration er, og hvornår det bruges.",
-    "answer": "Medicin gives i endetarmen, fx ved kramper hos børn eller hvis IV ikke er muligt.",
+    "question": "Hvad er rektal administration?",
+    "answer": "Lægemidlet indføres i endetarmen, hvor det kan virke lokalt eller absorberes systemisk.",
     "difficulty": "medium",
     "tags": [
       "rektal"
     ],
-    "deckId": "administrationCards"
+    "deckId": "administrationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.administration.grundlag",
+    "explanation": "Absorptionen kan være variabel, og anvendelsen afhænger af produkt og klinisk situation.",
+    "rationale": "Administrationsvej og formulering er en del af både farmakokinetik og lægemiddelsikkerhed.",
+    "prehospitalRelevance": "Administrationsvejen påvirker indsættende virkning, eksponering og risiko og skal vurderes sammen med patientens tilstand og gældende instruks.",
+    "reviewStatus": "draft",
+    "contentRevision": 2
   },
   {
     "id": "administration_012",
     "subject": "Farmakologi",
     "topic": "Administration",
-    "question": "Hvad er risici ved IM-administration?",
-    "answer": "Ujævn absorption, smerte, risiko for at ramme kar eller nerve.",
+    "question": "Hvilke risici er forbundet med IM-administration?",
+    "answer": "Blandt andet smerte, hæmatom, infektion, nerveskade, utilsigtet intravaskulær injektion og variabel absorption.",
     "difficulty": "hard",
     "tags": [
       "IM",
       "komplikation"
     ],
-    "deckId": "administrationCards"
+    "deckId": "administrationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.administration.grundlag",
+    "rationale": "Administrationsvej og formulering er en del af både farmakokinetik og lægemiddelsikkerhed.",
+    "prehospitalRelevance": "Administrationsvejen påvirker indsættende virkning, eksponering og risiko og skal vurderes sammen med patientens tilstand og gældende instruks.",
+    "references": [
+      {
+        "title": "Medication Routes of Administration",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK568677/",
+        "accessedAt": "2026-07-13",
+        "note": "General route and absorption principles; local instructions govern operational use."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "administration_013",
     "subject": "Farmakologi",
     "topic": "Administration",
-    "question": "Hvorfor virker IV-medicin hurtigere end SC eller IM?",
-    "answer": "Fordi det ikke kræver absorption og gives direkte i blodbanen.",
+    "question": "Hvorfor indtræder effekten ofte hurtigere efter IV-administration end efter IM eller SC?",
+    "answer": "IV-administration kræver ingen absorption fra vævet, mens IM og SC først skal optages til blodbanen.",
     "difficulty": "easy",
     "tags": [
       "IV",
       "absorption"
     ],
-    "deckId": "administrationCards"
+    "deckId": "administrationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.administration.grundlag",
+    "rationale": "Administrationsvej og formulering er en del af både farmakokinetik og lægemiddelsikkerhed.",
+    "prehospitalRelevance": "Administrationsvejen påvirker indsættende virkning, eksponering og risiko og skal vurderes sammen med patientens tilstand og gældende instruks.",
+    "references": [
+      {
+        "title": "Medication Routes of Administration",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK568677/",
+        "accessedAt": "2026-07-13",
+        "note": "General route and absorption principles; local instructions govern operational use."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "administration_014",
     "subject": "Farmakologi",
     "topic": "Administration",
-    "question": "Hvad betyder 'titrering' af medicin?",
-    "answer": "Gradvis øgning af dosis indtil ønsket effekt opnås uden bivirkninger.",
+    "question": "Hvad betyder titrering af et lægemiddel?",
+    "answer": "At dosis justeres trinvist mod en defineret effekt, mens respons og uønskede virkninger overvåges.",
     "difficulty": "hard",
     "tags": [
       "titrering"
     ],
-    "deckId": "administrationCards"
+    "deckId": "administrationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.administration.grundlag",
+    "rationale": "Administrationsvej og formulering er en del af både farmakokinetik og lægemiddelsikkerhed.",
+    "prehospitalRelevance": "Administrationsvejen påvirker indsættende virkning, eksponering og risiko og skal vurderes sammen med patientens tilstand og gældende instruks.",
+    "references": [
+      {
+        "title": "Medication Routes of Administration",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK568677/",
+        "accessedAt": "2026-07-13",
+        "note": "General route and absorption principles; local instructions govern operational use."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "administration_015",
     "subject": "Farmakologi",
     "topic": "Administration",
-    "question": "Hvorfor gives nitroglycerin sublingualt?",
-    "answer": "Slimhinden under tungen optager stoffet hurtigt og undgår first-pass metabolisme.",
+    "question": "Hvorfor kan sublingual administration give hurtig systemisk absorption?",
+    "answer": "Lægemidlet kan absorberes gennem mundslimhinden og omgå en stor del af den intestinale og hepatiske førstepassage.",
     "difficulty": "medium",
     "tags": [
       "sublingual",
       "nitro"
     ],
-    "deckId": "administrationCards"
+    "deckId": "administrationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.administration.grundlag",
+    "rationale": "Administrationsvej og formulering er en del af både farmakokinetik og lægemiddelsikkerhed.",
+    "prehospitalRelevance": "Administrationsvejen påvirker indsættende virkning, eksponering og risiko og skal vurderes sammen med patientens tilstand og gældende instruks.",
+    "references": [
+      {
+        "title": "Medication Routes of Administration",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK568677/",
+        "accessedAt": "2026-07-13",
+        "note": "General route and absorption principles; local instructions govern operational use."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "administration_016",
     "subject": "Farmakologi",
     "topic": "Administration",
-    "question": "Hvornår bør man vælge intraossøs adgang præhospitalt?",
-    "answer": "Når IV-adgang ikke kan etableres hurtigt hos kritisk patient, fx hjertestop eller shock.",
+    "question": "Hvad er det overordnede formål med intraossøs adgang?",
+    "answer": "At skabe adgang til det centrale kredsløb via knoglemarven, når en relevant vaskulær adgang ikke kan etableres rettidigt.",
     "difficulty": "medium",
     "tags": [
       "IO",
       "akut"
     ],
-    "deckId": "administrationCards"
+    "deckId": "administrationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.administration.grundlag",
+    "explanation": "Indikation, teknik og anvendelse er instruks- og kompetenceafhængig.",
+    "rationale": "Administrationsvej og formulering er en del af både farmakokinetik og lægemiddelsikkerhed.",
+    "prehospitalRelevance": "Administrationsvejen påvirker indsættende virkning, eksponering og risiko og skal vurderes sammen med patientens tilstand og gældende instruks.",
+    "reviewStatus": "draft",
+    "contentRevision": 2
   },
   {
     "id": "administration_017",
     "subject": "Farmakologi",
     "topic": "Administration",
-    "question": "Hvad er fordelen ved depotpræparater?",
-    "answer": "Langsom og vedvarende frigivelse af lægemidlet over timer eller dage.",
+    "question": "Hvad kendetegner et depotpræparat?",
+    "answer": "Formuleringen frigiver det aktive stof over længere tid end en tilsvarende formulering med umiddelbar frigivelse.",
     "difficulty": "hard",
     "tags": [
       "depot",
       "langtidsvirkning"
     ],
-    "deckId": "administrationCards"
+    "deckId": "administrationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.administration.grundlag",
+    "rationale": "Administrationsvej og formulering er en del af både farmakokinetik og lægemiddelsikkerhed.",
+    "prehospitalRelevance": "Administrationsvejen påvirker indsættende virkning, eksponering og risiko og skal vurderes sammen med patientens tilstand og gældende instruks.",
+    "references": [
+      {
+        "title": "Medication Routes of Administration",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK568677/",
+        "accessedAt": "2026-07-13",
+        "note": "General route and absorption principles; local instructions govern operational use."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "administration_018",
     "subject": "Farmakologi",
     "topic": "Administration",
-    "question": "Hvad er en bolusinjektion?",
-    "answer": "En hurtig injektion af en mindre mængde medicin med øjeblikkelig effekt.",
+    "question": "Hvad er en bolusadministration?",
+    "answer": "En afgrænset dosis, der gives over kort tid frem for som en længerevarende infusion.",
     "difficulty": "medium",
     "tags": [
       "bolus"
     ],
-    "deckId": "administrationCards"
+    "deckId": "administrationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.administration.grundlag",
+    "explanation": "Bolus betyder ikke nødvendigvis en lille dosis eller øjeblikkelig klinisk effekt.",
+    "rationale": "Administrationsvej og formulering er en del af både farmakokinetik og lægemiddelsikkerhed.",
+    "prehospitalRelevance": "Administrationsvejen påvirker indsættende virkning, eksponering og risiko og skal vurderes sammen med patientens tilstand og gældende instruks.",
+    "references": [
+      {
+        "title": "Medication Routes of Administration",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK568677/",
+        "accessedAt": "2026-07-13",
+        "note": "General route and absorption principles; local instructions govern operational use."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "administration_019",
     "subject": "Farmakologi",
     "topic": "Administration",
-    "question": "Hvad er en infusion, og hvornår bruges det?",
-    "answer": "Kontinuerlig administration af medicin i blodbanen, fx væske, Noradrenalin eller insulin.",
+    "question": "Hvad er en infusion?",
+    "answer": "Kontrolleret indgift af væske eller lægemiddel over et tidsrum, ofte via en intravenøs adgang.",
     "difficulty": "medium",
     "tags": [
       "infusion"
     ],
-    "deckId": "administrationCards"
+    "deckId": "administrationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.administration.grundlag",
+    "rationale": "Administrationsvej og formulering er en del af både farmakokinetik og lægemiddelsikkerhed.",
+    "prehospitalRelevance": "Administrationsvejen påvirker indsættende virkning, eksponering og risiko og skal vurderes sammen med patientens tilstand og gældende instruks.",
+    "reviewStatus": "draft",
+    "contentRevision": 2
   },
   {
     "id": "administration_020",
     "subject": "Farmakologi",
     "topic": "Administration",
-    "question": "Hvad skal kontrolleres før IV-administration præhospitalt?",
-    "answer": "Let adgang, korrekt medicin og dosis, kompatibilitet, aspiration og observation for reaktion.",
+    "question": "Hvilke grundprincipper skal kontrolleres før lægemiddeladministration?",
+    "answer": "Kontrollér mindst patient, lægemiddel, styrke, beregning, dosis, administrationsvej, tidspunkt, allergi, holdbarhed og relevant monitorering efter lokal procedure.",
     "difficulty": "hard",
     "tags": [
       "IV",
       "sikkerhed"
     ],
-    "deckId": "administrationCards"
+    "deckId": "administrationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.administration.grundlag",
+    "explanation": "Den konkrete kontrolprocedure og eventuelle dobbeltkontrol følger arbejdsstedets instrukser.",
+    "rationale": "Administrationsvej og formulering er en del af både farmakokinetik og lægemiddelsikkerhed.",
+    "prehospitalRelevance": "Administrationsvejen påvirker indsættende virkning, eksponering og risiko og skal vurderes sammen med patientens tilstand og gældende instruks.",
+    "reviewStatus": "draft",
+    "contentRevision": 2
   },
   {
     "id": "bivirkning_001",
     "subject": "Farmakologi",
     "topic": "Bivirkninger",
     "question": "Hvad er en bivirkning?",
-    "answer": "Uønsket effekt af et lægemiddel, der opstår ved korrekt dosering.",
+    "answer": "En skadelig og utilsigtet reaktion, hvor en sammenhæng med lægemidlet vurderes som en rimelig mulighed.",
     "difficulty": "easy",
     "tags": [
       "definition"
     ],
-    "deckId": "bivirkningerCards"
+    "deckId": "bivirkningerCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.bivirkninger.grundlag",
+    "rationale": "En observeret reaktion bør beskrives før mekanisme eller årsag konkluderes.",
+    "prehospitalRelevance": "Præcis observation og beskrivelse af mulige lægemiddelreaktioner understøtter sikker vurdering og overlevering.",
+    "references": [
+      {
+        "title": "Adverse Drug Reactions",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK599521/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "bivirkning_002",
     "subject": "Farmakologi",
     "topic": "Bivirkninger",
-    "question": "Hvad er forskellen på bivirkning og toksisk effekt?",
-    "answer": "Bivirkning opstår ved korrekt dosering, toksisk effekt skyldes overdosering.",
+    "question": "Hvordan adskiller en bivirkning sig fra toksicitet?",
+    "answer": "Begreberne kan overlappe: toksicitet beskriver skadelig virkning ved for høj eksponering, mens bivirkninger også kan forekomme ved almindelig anvendelse.",
     "difficulty": "medium",
     "tags": [
       "toksicitet"
     ],
-    "deckId": "bivirkningerCards"
+    "deckId": "bivirkningerCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.bivirkninger.grundlag",
+    "rationale": "En observeret reaktion bør beskrives før mekanisme eller årsag konkluderes.",
+    "prehospitalRelevance": "Præcis observation og beskrivelse af mulige lægemiddelreaktioner understøtter sikker vurdering og overlevering.",
+    "references": [
+      {
+        "title": "Adverse Drug Reactions",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK599521/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "bivirkning_003",
     "subject": "Farmakologi",
     "topic": "Bivirkninger",
-    "question": "Hvad er en type A-bivirkning?",
-    "answer": "Forudsigelig og dosisafhængig bivirkning, ofte relateret til kendt farmakologisk effekt.",
+    "question": "Hvad kendetegner en type A-bivirkning?",
+    "answer": "Den er forudsigelig ud fra lægemidlets kendte farmakologi og er ofte dosisafhængig.",
     "difficulty": "medium",
     "tags": [
       "type A",
       "dosisafhængig"
     ],
-    "deckId": "bivirkningerCards"
+    "deckId": "bivirkningerCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.bivirkninger.grundlag",
+    "rationale": "En observeret reaktion bør beskrives før mekanisme eller årsag konkluderes.",
+    "prehospitalRelevance": "Præcis observation og beskrivelse af mulige lægemiddelreaktioner understøtter sikker vurdering og overlevering.",
+    "references": [
+      {
+        "title": "Adverse Drug Reactions",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK599521/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "bivirkning_004",
     "subject": "Farmakologi",
     "topic": "Bivirkninger",
-    "question": "Hvad er en type B-bivirkning?",
-    "answer": "Uforudsigelig og ikke dosisafhængig, ofte allergisk eller immunologisk reaktion.",
+    "question": "Hvad kendetegner en type B-bivirkning?",
+    "answer": "Den er ikke forudsigelig ud fra den kendte farmakologiske virkning og ses hos disponerede personer; den kan være immunologisk eller ikke-immunologisk.",
     "difficulty": "hard",
     "tags": [
       "type B",
       "allergi"
     ],
-    "deckId": "bivirkningerCards"
+    "deckId": "bivirkningerCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.bivirkninger.grundlag",
+    "rationale": "En observeret reaktion bør beskrives før mekanisme eller årsag konkluderes.",
+    "prehospitalRelevance": "Præcis observation og beskrivelse af mulige lægemiddelreaktioner understøtter sikker vurdering og overlevering.",
+    "references": [
+      {
+        "title": "Adverse Drug Reactions",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK599521/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "bivirkning_005",
     "subject": "Farmakologi",
     "topic": "Bivirkninger",
-    "question": "Hvilken type bivirkning er anafylaksi?",
-    "answer": "Type B-bivirkning, akut immunologisk reaktion der kan være livstruende.",
+    "question": "Hvordan placeres lægemiddeludløst anafylaksi i type A/B-inddelingen?",
+    "answer": "Som en type B-reaktion, fordi den er en uforudsigelig hypersensitivitetsreaktion og ikke blot en forstærkning af den tilsigtede effekt.",
     "difficulty": "easy",
     "tags": [
       "anafylaksi",
       "type B"
     ],
-    "deckId": "bivirkningerCards"
+    "deckId": "bivirkningerCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.bivirkninger.grundlag",
+    "rationale": "En observeret reaktion bør beskrives før mekanisme eller årsag konkluderes.",
+    "prehospitalRelevance": "Præcis observation og beskrivelse af mulige lægemiddelreaktioner understøtter sikker vurdering og overlevering.",
+    "references": [
+      {
+        "title": "Adverse Drug Reactions",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK599521/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "bivirkning_006",
     "subject": "Farmakologi",
     "topic": "Bivirkninger",
-    "question": "Hvilke symptomer kan ses ved opioid-induceret respirationsdepression?",
-    "answer": "Langsom RF, lav saturation, miose og nedsat bevidsthed.",
+    "question": "Hvilke fund kan give mistanke om opioidudløst respirationsdepression?",
+    "answer": "Faldende respirationsfrekvens og -dybde, tiltagende sløvhed og eventuelt miose; SpO₂ kan være sent eller misvisende, især ved ilttilskud.",
     "difficulty": "medium",
     "tags": [
       "opioid",
       "respiration"
     ],
-    "deckId": "bivirkningerCards"
+    "deckId": "bivirkningerCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.bivirkninger.grundlag",
+    "rationale": "En observeret reaktion bør beskrives før mekanisme eller årsag konkluderes.",
+    "prehospitalRelevance": "Præcis observation og beskrivelse af mulige lægemiddelreaktioner understøtter sikker vurdering og overlevering.",
+    "reviewStatus": "draft",
+    "contentRevision": 2
   },
   {
     "id": "bivirkning_007",
     "subject": "Farmakologi",
     "topic": "Bivirkninger",
     "question": "Hvorfor kan ACE-hæmmere give tør hoste?",
-    "answer": "De øger bradykinin, som irriterer luftvejene.",
+    "answer": "Hæmmet nedbrydning af blandt andet bradykinin kan bidrage til en vedvarende tør hoste.",
     "difficulty": "hard",
     "tags": [
       "ACE",
       "hoste"
     ],
-    "deckId": "bivirkningerCards"
+    "deckId": "bivirkningerCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.bivirkninger.grundlag",
+    "rationale": "En observeret reaktion bør beskrives før mekanisme eller årsag konkluderes.",
+    "prehospitalRelevance": "Præcis observation og beskrivelse af mulige lægemiddelreaktioner understøtter sikker vurdering og overlevering.",
+    "reviewStatus": "draft",
+    "contentRevision": 2
   },
   {
     "id": "bivirkning_008",
     "subject": "Farmakologi",
     "topic": "Bivirkninger",
-    "question": "Hvad er QT-forlængelse, og hvorfor er det farligt?",
-    "answer": "Forlænget repolarisering i hjertet, som kan føre til torsades de pointes og hjertestop.",
+    "question": "Hvorfor kan lægemiddeludløst QT-forlængelse være klinisk vigtig?",
+    "answer": "Den kan øge risikoen for polymorf ventrikulær takykardi, herunder torsades de pointes, især sammen med andre risikofaktorer.",
     "difficulty": "hard",
     "tags": [
       "QT",
       "torsades"
     ],
-    "deckId": "bivirkningerCards"
+    "deckId": "bivirkningerCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.bivirkninger.grundlag",
+    "rationale": "En observeret reaktion bør beskrives før mekanisme eller årsag konkluderes.",
+    "prehospitalRelevance": "Præcis observation og beskrivelse af mulige lægemiddelreaktioner understøtter sikker vurdering og overlevering.",
+    "reviewStatus": "draft",
+    "contentRevision": 2
   },
   {
     "id": "bivirkning_009",
     "subject": "Farmakologi",
     "topic": "Bivirkninger",
-    "question": "Hvilken bivirkning kan beta-2 agonister som Salbutamol give?",
-    "answer": "Tremor og tachykardi pga. stimulation af beta-2 og beta-1 receptorer.",
+    "question": "Hvilke uønskede virkninger ses ofte ved beta₂-agonister?",
+    "answer": "Tremor, palpitationer og takykardi kan forekomme; risikoen påvirkes blandt andet af dosis, administrationsvej og patientfaktorer.",
     "difficulty": "easy",
     "tags": [
       "salbutamol",
       "tachykardi"
     ],
-    "deckId": "bivirkningerCards"
+    "deckId": "bivirkningerCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.bivirkninger.grundlag",
+    "rationale": "En observeret reaktion bør beskrives før mekanisme eller årsag konkluderes.",
+    "prehospitalRelevance": "Præcis observation og beskrivelse af mulige lægemiddelreaktioner understøtter sikker vurdering og overlevering.",
+    "reviewStatus": "draft",
+    "contentRevision": 2
   },
   {
     "id": "bivirkning_010",
     "subject": "Farmakologi",
     "topic": "Bivirkninger",
-    "question": "Hvorfor kan NSAID give nyrepåvirkning?",
-    "answer": "Hæmning af prostaglandiner reducerer blodgennemstrømning i nyrerne.",
+    "question": "Hvorfor kan NSAID påvirke nyrefunktionen?",
+    "answer": "Hæmmet prostaglandinsyntese kan reducere den afferente vasodilatation og dermed nyreperfusionen hos disponerede patienter.",
     "difficulty": "medium",
     "tags": [
       "NSAID",
       "nyre"
     ],
-    "deckId": "bivirkningerCards"
+    "deckId": "bivirkningerCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.bivirkninger.grundlag",
+    "rationale": "En observeret reaktion bør beskrives før mekanisme eller årsag konkluderes.",
+    "prehospitalRelevance": "Præcis observation og beskrivelse af mulige lægemiddelreaktioner understøtter sikker vurdering og overlevering.",
+    "reviewStatus": "draft",
+    "contentRevision": 2
   },
   {
     "id": "bivirkning_011",
     "subject": "Farmakologi",
     "topic": "Bivirkninger",
-    "question": "Hvad er en allergisk bivirkning?",
-    "answer": "Immunologisk reaktion på et lægemiddel, fx urticaria, angioødem eller anafylaksi.",
+    "question": "Hvad er en lægemiddelallergi?",
+    "answer": "En immunologisk medieret overfølsomhedsreaktion mod et lægemiddel eller et relateret stof.",
     "difficulty": "medium",
     "tags": [
       "allergi"
     ],
-    "deckId": "bivirkningerCards"
+    "deckId": "bivirkningerCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.bivirkninger.grundlag",
+    "explanation": "Urticaria, angioødem og anafylaksi kan skyldes allergi, men symptomer alene beviser ikke mekanismen.",
+    "rationale": "En observeret reaktion bør beskrives før mekanisme eller årsag konkluderes.",
+    "prehospitalRelevance": "Præcis observation og beskrivelse af mulige lægemiddelreaktioner understøtter sikker vurdering og overlevering.",
+    "references": [
+      {
+        "title": "Adverse Drug Reactions",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK599521/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "bivirkning_012",
     "subject": "Farmakologi",
     "topic": "Bivirkninger",
-    "question": "Hvad er tolerance i forbindelse med bivirkninger?",
-    "answer": "Når kroppen tilpasser sig, og der kræves højere dosis for samme effekt eller bivirkning.",
+    "question": "Hvad betyder tolerance over for et lægemiddel?",
+    "answer": "At samme dosis over tid giver mindre respons, så en større eksponering kan være nødvendig for samme effekt.",
     "difficulty": "hard",
     "tags": [
       "tolerance"
     ],
-    "deckId": "bivirkningerCards"
+    "deckId": "bivirkningerCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.bivirkninger.grundlag",
+    "rationale": "En observeret reaktion bør beskrives før mekanisme eller årsag konkluderes.",
+    "prehospitalRelevance": "Præcis observation og beskrivelse af mulige lægemiddelreaktioner understøtter sikker vurdering og overlevering.",
+    "references": [
+      {
+        "title": "Adverse Drug Reactions",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK599521/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "bivirkning_013",
     "subject": "Farmakologi",
     "topic": "Bivirkninger",
-    "question": "Hvad er en 'black box warning'?",
-    "answer": "Advarsel fra myndigheder om alvorlige eller livstruende bivirkninger.",
+    "question": "Hvad betyder den sorte omvendte trekant i et produktresumé eller en indlægsseddel?",
+    "answer": "At lægemidlet er under supplerende overvågning i EU; symbolet betyder ikke i sig selv, at lægemidlet er usikkert.",
     "difficulty": "hard",
     "tags": [
       "black box"
     ],
-    "deckId": "bivirkningerCards"
+    "deckId": "bivirkningerCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.bivirkninger.grundlag",
+    "explanation": "Den amerikanske 'boxed warning' er ikke den relevante mærkningsordning i dansk ambulanceuddannelse.",
+    "rationale": "En observeret reaktion bør beskrives før mekanisme eller årsag konkluderes.",
+    "prehospitalRelevance": "Præcis observation og beskrivelse af mulige lægemiddelreaktioner understøtter sikker vurdering og overlevering.",
+    "references": [
+      {
+        "title": "Medicin under supplerende overvågning",
+        "publisher": "Lægemiddelstyrelsen",
+        "url": "https://laegemiddelstyrelsen.dk/da/bivirkninger/supplerende-overvaagning/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "bivirkning_014",
     "subject": "Farmakologi",
     "topic": "Bivirkninger",
-    "question": "Hvilken bivirkning kan opioider, jern og morfin give i GI-systemet?",
-    "answer": "Forstoppelse pga. nedsat tarmmotilitet.",
+    "question": "Hvorfor kan opioider give obstipation?",
+    "answer": "Aktivering af opioidreceptorer i mave-tarm-kanalen nedsætter motilitet og sekretion.",
     "difficulty": "easy",
     "tags": [
       "forstoppelse",
       "GI"
     ],
-    "deckId": "bivirkningerCards"
+    "deckId": "bivirkningerCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.bivirkninger.grundlag",
+    "rationale": "En observeret reaktion bør beskrives før mekanisme eller årsag konkluderes.",
+    "prehospitalRelevance": "Præcis observation og beskrivelse af mulige lægemiddelreaktioner understøtter sikker vurdering og overlevering.",
+    "references": [
+      {
+        "title": "Adverse Drug Reactions",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK599521/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "bivirkning_015",
     "subject": "Farmakologi",
     "topic": "Bivirkninger",
-    "question": "Hvordan kan medicin give fotosensitivitet?",
-    "answer": "Lægemiddel reagerer med UV-lys i huden og skaber inflammation.",
+    "question": "Hvordan kan lægemidler udløse fotosensitivitet?",
+    "answer": "Nogle stoffer eller metabolitter kan efter lysudsættelse udløse en fototoksisk eller fotoallergisk hudreaktion.",
     "difficulty": "medium",
     "tags": [
       "hud",
       "lysreaktion"
     ],
-    "deckId": "bivirkningerCards"
+    "deckId": "bivirkningerCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.bivirkninger.grundlag",
+    "rationale": "En observeret reaktion bør beskrives før mekanisme eller årsag konkluderes.",
+    "prehospitalRelevance": "Præcis observation og beskrivelse af mulige lægemiddelreaktioner understøtter sikker vurdering og overlevering.",
+    "references": [
+      {
+        "title": "Adverse Drug Reactions",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK599521/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "bivirkning_016",
     "subject": "Farmakologi",
     "topic": "Bivirkninger",
-    "question": "Hvad er en idiosynkratisk bivirkning?",
-    "answer": "Uforudsigelig bivirkning uden kendt immunologisk forklaring.",
+    "question": "Hvad betyder en idiosynkratisk lægemiddelreaktion?",
+    "answer": "En usædvanlig, uforudsigelig reaktion hos en disponeret person, som ikke forklares af den forventede farmakologiske effekt.",
     "difficulty": "hard",
     "tags": [
       "idiosynkrasi"
     ],
-    "deckId": "bivirkningerCards"
-  },
-  {
-    "id": "bivirkning_017",
-    "subject": "Farmakologi",
-    "topic": "Bivirkninger",
-    "question": "Hvad menes med dosis-uafhængige bivirkninger?",
-    "answer": "Reaktioner der ikke afhænger af dosis, ofte immunologiske eller genetiske.",
-    "difficulty": "hard",
-    "tags": [
-      "dosis-uafhængig"
+    "deckId": "bivirkningerCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.bivirkninger.grundlag",
+    "rationale": "En observeret reaktion bør beskrives før mekanisme eller årsag konkluderes.",
+    "prehospitalRelevance": "Præcis observation og beskrivelse af mulige lægemiddelreaktioner understøtter sikker vurdering og overlevering.",
+    "references": [
+      {
+        "title": "Adverse Drug Reactions",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK599521/",
+        "accessedAt": "2026-07-13"
+      }
     ],
-    "deckId": "bivirkningerCards"
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "bivirkning_018",
     "subject": "Farmakologi",
     "topic": "Bivirkninger",
-    "question": "Hvad er krydsallergi?",
-    "answer": "Når man reagerer på lignende lægemidler pga. fælles kemisk struktur.",
+    "question": "Hvad betyder krydsreaktivitet ved lægemiddelallergi?",
+    "answer": "At immunologisk genkendelse af beslægtede strukturer kan medføre reaktion på mere end ét lægemiddel.",
     "difficulty": "medium",
     "tags": [
       "krydsallergi"
     ],
-    "deckId": "bivirkningerCards"
+    "deckId": "bivirkningerCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.bivirkninger.grundlag",
+    "explanation": "Krydsreaktivitet kan ikke afgøres sikkert alene ud fra, at lægemidler tilhører samme brede gruppe.",
+    "rationale": "En observeret reaktion bør beskrives før mekanisme eller årsag konkluderes.",
+    "prehospitalRelevance": "Præcis observation og beskrivelse af mulige lægemiddelreaktioner understøtter sikker vurdering og overlevering.",
+    "references": [
+      {
+        "title": "Adverse Drug Reactions",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK599521/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "bivirkning_019",
     "subject": "Farmakologi",
     "topic": "Bivirkninger",
-    "question": "Hvorfor kan benzodiazepiner øge fald- og forvirringsrisiko hos ældre?",
-    "answer": "De påvirker CNS med sedation, svimmelhed og kognitiv svækkelse.",
+    "question": "Hvorfor kan benzodiazepiner øge risikoen for fald og konfusion hos ældre?",
+    "answer": "Sedation, svimmelhed, ataksi og kognitiv påvirkning kan forstærke alders- og sygdomsrelateret sårbarhed.",
     "difficulty": "medium",
     "tags": [
       "ældre",
       "benzodiazepin"
     ],
-    "deckId": "bivirkningerCards"
+    "deckId": "bivirkningerCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.bivirkninger.grundlag",
+    "rationale": "En observeret reaktion bør beskrives før mekanisme eller årsag konkluderes.",
+    "prehospitalRelevance": "Præcis observation og beskrivelse af mulige lægemiddelreaktioner understøtter sikker vurdering og overlevering.",
+    "reviewStatus": "draft",
+    "contentRevision": 2
   },
   {
     "id": "bivirkning_020",
     "subject": "Farmakologi",
     "topic": "Bivirkninger",
-    "question": "Forklar kort hvad serotonin syndrom er.",
-    "answer": "Potentielt livstruende tilstand med hypertermi, agitation, muskelstivhed og autonom dysfunktion pga. for meget serotonin.",
+    "question": "Hvilket klinisk mønster kan ses ved serotoninsyndrom?",
+    "answer": "En kombination af mental påvirkning, autonom hyperaktivitet og neuromuskulær excitation, fx agitation, svedtendens, hyperrefleksi og klonus.",
     "difficulty": "hard",
     "tags": [
       "serotonin",
       "akut"
     ],
-    "deckId": "bivirkningerCards"
+    "deckId": "bivirkningerCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.bivirkninger.grundlag",
+    "explanation": "Tilstanden er en klinisk vurdering; enkeltfund er ikke diagnostiske alene.",
+    "rationale": "En observeret reaktion bør beskrives før mekanisme eller årsag konkluderes.",
+    "prehospitalRelevance": "Præcis observation og beskrivelse af mulige lægemiddelreaktioner understøtter sikker vurdering og overlevering.",
+    "references": [
+      {
+        "title": "Serotonin Syndrome",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK482377/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "draft",
+    "contentRevision": 2
   },
   {
     "id": "farmakodynamik_001",
     "subject": "Farmakologi",
     "topic": "Farmakodynamik",
-    "question": "Hvad betyder farmakodynamik helt grundlæggende?",
-    "answer": "Hvordan lægemidler påvirker kroppen, dvs. deres virkningsmekanismer og effekter.",
+    "question": "Hvad er farmakodynamik?",
+    "answer": "Læren om, hvad et aktivt stof gør ved kroppen, herunder virkningsmekanisme, dosis-respons og effekt.",
     "difficulty": "easy",
     "tags": [
       "definition",
       "virkningsmekanisme"
     ],
-    "deckId": "farmakodynamikCards"
+    "deckId": "farmakodynamikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakodynamik.grundlag",
+    "rationale": "Begrebet hjælper med at skelne receptorbinding, dosis-respons og klinisk effekt.",
+    "prehospitalRelevance": "Farmakodynamik forklarer forventet effekt, uønskede effekter og hvorfor responsen kan variere.",
+    "references": [
+      {
+        "title": "Pharmacodynamics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK507791/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakodynamik_002",
     "subject": "Farmakologi",
     "topic": "Farmakodynamik",
     "question": "Hvad er en receptor i farmakodynamisk sammenhæng?",
-    "answer": "Et protein, som et lægemiddel kan binde sig til for at udløse eller blokere en effekt.",
+    "answer": "Et biologisk målmolekyle, som en ligand kan binde til og derved ændre cellens funktion.",
     "difficulty": "easy",
     "tags": [
       "receptor",
       "protein"
     ],
-    "deckId": "farmakodynamikCards"
+    "deckId": "farmakodynamikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakodynamik.grundlag",
+    "rationale": "Begrebet hjælper med at skelne receptorbinding, dosis-respons og klinisk effekt.",
+    "prehospitalRelevance": "Farmakodynamik forklarer forventet effekt, uønskede effekter og hvorfor responsen kan variere.",
+    "references": [
+      {
+        "title": "Pharmacodynamics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK507791/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakodynamik_003",
     "subject": "Farmakologi",
     "topic": "Farmakodynamik",
     "question": "Hvad er forskellen på en agonist og en antagonist?",
-    "answer": "Agonist aktiverer receptoren og skaber effekt. Antagonist blokerer receptoren og hæmmer effekt.",
+    "answer": "En agonist aktiverer receptoren. En antagonist binder uden at aktivere den tilsvarende respons og reducerer agonistens virkning.",
     "difficulty": "easy",
     "tags": [
       "agonist",
       "antagonist"
     ],
-    "deckId": "farmakodynamikCards"
+    "deckId": "farmakodynamikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakodynamik.grundlag",
+    "rationale": "Begrebet hjælper med at skelne receptorbinding, dosis-respons og klinisk effekt.",
+    "prehospitalRelevance": "Farmakodynamik forklarer forventet effekt, uønskede effekter og hvorfor responsen kan variere.",
+    "references": [
+      {
+        "title": "Pharmacodynamics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK507791/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakodynamik_004",
     "subject": "Farmakologi",
     "topic": "Farmakodynamik",
-    "question": "Hvad menes med 'affinitet'?",
-    "answer": "Et lægemiddels evne til at binde sig til en receptor.",
+    "question": "Hvad betyder affinitet?",
+    "answer": "Hvor stærkt eller villigt en ligand binder til sit biologiske mål.",
     "difficulty": "medium",
     "tags": [
       "affinitet",
       "receptorbinding"
     ],
-    "deckId": "farmakodynamikCards"
+    "deckId": "farmakodynamikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakodynamik.grundlag",
+    "explanation": "Høj affinitet er ikke det samme som stor maksimal effekt.",
+    "rationale": "Begrebet hjælper med at skelne receptorbinding, dosis-respons og klinisk effekt.",
+    "prehospitalRelevance": "Farmakodynamik forklarer forventet effekt, uønskede effekter og hvorfor responsen kan variere.",
+    "references": [
+      {
+        "title": "Pharmacodynamics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK507791/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakodynamik_005",
     "subject": "Farmakologi",
     "topic": "Farmakodynamik",
-    "question": "Hvad menes med 'intrinsisk aktivitet'?",
-    "answer": "Et lægemiddels evne til at aktivere receptoren og skabe biologisk respons.",
+    "question": "Hvad betyder intrinsisk aktivitet?",
+    "answer": "En receptorsbundet ligands evne til at aktivere receptoren og fremkalde respons.",
     "difficulty": "medium",
     "tags": [
       "intrinsisk aktivitet"
     ],
-    "deckId": "farmakodynamikCards"
+    "deckId": "farmakodynamikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakodynamik.grundlag",
+    "rationale": "Begrebet hjælper med at skelne receptorbinding, dosis-respons og klinisk effekt.",
+    "prehospitalRelevance": "Farmakodynamik forklarer forventet effekt, uønskede effekter og hvorfor responsen kan variere.",
+    "references": [
+      {
+        "title": "Pharmacodynamics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK507791/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakodynamik_006",
     "subject": "Farmakologi",
     "topic": "Farmakodynamik",
-    "question": "Hvad karakteriserer en partiel agonist?",
-    "answer": "Den binder til receptoren men giver kun delvis maksimal effekt, selv ved fuld receptorbesættelse.",
+    "question": "Hvad kendetegner en partiel agonist?",
+    "answer": "Den aktiverer receptoren, men har lavere maksimal effekt end en fuld agonist i samme system, selv ved høj receptorbesættelse.",
     "difficulty": "hard",
     "tags": [
       "partiel agonist"
     ],
-    "deckId": "farmakodynamikCards"
+    "deckId": "farmakodynamikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakodynamik.grundlag",
+    "rationale": "Begrebet hjælper med at skelne receptorbinding, dosis-respons og klinisk effekt.",
+    "prehospitalRelevance": "Farmakodynamik forklarer forventet effekt, uønskede effekter og hvorfor responsen kan variere.",
+    "references": [
+      {
+        "title": "Pharmacodynamics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK507791/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakodynamik_007",
     "subject": "Farmakologi",
     "topic": "Farmakodynamik",
     "question": "Hvad er en kompetitiv antagonist?",
-    "answer": "Et stof, der konkurrerer med agonisten om samme receptorbindingssted og kan fortrænge den.",
+    "answer": "En antagonist, der konkurrerer reversibelt med agonisten om samme bindingssted; virkningen kan typisk modvirkes af højere agonistkoncentration.",
     "difficulty": "hard",
     "tags": [
       "kompetitiv",
       "antagonist"
     ],
-    "deckId": "farmakodynamikCards"
+    "deckId": "farmakodynamikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakodynamik.grundlag",
+    "rationale": "Begrebet hjælper med at skelne receptorbinding, dosis-respons og klinisk effekt.",
+    "prehospitalRelevance": "Farmakodynamik forklarer forventet effekt, uønskede effekter og hvorfor responsen kan variere.",
+    "references": [
+      {
+        "title": "Pharmacodynamics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK507791/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakodynamik_008",
     "subject": "Farmakologi",
     "topic": "Farmakodynamik",
-    "question": "Hvad er en non-kompetitiv antagonist?",
-    "answer": "Et stof, der binder et andet sted på receptoren og hæmmer virkningen uafhængigt af agonistens koncentration.",
+    "question": "Hvad kendetegner non-kompetitiv antagonisme?",
+    "answer": "Antagonismen reducerer den opnåelige respons og kan ikke fuldt ophæves ved blot at øge agonistkoncentrationen.",
     "difficulty": "hard",
     "tags": [
       "non-kompetitiv",
       "antagonist"
     ],
-    "deckId": "farmakodynamikCards"
+    "deckId": "farmakodynamikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakodynamik.grundlag",
+    "explanation": "Mekanismen kan fx være irreversibel binding eller allosterisk hæmning; den er ikke defineret alene ved et andet bindingssted.",
+    "rationale": "Begrebet hjælper med at skelne receptorbinding, dosis-respons og klinisk effekt.",
+    "prehospitalRelevance": "Farmakodynamik forklarer forventet effekt, uønskede effekter og hvorfor responsen kan variere.",
+    "references": [
+      {
+        "title": "Pharmacodynamics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK507791/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakodynamik_009",
     "subject": "Farmakologi",
     "topic": "Farmakodynamik",
     "question": "Hvad viser en dosis-respons-kurve?",
-    "answer": "Forholdet mellem dosis og den målbare effekt af et lægemiddel.",
+    "answer": "Sammenhængen mellem dosis eller koncentration og en defineret biologisk eller klinisk respons.",
     "difficulty": "medium",
     "tags": [
       "dosis-respons"
     ],
-    "deckId": "farmakodynamikCards"
+    "deckId": "farmakodynamikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakodynamik.grundlag",
+    "rationale": "Begrebet hjælper med at skelne receptorbinding, dosis-respons og klinisk effekt.",
+    "prehospitalRelevance": "Farmakodynamik forklarer forventet effekt, uønskede effekter og hvorfor responsen kan variere.",
+    "references": [
+      {
+        "title": "Pharmacodynamics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK507791/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakodynamik_010",
     "subject": "Farmakologi",
     "topic": "Farmakodynamik",
-    "question": "Hvad er ED50?",
-    "answer": "Den dosis hvor 50% af maksimal effekt opnås.",
+    "question": "Hvorfor skal betydningen af ED₅₀ angives sammen med typen af dosis-respons-kurve?",
+    "answer": "Ved en gradueret kurve kan ED₅₀ betyde dosis med 50 % af maksimal effekt; ved en kvantal kurve dosis, der giver den definerede effekt hos 50 %.",
     "difficulty": "medium",
     "tags": [
       "ED50"
     ],
-    "deckId": "farmakodynamikCards"
+    "deckId": "farmakodynamikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakodynamik.grundlag",
+    "rationale": "Begrebet hjælper med at skelne receptorbinding, dosis-respons og klinisk effekt.",
+    "prehospitalRelevance": "Farmakodynamik forklarer forventet effekt, uønskede effekter og hvorfor responsen kan variere.",
+    "references": [
+      {
+        "title": "Pharmacodynamics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK507791/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakodynamik_011",
     "subject": "Farmakologi",
     "topic": "Farmakodynamik",
-    "question": "Hvad er forskellen på potency og efficacy?",
-    "answer": "Potency handler om hvor meget der skal til for at give effekt. Efficacy handler om maksimal effekt, et lægemiddel kan opnå.",
+    "question": "Hvad er forskellen på potens og maksimal effekt?",
+    "answer": "Potens beskriver, hvor lav dosis eller koncentration der kræves for en bestemt effekt. Maksimal effekt beskriver den største respons, stoffet kan fremkalde.",
     "difficulty": "hard",
     "tags": [
       "potency",
       "efficacy"
     ],
-    "deckId": "farmakodynamikCards"
+    "deckId": "farmakodynamikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakodynamik.grundlag",
+    "rationale": "Begrebet hjælper med at skelne receptorbinding, dosis-respons og klinisk effekt.",
+    "prehospitalRelevance": "Farmakodynamik forklarer forventet effekt, uønskede effekter og hvorfor responsen kan variere.",
+    "references": [
+      {
+        "title": "Pharmacodynamics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK507791/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakodynamik_012",
     "subject": "Farmakologi",
     "topic": "Farmakodynamik",
-    "question": "Hvordan virker beta-1 receptor agonister farmakodynamisk?",
-    "answer": "De øger hjertets kontraktilitet og frekvens ved at stimulere beta-1 receptorer.",
+    "question": "Hvilke hjerteeffekter forbindes med stimulering af beta₁-receptorer?",
+    "answer": "Øget hjertefrekvens, kontraktilitet og AV-ledning kan forekomme.",
     "difficulty": "medium",
     "tags": [
       "beta-1",
       "agonist"
     ],
-    "deckId": "farmakodynamikCards"
+    "deckId": "farmakodynamikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakodynamik.grundlag",
+    "rationale": "Begrebet hjælper med at skelne receptorbinding, dosis-respons og klinisk effekt.",
+    "prehospitalRelevance": "Farmakodynamik forklarer forventet effekt, uønskede effekter og hvorfor responsen kan variere.",
+    "reviewStatus": "draft",
+    "contentRevision": 2
   },
   {
     "id": "farmakodynamik_013",
     "subject": "Farmakologi",
     "topic": "Farmakodynamik",
-    "question": "Hvordan virker beta-2 agonister?",
-    "answer": "De afslapper glat muskulatur i bronkierne og giver bronkodilatation.",
+    "question": "Hvad er den centrale effekt af beta₂-receptoraktivering i bronkierne?",
+    "answer": "Afslapning af glat muskulatur og dermed bronkodilatation.",
     "difficulty": "easy",
     "tags": [
       "beta-2",
       "bronkodilatation"
     ],
-    "deckId": "farmakodynamikCards"
+    "deckId": "farmakodynamikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakodynamik.grundlag",
+    "rationale": "Begrebet hjælper med at skelne receptorbinding, dosis-respons og klinisk effekt.",
+    "prehospitalRelevance": "Farmakodynamik forklarer forventet effekt, uønskede effekter og hvorfor responsen kan variere.",
+    "reviewStatus": "draft",
+    "contentRevision": 2
   },
   {
     "id": "farmakodynamik_014",
     "subject": "Farmakologi",
     "topic": "Farmakodynamik",
-    "question": "Hvordan virker en ACE-hæmmer farmakodynamisk?",
-    "answer": "Den hæmmer omdannelsen af angiotensin I til angiotensin II og dermed sænker blodtrykket.",
+    "question": "Hvordan påvirker en ACE-hæmmer renin-angiotensin-systemet?",
+    "answer": "Den reducerer omdannelsen af angiotensin I til angiotensin II og hæmmer samtidig nedbrydningen af bradykinin.",
     "difficulty": "medium",
     "tags": [
       "ACE-hæmmer",
       "blodtryk"
     ],
-    "deckId": "farmakodynamikCards"
+    "deckId": "farmakodynamikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakodynamik.grundlag",
+    "rationale": "Begrebet hjælper med at skelne receptorbinding, dosis-respons og klinisk effekt.",
+    "prehospitalRelevance": "Farmakodynamik forklarer forventet effekt, uønskede effekter og hvorfor responsen kan variere.",
+    "reviewStatus": "draft",
+    "contentRevision": 2
   },
   {
     "id": "farmakodynamik_015",
     "subject": "Farmakologi",
     "topic": "Farmakodynamik",
-    "question": "Hvad forårsager bivirkninger farmakodynamisk?",
-    "answer": "Når lægemidlet påvirker andre receptorer eller væv end de tilsigtede mål.",
+    "question": "Hvorfor kan et lægemiddel give uønskede farmakodynamiske effekter?",
+    "answer": "Den ønskede mekanisme kan blive for kraftig, eller stoffet kan påvirke samme eller andre mål i andre væv.",
     "difficulty": "medium",
     "tags": [
       "bivirkninger"
     ],
-    "deckId": "farmakodynamikCards"
+    "deckId": "farmakodynamikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakodynamik.grundlag",
+    "rationale": "Begrebet hjælper med at skelne receptorbinding, dosis-respons og klinisk effekt.",
+    "prehospitalRelevance": "Farmakodynamik forklarer forventet effekt, uønskede effekter og hvorfor responsen kan variere.",
+    "references": [
+      {
+        "title": "Pharmacodynamics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK507791/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakodynamik_016",
     "subject": "Farmakologi",
     "topic": "Farmakodynamik",
-    "question": "Hvad er 'terapeutisk vindue'?",
-    "answer": "Intervallet mellem effektiv dosis og toksisk dosis.",
+    "question": "Hvad er et terapeutisk vindue?",
+    "answer": "Det eksponeringsområde, hvor sandsynligheden for ønsket effekt er acceptabel uden uacceptabel toksicitet.",
     "difficulty": "medium",
     "tags": [
       "terapeutisk vindue"
     ],
-    "deckId": "farmakodynamikCards"
+    "deckId": "farmakodynamikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakodynamik.grundlag",
+    "rationale": "Begrebet hjælper med at skelne receptorbinding, dosis-respons og klinisk effekt.",
+    "prehospitalRelevance": "Farmakodynamik forklarer forventet effekt, uønskede effekter og hvorfor responsen kan variere.",
+    "references": [
+      {
+        "title": "Pharmacodynamics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK507791/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakodynamik_017",
     "subject": "Farmakologi",
     "topic": "Farmakodynamik",
-    "question": "Hvad forstås ved receptor-tolerance?",
-    "answer": "Når kroppen nedregulerer receptorfølsomhed efter gentagen stimulering.",
+    "question": "Hvordan kan gentagen receptorstimulation mindske responsen?",
+    "answer": "Desensibilisering og nedregulering kan reducere receptorens signalering eller antal og dermed svække responsen.",
     "difficulty": "hard",
     "tags": [
       "tolerance"
     ],
-    "deckId": "farmakodynamikCards"
+    "deckId": "farmakodynamikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakodynamik.grundlag",
+    "rationale": "Begrebet hjælper med at skelne receptorbinding, dosis-respons og klinisk effekt.",
+    "prehospitalRelevance": "Farmakodynamik forklarer forventet effekt, uønskede effekter og hvorfor responsen kan variere.",
+    "references": [
+      {
+        "title": "Pharmacodynamics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK507791/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakodynamik_018",
     "subject": "Farmakologi",
     "topic": "Farmakodynamik",
-    "question": "Hvordan kan man forklare tachyphylaksi?",
-    "answer": "En hurtig udvikling af tolerance efter få doser på grund af receptorudmattelse.",
+    "question": "Hvad er takyphylaksi?",
+    "answer": "Et hurtigt fald i respons efter gentagen eller vedvarende eksponering over kort tid.",
     "difficulty": "hard",
     "tags": [
       "tachyphylaksi"
     ],
-    "deckId": "farmakodynamikCards"
+    "deckId": "farmakodynamikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakodynamik.grundlag",
+    "explanation": "Mekanismen varierer og kan blandt andet omfatte mediatorudtømning eller receptor-desensibilisering.",
+    "rationale": "Begrebet hjælper med at skelne receptorbinding, dosis-respons og klinisk effekt.",
+    "prehospitalRelevance": "Farmakodynamik forklarer forventet effekt, uønskede effekter og hvorfor responsen kan variere.",
+    "references": [
+      {
+        "title": "Pharmacodynamics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK507791/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakodynamik_019",
     "subject": "Farmakologi",
     "topic": "Farmakodynamik",
-    "question": "Hvad er en 'invers agonist'?",
-    "answer": "Et stof der binder til en receptor og mindsker dens basale aktivitet.",
+    "question": "Hvad er en invers agonist?",
+    "answer": "En ligand, der stabiliserer receptorens inaktive tilstand og reducerer dens konstitutive aktivitet.",
     "difficulty": "hard",
     "tags": [
       "invers agonist"
     ],
-    "deckId": "farmakodynamikCards"
+    "deckId": "farmakodynamikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakodynamik.grundlag",
+    "rationale": "Begrebet hjælper med at skelne receptorbinding, dosis-respons og klinisk effekt.",
+    "prehospitalRelevance": "Farmakodynamik forklarer forventet effekt, uønskede effekter og hvorfor responsen kan variere.",
+    "references": [
+      {
+        "title": "Pharmacodynamics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK507791/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakodynamik_020",
     "subject": "Farmakologi",
     "topic": "Farmakodynamik",
-    "question": "Forklar kort hvordan Naloxon virker farmakodynamisk.",
-    "answer": "Naloxon er en kompetitiv opioid-antagonist, der blokerer opioidreceptorer og ophæver effekten af opioider.",
+    "question": "Hvordan virker naloxon på opioidreceptorer?",
+    "answer": "Det virker som kompetitiv antagonist og kan fortrænge opioidagonister fra receptorerne.",
     "difficulty": "medium",
     "tags": [
       "naloxon",
       "antagonist"
     ],
-    "deckId": "farmakodynamikCards"
+    "deckId": "farmakodynamikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakodynamik.grundlag",
+    "explanation": "Klinisk anvendelse, dosis og administrationsvej følger gældende instruks.",
+    "rationale": "Begrebet hjælper med at skelne receptorbinding, dosis-respons og klinisk effekt.",
+    "prehospitalRelevance": "Farmakodynamik forklarer forventet effekt, uønskede effekter og hvorfor responsen kan variere.",
+    "reviewStatus": "draft",
+    "contentRevision": 2
   },
   {
     "id": "farmakokinetik_001",
     "subject": "Farmakologi",
     "topic": "Farmakokinetik",
-    "question": "Hvad handler farmakokinetik grundlæggende om?",
-    "answer": "Hvordan kroppen påvirker lægemidlet gennem absorption, distribution, metabolisme og elimination (ADME).",
+    "question": "Hvad er farmakokinetik?",
+    "answer": "Læren om, hvad kroppen gør ved et aktivt stof gennem absorption, distribution, metabolisme og elimination (ADME).",
     "difficulty": "easy",
     "tags": [
       "ADME",
       "definition"
     ],
-    "deckId": "farmakokinetikCards"
+    "deckId": "farmakokinetikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakokinetik.grundlag",
+    "rationale": "ADME-begreberne forbinder administrationsvej og patientfaktorer med lægemiddeleksponering.",
+    "prehospitalRelevance": "Farmakokinetik forklarer variation i indsættende virkning, varighed, ophobning og eksponering.",
+    "references": [
+      {
+        "title": "Pharmacokinetics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK557744/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakokinetik_002",
     "subject": "Farmakologi",
     "topic": "Farmakokinetik",
     "question": "Hvad betyder absorption?",
-    "answer": "Processen hvor et lægemiddel optages fra administrationsstedet og over i blodbanen.",
+    "answer": "Transport af et aktivt stof fra administrationsstedet til den systemiske cirkulation.",
     "difficulty": "easy",
     "tags": [
       "absorption"
     ],
-    "deckId": "farmakokinetikCards"
+    "deckId": "farmakokinetikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakokinetik.grundlag",
+    "rationale": "ADME-begreberne forbinder administrationsvej og patientfaktorer med lægemiddeleksponering.",
+    "prehospitalRelevance": "Farmakokinetik forklarer variation i indsættende virkning, varighed, ophobning og eksponering.",
+    "references": [
+      {
+        "title": "Pharmacokinetics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK557744/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakokinetik_003",
     "subject": "Farmakologi",
     "topic": "Farmakokinetik",
     "question": "Hvad er biotilgængelighed?",
-    "answer": "Den andel af et givet lægemiddel, der når frem til den systemiske cirkulation i aktiv form.",
+    "answer": "Den andel af en administreret dosis, der når den systemiske cirkulation som uomdannet aktivt stof.",
     "difficulty": "medium",
     "tags": [
       "biotilgængelighed"
     ],
-    "deckId": "farmakokinetikCards"
+    "deckId": "farmakokinetikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakokinetik.grundlag",
+    "rationale": "ADME-begreberne forbinder administrationsvej og patientfaktorer med lægemiddeleksponering.",
+    "prehospitalRelevance": "Farmakokinetik forklarer variation i indsættende virkning, varighed, ophobning og eksponering.",
+    "references": [
+      {
+        "title": "Pharmacokinetics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK557744/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakokinetik_004",
     "subject": "Farmakologi",
     "topic": "Farmakokinetik",
-    "question": "Hvad er first-pass metabolisme?",
-    "answer": "Nedbrydning af et oralt lægemiddel i leveren, før det når blodbanen i aktiv form.",
+    "question": "Hvad er førstepassagemetabolisme?",
+    "answer": "Presystemisk metabolisme, især i tarmvæg og lever, før et absorberet stof når den systemiske cirkulation.",
     "difficulty": "medium",
     "tags": [
       "first-pass",
       "lever"
     ],
-    "deckId": "farmakokinetikCards"
+    "deckId": "farmakokinetikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakokinetik.grundlag",
+    "rationale": "ADME-begreberne forbinder administrationsvej og patientfaktorer med lægemiddeleksponering.",
+    "prehospitalRelevance": "Farmakokinetik forklarer variation i indsættende virkning, varighed, ophobning og eksponering.",
+    "references": [
+      {
+        "title": "Pharmacokinetics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK557744/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakokinetik_005",
     "subject": "Farmakologi",
     "topic": "Farmakokinetik",
-    "question": "Hvorfor har intravenøs administration 100% biotilgængelighed?",
-    "answer": "Fordi lægemidlet gives direkte i blodbanen uden absorptionstab eller first-pass effekt.",
+    "question": "Hvorfor regnes IV-administration som 100 % biotilgængelig?",
+    "answer": "Hele den administrerede dosis tilføres direkte til den systemiske cirkulation.",
     "difficulty": "easy",
     "tags": [
       "IV",
       "biotilgængelighed"
     ],
-    "deckId": "farmakokinetikCards"
+    "deckId": "farmakokinetikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakokinetik.grundlag",
+    "rationale": "ADME-begreberne forbinder administrationsvej og patientfaktorer med lægemiddeleksponering.",
+    "prehospitalRelevance": "Farmakokinetik forklarer variation i indsættende virkning, varighed, ophobning og eksponering.",
+    "references": [
+      {
+        "title": "Pharmacokinetics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK557744/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakokinetik_006",
     "subject": "Farmakologi",
     "topic": "Farmakokinetik",
     "question": "Hvad betyder distribution i farmakokinetik?",
-    "answer": "Hvordan lægemidlet fordeles fra blodbanen ud i væv og organer.",
+    "answer": "Den reversible fordeling af et stof mellem blod og kroppens væv og væsker.",
     "difficulty": "medium",
     "tags": [
       "distribution"
     ],
-    "deckId": "farmakokinetikCards"
+    "deckId": "farmakokinetikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakokinetik.grundlag",
+    "rationale": "ADME-begreberne forbinder administrationsvej og patientfaktorer med lægemiddeleksponering.",
+    "prehospitalRelevance": "Farmakokinetik forklarer variation i indsættende virkning, varighed, ophobning og eksponering.",
+    "references": [
+      {
+        "title": "Pharmacokinetics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK557744/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakokinetik_007",
     "subject": "Farmakologi",
     "topic": "Farmakokinetik",
     "question": "Hvad betyder plasmaproteinbinding?",
-    "answer": "Når lægemidlet binder til proteiner i plasma (fx albumin), hvilket gør det inaktivt, men transportabelt.",
+    "answer": "At en del af stoffet bindes reversibelt til plasmaproteiner; den ubundne fraktion er generelt tilgængelig for distribution, elimination og målinteraktion.",
     "difficulty": "hard",
     "tags": [
       "albumin",
       "binding"
     ],
-    "deckId": "farmakokinetikCards"
+    "deckId": "farmakokinetikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakokinetik.grundlag",
+    "rationale": "ADME-begreberne forbinder administrationsvej og patientfaktorer med lægemiddeleksponering.",
+    "prehospitalRelevance": "Farmakokinetik forklarer variation i indsættende virkning, varighed, ophobning og eksponering.",
+    "references": [
+      {
+        "title": "Pharmacokinetics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK557744/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakokinetik_008",
     "subject": "Farmakologi",
     "topic": "Farmakokinetik",
-    "question": "Hvorfor kan hypoalbuminæmi øge bivirkninger fra visse lægemidler?",
-    "answer": "Mindre albumin betyder mere frit aktivt lægemiddel, hvilket øger risikoen for toksicitet.",
+    "question": "Hvorfor kan lav albuminkoncentration ændre eksponeringen for stærkt proteinbundne lægemidler?",
+    "answer": "Den ubundne fraktion kan stige, men den kliniske betydning afhænger også af distribution og clearance.",
     "difficulty": "hard",
     "tags": [
       "albumin",
       "toksicitet"
     ],
-    "deckId": "farmakokinetikCards"
+    "deckId": "farmakokinetikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakokinetik.grundlag",
+    "rationale": "ADME-begreberne forbinder administrationsvej og patientfaktorer med lægemiddeleksponering.",
+    "prehospitalRelevance": "Farmakokinetik forklarer variation i indsættende virkning, varighed, ophobning og eksponering.",
+    "references": [
+      {
+        "title": "Pharmacokinetics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK557744/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakokinetik_009",
     "subject": "Farmakologi",
     "topic": "Farmakokinetik",
-    "question": "Hvad betyder fordelingsvolumen (Vd)?",
-    "answer": "Forholdet mellem mængden af lægemiddel i kroppen og koncentrationen i plasma – et mål for, hvor stoffet fordeler sig.",
+    "question": "Hvad beskriver fordelingsvolumen (Vd)?",
+    "answer": "Forholdet mellem mængden af stof i kroppen og plasmakoncentrationen; det er et tilsyneladende, ikke et anatomisk, volumen.",
     "difficulty": "hard",
     "tags": [
       "Vd",
       "fordeling"
     ],
-    "deckId": "farmakokinetikCards"
+    "deckId": "farmakokinetikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakokinetik.grundlag",
+    "rationale": "ADME-begreberne forbinder administrationsvej og patientfaktorer med lægemiddeleksponering.",
+    "prehospitalRelevance": "Farmakokinetik forklarer variation i indsættende virkning, varighed, ophobning og eksponering.",
+    "references": [
+      {
+        "title": "Pharmacokinetics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK557744/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakokinetik_010",
     "subject": "Farmakologi",
     "topic": "Farmakokinetik",
-    "question": "Hvad er forskellen på fase-1 og fase-2 metabolisme?",
-    "answer": "Fase 1: kemisk ændring (fx oxidation). Fase 2: konjugering, så lægemidlet bliver vandopløseligt.",
+    "question": "Hvad er hovedforskellen på fase I- og fase II-metabolisme?",
+    "answer": "Fase I omfatter typisk funktionalisering som oxidation eller hydrolyse. Fase II kobler stoffet eller metabolitten til en anden gruppe ved konjugering.",
     "difficulty": "hard",
     "tags": [
       "fase-1",
       "fase-2",
       "CYP450"
     ],
-    "deckId": "farmakokinetikCards"
+    "deckId": "farmakokinetikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakokinetik.grundlag",
+    "explanation": "Faserne behøver ikke forekomme i fast rækkefølge, og metabolitter bliver ikke altid inaktive.",
+    "rationale": "ADME-begreberne forbinder administrationsvej og patientfaktorer med lægemiddeleksponering.",
+    "prehospitalRelevance": "Farmakokinetik forklarer variation i indsættende virkning, varighed, ophobning og eksponering.",
+    "references": [
+      {
+        "title": "Pharmacokinetics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK557744/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakokinetik_011",
     "subject": "Farmakologi",
     "topic": "Farmakokinetik",
-    "question": "Hvilket organ står primært for lægemiddelmetabolisme?",
-    "answer": "Leveren via enzymsystemer som CYP450.",
+    "question": "Hvor foregår lægemiddelmetabolisme?",
+    "answer": "Ofte i leveren, men også blandt andet i tarmvæg, plasma, nyrer og andre væv afhængigt af stoffet.",
     "difficulty": "easy",
     "tags": [
       "lever",
       "CYP450"
     ],
-    "deckId": "farmakokinetikCards"
+    "deckId": "farmakokinetikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakokinetik.grundlag",
+    "rationale": "ADME-begreberne forbinder administrationsvej og patientfaktorer med lægemiddeleksponering.",
+    "prehospitalRelevance": "Farmakokinetik forklarer variation i indsættende virkning, varighed, ophobning og eksponering.",
+    "references": [
+      {
+        "title": "Pharmacokinetics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK557744/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakokinetik_012",
     "subject": "Farmakologi",
     "topic": "Farmakokinetik",
-    "question": "Hvilket organ er vigtigst for elimination af lægemidler?",
-    "answer": "Nyrerne gennem filtration, sekretion og reabsorption.",
+    "question": "Hvilken rolle har nyrerne i lægemiddelelimination?",
+    "answer": "De kan udskille uomdannet stof og metabolitter gennem filtration, sekretion og reabsorption.",
     "difficulty": "easy",
     "tags": [
       "nyrer",
       "elimination"
     ],
-    "deckId": "farmakokinetikCards"
+    "deckId": "farmakokinetikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakokinetik.grundlag",
+    "rationale": "ADME-begreberne forbinder administrationsvej og patientfaktorer med lægemiddeleksponering.",
+    "prehospitalRelevance": "Farmakokinetik forklarer variation i indsættende virkning, varighed, ophobning og eksponering.",
+    "references": [
+      {
+        "title": "Pharmacokinetics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK557744/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakokinetik_013",
     "subject": "Farmakologi",
     "topic": "Farmakokinetik",
-    "question": "Hvad betyder clearance?",
-    "answer": "Den volumen plasma, der renses for lægemiddel per tidsenhed.",
+    "question": "Hvad er clearance?",
+    "answer": "Det teoretiske plasmavolumen, der fuldstændigt renses for et stof pr. tidsenhed.",
     "difficulty": "hard",
     "tags": [
       "clearance"
     ],
-    "deckId": "farmakokinetikCards"
+    "deckId": "farmakokinetikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakokinetik.grundlag",
+    "rationale": "ADME-begreberne forbinder administrationsvej og patientfaktorer med lægemiddeleksponering.",
+    "prehospitalRelevance": "Farmakokinetik forklarer variation i indsættende virkning, varighed, ophobning og eksponering.",
+    "references": [
+      {
+        "title": "Pharmacokinetics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK557744/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakokinetik_014",
     "subject": "Farmakologi",
     "topic": "Farmakokinetik",
-    "question": "Hvad betyder halveringstid (T½)?",
-    "answer": "Den tid det tager for koncentrationen af lægemiddel i plasma at halveres.",
+    "question": "Hvad betyder eliminationshalveringstid?",
+    "answer": "Den tid det tager for mængden i kroppen eller plasmakoncentrationen at falde til halvdelen under de beskrevne kinetiske forhold.",
     "difficulty": "medium",
     "tags": [
       "T½",
       "tidsforløb"
     ],
-    "deckId": "farmakokinetikCards"
+    "deckId": "farmakokinetikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakokinetik.grundlag",
+    "rationale": "ADME-begreberne forbinder administrationsvej og patientfaktorer med lægemiddeleksponering.",
+    "prehospitalRelevance": "Farmakokinetik forklarer variation i indsættende virkning, varighed, ophobning og eksponering.",
+    "references": [
+      {
+        "title": "Pharmacokinetics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK557744/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakokinetik_015",
     "subject": "Farmakologi",
     "topic": "Farmakokinetik",
-    "question": "Hvordan påvirker leverinsufficiens farmakokinetik?",
-    "answer": "Nedsat metabolisme, hvilket kan føre til ophobning og øget toksicitet.",
+    "question": "Hvordan kan nedsat leverfunktion påvirke farmakokinetikken?",
+    "answer": "Den kan ændre metabolisme, proteinbinding og hepatisk clearance, men betydningen varierer mellem stoffer og sygdomsgrad.",
     "difficulty": "hard",
     "tags": [
       "lever",
       "toksicitet"
     ],
-    "deckId": "farmakokinetikCards"
+    "deckId": "farmakokinetikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakokinetik.grundlag",
+    "rationale": "ADME-begreberne forbinder administrationsvej og patientfaktorer med lægemiddeleksponering.",
+    "prehospitalRelevance": "Farmakokinetik forklarer variation i indsættende virkning, varighed, ophobning og eksponering.",
+    "reviewStatus": "draft",
+    "contentRevision": 2
   },
   {
     "id": "farmakokinetik_016",
     "subject": "Farmakologi",
     "topic": "Farmakokinetik",
-    "question": "Hvordan påvirker nyreinsufficiens eliminationen?",
-    "answer": "Nedsat udskillelse af lægemidler og deres metabolitter, hvilket kan kræve dosisjustering.",
+    "question": "Hvordan kan nedsat nyrefunktion påvirke lægemiddelelimination?",
+    "answer": "Renal clearance kan falde, så stof eller aktive metabolitter ophobes; konkret dosisjustering er lægemiddelspecifik.",
     "difficulty": "medium",
     "tags": [
       "nyresvigt",
       "dosis"
     ],
-    "deckId": "farmakokinetikCards"
+    "deckId": "farmakokinetikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakokinetik.grundlag",
+    "rationale": "ADME-begreberne forbinder administrationsvej og patientfaktorer med lægemiddeleksponering.",
+    "prehospitalRelevance": "Farmakokinetik forklarer variation i indsættende virkning, varighed, ophobning og eksponering.",
+    "reviewStatus": "draft",
+    "contentRevision": 2
   },
   {
     "id": "farmakokinetik_017",
     "subject": "Farmakologi",
     "topic": "Farmakokinetik",
     "question": "Hvad er enterohepatisk recirkulation?",
-    "answer": "Når lægemiddel udskilles i galden, optages igen i tarmen og cirkulerer tilbage til leveren.",
+    "answer": "Et stof udskilles med galden til tarmen og absorberes derefter igen til kredsløbet.",
     "difficulty": "hard",
     "tags": [
       "galde",
       "recirkulation"
     ],
-    "deckId": "farmakokinetikCards"
+    "deckId": "farmakokinetikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakokinetik.grundlag",
+    "rationale": "ADME-begreberne forbinder administrationsvej og patientfaktorer med lægemiddeleksponering.",
+    "prehospitalRelevance": "Farmakokinetik forklarer variation i indsættende virkning, varighed, ophobning og eksponering.",
+    "references": [
+      {
+        "title": "Pharmacokinetics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK557744/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakokinetik_018",
     "subject": "Farmakologi",
     "topic": "Farmakokinetik",
-    "question": "Hvordan kan et lægemiddel krydse blod-hjerne-barrieren?",
-    "answer": "Det skal være lipofilt og småt, eller bruge aktiv transport.",
+    "question": "Hvordan kan et aktivt stof passere blod-hjerne-barrieren?",
+    "answer": "Små lipofile stoffer kan ofte diffundere passivt, mens andre passerer via transportproteiner; effluxtransport kan begrænse adgangen.",
     "difficulty": "hard",
     "tags": [
       "BBB",
       "lipofilt"
     ],
-    "deckId": "farmakokinetikCards"
+    "deckId": "farmakokinetikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakokinetik.grundlag",
+    "rationale": "ADME-begreberne forbinder administrationsvej og patientfaktorer med lægemiddeleksponering.",
+    "prehospitalRelevance": "Farmakokinetik forklarer variation i indsættende virkning, varighed, ophobning og eksponering.",
+    "references": [
+      {
+        "title": "Pharmacokinetics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK557744/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakokinetik_019",
     "subject": "Farmakologi",
     "topic": "Farmakokinetik",
-    "question": "Hvorfor kan alderen påvirke farmakokinetikken?",
-    "answer": "Ældre har ofte nedsat lever- og nyrefunktion, ændret fedt/vand-forhold og mindre albumin.",
+    "question": "Hvorfor kan alder påvirke farmakokinetikken?",
+    "answer": "Kropssammensætning, organfunktion, proteinbinding og samtidig sygdom eller behandling kan ændre absorption, distribution og clearance.",
     "difficulty": "hard",
     "tags": [
       "ældre",
       "dosis",
       "organfunktion"
     ],
-    "deckId": "farmakokinetikCards"
+    "deckId": "farmakokinetikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakokinetik.grundlag",
+    "rationale": "ADME-begreberne forbinder administrationsvej og patientfaktorer med lægemiddeleksponering.",
+    "prehospitalRelevance": "Farmakokinetik forklarer variation i indsættende virkning, varighed, ophobning og eksponering.",
+    "references": [
+      {
+        "title": "Pharmacokinetics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK557744/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "farmakokinetik_020",
     "subject": "Farmakologi",
     "topic": "Farmakokinetik",
-    "question": "Forklar kort hvad steady state betyder.",
-    "answer": "Når tilført dosis per tidsenhed svarer til elimination per tidsenhed, så koncentrationen bliver stabil.",
+    "question": "Hvad betyder steady state ved gentagen dosering?",
+    "answer": "En dynamisk ligevægt, hvor tilgangen over et dosisinterval svarer til eliminationen, så koncentrationsmønstret gentager sig.",
     "difficulty": "hard",
     "tags": [
       "steady-state",
       "koncentration"
     ],
-    "deckId": "farmakokinetikCards"
+    "deckId": "farmakokinetikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakokinetik.grundlag",
+    "explanation": "Koncentrationen er ikke nødvendigvis konstant mellem doser; top og bund kan fortsat variere.",
+    "rationale": "ADME-begreberne forbinder administrationsvej og patientfaktorer med lægemiddeleksponering.",
+    "prehospitalRelevance": "Farmakokinetik forklarer variation i indsættende virkning, varighed, ophobning og eksponering.",
+    "references": [
+      {
+        "title": "Pharmacokinetics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK557744/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "lægemiddelregning_001",
     "subject": "Farmakologi",
     "topic": "Lægemiddelregning",
-    "question": "Hvad betyder formlen: dosis = (koncentration × volumen)?",
-    "answer": "Den bruges til at beregne hvor meget aktivt stof der er i en given mængde opløsning.",
+    "question": "Hvad viser formlen mængde = koncentration × volumen?",
+    "answer": "Hvor meget aktivt stof en given volumen indeholder, når koncentration og volumen anvender forenelige enheder.",
     "difficulty": "easy",
     "tags": [
       "formel",
       "grundlæggende"
     ],
-    "deckId": "laegemiddelregningCards"
+    "deckId": "laegemiddelregningCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.l-gemiddelregning.grundlag",
+    "rationale": "Regneøvelserne viser matematikken og er ikke behandlingsanvisninger.",
+    "prehospitalRelevance": "Enhedskontrol og rimelighedstjek reducerer risikoen for regne- og administrationsfejl.",
+    "references": [
+      {
+        "title": "Medication Without Harm",
+        "publisher": "World Health Organization",
+        "url": "https://www.who.int/initiatives/medication-without-harm",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "lægemiddelregning_002",
     "subject": "Farmakologi",
     "topic": "Lægemiddelregning",
-    "question": "Hvordan omregnes mg til mikrogram?",
-    "answer": "1 mg = 1000 mikrogram.",
+    "question": "Hvordan omregnes milligram til mikrogram?",
+    "answer": "1 mg = 1.000 mikrogram.",
     "difficulty": "easy",
     "tags": [
       "enheder"
     ],
-    "deckId": "laegemiddelregningCards"
+    "deckId": "laegemiddelregningCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.l-gemiddelregning.grundlag",
+    "rationale": "Regneøvelserne viser matematikken og er ikke behandlingsanvisninger.",
+    "prehospitalRelevance": "Enhedskontrol og rimelighedstjek reducerer risikoen for regne- og administrationsfejl.",
+    "references": [
+      {
+        "title": "Medication Without Harm",
+        "publisher": "World Health Organization",
+        "url": "https://www.who.int/initiatives/medication-without-harm",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "lægemiddelregning_003",
     "subject": "Farmakologi",
     "topic": "Lægemiddelregning",
-    "question": "Du skal give 0,4 mg Nitroglycerin. Ampullen indeholder 0,2 mg pr. spray. Hvor mange pust?",
-    "answer": "2 pust.",
+    "question": "En øvelsesopløsning afgiver 0,2 mg pr. aktivering. Hvor mange aktiveringer svarer til 0,4 mg?",
+    "answer": "2 aktiveringer.",
     "difficulty": "easy",
     "tags": [
       "nitro"
     ],
-    "deckId": "laegemiddelregningCards"
+    "deckId": "laegemiddelregningCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.l-gemiddelregning.grundlag",
+    "rationale": "Regneøvelserne viser matematikken og er ikke behandlingsanvisninger.",
+    "prehospitalRelevance": "Enhedskontrol og rimelighedstjek reducerer risikoen for regne- og administrationsfejl.",
+    "references": [
+      {
+        "title": "Medication Without Harm",
+        "publisher": "World Health Organization",
+        "url": "https://www.who.int/initiatives/medication-without-harm",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "lægemiddelregning_004",
     "subject": "Farmakologi",
     "topic": "Lægemiddelregning",
-    "question": "Et lægemiddel indeholder 5 mg/ml. Du skal give 10 mg. Hvor mange ml?",
+    "question": "En øvelsesopløsning indeholder 5 mg/ml. Hvilken volumen indeholder 10 mg?",
     "answer": "2 ml.",
     "difficulty": "easy",
     "tags": [
       "ml",
       "mg"
     ],
-    "deckId": "laegemiddelregningCards"
+    "deckId": "laegemiddelregningCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.l-gemiddelregning.grundlag",
+    "rationale": "Regneøvelserne viser matematikken og er ikke behandlingsanvisninger.",
+    "prehospitalRelevance": "Enhedskontrol og rimelighedstjek reducerer risikoen for regne- og administrationsfejl.",
+    "references": [
+      {
+        "title": "Medication Without Harm",
+        "publisher": "World Health Organization",
+        "url": "https://www.who.int/initiatives/medication-without-harm",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "lægemiddelregning_005",
     "subject": "Farmakologi",
     "topic": "Lægemiddelregning",
-    "question": "Du skal give 50 mikrogram Fentanyl. Ampullen indeholder 50 mikrogram/ml. Hvor meget skal du trække op?",
+    "question": "En øvelsesopløsning indeholder 50 mikrogram/ml. Hvilken volumen indeholder 50 mikrogram?",
     "answer": "1 ml.",
     "difficulty": "easy",
     "tags": [
       "fentanyl",
       "mikrogram"
     ],
-    "deckId": "laegemiddelregningCards"
+    "deckId": "laegemiddelregningCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.l-gemiddelregning.grundlag",
+    "rationale": "Regneøvelserne viser matematikken og er ikke behandlingsanvisninger.",
+    "prehospitalRelevance": "Enhedskontrol og rimelighedstjek reducerer risikoen for regne- og administrationsfejl.",
+    "references": [
+      {
+        "title": "Medication Without Harm",
+        "publisher": "World Health Organization",
+        "url": "https://www.who.int/initiatives/medication-without-harm",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "lægemiddelregning_006",
     "subject": "Farmakologi",
     "topic": "Lægemiddelregning",
-    "question": "Hvordan beregnes vægtbaseret dosering?",
-    "answer": "Dosis (mg) = dosis per kg × patientens vægt (kg).",
+    "question": "Hvordan beregnes en samlet vægtbaseret mængde?",
+    "answer": "Mængde = ordineret mængde pr. kg × kropsvægt i kg. Enhederne skal kontrolleres før beregningen.",
     "difficulty": "medium",
     "tags": [
       "vægtbaseret",
       "formel"
     ],
-    "deckId": "laegemiddelregningCards"
+    "deckId": "laegemiddelregningCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.l-gemiddelregning.grundlag",
+    "rationale": "Regneøvelserne viser matematikken og er ikke behandlingsanvisninger.",
+    "prehospitalRelevance": "Enhedskontrol og rimelighedstjek reducerer risikoen for regne- og administrationsfejl.",
+    "references": [
+      {
+        "title": "Medication Without Harm",
+        "publisher": "World Health Organization",
+        "url": "https://www.who.int/initiatives/medication-without-harm",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "lægemiddelregning_007",
     "subject": "Farmakologi",
     "topic": "Lægemiddelregning",
-    "question": "Barn vejer 18 kg og skal have 0,1 mg/kg Diazepam rektalt. Hvor meget gives?",
-    "answer": "1,8 mg.",
+    "question": "En regneøvelse angiver 0,1 mg/kg til en person på 18 kg. Hvad er den beregnede mængde?",
+    "answer": "1,8 mg. Resultatet er kun en matematisk øvelse, ikke en behandlingsanvisning.",
     "difficulty": "medium",
     "tags": [
       "børn",
       "rektal"
     ],
-    "deckId": "laegemiddelregningCards"
+    "deckId": "laegemiddelregningCards",
+    "schemaVersion": 2,
+    "kind": "applied",
+    "learningObjectiveId": "lo.farmakologi.l-gemiddelregning.grundlag",
+    "rationale": "Regneøvelserne viser matematikken og er ikke behandlingsanvisninger.",
+    "prehospitalRelevance": "Enhedskontrol og rimelighedstjek reducerer risikoen for regne- og administrationsfejl.",
+    "references": [
+      {
+        "title": "Medication Without Harm",
+        "publisher": "World Health Organization",
+        "url": "https://www.who.int/initiatives/medication-without-harm",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "lægemiddelregning_008",
     "subject": "Farmakologi",
     "topic": "Lægemiddelregning",
-    "question": "Du giver Adrenalin 1 mg/10 ml ved hjertestop. Hvor mange mg er der pr. ml?",
+    "question": "En opløsning indeholder 1 mg i 10 ml. Hvad er koncentrationen?",
     "answer": "0,1 mg/ml.",
     "difficulty": "medium",
     "tags": [
       "adrenalin",
       "hjertestop"
     ],
-    "deckId": "laegemiddelregningCards"
+    "deckId": "laegemiddelregningCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.l-gemiddelregning.grundlag",
+    "rationale": "Regneøvelserne viser matematikken og er ikke behandlingsanvisninger.",
+    "prehospitalRelevance": "Enhedskontrol og rimelighedstjek reducerer risikoen for regne- og administrationsfejl.",
+    "references": [
+      {
+        "title": "Medication Without Harm",
+        "publisher": "World Health Organization",
+        "url": "https://www.who.int/initiatives/medication-without-harm",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "lægemiddelregning_009",
     "subject": "Farmakologi",
     "topic": "Lægemiddelregning",
-    "question": "Hvordan omregnes ml/t til dråber/min ved infusionssæt med 20 dråber/ml?",
-    "answer": "dråber/min = (ml/t ÷ 3).",
+    "question": "Hvordan omregnes ml/time til dråber/minut ved et sæt med 20 dråber/ml?",
+    "answer": "Dråber/minut = ml/time × 20/60, altså ml/time divideret med 3.",
     "difficulty": "hard",
     "tags": [
       "dråber",
       "infusion"
     ],
-    "deckId": "laegemiddelregningCards"
+    "deckId": "laegemiddelregningCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.l-gemiddelregning.grundlag",
+    "explanation": "Dråbefaktoren skal altid aflæses på det konkrete infusionssæt.",
+    "rationale": "Regneøvelserne viser matematikken og er ikke behandlingsanvisninger.",
+    "prehospitalRelevance": "Enhedskontrol og rimelighedstjek reducerer risikoen for regne- og administrationsfejl.",
+    "references": [
+      {
+        "title": "Medication Without Harm",
+        "publisher": "World Health Organization",
+        "url": "https://www.who.int/initiatives/medication-without-harm",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "lægemiddelregning_010",
     "subject": "Farmakologi",
     "topic": "Lægemiddelregning",
-    "question": "Hvad betyder koncentrationen 1:1000 på Adrenalin?",
-    "answer": "1 gram pr. 1000 ml = 1 mg/ml.",
+    "question": "Hvilken koncentration svarer forholdet 1:1.000 til?",
+    "answer": "1 g i 1.000 ml, svarende til 1 mg/ml.",
     "difficulty": "hard",
     "tags": [
       "koncentration",
       "adrenalin"
     ],
-    "deckId": "laegemiddelregningCards"
+    "deckId": "laegemiddelregningCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.l-gemiddelregning.grundlag",
+    "explanation": "Forholdsangivelser er fejludsatte; anvend den entydige enhed på det konkrete produkt og følg lokal instruks.",
+    "rationale": "Regneøvelserne viser matematikken og er ikke behandlingsanvisninger.",
+    "prehospitalRelevance": "Enhedskontrol og rimelighedstjek reducerer risikoen for regne- og administrationsfejl.",
+    "reviewStatus": "draft",
+    "contentRevision": 2
   },
   {
     "id": "lægemiddelregning_011",
     "subject": "Farmakologi",
     "topic": "Lægemiddelregning",
-    "question": "Du skal give 5 mg Morfin IV. Ampullen er 10 mg/ml. Hvor meget trækker du op?",
+    "question": "En øvelsesopløsning indeholder 10 mg/ml. Hvilken volumen indeholder 5 mg?",
     "answer": "0,5 ml.",
     "difficulty": "easy",
     "tags": [
       "morfin"
     ],
-    "deckId": "laegemiddelregningCards"
+    "deckId": "laegemiddelregningCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.l-gemiddelregning.grundlag",
+    "rationale": "Regneøvelserne viser matematikken og er ikke behandlingsanvisninger.",
+    "prehospitalRelevance": "Enhedskontrol og rimelighedstjek reducerer risikoen for regne- og administrationsfejl.",
+    "references": [
+      {
+        "title": "Medication Without Harm",
+        "publisher": "World Health Organization",
+        "url": "https://www.who.int/initiatives/medication-without-harm",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "lægemiddelregning_012",
     "subject": "Farmakologi",
     "topic": "Lægemiddelregning",
-    "question": "Hvad skal man altid kontrollere før medicinregning og administration?",
-    "answer": "Korrekt lægemiddel, styrke, dosis, administrationsvej, patient og udløbsdato.",
+    "question": "Hvilke oplysninger skal indgå i et sikkert kontroltjek før lægemiddeladministration?",
+    "answer": "Blandt andet patient, aktivt stof og produkt, styrke, beregning, dosis, vej, tidspunkt, allergi, holdbarhed og plan for observation efter lokal procedure.",
     "difficulty": "medium",
     "tags": [
       "sikkerhed"
     ],
-    "deckId": "laegemiddelregningCards"
+    "deckId": "laegemiddelregningCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.l-gemiddelregning.grundlag",
+    "rationale": "Regneøvelserne viser matematikken og er ikke behandlingsanvisninger.",
+    "prehospitalRelevance": "Enhedskontrol og rimelighedstjek reducerer risikoen for regne- og administrationsfejl.",
+    "reviewStatus": "draft",
+    "contentRevision": 2
   },
   {
     "id": "lægemiddelregning_013",
     "subject": "Farmakologi",
     "topic": "Lægemiddelregning",
-    "question": "Du skal give 0,125 mg Digoxin. Tabletterne er 250 mikrogram. Hvor meget giver du?",
-    "answer": "En halv tablet.",
+    "question": "En tablet indeholder 250 mikrogram. Hvor stor en del svarer matematisk til 0,125 mg?",
+    "answer": "En halv tablet, fordi 0,125 mg er 125 mikrogram. Deling må kun ske, hvis produktet kan deles.",
     "difficulty": "easy",
     "tags": [
       "digoxin"
     ],
-    "deckId": "laegemiddelregningCards"
+    "deckId": "laegemiddelregningCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.l-gemiddelregning.grundlag",
+    "rationale": "Regneøvelserne viser matematikken og er ikke behandlingsanvisninger.",
+    "prehospitalRelevance": "Enhedskontrol og rimelighedstjek reducerer risikoen for regne- og administrationsfejl.",
+    "references": [
+      {
+        "title": "Medication Without Harm",
+        "publisher": "World Health Organization",
+        "url": "https://www.who.int/initiatives/medication-without-harm",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "lægemiddelregning_014",
     "subject": "Farmakologi",
     "topic": "Lægemiddelregning",
-    "question": "Et barn vejer 25 kg. Du skal give 0,01 mg/kg Adrenalin IM ved anafylaksi. Hvor meget gives?",
-    "answer": "0,25 mg.",
+    "question": "En regneøvelse angiver 0,01 mg/kg til en person på 25 kg. Hvad er den beregnede mængde?",
+    "answer": "0,25 mg. Resultatet er kun en matematisk øvelse, ikke en behandlingsanvisning.",
     "difficulty": "medium",
     "tags": [
       "anafy",
       "børn"
     ],
-    "deckId": "laegemiddelregningCards"
+    "deckId": "laegemiddelregningCards",
+    "schemaVersion": 2,
+    "kind": "applied",
+    "learningObjectiveId": "lo.farmakologi.l-gemiddelregning.grundlag",
+    "rationale": "Regneøvelserne viser matematikken og er ikke behandlingsanvisninger.",
+    "prehospitalRelevance": "Enhedskontrol og rimelighedstjek reducerer risikoen for regne- og administrationsfejl.",
+    "references": [
+      {
+        "title": "Medication Without Harm",
+        "publisher": "World Health Organization",
+        "url": "https://www.who.int/initiatives/medication-without-harm",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "lægemiddelregning_015",
     "subject": "Farmakologi",
     "topic": "Lægemiddelregning",
-    "question": "Hvad er formålet med at fortynde et lægemiddel før administration?",
-    "answer": "Bedre kontrol over dosis, langsommere injektion og mindre lokal irritation.",
+    "question": "Hvorfor kan et lægemiddel blive fortyndet før administration?",
+    "answer": "Fx for at opnå en håndterbar koncentration eller volumen og muliggøre kontrolleret indgift; det kræver en godkendt fremgangsmåde.",
     "difficulty": "medium",
     "tags": [
       "fortynding"
     ],
-    "deckId": "laegemiddelregningCards"
+    "deckId": "laegemiddelregningCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.l-gemiddelregning.grundlag",
+    "rationale": "Regneøvelserne viser matematikken og er ikke behandlingsanvisninger.",
+    "prehospitalRelevance": "Enhedskontrol og rimelighedstjek reducerer risikoen for regne- og administrationsfejl.",
+    "references": [
+      {
+        "title": "Medication Without Harm",
+        "publisher": "World Health Organization",
+        "url": "https://www.who.int/initiatives/medication-without-harm",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "lægemiddelregning_016",
     "subject": "Farmakologi",
     "topic": "Lægemiddelregning",
-    "question": "Du giver 2 ml Furosemid. Koncentrationen er 10 mg/ml. Hvor mange mg får patienten?",
+    "question": "En øvelsesopløsning indeholder 10 mg/ml. Hvor mange mg er der i 2 ml?",
     "answer": "20 mg.",
     "difficulty": "easy",
     "tags": [
       "furosemid"
     ],
-    "deckId": "laegemiddelregningCards"
+    "deckId": "laegemiddelregningCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.l-gemiddelregning.grundlag",
+    "rationale": "Regneøvelserne viser matematikken og er ikke behandlingsanvisninger.",
+    "prehospitalRelevance": "Enhedskontrol og rimelighedstjek reducerer risikoen for regne- og administrationsfejl.",
+    "references": [
+      {
+        "title": "Medication Without Harm",
+        "publisher": "World Health Organization",
+        "url": "https://www.who.int/initiatives/medication-without-harm",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "lægemiddelregning_017",
     "subject": "Farmakologi",
     "topic": "Lægemiddelregning",
-    "question": "Hvordan kontrollerer du, om du må knuse en tablet?",
-    "answer": "Tjek om den er depottablet eller enterotablet; de må normalt ikke knuses.",
+    "question": "Hvorfor må man ikke afgøre ud fra udseendet alene, om en tablet kan knuses?",
+    "answer": "Depot- og enterofunktion eller anden formulering kan ændres. Kontrollér altid det konkrete produkt i godkendt produktinformation.",
     "difficulty": "hard",
     "tags": [
       "tabletter"
     ],
-    "deckId": "laegemiddelregningCards"
+    "deckId": "laegemiddelregningCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.l-gemiddelregning.grundlag",
+    "rationale": "Regneøvelserne viser matematikken og er ikke behandlingsanvisninger.",
+    "prehospitalRelevance": "Enhedskontrol og rimelighedstjek reducerer risikoen for regne- og administrationsfejl.",
+    "reviewStatus": "draft",
+    "contentRevision": 2
   },
   {
     "id": "lægemiddelregning_018",
     "subject": "Farmakologi",
     "topic": "Lægemiddelregning",
-    "question": "Hvorfor kan det være risikabelt at give 2 mg IV i stedet for IM?",
-    "answer": "Effekten bliver hurtigere og kraftigere, og risikoen for toksicitet øges.",
+    "question": "Hvorfor kan samme mængde ikke uden videre flyttes fra IM til IV?",
+    "answer": "Administrationsvejen kan ændre biotilgængelighed, koncentrationsforløb og risiko. Dosis og vej skal derfor verificeres for det konkrete produkt.",
     "difficulty": "medium",
     "tags": [
       "IV",
       "IM"
     ],
-    "deckId": "laegemiddelregningCards"
+    "deckId": "laegemiddelregningCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.l-gemiddelregning.grundlag",
+    "rationale": "Regneøvelserne viser matematikken og er ikke behandlingsanvisninger.",
+    "prehospitalRelevance": "Enhedskontrol og rimelighedstjek reducerer risikoen for regne- og administrationsfejl.",
+    "reviewStatus": "draft",
+    "contentRevision": 2
   },
   {
     "id": "lægemiddelregning_019",
     "subject": "Farmakologi",
     "topic": "Lægemiddelregning",
-    "question": "Hvordan sikrer du korrekt fortynding af Noradrenalin infusion?",
-    "answer": "Brug standardblanding (fx 4 mg i 50 ml NaCl), og dobbelttjek koncentration og pumpeindstilling.",
+    "question": "Der blandes 4 mg aktivt stof til et samlet volumen på 50 ml. Hvad er koncentrationen?",
+    "answer": "0,08 mg/ml, svarende til 80 mikrogram/ml. Dette er en generisk regneøvelse.",
     "difficulty": "hard",
     "tags": [
       "noradrenalin",
       "infusion"
     ],
-    "deckId": "laegemiddelregningCards"
+    "deckId": "laegemiddelregningCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.l-gemiddelregning.grundlag",
+    "rationale": "Regneøvelserne viser matematikken og er ikke behandlingsanvisninger.",
+    "prehospitalRelevance": "Enhedskontrol og rimelighedstjek reducerer risikoen for regne- og administrationsfejl.",
+    "references": [
+      {
+        "title": "Medication Without Harm",
+        "publisher": "World Health Organization",
+        "url": "https://www.who.int/initiatives/medication-without-harm",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
   },
   {
     "id": "lægemiddelregning_020",
     "subject": "Farmakologi",
     "topic": "Lægemiddelregning",
-    "question": "Hvad betyder 'mg/kg vedligeholdelsesdosis'?",
-    "answer": "Dosis der gentages over tid for at holde lægemiddelniveau stabilt efter initial dosis.",
+    "question": "Hvad er en vedligeholdelsesdosis?",
+    "answer": "En gentagen eller kontinuerlig dosis, der skal erstatte den mængde, som elimineres, så den ønskede eksponering kan opretholdes.",
     "difficulty": "hard",
     "tags": [
       "vedligeholdelse",
       "dosis"
     ],
-    "deckId": "laegemiddelregningCards"
+    "deckId": "laegemiddelregningCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.l-gemiddelregning.grundlag",
+    "rationale": "Regneøvelserne viser matematikken og er ikke behandlingsanvisninger.",
+    "prehospitalRelevance": "Enhedskontrol og rimelighedstjek reducerer risikoen for regne- og administrationsfejl.",
+    "references": [
+      {
+        "title": "Medication Without Harm",
+        "publisher": "World Health Organization",
+        "url": "https://www.who.int/initiatives/medication-without-harm",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 2
+  },
+  {
+    "id": "administration_021",
+    "subject": "Farmakologi",
+    "topic": "Administration",
+    "question": "Hvad kendetegner transdermal administration?",
+    "answer": "Det aktive stof passerer gennem huden fra fx et plaster og kan give langsom, vedvarende systemisk tilførsel.",
+    "difficulty": "medium",
+    "tags": [
+      "farmakologi",
+      "administration",
+      "pilot-2026"
+    ],
+    "deckId": "administrationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.administration.grundlag",
+    "explanation": "Intakt hud er en barriere, og formuleringen er afgørende for, om et stof kan optages transdermalt.",
+    "rationale": "Administrationsvej og formulering er en del af både farmakokinetik og lægemiddelsikkerhed.",
+    "prehospitalRelevance": "Administrationsvejen påvirker indsættende virkning, eksponering og risiko og skal vurderes sammen med patientens tilstand og gældende instruks.",
+    "references": [
+      {
+        "title": "Medication Routes of Administration",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK568677/",
+        "accessedAt": "2026-07-13",
+        "note": "General route and absorption principles; local instructions govern operational use."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "administration_022",
+    "subject": "Farmakologi",
+    "topic": "Administration",
+    "question": "Hvorfor er administrationsvej alene ikke nok til at forudsige indsættende virkning?",
+    "answer": "Formulering, perfusion, absorptionssted, dosis og patientens tilstand har også betydning.",
+    "difficulty": "medium",
+    "tags": [
+      "farmakologi",
+      "administration",
+      "pilot-2026"
+    ],
+    "deckId": "administrationCards",
+    "schemaVersion": 2,
+    "kind": "applied",
+    "learningObjectiveId": "lo.farmakologi.administration.grundlag",
+    "explanation": "To produkter med samme administrationsvej kan derfor have forskelligt koncentrationsforløb.",
+    "rationale": "Administrationsvej og formulering er en del af både farmakokinetik og lægemiddelsikkerhed.",
+    "prehospitalRelevance": "Administrationsvejen påvirker indsættende virkning, eksponering og risiko og skal vurderes sammen med patientens tilstand og gældende instruks.",
+    "references": [
+      {
+        "title": "Medication Routes of Administration",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK568677/",
+        "accessedAt": "2026-07-13",
+        "note": "General route and absorption principles; local instructions govern operational use."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "administration_023",
+    "subject": "Farmakologi",
+    "topic": "Administration",
+    "question": "Hvilke overordnede forhold indgår i valg af administrationsvej?",
+    "answer": "Lægemidlets egenskaber, ønsket lokal eller systemisk effekt, hastighed, patientens tilstand, sikkerhed og gældende instruks.",
+    "difficulty": "medium",
+    "tags": [
+      "farmakologi",
+      "administration",
+      "pilot-2026"
+    ],
+    "deckId": "administrationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.administration.grundlag",
+    "explanation": "Valget er en samlet klinisk og farmaceutisk vurdering, ikke blot et spørgsmål om hurtighed.",
+    "rationale": "Administrationsvej og formulering er en del af både farmakokinetik og lægemiddelsikkerhed.",
+    "prehospitalRelevance": "Administrationsvejen påvirker indsættende virkning, eksponering og risiko og skal vurderes sammen med patientens tilstand og gældende instruks.",
+    "references": [
+      {
+        "title": "Medication Routes of Administration",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK568677/",
+        "accessedAt": "2026-07-13",
+        "note": "General route and absorption principles; local instructions govern operational use."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "administration_024",
+    "subject": "Farmakologi",
+    "topic": "Administration",
+    "question": "Hvad er forskellen på lokal og systemisk lægemiddeleffekt?",
+    "answer": "Lokal effekt tilstræbes ved administrationsstedet; systemisk effekt kræver, at stoffet når kredsløbet og relevante væv.",
+    "difficulty": "medium",
+    "tags": [
+      "farmakologi",
+      "administration",
+      "pilot-2026"
+    ],
+    "deckId": "administrationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.administration.grundlag",
+    "explanation": "En administrationsvej kan i nogle tilfælde give både lokal og systemisk effekt.",
+    "rationale": "Administrationsvej og formulering er en del af både farmakokinetik og lægemiddelsikkerhed.",
+    "prehospitalRelevance": "Administrationsvejen påvirker indsættende virkning, eksponering og risiko og skal vurderes sammen med patientens tilstand og gældende instruks.",
+    "references": [
+      {
+        "title": "Medication Routes of Administration",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK568677/",
+        "accessedAt": "2026-07-13",
+        "note": "General route and absorption principles; local instructions govern operational use."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "administration_025",
+    "subject": "Farmakologi",
+    "topic": "Administration",
+    "question": "Hvorfor er doser ikke automatisk ækvivalente mellem to administrationsveje?",
+    "answer": "Biotilgængelighed, absorption og koncentrationsforløb kan være forskellige.",
+    "difficulty": "hard",
+    "tags": [
+      "farmakologi",
+      "administration",
+      "pilot-2026"
+    ],
+    "deckId": "administrationCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.administration.grundlag",
+    "explanation": "En vejændring kræver derfor produktspecifik kontrol og kan ikke udledes af en generel omregningsregel.",
+    "rationale": "Administrationsvej og formulering er en del af både farmakokinetik og lægemiddelsikkerhed.",
+    "prehospitalRelevance": "Administrationsvejen påvirker indsættende virkning, eksponering og risiko og skal vurderes sammen med patientens tilstand og gældende instruks.",
+    "references": [
+      {
+        "title": "Medication Routes of Administration",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK568677/",
+        "accessedAt": "2026-07-13",
+        "note": "General route and absorption principles; local instructions govern operational use."
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "bivirkning_021",
+    "subject": "Farmakologi",
+    "topic": "Bivirkninger",
+    "question": "Hvad er forskellen på en uønsket hændelse og en bivirkning?",
+    "answer": "En uønsket hændelse er tidsmæssigt forbundet med behandling; en bivirkning indebærer mindst en rimelig mulighed for årsagssammenhæng.",
+    "difficulty": "medium",
+    "tags": [
+      "farmakologi",
+      "bivirkninger",
+      "pilot-2026"
+    ],
+    "deckId": "bivirkningerCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.bivirkninger.grundlag",
+    "explanation": "Tidsmæssig sammenhæng er ikke alene bevis for kausalitet.",
+    "rationale": "En observeret reaktion bør beskrives før mekanisme eller årsag konkluderes.",
+    "prehospitalRelevance": "Præcis observation og beskrivelse af mulige lægemiddelreaktioner understøtter sikker vurdering og overlevering.",
+    "references": [
+      {
+        "title": "Adverse Drug Reactions",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK599521/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "bivirkning_022",
+    "subject": "Farmakologi",
+    "topic": "Bivirkninger",
+    "question": "Hvorfor bør kvalme efter et lægemiddel ikke automatisk registreres som allergi?",
+    "answer": "Kvalme kan være en ikke-immunologisk bivirkning; allergi forudsætter en immunologisk mekanisme.",
+    "difficulty": "medium",
+    "tags": [
+      "farmakologi",
+      "bivirkninger",
+      "pilot-2026"
+    ],
+    "deckId": "bivirkningerCards",
+    "schemaVersion": 2,
+    "kind": "applied",
+    "learningObjectiveId": "lo.farmakologi.bivirkninger.grundlag",
+    "explanation": "Forkert allergimærkning kan begrænse senere behandling og bør undgås.",
+    "rationale": "En observeret reaktion bør beskrives før mekanisme eller årsag konkluderes.",
+    "prehospitalRelevance": "Præcis observation og beskrivelse af mulige lægemiddelreaktioner understøtter sikker vurdering og overlevering.",
+    "references": [
+      {
+        "title": "Adverse Drug Reactions",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK599521/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "bivirkning_023",
+    "subject": "Farmakologi",
+    "topic": "Bivirkninger",
+    "question": "Hvilke typer lægemiddelinteraktioner skelnes overordnet mellem?",
+    "answer": "Farmakokinetiske interaktioner ændrer eksponeringen; farmakodynamiske interaktioner ændrer den samlede effekt uden nødvendigvis at ændre koncentrationen.",
+    "difficulty": "medium",
+    "tags": [
+      "farmakologi",
+      "bivirkninger",
+      "pilot-2026"
+    ],
+    "deckId": "bivirkningerCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.bivirkninger.grundlag",
+    "explanation": "Interaktioner kan forstærke, svække eller kvalitativt ændre responsen.",
+    "rationale": "En observeret reaktion bør beskrives før mekanisme eller årsag konkluderes.",
+    "prehospitalRelevance": "Præcis observation og beskrivelse af mulige lægemiddelreaktioner understøtter sikker vurdering og overlevering.",
+    "references": [
+      {
+        "title": "Adverse Drug Reactions",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK599521/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "bivirkning_024",
+    "subject": "Farmakologi",
+    "topic": "Bivirkninger",
+    "question": "Hvorfor er en fuld medicinanamnese vigtig ved mistænkt lægemiddelreaktion?",
+    "answer": "Receptpligtige midler, håndkøb, naturmidler, rusmidler og nylige dosisændringer kan alle bidrage.",
+    "difficulty": "medium",
+    "tags": [
+      "farmakologi",
+      "bivirkninger",
+      "pilot-2026"
+    ],
+    "deckId": "bivirkningerCards",
+    "schemaVersion": 2,
+    "kind": "applied",
+    "learningObjectiveId": "lo.farmakologi.bivirkninger.grundlag",
+    "explanation": "Tidspunkt, dosisændring og kombinationer hjælper med at vurdere mulige årsager.",
+    "rationale": "En observeret reaktion bør beskrives før mekanisme eller årsag konkluderes.",
+    "prehospitalRelevance": "Præcis observation og beskrivelse af mulige lægemiddelreaktioner understøtter sikker vurdering og overlevering.",
+    "references": [
+      {
+        "title": "Adverse Drug Reactions",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK599521/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "bivirkning_025",
+    "subject": "Farmakologi",
+    "topic": "Bivirkninger",
+    "question": "Hvorfor skal symptomer beskrives konkret frem for blot som 'allergi'?",
+    "answer": "Hud-, luftvejs-, kredsløbs- og mave-tarm-fund samt tidsforløb giver et bedre grundlag for senere vurdering.",
+    "difficulty": "medium",
+    "tags": [
+      "farmakologi",
+      "bivirkninger",
+      "pilot-2026"
+    ],
+    "deckId": "bivirkningerCards",
+    "schemaVersion": 2,
+    "kind": "applied",
+    "learningObjectiveId": "lo.farmakologi.bivirkninger.grundlag",
+    "explanation": "En mekanisme kan være ukendt præhospitalt, men observationerne kan dokumenteres præcist.",
+    "rationale": "En observeret reaktion bør beskrives før mekanisme eller årsag konkluderes.",
+    "prehospitalRelevance": "Præcis observation og beskrivelse af mulige lægemiddelreaktioner understøtter sikker vurdering og overlevering.",
+    "references": [
+      {
+        "title": "Adverse Drug Reactions",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK599521/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "farmakodynamik_021",
+    "subject": "Farmakologi",
+    "topic": "Farmakodynamik",
+    "question": "Hvorfor er høj receptoraffinitet ikke det samme som stor maksimal effekt?",
+    "answer": "Affinitet beskriver binding, mens maksimal effekt afhænger af intrinsisk aktivitet og det biologiske system.",
+    "difficulty": "hard",
+    "tags": [
+      "farmakologi",
+      "farmakodynamik",
+      "pilot-2026"
+    ],
+    "deckId": "farmakodynamikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakodynamik.grundlag",
+    "explanation": "En partiel agonist kan fx have høj affinitet, men lavere maksimal effekt end en fuld agonist.",
+    "rationale": "Begrebet hjælper med at skelne receptorbinding, dosis-respons og klinisk effekt.",
+    "prehospitalRelevance": "Farmakodynamik forklarer forventet effekt, uønskede effekter og hvorfor responsen kan variere.",
+    "references": [
+      {
+        "title": "Pharmacodynamics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK507791/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "farmakodynamik_022",
+    "subject": "Farmakologi",
+    "topic": "Farmakodynamik",
+    "question": "Hvorfor er receptor-selektivitet ofte relativ og dosisafhængig?",
+    "answer": "Ved stigende koncentration kan et stof i højere grad påvirke andre mål end det foretrukne.",
+    "difficulty": "hard",
+    "tags": [
+      "farmakologi",
+      "farmakodynamik",
+      "pilot-2026"
+    ],
+    "deckId": "farmakodynamikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakodynamik.grundlag",
+    "explanation": "'Selektiv' betyder derfor ikke, at andre receptorer aldrig påvirkes.",
+    "rationale": "Begrebet hjælper med at skelne receptorbinding, dosis-respons og klinisk effekt.",
+    "prehospitalRelevance": "Farmakodynamik forklarer forventet effekt, uønskede effekter og hvorfor responsen kan variere.",
+    "references": [
+      {
+        "title": "Pharmacodynamics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK507791/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "farmakodynamik_023",
+    "subject": "Farmakologi",
+    "topic": "Farmakodynamik",
+    "question": "Hvad er forskellen på terapeutisk vindue og terapeutisk indeks?",
+    "answer": "Vinduet er det anvendelige eksponeringsområde; indekset er et forholdstal mellem toksisk og effektiv dosis i en defineret model.",
+    "difficulty": "hard",
+    "tags": [
+      "farmakologi",
+      "farmakodynamik",
+      "pilot-2026"
+    ],
+    "deckId": "farmakodynamikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakodynamik.grundlag",
+    "explanation": "Begreberne bruges beslægtet, men er ikke synonymer.",
+    "rationale": "Begrebet hjælper med at skelne receptorbinding, dosis-respons og klinisk effekt.",
+    "prehospitalRelevance": "Farmakodynamik forklarer forventet effekt, uønskede effekter og hvorfor responsen kan variere.",
+    "references": [
+      {
+        "title": "Pharmacodynamics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK507791/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "farmakodynamik_024",
+    "subject": "Farmakologi",
+    "topic": "Farmakodynamik",
+    "question": "Hvad betyder loftseffekt?",
+    "answer": "At yderligere dosisøgning efter et punkt kun giver ringe eller ingen større ønsket effekt.",
+    "difficulty": "medium",
+    "tags": [
+      "farmakologi",
+      "farmakodynamik",
+      "pilot-2026"
+    ],
+    "deckId": "farmakodynamikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakodynamik.grundlag",
+    "explanation": "Uønskede effekter kan stadig øges, selv om den ønskede effekt har nået et loft.",
+    "rationale": "Begrebet hjælper med at skelne receptorbinding, dosis-respons og klinisk effekt.",
+    "prehospitalRelevance": "Farmakodynamik forklarer forventet effekt, uønskede effekter og hvorfor responsen kan variere.",
+    "references": [
+      {
+        "title": "Pharmacodynamics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK507791/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "farmakodynamik_025",
+    "subject": "Farmakologi",
+    "topic": "Farmakodynamik",
+    "question": "Hvad er receptor-desensibilisering?",
+    "answer": "Et fald i receptorens signalering trods fortsat tilstedeværelse af agonist.",
+    "difficulty": "medium",
+    "tags": [
+      "farmakologi",
+      "farmakodynamik",
+      "pilot-2026"
+    ],
+    "deckId": "farmakodynamikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakodynamik.grundlag",
+    "explanation": "Desensibilisering kan ske hurtigt og er ikke nødvendigvis det samme som færre receptorer.",
+    "rationale": "Begrebet hjælper med at skelne receptorbinding, dosis-respons og klinisk effekt.",
+    "prehospitalRelevance": "Farmakodynamik forklarer forventet effekt, uønskede effekter og hvorfor responsen kan variere.",
+    "references": [
+      {
+        "title": "Pharmacodynamics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK507791/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "farmakodynamik_026",
+    "subject": "Farmakologi",
+    "topic": "Farmakodynamik",
+    "question": "Hvad er forskellen på additiv og synergistisk effekt?",
+    "answer": "Additiv effekt svarer omtrent til summen af bidragene; synergistisk effekt er større end den forventede sum.",
+    "difficulty": "medium",
+    "tags": [
+      "farmakologi",
+      "farmakodynamik",
+      "pilot-2026"
+    ],
+    "deckId": "farmakodynamikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakodynamik.grundlag",
+    "explanation": "Begreberne kræver en defineret effekt og sammenligningsmodel.",
+    "rationale": "Begrebet hjælper med at skelne receptorbinding, dosis-respons og klinisk effekt.",
+    "prehospitalRelevance": "Farmakodynamik forklarer forventet effekt, uønskede effekter og hvorfor responsen kan variere.",
+    "references": [
+      {
+        "title": "Pharmacodynamics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK507791/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "farmakokinetik_021",
+    "subject": "Farmakologi",
+    "topic": "Farmakokinetik",
+    "question": "Hvad er forskellen på en mætningsdosis og en vedligeholdelsesdosis?",
+    "answer": "Mætningsdosis sigter mod hurtigt at opnå en bestemt eksponering; vedligeholdelsesdosis erstatter det, der elimineres.",
+    "difficulty": "hard",
+    "tags": [
+      "farmakologi",
+      "farmakokinetik",
+      "pilot-2026"
+    ],
+    "deckId": "farmakokinetikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakokinetik.grundlag",
+    "explanation": "Mætningsdosis afhænger især af fordelingsvolumen, mens vedligeholdelse afhænger især af clearance og doseringsinterval.",
+    "rationale": "ADME-begreberne forbinder administrationsvej og patientfaktorer med lægemiddeleksponering.",
+    "prehospitalRelevance": "Farmakokinetik forklarer variation i indsættende virkning, varighed, ophobning og eksponering.",
+    "references": [
+      {
+        "title": "Pharmacokinetics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK557744/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "farmakokinetik_022",
+    "subject": "Farmakologi",
+    "topic": "Farmakokinetik",
+    "question": "Hvad er forskellen på første- og nulteordens elimination?",
+    "answer": "Ved første orden elimineres en konstant fraktion pr. tid; ved nulte orden en omtrent konstant mængde pr. tid.",
+    "difficulty": "hard",
+    "tags": [
+      "farmakologi",
+      "farmakokinetik",
+      "pilot-2026"
+    ],
+    "deckId": "farmakokinetikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakokinetik.grundlag",
+    "explanation": "Nulteordens kinetik kan opstå, når en eliminationsproces er mættet.",
+    "rationale": "ADME-begreberne forbinder administrationsvej og patientfaktorer med lægemiddeleksponering.",
+    "prehospitalRelevance": "Farmakokinetik forklarer variation i indsættende virkning, varighed, ophobning og eksponering.",
+    "references": [
+      {
+        "title": "Pharmacokinetics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK557744/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "farmakokinetik_023",
+    "subject": "Farmakologi",
+    "topic": "Farmakokinetik",
+    "question": "Hvorfor er indsættende virkning ikke det samme som halveringstid?",
+    "answer": "Indsættende virkning afhænger af, hvornår en effektiv koncentration når målet; halveringstid beskriver koncentrationsfaldet under bestemte forhold.",
+    "difficulty": "medium",
+    "tags": [
+      "farmakologi",
+      "farmakokinetik",
+      "pilot-2026"
+    ],
+    "deckId": "farmakokinetikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakokinetik.grundlag",
+    "explanation": "Et stof kan have hurtig indsættende virkning og lang halveringstid eller omvendt.",
+    "rationale": "ADME-begreberne forbinder administrationsvej og patientfaktorer med lægemiddeleksponering.",
+    "prehospitalRelevance": "Farmakokinetik forklarer variation i indsættende virkning, varighed, ophobning og eksponering.",
+    "references": [
+      {
+        "title": "Pharmacokinetics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK557744/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "farmakokinetik_024",
+    "subject": "Farmakologi",
+    "topic": "Farmakokinetik",
+    "question": "Hvad antyder et stort tilsyneladende fordelingsvolumen?",
+    "answer": "At plasmakoncentrationen er lav i forhold til den samlede mængde i kroppen, ofte fordi stoffet fordeler sig til væv.",
+    "difficulty": "hard",
+    "tags": [
+      "farmakologi",
+      "farmakokinetik",
+      "pilot-2026"
+    ],
+    "deckId": "farmakokinetikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakokinetik.grundlag",
+    "explanation": "Vd er et modelparameter og kan være større end kroppens faktiske volumen.",
+    "rationale": "ADME-begreberne forbinder administrationsvej og patientfaktorer med lægemiddeleksponering.",
+    "prehospitalRelevance": "Farmakokinetik forklarer variation i indsættende virkning, varighed, ophobning og eksponering.",
+    "references": [
+      {
+        "title": "Pharmacokinetics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK557744/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "farmakokinetik_025",
+    "subject": "Farmakologi",
+    "topic": "Farmakokinetik",
+    "question": "Hvordan hænger clearance og halveringstid sammen ved førsteordens kinetik?",
+    "answer": "Lavere clearance forlænger typisk halveringstiden, hvis fordelingsvolumen er uændret.",
+    "difficulty": "hard",
+    "tags": [
+      "farmakologi",
+      "farmakokinetik",
+      "pilot-2026"
+    ],
+    "deckId": "farmakokinetikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakokinetik.grundlag",
+    "explanation": "Halveringstid afhænger både af clearance og fordelingsvolumen.",
+    "rationale": "ADME-begreberne forbinder administrationsvej og patientfaktorer med lægemiddeleksponering.",
+    "prehospitalRelevance": "Farmakokinetik forklarer variation i indsættende virkning, varighed, ophobning og eksponering.",
+    "references": [
+      {
+        "title": "Pharmacokinetics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK557744/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "farmakokinetik_026",
+    "subject": "Farmakologi",
+    "topic": "Farmakokinetik",
+    "question": "Hvorfor kan gentagne doser føre til ophobning?",
+    "answer": "Hvis en ny dosis tilføres, før den foregående er elimineret, stiger mængden mod et steady-state-niveau.",
+    "difficulty": "medium",
+    "tags": [
+      "farmakologi",
+      "farmakokinetik",
+      "pilot-2026"
+    ],
+    "deckId": "farmakokinetikCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.farmakokinetik.grundlag",
+    "explanation": "Graden af ophobning afhænger blandt andet af halveringstid og doseringsinterval.",
+    "rationale": "ADME-begreberne forbinder administrationsvej og patientfaktorer med lægemiddeleksponering.",
+    "prehospitalRelevance": "Farmakokinetik forklarer variation i indsættende virkning, varighed, ophobning og eksponering.",
+    "references": [
+      {
+        "title": "Pharmacokinetics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK557744/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "farmakokinetik_027",
+    "subject": "Farmakologi",
+    "topic": "Farmakokinetik",
+    "question": "Hvordan kan svær perifer hypoperfusion påvirke IM- eller SC-absorption?",
+    "answer": "Nedsat blodgennemstrømning kan gøre absorptionen langsommere og mindre forudsigelig.",
+    "difficulty": "hard",
+    "tags": [
+      "farmakologi",
+      "farmakokinetik",
+      "pilot-2026"
+    ],
+    "deckId": "farmakokinetikCards",
+    "schemaVersion": 2,
+    "kind": "applied",
+    "learningObjectiveId": "lo.farmakologi.farmakokinetik.grundlag",
+    "explanation": "Det er et generelt princip; den kliniske betydning afhænger af patient, stof og administrationssted.",
+    "rationale": "ADME-begreberne forbinder administrationsvej og patientfaktorer med lægemiddeleksponering.",
+    "prehospitalRelevance": "Farmakokinetik forklarer variation i indsættende virkning, varighed, ophobning og eksponering.",
+    "references": [
+      {
+        "title": "Pharmacokinetics",
+        "publisher": "NCBI Bookshelf (StatPearls)",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK557744/",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "lægemiddelregning_021",
+    "subject": "Farmakologi",
+    "topic": "Lægemiddelregning",
+    "question": "Hvorfor skal enheder skrives med i alle trin af en beregning?",
+    "answer": "Enhederne viser, om faktorerne kan forkortes korrekt, og om resultatet ender i den ønskede enhed.",
+    "difficulty": "medium",
+    "tags": [
+      "farmakologi",
+      "lægemiddelregning",
+      "pilot-2026"
+    ],
+    "deckId": "laegemiddelregningCards",
+    "schemaVersion": 2,
+    "kind": "recall",
+    "learningObjectiveId": "lo.farmakologi.l-gemiddelregning.grundlag",
+    "explanation": "Dimensionsanalyse kan afsløre en forkert opsat beregning, før tallet anvendes.",
+    "rationale": "Regneøvelserne viser matematikken og er ikke behandlingsanvisninger.",
+    "prehospitalRelevance": "Enhedskontrol og rimelighedstjek reducerer risikoen for regne- og administrationsfejl.",
+    "references": [
+      {
+        "title": "Medication Without Harm",
+        "publisher": "World Health Organization",
+        "url": "https://www.who.int/initiatives/medication-without-harm",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "lægemiddelregning_022",
+    "subject": "Farmakologi",
+    "topic": "Lægemiddelregning",
+    "question": "Hvad er et rimelighedstjek efter en dosisberegning?",
+    "answer": "En vurdering af fortegn, størrelsesorden, decimal og enhed samt sammenhold med ordination, styrke og maksimal relevant grænse.",
+    "difficulty": "medium",
+    "tags": [
+      "farmakologi",
+      "lægemiddelregning",
+      "pilot-2026"
+    ],
+    "deckId": "laegemiddelregningCards",
+    "schemaVersion": 2,
+    "kind": "applied",
+    "learningObjectiveId": "lo.farmakologi.l-gemiddelregning.grundlag",
+    "explanation": "Et korrekt tastetryk kan stadig bygge på forkerte enheder eller en forkert opsat formel.",
+    "rationale": "Regneøvelserne viser matematikken og er ikke behandlingsanvisninger.",
+    "prehospitalRelevance": "Enhedskontrol og rimelighedstjek reducerer risikoen for regne- og administrationsfejl.",
+    "references": [
+      {
+        "title": "Medication Without Harm",
+        "publisher": "World Health Organization",
+        "url": "https://www.who.int/initiatives/medication-without-harm",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "lægemiddelregning_023",
+    "subject": "Farmakologi",
+    "topic": "Lægemiddelregning",
+    "question": "En opløsning på 2 mg/ml fortyndes fra 5 ml til et samlet volumen på 20 ml. Hvad bliver koncentrationen?",
+    "answer": "Der er 10 mg i alt; 10 mg/20 ml = 0,5 mg/ml.",
+    "difficulty": "medium",
+    "tags": [
+      "farmakologi",
+      "lægemiddelregning",
+      "pilot-2026"
+    ],
+    "deckId": "laegemiddelregningCards",
+    "schemaVersion": 2,
+    "kind": "applied",
+    "learningObjectiveId": "lo.farmakologi.l-gemiddelregning.grundlag",
+    "explanation": "Mængden af aktivt stof er uændret ved fortynding, mens koncentrationen falder.",
+    "rationale": "Regneøvelserne viser matematikken og er ikke behandlingsanvisninger.",
+    "prehospitalRelevance": "Enhedskontrol og rimelighedstjek reducerer risikoen for regne- og administrationsfejl.",
+    "references": [
+      {
+        "title": "Medication Without Harm",
+        "publisher": "World Health Organization",
+        "url": "https://www.who.int/initiatives/medication-without-harm",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
+  },
+  {
+    "id": "lægemiddelregning_024",
+    "subject": "Farmakologi",
+    "topic": "Lægemiddelregning",
+    "question": "Hvorfor skal et beregnet volumen sammenholdes med den tilgængelige formulering?",
+    "answer": "Fordi koncentration, maksimal håndterbar volumen, måleudstyr og administrationsvej kan gøre resultatet uegnet eller afsløre en fejl.",
+    "difficulty": "hard",
+    "tags": [
+      "farmakologi",
+      "lægemiddelregning",
+      "pilot-2026"
+    ],
+    "deckId": "laegemiddelregningCards",
+    "schemaVersion": 2,
+    "kind": "applied",
+    "learningObjectiveId": "lo.farmakologi.l-gemiddelregning.grundlag",
+    "explanation": "Beregningen er først sikker, når både tal, enhed, produkt og praktisk gennemførelse er kontrolleret.",
+    "rationale": "Regneøvelserne viser matematikken og er ikke behandlingsanvisninger.",
+    "prehospitalRelevance": "Enhedskontrol og rimelighedstjek reducerer risikoen for regne- og administrationsfejl.",
+    "references": [
+      {
+        "title": "Medication Without Harm",
+        "publisher": "World Health Organization",
+        "url": "https://www.who.int/initiatives/medication-without-harm",
+        "accessedAt": "2026-07-13"
+      }
+    ],
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-07-13",
+    "contentRevision": 1
   }
 ]
