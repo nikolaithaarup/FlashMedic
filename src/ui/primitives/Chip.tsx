@@ -32,7 +32,7 @@ export function Chip({
 
   return (
     <Pressable
-      accessibilityLabel={label}
+      accessibilityLabel={selected ? `${label}. Valgt` : label}
       accessibilityRole="button"
       accessibilityState={{ selected, disabled }}
       disabled={disabled}
@@ -53,6 +53,11 @@ export function Chip({
       ]}
     >
       <Text style={[styles.label, selected && styles.selectedLabel]}>{label}</Text>
+      {selected ? (
+        <Text accessibilityElementsHidden style={styles.indicator}>
+          ✓
+        </Text>
+      ) : null}
     </Pressable>
   );
 }
@@ -63,31 +68,34 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: Radii.control,
     borderWidth: Borders.hairline,
-    borderColor: ColorTokens.border.onSurface,
-    backgroundColor: ColorTokens.surface.default,
+    borderColor: ColorTokens.border.default,
+    backgroundColor: ColorTokens.surface.tool,
     paddingHorizontal: Spacing.md,
     paddingVertical: Spacing.xs,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.xs,
   },
   selected: {
-    borderColor: ColorTokens.interaction.selectedBorder,
-    backgroundColor: ColorTokens.interaction.selected,
+    borderColor: ColorTokens.accent.selectedBorder,
+    backgroundColor: ColorTokens.accent.selected,
   },
   pressed: {
     opacity: Interaction.pressedOpacity,
     transform: [{ scale: Interaction.controlPressedScale }],
   },
   hovered: {
-    borderColor: ColorTokens.accent.muted,
+    borderColor: ColorTokens.accent.focus,
   },
   focused: {
-    borderColor: ColorTokens.interaction.focus,
+    borderColor: ColorTokens.accent.focus,
     borderWidth: 2,
   },
   disabled: {
     opacity: Interaction.disabledOpacity,
   },
   label: {
-    color: ColorTokens.text.onSurface,
+    color: ColorTokens.text.primary,
     fontFamily: Typography.families.sans,
     fontSize: Typography.sizes.label,
     lineHeight: Typography.lineHeights.label,
@@ -95,7 +103,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   selectedLabel: {
-    color: ColorTokens.text.onAccent,
+    color: ColorTokens.text.primary,
     fontWeight: Typography.weights.semibold,
+  },
+  indicator: {
+    color: ColorTokens.accent.focus,
+    fontSize: Typography.sizes.label,
+    lineHeight: Typography.lineHeights.label,
+    fontWeight: Typography.weights.heavy,
   },
 });

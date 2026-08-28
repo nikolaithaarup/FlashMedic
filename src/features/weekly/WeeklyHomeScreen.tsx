@@ -1,12 +1,11 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 import {
   Borders,
   ColorTokens,
   Interaction,
-  Radii,
   Spacing,
   Typography,
 } from "../../../constants/theme";
@@ -15,6 +14,7 @@ import {
   EmptyState,
   ErrorState,
   LoadingState,
+  NavigationCard,
   NoticeCard,
   PrimaryButton,
   Screen,
@@ -44,28 +44,16 @@ type GameCardProps = {
 
 function GameCard({ title, description, locked, onPress }: GameCardProps) {
   return (
-    <Pressable
-      accessibilityLabel={`${title}. ${locked ? "Låst til næste uge" : description}`}
-      accessibilityRole="button"
-      accessibilityState={{ disabled: locked }}
+    <NavigationCard
+      description={
+        locked ? "Allerede spillet · låst til næste uge" : description
+      }
       disabled={locked}
       onPress={onPress}
-      style={({ pressed }) => [
-        styles.gameCard,
-        pressed && styles.gameCardPressed,
-        locked && styles.gameCardLocked,
-      ]}
-    >
-      <View style={styles.gameCopy}>
-        <Text style={styles.gameTitle}>{title}</Text>
-        <Text style={styles.gameDescription}>
-          {locked ? "Allerede spillet · låst til næste uge" : description}
-        </Text>
-      </View>
-      <Text style={styles.gameArrow} accessibilityElementsHidden>
-        {locked ? "✓" : "›"}
-      </Text>
-    </Pressable>
+      secondary
+      title={title}
+      trailing={locked ? "✓" : "›"}
+    />
   );
 }
 
@@ -233,39 +221,6 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   gameList: { gap: Spacing.sm, marginTop: Spacing.sm },
-  gameCard: {
-    minHeight: 88,
-    flexDirection: "row",
-    alignItems: "center",
-    borderRadius: Radii.lg,
-    borderWidth: Borders.hairline,
-    borderColor: ColorTokens.border.default,
-    backgroundColor: ColorTokens.surface.subtle,
-    padding: Spacing.lg,
-  },
-  gameCardPressed: {
-    opacity: Interaction.pressedOpacity,
-    transform: [{ scale: Interaction.cardPressedScale }],
-  },
-  gameCardLocked: { opacity: Interaction.disabledOpacity },
-  gameCopy: { flex: 1, minWidth: 0 },
-  gameTitle: {
-    color: ColorTokens.text.primary,
-    fontSize: Typography.sizes.cardTitle,
-    lineHeight: Typography.lineHeights.cardTitle,
-    fontWeight: Typography.weights.bold,
-  },
-  gameDescription: {
-    color: ColorTokens.text.secondary,
-    fontSize: Typography.sizes.label,
-    lineHeight: Typography.lineHeights.label,
-    marginTop: 2,
-  },
-  gameArrow: {
-    color: ColorTokens.accent.muted,
-    fontSize: Typography.sizes.pageTitle,
-    marginLeft: Spacing.md,
-  },
   leaderboardHeader: {
     flexDirection: "row",
     alignItems: "center",

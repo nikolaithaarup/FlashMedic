@@ -1,16 +1,15 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useMemo, useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 import {
   Borders,
   ColorTokens,
-  Interaction,
   Radii,
   Spacing,
   Typography,
 } from "../../../constants/theme";
-import { Card, Screen, ToolPageHeader } from "../../ui/primitives";
+import { Card, Chip, Screen, ToolPageHeader } from "../../ui/primitives";
 import { DRUG_TOPICS, THEORY, type DrugCalcTopic } from "./drugCalcContent";
 
 type Props = {
@@ -49,21 +48,12 @@ export function DrugCalcTheoryScreen({ onBack }: Props) {
           {DRUG_TOPICS.map((item) => {
             const selected = item.id === topic;
             return (
-              <Pressable
-                accessibilityRole="button"
-                accessibilityState={{ selected }}
+              <Chip
                 key={item.id}
+                label={item.title}
                 onPress={() => setTopic(item.id)}
-                style={({ pressed }) => [
-                  styles.topicButton,
-                  selected && styles.topicButtonSelected,
-                  pressed && styles.pressed,
-                ]}
-              >
-                <Text style={[styles.topicText, selected && styles.topicTextSelected]}>
-                  {item.title}
-                </Text>
-              </Pressable>
+                selected={selected}
+              />
             );
           })}
         </View>
@@ -160,29 +150,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   topicGrid: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.xs },
-  topicButton: {
-    minHeight: Interaction.compactTouchTarget,
-    justifyContent: "center",
-    borderRadius: Radii.control,
-    borderWidth: Borders.hairline,
-    borderColor: ColorTokens.border.default,
-    backgroundColor: ColorTokens.surface.inverse,
-    paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.xs,
-  },
-  topicButtonSelected: {
-    borderColor: ColorTokens.accent.muted,
-    backgroundColor: ColorTokens.accent.surface,
-  },
-  topicText: {
-    color: ColorTokens.text.secondary,
-    fontFamily: Typography.families.sans,
-    fontSize: Typography.sizes.label,
-    lineHeight: Typography.lineHeights.label,
-    fontWeight: Typography.weights.semibold,
-  },
-  topicTextSelected: { color: ColorTokens.text.primary },
-  pressed: { opacity: Interaction.pressedOpacity },
   bulletList: { gap: Spacing.sm },
   bulletRow: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.sm },
   bullet: {

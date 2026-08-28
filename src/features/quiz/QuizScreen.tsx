@@ -22,10 +22,13 @@ import type { Difficulty, Flashcard } from "../../types/Flashcard";
 import type { FlashcardTrainingMode } from "../../types/Learning";
 import FullscreenEkgImageModal from "../flashcards/components/FullscreenEkgImageModal";
 import {
-  Card,
+  ProgressHeader,
   PrimaryButton,
+  ResultSummary,
   Screen,
   SecondaryButton,
+  SelectableChoice,
+  Surface,
   ToolPageHeader,
 } from "../../ui/primitives";
 
@@ -94,6 +97,12 @@ export default function QuizScreen({
   const totalQuestions = historyCount + 1 + upcomingCount;
   const currentIndex = historyCount + 1;
   const isExamMode = trainingMode === "exam";
+  const isDailyTen = trainingMode === "daily-10";
+  const sessionTitle = isDailyTen
+    ? "Daily10"
+    : isExamMode
+      ? "Eksamensmode"
+      : "FlashMedic";
   const imageUri = useMemo(
     () => toImageUri((currentCard as any).image),
     [currentCard],
@@ -122,8 +131,19 @@ export default function QuizScreen({
           }
           backLabel="Afslut træningen"
           onBack={onHome}
-          subtitle={`Spørgsmål ${currentIndex} af ${totalQuestions}`}
-          title={isExamMode ? "Eksamensmode" : "FlashMedic"}
+          subtitle={
+            isDailyTen
+              ? "Dagens korte, fokuserede session"
+              : `Spørgsmål ${currentIndex} af ${totalQuestions}`
+          }
+          title={sessionTitle}
+        />
+
+        <ProgressHeader
+          current={currentIndex}
+          label={isDailyTen ? "DAGENS SESSION" : "FREMSKRIDT"}
+          style={styles.progress}
+          total={totalQuestions}
         />
 
         <View style={styles.metaRow}>
@@ -155,7 +175,7 @@ export default function QuizScreen({
         </View>
 
         <Text style={styles.semanticLabel}>SPØRGSMÅL</Text>
-        <Card variant="elevated" style={styles.questionCard}>
+        <Surface elevated tone="elevated" style={styles.questionCard}>
           {currentCard.image ? (
             <Pressable
               accessibilityLabel="Åbn EKG-billede i fuld skærm"
@@ -182,11 +202,12 @@ export default function QuizScreen({
           >
             {currentCard.question}
           </Text>
-        </Card>
+        </Surface>
 
-        <Text style={[styles.semanticLabel, styles.answerLabel]}>SVAR</Text>
-        <Card variant={showAnswer ? "elevated" : "subtle"} style={styles.answerCard}>
-          {showAnswer ? (
+        {showAnswer ? (
+          <>
+            <Text style={[styles.semanticLabel, styles.answerLabel]}>SVAR</Text>
+            <Surface tone="accent" style={styles.answerCard}>
             <Text
               style={[
                 styles.answer,
@@ -195,24 +216,24 @@ export default function QuizScreen({
             >
               {currentCard.answer}
             </Text>
-          ) : (
-            <Text style={styles.answerPlaceholder}>
+            </Surface>
+          </>
+        ) : (
+          <Text style={styles.answerPlaceholder}>
               {isExamMode
                 ? "Tænk dit svar igennem, og vis facit når du er klar til at vurdere dig selv."
                 : "Svaret er skjult, indtil du er klar til at kontrollere dig selv."}
-            </Text>
-          )}
-        </Card>
+          </Text>
+        )}
 
         {completed ? (
-          <Card variant="subtle" style={styles.completionCard}>
-            <Text style={styles.completionTitle}>Træningen er gennemført</Text>
-            <Text style={styles.completionText}>
-              Det sidste kort er registreret. Du kan nu vende tilbage til
-              forsiden.
-            </Text>
+          <ResultSummary
+            message="Det sidste kort er registreret. Du kan nu vende tilbage til forsiden."
+            style={styles.completionCard}
+            title={isDailyTen ? "Dagens 10 er gennemført" : "Træningen er gennemført"}
+          >
             <PrimaryButton label="Tilbage til forsiden" onPress={onHome} />
-          </Card>
+          </ResultSummary>
         ) : !showAnswer ? (
           <PrimaryButton
             label="Vis svar"
@@ -231,32 +252,20 @@ export default function QuizScreen({
               Dit svar opdaterer statistikken og vælger det næste kort.
             </Text>
             <View style={styles.assessmentActions}>
-              <Pressable
-                accessibilityRole="button"
+              <SelectableChoice
+                description="Markér som korrekt"
+                indicator="✓"
+                label="Jeg kunne den"
                 onPress={onMarkKnown}
-                style={({ pressed }) => [
-                  styles.assessmentButton,
-                  styles.knownButton,
-                  pressed && styles.assessmentPressed,
-                ]}
-              >
-                <Text style={styles.assessmentButtonTitle}>Jeg kunne den</Text>
-                <Text style={styles.assessmentButtonMeta}>Markér som korrekt</Text>
-              </Pressable>
-              <Pressable
-                accessibilityRole="button"
+                style={styles.assessmentButton}
+              />
+              <SelectableChoice
+                description="Vis kortet igen"
+                indicator="↺"
+                label="Jeg kunne den ikke"
                 onPress={onMarkUnknown}
-                style={({ pressed }) => [
-                  styles.assessmentButton,
-                  styles.unknownButton,
-                  pressed && styles.assessmentPressed,
-                ]}
-              >
-                <Text style={styles.assessmentButtonTitle}>
-                  Jeg kunne den ikke
-                </Text>
-                <Text style={styles.assessmentButtonMeta}>Vis kortet igen</Text>
-              </Pressable>
+                style={styles.assessmentButton}
+              />
             </View>
           </View>
         )}
@@ -281,12 +290,13 @@ export default function QuizScreen({
 
 const styles = StyleSheet.create({
   previousButton: { minWidth: 104 },
+  progress: { marginBottom: Spacing.lg },
   metaRow: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     gap: Spacing.md,
-    marginBottom: Spacing.xl,
+    marginBottom: Spacing.md,
   },
   metaCopy: { flex: 1, minWidth: 0 },
   subject: {
@@ -323,7 +333,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.9,
     marginBottom: Spacing.xs,
   },
-  questionCard: { minHeight: 160, justifyContent: "center" },
+  questionCard: { minHeight: 150, justifyContent: "center" },
   imageButton: { alignItems: "center", marginBottom: Spacing.md },
   imagePressed: { opacity: Interaction.pressedOpacity },
   questionImage: { width: "100%", height: 210 },
@@ -334,33 +344,24 @@ const styles = StyleSheet.create({
     marginTop: Spacing.xs,
   },
   question: {
-    color: ColorTokens.text.onSurface,
+    color: ColorTokens.text.primary,
     fontWeight: Typography.weights.bold,
     textAlign: "left",
   },
   answerLabel: { marginTop: Spacing.lg },
-  answerCard: { minHeight: 120, justifyContent: "center" },
-  completionCard: { marginTop: Spacing.lg, gap: Spacing.sm },
-  completionTitle: {
-    color: ColorTokens.text.primary,
-    fontSize: Typography.sizes.cardTitle,
-    lineHeight: Typography.lineHeights.cardTitle,
-    fontWeight: Typography.weights.bold,
-  },
-  completionText: {
-    color: ColorTokens.text.secondary,
-    fontSize: Typography.sizes.body,
-    lineHeight: Typography.lineHeights.body,
-  },
+  answerCard: { justifyContent: "center" },
+  completionCard: { marginTop: Spacing.lg },
   answer: {
-    color: ColorTokens.text.onSurface,
+    color: ColorTokens.text.primary,
     textAlign: "left",
   },
   answerPlaceholder: {
     color: ColorTokens.text.secondary,
-    fontSize: Typography.sizes.body,
-    lineHeight: Typography.lineHeights.body,
+    fontSize: Typography.sizes.label,
+    lineHeight: Typography.lineHeights.label,
     textAlign: "center",
+    paddingHorizontal: Spacing.md,
+    marginTop: Spacing.md,
   },
   primaryAction: { marginTop: Spacing.lg },
   assessmentSection: { marginTop: Spacing.xl },
@@ -377,38 +378,14 @@ const styles = StyleSheet.create({
     marginTop: 2,
     marginBottom: Spacing.sm,
   },
-  assessmentActions: { flexDirection: "row", gap: Spacing.sm },
+  assessmentActions: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: Spacing.sm,
+  },
   assessmentButton: {
     flex: 1,
-    minHeight: 84,
-    justifyContent: "center",
-    borderRadius: Radii.md,
-    borderWidth: Borders.hairline,
-    padding: Spacing.md,
-  },
-  knownButton: {
-    borderColor: SemanticStates.success.foreground,
-    backgroundColor: SemanticStates.success.surface,
-  },
-  unknownButton: {
-    borderColor: SemanticStates.warning.foreground,
-    backgroundColor: SemanticStates.warning.surface,
-  },
-  assessmentPressed: {
-    opacity: Interaction.pressedOpacity,
-    transform: [{ scale: Interaction.controlPressedScale }],
-  },
-  assessmentButtonTitle: {
-    color: ColorTokens.text.onSurface,
-    fontSize: Typography.sizes.label,
-    lineHeight: Typography.lineHeights.label,
-    fontWeight: Typography.weights.bold,
-  },
-  assessmentButtonMeta: {
-    color: ColorTokens.text.muted,
-    fontSize: Typography.sizes.caption,
-    lineHeight: Typography.lineHeights.caption,
-    marginTop: 2,
+    flexBasis: 150,
   },
   reportButton: { marginTop: Spacing.lg, marginBottom: Spacing.lg },
   hidden: { display: "none" },
