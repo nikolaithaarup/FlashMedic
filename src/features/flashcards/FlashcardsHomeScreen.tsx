@@ -2,19 +2,16 @@ import { StatusBar } from "expo-status-bar";
 import React, { useMemo } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
+import { ColorTokens, Spacing, Typography } from "../../../constants/theme";
 import {
-  ColorTokens,
-  Spacing,
-  Typography,
-} from "../../../constants/theme";
-import {
-  Card,
   Chip,
   EmptyState,
   NoticeCard,
   PrimaryButton,
   Screen,
+  SectionHeader,
   SecondaryButton,
+  Surface,
   ToolPageHeader,
 } from "../../ui/primitives";
 import type { TopicStats } from "../../types/Learning";
@@ -116,12 +113,9 @@ export default function FlashcardsHomeScreen({
         Start blandet træning, eller vælg fag og emner længere nede.
       </NoticeCard>
 
-      <View style={styles.sectionHeader}>
-        <Text style={styles.sectionLabel}>HURTIG START</Text>
-        <Text style={styles.sectionTitle}>Kom i gang med det samme</Text>
-      </View>
+      <SectionHeader label="HURTIG START" title="Kom i gang med det samme" />
 
-      <Card variant="subtle" style={styles.allSubjectsCard}>
+      <Surface elevated tone="accent" style={styles.allSubjectsCard}>
         <View style={styles.allSubjectsCopy}>
           <Text style={styles.cardTitle}>Træn alle fag</Text>
           <Text style={styles.cardDescription}>
@@ -134,15 +128,12 @@ export default function FlashcardsHomeScreen({
           onPress={onStartAllSubjectsQuiz}
           style={styles.allSubjectsButton}
         />
-      </Card>
+      </Surface>
 
-      <View style={styles.sectionHeader}>
-        <Text style={styles.sectionLabel}>PERSONLIG TRÆNING</Text>
-        <Text style={styles.sectionTitle}>Træn ud fra dine svar</Text>
-      </View>
+      <SectionHeader label="PERSONLIG TRÆNING" title="Træn ud fra dine svar" />
 
       <View style={styles.learningGrid}>
-        <Card variant="subtle" style={styles.learningCard}>
+        <Surface style={styles.learningCard}>
           <Text style={styles.cardTitle}>Forkerte svar</Text>
           <Text style={styles.cardDescription}>
             Gennemgå de kort, du tidligere har svaret forkert på.
@@ -157,9 +148,9 @@ export default function FlashcardsHomeScreen({
             label="Træn forkerte svar"
             onPress={onStartMistakeReview}
           />
-        </Card>
+        </Surface>
 
-        <Card variant="subtle" style={styles.learningCard}>
+        <Surface style={styles.learningCard}>
           <Text style={styles.cardTitle}>Svage emner</Text>
           <Text style={styles.cardDescription}>
             Træn de emner, hvor dine svar viser, at du har mest brug for repetition.
@@ -184,15 +175,16 @@ export default function FlashcardsHomeScreen({
             label="Træn svage emner"
             onPress={onStartWeakTopics}
           />
-        </Card>
+        </Surface>
       </View>
 
-      <View style={styles.sectionHeader}>
-        <Text style={styles.sectionLabel}>VÆLG FAG OG EMNER</Text>
-        <Text style={styles.sectionTitle}>Hvad vil du træne?</Text>
-      </View>
+      <SectionHeader
+        description="Vælg først et fag. Emnerne vises derefter."
+        label="MÅLRETTET TRÆNING"
+        title="Vælg fag og emner"
+      />
 
-      <Card variant="subtle" style={styles.sectionCard}>
+      <Surface style={styles.sectionCard}>
         <View style={styles.chipList}>
           {subjects.map((subject) => {
             const selected = selectedSubject === subject;
@@ -209,22 +201,17 @@ export default function FlashcardsHomeScreen({
             );
           })}
         </View>
-      </Card>
+      </Surface>
 
-      <View style={styles.sectionHeader}>
-        <Text style={styles.sectionLabel}>EMNER</Text>
-        <Text style={styles.sectionTitle}>
-          {selectedSubject ? `Emner i ${selectedSubject}` : "Vælg et fag"}
-        </Text>
-      </View>
-
-      <Card variant="subtle" style={styles.sectionCard}>
-        {!selectedSubject ? (
-          <EmptyState
-            message="Emnerne vises her, når du har valgt et fag ovenfor."
-            title="Intet fag valgt"
+      {selectedSubject ? (
+        <>
+          <SectionHeader
+            compact
+            label="EMNER"
+            title={`Emner i ${selectedSubject}`}
           />
-        ) : topicGroupsForSelectedSubject.length === 0 ? (
+          <Surface style={styles.sectionCard}>
+          {topicGroupsForSelectedSubject.length === 0 ? (
           <EmptyState
             message="Der er endnu ingen emner tilgængelige i dette fag."
             title="Ingen emner fundet"
@@ -258,8 +245,10 @@ export default function FlashcardsHomeScreen({
               ))}
             </View>
           </>
-        )}
-      </Card>
+          )}
+          </Surface>
+        </>
+      ) : null}
 
       {selectedSubject && selectedKeys.length > 0 ? (
         <PrimaryButton
@@ -277,11 +266,12 @@ export default function FlashcardsHomeScreen({
 const styles = StyleSheet.create({
   allSubjectsCard: {
     flexDirection: "row",
+    flexWrap: "wrap",
     alignItems: "center",
     gap: Spacing.md,
     marginTop: Spacing.md,
   },
-  allSubjectsCopy: { flex: 1, minWidth: 0 },
+  allSubjectsCopy: { flex: 1, flexBasis: 210, minWidth: 0 },
   cardTitle: {
     color: ColorTokens.text.primary,
     fontSize: Typography.sizes.cardTitle,
@@ -294,22 +284,7 @@ const styles = StyleSheet.create({
     lineHeight: Typography.lineHeights.label,
     marginTop: 2,
   },
-  allSubjectsButton: { minWidth: 176 },
-  sectionHeader: { marginTop: Spacing.xl, marginBottom: Spacing.sm },
-  sectionLabel: {
-    color: ColorTokens.accent.muted,
-    fontSize: Typography.sizes.caption,
-    lineHeight: Typography.lineHeights.caption,
-    fontWeight: Typography.weights.heavy,
-    letterSpacing: 0.8,
-  },
-  sectionTitle: {
-    color: ColorTokens.text.primary,
-    fontSize: Typography.sizes.sectionTitle,
-    lineHeight: Typography.lineHeights.sectionTitle,
-    fontWeight: Typography.weights.bold,
-    marginTop: 2,
-  },
+  allSubjectsButton: { flexGrow: 1, minWidth: 160 },
   sectionCard: { gap: Spacing.md },
   chipList: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.sm },
   selectionHeader: {

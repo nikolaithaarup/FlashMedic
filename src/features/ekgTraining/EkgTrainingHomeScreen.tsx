@@ -11,10 +11,18 @@ import {
 } from "../../../constants/theme";
 import { ekgImageLookup } from "../../data/ekg/imageLookup";
 import FullscreenEkgImageModal from "../flashcards/components/FullscreenEkgImageModal";
-import { Card, PrimaryButton, Screen, ToolPageHeader } from "../../ui/primitives";
+import {
+  Accordion,
+  Card,
+  PrimaryButton,
+  Screen,
+  SecondaryButton,
+  ToolPageHeader,
+} from "../../ui/primitives";
 
 type Props = {
   onBack: () => void;
+  onStartRhythmTrainer: () => void;
   onStartImageDrill: () => void;
   imageDrillCount: number;
   imageDrillLoading: boolean;
@@ -179,6 +187,7 @@ function InfoBlock({ title, text }: { title: string; text: string }) {
 
 export function EkgTrainingHomeScreen({
   onBack,
+  onStartRhythmTrainer,
   onStartImageDrill,
   imageDrillCount,
   imageDrillLoading,
@@ -207,6 +216,31 @@ export function EkgTrainingHomeScreen({
             Start med den samme metode hver gang. Det gør rytmevurderingen mere
             rolig, mere præcis og lettere at overlevere.
           </Text>
+          <Text style={styles.learningMeta}>
+            {imageDrillLoading
+              ? "EKG-billederne hentes."
+              : imageDrillCount > 0
+                ? `${imageDrillCount} EKG-billeder klar til træning`
+                : "Ingen EKG-billeder er tilgængelige lige nu."}
+          </Text>
+          <PrimaryButton
+            disabled={imageDrillLoading || imageDrillCount === 0}
+            label="Start billedtræning"
+            onPress={onStartImageDrill}
+            testID="start-ekg-image-drill-button"
+          />
+          <SecondaryButton
+            label="Start guidet rytmeanalyse"
+            onPress={onStartRhythmTrainer}
+          />
+        </Card>
+
+        <Card variant="subtle" style={styles.sectionCard}>
+          <SectionTitle>Træn EKG-billeder</SectionTitle>
+          <Text style={styles.bodyText}>
+            Vurder rytmestrimler med frekvens, regelmæssighed, P-takker,
+            PR-interval, QRS-bredde og rytmeforslag.
+          </Text>
         </Card>
 
         <Card variant="subtle" style={styles.sectionCard}>
@@ -230,27 +264,6 @@ export function EkgTrainingHomeScreen({
         </Card>
 
         <Card variant="subtle" style={styles.sectionCard}>
-        <SectionTitle>Træn EKG-billeder</SectionTitle>
-        <Text style={styles.bodyText}>
-          Vurder rytmestrimler med frekvens, regelmæssighed, P-takker,
-          PR-interval, QRS-bredde og rytmeforslag.
-        </Text>
-        <Text style={styles.learningMeta}>
-          {imageDrillLoading
-            ? "EKG-billederne hentes."
-            : imageDrillCount > 0
-              ? `${imageDrillCount} EKG-billeder klar til træning`
-              : "Ingen EKG-billeder er tilgængelige lige nu."}
-        </Text>
-        <PrimaryButton
-          disabled={imageDrillLoading || imageDrillCount === 0}
-          label="Start billedtræning"
-          onPress={onStartImageDrill}
-          testID="start-ekg-image-drill-button"
-        />
-        </Card>
-
-        <Card variant="subtle" style={styles.sectionCard}>
           <SectionTitle>Akutte rytmer</SectionTitle>
           <Text style={styles.bodyText}>
             Tryk på en rytme for en kort forklaring. Rytmen skal altid vurderes
@@ -263,33 +276,16 @@ export function EkgTrainingHomeScreen({
                 ? ekgImageLookup[rhythm.exampleImageKey]
                 : null;
               return (
-                <View key={rhythm.key} style={styles.rhythmItem}>
-                  <Pressable
-                    accessibilityLabel={`${rhythm.title}. ${
-                      expanded ? "Skjul forklaring" : "Vis forklaring"
-                    }`}
-                    accessibilityRole="button"
-                    accessibilityState={{ expanded }}
-                    onPress={() =>
-                      setExpandedRhythmKey(expanded ? null : rhythm.key)
-                    }
-                    style={({ pressed }) => [
-                      styles.rhythmHeader,
-                      pressed && styles.rhythmPressed,
-                    ]}
-                  >
-                    <View style={styles.rhythmHeaderCopy}>
-                      <Text style={styles.rhythmPillText}>{rhythm.title}</Text>
-                      <Text style={styles.rhythmSubtitle}>
-                        {rhythm.shortDefinition}
-                      </Text>
-                    </View>
-                    <Text style={styles.expandIcon} accessibilityElementsHidden>
-                      {expanded ? "⌃" : "⌄"}
-                    </Text>
-                  </Pressable>
-
-                  {expanded ? (
+                <Accordion
+                  expanded={expanded}
+                  key={rhythm.key}
+                  onToggle={() =>
+                    setExpandedRhythmKey(expanded ? null : rhythm.key)
+                  }
+                  style={styles.rhythmItem}
+                  subtitle={rhythm.shortDefinition}
+                  title={rhythm.title}
+                >
                     <View style={styles.rhythmPanel}>
                       <InfoBlock title="Fysiologi" text={rhythm.physiology} />
                       <InfoBlock
@@ -329,8 +325,7 @@ export function EkgTrainingHomeScreen({
                         <Text style={styles.sourceNote}>{rhythm.sourceNote}</Text>
                       ) : null}
                     </View>
-                  ) : null}
-                </View>
+                </Accordion>
               );
             })}
           </View>
@@ -455,51 +450,12 @@ const styles = StyleSheet.create({
     marginTop: Spacing.xs,
   },
   rhythmItem: {
-    borderRadius: Radii.control,
-    borderWidth: Borders.hairline,
-    borderColor: ColorTokens.border.default,
-    backgroundColor: ColorTokens.surface.subtle,
-    overflow: "hidden",
-  },
-  rhythmHeader: {
-    minHeight: 64,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.sm,
-    padding: Spacing.md,
+    width: "100%",
   },
   rhythmPressed: {
     opacity: 0.88,
   },
-  rhythmHeaderCopy: {
-    flex: 1,
-    minWidth: 0,
-  },
-  rhythmPillText: {
-    color: ColorTokens.text.primary,
-    fontFamily: Typography.families.sans,
-    fontSize: Typography.sizes.cardTitle,
-    lineHeight: Typography.lineHeights.cardTitle,
-    fontWeight: Typography.weights.bold,
-  },
-  rhythmSubtitle: {
-    color: ColorTokens.text.secondary,
-    fontFamily: Typography.families.sans,
-    fontSize: Typography.sizes.label,
-    lineHeight: Typography.lineHeights.label,
-    marginTop: 2,
-  },
-  expandIcon: {
-    color: ColorTokens.text.secondary,
-    fontFamily: Typography.families.sans,
-    fontSize: Typography.sizes.cardTitle,
-    lineHeight: Typography.lineHeights.cardTitle,
-    fontWeight: Typography.weights.bold,
-  },
   rhythmPanel: {
-    borderTopWidth: Borders.hairline,
-    borderTopColor: ColorTokens.border.divider,
-    padding: Spacing.md,
     gap: Spacing.md,
   },
   infoBlock: {

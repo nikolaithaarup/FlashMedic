@@ -146,8 +146,8 @@ const styles = StyleSheet.create({
     paddingLeft: Spacing.md,
   },
   focused: {
-    borderColor: ColorTokens.interaction.focus,
-    backgroundColor: ColorTokens.surface.elevated,
+    borderColor: ColorTokens.accent.focus,
+    backgroundColor: ColorTokens.surface.toolElevated,
   },
   invalid: {
     borderColor: ColorTokens.semantic.danger,
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     backgroundColor: ColorTokens.interaction.disabledSurface,
   },
   readOnly: {
-    backgroundColor: ColorTokens.surface.elevated,
+    backgroundColor: ColorTokens.surface.toolElevated,
   },
   input: {
     flex: 1,

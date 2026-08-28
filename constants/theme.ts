@@ -11,8 +11,10 @@ import { Platform, type TextStyle, type ViewStyle } from "react-native";
 const palette = {
   teal: {
     50: "#e6fcf5",
+    300: "#5eead4",
     400: "#0e91a8",
     500: "#0a7ea4",
+    600: "#08748e",
   },
   blue: {
     400: "#4dabf7",
@@ -67,6 +69,12 @@ export const ColorTokens = {
     elevated: "rgba(255,255,255,0.95)",
     subtle: "rgba(0,0,0,0.12)",
     inverse: "rgba(0,0,0,0.18)",
+    tool: "rgba(8,36,44,0.72)",
+    toolElevated: "rgba(10,48,58,0.90)",
+    accent: "rgba(14,145,168,0.18)",
+    success: "rgba(18,184,134,0.14)",
+    warning: "rgba(240,140,0,0.14)",
+    danger: "rgba(250,82,82,0.13)",
   },
   text: {
     primary: palette.slate[50],
@@ -82,6 +90,11 @@ export const ColorTokens = {
     muted: palette.blue[400],
     surface: "rgba(14,145,168,0.16)",
     border: palette.teal[500],
+    primary: palette.teal[400],
+    primaryPressed: palette.teal[600],
+    focus: palette.teal[300],
+    selected: "rgba(14,145,168,0.22)",
+    selectedBorder: palette.teal[300],
   },
   border: {
     default: "rgba(255,255,255,0.20)",

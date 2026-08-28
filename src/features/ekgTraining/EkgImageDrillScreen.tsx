@@ -21,12 +21,17 @@ import {
 import { ekgImageLookup } from "../../data/ekg/imageLookup";
 import type { Flashcard } from "../../types/Flashcard";
 import {
+  Accordion,
   Card,
   EmptyState,
   NoticeCard,
   PrimaryButton,
+  ProgressHeader,
+  ResultSummary,
   Screen,
   SecondaryButton,
+  SelectableChoice,
+  Surface,
   ToolPageHeader,
 } from "../../ui/primitives";
 import FullscreenEkgImageModal from "../flashcards/components/FullscreenEkgImageModal";
@@ -83,32 +88,17 @@ function StepCard({
       : "Åbn";
 
   return (
-    <Card variant="subtle" style={styles.stepCard}>
-      <Pressable
-        accessibilityHint={
-          expanded ? "Skjul svarmuligheder" : "Vis svarmuligheder"
-        }
-        accessibilityLabel={`${ekgStepLabels[stepName]}. ${
-          selectedOptionId
-            ? getEkgStepOptionLabel(stepName, selectedOptionId)
-            : "Intet valg endnu"
-        }`}
-        accessibilityRole="button"
-        accessibilityState={{ expanded }}
-        onPress={() => onToggle(stepName)}
-        style={({ pressed }) => [
-          styles.stepHeader,
-          pressed && styles.stepHeaderPressed,
-        ]}
-      >
-        <View style={styles.stepHeaderCopy}>
-          <Text style={styles.eyebrow}>{ekgStepLabels[stepName]}</Text>
-          <Text style={styles.selectedText}>
-            {selectedOptionId
-              ? getEkgStepOptionLabel(stepName, selectedOptionId)
-              : "Vælg observation"}
-          </Text>
-        </View>
+    <Accordion
+      expanded={expanded}
+      eyebrow={ekgStepLabels[stepName]}
+      onToggle={() => onToggle(stepName)}
+      style={styles.stepCard}
+      title={
+        selectedOptionId
+          ? getEkgStepOptionLabel(stepName, selectedOptionId)
+          : "Vælg observation"
+      }
+      trailing={
         <View
           style={[
             styles.feedbackBadge,
@@ -123,12 +113,8 @@ function StepCard({
         >
           <Text style={styles.feedbackBadgeText}>{statusLabel}</Text>
         </View>
-        <Text style={styles.expandIcon} accessibilityElementsHidden>
-          {expanded ? "⌃" : "⌄"}
-        </Text>
-      </Pressable>
-
-      {expanded ? (
+      }
+    >
         <>
           <View style={styles.optionGrid}>
             {ekgStepOptions[stepName].map((option) => {
@@ -137,30 +123,23 @@ function StepCard({
                 checked && option.id === stepAssessment.correctOptionId;
               const isWrongSelected = checked && selected && !isCorrectOption;
               return (
-                <Pressable
-                  accessibilityRole="button"
-                  accessibilityState={{ selected }}
+                <SelectableChoice
                   disabled={checked}
+                  dimWhenDisabled={false}
                   key={option.id}
+                  label={option.label}
                   onPress={() => onSelect(stepName, option.id)}
-                  style={({ pressed }) => [
-                    styles.optionButton,
-                    selected && styles.optionSelected,
-                    isCorrectOption && styles.optionCorrect,
-                    isWrongSelected && styles.optionIncorrect,
-                    pressed && !checked && styles.optionPressed,
-                  ]}
-                >
-                  <Text
-                    style={[
-                      styles.optionText,
-                      (selected || isCorrectOption || isWrongSelected) &&
-                        styles.optionTextSelected,
-                    ]}
-                  >
-                    {option.label}
-                  </Text>
-                </Pressable>
+                  state={
+                    isCorrectOption
+                      ? "correct"
+                      : isWrongSelected
+                        ? "incorrect"
+                        : selected
+                          ? "selected"
+                          : "default"
+                  }
+                  style={styles.optionButton}
+                />
               );
             })}
           </View>
@@ -187,8 +166,7 @@ function StepCard({
             </View>
           ) : null}
         </>
-      ) : null}
-    </Card>
+    </Accordion>
   );
 }
 
@@ -318,7 +296,7 @@ export function EkgImageDrillScreen({ cards, loadingCards, onBack }: Props) {
           </Card>
         ) : currentCard && assessment ? (
           <>
-            <Card variant="subtle" style={styles.imageCard}>
+            <Surface elevated tone="elevated" style={styles.imageCard}>
               <View style={styles.imageHeader}>
                 <View style={styles.imageHeaderCopy}>
                   <Text style={styles.eyebrow}>
@@ -354,15 +332,14 @@ export function EkgImageDrillScreen({ cards, loadingCards, onBack }: Props) {
                 />
                 <Text style={styles.imageHint}>Tryk for at åbne billedet</Text>
               </Pressable>
-            </Card>
+            </Surface>
 
-            <View style={styles.progressRow}>
-              <Text style={styles.progressText}>
-                {checked
-                  ? `${correctCount} af ${ekgAssessmentStepOrder.length} rigtige`
-                  : `${answeredCount} af ${ekgAssessmentStepOrder.length} valgt`}
-              </Text>
-            </View>
+            <ProgressHeader
+              current={answeredCount}
+              label={checked ? "SVAR AFGIVET" : "OBSERVATIONER VALGT"}
+              style={styles.progressRow}
+              total={ekgAssessmentStepOrder.length}
+            />
 
             {ekgAssessmentStepOrder.map((stepName) => (
               <StepCard
@@ -378,14 +355,11 @@ export function EkgImageDrillScreen({ cards, loadingCards, onBack }: Props) {
             ))}
 
             {checked ? (
-              <Card variant="subtle" style={styles.summaryCard}>
-                <Text style={styles.sectionTitle}>Opsummering</Text>
-                <Text style={styles.summaryScore}>
-                  {correctCount} af {ekgAssessmentStepOrder.length} rigtige
-                </Text>
-                <Text style={styles.summaryRhythm}>
-                  Rytmen passer bedst med: {assessment.rhythmName}
-                </Text>
+              <ResultSummary
+                style={styles.summaryCard}
+                title={`Rytmen passer bedst med ${assessment.rhythmName}`}
+                value={`${correctCount} / ${ekgAssessmentStepOrder.length}`}
+              >
 
                 <View style={styles.summaryBlock}>
                   <Text style={styles.summaryLabel}>Nøglefund</Text>
@@ -413,7 +387,7 @@ export function EkgImageDrillScreen({ cards, loadingCards, onBack }: Props) {
                 {assessment.sourceNote ? (
                   <Text style={styles.sourceNote}>{assessment.sourceNote}</Text>
                 ) : null}
-              </Card>
+              </ResultSummary>
             ) : null}
 
             <View style={styles.buttonStack}>
@@ -532,88 +506,15 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.xs,
     textAlign: "center",
   },
-  progressRow: {
-    minHeight: 40,
-    justifyContent: "center",
-    borderRadius: Radii.control,
-    borderWidth: Borders.hairline,
-    borderColor: ColorTokens.border.default,
-    backgroundColor: ColorTokens.surface.inverse,
-    paddingHorizontal: Spacing.md,
-    marginBottom: Spacing.md,
-  },
-  progressText: {
-    color: ColorTokens.accent.muted,
-    fontFamily: Typography.families.sans,
-    fontSize: Typography.sizes.label,
-    lineHeight: Typography.lineHeights.label,
-    fontWeight: Typography.weights.bold,
-    textAlign: "center",
-  },
+  progressRow: { marginBottom: Spacing.md },
   stepCard: {
-    gap: Spacing.md,
     marginBottom: Spacing.md,
-  },
-  stepHeader: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    gap: Spacing.sm,
-  },
-  stepHeaderPressed: {
-    opacity: Interaction.pressedOpacity,
-  },
-  stepHeaderCopy: {
-    flex: 1,
-    minWidth: 0,
-  },
-  selectedText: {
-    color: ColorTokens.text.primary,
-    fontFamily: Typography.families.sans,
-    fontSize: Typography.sizes.cardTitle,
-    lineHeight: Typography.lineHeights.cardTitle,
-    fontWeight: Typography.weights.bold,
-    marginTop: 2,
   },
   optionGrid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
     gap: Spacing.xs,
   },
   optionButton: {
-    minHeight: Interaction.minimumTouchTarget,
-    justifyContent: "center",
-    borderRadius: Radii.control,
-    borderWidth: Borders.hairline,
-    borderColor: ColorTokens.border.default,
-    backgroundColor: ColorTokens.surface.inverse,
-    paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.xs,
-  },
-  optionSelected: {
-    borderColor: ColorTokens.accent.muted,
-    backgroundColor: ColorTokens.accent.surface,
-  },
-  optionCorrect: {
-    borderColor: SemanticStates.success.foreground,
-    backgroundColor: "rgba(18,184,134,0.18)",
-  },
-  optionIncorrect: {
-    borderColor: SemanticStates.danger.foreground,
-    backgroundColor: "rgba(250,82,82,0.16)",
-  },
-  optionPressed: {
-    opacity: Interaction.pressedOpacity,
-    transform: [{ scale: Interaction.controlPressedScale }],
-  },
-  optionText: {
-    color: ColorTokens.text.secondary,
-    fontFamily: Typography.families.sans,
-    fontSize: Typography.sizes.label,
-    lineHeight: Typography.lineHeights.label,
-    fontWeight: Typography.weights.semibold,
-  },
-  optionTextSelected: {
-    color: ColorTokens.text.primary,
+    width: "100%",
   },
   feedbackBadge: {
     minHeight: 30,
@@ -645,13 +546,6 @@ const styles = StyleSheet.create({
     lineHeight: Typography.lineHeights.caption,
     fontWeight: Typography.weights.heavy,
   },
-  expandIcon: {
-    color: ColorTokens.text.secondary,
-    fontFamily: Typography.families.sans,
-    fontSize: Typography.sizes.cardTitle,
-    lineHeight: Typography.lineHeights.cardTitle,
-    fontWeight: Typography.weights.bold,
-  },
   feedbackBox: {
     borderRadius: Radii.md,
     borderWidth: Borders.hairline,
@@ -682,20 +576,6 @@ const styles = StyleSheet.create({
   summaryCard: {
     gap: Spacing.md,
     marginBottom: Spacing.md,
-  },
-  summaryScore: {
-    color: ColorTokens.accent.muted,
-    fontFamily: Typography.families.sans,
-    fontSize: Typography.sizes.cardTitle,
-    lineHeight: Typography.lineHeights.cardTitle,
-    fontWeight: Typography.weights.bold,
-  },
-  summaryRhythm: {
-    color: ColorTokens.text.primary,
-    fontFamily: Typography.families.sans,
-    fontSize: Typography.sizes.body,
-    lineHeight: Typography.lineHeights.body,
-    fontWeight: Typography.weights.bold,
   },
   summaryBlock: {
     gap: Spacing.xs,

@@ -11,7 +11,6 @@ import {
 } from "../../../constants/theme";
 import {
   Card,
-  NoticeCard,
   PrimaryButton,
   Screen,
   SecondaryButton,
@@ -85,10 +84,6 @@ export function EkgRhythmTrainerScreen({ onBack }: Props) {
         subtitle="Guidet rytmeanalyse uden scoring."
         title="Rytmeanalyse"
       />
-
-      <NoticeCard title="Uddannelsestræning" tone="info" style={styles.notice}>
-        <Text style={styles.noticeText}></Text>
-      </NoticeCard>
 
       <Card variant="subtle" style={styles.exampleCard}>
         <View style={styles.exampleHeader}>
@@ -188,17 +183,8 @@ const styles = StyleSheet.create({
   content: {
     paddingBottom: Spacing.xl,
   },
-  notice: {
-    marginBottom: Spacing.md,
-  },
-  noticeText: {
-    color: ColorTokens.text.primary,
-    fontFamily: Typography.families.sans,
-    fontSize: Typography.sizes.body,
-    lineHeight: Typography.lineHeights.body,
-  },
   exampleCard: {
-    marginBottom: Spacing.md,
+    marginBottom: Spacing.sm,
     gap: Spacing.sm,
   },
   exampleHeader: {
@@ -243,8 +229,8 @@ const styles = StyleSheet.create({
     fontWeight: Typography.weights.bold,
   },
   sectionCard: {
-    gap: Spacing.sm,
-    marginBottom: Spacing.md,
+    gap: Spacing.xs,
+    marginBottom: Spacing.sm,
   },
   sectionTitle: {
     color: ColorTokens.text.primary,
@@ -264,7 +250,7 @@ const styles = StyleSheet.create({
     borderWidth: Borders.hairline,
     borderColor: ColorTokens.border.divider,
     backgroundColor: ColorTokens.surface.subtle,
-    padding: Spacing.md,
+    padding: Spacing.xs,
     gap: Spacing.xs,
   },
   thinkLabel: {

@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     opacity: 0.94,
   },
   focused: {
-    borderColor: ColorTokens.interaction.focus,
+    borderColor: ColorTokens.accent.focus,
     borderWidth: 2,
   },
   label: {

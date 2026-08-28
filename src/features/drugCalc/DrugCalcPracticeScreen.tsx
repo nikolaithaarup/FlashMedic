@@ -1,23 +1,24 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useMemo, useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 import {
   Borders,
   ColorTokens,
-  Interaction,
   Radii,
-  SemanticStates,
   Spacing,
   Typography,
 } from "../../../constants/theme";
 import {
-  Card,
+  Accordion,
   Chip,
   NumberInput,
   PrimaryButton,
+  ResultRow,
+  ResultSummary,
   Screen,
   SecondaryButton,
+  Surface,
   ToolPageHeader,
 } from "../../ui/primitives";
 import {
@@ -70,6 +71,7 @@ export function DrugCalcPracticeScreen({
   const hasStarted = currentDrugQuestion !== null;
   const feedbackVisible = drugAnswerStatus !== "neutral" && currentDrugQuestion;
   const [topicsExpanded, setTopicsExpanded] = useState(false);
+  const [feedbackExpanded, setFeedbackExpanded] = useState(false);
   const selectionSummary = useMemo(() => {
     if (selectedTopics.length === 0) return "Alle emner";
     if (selectedTopics.length === 1) {
@@ -103,22 +105,13 @@ export function DrugCalcPracticeScreen({
         title="Træn beregninger"
       />
 
-      <Card variant="subtle" style={styles.section}>
-        <Pressable
-          accessibilityRole="button"
-          accessibilityState={{ expanded: topicsExpanded }}
-          onPress={() => setTopicsExpanded((current) => !current)}
-          style={({ pressed }) => [styles.selectorHeader, pressed && styles.pressed]}
-        >
-          <View style={styles.selectorText}>
-            <Text style={styles.selectorTitle}>Du træner</Text>
-            <Text style={styles.selectorSummary}>{selectionSummary}</Text>
-          </View>
-          <Text style={styles.selectorAction}>
-            {topicsExpanded ? "Skjul −" : "Skift emner +"}
-          </Text>
-        </Pressable>
-        {topicsExpanded ? (
+      <Accordion
+        expanded={topicsExpanded}
+        onToggle={() => setTopicsExpanded((current) => !current)}
+        style={styles.section}
+        subtitle={selectionSummary}
+        title="Du træner"
+      >
           <>
             <View style={styles.topicGrid}>
               {availableTopics.map((topic) => (
@@ -139,12 +132,11 @@ export function DrugCalcPracticeScreen({
               />
             )}
           </>
-        ) : null}
-      </Card>
+      </Accordion>
 
       {currentDrugQuestion ? (
         <>
-          <Card variant="subtle" style={styles.section}>
+          <Surface elevated tone="elevated" style={styles.section}>
             <Text style={styles.eyebrow}>OPGAVE</Text>
             <Text style={styles.questionText}>{currentDrugQuestion.text}</Text>
 
@@ -172,71 +164,77 @@ export function DrugCalcPracticeScreen({
               label="Tjek svar"
               onPress={onCheckAnswer}
             />
-          </Card>
+          </Surface>
 
           {feedbackVisible ? (
-            <Card
-              variant="subtle"
-              style={[
-                styles.section,
-                styles.feedbackCard,
+            <ResultSummary
+              message={
                 drugAnswerStatus === "correct"
-                  ? styles.feedbackCorrect
-                  : styles.feedbackIncorrect,
-              ]}
+                  ? "Din beregning ligger inden for det accepterede svarinterval."
+                  : "Sammenlign dit svar med facit, og gennemgå beregningen."
+              }
+              style={styles.section}
+              title={
+                drugAnswerStatus === "correct"
+                  ? "Korrekt beregnet"
+                  : "Gennemgå beregningen"
+              }
+              tone={drugAnswerStatus === "correct" ? "success" : "danger"}
+              value={`${formatDrugAnswer(currentDrugQuestion)} ${currentDrugQuestion.unit}`}
             >
-              <View style={styles.feedbackContent}>
-                <Text
-                  style={[
-                    styles.feedbackTitle,
-                    drugAnswerStatus === "correct"
-                      ? styles.feedbackTitleCorrect
-                      : styles.feedbackTitleIncorrect,
-                  ]}
-                >
-                  {drugAnswerStatus === "correct"
-                    ? "Korrekt beregnet"
-                    : "Gennemgå beregningen"}
-                </Text>
-                <Text style={styles.feedbackAnswer}>
-                  Korrekt svar: {formatDrugAnswer(currentDrugQuestion)} {currentDrugQuestion.unit}
-                </Text>
-                <DetailBlock label="Formel">{currentDrugQuestion.formula}</DetailBlock>
-                <View style={styles.detailBlock}>
-                  <Text style={styles.detailLabel}>Beregning trin for trin</Text>
-                  {currentDrugQuestion.calculationSteps.map((step, index) => (
-                    <Text key={`${step}-${index}`} style={styles.bodyText}>
-                      {index + 1}. {step}
-                    </Text>
-                  ))}
+              <ResultRow label="Formel" value={currentDrugQuestion.formula} />
+              <ResultRow
+                label="Afrunding"
+                last
+                value={currentDrugQuestion.roundingNote}
+              />
+              <Accordion
+                expanded={feedbackExpanded}
+                onToggle={() => setFeedbackExpanded((current) => !current)}
+                style={styles.feedbackDetails}
+                subtitle="Mellemregning, forklaring og kontrol"
+                title="Se hele gennemgangen"
+              >
+                <View style={styles.feedbackContent}>
+                  <View style={styles.detailBlock}>
+                    <Text style={styles.detailLabel}>Beregning trin for trin</Text>
+                    {currentDrugQuestion.calculationSteps.map((step, index) => (
+                      <Text key={`${step}-${index}`} style={styles.bodyText}>
+                        {index + 1}. {step}
+                      </Text>
+                    ))}
+                  </View>
+                  <DetailBlock label="Forklaring">
+                    {currentDrugQuestion.explanation}
+                  </DetailBlock>
+                  <DetailBlock label="Typisk faldgrube">
+                    {currentDrugQuestion.commonPitfall}
+                  </DetailBlock>
+                  <DetailBlock label="Plausibilitetskontrol">
+                    {currentDrugQuestion.plausibilityCheck}
+                  </DetailBlock>
                 </View>
-                <DetailBlock label="Forklaring">
-                  {currentDrugQuestion.explanation}
-                </DetailBlock>
-                <DetailBlock label="Typisk faldgrube">
-                  {currentDrugQuestion.commonPitfall}
-                </DetailBlock>
-                <DetailBlock label="Plausibilitetskontrol">
-                  {currentDrugQuestion.plausibilityCheck}
-                </DetailBlock>
-                <DetailBlock label="Afrunding">
-                  {currentDrugQuestion.roundingNote}
-                </DetailBlock>
-              </View>
-            </Card>
+              </Accordion>
+            </ResultSummary>
           ) : null}
 
           {feedbackVisible ? (
             <View style={styles.buttonStack}>
-              <PrimaryButton label="Næste opgave" onPress={onNextQuestion} />
+              <PrimaryButton
+                label="Næste opgave"
+                onPress={() => {
+                  setFeedbackExpanded(false);
+                  onNextQuestion();
+                }}
+              />
               <SecondaryButton label="Tilbage til Lægemiddelregning" onPress={onBack} />
             </View>
           ) : null}
         </>
       ) : (
-        <Card variant="subtle" style={styles.section}>
+        <Surface style={styles.section}>
           <Text style={styles.bodyText}>Vælg emner, og start træningen.</Text>
-        </Card>
+        </Surface>
       )}
     </Screen>
   );
@@ -275,41 +273,12 @@ const styles = StyleSheet.create({
     lineHeight: Typography.lineHeights.body,
   },
   topicGrid: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.xs },
-  selectorHeader: {
-    minHeight: Interaction.minimumTouchTarget,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    gap: Spacing.md,
-  },
-  selectorText: { flex: 1, gap: Spacing.xs },
-  selectorTitle: {
-    color: ColorTokens.text.primary,
-    fontFamily: Typography.families.sans,
-    fontSize: Typography.sizes.label,
-    lineHeight: Typography.lineHeights.label,
-    fontWeight: Typography.weights.semibold,
-  },
-  selectorSummary: {
-    color: ColorTokens.text.secondary,
-    fontFamily: Typography.families.sans,
-    fontSize: Typography.sizes.caption,
-    lineHeight: Typography.lineHeights.caption,
-  },
-  selectorAction: {
-    color: ColorTokens.accent.muted,
-    fontFamily: Typography.families.sans,
-    fontSize: Typography.sizes.label,
-    lineHeight: Typography.lineHeights.label,
-    fontWeight: Typography.weights.bold,
-  },
   changeHint: {
     color: ColorTokens.text.secondary,
     fontFamily: Typography.families.sans,
     fontSize: Typography.sizes.caption,
     lineHeight: Typography.lineHeights.caption,
   },
-  pressed: { opacity: Interaction.pressedOpacity },
   unitCallout: {
     flexDirection: "row",
     alignItems: "center",
@@ -344,23 +313,6 @@ const styles = StyleSheet.create({
     fontWeight: Typography.weights.bold,
   },
   feedbackContent: { gap: Spacing.md },
-  feedbackCard: { borderWidth: Borders.emphasized },
-  feedbackCorrect: { borderColor: SemanticStates.success.foreground },
-  feedbackIncorrect: { borderColor: SemanticStates.danger.foreground },
-  feedbackTitle: {
-    fontFamily: Typography.families.sans,
-    fontSize: Typography.sizes.cardTitle,
-    lineHeight: Typography.lineHeights.cardTitle,
-    fontWeight: Typography.weights.bold,
-  },
-  feedbackTitleCorrect: { color: SemanticStates.success.foreground },
-  feedbackTitleIncorrect: { color: SemanticStates.danger.foreground },
-  feedbackAnswer: {
-    color: ColorTokens.text.primary,
-    fontFamily: Typography.families.sans,
-    fontSize: Typography.sizes.cardTitle,
-    lineHeight: Typography.lineHeights.cardTitle,
-    fontWeight: Typography.weights.bold,
-  },
+  feedbackDetails: { marginTop: Spacing.md },
   buttonStack: { gap: Spacing.sm },
 });

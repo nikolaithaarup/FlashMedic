@@ -19,7 +19,11 @@ import {
   Spacing,
   Typography,
 } from "../../../constants/theme";
-import { Background, Card } from "../../ui/primitives";
+import {
+  Background,
+  NavigationCard,
+  SectionHeader,
+} from "../../ui/primitives";
 
 const titleLogo = require("../../../assets/flashmedic-logo.png");
 
@@ -45,54 +49,6 @@ type HomeScreenProps = {
   onOpenStats: () => void;
   onOpenContact: () => void;
 };
-
-type DestinationCardProps = {
-  title: string;
-  description: string;
-  eyebrow: string;
-  onPress: () => void;
-  onLongPress?: () => void;
-  delayLongPress?: number;
-  disabled?: boolean;
-};
-
-function DestinationCard({
-  title,
-  description,
-  eyebrow,
-  onPress,
-  onLongPress,
-  delayLongPress,
-  disabled = false,
-}: DestinationCardProps) {
-  return (
-    <Pressable
-      accessibilityLabel={`${title}. ${description}`}
-      accessibilityRole="button"
-      accessibilityState={{ disabled }}
-      delayLongPress={delayLongPress}
-      disabled={disabled}
-      onLongPress={onLongPress}
-      onPress={onPress}
-      style={({ pressed }) => [
-        styles.destinationPressable,
-        pressed && !disabled && styles.destinationPressed,
-        disabled && styles.disabled,
-      ]}
-    >
-      <Card variant="subtle" style={styles.destinationCard}>
-        <View style={styles.destinationCopy}>
-          <Text style={styles.eyebrow}>{eyebrow}</Text>
-          <Text style={styles.destinationTitle}>{title}</Text>
-          <Text style={styles.destinationDescription}>{description}</Text>
-        </View>
-        <Text style={styles.chevron} accessibilityElementsHidden>
-          ›
-        </Text>
-      </Card>
-    </Pressable>
-  );
-}
 
 export default function HomeScreen({
   subtitleFont,
@@ -185,21 +141,20 @@ export default function HomeScreen({
             </View>
           ) : null}
 
-          <View
-            style={[styles.sectionHeader, isPhone && styles.sectionHeaderPhone]}
-          >
-            <Text style={styles.sectionEyebrow}>LÆRING</Text>
-            <Text style={styles.sectionTitle}>Hvad vil du træne?</Text>
-          </View>
+          <SectionHeader
+            compact={isPhone}
+            label="LÆRING"
+            title="Hvad vil du træne?"
+          />
 
           <View style={styles.destinationList}>
-            <DestinationCard
+            <NavigationCard
               description="Træn ambulancefag og de emner, du har sværest ved."
               eyebrow="KERNETRÆNING"
               onPress={onOpenFlashcardsHome}
               title="FlashMedic"
             />
-            <DestinationCard
+            <NavigationCard
               description={
                 dailyTenCount >= 10
                   ? "Din daglige fokuserede repetition."
@@ -210,7 +165,7 @@ export default function HomeScreen({
               onPress={onStartDailyTen}
               title="Daily10"
             />
-            <DestinationCard
+            <NavigationCard
               description="Ugentlig tematræning og let konkurrence."
               delayLongPress={onOpenWeeklyDev ? 800 : undefined}
               eyebrow="UGENTLIGT"
@@ -218,19 +173,19 @@ export default function HomeScreen({
               onPress={onOpenWeeklyHome}
               title="Ugens udfordringer"
             />
-            <DestinationCard
+            <NavigationCard
               description="Træn doseringer, enheder og beregninger."
               eyebrow="BEREGNING"
               onPress={onOpenDrugCalcHome}
               title="Lægemiddelregning"
             />
-            <DestinationCard
+            <NavigationCard
               description="Lær rytmeanalyse trin for trin og træn akutte rytmer."
               eyebrow="RYTME OG TEORI"
               onPress={onOpenEkgTraining}
               title="EKG-træning"
             />
-            <DestinationCard
+            <NavigationCard
               description="Træn tolkning af VGAS, elektrolytter, laktat og CRP."
               eyebrow="AVANCERET"
               onPress={onOpenBloodGasTraining}
@@ -238,34 +193,21 @@ export default function HomeScreen({
             />
           </View>
 
-          <View style={styles.sectionHeader}>
-            <Text style={styles.sectionEyebrow}>SUPPORT</Text>
-            <Text style={styles.sectionTitle}>Din fremgang og hjælp</Text>
-          </View>
+          <SectionHeader label="SUPPORT" title="Din fremgang og hjælp" />
 
-          <View style={styles.utilityRow}>
-            <Pressable
-              accessibilityRole="button"
+          <View style={styles.supportList}>
+            <NavigationCard
+              description="Se din fremgang"
               onPress={onOpenStats}
-              style={({ pressed }) => [
-                styles.utilityButton,
-                pressed && styles.utilityPressed,
-              ]}
-            >
-              <Text style={styles.utilityTitle}>Statistik</Text>
-              <Text style={styles.utilityDescription}>Se din fremgang</Text>
-            </Pressable>
-            <Pressable
-              accessibilityRole="button"
+              secondary
+              title="Statistik"
+            />
+            <NavigationCard
+              description="Ris, ros og hjælp"
               onPress={onOpenContact}
-              style={({ pressed }) => [
-                styles.utilityButton,
-                pressed && styles.utilityPressed,
-              ]}
-            >
-              <Text style={styles.utilityTitle}>Kontakt</Text>
-              <Text style={styles.utilityDescription}>Ris, ros og hjælp</Text>
-            </Pressable>
+              secondary
+              title="Kontakt"
+            />
           </View>
 
           <Text style={styles.attribution}>
@@ -354,91 +296,8 @@ const styles = StyleSheet.create({
   errorSurface: { borderColor: ColorTokens.semantic.danger },
   statusText: { color: ColorTokens.text.secondary, textAlign: "center" },
   errorText: { color: ColorTokens.text.primary, textAlign: "center" },
-  sectionHeader: { marginTop: Spacing.md, marginBottom: Spacing.sm },
-  sectionHeaderPhone: { marginTop: 2, marginBottom: Spacing.xs },
-  sectionEyebrow: {
-    color: ColorTokens.accent.muted,
-    fontSize: Typography.sizes.caption,
-    lineHeight: Typography.lineHeights.caption,
-    fontWeight: Typography.weights.heavy,
-    letterSpacing: 0.9,
-  },
-  sectionTitle: {
-    color: ColorTokens.text.primary,
-    fontSize: Typography.sizes.sectionTitle,
-    lineHeight: Typography.lineHeights.sectionTitle,
-    fontWeight: Typography.weights.bold,
-    marginTop: 2,
-  },
   destinationList: { gap: Spacing.sm },
-  destinationPressable: { width: "100%" },
-  destinationPressed: {
-    opacity: Interaction.pressedOpacity,
-    transform: [{ scale: Interaction.cardPressedScale }],
-  },
-  disabled: { opacity: Interaction.disabledOpacity },
-  destinationCard: {
-    minHeight: 92,
-    flexDirection: "row",
-    alignItems: "center",
-    borderColor: ColorTokens.border.default,
-    paddingHorizontal: Spacing.lg,
-    paddingVertical: Spacing.sm,
-  },
-  destinationCopy: { flex: 1, minWidth: 0 },
-  eyebrow: {
-    color: ColorTokens.accent.muted,
-    fontSize: Typography.sizes.caption,
-    lineHeight: Typography.lineHeights.caption,
-    fontWeight: Typography.weights.bold,
-    letterSpacing: 0.7,
-  },
-  destinationTitle: {
-    color: ColorTokens.text.primary,
-    fontSize: Typography.sizes.cardTitle,
-    lineHeight: Typography.lineHeights.cardTitle,
-    fontWeight: Typography.weights.bold,
-    marginTop: 3,
-  },
-  destinationDescription: {
-    color: ColorTokens.text.secondary,
-    fontSize: Typography.sizes.label,
-    lineHeight: Typography.lineHeights.label,
-    marginTop: Spacing.xs,
-  },
-  chevron: {
-    color: ColorTokens.accent.muted,
-    fontSize: 32,
-    lineHeight: 34,
-    marginLeft: Spacing.md,
-  },
-  utilityRow: { flexDirection: "row", gap: Spacing.sm },
-  utilityButton: {
-    flex: 1,
-    minHeight: 84,
-    justifyContent: "center",
-    borderRadius: Radii.md,
-    borderWidth: Borders.hairline,
-    borderColor: ColorTokens.border.default,
-    backgroundColor: ColorTokens.surface.inverse,
-    padding: Spacing.md,
-  },
-  utilityPressed: {
-    opacity: Interaction.pressedOpacity,
-    transform: [{ scale: Interaction.cardPressedScale }],
-  },
-  utilityTitle: {
-    color: ColorTokens.text.primary,
-    fontSize: Typography.sizes.body,
-    lineHeight: Typography.lineHeights.body,
-    fontWeight: Typography.weights.bold,
-  },
-  utilityDescription: {
-    color: ColorTokens.text.secondary,
-    fontSize: Typography.sizes.caption,
-    lineHeight: Typography.lineHeights.caption,
-    marginTop: 2,
-  },
+  supportList: { gap: Spacing.xs },
   attribution: {
     color: ColorTokens.text.secondary,
     fontSize: Typography.sizes.caption,

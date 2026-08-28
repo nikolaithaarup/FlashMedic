@@ -21,9 +21,10 @@ export function PrimaryButton(props: ButtonProps) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: ColorTokens.accent.action,
+    backgroundColor: ColorTokens.accent.primary,
   },
   pressed: {
+    backgroundColor: ColorTokens.accent.primaryPressed,
     opacity: Interaction.pressedOpacity,
     transform: [{ scale: Interaction.controlPressedScale }],
   },

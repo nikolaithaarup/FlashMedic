@@ -34,25 +34,33 @@ export function NoticeCard({
   testID,
 }: NoticeCardProps) {
   const state = SemanticStates[tone];
-  const contentColor =
-    tone === "info" ? ColorTokens.text.primary : ColorTokens.text.onSurface;
+  const foreground =
+    tone === "info" ? ColorTokens.accent.focus : state.foreground;
+  const backgroundColor =
+    tone === "success"
+      ? ColorTokens.surface.success
+      : tone === "warning"
+        ? ColorTokens.surface.warning
+        : tone === "danger"
+          ? ColorTokens.surface.danger
+          : ColorTokens.surface.accent;
 
   return (
     <View
       accessibilityRole={tone === "danger" ? "alert" : undefined}
       style={[
         styles.container,
-        { borderColor: state.foreground, backgroundColor: state.surface },
+        { borderColor: foreground, backgroundColor },
         style,
       ]}
       testID={testID}
     >
-      <Text style={[styles.semanticLabel, { color: state.foreground }]}>
+      <Text style={[styles.semanticLabel, { color: foreground }]}>
         {stateLabels[tone]}
       </Text>
-      <Text style={[styles.title, { color: contentColor }]}>{title}</Text>
+      <Text style={styles.title}>{title}</Text>
       {typeof children === "string" ? (
-        <Text style={[styles.body, { color: contentColor }]}>{children}</Text>
+        <Text style={styles.body}>{children}</Text>
       ) : (
         children
       )}
@@ -75,12 +83,14 @@ const styles = StyleSheet.create({
     letterSpacing: 0.6,
   },
   title: {
+    color: ColorTokens.text.primary,
     fontFamily: Typography.families.sans,
     fontSize: Typography.sizes.cardTitle,
     lineHeight: Typography.lineHeights.cardTitle,
     fontWeight: Typography.weights.bold,
   },
   body: {
+    color: ColorTokens.text.secondary,
     fontFamily: Typography.families.sans,
     fontSize: Typography.sizes.body,
     lineHeight: Typography.lineHeights.body,
