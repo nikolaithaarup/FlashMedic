@@ -26,7 +26,6 @@ import {
   ToolPageHeader,
 } from "../../ui/primitives";
 import {
-  clearStoredProfile,
   saveStoredProfile,
   type StoredUserProfile,
 } from "../../services/userService";
@@ -83,17 +82,23 @@ export default function ProfileScreen({
       region: profile?.region ?? null,
       isAnonymous: false,
     };
-    setProfile(updated);
-
     const toStore: StoredUserProfile = {
       userId: firebaseUid,
       nickname: name,
       isAnonymous: false,
     };
-    await saveStoredProfile(toStore);
-
-    Alert.alert("Kaldenavn gemt", "Dit kaldenavn er opdateret.");
-    onBack();
+    try {
+      await saveStoredProfile(toStore);
+      setProfile(updated);
+      Alert.alert("Kaldenavn gemt", "Dit kaldenavn er opdateret.");
+      onBack();
+    } catch (error) {
+      console.warn("Failed to save profile", error);
+      Alert.alert(
+        "Profilen kunne ikke gemmes",
+        "Din eksisterende profil er bevaret. Prøv igen.",
+      );
+    }
   }, [firebaseUid, nickname, onBack, profile, setProfile]);
 
   const resetLocalProfile = useCallback(() => {
@@ -106,7 +111,6 @@ export default function ProfileScreen({
           text: "Nulstil",
           style: "destructive",
           onPress: async () => {
-            await clearStoredProfile();
             const newNick = makeRandomAnonName();
             const next: UserProfile = {
               userId: firebaseUid,
@@ -117,16 +121,23 @@ export default function ProfileScreen({
               region: profile?.region ?? null,
               isAnonymous: true,
             };
-            setProfile(next);
-            setNickname(newNick);
-
-            const toStore: StoredUserProfile = {
-              userId: firebaseUid,
-              nickname: newNick,
-              isAnonymous: true,
-            };
-            await saveStoredProfile(toStore);
-            Alert.alert("Profil nulstillet", `Ny anonym profil: ${newNick}`);
+            try {
+              const toStore: StoredUserProfile = {
+                userId: firebaseUid,
+                nickname: newNick,
+                isAnonymous: true,
+              };
+              await saveStoredProfile(toStore);
+              setProfile(next);
+              setNickname(newNick);
+              Alert.alert("Profil nulstillet", `Ny anonym profil: ${newNick}`);
+            } catch (error) {
+              console.warn("Failed to reset profile", error);
+              Alert.alert(
+                "Profilen kunne ikke nulstilles",
+                "Din eksisterende profil er bevaret. Prøv igen.",
+              );
+            }
           },
         },
       ],

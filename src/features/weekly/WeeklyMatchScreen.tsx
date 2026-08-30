@@ -1,15 +1,10 @@
 // src/features/weekly/WeeklyMatchScreen.tsx
 
-import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useMemo, useState } from "react";
 import {
-  ActivityIndicator,
   Alert,
   BackHandler,
-  Modal,
   Platform,
-  Pressable,
-  ScrollView,
   Text,
   View,
 } from "react-native";
@@ -23,15 +18,24 @@ import {
 } from "../../services/weeklyIndexService";
 import { WeeklyPackValidationError } from "../../services/weeklyPackValidation";
 import { submitWeeklyResultReliably } from "../../services/weeklyPendingUploadService";
-import { styles } from "../../ui/flashmedicStyles";
 import {
-  Background,
   EmptyState,
   ErrorState,
+  LoadingState,
   NoticeCard,
+  PrimaryButton,
+  SelectableChoice,
   SecondaryButton,
+  Surface,
 } from "../../ui/primitives";
 import { getWeeklyLockKey, useWeeklyLock } from "./useWeeklyLock";
+import {
+  WeeklyGameFrame,
+  WeeklyGameIntro,
+  WeeklyGameStatus,
+  WeeklyResultModal,
+  weeklyGameStyles as styles,
+} from "./WeeklyGameUI";
 
 import {
   loadMatchPackByWeekKey,
@@ -555,39 +559,11 @@ export function WeeklyMatchScreen({
   const leftItemsToShow = leftItems.length > 0 ? leftItems : currentPairs;
 
   return (
-    <Background style={styles.homeBackground}>
-      <StatusBar style="light" />
-      <ScrollView
-        contentContainerStyle={[styles.homeContainer, styles.safeTopContainer]}
-      >
-        <View style={styles.gameHeaderRow}>
-          <Text
-            style={[
-              styles.appTitle,
-              {
-                fontSize: headingFont,
-                color: "#fff",
-                flex: 1,
-                textAlign: "left",
-                marginBottom: 0,
-              },
-            ]}
-            numberOfLines={2}
-          >
-            Ugens udfordringer
-          </Text>
-
-          <Pressable
-            accessibilityLabel="Tilbage til Ugens udfordringer"
-            accessibilityRole="button"
-            style={styles.gameCloseButton}
-            onPress={handleBack}
-            hitSlop={10}
-          >
-            <Text style={styles.gameCloseButtonText}>‹</Text>
-          </Pressable>
-        </View>
-
+    <WeeklyGameFrame
+      onBack={handleBack}
+      subtitle="Forbind begreber og forklaringer"
+      title="Match parrene"
+    >
         {resolution?.isFallback ? (
           <NoticeCard title="Kompatibilitetsindhold">
             Ugens spil bruger en ældre version af indholdet. Du kan stadig
@@ -601,14 +577,9 @@ export function WeeklyMatchScreen({
           </NoticeCard>
         ) : null}
 
-        {loadStatus === "loading" && (
-          <View style={styles.weeklyGameCenter}>
-            <ActivityIndicator />
-            <Text style={[styles.weeklyPlaceholderText, { marginTop: 12 }]}>
-              Henter ugens matchopgave…
-            </Text>
-          </View>
-        )}
+        {loadStatus === "loading" ? (
+          <LoadingState title="Henter ugens matchopgave" />
+        ) : null}
 
         {loadStatus === "missing" ? (
           <EmptyState
@@ -633,330 +604,141 @@ export function WeeklyMatchScreen({
           />
         ) : null}
 
-        {packLoaded && loadStatus === "ready" && !started && !finished && (
-          <View style={styles.weeklyGameCenter}>
-            <Text style={styles.weeklyGameTitle}>Match parrene</Text>
+        {packLoaded && loadStatus === "ready" && !started && !finished ? (
+          <WeeklyGameIntro
+            description="Find de par, der hører sammen – fx præparat og virkning, organ og hormon, eller suffiks og lægemiddeltype."
+            eyebrow="UGENS UDFORDRING"
+            locked={isLocked}
+            onStart={handleStart}
+            rules={[
+              "Tryk først venstre og derefter højre for at danne et par",
+              "Samme nummer viser hvilke to felter der er forbundet",
+              "Tryk Aflever, når alle par er valgt",
+              "Hvert korrekt par giver 1000 point",
+              "Der trækkes 50 point pr. sekund i hver runde",
+              "Spillet kan kun gennemføres én gang pr. uge",
+            ]}
+            title="Match parrene"
+            topic={weeklyTopicsBullets}
+            topicLabel={
+              devWeekKey ? `FORHÅNDSVISNING · ${devWeekKey}` : "UGENS EMNER"
+            }
+          />
+        ) : null}
 
-            <Text
-              style={[
-                styles.weeklyPlaceholderText,
-                { textAlign: "left", alignSelf: "flex-start", marginTop: 16 },
-              ]}
-            >
-              Find de par, der hører sammen – fx præparat og virkning, organ og
-              hormon, eller suffiks og lægemiddeltype.
-            </Text>
-
-            <View
-              style={[
-                styles.statsCard,
-                {
-                  marginTop: 14,
-                  marginBottom: 14,
-                  alignSelf: "stretch",
-                  maxWidth: 700,
-                  backgroundColor: "rgba(0,0,0,0.12)",
-                },
-              ]}
-            >
-              <Text style={[styles.statsSectionTitle, { color: "#f8f9fa" }]}>
-                Sådan fungerer spillet
-              </Text>
-
-              <Text
-                style={[
-                  styles.statsLabel,
-                  { color: "#e9ecef", marginTop: 8, lineHeight: 20 },
-                ]}
-              >
-                • Tryk først venstre, derefter højre for at danne et par{"\n"}•
-                Farver viser hvilke to felter der hører sammen{"\n"}• Tryk
-                “Aflever” når du er færdig{"\n\n"}Point:{"\n"}• 1000 point pr.
-                korrekt par{"\n"}• −50 point pr. sekund (pr. runde)
-                {"\n\n"}Du kan kun spille dette spil én gang pr. uge.
-              </Text>
-            </View>
-
-            <Pressable
-              style={[
-                styles.bigButton,
-                styles.weeklyStartButton,
-                { marginTop: 10 },
-                isLocked && { opacity: 0.5 },
-              ]}
-              onPress={handleStart}
-            >
-              <Text
-                style={[styles.bigButtonText, styles.weeklyStartButtonText]}
-              >
-                {isLocked ? "Allerede spillet" : "Start spil"}
-              </Text>
-            </Pressable>
-
-            <View
-              style={{
-                marginTop: 24,
-                paddingVertical: 12,
-                paddingHorizontal: 16,
-                borderRadius: 12,
-                alignSelf: "stretch",
-                maxWidth: 700,
-                backgroundColor: "#ffffff22",
-              }}
-            >
-              <Text
-                style={[
-                  styles.bigButtonText,
-                  {
-                    fontSize: 24,
-                    fontWeight: "700",
-                    textAlign: "left",
-                    alignSelf: "flex-start",
-                    marginBottom: 6,
-                  },
-                ]}
-              >
-                {devWeekKey
-                  ? `Forhåndsvisning af uge: ${devWeekKey}`
-                  : "Denne uges emner:"}
-              </Text>
-
-              <Text
-                style={[
-                  styles.weeklyPlaceholderText,
-                  { textAlign: "left", lineHeight: 24 },
-                ]}
-              >
-                {weeklyTopicsBullets}
-              </Text>
-            </View>
-          </View>
-        )}
-
-        {started && (
+        {started ? (
           <>
-            <View style={styles.weeklyTimerBar}>
-              <Text style={styles.weeklyTimerText}>
-                Tid brugt: {timeLabel} · Runde {round} / {maxRounds}
-              </Text>
-            </View>
-
-            <View style={[styles.weeklyGameCenter, { alignItems: "stretch" }]}>
-              <Text style={styles.weeklyGameTitle}>Match parrene</Text>
-
-              <Text style={[styles.subjectStatsSub, { textAlign: "center" }]}>
-                Emne: {topicTitle}
-              </Text>
-
-              <Text style={[styles.statsLabel, { marginTop: 8 }]}>
-                Runde {round}: {currentTopic}
-              </Text>
-
-              <Text style={styles.statsLabel}>
-                Find alle {totalPairs} par, og tryk derefter på “Aflever”.
-              </Text>
-
-              <View style={{ width: "100%", maxWidth: 800, marginTop: 16 }}>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    marginBottom: 4,
-                    gap: 12,
-                  }}
-                >
-                  <Text style={[styles.statsLabel, { flex: 1 }]}>Venstre</Text>
-                  <Text style={[styles.statsLabel, { flex: 1 }]}>Højre</Text>
-                </View>
-
+            <WeeklyGameStatus
+              current={round}
+              label="RUNDE"
+              total={maxRounds}
+              value={`Tid brugt: ${timeLabel}`}
+            />
+            <View style={styles.gameStack}>
+              <Surface elevated tone="elevated" style={styles.questionCard}>
+                <Text style={styles.eyebrow}>{topicTitle}</Text>
+                <Text style={styles.title}>{currentTopic}</Text>
+                <Text style={styles.body}>
+                  Find alle {totalPairs} par, og tryk derefter på Aflever.
+                </Text>
+              </Surface>
+              <View style={styles.matchHeader}>
+                <Text style={styles.matchHeaderText}>VENSTRE</Text>
+                <Text style={styles.matchHeaderText}>HØJRE</Text>
+              </View>
+              <View style={styles.choiceList}>
                 {leftItemsToShow.map((leftPair, idx) => {
                   const rightPair = rightItemsToShow[idx];
-
-                  const isSelectedLeft = selectedLeftId === leftPair.id;
                   const matchedRightId = matches[leftPair.id];
-                  const isMatchedLeft = matchedRightId != null;
-                  const leftColorIndex =
-                    matchColorMap[leftPair.id] != null
-                      ? matchColorMap[leftPair.id]
-                      : null;
-
-                  let leftBackgroundColor = "#343a40";
-                  if (isSelectedLeft) {
-                    leftBackgroundColor = "#74c0fc";
-                  } else if (isMatchedLeft && leftColorIndex != null) {
-                    leftBackgroundColor =
-                      MATCH_COLORS[leftColorIndex % MATCH_COLORS.length];
-                  }
-
-                  let rightBackgroundColor = "#343a40";
-                  if (rightPair) {
-                    const matchedLeftEntry = Object.entries(matches).find(
-                      ([, r]) => r === rightPair.id,
-                    );
-                    const matchedLeftId = matchedLeftEntry?.[0];
-                    const isSelectedRight = selectedRightId === rightPair.id;
-
-                    if (matchedLeftId && matchColorMap[matchedLeftId] != null) {
-                      rightBackgroundColor =
-                        MATCH_COLORS[
-                          matchColorMap[matchedLeftId] % MATCH_COLORS.length
-                        ];
-                    } else if (isSelectedRight) {
-                      rightBackgroundColor = "#ffd43b";
-                    }
-                  }
+                  const leftColorIndex = matchColorMap[leftPair.id];
+                  const leftSelected = selectedLeftId === leftPair.id;
+                  const matchedLeftEntry = rightPair
+                    ? Object.entries(matches).find(([, id]) => id === rightPair.id)
+                    : undefined;
+                  const matchedLeftId = matchedLeftEntry?.[0];
+                  const rightColorIndex = matchedLeftId
+                    ? matchColorMap[matchedLeftId]
+                    : undefined;
+                  const rightSelected = rightPair
+                    ? selectedRightId === rightPair.id
+                    : false;
 
                   return (
-                    <View
-                      key={leftPair.id}
-                      style={{ flexDirection: "row", gap: 12, marginTop: 6 }}
-                    >
-                      <Pressable
-                        style={[
-                          styles.bigButton,
-                          {
-                            flex: 1,
-                            backgroundColor: leftBackgroundColor,
-                            justifyContent: "center",
-                          },
-                        ]}
+                    <View key={leftPair.id} style={styles.matchRow}>
+                      <SelectableChoice
+                        indicator={
+                          leftColorIndex != null
+                            ? String(leftColorIndex + 1)
+                            : leftSelected
+                              ? "•"
+                              : undefined
+                        }
+                        label={leftPair.left}
                         onPress={() => handleSelectLeft(leftPair.id)}
-                      >
-                        <Text
-                          style={[
-                            styles.bigButtonText,
-                            { fontSize: buttonFont * 0.9, textAlign: "center" },
-                          ]}
-                        >
-                          {leftPair.left}
-                        </Text>
-                      </Pressable>
-
+                        state={
+                          matchedRightId != null || leftSelected
+                            ? "selected"
+                            : "default"
+                        }
+                        style={styles.matchChoice}
+                      />
                       {rightPair ? (
-                        <Pressable
-                          style={[
-                            styles.bigButton,
-                            {
-                              flex: 1,
-                              backgroundColor: rightBackgroundColor,
-                              justifyContent: "center",
-                            },
-                          ]}
+                        <SelectableChoice
+                          indicator={
+                            rightColorIndex != null
+                              ? String(rightColorIndex + 1)
+                              : rightSelected
+                                ? "•"
+                                : undefined
+                          }
+                          label={rightPair.right}
                           onPress={() => handleSelectRight(rightPair.id)}
-                        >
-                          <Text
-                            style={[
-                              styles.bigButtonText,
-                              { fontSize: buttonFont * 0.9 },
-                            ]}
-                          >
-                            {rightPair.right}
-                          </Text>
-                        </Pressable>
+                          state={
+                            matchedLeftId || rightSelected
+                              ? "selected"
+                              : "default"
+                          }
+                          style={styles.matchChoice}
+                        />
                       ) : (
-                        <View style={{ flex: 1 }} />
+                        <View style={styles.matchChoice} />
                       )}
                     </View>
                   );
                 })}
               </View>
-
-              <Pressable
-                style={[
-                  styles.bigButton,
-                  styles.primaryButton,
-                  {
-                    marginTop: 24,
-                    backgroundColor: "#2b8a3e",
-                    alignSelf: "stretch",
-                  },
-                ]}
+              <PrimaryButton
+                label="Aflever"
                 onPress={() => void handleSubmit()}
-              >
-                <Text style={styles.bigButtonText}>Aflever</Text>
-              </Pressable>
+              />
             </View>
           </>
-        )}
+        ) : null}
 
-        <Modal
-          visible={showResults}
-          transparent
-          animationType="fade"
+        <WeeklyResultModal
+          closeLabel={round >= maxRounds ? "Afslut ugens spil" : "Tilbage"}
+          message={`Runde ${round} af ${maxRounds}`}
+          onPrimary={round < maxRounds ? handleNextRound : undefined}
           onRequestClose={handleCloseResults}
-        >
-          <View style={styles.modalBackdrop}>
-            <View
-              style={[
-                styles.modalContent,
-                {
-                  maxWidth: 700,
-                  backgroundColor: "#16262d",
-                  borderWidth: 1,
-                  borderColor: "rgba(255,255,255,0.20)",
-                  borderRadius: 12,
-                  padding: 20,
-                },
-              ]}
-            >
-              <Text style={styles.statsSectionTitle}>
-                Resultat – Match parrene
-              </Text>
-
-              <Text style={[styles.statsLabel, { marginTop: 8 }]}>
-                Runde {round} af {maxRounds}
-              </Text>
-
-              <Text style={[styles.statsLabel, { marginTop: 12 }]}>
-                Point denne runde:{" "}
-                <Text style={styles.statsAccuracy}>{lastRoundScore}</Text>
-              </Text>
-
-              <Text style={styles.statsLabel}>
-                Korrekte par: {correctCount} / {totalPairs}
-              </Text>
-
-              <Text style={styles.statsLabel}>
-                Forkerte / manglende: {wrongCount}
-              </Text>
-
-              <Text style={styles.statsLabel}>
-                Tidsforbrug: {timeLabel} (−50 point pr. sekund)
-              </Text>
-
-              <Text style={[styles.statsLabel, { marginTop: 8 }]}>
-                Samlede point (alle runder):{" "}
-                <Text style={styles.statsAccuracy}>{totalScore}</Text>
-              </Text>
-
-              {round < maxRounds && (
-                <Pressable
-                  style={[
-                    styles.bigButton,
-                    styles.primaryButton,
-                    { marginTop: 24, backgroundColor: "#1c7ed6" },
-                  ]}
-                  onPress={handleNextRound}
-                >
-                  <Text style={styles.bigButtonText}>
-                    Næste runde ({round + 1} / {maxRounds})
-                  </Text>
-                </Pressable>
-              )}
-
-              <Pressable
-                style={[styles.modalCloseButton, { marginTop: 16 }]}
-                onPress={handleCloseResults}
-              >
-                <Text style={styles.modalCloseText}>
-                  {round >= maxRounds ? "Afslut ugens spil" : "Tilbage"}
-                </Text>
-              </Pressable>
-            </View>
-          </View>
-        </Modal>
-      </ScrollView>
-    </Background>
+          primaryLabel={
+            round < maxRounds
+              ? `Næste runde (${round + 1} / ${maxRounds})`
+              : undefined
+          }
+          rows={[
+            { label: "Korrekte par", value: `${correctCount} / ${totalPairs}` },
+            { label: "Forkerte / manglende", value: String(wrongCount) },
+            {
+              label: "Tidsforbrug",
+              value: `${timeLabel} (−50 point pr. sekund)`,
+            },
+            { label: "Samlede point", value: String(totalScore) },
+          ]}
+          title="Resultat · Match parrene"
+          value={`${lastRoundScore} point`}
+          visible={showResults}
+        />
+    </WeeklyGameFrame>
   );
 }
 

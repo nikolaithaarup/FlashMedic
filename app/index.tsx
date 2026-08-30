@@ -75,6 +75,11 @@ import type {
 } from "../src/types/Learning";
 import HomeScreen from "../src/features/home/HomeScreen";
 import QuizScreen from "../src/features/quiz/QuizScreen";
+import {
+  ErrorState,
+  PrimaryButton,
+  Screen as AppScreen,
+} from "../src/ui/primitives";
 
 // ---------- Types ----------
 
@@ -159,8 +164,6 @@ const SUPPORT_EMAIL = "nikolai_91@live.com";
 
 const APP_LOGO = require("../assets/her-icon.png");
 
-const API_BASE_URL = "https://flashmedic-backend.onrender.com";
-
 // ---------- Helpers ----------
 
 function makeRandomAnonName() {
@@ -192,6 +195,8 @@ function scoreCardForQuiz(card: Flashcard, stats?: StatsMap | null): number {
 
 export default function Index() {
   const [authReady, setAuthReady] = useState(false);
+  const [authError, setAuthError] = useState<string | null>(null);
+  const [authRetryToken, setAuthRetryToken] = useState(0);
 
   // ✅ Dev override MUST be inside component (hooks rule)
   const [weeklyDevOverride, setWeeklyDevOverride] = useState<WeeklyDevOverride>(
@@ -325,44 +330,60 @@ export default function Index() {
 
   // -------- Load profile from storage (NO auto-create anymore) --------
   useEffect(() => {
-    (async () => {
-      const stored = await loadStoredProfile();
+    void (async () => {
+      try {
+        const stored = await loadStoredProfile();
 
-      if (stored) {
-        const loadedProfile: UserProfile = {
-          userId: stored.userId,
-          nickname: stored.nickname,
-          role: null,
-          gender: null,
-          region: null,
-          classId: stored.classId ?? null,
-          isAnonymous: stored.isAnonymous,
-        };
+        if (stored) {
+          const loadedProfile: UserProfile = {
+            userId: stored.userId,
+            nickname: stored.nickname,
+            role: null,
+            gender: null,
+            region: null,
+            classId: stored.classId ?? null,
+            isAnonymous: stored.isAnonymous,
+          };
 
-        setProfile(loadedProfile);
+          setProfile(loadedProfile);
 
-        setScreen("home");
-        return;
+          setScreen("home");
+          return;
+        }
+
+        // No stored profile => show AuthScreen (user chooses anon or create profile)
+        setProfile(null);
+        setScreen("auth");
+      } catch (error) {
+        console.warn("Failed to load stored profile", error);
+        setProfile(null);
+        setScreen("auth");
       }
-
-      // No stored profile => show AuthScreen (user chooses anon or create profile)
-      setProfile(null);
-      setScreen("auth");
     })();
   }, []);
 
   // 🔐 Firebase Auth bootstrap (always ensure we have a Firebase uid)
   useEffect(() => {
+    let active = true;
+    setAuthError(null);
+
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (!user) {
+        setAuthReady(false);
         try {
           await signInAnonymously(auth);
         } catch (e) {
           console.error("Anonymous sign-in failed", e);
+          if (active) {
+            setAuthError(
+              "FlashMedic kunne ikke oprette den anonyme forbindelse, som appen bruger til indhold og resultater.",
+            );
+          }
         }
         return;
       }
 
+      setAuthError(null);
       setAuthReady(true);
 
       // If we already have a stored profile loaded, but its userId is null,
@@ -389,8 +410,11 @@ export default function Index() {
       }
     });
 
-    return unsubscribe;
-  }, []);
+    return () => {
+      active = false;
+      unsubscribe();
+    };
+  }, [authRetryToken]);
 
   // -------- Load cards from Firestore --------
   useEffect(() => {
@@ -970,8 +994,6 @@ export default function Index() {
       isAnonymous,
     };
 
-    setProfile(newProfile);
-
     const toStore: StoredUserProfile = {
       userId: uid,
       nickname: newProfile.nickname,
@@ -979,8 +1001,17 @@ export default function Index() {
       isAnonymous: newProfile.isAnonymous,
     };
 
-    await saveStoredProfile(toStore);
-    setScreen("home");
+    try {
+      await saveStoredProfile(toStore);
+      setProfile(newProfile);
+      setScreen("home");
+    } catch (error) {
+      console.warn("Failed to save local profile", error);
+      Alert.alert(
+        "Profilen kunne ikke gemmes",
+        "Kontrollér, at appen har adgang til lokal lagring, og prøv igen.",
+      );
+    }
   };
 
   const handleBackToFlashcards = () => {
@@ -1000,6 +1031,24 @@ export default function Index() {
 
   // ---------- SCREENS ----------
   // (everything below unchanged)
+  if (authError) {
+    return (
+      <AppScreen>
+        <ErrorState
+          action={
+            <PrimaryButton
+              label="Prøv igen"
+              onPress={() => setAuthRetryToken((current) => current + 1)}
+            />
+          }
+          message={authError}
+          testID="auth-error-state"
+          title="Forbindelsen kunne ikke oprettes"
+        />
+      </AppScreen>
+    );
+  }
+
   if (screen === "auth") {
     return (
       <AuthScreen
@@ -1191,7 +1240,6 @@ export default function Index() {
       <ContactScreen
         headingFont={headingFont}
         buttonFont={buttonFont}
-        apiBaseUrl={API_BASE_URL}
         contactName={contactName}
         setContactName={setContactName}
         contactEmail={contactEmail}

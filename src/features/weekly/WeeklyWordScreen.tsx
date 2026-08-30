@@ -1,31 +1,34 @@
 // src/features/weekly/WeeklyWordScreen.tsx
-import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useMemo, useState } from "react";
 import {
-  ActivityIndicator,
   Alert,
   BackHandler,
-  Modal,
   Platform,
-  Pressable,
-  ScrollView,
   Text,
   TextInput,
   View,
-  useWindowDimensions,
 } from "react-native";
 
 import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
 
-import { styles } from "../../ui/flashmedicStyles";
 import {
-  Background,
   EmptyState,
   ErrorState,
+  LoadingState,
   NoticeCard,
+  PrimaryButton,
+  ResultSummary,
   SecondaryButton,
+  Surface,
 } from "../../ui/primitives";
 import { scrambleWord } from "./weeklyData";
+import {
+  WeeklyGameFrame,
+  WeeklyGameIntro,
+  WeeklyGameStatus,
+  WeeklyResultModal,
+  weeklyGameStyles as styles,
+} from "./WeeklyGameUI";
 
 import { auth } from "../../firebase/firebase";
 import {
@@ -140,7 +143,6 @@ export function WeeklyWordScreen({
 
   const [showResults, setShowResults] = useState(false);
 
-  const { width } = useWindowDimensions();
 
   const currentRoundData = useMemo(
     () => getRound(rounds, round),
@@ -454,28 +456,7 @@ export function WeeklyWordScreen({
     }
   };
 
-  // ---- Letter boxes math ----
   const scrambledLetters = (wordScrambled || "").split("");
-  const MAX_LETTER_ROW_WIDTH = 500;
-  const availableWidth = Math.min(width, MAX_LETTER_ROW_WIDTH) - 32;
-
-  const boxSize =
-    scrambledLetters.length > 0
-      ? Math.max(
-          26,
-          Math.floor(
-            (availableWidth - (scrambledLetters.length - 1) * 8) /
-              scrambledLetters.length,
-          ),
-        )
-      : 40;
-
-  const LETTER_GAP = 8;
-  const totalRowWidth =
-    scrambledLetters.length > 0
-      ? scrambledLetters.length * boxSize +
-        (scrambledLetters.length - 1) * LETTER_GAP
-      : 0;
 
   const timeLabel = formatSeconds(secondsLeft);
   const isTimeUp = secondsLeft <= 0;
@@ -483,39 +464,11 @@ export function WeeklyWordScreen({
 
   // ---------- Render ----------
   return (
-    <Background style={styles.homeBackground}>
-      <StatusBar style="light" />
-      <ScrollView
-        contentContainerStyle={[styles.homeContainer, styles.safeTopContainer]}
-      >
-        <View style={styles.gameHeaderRow}>
-          <Text
-            style={[
-              styles.appTitle,
-              {
-                fontSize: headingFont,
-                color: "#fff",
-                flex: 1,
-                textAlign: "left",
-                marginBottom: 0,
-              },
-            ]}
-            numberOfLines={2}
-          >
-            Ugens udfordringer
-          </Text>
-
-          <Pressable
-            accessibilityLabel="Tilbage til Ugens udfordringer"
-            accessibilityRole="button"
-            style={styles.gameCloseButton}
-            onPress={handleBack}
-            hitSlop={10}
-          >
-            <Text style={styles.gameCloseButtonText}>‹</Text>
-          </Pressable>
-        </View>
-
+    <WeeklyGameFrame
+      onBack={handleBack}
+      subtitle="Find ugens ambulancefaglige ord"
+      title="Ugens ord"
+    >
         {resolution?.isFallback ? (
           <NoticeCard title="Kompatibilitetsindhold">
             Ugens spil bruger en ældre version af indholdet. Du kan stadig
@@ -529,14 +482,9 @@ export function WeeklyWordScreen({
           </NoticeCard>
         ) : null}
 
-        {loadStatus === "loading" && (
-          <View style={styles.weeklyGameCenter}>
-            <ActivityIndicator />
-            <Text style={[styles.weeklyPlaceholderText, { marginTop: 12 }]}>
-              Henter ugens ord…
-            </Text>
-          </View>
-        )}
+        {loadStatus === "loading" ? (
+          <LoadingState title="Henter ugens ord" />
+        ) : null}
 
         {loadStatus === "missing" ? (
           <EmptyState
@@ -561,187 +509,64 @@ export function WeeklyWordScreen({
           />
         ) : null}
 
-        {packLoaded && loadStatus === "ready" && !started && !finished && (
-          <View style={styles.weeklyGameCenter}>
-            <Text style={styles.weeklyGameTitle}>Ugens ord</Text>
+        {packLoaded && loadStatus === "ready" && !started && !finished ? (
+          <WeeklyGameIntro
+            description="Gæt et blandet, ambulance-relevant ord på dansk, før tiden løber ud."
+            eyebrow="UGENS UDFORDRING"
+            locked={isLocked}
+            onStart={handleStart}
+            rules={[
+              `Der spilles ${maxRounds} runder`,
+              "Hver runde har 30 sekunders nedtælling",
+              "Skriv dit gæt i feltet og tryk Gæt ord",
+              "Korrekt svar inden for 5 sekunder giver 5000 point",
+              "Derefter mistes 160 point pr. ekstra sekund",
+              "Minimumscore for et korrekt svar er 1000 point",
+              "Forkert svar eller timeout giver 0 point",
+              "Spillet kan kun gennemføres én gang pr. uge",
+            ]}
+            title="Ugens ord"
+            topic={weeklyTopicsBullets}
+            topicLabel={
+              devWeekKey ? `FORHÅNDSVISNING · ${devWeekKey}` : "UGENS EMNER"
+            }
+          />
+        ) : null}
 
-            <Text
-              style={[
-                styles.weeklyPlaceholderText,
-                { textAlign: "left", alignSelf: "flex-start", marginTop: 16 },
-              ]}
-            >
-              Gæt et blandet, ambulance-relevant ord på dansk, før tiden løber
-              ud.
-            </Text>
-
-            <View
-              style={{
-                marginTop: 16,
-                width: "100%",
-                maxWidth: 700,
-                alignSelf: "flex-start",
-              }}
-            >
-              <Text style={styles.statsLabel}>Sådan fungerer spillet:</Text>
-              <Text style={styles.drugTheoryText}>
-                {"\n"}• Der spilles {maxRounds} runder
-                {"\n"}• 30 sekunders nedtælling pr. runde
-                {"\n"}• Skriv dit gæt i feltet og tryk “Gæt ord”
-                {"\n\n"}Point:
-                {"\n"}• Korrekt svar inden for 5 sekunder: 5000 point
-                {"\n"}• Derefter mister du 160 point pr. ekstra sekund
-                {"\n"}• Minimumscore for korrekt svar: 1000 point
-                {"\n"}• Forkert svar eller timeout: 0 point
-                {"\n\n"}Du kan kun spille dette spil én gang pr. uge.
-              </Text>
-            </View>
-
-            <Pressable
-              style={[
-                styles.bigButton,
-                styles.weeklyStartButton,
-                { marginTop: 24 },
-                isLocked && { opacity: 0.5 },
-              ]}
-              onPress={handleStart}
-            >
-              <Text
-                style={[styles.bigButtonText, styles.weeklyStartButtonText]}
-              >
-                {isLocked ? "Allerede spillet" : "Start spil"}
-              </Text>
-            </Pressable>
-
-            <View
-              style={{
-                marginTop: 24,
-                paddingVertical: 12,
-                paddingHorizontal: 16,
-                borderRadius: 12,
-                alignSelf: "stretch",
-                maxWidth: 700,
-                backgroundColor: "#ffffff22",
-              }}
-            >
-              <Text
-                style={[
-                  styles.bigButtonText,
-                  {
-                    fontSize: 24,
-                    fontWeight: "700",
-                    textAlign: "left",
-                    alignSelf: "flex-start",
-                    marginBottom: 6,
-                  },
-                ]}
-              >
-                {devWeekKey
-                  ? `Forhåndsvisning af uge: ${devWeekKey}`
-                  : "Denne uges emner:"}
-              </Text>
-
-              <Text
-                style={[
-                  styles.weeklyPlaceholderText,
-                  { textAlign: "left", lineHeight: 24 },
-                ]}
-              >
-                {weeklyTopicsBullets}
-              </Text>
-            </View>
-          </View>
-        )}
-
-        {(started || finished) && (
+        {started || finished ? (
           <>
-            <View style={styles.weeklyTimerBar}>
-              <Text style={styles.weeklyTimerText}>
-                Tid tilbage: {timeLabel} · Runde {round} / {maxRounds}
-              </Text>
-            </View>
-
-            <View style={styles.weeklyGameCenter}>
-              <Text style={styles.weeklyGameTitle}>Ugens ord</Text>
-
-              <Text
-                style={[
-                  styles.weeklyPlaceholderText,
-                  {
-                    marginTop: 4,
-                    textAlign: "center",
-                    alignSelf: "center",
-                    fontStyle: "italic",
-                  },
-                ]}
-              >
-                Runde {round}: {currentRoundData?.topic ?? "Ugens emne"}
-              </Text>
-
-              <View
-                style={{ marginTop: 24, width: "100%", alignItems: "center" }}
-              >
-                <View
-                  style={{
-                    width: totalRowWidth,
-                    maxWidth: 500,
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
+            <WeeklyGameStatus
+              current={round}
+              label="RUNDE"
+              total={maxRounds}
+              value={`Tid tilbage: ${timeLabel}`}
+            />
+            <View style={styles.gameStack}>
+              <Surface elevated tone="elevated" style={styles.questionCard}>
+                <Text style={styles.eyebrow}>
+                  {currentRoundData?.topic ?? topicTitle}
+                </Text>
+                <Text style={styles.title}>Hvilket ord gemmer sig?</Text>
+                <View style={styles.wordLetters}>
                   {scrambledLetters.length > 0 ? (
                     scrambledLetters.map((ch, idx) => (
-                      <View
-                        key={`${ch}-${idx}`}
-                        style={{
-                          width: boxSize,
-                          height: Math.floor(boxSize * 1.3),
-                          borderRadius: 6,
-                          borderWidth: 2,
-                          borderColor: "#f8f9fa",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          backgroundColor: "#343a40dd",
-                        }}
-                      >
-                        <Text
-                          style={{
-                            color: "#f8f9fa",
-                            fontSize: Math.max(18, Math.floor(boxSize * 0.6)),
-                            fontWeight: "700",
-                          }}
-                        >
-                          {ch}
-                        </Text>
+                      <View key={`${ch}-${idx}`} style={styles.letterTile}>
+                        <Text style={styles.letterText}>{ch}</Text>
                       </View>
                     ))
                   ) : (
-                    <Text style={styles.weeklyPlaceholderText}>
+                    <Text style={styles.meta}>
                       Tryk på Start spil for at se ugens ord.
                     </Text>
                   )}
                 </View>
-              </View>
-
-              <View
-                style={{
-                  marginTop: 24,
-                  width: "100%",
-                  maxWidth: 500,
-                  alignSelf: "center",
-                }}
-              >
-                <Text
-                  style={[
-                    styles.statsLabel,
-                    { marginBottom: 8, textAlign: "center" },
-                  ]}
-                >
-                  Skriv dit gæt:
-                </Text>
+              </Surface>
+              <Surface style={styles.questionCard}>
+                <Text style={styles.inputLabel}>Skriv dit gæt</Text>
                 <TextInput
-                  value={guess}
+                  accessibilityLabel="Dit gæt"
+                  autoCapitalize="characters"
+                  editable={!guessLocked && !isTimeUp}
                   onChangeText={(text) => {
                     if (!guessLocked && !isTimeUp) {
                       setGuess(text.toUpperCase());
@@ -749,168 +574,57 @@ export function WeeklyWordScreen({
                     }
                   }}
                   placeholder="FX RESPIRATION"
-                  placeholderTextColor="#adb5bd"
-                  autoCapitalize="none"
-                  editable={!guessLocked && !isTimeUp}
-                  style={[
-                    styles.textInput,
-                    {
-                      textAlign: "center",
-                      fontSize: 26,
-                      letterSpacing: 4,
-                      textTransform: "uppercase",
-                      borderWidth: 0,
-                      borderBottomWidth: 3,
-                      borderBottomColor: "#f8f9fa",
-                      backgroundColor: "#212529dd",
-                      paddingVertical: 10,
-                      color: "#ffffff",
-                    },
-                  ]}
+                  style={styles.input}
+                  value={guess}
                 />
-              </View>
-
-              <View
-                style={{
-                  marginTop: 24,
-                  width: "100%",
-                  maxWidth: 500,
-                  alignSelf: "center",
-                  alignItems: "center",
-                  gap: 12,
-                }}
-              >
-                <Pressable
-                  style={[
-                    styles.bigButton,
-                    styles.primaryButton,
-                    {
-                      backgroundColor:
-                        guessLocked || isTimeUp ? "#495057" : "#1c7ed6",
-                      alignSelf: "stretch",
-                    },
-                  ]}
+                <PrimaryButton
                   disabled={guessLocked || isTimeUp}
+                  label={isTimeUp ? "Tiden er gået" : "Gæt ord"}
                   onPress={handleGuess}
-                >
-                  <Text style={styles.bigButtonText}>
-                    {isTimeUp ? "TIDEN ER GÅET" : "GÆT ORD"}
-                  </Text>
-                </Pressable>
-
-                {(guessLocked || isTimeUp) && (
-                  <Pressable
-                    style={[
-                      styles.bigButton,
-                      styles.secondaryButton,
-                      { backgroundColor: "#2b8a3e", alignSelf: "stretch" },
-                    ]}
+                />
+                {guessLocked || isTimeUp ? (
+                  <SecondaryButton
+                    label="Vis svar"
                     onPress={handleShowResults}
-                  >
-                    <Text style={styles.bigButtonText}>VIS SVAR</Text>
-                  </Pressable>
-                )}
-              </View>
-
-              {finished && (
-                <View style={{ marginTop: 16, alignItems: "center" }}>
-                  <Text
-                    style={
-                      result === "correct"
-                        ? styles.weeklyWordFeedbackCorrect
-                        : styles.weeklyWordFeedbackWrong
-                    }
-                  >
-                    {result === "correct"
-                      ? `Korrekt! Du fik ${roundScore} point.`
-                      : "Forkert eller for langsom – 0 point denne runde."}
-                  </Text>
-                </View>
-              )}
+                  />
+                ) : null}
+              </Surface>
+              {finished ? (
+                <ResultSummary
+                  message={
+                    result === "correct"
+                      ? `Du fik ${roundScore} point.`
+                      : "Forkert eller for langsom – 0 point denne runde."
+                  }
+                  title={result === "correct" ? "Korrekt ord" : "Ikke korrekt"}
+                  tone={result === "correct" ? "success" : "danger"}
+                />
+              ) : null}
             </View>
           </>
-        )}
+        ) : null}
 
-        <Modal
-          visible={showResults}
-          transparent
-          animationType="fade"
+        <WeeklyResultModal
+          closeLabel={round >= maxRounds ? "Afslut ugens spil" : "Tilbage"}
+          message={`Runde ${round} af ${maxRounds}`}
+          onPrimary={round < maxRounds ? handleNextRound : undefined}
           onRequestClose={handleCloseResults}
-        >
-          <View style={styles.modalBackdrop}>
-            <View
-              style={[
-                styles.modalContent,
-                {
-                  maxWidth: 700,
-                  backgroundColor: "#16262d",
-                  borderWidth: 1,
-                  borderColor: "rgba(255,255,255,0.20)",
-                  borderRadius: 12,
-                  padding: 20,
-                },
-              ]}
-            >
-              <Text style={styles.statsSectionTitle}>
-                Resultat – Ugens ord
-              </Text>
-
-              <Text style={[styles.statsLabel, { marginTop: 8 }]}>
-                Runde {round} af {maxRounds}
-              </Text>
-
-              <Text style={[styles.statsLabel, { marginTop: 12 }]}>
-                Korrekt ord:{" "}
-                <Text style={styles.statsAccuracy}>
-                  {wordOriginal.toUpperCase()}
-                </Text>
-              </Text>
-
-              <Text style={styles.statsLabel}>
-                Dit gæt:{" "}
-                <Text style={styles.subjectStatsSub}>
-                  {guess || "(ingen gæt)"}
-                </Text>
-              </Text>
-
-              <Text style={styles.statsLabel}>
-                Point denne runde:{" "}
-                <Text style={styles.statsAccuracy}>{roundScore}</Text>
-              </Text>
-
-              <Text style={styles.statsLabel}>
-                Samlede point (alle runder):{" "}
-                <Text style={styles.statsAccuracy}>{totalScore}</Text>
-              </Text>
-
-              {round < maxRounds && (
-                <Pressable
-                  style={[
-                    styles.bigButton,
-                    styles.primaryButton,
-                    { marginTop: 24, backgroundColor: "#1c7ed6" },
-                  ]}
-                  onPress={handleNextRound}
-                >
-                  <Text style={styles.bigButtonText}>
-                    Næste runde ({round + 1} / {maxRounds})
-                  </Text>
-                </Pressable>
-              )}
-
-              <Pressable
-                style={[styles.modalCloseButton, { marginTop: 16 }]}
-                onPress={handleCloseResults}
-              >
-                <Text style={styles.modalCloseText}>
-                  {round >= maxRounds ? "Afslut ugens spil" : "Tilbage"}
-                </Text>
-              </Pressable>
-            </View>
-          </View>
-        </Modal>
-      </ScrollView>
-    </Background>
+          primaryLabel={
+            round < maxRounds
+              ? `Næste runde (${round + 1} / ${maxRounds})`
+              : undefined
+          }
+          rows={[
+            { label: "Korrekt ord", value: wordOriginal.toUpperCase() },
+            { label: "Dit gæt", value: guess || "(ingen gæt)" },
+            { label: "Point denne runde", value: String(roundScore) },
+            { label: "Samlede point", value: String(totalScore) },
+          ]}
+          title="Resultat · Ugens ord"
+          value={`${roundScore} point`}
+          visible={showResults}
+        />
+    </WeeklyGameFrame>
   );
 }
 

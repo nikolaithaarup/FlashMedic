@@ -1,16 +1,11 @@
 // src/features/weekly/WeeklyMcqScreen.tsx
 // ✅ ONLY CHANGE: replace the plain instruction block with the same boxed help card styling.
 
-import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useMemo, useState } from "react";
 import {
-  ActivityIndicator,
   Alert,
   BackHandler,
-  Modal,
   Platform,
-  Pressable,
-  ScrollView,
   Text,
   View,
 } from "react-native";
@@ -24,15 +19,25 @@ import {
 } from "../../services/weeklyIndexService";
 import { WeeklyPackValidationError } from "../../services/weeklyPackValidation";
 import { submitWeeklyResultReliably } from "../../services/weeklyPendingUploadService";
-import { styles } from "../../ui/flashmedicStyles";
 import {
-  Background,
   EmptyState,
   ErrorState,
+  LoadingState,
   NoticeCard,
+  PrimaryButton,
+  ResultSummary,
+  SelectableChoice,
   SecondaryButton,
+  Surface,
 } from "../../ui/primitives";
 import { getWeeklyLockKey, useWeeklyLock } from "./useWeeklyLock";
+import {
+  WeeklyGameFrame,
+  WeeklyGameIntro,
+  WeeklyGameStatus,
+  WeeklyResultModal,
+  weeklyGameStyles as styles,
+} from "./WeeklyGameUI";
 
 import {
   loadMcqPackByWeekKey,
@@ -441,39 +446,11 @@ export function WeeklyMcqScreen({
 
   // ---------- Render ----------
   return (
-    <Background style={styles.homeBackground}>
-      <StatusBar style="light" />
-      <ScrollView
-        contentContainerStyle={[styles.homeContainer, styles.safeTopContainer]}
-      >
-        <View style={styles.gameHeaderRow}>
-          <Text
-            style={[
-              styles.appTitle,
-              {
-                fontSize: headingFont,
-                color: "#fff",
-                flex: 1,
-                textAlign: "left",
-                marginBottom: 0,
-              },
-            ]}
-            numberOfLines={2}
-          >
-            Ugens udfordringer
-          </Text>
-
-          <Pressable
-            accessibilityLabel="Tilbage til Ugens udfordringer"
-            accessibilityRole="button"
-            style={styles.gameCloseButton}
-            onPress={handleBack}
-            hitSlop={10}
-          >
-            <Text style={styles.gameCloseButtonText}>‹</Text>
-          </Pressable>
-        </View>
-
+    <WeeklyGameFrame
+      onBack={handleBack}
+      subtitle="Hurtige spørgsmål om ugens emne"
+      title="Ugens quiz"
+    >
         {resolution?.isFallback ? (
           <NoticeCard title="Kompatibilitetsindhold">
             Ugens spil bruger en ældre version af indholdet. Du kan stadig
@@ -487,14 +464,9 @@ export function WeeklyMcqScreen({
           </NoticeCard>
         ) : null}
 
-        {loadStatus === "loading" && (
-          <View style={styles.weeklyGameCenter}>
-            <ActivityIndicator />
-            <Text style={[styles.weeklyPlaceholderText, { marginTop: 12 }]}>
-              Henter spørgsmål...
-            </Text>
-          </View>
-        )}
+        {loadStatus === "loading" ? (
+          <LoadingState title="Henter spørgsmål" />
+        ) : null}
 
         {loadStatus === "missing" ? (
           <EmptyState
@@ -519,281 +491,112 @@ export function WeeklyMcqScreen({
           />
         ) : null}
 
-        {packLoaded && loadStatus === "ready" && !started && !finished && (
-          <View style={styles.weeklyGameCenter}>
-            <Text style={styles.weeklyGameTitle}>Ugens quiz</Text>
+        {packLoaded && loadStatus === "ready" && !started && !finished ? (
+          <WeeklyGameIntro
+            description="Svar så hurtigt og korrekt som muligt på ugens spørgsmål."
+            eyebrow="UGENS UDFORDRING"
+            locked={isLocked}
+            onStart={handleStart}
+            rules={[
+              `${totalQuestions} spørgsmål om ugens emne`,
+              `${timeLimit} sekunder pr. spørgsmål`,
+              "Korrekt svar inden for de første 5 sekunder giver 1000 point",
+              "Derefter falder scoren med ca. 32 point pr. sekund",
+              "Minimum 200 point for et korrekt svar",
+              "Forkert svar eller timeout giver 0 point",
+              "Spillet kan kun gennemføres én gang pr. uge",
+            ]}
+            title="Ugens quiz"
+            topic={weeklyTopicBullet}
+            topicLabel={
+              devWeekKey ? `FORHÅNDSVISNING · ${devWeekKey}` : "UGENS EMNE"
+            }
+          />
+        ) : null}
 
-            <Text
-              style={[
-                styles.weeklyPlaceholderText,
-                { textAlign: "left", alignSelf: "flex-start", marginTop: 16 },
-              ]}
-            >
-              Svar så hurtigt og korrekt som muligt på ugens spørgsmål.
-            </Text>
-
-            {/* ✅ NEW: same "boxed help card" look as FlashcardsHomeScreen */}
-            <View
-              style={[
-                styles.statsCard,
-                {
-                  marginTop: 14,
-                  marginBottom: 14,
-                  alignSelf: "stretch",
-                  maxWidth: 700,
-                  backgroundColor: "rgba(0,0,0,0.12)",
-                },
-              ]}
-            >
-              <Text style={[styles.statsSectionTitle, { color: "#f8f9fa" }]}>
-                Sådan fungerer spillet
-              </Text>
-
-              <Text
-                style={[
-                  styles.statsLabel,
-                  { color: "#e9ecef", marginTop: 8, lineHeight: 20 },
-                ]}
-              >
-                • {totalQuestions} spørgsmål om ugens emne{"\n"}• {timeLimit}{" "}
-                sekunder pr. spørgsmål{"\n"}• Korrekt svar inden for de første 5
-                sekunder: 1000 point{"\n"}• Derefter falder scoren med ca. 32
-                point pr. sekund{"\n"}• Minimum 200 point for et korrekt svar
-                {"\n"}• Forkert svar eller timeout: 0 point{"\n\n"}Du kan kun
-                spille dette spil én gang pr. uge.
-              </Text>
-            </View>
-
-            <Pressable
-              style={[
-                styles.bigButton,
-                styles.weeklyStartButton,
-                { marginTop: 10 },
-                isLocked && { opacity: 0.5 },
-              ]}
-              onPress={handleStart}
-            >
-              <Text
-                style={[styles.bigButtonText, styles.weeklyStartButtonText]}
-              >
-                {isLocked ? "Allerede spillet" : "Start spil"}
-              </Text>
-            </Pressable>
-
-            <View
-              style={{
-                marginTop: 24,
-                paddingVertical: 12,
-                paddingHorizontal: 16,
-                borderRadius: 12,
-                alignSelf: "stretch",
-                maxWidth: 700,
-                backgroundColor: "#ffffff22",
-              }}
-            >
-              <Text
-                style={[
-                  styles.bigButtonText,
-                  {
-                    fontSize: 24,
-                    fontWeight: "700",
-                    textAlign: "left",
-                    alignSelf: "flex-start",
-                    marginBottom: 6,
-                  },
-                ]}
-              >
-                {devWeekKey ? `Forhåndsvisning af uge: ${devWeekKey}` : "Denne uges emne:"}
-              </Text>
-
-              <Text
-                style={[
-                  styles.weeklyPlaceholderText,
-                  { textAlign: "left", lineHeight: 24 },
-                ]}
-              >
-                {weeklyTopicBullet}
-              </Text>
-            </View>
-          </View>
-        )}
-
-        {started && currentQuestion && (
+        {started && currentQuestion ? (
           <>
-            <View style={styles.weeklyTimerBar}>
-              <Text style={styles.weeklyTimerText}>
-                Tid tilbage: {timeLabel}
-              </Text>
-            </View>
-
-            <View style={styles.weeklyGameCenter}>
-              <Text style={styles.weeklyGameTitle}>Ugens quiz</Text>
-
-              <View
-                style={{
-                  marginTop: 4,
-                  alignSelf: "center",
-                  width: "100%",
-                  maxWidth: 700,
-                }}
-              >
-                <Text
-                  style={[
-                    styles.subjectStatsSub,
-                    { textAlign: "center", fontStyle: "italic" },
-                  ]}
-                >
-                  Emne: {topicTitle}
-                </Text>
-              </View>
-
-              <Text style={styles.statsLabel}>
-                Spørgsmål {questionNumber} af {totalQuestions}
-              </Text>
-
-              <View
-                style={{
-                  marginTop: 16,
-                  width: "100%",
-                  maxWidth: 700,
-                  padding: 12,
-                  borderRadius: 12,
-                  backgroundColor: "rgba(20,33,39,0.90)",
-                  borderWidth: 1,
-                  borderColor: "rgba(255,255,255,0.20)",
-                }}
-              >
-                <Text
-                  style={[
-                    styles.questionText,
-                    { fontSize: 20, lineHeight: 26 },
-                  ]}
-                >
-                  {currentQuestion.text}
-                </Text>
-              </View>
-
-              <View style={{ width: "100%", maxWidth: 700, marginTop: 16 }}>
+            <WeeklyGameStatus
+              current={questionNumber}
+              label="SPØRGSMÅL"
+              total={totalQuestions}
+              value={`Tid tilbage: ${timeLabel}`}
+            />
+            <View style={styles.gameStack}>
+              <Surface elevated tone="elevated" style={styles.questionCard}>
+                <Text style={styles.eyebrow}>{topicTitle}</Text>
+                <Text style={styles.title}>{currentQuestion.text}</Text>
+              </Surface>
+              <View style={styles.choiceList}>
                 {(shuffledOptions.length > 0
                   ? shuffledOptions
                   : currentQuestion.options
                 ).map((opt) => {
                   const isSelected = selectedId === opt.id;
-
-                  let backgroundColor = "#343a40";
-                  if (showFeedback) {
-                    if (opt.isCorrect) backgroundColor = "#2b8a3e";
-                    else if (isSelected && !opt.isCorrect)
-                      backgroundColor = "#c92a2a";
-                    else backgroundColor = "#495057";
-                  } else if (isSelected) {
-                    backgroundColor = "#1c7ed6";
-                  }
-
                   return (
-                    <Pressable
-                      key={opt.id}
-                      style={[
-                        styles.bigButton,
-                        { alignSelf: "stretch", marginTop: 8, backgroundColor },
-                      ]}
+                    <SelectableChoice
+                      dimWhenDisabled={false}
                       disabled={showFeedback}
+                      key={opt.id}
+                      label={opt.text}
                       onPress={() => handleAnswer(opt.id)}
-                    >
-                      <Text
-                        style={[styles.bigButtonText, { fontSize: buttonFont }]}
-                      >
-                        {opt.text}
-                      </Text>
-                    </Pressable>
+                      state={
+                        showFeedback
+                          ? opt.isCorrect
+                            ? "correct"
+                            : isSelected
+                              ? "incorrect"
+                              : "default"
+                          : isSelected
+                            ? "selected"
+                            : "default"
+                      }
+                    />
                   );
                 })}
               </View>
 
-              {showFeedback && (
-                <View
-                  style={{
-                    marginTop: 20,
-                    width: "100%",
-                    maxWidth: 700,
-                    alignItems: "center",
-                  }}
-                >
-                  <Text
-                    style={
+              {showFeedback ? (
+                <View style={styles.feedback}>
+                  <ResultSummary
+                    message={
                       lastPoints > 0
-                        ? styles.weeklyWordFeedbackCorrect
-                        : styles.weeklyWordFeedbackWrong
+                        ? `Du fik ${lastPoints} point.`
+                        : "Forkert eller for langsom – 0 point for dette spørgsmål."
                     }
-                  >
-                    {lastPoints > 0
-                      ? `Korrekt! Du fik ${lastPoints} point.`
-                      : "Forkert eller for langsom – 0 point for dette spørgsmål."}
-                  </Text>
-
-                  <Pressable
-                    style={[
-                      styles.bigButton,
-                      styles.primaryButton,
-                      { marginTop: 12, backgroundColor: "#1c7ed6" },
-                    ]}
-                    onPress={handleNext}
-                  >
-                    <Text style={styles.bigButtonText}>
-                      {questionNumber === totalQuestions
+                    title={lastPoints > 0 ? "Korrekt svar" : "Ikke korrekt"}
+                    tone={lastPoints > 0 ? "success" : "danger"}
+                  />
+                  <PrimaryButton
+                    label={
+                      questionNumber === totalQuestions
                         ? "Se resultat"
-                        : "Næste spørgsmål"}
-                    </Text>
-                  </Pressable>
+                        : "Næste spørgsmål"
+                    }
+                    onPress={handleNext}
+                  />
                 </View>
-              )}
+              ) : null}
             </View>
           </>
-        )}
+        ) : null}
 
-        <Modal
-          visible={showResults}
-          transparent
-          animationType="fade"
+        <WeeklyResultModal
+          closeLabel="Luk"
+          message="Ugens quiz er afsluttet."
           onRequestClose={handleCloseResults}
-        >
-          <View style={styles.modalBackdrop}>
-            <View
-              style={[
-                styles.modalContent,
-                {
-                  maxWidth: 700,
-                  backgroundColor: "#16262d",
-                  borderWidth: 1,
-                  borderColor: "rgba(255,255,255,0.20)",
-                  borderRadius: 12,
-                  padding: 20,
-                },
-              ]}
-            >
-              <Text style={styles.statsSectionTitle}>
-                Resultat – Ugens quiz
-              </Text>
-
-              <Text style={[styles.statsLabel, { marginTop: 12 }]}>
-                Point i alt: <Text style={styles.statsAccuracy}>{score}</Text>
-              </Text>
-              <Text style={styles.statsLabel}>
-                Korrekte svar: {correctCount} / {totalQuestions}
-              </Text>
-              <Text style={styles.statsLabel}>Forkerte svar: {wrongCount}</Text>
-
-              <Pressable
-                style={[styles.modalCloseButton, { marginTop: 24 }]}
-                onPress={handleCloseResults}
-              >
-                <Text style={styles.modalCloseText}>Luk</Text>
-              </Pressable>
-            </View>
-          </View>
-        </Modal>
-      </ScrollView>
-    </Background>
+          rows={[
+            {
+              label: "Korrekte svar",
+              value: `${correctCount} / ${totalQuestions}`,
+            },
+            { label: "Forkerte svar", value: String(wrongCount) },
+          ]}
+          title="Resultat · Ugens quiz"
+          value={`${score} point`}
+          visible={showResults}
+        />
+    </WeeklyGameFrame>
   );
 }
 

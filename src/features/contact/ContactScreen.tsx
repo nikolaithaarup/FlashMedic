@@ -1,5 +1,7 @@
 import Constants from "expo-constants";
 import * as Device from "expo-device";
+import * as Linking from "expo-linking";
+import * as MailComposer from "expo-mail-composer";
 import { StatusBar } from "expo-status-bar";
 import React, { useMemo } from "react";
 import { Alert, Platform, StyleSheet, Text, TextInput } from "react-native";
@@ -22,7 +24,6 @@ import {
 type Props = {
   headingFont: number;
   buttonFont: number;
-  apiBaseUrl: string;
   contactName: string;
   setContactName: (value: string) => void;
   contactEmail: string;
@@ -32,8 +33,9 @@ type Props = {
   onBack: () => void;
 };
 
+const SUPPORT_EMAIL = "nikolai_91@live.com";
+
 export function ContactScreen({
-  apiBaseUrl,
   contactName,
   setContactName,
   contactEmail,
@@ -63,29 +65,46 @@ export function ContactScreen({
       return;
     }
 
+    const subject = `[${appName}] Kontakt fra appen`;
+    const body = [
+      contactName.trim() ? `Navn: ${contactName.trim()}` : null,
+      contactEmail.trim() ? `E-mail: ${contactEmail.trim()}` : null,
+      "",
+      contactMessage.trim(),
+      "",
+      `${appName} · v${appVersion} · ${Platform.OS}`,
+      deviceInfo || null,
+    ]
+      .filter((line) => line !== null)
+      .join("\n");
+
     try {
-      const response = await fetch(`${apiBaseUrl}/contact/send`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: contactName.trim() || null,
-          email: contactEmail.trim() || null,
-          message: contactMessage.trim(),
-          appName,
-          appVersion,
-          platform: Platform.OS,
-          deviceInfo,
-        }),
-      });
+      if (await MailComposer.isAvailableAsync()) {
+        const result = await MailComposer.composeAsync({
+          recipients: [SUPPORT_EMAIL],
+          subject,
+          body,
+        });
+        if (result.status === MailComposer.MailComposerStatus.SENT) {
+          setContactName("");
+          setContactEmail("");
+          setContactMessage("");
+        }
+        return;
+      }
 
-      if (!response.ok) throw new Error("Serverfejl");
-
-      Alert.alert("Tak!", "Tak – din besked er sendt.");
-      setContactName("");
-      setContactEmail("");
-      setContactMessage("");
-    } catch {
-      Alert.alert("Fejl", "Kunne ikke sende beskeden. Prøv igen.");
+      const mailtoUrl = `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      await Linking.openURL(mailtoUrl);
+      Alert.alert(
+        "E-mail åbnet",
+        "Send beskeden fra din e-mailapp. Din tekst bliver stående i FlashMedic, indtil du vender tilbage.",
+      );
+    } catch (error) {
+      console.warn("Could not open support email", error);
+      Alert.alert(
+        "Kunne ikke åbne e-mail",
+        `Skriv direkte til ${SUPPORT_EMAIL}. Din besked er ikke blevet slettet.`,
+      );
     }
   };
 
@@ -107,6 +126,9 @@ export function ContactScreen({
         </Text>
         <Text style={styles.metaText}>
           {appName} · v{appVersion} · {deviceInfo || "Ukendt enhed"} ({Platform.OS})
+        </Text>
+        <Text selectable style={styles.metaText}>
+          Support: {SUPPORT_EMAIL}
         </Text>
       </Card>
 
