@@ -12,9 +12,11 @@ import {
 } from "../../../constants/theme";
 import {
   Card,
-  NoticeCard,
+  NavigationCard,
   PrimaryButton,
+  ProgressHeader,
   Screen,
+  SecondaryButton,
   ToolPageHeader,
 } from "../../ui/primitives";
 import {
@@ -145,6 +147,10 @@ export function BloodGasTrainingHomeScreen({
   onStartValueTrainer,
   onStartPatternTrainer,
 }: Props) {
+  const [view, setView] = useState<"landing" | "method" | "reference">(
+    "landing",
+  );
+  const [methodStep, setMethodStep] = useState(0);
   const [expandedSection, setExpandedSection] = useState<SectionId | null>(
     null,
   );
@@ -158,6 +164,14 @@ export function BloodGasTrainingHomeScreen({
   const toggleSection = (sectionId: SectionId) => {
     setExpandedSection((current) => (current === sectionId ? null : sectionId));
   };
+  const activeMethodStep = acidBaseMethodSteps[methodStep];
+  const handleBack = () => {
+    if (view !== "landing") {
+      setView("landing");
+      return;
+    }
+    onBack();
+  };
 
   return (
     <Screen
@@ -166,17 +180,19 @@ export function BloodGasTrainingHomeScreen({
     >
       <StatusBar style="light" />
       <ToolPageHeader
-        backLabel="Tilbage til forsiden"
-        onBack={onBack}
+        backLabel={
+          view === "landing"
+            ? "Tilbage til forsiden"
+            : "Tilbage til VGAS & CRP"
+        }
+        onBack={handleBack}
         subtitle="Praktisk træning i VGAS og CRP"
         title="VGAS & CRP"
       />
 
-      <NoticeCard title="Til faglig træning" tone="info" style={styles.section}>
-        <Text style={styles.noticeText}></Text>
-      </NoticeCard>
-
-      <Card variant="subtle" style={styles.trainerCard}>
+      {view === "landing" ? (
+        <>
+          <Card variant="subtle" style={styles.trainerCard}>
         <View style={styles.headerCopy}>
           <Text style={styles.eyebrow}>INTERAKTIV TRÆNING</Text>
           <Text style={styles.sectionTitle}>Tolk en blodgas</Text>
@@ -190,9 +206,9 @@ export function BloodGasTrainingHomeScreen({
           onPress={onStartValueTrainer}
           testID="start-blood-gas-value-trainer"
         />
-      </Card>
+          </Card>
 
-      <Card variant="subtle" style={styles.trainerCard}>
+          <Card variant="subtle" style={styles.trainerCard}>
         <View style={styles.headerCopy}>
           <Text style={styles.eyebrow}>OMVENDT TRÆNING</Text>
           <Text style={styles.sectionTitle}>Forudsig værdier</Text>
@@ -206,22 +222,74 @@ export function BloodGasTrainingHomeScreen({
           onPress={onStartPatternTrainer}
           testID="start-blood-gas-pattern-trainer"
         />
-      </Card>
+          </Card>
 
-      <Card variant="subtle" style={styles.methodCard}>
-        <Text style={styles.eyebrow}>METODE</Text>
-        <Text style={styles.sectionTitle}>Syre-base trin for trin</Text>
-        <View style={styles.methodList}>
-          {acidBaseMethodSteps.map((step) => (
-            <View key={step.label} style={styles.methodRow}>
-              <Text style={styles.methodLabel}>{step.label}</Text>
-              <Text style={styles.methodText}>{step.text}</Text>
-            </View>
-          ))}
-        </View>
-      </Card>
+          <View style={styles.secondaryList}>
+            <NavigationCard
+              description="Gennemgå syre-base-metoden ét trin ad gangen."
+              eyebrow="METODE"
+              onPress={() => {
+                setMethodStep(0);
+                setView("method");
+              }}
+              title="Lær metoden"
+            />
+            <NavigationCard
+              description="Analytter, prøvetyper, mønstereksempler og ambulancefokus."
+              eyebrow="REFERENCE"
+              onPress={() => setView("reference")}
+              title="Opslagsværk"
+            />
+          </View>
+        </>
+      ) : null}
 
-      <View style={styles.sectionList}>
+      {view === "method" && activeMethodStep ? (
+        <>
+          <ProgressHeader
+            current={methodStep + 1}
+            label="SYRE-BASE-METODE"
+            total={acidBaseMethodSteps.length}
+          />
+          <Card variant="subtle" style={styles.methodCard}>
+            <Text style={styles.eyebrow}>
+              TRIN {methodStep + 1} AF {acidBaseMethodSteps.length}
+            </Text>
+            <Text style={styles.sectionTitle}>{activeMethodStep.label}</Text>
+            <Text style={styles.bodyText}>{activeMethodStep.text}</Text>
+          </Card>
+          <View style={styles.stepActions}>
+            <SecondaryButton
+              disabled={methodStep === 0}
+              label="Forrige"
+              onPress={() =>
+                setMethodStep((current) => Math.max(0, current - 1))
+              }
+              style={styles.stepAction}
+            />
+            {methodStep < acidBaseMethodSteps.length - 1 ? (
+              <PrimaryButton
+                label="Næste trin"
+                onPress={() =>
+                  setMethodStep((current) =>
+                    Math.min(acidBaseMethodSteps.length - 1, current + 1),
+                  )
+                }
+                style={styles.stepAction}
+              />
+            ) : (
+              <PrimaryButton
+                label="Se opslagsværk"
+                onPress={() => setView("reference")}
+                style={styles.stepAction}
+              />
+            )}
+          </View>
+        </>
+      ) : null}
+
+      {view === "reference" ? (
+        <View style={styles.sectionList}>
         <SectionAccordion
           eyebrow="ANALYTTER"
           expanded={expandedSection === "analytes"}
@@ -403,7 +471,8 @@ export function BloodGasTrainingHomeScreen({
             ))}
           </View>
         </SectionAccordion>
-      </View>
+        </View>
+      ) : null}
     </Screen>
   );
 }
@@ -412,14 +481,8 @@ export default BloodGasTrainingHomeScreen;
 
 const styles = StyleSheet.create({
   content: { paddingBottom: Spacing.xl },
-  section: { marginBottom: Spacing.md },
   trainerCard: { gap: Spacing.md, marginBottom: Spacing.md },
-  noticeText: {
-    color: ColorTokens.text.primary,
-    fontFamily: Typography.families.sans,
-    fontSize: Typography.sizes.label,
-    lineHeight: Typography.lineHeights.label,
-  },
+  secondaryList: { gap: Spacing.sm },
   eyebrow: {
     color: ColorTokens.accent.muted,
     fontFamily: Typography.families.sans,
@@ -454,7 +517,9 @@ const styles = StyleSheet.create({
     fontSize: Typography.sizes.label,
     lineHeight: Typography.lineHeights.label,
   },
-  methodCard: { gap: Spacing.sm, marginBottom: Spacing.md },
+  methodCard: { gap: Spacing.sm, marginTop: Spacing.md, marginBottom: Spacing.md },
+  stepActions: { flexDirection: "row", gap: Spacing.sm },
+  stepAction: { flex: 1 },
   methodList: { gap: Spacing.xs },
   methodRow: {
     flexDirection: "row",

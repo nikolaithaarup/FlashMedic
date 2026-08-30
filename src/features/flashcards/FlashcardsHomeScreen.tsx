@@ -1,12 +1,12 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 import { ColorTokens, Spacing, Typography } from "../../../constants/theme";
 import {
   Chip,
   EmptyState,
-  NoticeCard,
+  NavigationCard,
   PrimaryButton,
   Screen,
   SectionHeader,
@@ -42,6 +42,7 @@ type FlashcardsHomeScreenProps = {
 };
 
 type ChipItem = { key: string; label: string };
+type SetupView = "modes" | "subjects" | "topics";
 
 function buildChips(groups: TopicGroup[]): ChipItem[] {
   const result: ChipItem[] = [];
@@ -91,6 +92,9 @@ export default function FlashcardsHomeScreen({
     () => (selectedSubject ? buildChips(topicGroupsForSelectedSubject) : []),
     [selectedSubject, topicGroupsForSelectedSubject],
   );
+  const [setupView, setSetupView] = useState<SetupView>(
+    selectedSubject ? "topics" : "modes",
+  );
   const toggleKey = (key: string) => {
     setSelectedKeys((current) =>
       current.includes(key)
@@ -99,179 +103,187 @@ export default function FlashcardsHomeScreen({
     );
   };
 
+  const handleBack = () => {
+    if (setupView === "topics") {
+      setSetupView("subjects");
+      return;
+    }
+    if (setupView === "subjects") {
+      setSetupView("modes");
+      return;
+    }
+    onBack();
+  };
+
   return (
     <Screen>
       <StatusBar style="light" />
       <ToolPageHeader
-        backLabel="Tilbage til forsiden"
-        onBack={onBack}
+        backLabel={setupView === "modes" ? "Tilbage til forsiden" : "Tilbage"}
+        onBack={handleBack}
         subtitle="Flashcard-træning til ambulancefag, eksamen og faglig genopfriskning."
         title="FlashMedic"
       />
 
-      <NoticeCard title="Sådan træner du">
-        Start blandet træning, eller vælg fag og emner længere nede.
-      </NoticeCard>
-
-      <SectionHeader label="HURTIG START" title="Kom i gang med det samme" />
-
-      <Surface elevated tone="accent" style={styles.allSubjectsCard}>
-        <View style={styles.allSubjectsCopy}>
-          <Text style={styles.cardTitle}>Træn alle fag</Text>
-          <Text style={styles.cardDescription}>
-            Blandede flashcards fra hele FlashMedic.
-          </Text>
-        </View>
-        <PrimaryButton
-          disabled={disableAllSubjectsQuiz}
-          label="Start blandet træning"
-          onPress={onStartAllSubjectsQuiz}
-          style={styles.allSubjectsButton}
-        />
-      </Surface>
-
-      <SectionHeader label="PERSONLIG TRÆNING" title="Træn ud fra dine svar" />
-
-      <View style={styles.learningGrid}>
-        <Surface style={styles.learningCard}>
-          <Text style={styles.cardTitle}>Forkerte svar</Text>
-          <Text style={styles.cardDescription}>
-            Gennemgå de kort, du tidligere har svaret forkert på.
-          </Text>
-          <Text style={styles.learningMeta}>
-            {pendingMistakeCount === 0
-              ? "Ingen kort venter på repetition"
-              : `${pendingMistakeCount} kort venter`}
-          </Text>
-          <PrimaryButton
-            disabled={pendingMistakeCount === 0 || loadingCards}
-            label="Træn forkerte svar"
-            onPress={onStartMistakeReview}
-          />
-        </Surface>
-
-        <Surface style={styles.learningCard}>
-          <Text style={styles.cardTitle}>Svage emner</Text>
-          <Text style={styles.cardDescription}>
-            Træn de emner, hvor dine svar viser, at du har mest brug for repetition.
-          </Text>
-          {weakestTopics.length === 0 ? (
-            <Text style={styles.learningMeta}>
-              Ikke nok data endnu. Lav mindst fem besvarelser i et emne.
-            </Text>
-          ) : (
-            <View style={styles.weakTopicList}>
-              {weakestTopics.map((topic) => (
-                <Text key={topic.key} style={styles.learningMeta}>
-                  {topic.topic}
-                  {topic.subtopic ? ` · ${topic.subtopic}` : ""} ·{" "}
-                  {Math.round(topic.accuracy * 100)}%
-                </Text>
-              ))}
-            </View>
-          )}
-          <SecondaryButton
-            disabled={weakestTopics.length === 0 || loadingCards}
-            label="Træn svage emner"
-            onPress={onStartWeakTopics}
-          />
-        </Surface>
-      </View>
-
-      <SectionHeader
-        description="Vælg først et fag. Emnerne vises derefter."
-        label="MÅLRETTET TRÆNING"
-        title="Vælg fag og emner"
-      />
-
-      <Surface style={styles.sectionCard}>
-        <View style={styles.chipList}>
-          {subjects.map((subject) => {
-            const selected = selectedSubject === subject;
-            return (
-              <Chip
-                key={subject}
-                label={subject}
-                onPress={() => {
-                  setSelectedSubject(selected ? null : subject);
-                  setSelectedKeys([]);
-                }}
-                selected={selected}
-              />
-            );
-          })}
-        </View>
-      </Surface>
-
-      {selectedSubject ? (
+      {setupView === "modes" ? (
         <>
           <SectionHeader
-            compact
-            label="EMNER"
-            title={`Emner i ${selectedSubject}`}
+            description="Vælg den træning, der passer til dit mål lige nu."
+            label="TRÆNING"
+            title="Hvordan vil du træne?"
+          />
+          <View style={styles.modeList}>
+            <NavigationCard
+              description="Blandede kort fra alle fag."
+              disabled={disableAllSubjectsQuiz}
+              eyebrow="HURTIG START"
+              onPress={onStartAllSubjectsQuiz}
+              title="Blandede kort"
+            />
+            <NavigationCard
+              description={
+                pendingMistakeCount === 0
+                  ? "Ingen kort venter på repetition."
+                  : `${pendingMistakeCount} kort venter på repetition.`
+              }
+              disabled={pendingMistakeCount === 0 || loadingCards}
+              eyebrow="PERSONLIG"
+              onPress={onStartMistakeReview}
+              title="Forkerte svar"
+            />
+            <NavigationCard
+              description={
+                weakestTopics.length === 0
+                  ? "Ikke nok data endnu."
+                  : `${weakestTopics.length} svage emner er klar.`
+              }
+              disabled={weakestTopics.length === 0 || loadingCards}
+              eyebrow="PERSONLIG"
+              onPress={onStartWeakTopics}
+              title="Svage emner"
+            />
+            <NavigationCard
+              description="Vælg fag og et eller flere emner."
+              eyebrow="MÅLRETTET"
+              onPress={() => setSetupView(selectedSubject ? "topics" : "subjects")}
+              title="Vælg selv"
+            />
+          </View>
+        </>
+      ) : null}
+
+      {setupView === "subjects" ? (
+        <>
+          <SectionHeader
+            description="Når du vælger et fag, går du videre til fagets emner."
+            label="TRIN 1 AF 2"
+            title="Vælg fag"
           />
           <Surface style={styles.sectionCard}>
-          {topicGroupsForSelectedSubject.length === 0 ? (
-          <EmptyState
-            message="Der er endnu ingen emner tilgængelige i dette fag."
-            title="Ingen emner fundet"
-          />
-        ) : (
-          <>
-            <View style={styles.selectionHeader}>
-              <Text style={styles.selectionCount}>
-                {selectedKeys.length === 0
-                  ? "Vælg et eller flere emner for at starte en målrettet træning."
-                  : `${selectedKeys.length} valgt`}
-              </Text>
-              <SecondaryButton
-                label={allTopicsSelected ? "Fravælg alle" : "Vælg alle"}
-                onPress={() =>
-                  allTopicsSelected
-                    ? setSelectedKeys([])
-                    : setSelectedKeys(allSelectableKeys)
-                }
-                style={styles.selectAllButton}
-              />
-            </View>
             <View style={styles.chipList}>
-              {topicChips.map((chip) => (
+              {subjects.map((subject) => (
                 <Chip
-                  key={chip.key}
-                  label={chip.label}
-                  onPress={() => toggleKey(chip.key)}
-                  selected={selectedKeys.includes(chip.key)}
+                  key={subject}
+                  label={subject}
+                  onPress={() => {
+                    if (selectedSubject !== subject) {
+                      setSelectedSubject(subject);
+                      setSelectedKeys([]);
+                    }
+                    setSetupView("topics");
+                  }}
+                  selected={selectedSubject === subject}
                 />
               ))}
             </View>
-          </>
-          )}
           </Surface>
         </>
       ) : null}
 
-      {selectedSubject && selectedKeys.length > 0 ? (
-        <PrimaryButton
-          disabled={loadingCards}
-          label="Træn valgte emner"
-          loading={loadingCards}
-          onPress={onStartQuiz}
-          style={styles.startButton}
-        />
+      {setupView === "topics" && selectedSubject ? (
+        <>
+          <SectionHeader
+            description="Vælg et eller flere emner, og start træningen."
+            label="TRIN 2 AF 2"
+            title="Vælg emner"
+          />
+          <Surface tone="accent" style={styles.subjectSummary}>
+            <View style={styles.subjectSummaryCopy}>
+              <Text style={styles.cardTitle}>{selectedSubject} ✓</Text>
+              <Text style={styles.cardDescription}>Valgt fag</Text>
+            </View>
+            <SecondaryButton
+              label="Skift fag"
+              onPress={() => setSetupView("subjects")}
+              style={styles.changeSubjectButton}
+            />
+          </Surface>
+          <Surface style={styles.sectionCard}>
+            {topicGroupsForSelectedSubject.length === 0 ? (
+              <EmptyState
+                message="Der er endnu ingen emner tilgængelige i dette fag."
+                title="Ingen emner fundet"
+              />
+            ) : (
+              <>
+                <View style={styles.selectionHeader}>
+                  <Text style={styles.selectionCount}>
+                    {selectedKeys.length === 0
+                      ? "Ingen emner valgt"
+                      : `${selectedKeys.length} valgt`}
+                  </Text>
+                  <SecondaryButton
+                    label={allTopicsSelected ? "Fravælg alle" : "Vælg alle"}
+                    onPress={() =>
+                      allTopicsSelected
+                        ? setSelectedKeys([])
+                        : setSelectedKeys(allSelectableKeys)
+                    }
+                    style={styles.selectAllButton}
+                  />
+                </View>
+                {selectedKeys.length > 0 ? (
+                  <PrimaryButton
+                    disabled={loadingCards}
+                    label="Træn valgte emner"
+                    loading={loadingCards}
+                    onPress={onStartQuiz}
+                  />
+                ) : null}
+                <View style={styles.chipList}>
+                  {topicChips.map((chip) => (
+                    <Chip
+                      key={chip.key}
+                      label={chip.label}
+                      onPress={() => toggleKey(chip.key)}
+                      selected={selectedKeys.includes(chip.key)}
+                    />
+                  ))}
+                </View>
+              </>
+            )}
+          </Surface>
+        </>
+      ) : null}
+
+      {setupView === "topics" && !selectedSubject ? (
+        <Surface style={styles.sectionCard}>
+          <EmptyState
+            message="Vælg et fag, før du vælger emner."
+            title="Intet fag valgt"
+          />
+          <SecondaryButton
+            label="Vælg fag"
+            onPress={() => setSetupView("subjects")}
+          />
+        </Surface>
       ) : null}
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  allSubjectsCard: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "center",
-    gap: Spacing.md,
-    marginTop: Spacing.md,
-  },
-  allSubjectsCopy: { flex: 1, flexBasis: 210, minWidth: 0 },
+  modeList: { gap: Spacing.sm },
   cardTitle: {
     color: ColorTokens.text.primary,
     fontSize: Typography.sizes.cardTitle,
@@ -284,7 +296,6 @@ const styles = StyleSheet.create({
     lineHeight: Typography.lineHeights.label,
     marginTop: 2,
   },
-  allSubjectsButton: { flexGrow: 1, minWidth: 160 },
   sectionCard: { gap: Spacing.md },
   chipList: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.sm },
   selectionHeader: {
@@ -300,13 +311,13 @@ const styles = StyleSheet.create({
     lineHeight: Typography.lineHeights.label,
   },
   selectAllButton: { minWidth: 132 },
-  startButton: { marginTop: Spacing.xl, marginBottom: Spacing.lg },
-  learningGrid: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.md },
-  learningCard: { flex: 1, minWidth: 260, gap: Spacing.sm },
-  learningMeta: {
-    color: ColorTokens.accent.muted,
-    fontSize: Typography.sizes.caption,
-    lineHeight: Typography.lineHeights.caption,
+  subjectSummary: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    gap: Spacing.sm,
+    marginBottom: Spacing.sm,
   },
-  weakTopicList: { gap: Spacing.xs },
+  subjectSummaryCopy: { flex: 1, minWidth: 150 },
+  changeSubjectButton: { minWidth: 112 },
 });

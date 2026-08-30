@@ -9,8 +9,22 @@ import {
   Spacing,
   Typography,
 } from "../../../constants/theme";
-import { Card, Chip, Screen, ToolPageHeader } from "../../ui/primitives";
-import { DRUG_TOPICS, THEORY, type DrugCalcTopic } from "./drugCalcContent";
+import {
+  Accordion,
+  Card,
+  Chip,
+  PrimaryButton,
+  Screen,
+  SecondaryButton,
+  ToolPageHeader,
+} from "../../ui/primitives";
+import {
+  COMMON_PITFALLS,
+  DRUG_TOPICS,
+  THEORY,
+  type DrugCalcTopic,
+  type WorkedExample,
+} from "./drugCalcContent";
 
 type Props = {
   headingFont: number;
@@ -28,9 +42,51 @@ function BulletText({ children }: { children: string }) {
   );
 }
 
+function WorkedExampleCard({ example }: { example: WorkedExample }) {
+  return (
+    <Card variant="subtle" style={styles.section}>
+      <Text style={styles.cardTitle}>{example.title}</Text>
+      <View style={styles.infoBlock}>
+        <Text style={styles.infoLabel}>Problem</Text>
+        <Text style={styles.bodyText}>{example.problem}</Text>
+      </View>
+      <View style={styles.infoBlock}>
+        <Text style={styles.infoLabel}>Formel</Text>
+        <Text style={styles.formulaText}>{example.formula}</Text>
+      </View>
+      <View style={styles.infoBlock}>
+        <Text style={styles.infoLabel}>Beregning</Text>
+        <View style={styles.bulletList}>
+          {example.calculation.map((calculation) => (
+            <BulletText key={calculation}>{calculation}</BulletText>
+          ))}
+        </View>
+      </View>
+      <View style={styles.answerBlock}>
+        <Text style={styles.answerLabel}>Slutsvar</Text>
+        <Text style={styles.answerText}>{example.finalAnswer}</Text>
+      </View>
+      <View style={styles.infoBlock}>
+        <Text style={styles.infoLabel}>Typisk faldgrube</Text>
+        <Text style={styles.bodyText}>{example.commonPitfall}</Text>
+      </View>
+    </Card>
+  );
+}
+
 export function DrugCalcTheoryScreen({ onBack }: Props) {
   const [topic, setTopic] = useState<DrugCalcTopic>("strength");
+  const [topicsExpanded, setTopicsExpanded] = useState(false);
+  const [moreExamplesExpanded, setMoreExamplesExpanded] = useState(false);
+  const [pitfallsExpanded, setPitfallsExpanded] = useState(false);
   const section = useMemo(() => THEORY.find((item) => item.topic === topic), [topic]);
+  const topicIndex = DRUG_TOPICS.findIndex((item) => item.id === topic);
+  const selectedTopic = DRUG_TOPICS[topicIndex];
+  const selectTopic = (nextTopic: DrugCalcTopic) => {
+    setTopic(nextTopic);
+    setTopicsExpanded(false);
+    setMoreExamplesExpanded(false);
+  };
 
   return (
     <Screen contentContainerStyle={styles.content} testID="drug-calc-theory-screen">
@@ -42,22 +98,24 @@ export function DrugCalcTheoryScreen({ onBack }: Props) {
         title="Lær metoden"
       />
 
-      <Card variant="subtle" style={styles.section}>
-        <Text style={styles.sectionTitle}>Vælg emne</Text>
+      <Accordion
+        expanded={topicsExpanded}
+        onToggle={() => setTopicsExpanded((current) => !current)}
+        style={styles.section}
+        subtitle={selectedTopic?.title}
+        title="Vælg emne"
+      >
         <View style={styles.topicGrid}>
-          {DRUG_TOPICS.map((item) => {
-            const selected = item.id === topic;
-            return (
-              <Chip
-                key={item.id}
-                label={item.title}
-                onPress={() => setTopic(item.id)}
-                selected={selected}
-              />
-            );
-          })}
+          {DRUG_TOPICS.map((item) => (
+            <Chip
+              key={item.id}
+              label={item.title}
+              onPress={() => selectTopic(item.id)}
+              selected={item.id === topic}
+            />
+          ))}
         </View>
-      </Card>
+      </Accordion>
 
       {section ? (
         <>
@@ -71,39 +129,57 @@ export function DrugCalcTheoryScreen({ onBack }: Props) {
             </View>
           </Card>
 
-          <Text style={styles.groupTitle}>Eksempler trin for trin</Text>
-          {section.workedExamples.map((example) => (
-            <Card key={example.title} variant="subtle" style={styles.section}>
-              <Text style={styles.cardTitle}>{example.title}</Text>
-
-              <View style={styles.infoBlock}>
-                <Text style={styles.infoLabel}>Problem</Text>
-                <Text style={styles.bodyText}>{example.problem}</Text>
+          <Text style={styles.groupTitle}>Eksempel trin for trin</Text>
+          {section.workedExamples[0] ? (
+            <WorkedExampleCard example={section.workedExamples[0]} />
+          ) : null}
+          {section.workedExamples.length > 1 ? (
+            <Accordion
+              expanded={moreExamplesExpanded}
+              onToggle={() =>
+                setMoreExamplesExpanded((current) => !current)
+              }
+              style={styles.section}
+              subtitle={`${section.workedExamples.length - 1} ekstra`}
+              title="Flere eksempler"
+            >
+              <View style={styles.exampleList}>
+                {section.workedExamples.slice(1).map((example) => (
+                  <WorkedExampleCard example={example} key={example.title} />
+                ))}
               </View>
-              <View style={styles.infoBlock}>
-                <Text style={styles.infoLabel}>Formel</Text>
-                <Text style={styles.formulaText}>{example.formula}</Text>
-              </View>
-              <View style={styles.infoBlock}>
-                <Text style={styles.infoLabel}>Beregning</Text>
-                <View style={styles.bulletList}>
-                  {example.calculation.map((calculation) => (
-                    <BulletText key={calculation}>{calculation}</BulletText>
-                  ))}
-                </View>
-              </View>
-              <View style={styles.answerBlock}>
-                <Text style={styles.answerLabel}>Slutsvar</Text>
-                <Text style={styles.answerText}>{example.finalAnswer}</Text>
-              </View>
-              <View style={styles.infoBlock}>
-                <Text style={styles.infoLabel}>Typisk faldgrube</Text>
-                <Text style={styles.bodyText}>{example.commonPitfall}</Text>
-              </View>
-            </Card>
-          ))}
+            </Accordion>
+          ) : null}
+          <View style={styles.topicActions}>
+            <SecondaryButton
+              disabled={topicIndex <= 0}
+              label="Forrige emne"
+              onPress={() => selectTopic(DRUG_TOPICS[topicIndex - 1].id)}
+              style={styles.topicAction}
+            />
+            <PrimaryButton
+              disabled={topicIndex >= DRUG_TOPICS.length - 1}
+              label="Næste emne"
+              onPress={() => selectTopic(DRUG_TOPICS[topicIndex + 1].id)}
+              style={styles.topicAction}
+            />
+          </View>
         </>
       ) : null}
+
+      <Accordion
+        expanded={pitfallsExpanded}
+        onToggle={() => setPitfallsExpanded((current) => !current)}
+        style={styles.section}
+        subtitle="Enheder, regneretning og plausibilitet"
+        title="Typiske fejl"
+      >
+        <View style={styles.bulletList}>
+          {COMMON_PITFALLS.map((pitfall) => (
+            <BulletText key={pitfall}>{pitfall}</BulletText>
+          ))}
+        </View>
+      </Accordion>
     </Screen>
   );
 }
@@ -150,6 +226,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   topicGrid: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.xs },
+  exampleList: { gap: Spacing.md },
+  topicActions: { flexDirection: "row", gap: Spacing.sm },
+  topicAction: { flex: 1 },
   bulletList: { gap: Spacing.sm },
   bulletRow: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.sm },
   bullet: {

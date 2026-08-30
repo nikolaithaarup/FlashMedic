@@ -14,7 +14,9 @@ import FullscreenEkgImageModal from "../flashcards/components/FullscreenEkgImage
 import {
   Accordion,
   Card,
+  NavigationCard,
   PrimaryButton,
+  ProgressHeader,
   Screen,
   SecondaryButton,
   ToolPageHeader,
@@ -192,78 +194,143 @@ export function EkgTrainingHomeScreen({
   imageDrillCount,
   imageDrillLoading,
 }: Props) {
+  const [view, setView] = useState<"landing" | "method" | "reference">(
+    "landing",
+  );
+  const [methodStep, setMethodStep] = useState(0);
   const [expandedRhythmKey, setExpandedRhythmKey] = useState<string | null>(
     null,
   );
   const [modalImageKey, setModalImageKey] = useState<string | null>(null);
   const modalImageSource = modalImageKey ? ekgImageLookup[modalImageKey] : null;
+  const activeMethodStep = rhythmSteps[methodStep];
+  const handleBack = () => {
+    if (view !== "landing") {
+      setView("landing");
+      return;
+    }
+    onBack();
+  };
 
   return (
     <>
       <Screen contentContainerStyle={styles.content} testID="ekg-training-screen">
         <StatusBar style="light" />
         <ToolPageHeader
-          backLabel="Tilbage til forsiden"
-          onBack={onBack}
+          backLabel={
+            view === "landing"
+              ? "Tilbage til forsiden"
+              : "Tilbage til EKG-træning"
+          }
+          onBack={handleBack}
           subtitle="Systematisk rytmeanalyse til ambulancefaglig vurdering."
           title="EKG-træning"
         />
 
-        <Card variant="subtle" style={styles.introCard}>
-          <Text style={styles.eyebrow}>RYTME OG TEORI</Text>
-          <Text style={styles.introTitle}>Vurder EKG’et i samme rækkefølge hver gang</Text>
-          <Text style={styles.bodyText}>
-            Start med den samme metode hver gang. Det gør rytmevurderingen mere
-            rolig, mere præcis og lettere at overlevere.
-          </Text>
-          <Text style={styles.learningMeta}>
-            {imageDrillLoading
-              ? "EKG-billederne hentes."
-              : imageDrillCount > 0
-                ? `${imageDrillCount} EKG-billeder klar til træning`
-                : "Ingen EKG-billeder er tilgængelige lige nu."}
-          </Text>
-          <PrimaryButton
-            disabled={imageDrillLoading || imageDrillCount === 0}
-            label="Start billedtræning"
-            onPress={onStartImageDrill}
-            testID="start-ekg-image-drill-button"
-          />
-          <SecondaryButton
-            label="Start guidet rytmeanalyse"
-            onPress={onStartRhythmTrainer}
-          />
-        </Card>
+        {view === "landing" ? (
+          <>
+            <Card variant="subtle" style={styles.introCard}>
+              <Text style={styles.eyebrow}>BILLEDTRÆNING</Text>
+              <Text style={styles.introTitle}>Vurder EKG-billeder</Text>
+              <Text style={styles.bodyText}>
+                Træn frekvens, regelmæssighed, P-takker, PR-interval,
+                QRS-bredde og rytmeforslag.
+              </Text>
+              <Text style={styles.learningMeta}>
+                {imageDrillLoading
+                  ? "EKG-billederne hentes."
+                  : imageDrillCount > 0
+                    ? `${imageDrillCount} EKG-billeder klar til træning`
+                    : "Ingen EKG-billeder er tilgængelige lige nu."}
+              </Text>
+              <PrimaryButton
+                disabled={imageDrillLoading || imageDrillCount === 0}
+                label="Start billedtræning"
+                onPress={onStartImageDrill}
+                testID="start-ekg-image-drill-button"
+              />
+            </Card>
+            <Card variant="subtle" style={styles.introCard}>
+              <Text style={styles.eyebrow}>GUIDET TRÆNING</Text>
+              <Text style={styles.introTitle}>
+                Analysér en rytme trin for trin
+              </Text>
+              <Text style={styles.bodyText}>
+                Brug den samme systematik, før du samler fundene til et
+                rytmeforslag.
+              </Text>
+              <PrimaryButton
+                label="Start guidet rytmeanalyse"
+                onPress={onStartRhythmTrainer}
+              />
+            </Card>
+            <View style={styles.secondaryList}>
+              <NavigationCard
+                description="Gennemgå de syv analysetrin ét ad gangen."
+                eyebrow="METODE"
+                onPress={() => {
+                  setMethodStep(0);
+                  setView("method");
+                }}
+                title="Lær EKG-metoden"
+              />
+              <NavigationCard
+                description="Akutte rytmer, EKG-tegn og ambulancefokus."
+                eyebrow="REFERENCE"
+                onPress={() => setView("reference")}
+                title="Opslagsværk"
+              />
+            </View>
+          </>
+        ) : null}
 
-        <Card variant="subtle" style={styles.sectionCard}>
-          <SectionTitle>Træn EKG-billeder</SectionTitle>
-          <Text style={styles.bodyText}>
-            Vurder rytmestrimler med frekvens, regelmæssighed, P-takker,
-            PR-interval, QRS-bredde og rytmeforslag.
-          </Text>
-        </Card>
-
-        <Card variant="subtle" style={styles.sectionCard}>
-          <SectionTitle>Lær rytmeanalyse</SectionTitle>
-          <Text style={styles.bodyText}>
-            Brug samme systematik, før du gætter rytmen.
-          </Text>
-          <View style={styles.stepList}>
-            {rhythmSteps.map((step, index) => (
-              <View key={step.label} style={styles.stepRow}>
-                <View style={styles.stepIndex}>
-                  <Text style={styles.stepIndexText}>{index + 1}</Text>
-                </View>
-                <View style={styles.stepCopy}>
-                  <Text style={styles.stepLabel}>{step.label}</Text>
-                  <Text style={styles.stepText}>{step.text}</Text>
-                </View>
+        {view === "method" && activeMethodStep ? (
+          <>
+            <ProgressHeader
+              current={methodStep + 1}
+              label="EKG-METODE"
+              total={rhythmSteps.length}
+            />
+            <Card variant="subtle" style={styles.methodCard}>
+              <View style={styles.stepIndex}>
+                <Text style={styles.stepIndexText}>{methodStep + 1}</Text>
               </View>
-            ))}
-          </View>
-        </Card>
+              <Text style={styles.introTitle}>{activeMethodStep.label}</Text>
+              <Text style={styles.bodyText}>{activeMethodStep.text}</Text>
+            </Card>
+            <View style={styles.stepActions}>
+              <SecondaryButton
+                disabled={methodStep === 0}
+                label="Forrige"
+                onPress={() =>
+                  setMethodStep((current) => Math.max(0, current - 1))
+                }
+                style={styles.stepAction}
+              />
+              {methodStep < rhythmSteps.length - 1 ? (
+                <PrimaryButton
+                  label="Næste trin"
+                  onPress={() =>
+                    setMethodStep((current) =>
+                      Math.min(rhythmSteps.length - 1, current + 1),
+                    )
+                  }
+                  style={styles.stepAction}
+                />
+              ) : (
+                <PrimaryButton
+                  label="Se opslagsværk"
+                  onPress={() => setView("reference")}
+                  style={styles.stepAction}
+                />
+              )}
+            </View>
+          </>
+        ) : null}
 
-        <Card variant="subtle" style={styles.sectionCard}>
+        {view === "reference" ? (
+          <>
+            <Card variant="subtle" style={styles.sectionCard}>
           <SectionTitle>Akutte rytmer</SectionTitle>
           <Text style={styles.bodyText}>
             Tryk på en rytme for en kort forklaring. Rytmen skal altid vurderes
@@ -329,16 +396,17 @@ export function EkgTrainingHomeScreen({
               );
             })}
           </View>
-        </Card>
-
-        <Card variant="subtle" style={styles.sectionCard}>
-        <SectionTitle>Ambulancefokus</SectionTitle>
-        <View style={styles.bulletList}>
-          {ambulanceFocus.map((item) => (
-            <BulletText key={item}>{item}</BulletText>
-          ))}
-        </View>
-        </Card>
+            </Card>
+            <Card variant="subtle" style={styles.sectionCard}>
+              <SectionTitle>Ambulancefokus</SectionTitle>
+              <View style={styles.bulletList}>
+                {ambulanceFocus.map((item) => (
+                  <BulletText key={item}>{item}</BulletText>
+                ))}
+              </View>
+            </Card>
+          </>
+        ) : null}
       </Screen>
 
       {modalImageSource ? (
@@ -367,6 +435,15 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.md,
     gap: Spacing.sm,
   },
+  secondaryList: { gap: Spacing.sm },
+  methodCard: {
+    marginTop: Spacing.md,
+    marginBottom: Spacing.md,
+    gap: Spacing.sm,
+    alignItems: "flex-start",
+  },
+  stepActions: { flexDirection: "row", gap: Spacing.sm },
+  stepAction: { flex: 1 },
   eyebrow: {
     color: ColorTokens.accent.muted,
     fontFamily: Typography.families.sans,

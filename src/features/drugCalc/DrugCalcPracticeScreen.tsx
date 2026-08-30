@@ -94,6 +94,7 @@ export function DrugCalcPracticeScreen({
   return (
     <Screen
       contentContainerStyle={styles.content}
+      key={feedbackVisible ? "feedback" : "question"}
       scrollViewProps={{ keyboardShouldPersistTaps: "handled" }}
       testID="drug-calc-practice-screen"
     >
@@ -136,36 +137,6 @@ export function DrugCalcPracticeScreen({
 
       {currentDrugQuestion ? (
         <>
-          <Surface elevated tone="elevated" style={styles.section}>
-            <Text style={styles.eyebrow}>OPGAVE</Text>
-            <Text style={styles.questionText}>{currentDrugQuestion.text}</Text>
-
-            <View style={styles.unitCallout}>
-              <Text style={styles.unitLabel}>SVARENHED</Text>
-              <Text style={styles.unitValue}>{currentDrugQuestion.unit}</Text>
-            </View>
-
-            {currentDrugQuestion.hint ? (
-              <DetailBlock label="Hjælp">{currentDrugQuestion.hint}</DetailBlock>
-            ) : null}
-
-            <NumberInput
-              clearable
-              helperText={currentDrugQuestion.roundingNote}
-              inputProps={{ placeholder: "Skriv kun tallet" }}
-              label={`Dit svar i ${currentDrugQuestion.unit}`}
-              onChangeText={setDrugAnswer}
-              unit={currentDrugQuestion.unit}
-              value={drugAnswer}
-            />
-
-            <PrimaryButton
-              disabled={!hasStarted || drugAnswer.trim().length === 0}
-              label="Tjek svar"
-              onPress={onCheckAnswer}
-            />
-          </Surface>
-
           {feedbackVisible ? (
             <ResultSummary
               message={
@@ -217,6 +188,36 @@ export function DrugCalcPracticeScreen({
               </Accordion>
             </ResultSummary>
           ) : null}
+
+          <Surface elevated tone="elevated" style={styles.section}>
+            <Text style={styles.eyebrow}>OPGAVE</Text>
+            <Text style={styles.questionText}>{currentDrugQuestion.text}</Text>
+
+            <View style={styles.unitCallout}>
+              <Text style={styles.unitLabel}>SVARENHED</Text>
+              <Text style={styles.unitValue}>{currentDrugQuestion.unit}</Text>
+            </View>
+
+            {currentDrugQuestion.hint ? (
+              <DetailBlock label="Hjælp">{currentDrugQuestion.hint}</DetailBlock>
+            ) : null}
+
+            <NumberInput
+              clearable
+              helperText={currentDrugQuestion.roundingNote}
+              inputProps={{ placeholder: "Skriv kun tallet" }}
+              label={`Dit svar i ${currentDrugQuestion.unit}`}
+              onChangeText={setDrugAnswer}
+              unit={currentDrugQuestion.unit}
+              value={drugAnswer}
+            />
+
+            <PrimaryButton
+              disabled={!hasStarted || drugAnswer.trim().length === 0}
+              label="Tjek svar"
+              onPress={onCheckAnswer}
+            />
+          </Surface>
 
           {feedbackVisible ? (
             <View style={styles.buttonStack}>
