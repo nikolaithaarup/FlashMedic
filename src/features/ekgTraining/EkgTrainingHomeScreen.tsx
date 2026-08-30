@@ -39,9 +39,14 @@ type AcuteRhythmInfo = {
   key: string;
   title: string;
   shortDefinition: string;
-  physiology: string;
-  pathophysiology: string;
-  ekgClues: string;
+  physiology?: string;
+  pathophysiology?: string;
+  ekgClues?: string;
+  recognition?: {
+    whatIsIt: string;
+    lookFor: string;
+    distinctions: string;
+  };
   ambulanceRelevance: string;
   commonPitfalls: string;
   exampleImageKey?: string;
@@ -154,6 +159,44 @@ const acuteRhythms: AcuteRhythmInfo[] = [
     ambulanceRelevance: "Vurder frekvens, symptomer, blodtryk og bevidsthed. Højgradige blok kan forværres.",
     commonPitfalls: "At kalde alle langsomme rytmer sinusbradykardi uden at undersøge P-QRS relationen.",
     exampleImageKey: "ekg_img_complete_heart_block",
+  },
+  {
+    key: "lbbb",
+    title: "Venstresidigt grenblok (LBBB)",
+    shortDefinition:
+      "Forsinket aktivering gennem venstre gren med bredt QRS og et karakteristisk, men variabelt, ledningsmønster.",
+    recognition: {
+      whatIsIt:
+        "Ved LBBB aktiveres venstre ventrikel forsinket. Det ændrer QRS-morfologien og giver sekundære repolarisationsforandringer.",
+      lookFor:
+        "Se efter bredt QRS. Hvor mønstret er typisk, kan der være brede eller hakkede overvejende positive komplekser lateralt, overvejende negativ morfologi højreprækordialt og ST-T-forandringer modsat QRS-hovedretningen.",
+      distinctions:
+        "LBBB og RBBB adskilles på morfologien, ikke kun QRS-bredden. Bredt QRS er heller ikke automatisk VT: vurder frekvens, regelmæssighed og P-QRS relation. Ved samtidig AF bevares både den uregelmæssige atrierytme og LBBB-fundet.",
+    },
+    ambulanceRelevance:
+      "Beskriv QRS-bredde, sandsynligt mønster, symptomer og om fundet er kendt fra tidligere EKG. Sammenhold altid med klinik og øvrige 12-afledningsfund.",
+    commonPitfalls:
+      "At gøre morfologien til en absolut skabelon, overse den underliggende rytme eller tolke sekundære ST-T-forandringer uden grenblokkontekst.",
+    exampleImageKey: "ekg_img_lbbb_1",
+  },
+  {
+    key: "rbbb",
+    title: "Højresidigt grenblok (RBBB)",
+    shortDefinition:
+      "Forsinket aktivering gennem højre gren med bredt QRS og terminale højresidige ledningsfund, hvor de er til stede.",
+    recognition: {
+      whatIsIt:
+        "Ved RBBB aktiveres højre ventrikel forsinket, mens den underliggende rytme fortsat skal analyseres uafhængigt.",
+      lookFor:
+        "Se efter bredt QRS. Hvor mønstret er typisk, kan der ses terminal positivitet eller rSR'-lignende morfologi højreprækordialt, bred eller sløret terminal S-tak lateralt og sekundære repolarisationsforandringer.",
+      distinctions:
+        "RBBB adskilles fra LBBB ved morfologien. Ved bredkomplekset takykardi må RBBB-udseende ikke få mulig VT til at blive afvist. Når LAFB også er angivet, bevares begge ledningsfund og aksemønstret vurderes særskilt.",
+    },
+    ambulanceRelevance:
+      "Beskriv QRS-bredde, sandsynligt RBBB-mønster, symptomer og samtidige ledningsfund. Sammenlign med tidligere EKG, hvis det er tilgængeligt.",
+    commonPitfalls:
+      "At bruge rSR'-udseende alene som diagnose, overse laterale terminale S-takker eller reducere RBBB med LAFB til rent RBBB.",
+    exampleImageKey: "ekg_img_rbbb",
   },
 ];
 
@@ -331,7 +374,7 @@ export function EkgTrainingHomeScreen({
         {view === "reference" ? (
           <>
             <Card variant="subtle" style={styles.sectionCard}>
-          <SectionTitle>Akutte rytmer</SectionTitle>
+          <SectionTitle>Rytmer og ledningsfund</SectionTitle>
           <Text style={styles.bodyText}>
             Tryk på en rytme for en kort forklaring. Rytmen skal altid vurderes
             sammen med patientens kliniske tilstand.
@@ -354,12 +397,31 @@ export function EkgTrainingHomeScreen({
                   title={rhythm.title}
                 >
                     <View style={styles.rhythmPanel}>
-                      <InfoBlock title="Fysiologi" text={rhythm.physiology} />
-                      <InfoBlock
-                        title="Patofysiologi"
-                        text={rhythm.pathophysiology}
-                      />
-                      <InfoBlock title="EKG-tegn" text={rhythm.ekgClues} />
+                      {rhythm.recognition ? (
+                        <>
+                          <InfoBlock
+                            title="Hvad er det?"
+                            text={rhythm.recognition.whatIsIt}
+                          />
+                          <InfoBlock
+                            title="Hvad skal jeg se efter?"
+                            text={rhythm.recognition.lookFor}
+                          />
+                          <InfoBlock
+                            title="Nyttige skel"
+                            text={rhythm.recognition.distinctions}
+                          />
+                        </>
+                      ) : (
+                        <>
+                          <InfoBlock title="Fysiologi" text={rhythm.physiology ?? ""} />
+                          <InfoBlock
+                            title="Patofysiologi"
+                            text={rhythm.pathophysiology ?? ""}
+                          />
+                          <InfoBlock title="EKG-tegn" text={rhythm.ekgClues ?? ""} />
+                        </>
+                      )}
                       <InfoBlock
                         title="Ambulancefaglig relevans"
                         text={rhythm.ambulanceRelevance}

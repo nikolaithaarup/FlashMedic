@@ -104,6 +104,13 @@ export const ekgStepOptions: Record<EkgAssessmentStep, EkgStepOption[]> = {
     { id: "wide-complex-tachycardia", label: "Bredkomplekset takykardi" },
     { id: "narrow-complex-tachycardia", label: "Smalkomplekset takykardi" },
     { id: "extrasystoles", label: "Ekstrasystoler" },
+    { id: "lbbb", label: "Venstresidigt grenblok (LBBB)" },
+    { id: "rbbb", label: "Højresidigt grenblok (RBBB)" },
+    {
+      id: "atrial-fibrillation-with-lbbb",
+      label: "Atrieflimren med LBBB",
+    },
+    { id: "rbbb-with-lafb", label: "RBBB med venstre anteriort fascikelblok" },
     { id: "stemi-pattern", label: "STEMI-mønster" },
     { id: "not-enough-information", label: "Ikke nok information" },
   ],
@@ -433,7 +440,151 @@ function makeMobitzIAssessment(cardId: string, title: string): EkgInteractiveAss
   };
 }
 
+type BundleBranchSide = "left" | "right";
+
+function makeBundleBranchBlockAssessment({
+  cardId,
+  title,
+  side,
+}: {
+  cardId: string;
+  title: string;
+  side: BundleBranchSide;
+}): EkgInteractiveAssessment {
+  const isLeft = side === "left";
+  const abbreviation = isLeft ? "LBBB" : "RBBB";
+  const rhythmOption = isLeft ? "lbbb" : "rbbb";
+  return {
+    cardId,
+    imageKey: cardId,
+    title,
+    rhythmName: `${isLeft ? "Venstresidigt" : "Højresidigt"} grenblok (${abbreviation})`,
+    sourceNote,
+    steps: {
+      rate: step(
+        "rate",
+        "uncertain",
+        "Grenblokkets navn fastlægger ikke frekvensen; den skal tælles på den konkrete optagelse.",
+      ),
+      regularity: step(
+        "regularity",
+        "uncertain",
+        "Grenblok beskriver ventrikulær ledning og fastlægger ikke i sig selv rytmens regelmæssighed.",
+      ),
+      pWaves: step(
+        "pWaves",
+        "uncertain",
+        "P-takker og deres relation til QRS skal vurderes separat; grenblok afgør ikke atrierytmen.",
+      ),
+      prInterval: step(
+        "prInterval",
+        "not-assessable",
+        "PR-intervallet kan ikke udledes af grenblokdiagnosen og skal måles, hvis P-takkerne er tydelige.",
+      ),
+      qrsWidth: step(
+        "qrsWidth",
+        "wide",
+        `${abbreviation} er en intraventrikulær ledningsforstyrrelse med bredt QRS; vurder samtidig morfologien i de relevante afledninger.`,
+      ),
+      rhythm: step(
+        "rhythm",
+        rhythmOption,
+        isLeft
+          ? "Bredt QRS med et LBBB-foreneligt mønster passer med venstresidigt grenblok; morfologien kan variere mellem patienter."
+          : "Bredt QRS med et RBBB-foreneligt mønster passer med højresidigt grenblok; morfologien kan variere mellem patienter.",
+      ),
+      clinicalMeaning: step(
+        "clinicalMeaning",
+        "needs-12-lead",
+        "Grenblok skal beskrives i 12-afledningskontekst og sammenholdes med symptomer, tidligere EKG og øvrige fund.",
+      ),
+    },
+    keyFindings: isLeft
+      ? [
+          "Bredt QRS",
+          "Hvor til stede: bred eller hakket overvejende positiv lateral morfologi og overvejende negativ højreprækordial morfologi",
+          "Sekundære ST-T-forandringer kan gå modsat hovedretningen af QRS",
+        ]
+      : [
+          "Bredt QRS",
+          "Hvor til stede: terminal positivitet eller rSR'-lignende morfologi i højreprækordiale afledninger",
+          "Hvor til stede: bred eller sløret terminal S-tak lateralt og sekundære repolarisationsforandringer",
+        ],
+    commonPitfall: isLeft
+      ? "At bruge én morfologisk detalje som absolut regel eller at forveksle bredt QRS med ventrikulær rytme uden at vurdere frekvens, regelmæssighed og P-QRS relation."
+      : "At bruge rSR'-udseende alene som diagnose eller at overse, at bredkomplekset takykardi fortsat kræver forsigtig vurdering for mulig VT.",
+    ambulanceRelevance:
+      "Beskriv QRS-bredde, sandsynligt grenblokmønster, rytme, symptomer og eventuelle ændringer sammenlignet med tidligere EKG, hvis det er tilgængeligt.",
+  };
+}
+
+function makeAtrialFibrillationWithLbbbAssessment(): EkgInteractiveAssessment {
+  return {
+    cardId: "ekg_img_lbbb_af",
+    imageKey: "ekg_img_lbbb_af",
+    title: "Atrieflimren med LBBB",
+    rhythmName: "Atrieflimren med venstresidigt grenblok (LBBB)",
+    sourceNote,
+    steps: {
+      rate: step("rate", "uncertain", "Ventrikelfrekvensen ved atrieflimren skal tælles på den konkrete optagelse."),
+      regularity: step("regularity", "irregularly-irregular", "Atrieflimren giver typisk uregelmæssigt uregelmæssige RR-intervaller."),
+      pWaves: step("pWaves", "none-clear", "Ved atrieflimren ses der ikke sikre, ensartede P-takker før hvert QRS."),
+      prInterval: step("prInterval", "not-assessable", "PR-intervallet kan ikke vurderes sikkert uden organiserede P-takker."),
+      qrsWidth: step("qrsWidth", "wide", "Det samtidige LBBB giver brede QRS-komplekser oven i den uregelmæssige atrierytme."),
+      rhythm: step("rhythm", "atrial-fibrillation-with-lbbb", "Kombinationen af et AF-mønster og bred LBBB-forenelig morfologi bevarer begge fund i fortolkningen."),
+      clinicalMeaning: step("clinicalMeaning", "needs-12-lead", "Vurder frekvens, symptomer, hæmodynamik, 12-afledning og om grenblokken er kendt fra tidligere."),
+    },
+    keyFindings: ["Uregelmæssigt uregelmæssig rytme", "Ingen sikre P-takker", "Bredt QRS med LBBB-foreneligt mønster"],
+    commonPitfall: "At reducere casen til enten ren atrieflimren eller ren LBBB og dermed overse det samtidige fund.",
+    ambulanceRelevance: "Overlever både atrieflimren, ventrikelfrekvens, QRS-bredde/grenblokmønster og patientens kliniske påvirkning.",
+  };
+}
+
+function makeRbbbWithLafbAssessment(): EkgInteractiveAssessment {
+  return {
+    cardId: "ekg_img_rbbb_lafb",
+    imageKey: "ekg_img_rbbb_lafb",
+    title: "RBBB med LAFB",
+    rhythmName: "Højresidigt grenblok med venstre anteriort fascikelblok",
+    sourceNote,
+    steps: {
+      rate: step("rate", "uncertain", "Den kombinerede ledningsforstyrrelse fastlægger ikke frekvensen; den skal vurderes på optagelsen."),
+      regularity: step("regularity", "uncertain", "Rytmens regelmæssighed skal vurderes separat fra ledningsmønstret."),
+      pWaves: step("pWaves", "uncertain", "P-takker og P-QRS relation skal vurderes på billedet og kan ikke udledes af filens diagnoseetiket."),
+      prInterval: step("prInterval", "not-assessable", "PR-intervallet skal måles særskilt, hvis P-takkerne er tydelige."),
+      qrsWidth: step("qrsWidth", "wide", "RBBB giver bredt QRS; LAFB-delen vurderes via akse-/fascikelmønster i 12-afledningen."),
+      rhythm: step("rhythm", "rbbb-with-lafb", "Kortets eksisterende diagnoseetiket angiver både RBBB og LAFB, så begge fund bevares i svaret."),
+      clinicalMeaning: step("clinicalMeaning", "needs-12-lead", "Kombinerede ledningsfund skal vurderes i 12-afledning og klinisk kontekst samt sammenholdes med tidligere EKG."),
+    },
+    keyFindings: ["Bredt QRS med RBBB-foreneligt mønster", "Samtidigt LAFB angivet i casens eksisterende metadata", "Rytme og PR-forhold skal stadig vurderes separat"],
+    commonPitfall: "At kalde casen rent RBBB og overse det samtidige fascikelblok eller at antage LAFB uden at kontrollere aksemønstret.",
+    ambulanceRelevance: "Beskriv begge ledningsfund, symptomer, frekvens, PR-forhold hvis målbart og eventuelle ændringer fra tidligere EKG.",
+  };
+}
+
 export const ekgInteractiveAssessments: EkgInteractiveAssessment[] = [
+  makeBundleBranchBlockAssessment({
+    cardId: "ekg_img_lbbb_1",
+    title: "Venstresidigt grenblok 1",
+    side: "left",
+  }),
+  makeBundleBranchBlockAssessment({
+    cardId: "ekg_img_lbbb_3",
+    title: "Venstresidigt grenblok 3",
+    side: "left",
+  }),
+  makeAtrialFibrillationWithLbbbAssessment(),
+  makeBundleBranchBlockAssessment({
+    cardId: "ekg_img_rbbb",
+    title: "Højresidigt grenblok 1",
+    side: "right",
+  }),
+  makeBundleBranchBlockAssessment({
+    cardId: "ekg_img_rbbb_2",
+    title: "Højresidigt grenblok 2",
+    side: "right",
+  }),
+  makeRbbbWithLafbAssessment(),
   {
     cardId: "ekg_img_atrial_fib_1",
     imageKey: "ekg_img_atrial_fib_1",

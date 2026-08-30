@@ -296,7 +296,12 @@ export function EkgImageDrillScreen({ cards, loadingCards, onBack }: Props) {
           </Card>
         ) : currentCard && assessment ? (
           <>
-            <Surface elevated tone="elevated" style={styles.imageCard}>
+            <Surface
+              elevated
+              tone="elevated"
+              style={styles.imageCard}
+              testID={`ekg-case-${currentCard.id}`}
+            >
               <View style={styles.imageHeader}>
                 <View style={styles.imageHeaderCopy}>
                   <Text style={styles.eyebrow}>
@@ -407,6 +412,7 @@ export function EkgImageDrillScreen({ cards, loadingCards, onBack }: Props) {
         <FullscreenEkgImageModal
           imageSource={currentCard.image}
           onClose={() => setImageModalVisible(false)}
+          rotate={false}
           visible={imageModalVisible}
         />
       ) : null}

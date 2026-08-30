@@ -220,4 +220,52 @@ export const ekgRhythmExamples: EkgRhythmExample[] = [
     explanation:
       "AV-blok handler om overledning. Derfor er P-takker, PR-interval og sammenhængen med QRS centrale.",
   },
+  {
+    id: "lbbb",
+    title: "Venstresidigt grenblok (LBBB)",
+    shortDescription:
+      "Bredt QRS med et venstresidigt grenblokmønster, hvor morfologien vurderes i flere afledninger.",
+    rateDescription:
+      "Frekvensen fastlægges af den underliggende rytme og kan være langsom, normal eller hurtig.",
+    regularity:
+      "Regelmæssigheden afhænger af den underliggende rytme; LBBB gør ikke i sig selv rytmen uregelmæssig.",
+    pWaveDescription:
+      "P-takker og deres relation til QRS vurderes separat fra grenblokmønstret.",
+    prDescription:
+      "PR-intervallet skal måles, hvis P-takkerne er tydelige; LBBB fastlægger det ikke.",
+    qrsDescription:
+      "QRS er bredt. Hvor morfologien er typisk, kan der ses brede eller hakkede overvejende positive komplekser lateralt, overvejende negativ højreprækordial morfologi og sekundære modsat rettede ST-T-forandringer.",
+    likelyRhythm:
+      "Fundene kan passe med venstresidigt grenblok, men morfologien er ikke identisk hos alle patienter og skal vurderes i 12 afledninger.",
+    ambulanceRelevance:
+      "Beskriv QRS-bredde, mønster, symptomer og om fundet er kendt fra et tidligere EKG. Nyt eller ukendt fund kræver klinisk kontekst og videre vurdering.",
+    commonPitfall:
+      "At bruge ét morfologisk tegn som absolut regel eller at kalde ethvert bredt QRS for ventrikulær rytme. Ved hurtig bredkomplekset rytme skal mulig VT fortsat overvejes forsigtigt.",
+    explanation:
+      "Ved LBBB forsinkes aktiveringen af venstre ventrikel. Det giver et bredt QRS og sekundære repolarisationsforandringer; den underliggende rytme skal stadig analyseres trin for trin.",
+  },
+  {
+    id: "rbbb",
+    title: "Højresidigt grenblok (RBBB)",
+    shortDescription:
+      "Bredt QRS med et højresidigt grenblokmønster og karakteristiske terminale ledningsfund, hvor de er til stede.",
+    rateDescription:
+      "Frekvensen bestemmes af den underliggende rytme og skal tælles separat.",
+    regularity:
+      "Regelmæssigheden afhænger af den underliggende rytme og ikke af RBBB alene.",
+    pWaveDescription:
+      "P-takker og P-QRS relation vurderes som et selvstændigt analysetrin.",
+    prDescription:
+      "PR-intervallet skal vurderes særskilt; RBBB fastlægger ikke AV-overledningstiden.",
+    qrsDescription:
+      "QRS er bredt. Hvor mønstret er typisk, kan der ses terminal positivitet eller rSR'-lignende morfologi højreprækordialt, bred/sløret terminal S-tak lateralt og sekundære repolarisationsforandringer.",
+    likelyRhythm:
+      "Fundene kan passe med højresidigt grenblok, men morfologien varierer og bør samles med rytme, akse og øvrige 12-afledningsfund.",
+    ambulanceRelevance:
+      "Beskriv QRS-bredde, mønster, symptomer og eventuelle samtidige ledningsfund. Ved RBBB med LAFB skal begge fund bevares i overleveringen.",
+    commonPitfall:
+      "At diagnosticere RBBB ud fra rSR'-udseende alene, overse en bred terminal S-tak eller reducere RBBB med LAFB til rent RBBB.",
+    explanation:
+      "Ved RBBB forsinkes aktiveringen af højre ventrikel. Den underliggende rytme analyseres fortsat ud fra frekvens, regelmæssighed, P-takker og PR-forhold.",
+  },
 ];

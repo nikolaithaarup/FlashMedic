@@ -16,6 +16,12 @@ import {
   ekgInteractiveAssessments,
   ekgStepOptions,
 } from "../src/features/ekgTraining/ekgInteractiveAssessments";
+import {
+  createDefaultEkgImageViewState,
+  nextEkgImageRotation,
+  rotateEkgImageViewState,
+} from "../src/features/ekgTraining/ekgImageViewerState";
+import { ekgRhythmExamples } from "../src/features/ekgTraining/ekgRhythmExamples";
 import type { Flashcard } from "../src/types/Flashcard";
 
 function extractStringValues(source: string, key: string) {
@@ -234,6 +240,73 @@ for (const assessment of ekgInteractiveAssessments) {
   }
 }
 
+const expectedLbbbCaseIds = [
+  "ekg_img_lbbb_1",
+  "ekg_img_lbbb_3",
+  "ekg_img_lbbb_af",
+];
+const expectedRbbbCaseIds = [
+  "ekg_img_rbbb",
+  "ekg_img_rbbb_2",
+  "ekg_img_rbbb_lafb",
+];
+for (const cardId of [...expectedLbbbCaseIds, ...expectedRbbbCaseIds]) {
+  if (!interactiveIds.has(cardId)) {
+    throw new Error(`Missing curated bundle-branch-block case: ${cardId}`);
+  }
+  if (!localImageIds.includes(cardId) || !lookupKeys.has(cardId)) {
+    throw new Error(`Bundle-branch-block case does not resolve locally: ${cardId}`);
+  }
+}
+if (interactiveIds.has("ekg_img_lbbb_2")) {
+  throw new Error(
+    "ekg_img_lbbb_2 must stay out of scored training while it is byte-identical to the differently labelled LBBB-with-AF asset.",
+  );
+}
+for (const rhythmId of ["lbbb", "rbbb"]) {
+  if (!ekgRhythmExamples.some((example) => example.id === rhythmId)) {
+    throw new Error(`Missing guided rhythm-analysis example: ${rhythmId}`);
+  }
+}
+
+let rotation = createDefaultEkgImageViewState().rotation;
+const rotationCycle = [90, 180, 270, 0];
+for (const expectedRotation of rotationCycle) {
+  rotation = nextEkgImageRotation(rotation);
+  if (rotation !== expectedRotation) {
+    throw new Error(
+      `Unexpected image rotation step: expected ${expectedRotation}, got ${rotation}.`,
+    );
+  }
+}
+const transformedView = {
+  rotation: 270 as const,
+  scale: 4,
+  panX: 120,
+  panY: -80,
+};
+const rotatedView = rotateEkgImageViewState(transformedView);
+if (rotatedView.rotation !== 0 || rotatedView.scale !== transformedView.scale) {
+  throw new Error("Rotation did not wrap to zero while preserving zoom.");
+}
+if (rotatedView.panX !== 0 || rotatedView.panY !== 0) {
+  throw new Error("Rotation did not recenter the EKG image.");
+}
+const resetView = createDefaultEkgImageViewState();
+if (
+  resetView.rotation !== 0 ||
+  resetView.scale !== 1 ||
+  resetView.panX !== 0 ||
+  resetView.panY !== 0
+) {
+  throw new Error("EKG image reset did not restore fit, zero rotation, and centered pan.");
+}
+const identityBeforeViewerChanges = ekgInteractiveAssessments[0].cardId;
+rotateEkgImageViewState(transformedView);
+if (ekgInteractiveAssessments[0].cardId !== identityBeforeViewerChanges) {
+  throw new Error("Image rotation changed EKG case identity/scoring metadata.");
+}
+
 const interactivePool = buildEkgInteractiveImageDrillPool(fixtureCards, {
   imageLookup: fakeLookup,
 });
@@ -270,5 +343,5 @@ if (
 }
 
 console.log(
-  `Validated ${pool.length} usable EKG image drill cards, ${interactivePool.length} interactive assessments, deterministic shuffle, fallback assessment, empty pool handling, and annotation coordinate guards.`,
+  `Validated ${pool.length} usable EKG image drill cards, ${interactivePool.length} interactive assessments (${expectedLbbbCaseIds.length} LBBB and ${expectedRbbbCaseIds.length} RBBB), deterministic shuffle, guided BBB examples, viewer rotation/reset state, fallback assessment, empty pool handling, and annotation coordinate guards.`,
 );
