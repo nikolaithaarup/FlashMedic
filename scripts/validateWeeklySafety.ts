@@ -18,6 +18,7 @@ import {
 import {
   createPendingWeeklyResult,
   parsePendingWeeklyResults,
+  replacePendingWeeklyNickname,
 } from "../src/storage/weeklyPendingModel";
 
 const date = new Date("2026-07-02T12:00:00Z");
@@ -133,6 +134,17 @@ const pending = createPendingWeeklyResult({
 const parsedPending = parsePendingWeeklyResults([pending, { broken: true }]);
 if (parsedPending.length !== 1 || parsedPending[0].id !== pending.id) {
   throw new Error("Pending result serialization validation failed.");
+}
+const renamedPending = replacePendingWeeklyNickname(
+  [pending, { ...pending, id: "other", uid: "other-uid" }],
+  "uid",
+  "Bruger1234",
+);
+if (
+  renamedPending[0].nickname !== "Bruger1234" ||
+  renamedPending[1].nickname !== "User"
+) {
+  throw new Error("Pending result nickname removal was not scoped to the active UID.");
 }
 
 if (

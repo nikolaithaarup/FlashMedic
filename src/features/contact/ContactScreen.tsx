@@ -18,6 +18,7 @@ import {
   Card,
   PrimaryButton,
   Screen,
+  SecondaryButton,
   ToolPageHeader,
 } from "../../ui/primitives";
 
@@ -34,6 +35,8 @@ type Props = {
 };
 
 const SUPPORT_EMAIL = "nikolai_91@live.com";
+const PRIVACY_URL = "https://synapsestudio.dk/da/privacy";
+const DISCLAIMER_URL = "https://synapsestudio.dk/da/disclaimer";
 
 export function ContactScreen({
   contactName,
@@ -108,6 +111,20 @@ export function ContactScreen({
     }
   };
 
+  const openExternalPage = async (url: string, pageName: string) => {
+    try {
+      const supported = await Linking.canOpenURL(url);
+      if (!supported) throw new Error(`Unsupported URL: ${url}`);
+      await Linking.openURL(url);
+    } catch (error) {
+      console.warn(`Could not open ${pageName}`, error);
+      Alert.alert(
+        `Kunne ikke åbne ${pageName}`,
+        `Prøv igen, eller åbn siden manuelt:\n${url}`,
+      );
+    }
+  };
+
   return (
     <Screen>
       <StatusBar style="light" />
@@ -130,6 +147,30 @@ export function ContactScreen({
         <Text selectable style={styles.metaText}>
           Support: {SUPPORT_EMAIL}
         </Text>
+      </Card>
+
+      <Text style={styles.sectionLabel}>OM FLASHMEDIC</Text>
+      <Card variant="subtle" style={styles.legalCard}>
+        <Text style={styles.introTitle}>Træning – ikke behandlingsgrundlag</Text>
+        <Text style={styles.introText}>
+          FlashMedic er et uddannelses- og træningsværktøj. Det erstatter ikke
+          formel uddannelse, klinisk vurdering, aktuelle retningslinjer eller
+          lokale protokoller. Indhold kan variere mellem regioner og
+          protokoller og må ikke bruges som eneste grundlag for
+          behandlingsbeslutninger.
+        </Text>
+        <SecondaryButton
+          label="Privatlivspolitik"
+          onPress={() => openExternalPage(PRIVACY_URL, "privatlivspolitikken")}
+          testID="privacy-policy-link"
+        />
+        <SecondaryButton
+          label="Ansvarsfraskrivelse"
+          onPress={() =>
+            openExternalPage(DISCLAIMER_URL, "ansvarsfraskrivelsen")
+          }
+          testID="disclaimer-link"
+        />
       </Card>
 
       <Text style={styles.sectionLabel}>DIN BESKED</Text>
@@ -173,6 +214,7 @@ export function ContactScreen({
 
 const styles = StyleSheet.create({
   introCard: { gap: Spacing.sm },
+  legalCard: { gap: Spacing.sm },
   introTitle: {
     color: ColorTokens.text.primary,
     fontSize: Typography.sizes.cardTitle,

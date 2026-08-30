@@ -30,6 +30,7 @@ import {
   type StoredUserProfile,
 } from "../../services/userService";
 import type { UserProfile } from "./useProfile";
+import { updatePendingWeeklyNickname } from "../../storage/weeklyPendingResults";
 
 function makeRandomAnonName() {
   const n = Math.floor(1000 + Math.random() * 9000);
@@ -103,12 +104,12 @@ export default function ProfileScreen({
 
   const resetLocalProfile = useCallback(() => {
     Alert.alert(
-      "Nulstil profil?",
-      "Dette sletter din lokale profil og laver en ny anonym profil med nyt navn.",
+      "Fjern kaldenavn?",
+      "Dette erstatter dit lokale kaldenavn med et tilfældigt anonymt navn. Dit anonyme Firebase-ID og allerede indsendte ranglisteresultater slettes ikke.",
       [
         { text: "Annuller", style: "cancel" },
         {
-          text: "Nulstil",
+          text: "Fjern kaldenavn",
           style: "destructive",
           onPress: async () => {
             const newNick = makeRandomAnonName();
@@ -127,10 +128,13 @@ export default function ProfileScreen({
                 nickname: newNick,
                 isAnonymous: true,
               };
+              if (firebaseUid) {
+                await updatePendingWeeklyNickname(firebaseUid, newNick);
+              }
               await saveStoredProfile(toStore);
               setProfile(next);
               setNickname(newNick);
-              Alert.alert("Profil nulstillet", `Ny anonym profil: ${newNick}`);
+              Alert.alert("Kaldenavn fjernet", `Du fortsætter som ${newNick}.`);
             } catch (error) {
               console.warn("Failed to reset profile", error);
               Alert.alert(
@@ -156,7 +160,9 @@ export default function ProfileScreen({
 
       <NoticeCard title="Sådan bruges din profil">
         Dit bruger-id forbinder resultater med den fælles statistik. Kaldenavnet
-        er det navn, andre kan se.
+        er det navn, andre kan se. Når du fjerner kaldenavnet, fortsætter du med
+        et tilfældigt anonymt navn; tidligere ranglisteresultater slettes ikke.
+        Kontakt support med dit bruger-id, hvis de skal slettes.
       </NoticeCard>
 
       <Text style={styles.sectionLabel}>PROFILOPLYSNINGER</Text>
@@ -187,7 +193,7 @@ export default function ProfileScreen({
         <PrimaryButton label="Gem kaldenavn" onPress={save} />
 
         <SecondaryButton
-          label="Nulstil profil"
+          label="Fjern kaldenavn"
           onPress={resetLocalProfile}
           style={styles.resetButton}
         />

@@ -91,9 +91,10 @@ export default function AuthScreen({
 
       <Text style={styles.sectionLabel}>VÆLG DIT NAVN</Text>
       <Card variant="subtle" style={styles.card}>
-        <Text style={styles.cardTitle}>Opret profil</Text>
+        <Text style={styles.cardTitle}>Brug et kaldenavn</Text>
         <Text style={styles.cardDescription}>
-          Kaldenavnet vises på ranglisten og kan altid ændres under Profil.
+          Kaldenavnet gemmes lokalt, vises på ranglisten og kan altid ændres
+          eller fjernes under Profil. Det opretter ikke et login.
         </Text>
 
         <Text style={styles.inputLabel}>Kaldenavn</Text>
@@ -111,7 +112,7 @@ export default function AuthScreen({
         />
 
         <PrimaryButton
-          label="Opret profil"
+          label="Fortsæt med kaldenavn"
           onPress={handleCreate}
           style={styles.cardAction}
         />

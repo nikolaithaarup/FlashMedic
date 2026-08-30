@@ -85,3 +85,13 @@ export function createPendingWeeklyResult(
     status: "pending",
   };
 }
+
+export function replacePendingWeeklyNickname(
+  results: PendingWeeklyResult[],
+  uid: string,
+  nickname: string,
+): PendingWeeklyResult[] {
+  return results.map((result) =>
+    result.uid === uid ? { ...result, nickname } : result,
+  );
+}

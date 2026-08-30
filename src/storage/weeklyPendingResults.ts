@@ -2,6 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import {
   parsePendingWeeklyResults,
+  replacePendingWeeklyNickname,
   type PendingWeeklyResult,
 } from "./weeklyPendingModel";
 
@@ -44,4 +45,12 @@ export async function markPendingWeeklyResultFailed(id: string): Promise<void> {
       item.id === id ? { ...item, status: "failed" } : item,
     ),
   );
+}
+
+export async function updatePendingWeeklyNickname(
+  uid: string,
+  nickname: string,
+): Promise<void> {
+  const current = await loadPendingWeeklyResults();
+  await saveAll(replacePendingWeeklyNickname(current, uid, nickname));
 }
