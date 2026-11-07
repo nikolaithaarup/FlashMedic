@@ -8,6 +8,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "build:web": "node scripts/assertVercelTarget.mjs && expo export --platform web --output-dir dist && node scripts/generateServiceWorker.mjs dist",
+    "preview:web": "npx serve dist --listen 4173 --single",
     "validate:iso-week": "tsx scripts/validateIsoWeek.ts",
     "validate:drug-calc": "tsx scripts/validateDrugCalc.ts",
     "validate:ekg-image-drills": "tsx scripts/validateEkgImageDrills.ts",
@@ -18,11 +20,14 @@
     "validate:weekly-safety": "tsx scripts/validateWeeklySafety.ts",
     "validate:firestore-migration": "tsx scripts/validateFlashcardMigration.ts",
     "validate:learning": "tsx scripts/validateLearning.ts",
+    "validate:pwa": "tsx scripts/validatePwa.ts",
+    "validate:progress-sync": "tsx scripts/validateProgressSync.ts",
+    "test:firestore-rules": "firebase emulators:exec --only firestore --project demo-flashmedic \"npx tsx scripts/testFirestoreRules.ts\"",
     "test:content-quality": "tsx scripts/testContentQuality.ts",
     "migrate:flashcards:dry-run": "tsx scripts/migrateFlashcardsFirestore.ts --dry-run",
     "migrate:flashcards:apply": "tsx scripts/migrateFlashcardsFirestore.ts --apply",
     "lint": "expo lint",
-    "release:check": "npx tsc --noEmit && npm run lint && npm run validate:iso-week && npm run validate:drug-calc && npm run validate:ekg-image-drills && npm run validate:blood-gas && npm run validate:flashcards && npm run validate:content-quality && npm run validate:weekly-safety && npm run validate:firestore-migration && npm run validate:learning",
+    "release:check": "npx tsc --noEmit && npm run lint && npm run validate:iso-week && npm run validate:drug-calc && npm run validate:ekg-image-drills && npm run validate:blood-gas && npm run validate:flashcards && npm run validate:content-quality && npm run validate:weekly-safety && npm run validate:firestore-migration && npm run validate:learning && npm run validate:pwa",
     "release:build": "eas build --platform all --profile production",
     "release:submit": "eas build --platform all --profile production --auto-submit",
     "release": "npm run release:check && npm run release:submit"
@@ -64,6 +69,7 @@
     "react-native-worklets": "0.5.1"
   },
   "devDependencies": {
+    "@firebase/rules-unit-testing": "^5.0.0",
     "@types/cors": "^2.8.19",
     "@types/react": "~19.1.0",
     "eslint": "^9.39.2",

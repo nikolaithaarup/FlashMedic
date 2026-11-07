@@ -1,4 +1,4 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { appStorage } from "./appStorage";
 
 import {
   parsePendingWeeklyResults,
@@ -12,7 +12,7 @@ const STORAGE_KEY = "flashmedic_weekly_pending_results_v1";
 
 export async function loadPendingWeeklyResults(): Promise<PendingWeeklyResult[]> {
   try {
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await appStorage.getItem(STORAGE_KEY);
     return raw ? parsePendingWeeklyResults(JSON.parse(raw) as unknown) : [];
   } catch (error) {
     console.warn("Failed to load pending weekly results", error);
@@ -21,7 +21,7 @@ export async function loadPendingWeeklyResults(): Promise<PendingWeeklyResult[]>
 }
 
 async function saveAll(results: PendingWeeklyResult[]): Promise<void> {
-  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(results));
+  await appStorage.setItem(STORAGE_KEY, JSON.stringify(results));
 }
 
 export async function upsertPendingWeeklyResult(

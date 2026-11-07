@@ -4,9 +4,20 @@ import React, {
   type SetStateAction,
   useCallback,
   useEffect,
+  useMemo,
   useState,
 } from "react";
-import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
+import { onAuthStateChanged } from "firebase/auth";
+import {
+  Alert,
+  Platform,
+  Share,
+  StyleSheet,
+  Text,
+  TextInput,
+  useWindowDimensions,
+  View,
+} from "react-native";
 
 import {
   Borders,
@@ -19,7 +30,6 @@ import {
 } from "../../../constants/theme";
 import {
   Card,
-  NoticeCard,
   PrimaryButton,
   Screen,
   SecondaryButton,
@@ -30,11 +40,59 @@ import {
   type StoredUserProfile,
 } from "../../services/userService";
 import type { UserProfile } from "./useProfile";
+import type { Flashcard } from "../../types/Flashcard";
+import { useStats } from "../stats/StatsContext";
+import { deriveTopicStats } from "../flashcards/learningSelectors";
 import { updatePendingWeeklyNickname } from "../../storage/weeklyPendingResults";
+import {
+  createProgressBackupImportIdentity,
+  createProgressBackup,
+  parseProgressBackup,
+  rebindProgressBackupUser,
+  restoreProgressBackup,
+} from "../../storage/progressTransfer";
+import { auth } from "../../firebase/firebase";
+import { signOutSynapseAccount } from "../../services/synapseAuth";
+import {
+  prepareImportedProgressForSync,
+  type ProgressSyncState,
+} from "../../sync/progressSync";
+import { SynapseEmailLogin } from "./SynapseEmailLogin";
 
 function makeRandomAnonName() {
   const n = Math.floor(1000 + Math.random() * 9000);
   return `Bruger${n}`;
+}
+
+function formatActivityDate(value: string) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "Tidspunkt ikke tilgængeligt";
+  return new Intl.DateTimeFormat("da-DK", {
+    dateStyle: "medium",
+    timeStyle: "short",
+  }).format(date);
+}
+
+function syncStatusTitle(status: ProgressSyncState["status"]) {
+  switch (status) {
+    case "synced": return "Synkroniseret";
+    case "syncing": return "Synkroniserer";
+    case "pending": return "Afventer synkronisering";
+    case "offline": return "Offline";
+    case "error": return "Synkronisering mislykkedes";
+    default: return "Konto forbundet";
+  }
+}
+
+function syncStatusMessage(state: ProgressSyncState) {
+  if (state.status === "synced" && state.lastSyncedAt) {
+    return `Opdateret ${formatActivityDate(state.lastSyncedAt)}`;
+  }
+  if (state.status === "syncing") return "Opdaterer din fremgang…";
+  if (state.status === "pending") return `${state.pendingCount} ændring${state.pendingCount === 1 ? "" : "er"} afventer.`;
+  if (state.status === "offline") return "Fremgangen gemmes på enheden.";
+  if (state.status === "error") return "Fremgangen er gemt. Prøv igen senere.";
+  return "";
 }
 
 type Props = {
@@ -43,6 +101,7 @@ type Props = {
   buttonFont: number;
   firebaseUid: string | null;
   profile: UserProfile | null;
+  cards: readonly Flashcard[];
   setProfile: Dispatch<SetStateAction<UserProfile | null>>;
   onBack: () => void;
 };
@@ -50,15 +109,76 @@ type Props = {
 export default function ProfileScreen({
   firebaseUid,
   profile,
+  cards,
   setProfile,
   onBack,
 }: Props) {
   const [nickname, setNickname] = useState(profile?.nickname ?? "");
   const [focused, setFocused] = useState(false);
+  const [authBusy, setAuthBusy] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [signedInEmail, setSignedInEmail] = useState<string | null>(
+    auth.currentUser && !auth.currentUser.isAnonymous
+      ? (auth.currentUser.email ?? "SynapsePortal-konto")
+      : null,
+  );
+  const { width } = useWindowDimensions();
+  const {
+    personalStats,
+    progressSyncState,
+    retryProgressSync,
+  } = useStats();
+
+  const dashboard = useMemo(() => {
+    const entries = Object.values(personalStats);
+    const answered = entries.reduce((total, item) => total + item.seen, 0);
+    const correct = entries.reduce((total, item) => total + item.correct, 0);
+    const topicStats = deriveTopicStats(personalStats, cards);
+    return {
+      answered,
+      accuracy: answered > 0 ? Math.round((correct / answered) * 100) : 0,
+      activeTopics: [...topicStats]
+        .sort((left, right) => right.attempts - left.attempts)
+        .slice(0, width >= 720 ? 6 : 4),
+      weakTopics: topicStats
+        .filter(({ dataQuality }) => dataQuality === "usable")
+        .slice(0, 3),
+      recentTopics: [...topicStats]
+        .filter(({ lastPracticedAt }) => Boolean(lastPracticedAt))
+        .sort((left, right) => (right.lastPracticedAt ?? "").localeCompare(left.lastPracticedAt ?? ""))
+        .slice(0, 4),
+    };
+  }, [cards, personalStats, width]);
+  const syncNeedsAttention = Boolean(
+    signedInEmail &&
+    progressSyncState.status !== "synced" &&
+    progressSyncState.status !== "guest",
+  );
 
   useEffect(() => {
     setNickname(profile?.nickname ?? "");
   }, [profile?.nickname]);
+
+  useEffect(() => onAuthStateChanged(auth, (user) => {
+    setSignedInEmail(user && !user.isAnonymous
+      ? (user.email ?? "SynapsePortal-konto")
+      : null);
+  }), []);
+
+  const logout = useCallback(async () => {
+    setAuthBusy(true);
+    try {
+      await signOutSynapseAccount();
+      setProfile(null);
+      setNickname("");
+      setSignedInEmail(null);
+      if (Platform.OS === "web") window.location.reload();
+    } catch {
+      Alert.alert("Kunne ikke logge ud", "Prøv igen om et øjeblik.");
+    } finally {
+      setAuthBusy(false);
+    }
+  }, [setProfile]);
 
   const save = useCallback(async () => {
     const name = nickname.trim();
@@ -148,56 +268,218 @@ export default function ProfileScreen({
     );
   }, [firebaseUid, profile, setProfile]);
 
+  const exportProgress = useCallback(async () => {
+    try {
+      const backup = await createProgressBackup();
+      const json = JSON.stringify(backup, null, 2);
+      if (Platform.OS === "web") {
+        const blob = new Blob([json], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `flashmedic-backup-${backup.exportedAt.slice(0, 10)}.json`;
+        link.click();
+        URL.revokeObjectURL(url);
+        return;
+      }
+      await Share.share({
+        title: "FlashMedic-backup",
+        message: json,
+      });
+    } catch (error) {
+      console.warn("Failed to export FlashMedic progress", error);
+      Alert.alert("Backup mislykkedes", "Dine data er ikke blevet ændret. Prøv igen.");
+    }
+  }, []);
+
+  const importProgress = useCallback(async () => {
+    if (Platform.OS !== "web") return;
+    try {
+      const input = document.createElement("input");
+      input.type = "file";
+      input.accept = "application/json,.json";
+      const file = await new Promise<File | null>((resolve) => {
+        input.onchange = () => resolve(input.files?.[0] ?? null);
+        input.click();
+      });
+      if (!file) return;
+      if (!firebaseUid) {
+        throw new Error("Firebase-profilen er ikke klar endnu. Prøv igen om et øjeblik.");
+      }
+      const backup = parseProgressBackup(await file.text());
+      const rebound = rebindProgressBackupUser(backup, firebaseUid);
+      await restoreProgressBackup(rebound);
+      await prepareImportedProgressForSync(createProgressBackupImportIdentity(rebound));
+      window.location.reload();
+    } catch (error) {
+      console.warn("Failed to import FlashMedic progress", error);
+      Alert.alert(
+        "Backup kunne ikke importeres",
+        error instanceof Error ? error.message : "Filen er ugyldig.",
+      );
+    }
+  }, [firebaseUid]);
+
   return (
-    <Screen>
+    <Screen width="wide">
       <StatusBar style="light" />
       <ToolPageHeader
         backLabel="Tilbage til forsiden"
         onBack={onBack}
-        subtitle="Dit kaldenavn og dine profiloplysninger"
-        title="Profil"
+        title="Min læring"
       />
 
-      <NoticeCard title="Sådan bruges din profil">
-        Dit bruger-id forbinder resultater med den fælles statistik. Kaldenavnet
-        er det navn, andre kan se. Når du fjerner kaldenavnet, fortsætter du med
-        et tilfældigt anonymt navn; tidligere ranglisteresultater slettes ikke.
-        Kontakt support med dit bruger-id, hvis de skal slettes.
-      </NoticeCard>
+      {syncNeedsAttention ? (
+        <Card variant="subtle" style={styles.syncNotice}>
+          <View style={styles.statusHeader}>
+            <View style={[
+              styles.statusDot,
+              (progressSyncState.status === "offline" || progressSyncState.status === "pending") && styles.statusDotWarning,
+              progressSyncState.status === "error" && styles.statusDotError,
+            ]} />
+            <View style={styles.statusCopy}>
+              <Text style={styles.syncTitle}>{syncStatusTitle(progressSyncState.status)}</Text>
+              <Text style={styles.topicMeta}>{syncStatusMessage(progressSyncState)}</Text>
+            </View>
+            {progressSyncState.status === "error" || progressSyncState.status === "offline" ? (
+              <SecondaryButton
+                label="Prøv igen"
+                onPress={() => void retryProgressSync().catch(() => undefined)}
+                style={styles.retryButton}
+              />
+            ) : null}
+          </View>
+        </Card>
+      ) : null}
 
-      <Text style={styles.sectionLabel}>PROFILOPLYSNINGER</Text>
-      <Card variant="subtle" style={styles.profileCard}>
-        <Text style={styles.identityLabel}>Bruger-id</Text>
-        <Text selectable style={styles.identityValue}>
-          {firebaseUid ?? "—"}
-        </Text>
+      <Text style={styles.sectionLabel}>OVERBLIK</Text>
+      <View style={styles.metricGrid}>
+        <Card variant="subtle" style={styles.metricCard}>
+          <Text style={styles.metricValue}>{dashboard.answered}</Text>
+          <Text style={styles.metricLabel}>besvarede spørgsmål</Text>
+        </Card>
+        <Card variant="subtle" style={styles.metricCard}>
+          <Text style={styles.metricValue}>{dashboard.answered > 0 ? `${dashboard.accuracy}%` : "—"}</Text>
+          <Text style={styles.metricLabel}>samlet træfsikkerhed</Text>
+        </Card>
+        <Card variant="subtle" style={styles.metricCard}>
+          <Text style={styles.metricValue}>{dashboard.activeTopics.length}</Text>
+          <Text style={styles.metricLabel}>øvede emner</Text>
+        </Card>
+      </View>
 
-        <View style={styles.divider} />
+      <View style={styles.dashboardGrid}>
+      {dashboard.activeTopics.length ? (
+        <View style={styles.dashboardSection}>
+          <Text style={styles.sectionLabel}>EMNER</Text>
+          <Card variant="subtle" style={styles.profileCard}>
+            {dashboard.activeTopics.map((topic) => (
+          <View key={topic.key} style={styles.topicRow}>
+            <View style={styles.topicCopy}>
+              <Text style={styles.topicTitle}>{topic.topic}</Text>
+              <Text style={styles.topicMeta}>{topic.subject} · {topic.attempts} svar</Text>
+            </View>
+            <Text style={styles.topicAccuracy}>{Math.round(topic.accuracy * 100)}%</Text>
+          </View>
+            ))}
+          </Card>
+        </View>
+      ) : null}
 
-        <Text style={styles.inputLabel}>Kaldenavn (valgfrit)</Text>
-        <TextInput
-          accessibilityLabel="Kaldenavn"
-          autoCapitalize="none"
-          onBlur={() => setFocused(false)}
-          onChangeText={setNickname}
-          onFocus={() => setFocused(true)}
-          placeholder="Fx ParamedNick"
-          placeholderTextColor={ColorTokens.text.muted}
-          returnKeyType="done"
-          style={[styles.input, focused && styles.inputFocused]}
-          value={nickname}
-        />
-        <Text style={styles.inputHelp}>
-          Navnet gemmes lokalt og bruges fremover på ranglisten.
-        </Text>
-        <PrimaryButton label="Gem kaldenavn" onPress={save} />
+      {dashboard.weakTopics.length ? (
+        <View style={styles.dashboardSection}>
+          <Text style={styles.sectionLabel}>FOKUSOMRÅDER</Text>
+          <Card variant="subtle" style={styles.profileCard}>
+            {dashboard.weakTopics.map((topic) => (
+          <View key={topic.key} style={styles.topicRow}>
+            <View style={styles.topicCopy}>
+              <Text style={styles.topicTitle}>{topic.topic}</Text>
+              <Text style={styles.topicMeta}>{topic.incorrect} af {topic.attempts} svar kan forbedres</Text>
+            </View>
+            <Text style={styles.topicAccuracy}>{Math.round(topic.accuracy * 100)}%</Text>
+          </View>
+            ))}
+          </Card>
+        </View>
+      ) : null}
 
-        <SecondaryButton
-          label="Fjern kaldenavn"
-          onPress={resetLocalProfile}
-          style={styles.resetButton}
-        />
-      </Card>
+      {dashboard.recentTopics.length ? (
+        <View style={styles.dashboardSection}>
+          <Text style={styles.sectionLabel}>SENEST ØVET</Text>
+          <Card variant="subtle" style={styles.profileCard}>
+            {dashboard.recentTopics.map((topic) => (
+              <View key={topic.key} style={styles.topicRow}>
+                <View style={styles.topicCopy}>
+                  <Text style={styles.topicTitle}>{topic.topic}</Text>
+                  <Text style={styles.topicMeta}>{formatActivityDate(topic.lastPracticedAt!)}</Text>
+                </View>
+              </View>
+            ))}
+          </Card>
+        </View>
+      ) : null}
+      </View>
+
+      {!signedInEmail ? (
+        <>
+          <Text style={styles.sectionLabel}>KONTO</Text>
+          <Card variant="subtle" style={styles.profileCard}>
+            <Text style={styles.cardTitle}>Fortsæt på andre enheder</Text>
+            <SynapseEmailLogin
+              onAuthenticated={({ email, syncConfirmed }) => {
+                setSignedInEmail(email);
+                if (!syncConfirmed) Alert.alert("Logget ind", "Synkronisering afventer.");
+              }}
+            />
+            <Text style={styles.topicMeta}>Som gæst gemmes fremgangen kun på denne enhed.</Text>
+          </Card>
+        </>
+      ) : null}
+
+      <SecondaryButton
+        label={settingsOpen ? "Skjul indstillinger" : "Konto og indstillinger"}
+        onPress={() => setSettingsOpen((current) => !current)}
+        style={styles.settingsToggle}
+      />
+      {settingsOpen ? (
+        <Card variant="subtle" style={styles.profileCard}>
+          {signedInEmail ? (
+            <>
+              <Text style={styles.inputLabel}>Konto</Text>
+              <Text style={styles.inputHelp}>{signedInEmail}</Text>
+            </>
+          ) : null}
+          <Text style={styles.inputLabel}>Kaldenavn</Text>
+          <TextInput
+            accessibilityLabel="Kaldenavn"
+            autoCapitalize="none"
+            onBlur={() => setFocused(false)}
+            onChangeText={setNickname}
+            onFocus={() => setFocused(true)}
+            placeholder="Fx ParamedNick"
+            placeholderTextColor={ColorTokens.text.muted}
+            returnKeyType="done"
+            style={[styles.input, focused && styles.inputFocused]}
+            value={nickname}
+          />
+          <PrimaryButton label="Gem" onPress={save} />
+          <SecondaryButton label="Nulstil kaldenavn" onPress={resetLocalProfile} />
+          <View style={styles.divider} />
+          <Text style={styles.inputLabel}>Backup</Text>
+          <SecondaryButton label="Eksportér backup" onPress={exportProgress} />
+          {Platform.OS === "web" ? (
+            <SecondaryButton label="Importér backup" onPress={importProgress} />
+          ) : null}
+          {signedInEmail ? (
+            <SecondaryButton
+              label="Log ud"
+              loading={authBusy}
+              onPress={logout}
+              style={styles.resetButton}
+            />
+          ) : null}
+        </Card>
+      ) : null}
     </Screen>
   );
 }
@@ -209,10 +491,38 @@ const styles = StyleSheet.create({
     lineHeight: Typography.lineHeights.caption,
     fontWeight: Typography.weights.heavy,
     letterSpacing: 0.8,
-    marginTop: Spacing.xl,
+    marginTop: Spacing.lg,
     marginBottom: Spacing.xs,
   },
-  profileCard: { gap: Spacing.sm, marginBottom: Spacing.lg },
+  profileCard: { gap: Spacing.sm, marginBottom: Spacing.md },
+  cardTitle: {
+    color: ColorTokens.text.primary,
+    fontSize: Typography.sizes.cardTitle,
+    lineHeight: Typography.lineHeights.cardTitle,
+    fontWeight: Typography.weights.bold,
+  },
+  statusHeader: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.sm },
+  statusCopy: { flex: 1 },
+  syncNotice: { marginBottom: Spacing.md },
+  syncTitle: { color: ColorTokens.text.primary, fontSize: Typography.sizes.label, fontWeight: Typography.weights.bold },
+  retryButton: { minWidth: 96 },
+  statusDot: { width: 10, height: 10, borderRadius: 5, marginTop: Spacing.xs, backgroundColor: ColorTokens.accent.muted },
+  statusDotSuccess: { backgroundColor: SemanticStates.success.foreground },
+  statusDotWarning: { backgroundColor: SemanticStates.warning.foreground },
+  statusDotError: { backgroundColor: SemanticStates.danger.foreground },
+  metricGrid: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.sm, marginBottom: Spacing.sm },
+  metricCard: { flexGrow: 1, flexBasis: 140, minWidth: 0, padding: Spacing.md },
+  metricValue: { color: ColorTokens.text.primary, fontSize: 26, lineHeight: 32, fontWeight: Typography.weights.heavy },
+  metricLabel: { color: ColorTokens.text.secondary, fontSize: Typography.sizes.caption, lineHeight: Typography.lineHeights.caption },
+  topicRow: { flexDirection: "row", alignItems: "center", gap: Spacing.md, paddingVertical: Spacing.xs, borderBottomWidth: Borders.hairline, borderBottomColor: ColorTokens.border.divider },
+  topicCopy: { flex: 1 },
+  topicTitle: { color: ColorTokens.text.primary, fontSize: Typography.sizes.body, lineHeight: Typography.lineHeights.body, fontWeight: Typography.weights.semibold },
+  topicMeta: { color: ColorTokens.text.secondary, fontSize: Typography.sizes.caption, lineHeight: Typography.lineHeights.caption },
+  topicAccuracy: { color: ColorTokens.accent.muted, fontSize: Typography.sizes.body, fontWeight: Typography.weights.bold },
+  dashboardGrid: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.md },
+  dashboardSection: { flexGrow: 1, flexBasis: 300, minWidth: 0 },
+  emptyText: { color: ColorTokens.text.secondary, fontSize: Typography.sizes.body, lineHeight: Typography.lineHeights.body },
+  settingsToggle: { marginTop: Spacing.lg, marginBottom: Spacing.md },
   identityLabel: {
     color: ColorTokens.text.secondary,
     fontSize: Typography.sizes.label,

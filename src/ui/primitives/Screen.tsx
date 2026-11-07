@@ -1,10 +1,13 @@
 import React, { type ReactNode } from "react";
 import {
+  KeyboardAvoidingView,
+  Platform,
   ScrollView,
   type ScrollViewProps,
   StyleSheet,
   View,
   type ViewStyle,
+  useWindowDimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -17,6 +20,7 @@ type ScreenProps = {
   contentContainerStyle?: ViewStyle | ViewStyle[];
   scrollViewProps?: Omit<ScrollViewProps, "contentContainerStyle">;
   testID?: string;
+  width?: "reading" | "wide";
 };
 
 export function Screen({
@@ -25,25 +29,53 @@ export function Screen({
   contentContainerStyle,
   scrollViewProps,
   testID,
+  width: contentWidth = "reading",
 }: ScreenProps) {
+  const { width } = useWindowDimensions();
+  const horizontalPadding = width < 480
+    ? Spacing.md
+    : width < 840
+      ? Spacing.lg
+      : Spacing.xl;
+  const maxWidth = contentWidth === "wide" ? 1120 : 900;
+
   return (
     <Background>
-      <SafeAreaView style={styles.safeArea} testID={testID}>
-      {scroll ? (
-        <ScrollView
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}
-          {...scrollViewProps}
-          contentContainerStyle={[styles.content, contentContainerStyle]}
-        >
-          {children}
-        </ScrollView>
-      ) : (
-        <View style={[styles.content, styles.fill, contentContainerStyle]}>
-          {children}
-        </View>
-      )}
-      </SafeAreaView>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        style={styles.fill}
+      >
+        <SafeAreaView style={styles.safeArea} testID={testID}>
+          {scroll ? (
+            <ScrollView
+              automaticallyAdjustKeyboardInsets={Platform.OS === "ios"}
+              contentInsetAdjustmentBehavior="automatic"
+              keyboardDismissMode={Platform.OS === "ios" ? "interactive" : "on-drag"}
+              keyboardShouldPersistTaps="handled"
+              showsVerticalScrollIndicator={false}
+              {...scrollViewProps}
+              contentContainerStyle={[
+                styles.content,
+                { maxWidth, paddingHorizontal: horizontalPadding },
+                contentContainerStyle,
+              ]}
+            >
+              {children}
+            </ScrollView>
+          ) : (
+            <View
+              style={[
+                styles.content,
+                styles.fill,
+                { maxWidth, paddingHorizontal: horizontalPadding },
+                contentContainerStyle,
+              ]}
+            >
+              {children}
+            </View>
+          )}
+        </SafeAreaView>
+      </KeyboardAvoidingView>
     </Background>
   );
 }
@@ -55,9 +87,7 @@ const styles = StyleSheet.create({
   },
   content: {
     width: "100%",
-    maxWidth: 900,
     alignSelf: "center",
-    paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.md,
   },
   fill: {

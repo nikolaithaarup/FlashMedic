@@ -186,58 +186,35 @@ export function BloodGasTrainingHomeScreen({
             : "Tilbage til VGAS & CRP"
         }
         onBack={handleBack}
-        subtitle="Praktisk træning i VGAS og CRP"
         title="VGAS & CRP"
       />
 
       {view === "landing" ? (
         <>
-          <Card variant="subtle" style={styles.trainerCard}>
-        <View style={styles.headerCopy}>
-          <Text style={styles.eyebrow}>INTERAKTIV TRÆNING</Text>
-          <Text style={styles.sectionTitle}>Tolk en blodgas</Text>
-          <Text style={styles.summaryText}>
-            Vurder værdier trin for trin og vælg mønsteret, der passer bedst.
-            Værdier alene er ikke en klinisk diagnose.
-          </Text>
-        </View>
-        <PrimaryButton
-          label="Start tolkning"
-          onPress={onStartValueTrainer}
-          testID="start-blood-gas-value-trainer"
-        />
-          </Card>
-
-          <Card variant="subtle" style={styles.trainerCard}>
-        <View style={styles.headerCopy}>
-          <Text style={styles.eyebrow}>OMVENDT TRÆNING</Text>
-          <Text style={styles.sectionTitle}>Forudsig værdier</Text>
-          <Text style={styles.summaryText}>
-            Se et mønster og vurder, hvilke værdier der typisk er lave, normale,
-            høje eller usikre.
-          </Text>
-        </View>
-        <PrimaryButton
-          label="Start værdiforudsigelse"
-          onPress={onStartPatternTrainer}
-          testID="start-blood-gas-pattern-trainer"
-        />
-          </Card>
-
           <View style={styles.secondaryList}>
             <NavigationCard
-              description="Gennemgå syre-base-metoden ét trin ad gangen."
-              eyebrow="METODE"
+              onPress={onStartValueTrainer}
+              style={styles.destinationCard}
+              testID="start-blood-gas-value-trainer"
+              title="Tolk en blodgas"
+            />
+            <NavigationCard
+              onPress={onStartPatternTrainer}
+              style={styles.destinationCard}
+              testID="start-blood-gas-pattern-trainer"
+              title="Forudsig værdier"
+            />
+            <NavigationCard
               onPress={() => {
                 setMethodStep(0);
                 setView("method");
               }}
-              title="Lær metoden"
+              style={styles.destinationCard}
+              title="Syre-base-metoden"
             />
             <NavigationCard
-              description="Analytter, prøvetyper, mønstereksempler og ambulancefokus."
-              eyebrow="REFERENCE"
               onPress={() => setView("reference")}
+              style={styles.destinationCard}
               title="Opslagsværk"
             />
           </View>
@@ -482,7 +459,8 @@ export default BloodGasTrainingHomeScreen;
 const styles = StyleSheet.create({
   content: { paddingBottom: Spacing.xl },
   trainerCard: { gap: Spacing.md, marginBottom: Spacing.md },
-  secondaryList: { gap: Spacing.sm },
+  secondaryList: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.sm },
+  destinationCard: { flexGrow: 1, flexBasis: 300, minWidth: 0 },
   eyebrow: {
     color: ColorTokens.accent.muted,
     fontFamily: Typography.families.sans,

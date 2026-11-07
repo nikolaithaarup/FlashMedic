@@ -1,4 +1,4 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { appStorage } from "./appStorage";
 
 import type { Flashcard } from "../types/Flashcard";
 import type {
@@ -110,7 +110,7 @@ export function updateMistakeForAttempt(
 
 export async function loadMistakes(): Promise<MistakeReviewItem[]> {
   try {
-    const raw = await AsyncStorage.getItem(MISTAKES_STORAGE_KEY);
+    const raw = await appStorage.getItem(MISTAKES_STORAGE_KEY);
     return raw ? parseStoredMistakes(JSON.parse(raw)) : [];
   } catch (error) {
     console.warn("Failed to load mistake review data; using an empty queue.", error);
@@ -119,5 +119,5 @@ export async function loadMistakes(): Promise<MistakeReviewItem[]> {
 }
 
 export async function saveMistakes(items: readonly MistakeReviewItem[]): Promise<void> {
-  await AsyncStorage.setItem(MISTAKES_STORAGE_KEY, serializeMistakes(items));
+  await appStorage.setItem(MISTAKES_STORAGE_KEY, serializeMistakes(items));
 }

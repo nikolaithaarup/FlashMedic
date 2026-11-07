@@ -116,28 +116,24 @@ export default function FlashcardsHomeScreen({
   };
 
   return (
-    <Screen>
+    <Screen width="wide">
       <StatusBar style="light" />
       <ToolPageHeader
         backLabel={setupView === "modes" ? "Tilbage til forsiden" : "Tilbage"}
         onBack={handleBack}
-        subtitle="Flashcard-træning til ambulancefag, eksamen og faglig genopfriskning."
-        title="FlashMedic"
+        title="Flashcards"
       />
 
       {setupView === "modes" ? (
         <>
           <SectionHeader
-            description="Vælg den træning, der passer til dit mål lige nu."
-            label="TRÆNING"
-            title="Hvordan vil du træne?"
+            label="VÆLG TRÆNING"
           />
           <View style={styles.modeList}>
             <NavigationCard
-              description="Blandede kort fra alle fag."
               disabled={disableAllSubjectsQuiz}
-              eyebrow="HURTIG START"
               onPress={onStartAllSubjectsQuiz}
+              style={styles.modeCard}
               title="Blandede kort"
             />
             <NavigationCard
@@ -147,8 +143,8 @@ export default function FlashcardsHomeScreen({
                   : `${pendingMistakeCount} kort venter på repetition.`
               }
               disabled={pendingMistakeCount === 0 || loadingCards}
-              eyebrow="PERSONLIG"
               onPress={onStartMistakeReview}
+              style={styles.modeCard}
               title="Forkerte svar"
             />
             <NavigationCard
@@ -158,14 +154,13 @@ export default function FlashcardsHomeScreen({
                   : `${weakestTopics.length} svage emner er klar.`
               }
               disabled={weakestTopics.length === 0 || loadingCards}
-              eyebrow="PERSONLIG"
               onPress={onStartWeakTopics}
+              style={styles.modeCard}
               title="Svage emner"
             />
             <NavigationCard
-              description="Vælg fag og et eller flere emner."
-              eyebrow="MÅLRETTET"
               onPress={() => setSetupView(selectedSubject ? "topics" : "subjects")}
+              style={styles.modeCard}
               title="Vælg selv"
             />
           </View>
@@ -175,9 +170,7 @@ export default function FlashcardsHomeScreen({
       {setupView === "subjects" ? (
         <>
           <SectionHeader
-            description="Når du vælger et fag, går du videre til fagets emner."
-            label="TRIN 1 AF 2"
-            title="Vælg fag"
+            label="VÆLG FAG"
           />
           <Surface style={styles.sectionCard}>
             <View style={styles.chipList}>
@@ -203,14 +196,11 @@ export default function FlashcardsHomeScreen({
       {setupView === "topics" && selectedSubject ? (
         <>
           <SectionHeader
-            description="Vælg et eller flere emner, og start træningen."
-            label="TRIN 2 AF 2"
-            title="Vælg emner"
+            label="VÆLG EMNER"
           />
           <Surface tone="accent" style={styles.subjectSummary}>
             <View style={styles.subjectSummaryCopy}>
-              <Text style={styles.cardTitle}>{selectedSubject} ✓</Text>
-              <Text style={styles.cardDescription}>Valgt fag</Text>
+              <Text style={styles.cardTitle}>{selectedSubject}</Text>
             </View>
             <SecondaryButton
               label="Skift fag"
@@ -283,7 +273,8 @@ export default function FlashcardsHomeScreen({
 }
 
 const styles = StyleSheet.create({
-  modeList: { gap: Spacing.sm },
+  modeList: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.sm },
+  modeCard: { flexGrow: 1, flexBasis: 260, minWidth: 0 },
   cardTitle: {
     color: ColorTokens.text.primary,
     fontSize: Typography.sizes.cardTitle,

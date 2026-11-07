@@ -1,7 +1,7 @@
 // app/index.tsx
 import * as Linking from "expo-linking";
 import * as MailComposer from "expo-mail-composer";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Alert, BackHandler, Platform, useWindowDimensions } from "react-native";
 
 import {
@@ -19,6 +19,7 @@ import {
 } from "../src/features/drugCalc/drugCalcContent";
 
 import { ekgImageLookup } from "../src/data/ekg/imageLookup";
+import { bundledFlashcards } from "../src/data/bundledFlashcards";
 import { validateFlashcardDocuments } from "../src/services/flashcardValidation";
 import type { Flashcard } from "../src/types/Flashcard";
 
@@ -75,11 +76,6 @@ import type {
 } from "../src/types/Learning";
 import HomeScreen from "../src/features/home/HomeScreen";
 import QuizScreen from "../src/features/quiz/QuizScreen";
-import {
-  ErrorState,
-  PrimaryButton,
-  Screen as AppScreen,
-} from "../src/ui/primitives";
 
 // ---------- Types ----------
 
@@ -116,6 +112,43 @@ type Screen =
   | "drugCalcHome"
   | "drugCalcPractice"
   | "drugCalcTheory";
+
+const SCREEN_PATHS: Record<Screen, string> = {
+  auth: "/#/welcome",
+  home: "/",
+  flashcardsHome: "/#/flashcards",
+  quiz: "/#/flashcards/session",
+  examSummary: "/#/flashcards/results",
+  stats: "/#/stats",
+  profile: "/#/profile",
+  weeklyDev: "/#/weekly/dev",
+  weeklyHome: "/#/weekly",
+  weeklyMcq: "/#/weekly/mcq",
+  weeklyMatch: "/#/weekly/match",
+  weeklyWord: "/#/weekly/word",
+  contact: "/#/contact",
+  ekgTrainingHome: "/#/ekg",
+  ekgRhythmTrainer: "/#/ekg/rhythm",
+  ekgImageDrill: "/#/ekg/images",
+  bloodGasTrainingHome: "/#/vgas",
+  bloodGasValueTrainer: "/#/vgas/values",
+  bloodGasPatternTrainer: "/#/vgas/patterns",
+  drugCalcHome: "/#/drug-calculation",
+  drugCalcPractice: "/#/drug-calculation/practice",
+  drugCalcTheory: "/#/drug-calculation/theory",
+};
+
+const PATH_SCREENS = new Map(
+  Object.entries(SCREEN_PATHS).map(([screen, path]) => [path, screen as Screen]),
+);
+
+function screenForBrowserLocation(): Screen {
+  if (typeof window === "undefined") return "home";
+  const route = window.location.hash ? `/${window.location.hash}` : "/";
+  const exact = PATH_SCREENS.get(route);
+  if (exact === "quiz" || exact === "examSummary") return "flashcardsHome";
+  return exact ?? "home";
+}
 
 type TopicGroup = {
   topic: string;
@@ -191,12 +224,21 @@ function scoreCardForQuiz(card: Flashcard, stats?: StatsMap | null): number {
   return accuracy + s.seen * 0.05;
 }
 
+function hydrateCardImages(cards: readonly Flashcard[]): Flashcard[] {
+  return cards.map((card) =>
+    card.imageKey && ekgImageLookup[card.imageKey]
+      ? { ...card, image: ekgImageLookup[card.imageKey] }
+      : card,
+  );
+}
+
+const offlineFlashcards = hydrateCardImages(bundledFlashcards);
+
 // ---------- MAIN COMPONENT ----------
 
 export default function Index() {
   const [authReady, setAuthReady] = useState(false);
-  const [authError, setAuthError] = useState<string | null>(null);
-  const [authRetryToken, setAuthRetryToken] = useState(0);
+  const [, setAuthError] = useState<string | null>(null);
 
   // ✅ Dev override MUST be inside component (hooks rule)
   const [weeklyDevOverride, setWeeklyDevOverride] = useState<WeeklyDevOverride>(
@@ -206,12 +248,70 @@ export default function Index() {
   );
 
   // -------- Flashcards from backend --------
-  const [cards, setCards] = useState<Flashcard[]>([]);
-  const [loadingCards, setLoadingCards] = useState(true);
+  const [cards, setCards] = useState<Flashcard[]>(offlineFlashcards);
+  const [loadingCards, setLoadingCards] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
 
   // -------- Screen & profile --------
   const [screen, setScreen] = useState<Screen>("home");
+  const historyReadyRef = useRef(false);
+  const suppressHistoryPushRef = useRef(false);
+  const historyDepthRef = useRef(0);
+
+  useEffect(() => {
+    if (Platform.OS !== "web") return;
+    const initialScreen = screenForBrowserLocation();
+    window.history.replaceState(
+      { flashMedic: true, screen: initialScreen, depth: 0 },
+      "",
+      SCREEN_PATHS[initialScreen],
+    );
+    historyReadyRef.current = true;
+    if (initialScreen !== "home") {
+      suppressHistoryPushRef.current = true;
+      setScreen(initialScreen);
+    }
+
+    const handlePopState = (event: PopStateEvent) => {
+      const state = event.state as { flashMedic?: boolean; screen?: Screen; depth?: number } | null;
+      const nextScreen = state?.flashMedic && state.screen
+        ? state.screen
+        : screenForBrowserLocation();
+      historyDepthRef.current = state?.depth ?? 0;
+      suppressHistoryPushRef.current = true;
+      setScreen(nextScreen);
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  useEffect(() => {
+    if (Platform.OS !== "web" || !historyReadyRef.current) return;
+    if (suppressHistoryPushRef.current) {
+      suppressHistoryPushRef.current = false;
+      return;
+    }
+    const nextPath = SCREEN_PATHS[screen];
+    if (`${window.location.pathname}${window.location.hash}` === nextPath) return;
+    historyDepthRef.current += 1;
+    window.history.pushState(
+      { flashMedic: true, screen, depth: historyDepthRef.current },
+      "",
+      nextPath,
+    );
+  }, [screen]);
+
+  const navigateBack = useCallback((fallback: Screen) => {
+    if (
+      Platform.OS === "web" &&
+      historyReadyRef.current &&
+      historyDepthRef.current > 0
+    ) {
+      window.history.back();
+      return;
+    }
+    setScreen(fallback);
+  }, []);
   const [profile, setProfile] = useState<UserProfile | null>(null);
 
   const classLabel = useMemo(() => {
@@ -328,41 +428,8 @@ export default function Index() {
   const questionFont = 22 * scale;
   const answerFont = 17 * scale;
 
-  // -------- Load profile from storage (NO auto-create anymore) --------
-  useEffect(() => {
-    void (async () => {
-      try {
-        const stored = await loadStoredProfile();
-
-        if (stored) {
-          const loadedProfile: UserProfile = {
-            userId: stored.userId,
-            nickname: stored.nickname,
-            role: null,
-            gender: null,
-            region: null,
-            classId: stored.classId ?? null,
-            isAnonymous: stored.isAnonymous,
-          };
-
-          setProfile(loadedProfile);
-
-          setScreen("home");
-          return;
-        }
-
-        // No stored profile => show AuthScreen (user chooses anon or create profile)
-        setProfile(null);
-        setScreen("auth");
-      } catch (error) {
-        console.warn("Failed to load stored profile", error);
-        setProfile(null);
-        setScreen("auth");
-      }
-    })();
-  }, []);
-
-  // 🔐 Firebase Auth bootstrap (always ensure we have a Firebase uid)
+  // Firebase auth and local profile bootstrap share one source of truth so a
+  // returning e-mail account is recognized even if its local display profile is missing.
   useEffect(() => {
     let active = true;
     setAuthError(null);
@@ -385,28 +452,61 @@ export default function Index() {
 
       setAuthError(null);
       setAuthReady(true);
-
-      // If we already have a stored profile loaded, but its userId is null,
-      // patch it with the real Firebase uid and persist.
-      const uid = user.uid;
-      setProfile((prev) => {
-        if (!prev) return prev;
-        if (prev.userId === uid) return prev;
-        return { ...prev, userId: uid };
-      });
-
-      // Persist patch if needed (best-effort)
       try {
         const stored = await loadStoredProfile();
-        if (stored && (!stored.userId || stored.userId !== uid)) {
+        if (stored) {
           const patched: StoredUserProfile = {
             ...stored,
-            userId: uid,
+            userId: user.uid,
+            isAnonymous: user.isAnonymous ? stored.isAnonymous : false,
           };
-          await saveStoredProfile(patched);
+          if (
+            stored.userId !== user.uid ||
+            stored.isAnonymous !== patched.isAnonymous
+          ) {
+            await saveStoredProfile(patched);
+          }
+          setProfile({
+            userId: user.uid,
+            nickname: patched.nickname,
+            role: null,
+            gender: null,
+            region: null,
+            classId: patched.classId ?? null,
+            isAnonymous: patched.isAnonymous,
+          });
+          setScreen((current) => current === "auth" ? "home" : current);
+          return;
         }
+
+        if (!user.isAnonymous) {
+          const nickname = makeRandomAnonName();
+          const accountProfile: StoredUserProfile = {
+            userId: user.uid,
+            nickname,
+            classId: null,
+            isAnonymous: false,
+          };
+          await saveStoredProfile(accountProfile);
+          setProfile({
+            userId: user.uid,
+            nickname,
+            classId: null,
+            isAnonymous: false,
+            role: null,
+            gender: null,
+            region: null,
+          });
+          setScreen((current) => current === "auth" ? "home" : current);
+          return;
+        }
+
+        setProfile(null);
+        setScreen("auth");
       } catch (e) {
-        console.warn("Failed to patch stored profile userId", e);
+        console.warn("Failed to bootstrap stored profile", e);
+        setProfile(null);
+        setScreen("auth");
       }
     });
 
@@ -414,7 +514,7 @@ export default function Index() {
       active = false;
       unsubscribe();
     };
-  }, [authRetryToken]);
+  }, []);
 
   // -------- Load cards from Firestore --------
   useEffect(() => {
@@ -437,7 +537,6 @@ export default function Index() {
     async function loadFromFirestore() {
       try {
         setLoadError(null);
-        setLoadingCards(true);
 
         const q = query(collectionGroup(db, "cards"));
         const snap = await withTimeout(getDocs(q), 12000);
@@ -450,24 +549,17 @@ export default function Index() {
           })),
         );
 
-        const hydrated: Flashcard[] = validatedCards.map((card) => {
-          if (card.imageKey && ekgImageLookup[card.imageKey]) {
-            return { ...card, image: ekgImageLookup[card.imageKey] };
-          }
-          return card;
-        });
+        const hydrated = hydrateCardImages(validatedCards);
 
         if (!cancelled) {
-          setCards(hydrated);
+          const merged = new Map(offlineFlashcards.map((card) => [card.id, card]));
+          for (const card of hydrated) merged.set(card.id, card);
+          setCards([...merged.values()]);
           setLoadError(null);
         }
       } catch (err: any) {
-        console.error("Failed to fetch flashcards from Firestore", err);
-        if (!cancelled) {
-          setLoadError(
-            err?.message ?? "Kunne ikke hente flashcards fra Firestore.",
-          );
-        }
+        console.warn("Using bundled flashcards because Firestore is unavailable", err);
+        if (!cancelled) setLoadError(null);
       } finally {
         if (!cancelled) setLoadingCards(false);
       }
@@ -1031,24 +1123,6 @@ export default function Index() {
 
   // ---------- SCREENS ----------
   // (everything below unchanged)
-  if (authError) {
-    return (
-      <AppScreen>
-        <ErrorState
-          action={
-            <PrimaryButton
-              label="Prøv igen"
-              onPress={() => setAuthRetryToken((current) => current + 1)}
-            />
-          }
-          message={authError}
-          testID="auth-error-state"
-          title="Forbindelsen kunne ikke oprettes"
-        />
-      </AppScreen>
-    );
-  }
-
   if (screen === "auth") {
     return (
       <AuthScreen
@@ -1057,7 +1131,7 @@ export default function Index() {
         buttonFont={buttonFont}
         suggestedAnonName={makeRandomAnonName()}
         onContinueAnonymous={(nick) => persistAndEnterApp(nick, true)}
-        onCreateProfile={(nick) => persistAndEnterApp(nick, false)}
+        onAuthenticated={(nick) => persistAndEnterApp(nick, false)}
       />
     );
   }
@@ -1067,7 +1141,7 @@ export default function Index() {
       <WeeklyDevScreen
         headingFont={headingFont}
         buttonFont={buttonFont}
-        onBack={() => setScreen("home")}
+        onBack={() => navigateBack("home")}
         onStartGame={({ kind, weekKey, round }) => {
           setWeeklyDevOverride({
             enabled: true,
@@ -1092,7 +1166,7 @@ export default function Index() {
         buttonFont={buttonFont}
         subtitleFont={subtitleFont}
         cards={cards}
-        onBack={() => setScreen("home")}
+        onBack={() => navigateBack("home")}
         onTrainMistakes={handleStartMistakeReview}
         onTrainWeakTopics={handleStartWeakTopics}
       />
@@ -1157,7 +1231,7 @@ export default function Index() {
         allTopicsSelected={allTopicsSelected}
         onStartAllSubjectsQuiz={handleStartAllSubjectsQuiz}
         disableAllSubjectsQuiz={loadingCards || cards.length === 0}
-        onBack={() => setScreen("home")}
+        onBack={() => navigateBack("home")}
         onStartQuiz={handleStartQuiz}
         pendingMistakeCount={mistakeSelection.cards.length}
         weakestTopics={weakestTopics}
@@ -1174,7 +1248,7 @@ export default function Index() {
         subtitleFont={subtitleFont}
         buttonFont={buttonFont}
         lockRefreshToken={weeklyLockRefreshToken}
-        onBackToHome={() => setScreen("home")}
+        onBackToHome={() => navigateBack("home")}
         onOpenMcq={() => setScreen("weeklyMcq")}
         onOpenMatch={() => setScreen("weeklyMatch")}
         onOpenWord={() => setScreen("weeklyWord")}
@@ -1189,9 +1263,7 @@ export default function Index() {
         buttonFont={buttonFont}
         profileNickname={profile?.nickname}
         onAttemptLocked={notifyWeeklyLockChanged}
-        onBack={() => {
-          setScreen("weeklyHome");
-        }}
+        onBack={() => navigateBack("weeklyHome")}
         devWeekKey={
           weeklyDevOverride.enabled && weeklyDevOverride.kind === "mcq"
             ? weeklyDevOverride.weekKey
@@ -1208,7 +1280,7 @@ export default function Index() {
         buttonFont={buttonFont}
         profileNickname={profile?.nickname}
         onAttemptLocked={notifyWeeklyLockChanged}
-        onBack={() => setScreen("weeklyHome")}
+        onBack={() => navigateBack("weeklyHome")}
         devWeekKey={
           weeklyDevOverride.enabled && weeklyDevOverride.kind === "match"
             ? weeklyDevOverride.weekKey
@@ -1225,7 +1297,7 @@ export default function Index() {
         buttonFont={buttonFont}
         profileNickname={profile?.nickname}
         onAttemptLocked={notifyWeeklyLockChanged}
-        onBack={() => setScreen("weeklyHome")}
+        onBack={() => navigateBack("weeklyHome")}
         devWeekKey={
           weeklyDevOverride.enabled && weeklyDevOverride.kind === "word"
             ? weeklyDevOverride.weekKey
@@ -1246,7 +1318,7 @@ export default function Index() {
         setContactEmail={setContactEmail}
         contactMessage={contactMessage}
         setContactMessage={setContactMessage}
-        onBack={() => setScreen("home")}
+        onBack={() => navigateBack("home")}
       />
     );
   }
@@ -1259,8 +1331,9 @@ export default function Index() {
         buttonFont={buttonFont}
         firebaseUid={auth.currentUser?.uid ?? null}
         profile={profile}
+        cards={cards}
         setProfile={setProfile}
-        onBack={() => setScreen("home")}
+        onBack={() => navigateBack("home")}
       />
     );
   }
@@ -1271,7 +1344,7 @@ export default function Index() {
         headingFont={headingFont}
         subtitleFont={subtitleFont}
         buttonFont={buttonFont}
-        onBackHome={() => setScreen("home")}
+        onBackHome={() => navigateBack("home")}
         onStartPractice={startDrugCalcPractice}
         onOpenTheory={() => setScreen("drugCalcTheory")}
       />
@@ -1290,7 +1363,7 @@ export default function Index() {
         drugAnswerStatus={drugAnswerStatus}
         onCheckAnswer={checkDrugAnswer}
         onNextQuestion={nextDrugQuestion}
-        onBack={() => setScreen("drugCalcHome")}
+        onBack={() => navigateBack("drugCalcHome")}
         availableTopics={DRUG_TOPICS}
         selectedTopics={selectedDrugTopics}
         setSelectedTopics={setSelectedDrugTopics}
@@ -1305,7 +1378,7 @@ export default function Index() {
         headingFont={headingFont}
         subtitleFont={subtitleFont}
         buttonFont={buttonFont}
-        onBack={() => setScreen("drugCalcHome")}
+        onBack={() => navigateBack("drugCalcHome")}
       />
     );
   }
@@ -1315,7 +1388,7 @@ export default function Index() {
       <EkgTrainingHomeScreen
         imageDrillCount={ekgImageDrillCount}
         imageDrillLoading={loadingCards}
-        onBack={() => setScreen("home")}
+        onBack={() => navigateBack("home")}
         onStartRhythmTrainer={() => setScreen("ekgRhythmTrainer")}
         onStartImageDrill={() => setScreen("ekgImageDrill")}
       />
@@ -1325,7 +1398,7 @@ export default function Index() {
   if (screen === "bloodGasTrainingHome") {
     return (
       <BloodGasTrainingHomeScreen
-        onBack={() => setScreen("home")}
+        onBack={() => navigateBack("home")}
         onStartValueTrainer={() => setScreen("bloodGasValueTrainer")}
         onStartPatternTrainer={() => setScreen("bloodGasPatternTrainer")}
       />
@@ -1335,17 +1408,17 @@ export default function Index() {
   if (screen === "bloodGasValueTrainer") {
     return (
       <BloodGasValueTrainerScreen
-        onBack={() => setScreen("bloodGasTrainingHome")}
+        onBack={() => navigateBack("bloodGasTrainingHome")}
       />
     );
   }
 
   if (screen === "bloodGasPatternTrainer") {
-    return <BloodGasPatternTrainerScreen onBack={() => setScreen("bloodGasTrainingHome")} />;
+    return <BloodGasPatternTrainerScreen onBack={() => navigateBack("bloodGasTrainingHome")} />;
   }
 
   if (screen === "ekgRhythmTrainer") {
-    return <EkgRhythmTrainerScreen onBack={() => setScreen("ekgTrainingHome")} />;
+    return <EkgRhythmTrainerScreen onBack={() => navigateBack("ekgTrainingHome")} />;
   }
 
   if (screen === "ekgImageDrill") {
@@ -1353,7 +1426,7 @@ export default function Index() {
       <EkgImageDrillScreen
         cards={cards}
         loadingCards={loadingCards}
-        onBack={() => setScreen("ekgTrainingHome")}
+        onBack={() => navigateBack("ekgTrainingHome")}
       />
     );
   }

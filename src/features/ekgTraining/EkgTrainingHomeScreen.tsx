@@ -266,61 +266,36 @@ export function EkgTrainingHomeScreen({
               : "Tilbage til EKG-træning"
           }
           onBack={handleBack}
-          subtitle="Systematisk rytmeanalyse til ambulancefaglig vurdering."
           title="EKG-træning"
         />
 
         {view === "landing" ? (
           <>
-            <Card variant="subtle" style={styles.introCard}>
-              <Text style={styles.eyebrow}>BILLEDTRÆNING</Text>
-              <Text style={styles.introTitle}>Vurder EKG-billeder</Text>
-              <Text style={styles.bodyText}>
-                Træn frekvens, regelmæssighed, P-takker, PR-interval,
-                QRS-bredde og rytmeforslag.
-              </Text>
-              <Text style={styles.learningMeta}>
-                {imageDrillLoading
-                  ? "EKG-billederne hentes."
-                  : imageDrillCount > 0
-                    ? `${imageDrillCount} EKG-billeder klar til træning`
-                    : "Ingen EKG-billeder er tilgængelige lige nu."}
-              </Text>
-              <PrimaryButton
-                disabled={imageDrillLoading || imageDrillCount === 0}
-                label="Start billedtræning"
-                onPress={onStartImageDrill}
-                testID="start-ekg-image-drill-button"
-              />
-            </Card>
-            <Card variant="subtle" style={styles.introCard}>
-              <Text style={styles.eyebrow}>GUIDET TRÆNING</Text>
-              <Text style={styles.introTitle}>
-                Analysér en rytme trin for trin
-              </Text>
-              <Text style={styles.bodyText}>
-                Brug den samme systematik, før du samler fundene til et
-                rytmeforslag.
-              </Text>
-              <PrimaryButton
-                label="Start guidet rytmeanalyse"
-                onPress={onStartRhythmTrainer}
-              />
-            </Card>
             <View style={styles.secondaryList}>
               <NavigationCard
-                description="Gennemgå de syv analysetrin ét ad gangen."
-                eyebrow="METODE"
+                description={imageDrillLoading ? "Henter billeder…" : `${imageDrillCount} billeder`}
+                disabled={imageDrillLoading || imageDrillCount === 0}
+                onPress={onStartImageDrill}
+                style={styles.destinationCard}
+                testID="start-ekg-image-drill-button"
+                title="EKG-billeder"
+              />
+              <NavigationCard
+                onPress={onStartRhythmTrainer}
+                style={styles.destinationCard}
+                title="Guidet rytmeanalyse"
+              />
+              <NavigationCard
                 onPress={() => {
                   setMethodStep(0);
                   setView("method");
                 }}
-                title="Lær EKG-metoden"
+                style={styles.destinationCard}
+                title="EKG-metoden"
               />
               <NavigationCard
-                description="Akutte rytmer, EKG-tegn og ambulancefokus."
-                eyebrow="REFERENCE"
                 onPress={() => setView("reference")}
+                style={styles.destinationCard}
                 title="Opslagsværk"
               />
             </View>
@@ -497,7 +472,8 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.md,
     gap: Spacing.sm,
   },
-  secondaryList: { gap: Spacing.sm },
+  secondaryList: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.sm },
+  destinationCard: { flexGrow: 1, flexBasis: 300, minWidth: 0 },
   methodCard: {
     marginTop: Spacing.md,
     marginBottom: Spacing.md,

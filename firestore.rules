@@ -1,0 +1,131 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    function isVerifiedSynapseUser(uid) {
+      return isOwner(uid)
+        && request.auth.token.keys().hasAll([
+          'synapse_email_verified', 'synapse_portal_user_id'
+        ])
+        && request.auth.token.synapse_email_verified == true
+        && request.auth.token.synapse_portal_user_id == uid;
+    }
+
+    function validNullableString(value, maxLength) {
+      return value == null || (value is string && value.size() <= maxLength);
+    }
+
+    function validCommonEvent(uid, eventId) {
+      let data = request.resource.data;
+      return isVerifiedSynapseUser(uid)
+        && data.keys().hasOnly([
+          'schemaVersion', 'eventId', 'type', 'deviceId', 'cardId',
+          'subject', 'topic', 'subtopic', 'occurredAt', 'known', 'mode',
+          'seen', 'correct', 'incorrect', 'lastSeen', 'mistakeAddedAt',
+          'mistakeLastReviewedAt', 'mistakeIncorrectCount',
+          'mistakeReviewStatus'
+        ])
+        && data.keys().hasAll([
+          'schemaVersion', 'eventId', 'type', 'deviceId', 'cardId',
+          'subject', 'topic', 'subtopic', 'occurredAt', 'known', 'mode',
+          'seen', 'correct', 'incorrect', 'lastSeen', 'mistakeAddedAt',
+          'mistakeLastReviewedAt', 'mistakeIncorrectCount',
+          'mistakeReviewStatus'
+        ])
+        && data.schemaVersion == 1
+        && data.eventId == eventId
+        && data.eventId is string && data.eventId.size() >= 8 && data.eventId.size() <= 1400
+        && data.deviceId is string && data.deviceId.size() >= 8 && data.deviceId.size() <= 128
+        && data.occurredAt is string && data.occurredAt.size() >= 20 && data.occurredAt.size() <= 40
+        && validNullableString(data.cardId, 512)
+        && validNullableString(data.subject, 200)
+        && validNullableString(data.topic, 200)
+        && validNullableString(data.subtopic, 200)
+        && validNullableString(data.lastSeen, 40)
+        && validNullableString(data.mistakeAddedAt, 40)
+        && validNullableString(data.mistakeLastReviewedAt, 40);
+    }
+
+    function validAttempt(data) {
+      return data.type == 'attempt'
+        && data.cardId is string
+        && data.subject is string
+        && data.known is bool
+        && data.mode in ['normal', 'mistakes', 'weak-topics', 'daily-10', 'exam']
+        && data.seen == null && data.correct == null && data.incorrect == null
+        && data.lastSeen == null
+        && data.mistakeAddedAt == null && data.mistakeLastReviewedAt == null
+        && data.mistakeIncorrectCount == null && data.mistakeReviewStatus == null;
+    }
+
+    function validBaseline(data) {
+      return data.type == 'baseline'
+        && data.cardId is string
+        && data.subject is string
+        && data.known == null && data.mode == null
+        && data.seen is int && data.seen >= 0 && data.seen <= 1000000
+        && data.correct is int && data.correct >= 0 && data.correct <= data.seen
+        && data.incorrect is int && data.incorrect >= 0 && data.incorrect <= data.seen
+        && data.correct + data.incorrect <= data.seen
+        && (data.mistakeIncorrectCount == null ||
+          (data.mistakeIncorrectCount is int && data.mistakeIncorrectCount >= 1 && data.mistakeIncorrectCount <= 1000000))
+        && (data.mistakeReviewStatus == null ||
+          data.mistakeReviewStatus in ['pending', 'learning', 'understood']);
+    }
+
+    function validControlEvent(data) {
+      return data.known == null && data.mode == null
+        && data.seen == null && data.correct == null && data.incorrect == null
+        && data.lastSeen == null
+        && data.mistakeAddedAt == null && data.mistakeLastReviewedAt == null
+        && data.mistakeIncorrectCount == null && data.mistakeReviewStatus == null
+        && ((data.type == 'reset'
+          && data.cardId == null
+          && data.subject == null && data.topic == null && data.subtopic == null) ||
+        (data.type == 'mistake_clear'
+          && data.cardId is string
+          && data.subject is string));
+    }
+
+    match /flashmedic_users/{uid}/progressEvents/{eventId} {
+      allow read: if isVerifiedSynapseUser(uid);
+      allow create: if validCommonEvent(uid, eventId) &&
+        (validAttempt(request.resource.data) ||
+         validBaseline(request.resource.data) ||
+         validControlEvent(request.resource.data));
+      allow update: if isVerifiedSynapseUser(uid) && request.resource.data == resource.data;
+      allow delete: if false;
+    }
+
+    match /weekly_index/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /weekly_mcq_packs/{weekKey} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /weekly_match_packs/{weekKey} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /weekly_word_packs/{weekKey} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /weekly_results/{weekKey}/users/{uid} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /{parentPath=**}/cards/{cardId} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

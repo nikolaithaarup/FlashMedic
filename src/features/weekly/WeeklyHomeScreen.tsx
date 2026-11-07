@@ -18,7 +18,6 @@ import {
   NoticeCard,
   PrimaryButton,
   Screen,
-  SecondaryButton,
   ToolPageHeader,
 } from "../../ui/primitives";
 import { useStats } from "../stats/StatsContext";
@@ -37,20 +36,18 @@ type WeeklyHomeScreenProps = {
 
 type GameCardProps = {
   title: string;
-  description: string;
   locked: boolean;
   onPress: () => void;
 };
 
-function GameCard({ title, description, locked, onPress }: GameCardProps) {
+function GameCard({ title, locked, onPress }: GameCardProps) {
   return (
     <NavigationCard
-      description={
-        locked ? "Allerede spillet · låst til næste uge" : description
-      }
+      description={locked ? "Gennemført" : undefined}
       disabled={locked}
       onPress={onPress}
       secondary
+      style={styles.gameCard}
       title={title}
       trailing={locked ? "✓" : "›"}
     />
@@ -88,9 +85,7 @@ export function WeeklyHomeScreen({
   const wordLock = useWeeklyLock(getWeeklyLockKey("word", lockWeekKey), {
     refreshToken: lockRefreshToken,
   });
-  const top10 = weeklyGlobal?.leaderboard ?? [];
   const topics = weeklyGlobal?.week?.topics ?? null;
-  const resolution = weeklyGlobal?.week?.resolution ?? null;
 
   return (
     <Screen>
@@ -98,63 +93,34 @@ export function WeeklyHomeScreen({
       <ToolPageHeader
         backLabel="Tilbage til forsiden"
         onBack={onBackToHome}
-        subtitle="Tre udfordringer · én deltagelse pr. spil"
         title="Ugens udfordringer"
       />
 
-      <Text style={styles.sectionLabel}>UGENS SPIL</Text>
-      {resolution?.isFallback ? (
-        <NoticeCard title="Kompatibilitetsindhold" tone="info">
-          Ugens spil bruger en ældre version af indholdet. Du kan stadig spille
-          og gemme dit resultat.
-        </NoticeCard>
-      ) : null}
       {pendingWeeklyUploads > 0 ? (
-        <NoticeCard title="Resultat venter på at blive sendt" tone="warning">
-          {`${pendingWeeklyUploads} resultat${pendingWeeklyUploads === 1 ? "" : "er"} er gemt sikkert på enheden. Tryk Opdatér for at prøve igen.`}
+        <NoticeCard title="Resultat afventer" tone="warning">
+          Gemmes på enheden.
         </NoticeCard>
       ) : null}
       <View style={styles.gameList}>
         <GameCard
-          description="Vælg det korrekte svar."
           locked={mcqLock.locked}
           onPress={onOpenMcq}
           title="Ugens quiz"
         />
         <GameCard
-          description="Forbind begreber og forklaringer."
           locked={matchLock.locked}
           onPress={onOpenMatch}
           title="Match parrene"
         />
         <GameCard
-          description="Find ugens medicinske ord."
           locked={wordLock.locked}
           onPress={onOpenWord}
           title="Ugens ord"
         />
       </View>
 
-      <View style={styles.leaderboardHeader}>
-        <View style={styles.headerCopy}>
-          <Text style={styles.sectionLabel}>FÆLLES STATISTIK</Text>
-          <Text style={styles.sectionTitle}>
-            Rangliste{weekId ? ` · ${weekId}` : ""}
-          </Text>
-        </View>
-        <SecondaryButton
-          disabled={loadingWeekly}
-          label="Opdatér"
-          loading={loadingWeekly}
-          onPress={refreshWeeklyGlobal}
-          style={styles.refreshButton}
-        />
-      </View>
-
-      <Card variant="subtle">
-        {loadingWeekly ? (
-          <LoadingState title="Henter rangliste" />
-        ) : weeklyError ? (
+      {weeklyError ? (
+        <Card variant="subtle" style={styles.statusCard}>
           <ErrorState
             action={
               <PrimaryButton
@@ -163,44 +129,28 @@ export function WeeklyHomeScreen({
               />
             }
             message={weeklyError}
-            title="Ugens udfordringer er ikke tilgængelige"
+            title="Kunne ikke hente ugens indhold"
           />
-        ) : !weeklyGlobal?.week ? (
+        </Card>
+      ) : loadingWeekly && !weeklyGlobal ? (
+        <LoadingState title="Henter ugens indhold" />
+      ) : !weeklyGlobal?.week ? (
+        <Card variant="subtle" style={styles.statusCard}>
           <EmptyState
-            message="Der er endnu ikke udgivet indhold til denne uge."
+            message="Kom tilbage senere."
             title="Intet indhold denne uge"
           />
-        ) : top10.length === 0 ? (
-          <EmptyState title="Ingen resultater endnu" />
-        ) : (
-          top10.slice(0, 5).map((result: any, index: number) => (
-            <View
-              key={result.userId ?? String(index)}
-              style={styles.rankRow}
-            >
-              <Text style={styles.rankPosition}>{index + 1}</Text>
-              <View style={styles.rankIdentity}>
-                <Text style={styles.rankName}>{result.nickname}</Text>
-                {result.classId ? (
-                  <Text style={styles.rankMeta}>Behandler {result.classId}</Text>
-                ) : null}
-              </View>
-              <Text style={styles.rankScore}>{result.points} point</Text>
-            </View>
-          ))
-        )}
+        </Card>
+      ) : null}
 
-        {topics ? (
-          <View style={styles.topicSummary}>
-            <Text style={styles.topicSummaryTitle}>Ugens emner</Text>
-            <Text style={styles.topicSummaryText}>Quiz · {topics.mcq ?? "—"}</Text>
-            <Text style={styles.topicSummaryText}>
-              Match · {topics.match ?? "—"}
-            </Text>
-            <Text style={styles.topicSummaryText}>Ord · {topics.word ?? "—"}</Text>
-          </View>
-        ) : null}
-      </Card>
+      {topics ? (
+        <Card variant="subtle" style={styles.topicSummary}>
+          <Text style={styles.topicSummaryTitle}>Ugens emner</Text>
+          <Text style={styles.topicSummaryText}>Quiz · {topics.mcq ?? "—"}</Text>
+          <Text style={styles.topicSummaryText}>Match · {topics.match ?? "—"}</Text>
+          <Text style={styles.topicSummaryText}>Ord · {topics.word ?? "—"}</Text>
+        </Card>
+      ) : null}
     </Screen>
   );
 }
@@ -220,7 +170,9 @@ const styles = StyleSheet.create({
     fontWeight: Typography.weights.bold,
     marginTop: 2,
   },
-  gameList: { gap: Spacing.sm, marginTop: Spacing.sm },
+  gameList: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.sm },
+  gameCard: { flexGrow: 1, flexBasis: 240, minWidth: 0 },
+  statusCard: { marginTop: Spacing.md },
   leaderboardHeader: {
     flexDirection: "row",
     alignItems: "center",
@@ -249,9 +201,6 @@ const styles = StyleSheet.create({
   rankScore: { color: ColorTokens.accent.muted, fontWeight: Typography.weights.bold },
   topicSummary: {
     marginTop: Spacing.md,
-    paddingTop: Spacing.md,
-    borderTopWidth: Borders.hairline,
-    borderTopColor: ColorTokens.border.divider,
     gap: Spacing.xs,
   },
   topicSummaryTitle: { color: ColorTokens.text.primary, fontWeight: Typography.weights.bold },

@@ -13,10 +13,6 @@ import {
   resolveWeeklyBundle,
   type ResolvedWeeklyBundle,
 } from "../../services/weeklyIndexService";
-import {
-  getWeeklyLeaderboard,
-  type WeeklyLeaderboardRow,
-} from "../../services/weeklyLeaderboardService";
 
 import { loadMatchPackByWeekKey } from "../../services/weeklyMatchService";
 import { loadMcqPackByWeekKey } from "../../services/weeklyMcqService";
@@ -38,6 +34,16 @@ import type {
   MistakeReviewItem,
 } from "../../types/Learning";
 import type { StatsMap } from "../../types/Stats";
+import {
+  queueMistakeClear,
+  queueProgressAttempt,
+  queueProgressReset,
+  startProgressSync,
+  subscribeProgressSyncState,
+  subscribeSyncedProgress,
+  synchronizeProgress,
+  type ProgressSyncState,
+} from "../../sync/progressSync";
 
 export type { CardStats, StatsMap } from "../../types/Stats";
 
@@ -78,6 +84,8 @@ type StatsContextValue = {
     mode: FlashcardTrainingMode,
   ) => void;
   clearUnderstoodMistakes: () => void;
+  progressSyncState: ProgressSyncState;
+  retryProgressSync: () => Promise<void>;
 
   // Weekly global stats (leaderboard + topics)
   weeklyGlobal: WeeklyGlobalState | null;
@@ -118,6 +126,27 @@ export function StatsProvider({ children }: PropsWithChildren) {
     )[]
   >([]);
   const mistakesPersistenceQueueRef = useRef<Promise<void>>(Promise.resolve());
+  const [progressSyncState, setProgressSyncState] = useState<ProgressSyncState>({
+    status: "guest",
+    pendingCount: 0,
+    lastSyncedAt: null,
+  });
+
+  useEffect(() => {
+    startProgressSync();
+    const unsubscribeProgress = subscribeSyncedProgress((progress) => {
+      statsHydratedRef.current = true;
+      mistakesHydratedRef.current = true;
+      setMistakesHydrated(true);
+      setPersonalStats(progress.stats);
+      setMistakes(progress.mistakes);
+    });
+    const unsubscribeState = subscribeProgressSyncState(setProgressSyncState);
+    return () => {
+      unsubscribeProgress();
+      unsubscribeState();
+    };
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -205,6 +234,7 @@ export function StatsProvider({ children }: PropsWithChildren) {
       pendingOperationsRef.current.push({ kind: "reset" });
     }
     setPersonalStats({});
+    void queueProgressReset();
   };
 
   const recordMistakeAttempt = (
@@ -216,13 +246,21 @@ export function StatsProvider({ children }: PropsWithChildren) {
       pendingMistakeOperationsRef.current.push({ kind: "attempt", card, known, mode });
     }
     setMistakes((current) => updateMistakeForAttempt(current, card, known, mode));
+    void queueProgressAttempt(card, known, mode);
   };
 
   const clearUnderstoodMistakes = () => {
     if (!mistakesHydratedRef.current) {
       pendingMistakeOperationsRef.current.push({ kind: "clear-understood" });
     }
-    setMistakes((current) => current.filter(({ reviewStatus }) => reviewStatus !== "understood"));
+    setMistakes((current) => {
+      void queueMistakeClear(
+        current
+          .filter(({ reviewStatus }) => reviewStatus === "understood")
+          .map(({ cardId }) => cardId),
+      );
+      return current.filter(({ reviewStatus }) => reviewStatus !== "understood");
+    });
   };
 
   // Weekly global
@@ -247,13 +285,8 @@ export function StatsProvider({ children }: PropsWithChildren) {
         return;
       }
 
-      // 1) Leaderboard
-      const rows: WeeklyLeaderboardRow[] = await getWeeklyLeaderboard(
-        resolution.resultKey,
-        10,
-      );
-
-      // 2) Topics from packs (best-effort)
+      // Topics from packs (best-effort). Competitive ranking is intentionally
+      // disabled until scores can be verified server-side.
       const [mcqRes, matchRes, wordRes] = await Promise.allSettled([
         loadMcqPackByWeekKey(resolution.contentKey),
         loadMatchPackByWeekKey(resolution.contentKey),
@@ -293,11 +326,7 @@ export function StatsProvider({ children }: PropsWithChildren) {
 
       setWeeklyGlobal({
         week: { weekId: resolution.canonicalWeekKey, topics, resolution },
-        leaderboard: rows.map((r) => ({
-          userId: r.uid,
-          nickname: r.nickname,
-          points: r.totalScore,
-        })),
+        leaderboard: [],
       });
     } catch (e) {
       console.error("refreshWeeklyGlobal failed", e);
@@ -321,6 +350,8 @@ export function StatsProvider({ children }: PropsWithChildren) {
       mistakesHydrated,
       recordMistakeAttempt,
       clearUnderstoodMistakes,
+      progressSyncState,
+      retryProgressSync: synchronizeProgress,
 
       weeklyGlobal,
       loadingWeekly,
@@ -332,6 +363,7 @@ export function StatsProvider({ children }: PropsWithChildren) {
       personalStats,
       mistakes,
       mistakesHydrated,
+      progressSyncState,
       weeklyGlobal,
       loadingWeekly,
       weeklyError,

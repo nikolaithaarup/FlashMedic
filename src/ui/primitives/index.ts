@@ -1,6 +1,7 @@
 export { Accordion } from "./Accordion";
 export { Card } from "./Card";
 export { Background } from "./Background";
+export { BrandLockup } from "./BrandLockup";
 export { Chip } from "./Chip";
 export { EmptyState } from "./EmptyState";
 export { ErrorState } from "./ErrorState";

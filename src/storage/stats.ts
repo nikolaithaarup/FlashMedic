@@ -1,11 +1,11 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { appStorage } from "./appStorage";
 import type { CardStats, StatsMap } from "../types/Stats";
 
 const STATS_KEY = "flashmedic_card_stats";
 
 export async function loadStats(): Promise<StatsMap> {
   try {
-    const raw = await AsyncStorage.getItem(STATS_KEY);
+    const raw = await appStorage.getItem(STATS_KEY);
     if (!raw) return {};
     const parsed: unknown = JSON.parse(raw);
     if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
@@ -34,7 +34,7 @@ export async function loadStats(): Promise<StatsMap> {
 }
 
 export async function saveStats(stats: StatsMap): Promise<void> {
-  await AsyncStorage.setItem(STATS_KEY, JSON.stringify(stats));
+  await appStorage.setItem(STATS_KEY, JSON.stringify(stats));
 }
 
 function toSafeCount(value: unknown): number {

@@ -72,17 +72,18 @@ export default function StatsScreen({ cards, onBack, onTrainMistakes, onTrainWea
   );
 
   return (
-    <Screen>
+    <Screen width="wide">
       <StatusBar style="light" />
       <ToolPageHeader
         backLabel="Tilbage til forsiden"
         onBack={onBack}
-        subtitle="Din træning på tværs af fag"
         title="Statistik"
       />
 
-      <Text style={styles.sectionLabel}>SAMLET</Text>
-      <Card variant="subtle" style={styles.summaryCard}>
+      <View style={styles.overviewGrid}>
+      <View style={styles.overviewColumn}>
+        <Text style={styles.sectionLabel}>SAMLET</Text>
+        <Card variant="subtle" style={styles.summaryCard}>
         <Text style={styles.summaryLabel}>Besvarede spørgsmål</Text>
         <Text style={styles.summaryValue}>{totalSeen}</Text>
         <View style={styles.metricRow}>
@@ -101,10 +102,12 @@ export default function StatsScreen({ cards, onBack, onTrainMistakes, onTrainWea
             </Text>
           </View>
         </View>
-      </Card>
+        </Card>
+      </View>
 
-      <Text style={[styles.sectionLabel, styles.subjectLabel]}>REPETITION</Text>
-      <Card variant="subtle" style={styles.learningCard}>
+      <View style={styles.overviewColumn}>
+        <Text style={styles.sectionLabel}>REPETITION</Text>
+        <Card variant="subtle" style={styles.learningCard}>
         <View style={styles.learningRow}>
           <View style={styles.subjectCopy}>
             <Text style={styles.subjectTitle}>Forkerte svar</Text>
@@ -121,7 +124,7 @@ export default function StatsScreen({ cards, onBack, onTrainMistakes, onTrainWea
         <Text style={styles.subjectTitle}>Svage emner</Text>
         {weakTopics.length === 0 ? (
           <Text style={styles.subjectMeta}>
-            Ikke nok data endnu. Der kræves mindst fem besvarelser i et emne.
+            Visning kræver mindst fem svar i samme emne.
           </Text>
         ) : (
           weakTopics.map((topic) => (
@@ -136,14 +139,16 @@ export default function StatsScreen({ cards, onBack, onTrainMistakes, onTrainWea
           onPress={onTrainWeakTopics}
           style={styles.weakButton}
         />
-      </Card>
+        </Card>
+      </View>
+      </View>
 
       <Text style={[styles.sectionLabel, styles.subjectLabel]}>PR. FAG</Text>
       <Card variant="subtle">
         {subjectStats.length === 0 ? (
           <EmptyState
-            message="Besvar flashcards for at se statistik fordelt på fag."
-            title="Ingen data endnu"
+            message="Statistik vises efter din første træning."
+            title="Ingen besvarelser"
           />
         ) : (
           subjectStats.map((subject) => (
@@ -187,6 +192,8 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.xs,
   },
   summaryCard: { padding: Spacing.lg },
+  overviewGrid: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.md },
+  overviewColumn: { flexGrow: 1, flexBasis: 340, minWidth: 0 },
   summaryLabel: { color: ColorTokens.text.secondary, fontSize: Typography.sizes.label },
   summaryValue: {
     color: ColorTokens.text.primary,
@@ -194,10 +201,10 @@ const styles = StyleSheet.create({
     lineHeight: 48,
     fontWeight: Typography.weights.heavy,
   },
-  metricRow: { flexDirection: "row", gap: Spacing.sm, marginTop: Spacing.md },
+  metricRow: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.sm, marginTop: Spacing.md },
   metric: {
     flex: 1,
-    minWidth: 0,
+    minWidth: 110,
     borderTopWidth: Borders.hairline,
     borderTopColor: ColorTokens.border.divider,
     paddingTop: Spacing.sm,
@@ -225,8 +232,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: Radii.md,
     borderWidth: Borders.hairline,
-    borderColor: SemanticStates.danger.foreground,
-    backgroundColor: SemanticStates.danger.surface,
+    borderColor: ColorTokens.border.default,
+    backgroundColor: "transparent",
     marginTop: Spacing.xl,
     marginBottom: Spacing.lg,
   },
@@ -234,7 +241,7 @@ const styles = StyleSheet.create({
     opacity: Interaction.pressedOpacity,
     transform: [{ scale: Interaction.controlPressedScale }],
   },
-  resetText: { color: ColorTokens.text.onSurface, fontWeight: Typography.weights.bold },
+  resetText: { color: ColorTokens.text.secondary, fontWeight: Typography.weights.semibold },
   learningCard: { gap: Spacing.sm },
   learningRow: { flexDirection: "row", alignItems: "center", gap: Spacing.md },
   learningButton: { minWidth: 96 },

@@ -1,6 +1,7 @@
 // src/features/weekly/useWeeklyLock.ts
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
+
+import { appStorage } from "../../storage/appStorage";
 
 const DEV_IGNORE_KEY = "weekly_dev_ignoreLocks";
 
@@ -10,7 +11,7 @@ type WeeklyLockOptions = {
 };
 
 export type WeeklyLockStorage = Pick<
-  typeof AsyncStorage,
+  typeof appStorage,
   "getItem" | "setItem"
 >;
 
@@ -63,8 +64,8 @@ export function useWeeklyLock(
     (async () => {
       try {
         const [v, ig] = await Promise.all([
-          readWeeklyAttemptLock(AsyncStorage, storageKey),
-          AsyncStorage.getItem(DEV_IGNORE_KEY),
+          readWeeklyAttemptLock(appStorage, storageKey),
+          appStorage.getItem(DEV_IGNORE_KEY),
         ]);
         if (!active) return;
         setRawLocked(v);
@@ -87,19 +88,19 @@ export function useWeeklyLock(
   const lock = async () => {
     if (effectiveIgnoreLocks) return;
     setRawLocked(true);
-    await persistWeeklyAttemptLock(AsyncStorage, storageKey);
+    await persistWeeklyAttemptLock(appStorage, storageKey);
   };
 
   // ✅ Allow unlock always (useful for debugging)
   const unlock = async () => {
     setRawLocked(false);
-    await AsyncStorage.removeItem(storageKey);
+    await appStorage.removeItem(storageKey);
   };
 
   const setIgnore = async (on: boolean) => {
     setIgnoreLocks(on);
-    if (on) await AsyncStorage.setItem(DEV_IGNORE_KEY, "1");
-    else await AsyncStorage.removeItem(DEV_IGNORE_KEY);
+    if (on) await appStorage.setItem(DEV_IGNORE_KEY, "1");
+    else await appStorage.removeItem(DEV_IGNORE_KEY);
   };
 
   const locked = effectiveIgnoreLocks ? false : rawLocked;

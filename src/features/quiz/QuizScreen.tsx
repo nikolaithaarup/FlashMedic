@@ -131,17 +131,12 @@ export default function QuizScreen({
           }
           backLabel="Afslut træningen"
           onBack={onHome}
-          subtitle={
-            isDailyTen
-              ? "Dagens korte, fokuserede session"
-              : `Spørgsmål ${currentIndex} af ${totalQuestions}`
-          }
           title={sessionTitle}
         />
 
         <ProgressHeader
           current={currentIndex}
-          label={isDailyTen ? "DAGENS SESSION" : "FREMSKRIDT"}
+          label="SPØRGSMÅL"
           style={styles.progress}
           total={totalQuestions}
         />
@@ -174,7 +169,6 @@ export default function QuizScreen({
           </View>
         </View>
 
-        <Text style={styles.semanticLabel}>SPØRGSMÅL</Text>
         <Surface elevated tone="elevated" style={styles.questionCard}>
           {currentCard.image ? (
             <Pressable
@@ -218,13 +212,7 @@ export default function QuizScreen({
             </Text>
             </Surface>
           </>
-        ) : (
-          <Text style={styles.answerPlaceholder}>
-              {isExamMode
-                ? "Tænk dit svar igennem, og vis facit når du er klar til at vurdere dig selv."
-                : "Svaret er skjult, indtil du er klar til at kontrollere dig selv."}
-          </Text>
-        )}
+        ) : null}
 
         {completed ? (
           <ResultSummary
@@ -242,27 +230,22 @@ export default function QuizScreen({
           />
         ) : (
           <View style={styles.assessmentSection}>
-            <Text style={styles.assessmentTitle}>Hvordan gik det?</Text>
+            <Text style={styles.assessmentTitle}>Vurdér dit svar</Text>
             {isExamMode ? (
               <Text style={styles.assessmentHelp}>
                 Dit valg gemmes til den samlede gennemgang. Statistik opdateres først, når eksamen afsluttes.
               </Text>
             ) : null}
-            <Text style={[styles.assessmentHelp, isExamMode && styles.hidden]}>
-              Dit svar opdaterer statistikken og vælger det næste kort.
-            </Text>
             <View style={styles.assessmentActions}>
               <SelectableChoice
-                description="Markér som korrekt"
                 indicator="✓"
-                label="Jeg kunne den"
+                label="Kunne"
                 onPress={onMarkKnown}
                 style={styles.assessmentButton}
               />
               <SelectableChoice
-                description="Vis kortet igen"
                 indicator="↺"
-                label="Jeg kunne den ikke"
+                label="Kunne ikke"
                 onPress={onMarkUnknown}
                 style={styles.assessmentButton}
               />
@@ -387,6 +370,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexBasis: 150,
   },
-  reportButton: { marginTop: Spacing.lg, marginBottom: Spacing.lg },
+  reportButton: {
+    marginTop: Spacing.lg,
+    marginBottom: Spacing.lg,
+    borderColor: "transparent",
+    backgroundColor: "transparent",
+  },
   hidden: { display: "none" },
 });

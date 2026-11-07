@@ -90,25 +90,25 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     overflow: "hidden",
-    borderRadius: Radii.lg,
+    borderRadius: Radii.md,
     borderWidth: Borders.hairline,
     borderColor: ColorTokens.border.default,
-    backgroundColor: ColorTokens.surface.toolElevated,
-    paddingLeft: 17,
+    backgroundColor: ColorTokens.surface.tool,
+    paddingLeft: Spacing.md,
     paddingRight: Spacing.md,
     gap: Spacing.md,
     ...(Platform.OS === "web"
-      ? ({ boxShadow: "0 6px 18px rgba(0,0,0,0.22)" } as any)
+      ? ({ boxShadow: "0 2px 8px rgba(0,0,0,0.12)" } as any)
       : {
           shadowColor: ColorTokens.shadow.color,
-          shadowOpacity: 0.2,
-          shadowRadius: 14,
-          shadowOffset: { width: 0, height: 6 },
-          elevation: 3,
+          shadowOpacity: 0.12,
+          shadowRadius: 8,
+          shadowOffset: { width: 0, height: 2 },
+          elevation: 1,
         }),
   },
-  compact: { minHeight: 56 },
-  withDescription: { minHeight: 76, paddingVertical: Spacing.sm },
+  compact: { minHeight: Interaction.minimumTouchTarget },
+  withDescription: { minHeight: 68, paddingVertical: Spacing.sm },
   secondary: {
     backgroundColor: ColorTokens.surface.tool,
     ...(Platform.OS === "web"
@@ -133,9 +133,9 @@ const styles = StyleSheet.create({
   },
   title: {
     color: ColorTokens.text.primary,
-    fontSize: 17,
+    fontSize: Typography.sizes.body,
     lineHeight: 22,
-    fontWeight: Typography.weights.heavy,
+    fontWeight: Typography.weights.bold,
   },
   description: {
     color: ColorTokens.text.secondary,
@@ -145,8 +145,8 @@ const styles = StyleSheet.create({
   },
   trailing: {
     color: ColorTokens.accent.focus,
-    fontSize: 30,
-    lineHeight: 32,
+    fontSize: 26,
+    lineHeight: 28,
     fontWeight: Typography.weights.medium,
   },
 });

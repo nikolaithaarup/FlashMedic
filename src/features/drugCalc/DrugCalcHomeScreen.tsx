@@ -1,16 +1,10 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, View } from "react-native";
 
+import { Spacing } from "../../../constants/theme";
 import {
-  ColorTokens,
-  Spacing,
-  Typography,
-} from "../../../constants/theme";
-import {
-  Card,
   NavigationCard,
-  PrimaryButton,
   Screen,
   ToolPageHeader,
 } from "../../ui/primitives";
@@ -38,57 +32,30 @@ export default function DrugCalcHomeScreen({
       <ToolPageHeader
         backLabel="Tilbage til forsiden"
         onBack={onBackHome}
-        subtitle="Metoder, gennemregnede eksempler og genererede træningsopgaver."
         title="Lægemiddelregning"
       />
 
-      <Card variant="subtle" style={styles.section}>
-        <Text style={styles.eyebrow}>PRAKSIS</Text>
-        <Text style={styles.sectionTitle}>Træn beregninger</Text>
-        <Text style={styles.bodyText}>
-          Start med blandede opgaver. Du kan vælge bestemte emner inde i
-          træningen.
-        </Text>
-        <PrimaryButton
-          label="Start blandet træning"
-          onPress={() => onStartPractice([])}
-        />
-      </Card>
-
-      {onOpenTheory ? (
+      <View style={styles.list}>
         <NavigationCard
-          description="Formler, enhedskontrol, afrunding, eksempler og typiske fejl."
-          eyebrow="METODE OG REFERENCE"
-          onPress={onOpenTheory}
-          title="Lær metoden"
+          onPress={() => onStartPractice([])}
+          style={styles.destinationCard}
+          title="Blandet træning"
         />
-      ) : null}
+
+        {onOpenTheory ? (
+          <NavigationCard
+            onPress={onOpenTheory}
+            style={styles.destinationCard}
+            title="Metode og eksempler"
+          />
+        ) : null}
+      </View>
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
   content: { paddingBottom: Spacing.xl },
-  section: { gap: Spacing.md, marginBottom: Spacing.md },
-  eyebrow: {
-    color: ColorTokens.accent.muted,
-    fontFamily: Typography.families.sans,
-    fontSize: Typography.sizes.caption,
-    lineHeight: Typography.lineHeights.caption,
-    fontWeight: Typography.weights.heavy,
-  },
-  sectionTitle: {
-    color: ColorTokens.text.primary,
-    fontFamily: Typography.families.sans,
-    fontSize: Typography.sizes.sectionTitle,
-    lineHeight: Typography.lineHeights.sectionTitle,
-    fontWeight: Typography.weights.bold,
-  },
-  bodyText: {
-    color: ColorTokens.text.secondary,
-    fontFamily: Typography.families.sans,
-    fontSize: Typography.sizes.body,
-    lineHeight: Typography.lineHeights.body,
-    flex: 1,
-  },
+  list: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.sm },
+  destinationCard: { flexGrow: 1, flexBasis: 300, minWidth: 0 },
 });
