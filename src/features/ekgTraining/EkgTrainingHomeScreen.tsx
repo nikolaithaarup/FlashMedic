@@ -9,6 +9,7 @@ import {
   Spacing,
   Typography,
 } from "../../../constants/theme";
+import { EkgRhythmGameScreen } from "./game/EkgRhythmGameScreen";
 import { ekgImageLookup } from "../../data/ekg/imageLookup";
 import FullscreenEkgImageModal from "../flashcards/components/FullscreenEkgImageModal";
 import {
@@ -237,7 +238,7 @@ export function EkgTrainingHomeScreen({
   imageDrillCount,
   imageDrillLoading,
 }: Props) {
-  const [view, setView] = useState<"landing" | "method" | "reference">(
+  const [view, setView] = useState<"landing" | "method" | "reference" | "game">(
     "landing",
   );
   const [methodStep, setMethodStep] = useState(0);
@@ -254,6 +255,10 @@ export function EkgTrainingHomeScreen({
     }
     onBack();
   };
+
+  if (view === "game") {
+    return <EkgRhythmGameScreen onBack={() => setView("landing")} />;
+  }
 
   return (
     <>
@@ -272,6 +277,11 @@ export function EkgTrainingHomeScreen({
         {view === "landing" ? (
           <>
             <View style={styles.secondaryList}>
+              <NavigationCard
+                onPress={() => setView("game")}
+                style={styles.destinationCard}
+                title="Rytmespil"
+              />
               <NavigationCard
                 description={imageDrillLoading ? "Henter billeder…" : `${imageDrillCount} billeder`}
                 disabled={imageDrillLoading || imageDrillCount === 0}
