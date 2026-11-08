@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { Feather } from "@expo/vector-icons";
 import React from "react";
 import {
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -49,6 +50,10 @@ type HomeScreenProps = {
   onOpenContact: () => void;
 };
 
+// Web safe areas are already applied in app/+html.tsx.
+// Native screens still use react-native-safe-area-context.
+const ContentSafeArea = Platform.OS === "web" ? View : SafeAreaView;
+
 export default function HomeScreen({
   subtitleFont: _subtitleFont,
   loadingCards,
@@ -74,7 +79,7 @@ export default function HomeScreen({
   return (
     <Background variant="home">
       <StatusBar style="light" />
-      <SafeAreaView style={styles.safeArea}>
+      <ContentSafeArea style={styles.safeArea}>
         <ScrollView
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
@@ -171,13 +176,13 @@ export default function HomeScreen({
             Udviklet af Nikolai Louis Kleftås Thaarup
           </Text>
         </ScrollView>
-      </SafeAreaView>
+      </ContentSafeArea>
     </Background>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: { flex: 1 },
+  safeArea: { flex: 1, width: "100%", minWidth: 0 },
   content: {
     width: "100%",
     maxWidth: 1120,

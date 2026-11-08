@@ -2,7 +2,7 @@
 import * as Linking from "expo-linking";
 import * as MailComposer from "expo-mail-composer";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Alert, BackHandler, Platform, useWindowDimensions } from "react-native";
+import { Alert, BackHandler, Platform, View, useWindowDimensions } from "react-native";
 
 import {
   loadStoredProfile,
@@ -254,6 +254,8 @@ export default function Index() {
 
   // -------- Screen & profile --------
   const [screen, setScreen] = useState<Screen>("home");
+  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [profileBootstrapReady, setProfileBootstrapReady] = useState(false);
   const historyReadyRef = useRef(false);
   const suppressHistoryPushRef = useRef(false);
   const historyDepthRef = useRef(0);
@@ -293,6 +295,15 @@ export default function Index() {
     }
     const nextPath = SCREEN_PATHS[screen];
     if (`${window.location.pathname}${window.location.hash}` === nextPath) return;
+    // The welcome screen is a gate, not an additional Back destination.
+    if (screen === "auth") {
+      window.history.replaceState(
+        { flashMedic: true, screen, depth: historyDepthRef.current },
+        "",
+        nextPath,
+      );
+      return;
+    }
     historyDepthRef.current += 1;
     window.history.pushState(
       { flashMedic: true, screen, depth: historyDepthRef.current },
@@ -312,7 +323,13 @@ export default function Index() {
     }
     setScreen(fallback);
   }, []);
-  const [profile, setProfile] = useState<UserProfile | null>(null);
+
+  // Browser Back must never skip first-launch guest/account selection.
+  useEffect(() => {
+    if (profileBootstrapReady && !profile && screen !== "auth") {
+      setScreen("auth");
+    }
+  }, [profileBootstrapReady, profile, screen]);
 
   const classLabel = useMemo(() => {
     if (profile?.classId == null) return "";
@@ -437,6 +454,7 @@ export default function Index() {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (!user) {
         setAuthReady(false);
+        if (active) setProfileBootstrapReady(false);
         try {
           await signInAnonymously(auth);
         } catch (e) {
@@ -445,6 +463,7 @@ export default function Index() {
             setAuthError(
               "FlashMedic kunne ikke oprette den anonyme forbindelse, som appen bruger til indhold og resultater.",
             );
+            setProfileBootstrapReady(true);
           }
         }
         return;
@@ -452,6 +471,7 @@ export default function Index() {
 
       setAuthError(null);
       setAuthReady(true);
+      if (active) setProfileBootstrapReady(false);
       try {
         const stored = await loadStoredProfile();
         if (stored) {
@@ -507,6 +527,8 @@ export default function Index() {
         console.warn("Failed to bootstrap stored profile", e);
         setProfile(null);
         setScreen("auth");
+      } finally {
+        if (active) setProfileBootstrapReady(true);
       }
     });
 
@@ -1122,8 +1144,12 @@ export default function Index() {
   };
 
   // ---------- SCREENS ----------
-  // (everything below unchanged)
-  if (screen === "auth") {
+  // Wait for Firebase and the stored profile before displaying any app route.
+  if (!profileBootstrapReady) {
+    return <View style={{ flex: 1, backgroundColor: "#083f4f" }} />;
+  }
+  // The app is intentionally usable as a guest, but that choice must be explicit.
+  if (screen === "auth" || !profile) {
     return (
       <AuthScreen
         headingFont={headingFont}

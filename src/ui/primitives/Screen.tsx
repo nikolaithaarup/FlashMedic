@@ -23,6 +23,10 @@ type ScreenProps = {
   width?: "reading" | "wide";
 };
 
+// Web horizontal/vertical insets are handled once by app/+html.tsx.
+// Do not apply the same insets again inside a web route.
+const ContentSafeArea = Platform.OS === "web" ? View : SafeAreaView;
+
 export function Screen({
   children,
   scroll = true,
@@ -45,7 +49,7 @@ export function Screen({
         behavior={Platform.OS === "ios" ? "padding" : undefined}
         style={styles.fill}
       >
-        <SafeAreaView style={styles.safeArea} testID={testID}>
+        <ContentSafeArea style={styles.safeArea} testID={testID}>
           {scroll ? (
             <ScrollView
               automaticallyAdjustKeyboardInsets={Platform.OS === "ios"}
@@ -74,7 +78,7 @@ export function Screen({
               {children}
             </View>
           )}
-        </SafeAreaView>
+        </ContentSafeArea>
       </KeyboardAvoidingView>
     </Background>
   );
@@ -83,6 +87,8 @@ export function Screen({
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
+    width: "100%",
+    minWidth: 0,
     backgroundColor: "transparent",
   },
   content: {
