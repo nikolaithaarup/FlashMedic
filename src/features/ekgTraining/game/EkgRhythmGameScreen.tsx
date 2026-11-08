@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useRef, useState } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from "react-native";
+import { Modal, Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from "react-native";
 
 import { ColorTokens, Spacing, Typography } from "../../../../constants/theme";
 import { Screen, ToolPageHeader } from "../../../ui/primitives";
@@ -69,10 +69,12 @@ export function EkgRhythmGameScreen({ onBack }: Props) {
   const [remaining, setRemaining] = useState(DURATION);
   const queue = useRef<RhythmId[]>([]);
   const deadline = useRef<number | null>(null);
+  const feedbackOpenedAt = useRef<number | null>(null);
 
   useEffect(() => {
     if (phase !== "playing" || mode !== "timed") return;
     const interval = setInterval(() => {
+      if (feedbackOpenedAt.current !== null) return;
       const left = Math.max(0, Math.ceil(((deadline.current ?? 0) - Date.now()) / 1000));
       setRemaining(left);
       if (left === 0) setPhase("summary");
@@ -93,6 +95,7 @@ export function EkgRhythmGameScreen({ onBack }: Props) {
     queue.current = shuffle(pool);
     const nextId = nextFromQueue(pool);
     deadline.current = gameMode === "timed" ? Date.now() + DURATION * 1000 : null;
+    feedbackOpenedAt.current = null;
     setMode(gameMode);
     setRound(1);
     setCorrect(0);
@@ -110,6 +113,7 @@ export function EkgRhythmGameScreen({ onBack }: Props) {
 
   const answer = (choice: RhythmId) => {
     if (phase !== "playing" || selected !== null || (mode === "timed" && remaining === 0)) return;
+    if (mode === "timed") feedbackOpenedAt.current = Date.now();
     setSelected(choice);
     setAnswered((n) => n + 1);
     if (choice === rhythmId) {
@@ -121,6 +125,10 @@ export function EkgRhythmGameScreen({ onBack }: Props) {
 
   const next = () => {
     if (phase !== "playing" || selected === null) return;
+    if (feedbackOpenedAt.current !== null) {
+      deadline.current = (deadline.current ?? Date.now()) + Date.now() - feedbackOpenedAt.current;
+      feedbackOpenedAt.current = null;
+    }
     if (mode === "rounds" && round >= ROUND_LIMIT) { setPhase("summary"); return; }
     const nextId = nextFromQueue(active);
     setRhythmId(nextId);
@@ -212,7 +220,7 @@ export function EkgRhythmGameScreen({ onBack }: Props) {
             <Text style={styles.scoreSecondary}>{correct} rigtige  ·  Stime {streak}</Text>
           </View>
           <View style={styles.progressTrack}><View style={[styles.progressFill, { width: `${Math.min(100, Math.max(0, progress * 100))}%` as `${number}%` }]} /></View>
-          <EkgLiveMonitor rhythmId={rhythmId} seed={seed} paused={paused} />
+          <EkgLiveMonitor rhythmId={rhythmId} seed={seed} paused={paused || selected !== null} />
           <View style={styles.questionRow}>
             <Text style={styles.question}>Hvilken rytme ser du?</Text>
             {mode === "rounds" ? (
@@ -238,17 +246,6 @@ export function EkgRhythmGameScreen({ onBack }: Props) {
               {answerButtons}
             </View>
           )}
-          {selected !== null ? (
-            <View style={styles.feedback} accessibilityLiveRegion="polite">
-              <Text style={[styles.feedbackHeading, { color: selected === rhythmId ? "#67efd4" : "#ffb0a0" }]}>
-                {selected === rhythmId ? "Korrekt!" : `Rigtigt svar: ${correctRhythm.label}`}
-              </Text>
-              <Text style={styles.clue}>{correctRhythm.clue}</Text>
-              <Pressable accessibilityRole="button" onPress={next} style={styles.nextButton}>
-                <Text style={styles.nextText}>{mode === "rounds" && round >= ROUND_LIMIT ? "Se resultat" : "Næste rytme"}</Text>
-              </Pressable>
-            </View>
-          ) : null}
         </View>
       ) : null}
 
@@ -264,6 +261,47 @@ export function EkgRhythmGameScreen({ onBack }: Props) {
           </View>
         </View>
       ) : null}
+      <Modal
+        visible={phase === "playing" && selected !== null}
+        transparent
+        animationType="fade"
+        onRequestClose={next}
+      >
+        <View style={styles.resultOverlay}>
+          <View style={styles.resultDialog} accessibilityViewIsModal>
+            <ScrollView bounces={false} contentContainerStyle={styles.resultBody}>
+              <Text style={styles.resultEyebrow}>
+                {difficulty === "behandler" ? "BEHANDLER" : "PARAMEDICINER"} · RYTME {round}
+              </Text>
+              <Text style={[styles.resultTitle, { color: selected === rhythmId ? "#67efd4" : "#ffb0a0" }]}>
+                {selected === rhythmId ? "Korrekt!" : "Ikke helt"}
+              </Text>
+              {selected !== null && selected !== rhythmId ? (
+                <Text style={styles.resultYourAnswer}>Dit svar: {getRhythm(selected).label}</Text>
+              ) : null}
+              <Text style={styles.resultRhythm}>
+                {selected === rhythmId ? correctRhythm.label : `Rigtigt svar: ${correctRhythm.label}`}
+              </Text>
+              <Text style={styles.resultClue}>{correctRhythm.clue}</Text>
+              <View style={styles.resultStats}>
+                <View style={styles.resultStat}>
+                  <Text style={styles.resultStatValue}>{correct} / {answered}</Text>
+                  <Text style={styles.resultStatLabel}>Rigtige svar</Text>
+                </View>
+                <View style={styles.resultStat}>
+                  <Text style={styles.resultStatValue}>{streak}</Text>
+                  <Text style={styles.resultStatLabel}>Stime</Text>
+                </View>
+              </View>
+              <Pressable accessibilityRole="button" onPress={next} style={styles.nextButton}>
+                <Text style={styles.nextText}>
+                  {mode === "rounds" && round >= ROUND_LIMIT ? "Se resultat" : "Næste rytme"}
+                </Text>
+              </Pressable>
+            </ScrollView>
+          </View>
+        </View>
+      </Modal>
     </Screen>
   );
 }
@@ -316,9 +354,18 @@ const styles = StyleSheet.create({
   answerCorrect: { backgroundColor: "rgba(41,169,119,0.30)", borderColor: "#67efd4" },
   answerWrong: { backgroundColor: "rgba(184,58,55,0.3)", borderColor: "#ff9c90" },
   answerText: { fontFamily: font, fontSize: 15, fontWeight: "700", color: "#fff" },
-  feedback: { padding: 14, gap: 9, borderRadius: 13, borderWidth: 1, borderColor: ColorTokens.border.default, backgroundColor: "rgba(0,0,0,0.19)" },
-  feedbackHeading: { fontFamily: font, fontSize: 17, fontWeight: "800" },
-  clue: { fontFamily: font, fontSize: 14, lineHeight: 20, color: "#e7f1f3" },
+  resultOverlay: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "rgba(0, 13, 20, 0.80)", paddingHorizontal: 14, paddingVertical: 20 },
+  resultDialog: { width: "100%", maxWidth: 460, maxHeight: "90%", overflow: "hidden", borderRadius: 18, borderWidth: 1, borderColor: "rgba(119,225,214,0.52)", backgroundColor: "#092c35" },
+  resultBody: { padding: 20, gap: 12 },
+  resultEyebrow: { fontFamily: font, fontWeight: "800", color: "#9dcacb", fontSize: 11, letterSpacing: 1 },
+  resultTitle: { fontFamily: font, fontSize: 30, fontWeight: "800" },
+  resultYourAnswer: { fontFamily: font, fontSize: 13, color: "#ffc5bd" },
+  resultRhythm: { fontFamily: font, fontSize: 18, fontWeight: "800", color: "#fff" },
+  resultClue: { fontFamily: font, fontSize: 14, lineHeight: 21, color: "#dae7e9" },
+  resultStats: { flexDirection: "row", gap: 10, marginTop: 4 },
+  resultStat: { flex: 1, minWidth: 0, paddingVertical: 12, paddingHorizontal: 13, borderRadius: 10, backgroundColor: "rgba(4,25,33,0.65)", borderWidth: 1, borderColor: "rgba(119,225,214,0.20)" },
+  resultStatValue: { fontFamily: font, fontSize: 22, color: "#67efd4", fontWeight: "800" },
+  resultStatLabel: { fontFamily: font, fontSize: 11, color: "#c2d6d8", marginTop: 2 },
   nextButton: { backgroundColor: "#1099a9", minHeight: 48, borderRadius: 11, alignItems: "center", justifyContent: "center" },
   nextText: { fontFamily: font, color: "#fff", fontSize: 15, fontWeight: "800" },
   summary: { borderRadius: 16, borderWidth: 1, borderColor: ColorTokens.border.default, backgroundColor: ColorTokens.surface.tool, padding: 18, gap: 11 },

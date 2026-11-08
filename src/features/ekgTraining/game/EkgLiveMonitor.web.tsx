@@ -67,12 +67,28 @@ export function EkgLiveMonitor({ rhythmId, seed, paused }: Props) {
           beats: trace.beats.filter((b) => b.time >= start - 1.2 && b.time <= end + 0.7),
           pTimes: trace.pTimes.filter((p) => p.time >= start - 0.2 && p.time <= end + 0.2),
         };
-        const steps = Math.max(320, Math.ceil(width / 1.1));
+        const pulseSteps = Math.max(320, Math.ceil(width / 1.1));
+        const ecgSteps = Math.max(1200, Math.ceil(width * 4));
         const paint = (pulse: boolean) => {
-          ctx.beginPath();
+          const steps = pulse ? pulseSteps : ecgSteps;
+          const sampleTimes: number[] = [];
           for (let i = 0; i <= steps; i++) {
-            const x = (i / steps) * width;
-            const t = start + (i / steps) * WINDOW_SECONDS;
+            sampleTimes.push(start + (i / steps) * WINDOW_SECONDS);
+          }
+          if (!pulse) {
+            // Preserve exact QRS extrema as they move between pixel coordinates.
+            for (const beat of visible.beats) {
+              for (const offset of [-0.055, -0.028, -0.012, 0, 0.012, 0.028, 0.055, 0.078]) {
+                const t = beat.time + offset;
+                if (t > start && t < end) sampleTimes.push(t);
+              }
+            }
+            sampleTimes.sort((a, b) => a - b);
+          }
+          ctx.beginPath();
+          for (let i = 0; i < sampleTimes.length; i++) {
+            const t = sampleTimes[i];
+            const x = ((t - start) / WINDOW_SECONDS) * width;
             const amplitude = pulse ? pulseAmplitude(t, visible, rhythm) : ecgAmplitude(t, visible, rhythm);
             const y = pulse ? 210 - amplitude * 48 : 95 - amplitude * 68;
             if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);

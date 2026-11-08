@@ -283,7 +283,6 @@ export function EkgTrainingHomeScreen({
                 title="Rytmespil"
               />
               <NavigationCard
-                description={imageDrillLoading ? "Henter billeder…" : `${imageDrillCount} billeder`}
                 disabled={imageDrillLoading || imageDrillCount === 0}
                 onPress={onStartImageDrill}
                 style={styles.destinationCard}
