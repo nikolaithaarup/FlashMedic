@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-import { ColorTokens, Typography } from "../../../../constants/theme";
+import { Typography } from "../../../../constants/theme";
 import {
   approximateEcgRate,
   createTimeline,
@@ -12,7 +12,7 @@ import {
 } from "./rhythmModel";
 
 type Props = { rhythmId: RhythmId; seed: number; paused: boolean };
-const WINDOW_SECONDS = 6;
+const WINDOW_SECONDS = 4.8;
 const HEIGHT = 230;
 
 export function EkgLiveMonitor({ rhythmId, seed, paused }: Props) {
@@ -40,7 +40,7 @@ export function EkgLiveMonitor({ rhythmId, seed, paused }: Props) {
     const render = (timestamp: number) => {
       if (lastTick && !paused) elapsedRef.current += Math.min(0.08, Math.max(0, timestamp - lastTick) / 1000);
       lastTick = timestamp;
-      if (!lastPaint || timestamp - lastPaint >= 32) {
+      if (!lastPaint || timestamp - lastPaint >= 16) {
         lastPaint = timestamp;
         const width = Math.max(1, canvas.clientWidth);
         const dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -64,10 +64,10 @@ export function EkgLiveMonitor({ rhythmId, seed, paused }: Props) {
         const end = elapsedRef.current;
         const start = end - WINDOW_SECONDS;
         const visible = {
-          beats: trace.beats.filter((b) => b.time >= start - 0.7 && b.time <= end + 0.7),
+          beats: trace.beats.filter((b) => b.time >= start - 1.2 && b.time <= end + 0.7),
           pTimes: trace.pTimes.filter((p) => p.time >= start - 0.2 && p.time <= end + 0.2),
         };
-        const steps = Math.max(160, Math.ceil(width / 1.4));
+        const steps = Math.max(320, Math.ceil(width / 1.1));
         const paint = (pulse: boolean) => {
           ctx.beginPath();
           for (let i = 0; i <= steps; i++) {
@@ -89,8 +89,18 @@ export function EkgLiveMonitor({ rhythmId, seed, paused }: Props) {
           ctx.shadowBlur = 0;
           ctx.setLineDash([]);
         };
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(0, 0, width, 151);
+        ctx.clip();
         paint(false);
+        ctx.restore();
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(0, 152, width, HEIGHT - 152);
+        ctx.clip();
         paint(true);
+        ctx.restore();
         if (end - lastRate >= 1 && rhythm.baseBpm > 0) {
           lastRate = end;
           const bpm = approximateEcgRate(trace.beats, end, rhythm.baseBpm);
@@ -117,9 +127,6 @@ export function EkgLiveMonitor({ rhythmId, seed, paused }: Props) {
         role="img"
         style={{ display: "block", width: "100%", height: HEIGHT }}
       />
-      <Text style={styles.footer}>
-        {rhythm.pulse === "assumed" ? "HYPOTETISK PULSKURVE · IKKE EN MÅLING" : rhythm.pulse === "none" ? "INGEN ORGANISERET PULSKURVE · SIMULERET" : "PULS UKENDT · KAN IKKE BESTEMMES FRA EKG"}
-      </Text>
     </View>
   );
 }
@@ -131,5 +138,4 @@ const styles = StyleSheet.create({
   headerLabel: { fontFamily: font, fontSize: 11, color: "#9dcacb", fontWeight: "700", letterSpacing: 0.6 },
   rate: { fontFamily: font, fontSize: 25, color: "#67efd4", fontWeight: "800" },
   unit: { fontFamily: font, fontSize: 12, color: "#9dcacb", fontWeight: "500" },
-  footer: { fontFamily: font, fontSize: 10, color: ColorTokens.text.secondary, paddingHorizontal: 12, paddingBottom: 8 },
 });

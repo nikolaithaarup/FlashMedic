@@ -249,7 +249,6 @@ export function EkgRhythmGameScreen({ onBack }: Props) {
               </Pressable>
             </View>
           ) : null}
-          <Text style={styles.disclaimer}>Simuleret EKG og hypotetisk pulskurve. Puls og perfusion kræver klinisk vurdering.</Text>
         </View>
       ) : null}
 
