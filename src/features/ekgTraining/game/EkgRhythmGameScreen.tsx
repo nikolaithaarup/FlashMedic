@@ -61,8 +61,6 @@ export function EkgRhythmGameScreen({ onBack }: Props) {
   const [round, setRound] = useState(1);
   const [correct, setCorrect] = useState(0);
   const [answered, setAnswered] = useState(0);
-  const [streak, setStreak] = useState(0);
-  const [bestStreak, setBestStreak] = useState(0);
   const [selected, setSelected] = useState<RhythmId | null>(null);
   const [options, setOptions] = useState<RhythmId[]>(["sinus", "af", "sinus_tachy", "sinus_brady"]);
   const [paused, setPaused] = useState(false);
@@ -100,8 +98,6 @@ export function EkgRhythmGameScreen({ onBack }: Props) {
     setRound(1);
     setCorrect(0);
     setAnswered(0);
-    setStreak(0);
-    setBestStreak(0);
     setRemaining(DURATION);
     setSelected(null);
     setPaused(false);
@@ -118,9 +114,7 @@ export function EkgRhythmGameScreen({ onBack }: Props) {
     setAnswered((n) => n + 1);
     if (choice === rhythmId) {
       setCorrect((n) => n + 1);
-      setStreak(streak + 1);
-      setBestStreak(Math.max(bestStreak, streak + 1));
-    } else setStreak(0);
+    }
   };
 
   const next = () => {
@@ -180,7 +174,7 @@ export function EkgRhythmGameScreen({ onBack }: Props) {
             <View style={styles.heroText}>
               <Text style={styles.overline}>EKG · RYTMEGENKENDELSE</Text>
               <Text style={styles.heroTitle}>Klar til start?</Text>
-              <Text style={styles.helper}>Se rytmen. Vælg svaret. Byg din stime.</Text>
+              <Text style={styles.helper}>Se rytmen. Vælg svaret. Få forklaringen.</Text>
             </View>
             <View style={styles.countPill}><Text style={styles.countText}>{active.length} rytmer</Text></View>
           </View>
@@ -217,7 +211,7 @@ export function EkgRhythmGameScreen({ onBack }: Props) {
         <View style={styles.gameWrap}>
           <View style={styles.scoreBar}>
             <Text style={styles.scorePrimary}>{difficulty === "behandler" ? "Behandler" : "Paramediciner"} · {mode === "rounds" ? `Rytme ${round} / ${ROUND_LIMIT}` : `${remaining} sek. tilbage`}</Text>
-            <Text style={styles.scoreSecondary}>{correct} rigtige  ·  Stime {streak}</Text>
+            <Text style={styles.scoreSecondary}>{correct} / {answered} rigtige</Text>
           </View>
           <View style={styles.progressTrack}><View style={[styles.progressFill, { width: `${Math.min(100, Math.max(0, progress * 100))}%` as `${number}%` }]} /></View>
           <EkgLiveMonitor rhythmId={rhythmId} seed={seed} paused={paused || selected !== null} />
@@ -254,7 +248,7 @@ export function EkgRhythmGameScreen({ onBack }: Props) {
           <Text style={styles.overline}>RUNDE AFSLUTTET</Text>
           <Text style={styles.heroTitle}>Resultat</Text>
           <Text style={styles.bigScore}>{correct} <Text style={styles.bigScoreUnit}>/ {answered}</Text></Text>
-          <Text style={styles.helper}>{difficulty === "behandler" ? "Behandler" : "Paramediciner"} · {scorePercent}% korrekte · Bedste stime {bestStreak}</Text>
+          <Text style={styles.helper}>{difficulty === "behandler" ? "Behandler" : "Paramediciner"} · {scorePercent}% korrekte</Text>
           <View style={styles.modeStack}>
             <ModeButton title="Spil igen" subtitle={mode === "rounds" ? "Ny runde med 10 rytmer" : "Ny runde på 60 sekunder"} primary onPress={() => start(mode)} />
             <ModeButton title="Skift niveau eller spiltype" subtitle="Tilbage til start" onPress={() => setPhase("intro")} />
@@ -270,29 +264,14 @@ export function EkgRhythmGameScreen({ onBack }: Props) {
         <View style={styles.resultOverlay}>
           <View style={styles.resultDialog} accessibilityViewIsModal>
             <ScrollView bounces={false} contentContainerStyle={styles.resultBody}>
-              <Text style={styles.resultEyebrow}>
-                {difficulty === "behandler" ? "BEHANDLER" : "PARAMEDICINER"} · RYTME {round}
-              </Text>
               <Text style={[styles.resultTitle, { color: selected === rhythmId ? "#67efd4" : "#ffb0a0" }]}>
                 {selected === rhythmId ? "Korrekt!" : "Ikke helt"}
               </Text>
-              {selected !== null && selected !== rhythmId ? (
-                <Text style={styles.resultYourAnswer}>Dit svar: {getRhythm(selected).label}</Text>
-              ) : null}
               <Text style={styles.resultRhythm}>
                 {selected === rhythmId ? correctRhythm.label : `Rigtigt svar: ${correctRhythm.label}`}
               </Text>
               <Text style={styles.resultClue}>{correctRhythm.clue}</Text>
-              <View style={styles.resultStats}>
-                <View style={styles.resultStat}>
-                  <Text style={styles.resultStatValue}>{correct} / {answered}</Text>
-                  <Text style={styles.resultStatLabel}>Rigtige svar</Text>
-                </View>
-                <View style={styles.resultStat}>
-                  <Text style={styles.resultStatValue}>{streak}</Text>
-                  <Text style={styles.resultStatLabel}>Stime</Text>
-                </View>
-              </View>
+              <Text style={styles.resultScore}>{correct} / {answered} rigtige i alt</Text>
               <Pressable accessibilityRole="button" onPress={next} style={styles.nextButton}>
                 <Text style={styles.nextText}>
                   {mode === "rounds" && round >= ROUND_LIMIT ? "Se resultat" : "Næste rytme"}
@@ -357,15 +336,10 @@ const styles = StyleSheet.create({
   resultOverlay: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "rgba(0, 13, 20, 0.80)", paddingHorizontal: 14, paddingVertical: 20 },
   resultDialog: { width: "100%", maxWidth: 460, maxHeight: "90%", overflow: "hidden", borderRadius: 18, borderWidth: 1, borderColor: "rgba(119,225,214,0.52)", backgroundColor: "#092c35" },
   resultBody: { padding: 20, gap: 12 },
-  resultEyebrow: { fontFamily: font, fontWeight: "800", color: "#9dcacb", fontSize: 11, letterSpacing: 1 },
   resultTitle: { fontFamily: font, fontSize: 30, fontWeight: "800" },
-  resultYourAnswer: { fontFamily: font, fontSize: 13, color: "#ffc5bd" },
   resultRhythm: { fontFamily: font, fontSize: 18, fontWeight: "800", color: "#fff" },
   resultClue: { fontFamily: font, fontSize: 14, lineHeight: 21, color: "#dae7e9" },
-  resultStats: { flexDirection: "row", gap: 10, marginTop: 4 },
-  resultStat: { flex: 1, minWidth: 0, paddingVertical: 12, paddingHorizontal: 13, borderRadius: 10, backgroundColor: "rgba(4,25,33,0.65)", borderWidth: 1, borderColor: "rgba(119,225,214,0.20)" },
-  resultStatValue: { fontFamily: font, fontSize: 22, color: "#67efd4", fontWeight: "800" },
-  resultStatLabel: { fontFamily: font, fontSize: 11, color: "#c2d6d8", marginTop: 2 },
+  resultScore: { fontFamily: font, fontSize: 17, fontWeight: "800", color: "#67efd4", marginTop: 4 },
   nextButton: { backgroundColor: "#1099a9", minHeight: 48, borderRadius: 11, alignItems: "center", justifyContent: "center" },
   nextText: { fontFamily: font, color: "#fff", fontSize: 15, fontWeight: "800" },
   summary: { borderRadius: 16, borderWidth: 1, borderColor: ColorTokens.border.default, backgroundColor: ColorTokens.surface.tool, padding: 18, gap: 11 },
