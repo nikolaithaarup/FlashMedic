@@ -445,6 +445,39 @@ export default function Index() {
   const questionFont = 22 * scale;
   const answerFont = 17 * scale;
 
+  // The local UI is usable while Firebase restores its network identity.
+  // Never wipe the cached profile or learning progress while offline.
+  useEffect(() => {
+    if (Platform.OS !== "web") return;
+    let active = true;
+    const fallbackTimer = window.setTimeout(() => {
+      if (active) setProfileBootstrapReady(true);
+    }, 2500);
+    void loadStoredProfile()
+      .then((stored) => {
+        if (!active || !stored) return;
+        setProfile((current) => current ?? {
+          userId: stored.userId,
+          nickname: stored.nickname,
+          classId: stored.classId ?? null,
+          isAnonymous: stored.isAnonymous,
+          role: null,
+          gender: null,
+          region: null,
+        });
+      })
+      .catch((error) => console.warn("Local profile could not be loaded promptly", error))
+      .finally(() => {
+        if (!active) return;
+        window.clearTimeout(fallbackTimer);
+        setProfileBootstrapReady(true);
+      });
+    return () => {
+      active = false;
+      window.clearTimeout(fallbackTimer);
+    };
+  }, []);
+
   // Firebase auth and local profile bootstrap share one source of truth so a
   // returning e-mail account is recognized even if its local display profile is missing.
   useEffect(() => {
@@ -454,7 +487,7 @@ export default function Index() {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (!user) {
         setAuthReady(false);
-        if (active) setProfileBootstrapReady(false);
+        if (active && Platform.OS !== "web") setProfileBootstrapReady(false);
         try {
           await signInAnonymously(auth);
         } catch (e) {
@@ -471,10 +504,16 @@ export default function Index() {
 
       setAuthError(null);
       setAuthReady(true);
-      if (active) setProfileBootstrapReady(false);
+      if (active && Platform.OS !== "web") setProfileBootstrapReady(false);
       try {
         const stored = await loadStoredProfile();
         if (stored) {
+          // A lost signed-in session must not masquerade as an authenticated account.
+          if (user.isAnonymous && !stored.isAnonymous) {
+            setProfile(null);
+            setScreen("auth");
+            return;
+          }
           const patched: StoredUserProfile = {
             ...stored,
             userId: user.uid,

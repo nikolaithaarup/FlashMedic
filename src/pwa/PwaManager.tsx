@@ -77,6 +77,7 @@ export function PwaManager() {
 
     let disposed = false;
     let registration: ServiceWorkerRegistration | null = null;
+    let warmTimer: number | null = null;
     const watchRegistration = (current: ServiceWorkerRegistration) => {
       registration = current;
       if (current.waiting) setWaitingWorker(current.waiting);
@@ -93,7 +94,16 @@ export function PwaManager() {
     navigator.serviceWorker
       .register("/sw.js", { scope: "/" })
       .then((current) => {
-        if (!disposed) watchRegistration(current);
+        if (!disposed) {
+          watchRegistration(current);
+          // Download non-essential offline images only after the UI is usable.
+          warmTimer = window.setTimeout(() => {
+            const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+            if (!disposed && navigator.onLine && !connection?.saveData) {
+              (navigator.serviceWorker.controller ?? current.active)?.postMessage({ type: "WARM_OFFLINE" });
+            }
+          }, 20000);
+        }
       })
       .catch((error) => console.warn("Service worker registration failed", error));
 
@@ -105,6 +115,7 @@ export function PwaManager() {
     return () => {
       disposed = true;
       window.clearInterval(updateTimer);
+      if (warmTimer !== null) window.clearTimeout(warmTimer);
       navigator.serviceWorker.removeEventListener("controllerchange", controllerChanged);
     };
   }, []);
