@@ -72,14 +72,26 @@ export default function HomeScreen({
   onOpenContact,
 }: HomeScreenProps) {
   const { width } = useWindowDimensions();
-  const isPhone = width < 700;
-  const twoColumns = width >= 900;
+  const [availableWidth, setAvailableWidth] = React.useState<number | null>(null);
+  const layoutWidth = Platform.OS === "web" && availableWidth !== null ? availableWidth : width;
+  const isPhone = layoutWidth < 700;
+  const twoColumns = layoutWidth >= 900;
   const moduleWidth = twoColumns ? "48%" : "100%";
 
   return (
     <Background variant="home">
       <StatusBar style="light" />
-      <ContentSafeArea style={styles.safeArea}>
+      <ContentSafeArea
+        style={styles.safeArea}
+        onLayout={Platform.OS === "web" ? (event) => {
+          const measured = event.nativeEvent.layout.width;
+          if (measured > 0) {
+            setAvailableWidth((current) =>
+              current === null || Math.abs(current - measured) > 1 ? measured : current,
+            );
+          }
+        } : undefined}
+      >
         <ScrollView
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}

@@ -10,7 +10,7 @@
   "display": "standalone",
   "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
   "orientation": "any",
-  "background_color": "#10161c",
+  "background_color": "#083f4f",
   "theme_color": "#083f4f",
   "categories": ["education", "medical"],
   "icons": [

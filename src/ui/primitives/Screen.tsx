@@ -36,9 +36,13 @@ export function Screen({
   width: contentWidth = "reading",
 }: ScreenProps) {
   const { width } = useWindowDimensions();
-  const horizontalPadding = width < 480
+  // On asymmetric foldable displays, the content width can be smaller
+  // than the window width due to the right-hand safe-area inset.
+  const [availableWidth, setAvailableWidth] = React.useState<number | null>(null);
+  const layoutWidth = Platform.OS === "web" && availableWidth !== null ? availableWidth : width;
+  const horizontalPadding = layoutWidth < 480
     ? Spacing.md
-    : width < 840
+    : layoutWidth < 840
       ? Spacing.lg
       : Spacing.xl;
   const maxWidth = contentWidth === "wide" ? 1120 : 900;
@@ -49,7 +53,18 @@ export function Screen({
         behavior={Platform.OS === "ios" ? "padding" : undefined}
         style={styles.fill}
       >
-        <ContentSafeArea style={styles.safeArea} testID={testID}>
+        <ContentSafeArea
+          style={styles.safeArea}
+          testID={testID}
+          onLayout={Platform.OS === "web" ? (event) => {
+            const measured = event.nativeEvent.layout.width;
+            if (measured > 0) {
+              setAvailableWidth((current) =>
+                current === null || Math.abs(current - measured) > 1 ? measured : current,
+              );
+            }
+          } : undefined}
+        >
           {scroll ? (
             <ScrollView
               automaticallyAdjustKeyboardInsets={Platform.OS === "ios"}

@@ -50,7 +50,15 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     backgroundColor: ColorTokens.background.base,
-    ...(Platform.OS === "web" ? ({ minHeight: "100vh" } as any) : null),
+    // Adapt on fold/unfold and keyboard/viewport changes without extending
+    // the gradient beyond the available safe-area content height.
+    ...(Platform.OS === "web"
+      ? ({
+          width: "100%",
+          minWidth: 0,
+          minHeight: "calc(100dvh - max(env(safe-area-inset-top, 0px), env(titlebar-area-height, 0px)) - env(safe-area-inset-bottom, 0px))",
+        } as any)
+      : null),
   },
   content: { flex: 1, backgroundColor: "transparent" },
   decorativeLayer: { pointerEvents: "none" },

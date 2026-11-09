@@ -28,21 +28,26 @@ export default function Root({ children }: PropsWithChildren) {
 }
 
 const globalStyles = `
-  :root { color-scheme: dark; background: #10161c; }
+  :root {
+    color-scheme: dark;
+    background: #083f4f;
+    --fm-safe-top: max(env(safe-area-inset-top, 0px), env(titlebar-area-height, 0px));
+    --fm-safe-right: env(safe-area-inset-right, 0px);
+    --fm-safe-bottom: env(safe-area-inset-bottom, 0px);
+    --fm-safe-left: env(safe-area-inset-left, 0px);
+  }
   *, *::before, *::after { box-sizing: border-box; }
-  html, body, #root { width: 100%; }
-  html { height: 100%; background: #10161c; }
+  html, body, #root { width: 100%; max-width: 100%; }
+  html, body { overflow-x: hidden; overscroll-behavior-x: none; }
+  html { min-height: 100%; background: #083f4f; }
   body {
     margin: 0;
     min-height: 100%;
     min-height: 100dvh;
-    background: #10161c;
+    background: linear-gradient(143deg, #083f4f 0%, #0d2f38 58%, #0d141b 100%);
     overscroll-behavior-y: none;
     -webkit-tap-highlight-color: transparent;
-    padding-top: max(env(safe-area-inset-top), env(titlebar-area-height, 0px));
-    padding-right: env(safe-area-inset-right);
-    padding-bottom: env(safe-area-inset-bottom);
-    padding-left: env(safe-area-inset-left);
+    padding: 0;
   }
   button, [role="button"], input, textarea { touch-action: manipulation; }
   input, textarea {
@@ -52,8 +57,17 @@ const globalStyles = `
   #root {
     min-height: 100%;
     min-height: 100dvh;
-    scroll-padding-bottom: calc(env(safe-area-inset-bottom) + 32px);
+    min-width: 0;
+    max-width: 100%;
+    padding-top: var(--fm-safe-top);
+    padding-right: var(--fm-safe-right);
+    padding-bottom: var(--fm-safe-bottom);
+    padding-left: var(--fm-safe-left);
+    background: linear-gradient(143deg, #083f4f 0%, #0d2f38 58%, #0d141b 100%);
+    scroll-padding-bottom: calc(var(--fm-safe-bottom) + 32px);
   }
+  #root > * { min-width: 0; max-width: 100%; }
+  img, canvas, video { max-width: 100%; }
   :focus-visible { outline: 3px solid #5eead4; outline-offset: 2px; }
   input:focus-visible, textarea:focus-visible {
     outline-width: 2px;
