@@ -24,7 +24,6 @@ import {
   Accordion,
   Card,
   EmptyState,
-  NoticeCard,
   PrimaryButton,
   ProgressHeader,
   ResultSummary,
@@ -257,16 +256,12 @@ export function EkgImageDrillScreen({ cards, loadingCards, onBack }: Props) {
         <ToolPageHeader
           backLabel="Tilbage til EKG-træning"
           onBack={onBack}
-          subtitle="Vurder rytmen systematisk ud fra EKG-billedet."
-          title="EKG-billedtræning"
+          title="EKG-analyse"
         />
 
-        <NoticeCard title="Træn rytmetolkning" tone="info" style={styles.notice}>
-          <Text style={styles.noticeText}>
-            Vurder billedet trin for trin. Feedback vises først, når du tjekker
-            svaret.
-          </Text>
-        </NoticeCard>
+        <Text style={styles.analysisGuide}>
+          Frekvens · regelmæssighed · P-takker · PR · QRS · rytme · klinik
+        </Text>
 
         {loadingCards ? (
           <Card variant="subtle" style={styles.sectionCard}>
@@ -303,24 +298,10 @@ export function EkgImageDrillScreen({ cards, loadingCards, onBack }: Props) {
               testID={`ekg-case-${currentCard.id}`}
             >
               <View style={styles.imageHeader}>
-                <View style={styles.imageHeaderCopy}>
-                  <Text style={styles.eyebrow}>
-                    BILLEDE {currentIndex + 1} AF {deck.length}
-                  </Text>
-                  <Text style={styles.sectionTitle}>
-                    Rytmecase {currentIndex + 1}
-                  </Text>
-                  <Text style={styles.bodyText}>
-                    Vurder rytmen ud fra billedet og observationerne nedenfor.
-                  </Text>
-                </View>
-                <View style={styles.countBadge}>
-                  <Text style={styles.countBadgeText}>
-                    {currentIndex + 1}/{deck.length}
-                  </Text>
-                </View>
+                <Text style={styles.eyebrow}>
+                  EKG {currentIndex + 1} / {deck.length}
+                </Text>
               </View>
-
               <Pressable
                 accessibilityLabel="Åbn EKG-billede i fuld skærm"
                 accessibilityRole="button"
@@ -423,8 +404,8 @@ export function EkgImageDrillScreen({ cards, loadingCards, onBack }: Props) {
 export default EkgImageDrillScreen;
 
 const styles = StyleSheet.create({
-  content: {
-    paddingBottom: Spacing.xl,
+  analysisGuide: { color: ColorTokens.text.secondary, fontFamily: Typography.families.sans, fontSize: Typography.sizes.caption, lineHeight: Typography.lineHeights.caption, marginBottom: Spacing.sm },
+  content: {    paddingBottom: Spacing.xl,
   },
   notice: {
     marginBottom: Spacing.md,

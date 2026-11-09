@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 import {
   Borders,
@@ -11,15 +11,12 @@ import {
 } from "../../../constants/theme";
 import { EkgRhythmGameScreen } from "./game/EkgRhythmGameScreen";
 import { ekgImageLookup } from "../../data/ekg/imageLookup";
+import { additionalEkgReferences } from "./ekgReferenceExtras";
 import FullscreenEkgImageModal from "../flashcards/components/FullscreenEkgImageModal";
 import {
   Accordion,
-  Card,
   NavigationCard,
-  PrimaryButton,
-  ProgressHeader,
   Screen,
-  SecondaryButton,
   ToolPageHeader,
 } from "../../ui/primitives";
 
@@ -29,11 +26,6 @@ type Props = {
   onStartImageDrill: () => void;
   imageDrillCount: number;
   imageDrillLoading: boolean;
-};
-
-type StepItem = {
-  label: string;
-  text: string;
 };
 
 type AcuteRhythmInfo = {
@@ -53,37 +45,6 @@ type AcuteRhythmInfo = {
   exampleImageKey?: string;
   sourceNote?: string;
 };
-
-const rhythmSteps: StepItem[] = [
-  {
-    label: "Frekvens",
-    text: "Vurder om rytmen er langsom, normal eller hurtig.",
-  },
-  {
-    label: "Regelmæssighed",
-    text: "Se om RR-intervallerne er regelmæssige eller uregelmæssige.",
-  },
-  {
-    label: "P-takker",
-    text: "Find P-takker, og vurder om de hænger sammen med QRS.",
-  },
-  {
-    label: "PR-interval",
-    text: "Vurder om overledningen er normal, forlænget eller varierende.",
-  },
-  {
-    label: "QRS-bredde",
-    text: "Skeln mellem smalle og brede komplekser.",
-  },
-  {
-    label: "Rytmeforslag",
-    text: "Saml fundene til et sandsynligt rytmeforslag.",
-  },
-  {
-    label: "Ambulancefaglig betydning",
-    text: "Kobl rytmen til patientens tilstand og behov for handling.",
-  },
-];
 
 const acuteRhythms: AcuteRhythmInfo[] = [
   {
@@ -199,27 +160,11 @@ const acuteRhythms: AcuteRhythmInfo[] = [
       "At bruge rSR'-udseende alene som diagnose, overse laterale terminale S-takker eller reducere RBBB med LAFB til rent RBBB.",
     exampleImageKey: "ekg_img_rbbb",
   },
-];
-
-const ambulanceFocus = [
-  "Patientens kliniske tilstand er vigtigere end rytmen alene.",
-  "Se efter tegn på kredsløbspåvirkning som BT-fald, bevidsthedspåvirkning, brystsmerter, dyspnø eller shocktegn.",
-  "Skeln mellem monitorrytme og 12-afledning, så du ikke overfortolker et enkelt billede.",
-  "Vurder hvornår rytmen ændrer behandlingshastighed eller behov for hjælp.",
-  "Overlever rytme, symptomer, vitale værdier, ændringer og given behandling tydeligt.",
+  ...additionalEkgReferences,
 ];
 
 function SectionTitle({ children }: { children: string }) {
   return <Text style={styles.sectionTitle}>{children}</Text>;
-}
-
-function BulletText({ children }: { children: string }) {
-  return (
-    <View style={styles.bulletRow}>
-      <View style={styles.bullet} />
-      <Text style={styles.bodyText}>{children}</Text>
-    </View>
-  );
 }
 
 function InfoBlock({ title, text }: { title: string; text: string }) {
@@ -233,21 +178,24 @@ function InfoBlock({ title, text }: { title: string; text: string }) {
 
 export function EkgTrainingHomeScreen({
   onBack,
-  onStartRhythmTrainer,
   onStartImageDrill,
   imageDrillCount,
   imageDrillLoading,
 }: Props) {
-  const [view, setView] = useState<"landing" | "method" | "reference" | "game">(
+  const [view, setView] = useState<"landing" | "reference" | "game">(
     "landing",
   );
-  const [methodStep, setMethodStep] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
   const [expandedRhythmKey, setExpandedRhythmKey] = useState<string | null>(
     null,
   );
   const [modalImageKey, setModalImageKey] = useState<string | null>(null);
   const modalImageSource = modalImageKey ? ekgImageLookup[modalImageKey] : null;
-  const activeMethodStep = rhythmSteps[methodStep];
+  const visibleRhythms = acuteRhythms
+    .filter((rhythm) =>
+      `${rhythm.title} ${rhythm.shortDefinition}`.toLocaleLowerCase("da-DK").includes(searchQuery.trim().toLocaleLowerCase("da-DK")),
+    )
+    .sort((a, b) => a.title.localeCompare(b.title, "da-DK"));
   const handleBack = () => {
     if (view !== "landing") {
       setView("landing");
@@ -275,183 +223,92 @@ export function EkgTrainingHomeScreen({
         />
 
         {view === "landing" ? (
-          <>
-            <View style={styles.secondaryList}>
-              <NavigationCard
-                onPress={() => setView("game")}
-                style={styles.destinationCard}
-                title="Rytmespil"
-              />
-              <NavigationCard
-                disabled={imageDrillLoading || imageDrillCount === 0}
-                onPress={onStartImageDrill}
-                style={styles.destinationCard}
-                testID="start-ekg-image-drill-button"
-                title="EKG-billeder"
-              />
-              <NavigationCard
-                onPress={onStartRhythmTrainer}
-                style={styles.destinationCard}
-                title="Guidet rytmeanalyse"
-              />
-              <NavigationCard
-                onPress={() => {
-                  setMethodStep(0);
-                  setView("method");
-                }}
-                style={styles.destinationCard}
-                title="EKG-metoden"
-              />
-              <NavigationCard
-                onPress={() => setView("reference")}
-                style={styles.destinationCard}
-                title="Opslagsværk"
-              />
-            </View>
-          </>
-        ) : null}
-
-        {view === "method" && activeMethodStep ? (
-          <>
-            <ProgressHeader
-              current={methodStep + 1}
-              label="EKG-METODE"
-              total={rhythmSteps.length}
+          <View style={styles.secondaryList}>
+            <NavigationCard
+              onPress={() => setView("game")}
+              style={styles.destinationCard}
+              title="Rytmespil"
             />
-            <Card variant="subtle" style={styles.methodCard}>
-              <View style={styles.stepIndex}>
-                <Text style={styles.stepIndexText}>{methodStep + 1}</Text>
-              </View>
-              <Text style={styles.introTitle}>{activeMethodStep.label}</Text>
-              <Text style={styles.bodyText}>{activeMethodStep.text}</Text>
-            </Card>
-            <View style={styles.stepActions}>
-              <SecondaryButton
-                disabled={methodStep === 0}
-                label="Forrige"
-                onPress={() =>
-                  setMethodStep((current) => Math.max(0, current - 1))
-                }
-                style={styles.stepAction}
-              />
-              {methodStep < rhythmSteps.length - 1 ? (
-                <PrimaryButton
-                  label="Næste trin"
-                  onPress={() =>
-                    setMethodStep((current) =>
-                      Math.min(rhythmSteps.length - 1, current + 1),
-                    )
-                  }
-                  style={styles.stepAction}
-                />
-              ) : (
-                <PrimaryButton
-                  label="Se opslagsværk"
-                  onPress={() => setView("reference")}
-                  style={styles.stepAction}
-                />
-              )}
-            </View>
-          </>
+            <NavigationCard
+              disabled={imageDrillLoading || imageDrillCount === 0}
+              onPress={onStartImageDrill}
+              style={styles.destinationCard}
+              testID="start-ekg-image-drill-button"
+              title="EKG-analyse"
+            />
+            <NavigationCard
+              onPress={() => setView("reference")}
+              style={styles.destinationCard}
+              title="Opslagsværk"
+            />
+          </View>
         ) : null}
 
         {view === "reference" ? (
-          <>
-            <Card variant="subtle" style={styles.sectionCard}>
-          <SectionTitle>Rytmer og ledningsfund</SectionTitle>
-          <Text style={styles.bodyText}>
-            Tryk på en rytme for en kort forklaring. Rytmen skal altid vurderes
-            sammen med patientens kliniske tilstand.
-          </Text>
-          <View style={styles.rhythmList}>
-            {acuteRhythms.map((rhythm) => {
-              const expanded = expandedRhythmKey === rhythm.key;
-              const imageSource = rhythm.exampleImageKey
-                ? ekgImageLookup[rhythm.exampleImageKey]
-                : null;
-              return (
-                <Accordion
-                  expanded={expanded}
-                  key={rhythm.key}
-                  onToggle={() =>
-                    setExpandedRhythmKey(expanded ? null : rhythm.key)
-                  }
-                  style={styles.rhythmItem}
-                  subtitle={rhythm.shortDefinition}
-                  title={rhythm.title}
-                >
+          <View style={styles.referenceSection}>
+            <SectionTitle>Rytmer og ledningsfund</SectionTitle>
+            <TextInput
+              accessibilityLabel="Søg i EKG-opslagsværket"
+              autoCapitalize="none"
+              autoCorrect={false}
+              onChangeText={setSearchQuery}
+              placeholder="Søg efter rytme eller fund"
+              placeholderTextColor="#91afb4"
+              style={styles.searchInput}
+              value={searchQuery}
+            />
+            <View style={styles.rhythmList}>
+              {visibleRhythms.map((rhythm) => {
+                const expanded = expandedRhythmKey === rhythm.key;
+                const imageSource = rhythm.exampleImageKey
+                  ? ekgImageLookup[rhythm.exampleImageKey]
+                  : null;
+                return (
+                  <Accordion
+                    expanded={expanded}
+                    key={rhythm.key}
+                    onToggle={() => setExpandedRhythmKey(expanded ? null : rhythm.key)}
+                    style={styles.rhythmItem}
+                    title={rhythm.title}
+                  >
                     <View style={styles.rhythmPanel}>
+                      <Text style={styles.bodyText}>{rhythm.shortDefinition}</Text>
                       {rhythm.recognition ? (
                         <>
-                          <InfoBlock
-                            title="Hvad er det?"
-                            text={rhythm.recognition.whatIsIt}
-                          />
-                          <InfoBlock
-                            title="Hvad skal jeg se efter?"
-                            text={rhythm.recognition.lookFor}
-                          />
-                          <InfoBlock
-                            title="Nyttige skel"
-                            text={rhythm.recognition.distinctions}
-                          />
+                          <InfoBlock title="Hvad er det?" text={rhythm.recognition.whatIsIt} />
+                          <InfoBlock title="EKG-tegn" text={rhythm.recognition.lookFor} />
+                          <InfoBlock title="Skelnen" text={rhythm.recognition.distinctions} />
                         </>
                       ) : (
                         <>
-                          <InfoBlock title="Fysiologi" text={rhythm.physiology ?? ""} />
-                          <InfoBlock
-                            title="Patofysiologi"
-                            text={rhythm.pathophysiology ?? ""}
-                          />
-                          <InfoBlock title="EKG-tegn" text={rhythm.ekgClues ?? ""} />
+                          {rhythm.physiology ? <InfoBlock title="Fysiologi" text={rhythm.physiology} /> : null}
+                          {rhythm.pathophysiology ? <InfoBlock title="Patofysiologi" text={rhythm.pathophysiology} /> : null}
+                          {rhythm.ekgClues ? <InfoBlock title="EKG-tegn" text={rhythm.ekgClues} /> : null}
                         </>
                       )}
-                      <InfoBlock
-                        title="Ambulancefaglig relevans"
-                        text={rhythm.ambulanceRelevance}
-                      />
-                      <InfoBlock
-                        title="Typiske faldgruber"
-                        text={rhythm.commonPitfalls}
-                      />
+                      <InfoBlock title="Præhospital betydning" text={rhythm.ambulanceRelevance} />
+                      <InfoBlock title="Faldgrube" text={rhythm.commonPitfalls} />
                       {imageSource && rhythm.exampleImageKey ? (
                         <Pressable
-                          accessibilityLabel={`Åbn eksempelbillede for ${rhythm.title}`}
+                          accessibilityLabel={`Åbn eksempel-EKG for ${rhythm.title}`}
                           accessibilityRole="button"
                           onPress={() => setModalImageKey(rhythm.exampleImageKey ?? null)}
-                          style={({ pressed }) => [
-                            styles.previewButton,
-                            pressed && styles.rhythmPressed,
-                          ]}
+                          style={({ pressed }) => [styles.previewButton, pressed && styles.rhythmPressed]}
                         >
-                          <Image
-                            resizeMode="contain"
-                            source={imageSource}
-                            style={styles.previewImage}
-                          />
-                          <Text style={styles.imageHint}>
-                            Tryk for at åbne eksempelbilledet
-                          </Text>
+                          <Image resizeMode="contain" source={imageSource} style={styles.previewImage} />
+                          <Text style={styles.imageHint}>Tryk for at forstørre EKG</Text>
                         </Pressable>
                       ) : null}
-                      {rhythm.sourceNote ? (
-                        <Text style={styles.sourceNote}>{rhythm.sourceNote}</Text>
-                      ) : null}
+                      {rhythm.sourceNote ? <Text style={styles.sourceNote}>{rhythm.sourceNote}</Text> : null}
                     </View>
-                </Accordion>
-              );
-            })}
+                  </Accordion>
+                );
+              })}
+              {visibleRhythms.length === 0 ? (
+                <Text style={styles.bodyText}>Ingen fund matcher søgningen.</Text>
+              ) : null}
+            </View>
           </View>
-            </Card>
-            <Card variant="subtle" style={styles.sectionCard}>
-              <SectionTitle>Ambulancefokus</SectionTitle>
-              <View style={styles.bulletList}>
-                {ambulanceFocus.map((item) => (
-                  <BulletText key={item}>{item}</BulletText>
-                ))}
-              </View>
-            </Card>
-          </>
         ) : null}
       </Screen>
 
@@ -481,8 +338,8 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.md,
     gap: Spacing.sm,
   },
-  secondaryList: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.sm },
-  destinationCard: { flexGrow: 1, flexBasis: 300, minWidth: 0 },
+  secondaryList: { flexDirection: "column", width: "100%", gap: Spacing.sm },
+  destinationCard: { width: "100%" },
   methodCard: {
     marginTop: Spacing.md,
     marginBottom: Spacing.md,
@@ -569,8 +426,9 @@ const styles = StyleSheet.create({
     fontSize: Typography.sizes.caption,
     lineHeight: Typography.lineHeights.caption,
   },
-  rhythmList: {
-    gap: Spacing.sm,
+  referenceSection: { width: "100%", gap: Spacing.sm },
+  searchInput: { height: 48, borderRadius: 11, borderWidth: 1, borderColor: ColorTokens.border.default, color: ColorTokens.text.primary, backgroundColor: ColorTokens.surface.inverse, paddingHorizontal: Spacing.md, fontFamily: Typography.families.sans, fontSize: Typography.sizes.body },
+  rhythmList: {    gap: Spacing.sm,
     marginTop: Spacing.xs,
   },
   rhythmItem: {
