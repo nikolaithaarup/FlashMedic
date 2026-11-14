@@ -1,10 +1,11 @@
 import { getVercelOidcToken } from "@vercel/oidc";
+import { Firestore } from "@google-cloud/firestore";
 import { getApps, initializeApp, type App } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
-import { getFirestore } from "firebase-admin/firestore";
-import { ExternalAccountClient } from "google-auth-library";
+import { ExternalAccountClient, GoogleAuth } from "google-auth-library";
 
 let cachedApp: App | null = null;
+let cachedFirestore: Firestore | null = null;
 
 function required(name: string): string {
   const value = process.env[name]?.trim();
@@ -32,6 +33,12 @@ function getAdminApp(): App {
   } as never);
   if (!client) throw new Error("workload_identity_initialization_failed");
 
+  const googleAuth = new GoogleAuth({ authClient: client, projectId });
+  cachedFirestore = new Firestore({
+    projectId,
+    auth: googleAuth,
+    preferRest: true,
+  });
   cachedApp = initializeApp({
     projectId,
     credential: {
@@ -47,5 +54,6 @@ function getAdminApp(): App {
 
 export function getAdminServices() {
   const app = getAdminApp();
-  return { auth: getAuth(app), db: getFirestore(app) };
+  if (!cachedFirestore) throw new Error("firestore_initialization_failed");
+  return { auth: getAuth(app), db: cachedFirestore };
 }
