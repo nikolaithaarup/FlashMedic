@@ -1,40 +1,124 @@
-// src/services/weeklyLeaderboardService.ts
-import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
-import { db } from "../firebase/firebase";
+import { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import {
+  collection,
+  doc,
+  getCountFromServer,
+  limit,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
 
-export type WeeklyLeaderboardRow = {
+import { auth, db } from "../firebase/firebase";
+
+export type LeaderboardScope = "week" | "all-time";
+export type LeaderboardRow = {
   uid: string;
   nickname: string;
-  totalScore: number;
-  mcqScore?: number;
-  matchScore?: number;
-  wordScore?: number;
+  totalPoints: number;
+  rankKey: string;
+  rank: number;
 };
 
-function toNum(n: any): number {
-  return typeof n === "number" && Number.isFinite(n) ? n : 0;
+type LeaderboardState = {
+  top: LeaderboardRow[];
+  current: LeaderboardRow | null;
+  loading: boolean;
+  error: boolean;
+};
+
+function toRow(
+  uid: string,
+  data: Record<string, unknown>,
+  rank = 0,
+): LeaderboardRow {
+  return {
+    uid,
+    nickname: typeof data.nickname === "string" ? data.nickname : "Spiller",
+    totalPoints: Number(data.totalPoints ?? 0),
+    rankKey: typeof data.rankKey === "string" ? data.rankKey : "",
+    rank,
+  };
 }
 
-export async function getWeeklyLeaderboard(
-  weekId: string,
-  topN: number = 10,
-): Promise<WeeklyLeaderboardRow[]> {
-  const q = query(
-    collection(db, "weekly_results", weekId, "users"),
-    orderBy("totalScore", "desc"),
-    limit(topN),
-  );
-
-  const snap = await getDocs(q);
-  return snap.docs.map((d) => {
-    const x = d.data() as any;
-    return {
-      uid: String(x.uid ?? d.id),
-      nickname: String(x.nickname ?? "Ukendt"),
-      totalScore: toNum(x.totalScore),
-      mcqScore: toNum(x.mcqScore),
-      matchScore: toNum(x.matchScore),
-      wordScore: toNum(x.wordScore),
-    };
+export function useWeeklyLeaderboard(
+  scope: LeaderboardScope,
+  weekKey: string | null,
+): LeaderboardState {
+  const [uid, setUid] = useState<string | null>(() => {
+    const user = auth.currentUser;
+    return user && !user.isAnonymous ? user.uid : null;
   });
+  const [state, setState] = useState<LeaderboardState>({
+    top: [],
+    current: null,
+    loading: true,
+    error: false,
+  });
+
+  useEffect(() => onAuthStateChanged(auth, (user) => {
+    setUid(user && !user.isAnonymous ? user.uid : null);
+  }), []);
+
+  useEffect(() => {
+    if (scope === "week" && !weekKey) return;
+    const users = scope === "week"
+      ? collection(db, "weekly_leaderboards", weekKey!, "users")
+      : collection(db, "weekly_all_time");
+    const meta = scope === "week"
+      ? doc(db, "weekly_leaderboards", weekKey!, "meta", "state")
+      : doc(db, "weekly_all_time_meta", "state");
+    let currentRow: LeaderboardRow | null = null;
+    let cancelled = false;
+
+    const updateRank = async () => {
+      if (!currentRow?.rankKey) return;
+      try {
+        const count = await getCountFromServer(
+          query(users, where("rankKey", "<", currentRow.rankKey)),
+        );
+        if (!cancelled && currentRow) {
+          currentRow = { ...currentRow, rank: count.data().count + 1 };
+          setState((previous) => ({ ...previous, current: currentRow }));
+        }
+      } catch {
+        // Keep the last visible ranking; the next snapshot retries.
+      }
+    };
+
+    setState((previous) => ({ ...previous, loading: true, error: false }));
+    const unsubscribeTop = onSnapshot(
+      query(users, orderBy("rankKey"), limit(10)),
+      (snapshot) => setState((previous) => ({
+        ...previous,
+        top: snapshot.docs.map((item, index) =>
+          toRow(item.id, item.data(), index + 1),
+        ),
+        loading: false,
+        error: false,
+      })),
+      () => setState((previous) => ({ ...previous, loading: false, error: true })),
+    );
+    const unsubscribeCurrent = uid
+      ? onSnapshot(doc(users, uid), (snapshot) => {
+          currentRow = snapshot.exists()
+            ? toRow(snapshot.id, snapshot.data())
+            : null;
+          setState((previous) => ({ ...previous, current: currentRow }));
+          void updateRank();
+        })
+      : () => undefined;
+    const unsubscribeMeta = onSnapshot(meta, () => void updateRank());
+
+    return () => {
+      cancelled = true;
+      unsubscribeTop();
+      unsubscribeCurrent();
+      unsubscribeMeta();
+    };
+  }, [scope, uid, weekKey]);
+
+  return state;
 }

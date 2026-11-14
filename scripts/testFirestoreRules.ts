@@ -56,6 +56,18 @@ try {
     await setDoc(doc(admin, "subjects/pharmacology/cards/card-2"), {
       question: "Educational card two",
     });
+    await setDoc(doc(admin, "weekly_leaderboards/2026-W45/users/alice"), {
+      uid: "alice",
+      nickname: "Alice",
+      totalPoints: 1000,
+      rankKey: "999998999:alice",
+    });
+    await setDoc(doc(admin, "weekly_all_time/alice"), {
+      uid: "alice",
+      nickname: "Alice",
+      totalPoints: 2000,
+      rankKey: "999997999:alice",
+    });
   });
 
   const alice = testEnvironment.authenticatedContext("alice", {
@@ -117,6 +129,22 @@ try {
     uid: "alice",
     totalScore: 999999999,
   }));
+  await assertSucceeds(getDoc(doc(guest, "weekly_leaderboards/2026-W45/users/alice")));
+  await assertSucceeds(getDoc(doc(guest, "weekly_all_time/alice")));
+  await assertFails(setDoc(doc(alice, "weekly_leaderboards/2026-W45/users/alice"), {
+    uid: "alice",
+    nickname: "Alice",
+    totalPoints: 999999,
+    rankKey: "000000000:alice",
+  }));
+  await assertFails(setDoc(doc(alice, "weekly_all_time/alice"), {
+    uid: "alice",
+    totalPoints: 999999,
+  }));
+  await assertFails(getDoc(doc(alice, "weekly_score_submissions/2026-W45_alice_mcq")));
+  await assertFails(setDoc(doc(alice, "weekly_score_submissions/2026-W45_alice_mcq"), {
+    score: 999999,
+  }));
   await assertSucceeds(getDoc(doc(guest, "weekly_index/current")));
   await assertSucceeds(getDoc(doc(anonymousUser, "subjects/ekg/cards/card-1")));
   await assertSucceeds(getDoc(doc(anonymousUser, "cards/card-1")));
@@ -126,7 +154,7 @@ try {
   )) {
     throw new Error("Existing collectionGroup('cards') query did not return expected educational content.");
   }
-  console.log("Validated FlashMedic progress ownership, event immutability, and blocked leaderboard writes.");
+  console.log("Validated progress isolation, public leaderboard reads, private submissions, and blocked client writes.");
 } finally {
   await testEnvironment.cleanup();
 }

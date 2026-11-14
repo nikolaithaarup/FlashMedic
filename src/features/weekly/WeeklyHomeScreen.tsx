@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import React, { useEffect, useState } from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import {
   Borders,
@@ -21,6 +22,11 @@ import {
   ToolPageHeader,
 } from "../../ui/primitives";
 import { useStats } from "../stats/StatsContext";
+import {
+  useWeeklyLeaderboard,
+  type LeaderboardRow,
+  type LeaderboardScope,
+} from "../../services/weeklyLeaderboardService";
 import { getWeeklyLockKey, useWeeklyLock } from "./useWeeklyLock";
 
 type WeeklyHomeScreenProps = {
@@ -54,6 +60,30 @@ function GameCard({ title, locked, onPress }: GameCardProps) {
   );
 }
 
+function RankMarker({ rank }: { rank: number }) {
+  const medalColor = rank === 1 ? "#D4A017" : rank === 2 ? "#9AA0A6" : "#B87333";
+  return rank <= 3 ? (
+    <MaterialCommunityIcons
+      accessibilityLabel={`Placering ${rank}`}
+      color={medalColor}
+      name="medal-outline"
+      size={20}
+    />
+  ) : (
+    <Text style={styles.rankPosition}>{rank}</Text>
+  );
+}
+
+function RankRow({ item, current }: { item: LeaderboardRow; current: boolean }) {
+  return (
+    <View style={[styles.rankRow, current && styles.currentRankRow]}>
+      <View style={styles.rankMarker}><RankMarker rank={item.rank} /></View>
+      <Text numberOfLines={1} style={styles.rankName}>{item.nickname}</Text>
+      <Text style={styles.rankScore}>{item.totalPoints.toLocaleString("da-DK")}</Text>
+    </View>
+  );
+}
+
 export function WeeklyHomeScreen({
   onBackToHome,
   onOpenMcq,
@@ -61,6 +91,7 @@ export function WeeklyHomeScreen({
   onOpenWord,
   lockRefreshToken,
 }: WeeklyHomeScreenProps) {
+  const [scope, setScope] = useState<LeaderboardScope>("week");
   const {
     weeklyGlobal,
     loadingWeekly,
@@ -74,6 +105,23 @@ export function WeeklyHomeScreen({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const handleOnline = () => void refreshWeeklyGlobal();
+    window.addEventListener("online", handleOnline);
+    return () => window.removeEventListener("online", handleOnline);
+  }, [refreshWeeklyGlobal]);
+
+  useEffect(() => {
+    const now = new Date();
+    const isoDay = now.getDay() || 7;
+    const nextWeek = new Date(now);
+    nextWeek.setDate(now.getDate() + (8 - isoDay));
+    nextWeek.setHours(0, 0, 1, 0);
+    const timer = setTimeout(() => void refreshWeeklyGlobal(), nextWeek.getTime() - now.getTime());
+    return () => clearTimeout(timer);
+  }, [refreshWeeklyGlobal]);
+
   const weekId = weeklyGlobal?.week?.weekId ?? null;
   const lockWeekKey = weekId ?? "unknown";
   const mcqLock = useWeeklyLock(getWeeklyLockKey("mcq", lockWeekKey), {
@@ -86,6 +134,11 @@ export function WeeklyHomeScreen({
     refreshToken: lockRefreshToken,
   });
   const topics = weeklyGlobal?.week?.topics ?? null;
+  const leaderboard = useWeeklyLeaderboard(scope, weekId);
+  const currentUid = leaderboard.current?.uid ?? null;
+  const currentInTop = currentUid
+    ? leaderboard.top.some((row) => row.uid === currentUid)
+    : false;
 
   return (
     <Screen>
@@ -118,6 +171,44 @@ export function WeeklyHomeScreen({
           title="Ugens ord"
         />
       </View>
+
+      <View style={styles.leaderboardHeader}>
+        <Text style={styles.sectionTitle}>Rangliste</Text>
+        <View accessibilityRole="tablist" style={styles.tabs}>
+          {(["week", "all-time"] as const).map((value) => (
+            <Pressable
+              accessibilityRole="tab"
+              accessibilityState={{ selected: scope === value }}
+              key={value}
+              onPress={() => setScope(value)}
+              style={[styles.tab, scope === value && styles.tabActive]}
+            >
+              <Text style={[styles.tabText, scope === value && styles.tabTextActive]}>
+                {value === "week" ? "Denne uge" : "Alle tider"}
+              </Text>
+            </Pressable>
+          ))}
+        </View>
+      </View>
+
+      {leaderboard.loading && leaderboard.top.length === 0 ? (
+        <Text style={styles.leaderboardState}>Henter rangliste…</Text>
+      ) : leaderboard.error && leaderboard.top.length === 0 ? (
+        <Text style={styles.leaderboardState}>Ranglisten er ikke tilgængelig.</Text>
+      ) : leaderboard.top.length === 0 ? (
+        <Text style={styles.leaderboardState}>Ingen resultater endnu.</Text>
+      ) : (
+        <View>
+          {leaderboard.top.map((row) => (
+            <RankRow current={row.uid === currentUid} item={row} key={row.uid} />
+          ))}
+          {leaderboard.current && !currentInTop && leaderboard.current.rank > 0 ? (
+            <View style={styles.personalRank}>
+              <RankRow current item={leaderboard.current} />
+            </View>
+          ) : null}
+        </View>
+      )}
 
       {weeklyError ? (
         <Card variant="subtle" style={styles.statusCard}>
@@ -176,12 +267,23 @@ const styles = StyleSheet.create({
   leaderboardHeader: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.md,
+    justifyContent: "space-between",
+    flexWrap: "wrap",
+    gap: Spacing.sm,
     marginTop: Spacing.xl,
     marginBottom: Spacing.sm,
   },
-  headerCopy: { flex: 1, minWidth: 0 },
-  refreshButton: { minWidth: 112 },
+  tabs: { flexDirection: "row", gap: Spacing.xs },
+  tab: {
+    minHeight: Interaction.minimumTouchTarget,
+    justifyContent: "center",
+    paddingHorizontal: Spacing.md,
+    borderBottomWidth: 2,
+    borderBottomColor: "transparent",
+  },
+  tabActive: { borderBottomColor: ColorTokens.accent.muted },
+  tabText: { color: ColorTokens.text.secondary, fontWeight: Typography.weights.semibold },
+  tabTextActive: { color: ColorTokens.text.primary },
   rankRow: {
     minHeight: Interaction.minimumTouchTarget,
     flexDirection: "row",
@@ -190,15 +292,20 @@ const styles = StyleSheet.create({
     borderBottomWidth: Borders.hairline,
     borderBottomColor: ColorTokens.border.divider,
   },
+  rankMarker: { width: 28, alignItems: "center" },
   rankPosition: {
-    width: 28,
     color: ColorTokens.accent.muted,
     fontWeight: Typography.weights.bold,
   },
-  rankIdentity: { flex: 1, minWidth: 0 },
-  rankName: { color: ColorTokens.text.primary, fontWeight: Typography.weights.semibold },
-  rankMeta: { color: ColorTokens.text.secondary, fontSize: Typography.sizes.caption },
+  rankName: { flex: 1, minWidth: 0, color: ColorTokens.text.primary, fontWeight: Typography.weights.semibold },
   rankScore: { color: ColorTokens.accent.muted, fontWeight: Typography.weights.bold },
+  currentRankRow: { backgroundColor: ColorTokens.surface.subtle },
+  personalRank: {
+    marginTop: Spacing.sm,
+    borderTopWidth: Borders.hairline,
+    borderTopColor: ColorTokens.border.divider,
+  },
+  leaderboardState: { color: ColorTokens.text.secondary, paddingVertical: Spacing.md },
   topicSummary: {
     marginTop: Spacing.md,
     gap: Spacing.xs,

@@ -2,6 +2,7 @@
 import React, {
   createContext,
   PropsWithChildren,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -271,7 +272,7 @@ export function StatsProvider({ children }: PropsWithChildren) {
   const [weeklyError, setWeeklyError] = useState<string | null>(null);
   const [pendingWeeklyUploads, setPendingWeeklyUploads] = useState(0);
 
-  const refreshWeeklyGlobal = async () => {
+  const refreshWeeklyGlobal = useCallback(async () => {
     setLoadingWeekly(true);
     setWeeklyError(null);
 
@@ -339,7 +340,7 @@ export function StatsProvider({ children }: PropsWithChildren) {
     } finally {
       setLoadingWeekly(false);
     }
-  };
+  }, []);
 
   const value = useMemo<StatsContextValue>(
     () => ({
@@ -368,6 +369,7 @@ export function StatsProvider({ children }: PropsWithChildren) {
       loadingWeekly,
       weeklyError,
       pendingWeeklyUploads,
+      refreshWeeklyGlobal,
     ],
   );
 

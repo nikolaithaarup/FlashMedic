@@ -425,7 +425,7 @@ export function WeeklyMcqScreen({
       setSecondsLeft(timeLimit);
       setShowResults(true);
 
-      const finalScore = score + lastPoints;
+      const finalScore = score;
       await finishRun(finalScore);
       return;
     }

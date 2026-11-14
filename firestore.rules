@@ -120,6 +120,25 @@ service cloud.firestore {
       allow read: if true;
       allow write: if false;
     }
+    match /weekly_score_submissions/{submissionId} {
+      allow read, write: if false;
+    }
+    match /weekly_leaderboards/{weekKey}/users/{uid} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /weekly_leaderboards/{weekKey}/meta/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /weekly_all_time/{uid} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /weekly_all_time_meta/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
     match /{parentPath=**}/cards/{cardId} {
       allow read: if true;
       allow write: if false;
