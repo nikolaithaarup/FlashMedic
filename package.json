@@ -25,6 +25,7 @@
     "test:firestore-rules": "firebase emulators:exec --only firestore --project demo-flashmedic \"npx tsx scripts/testFirestoreRules.ts\"",
     "test:weekly-leaderboard": "tsx scripts/testWeeklyCompetition.ts",
     "test:weekly-server": "firebase emulators:exec --only firestore --project demo-flashmedic \"npx tsx scripts/testWeeklyScoreStore.ts\"",
+    "test:ekg-rhythm-game": "tsx scripts/testEkgRhythmGame.ts",
     "test:content-quality": "tsx scripts/testContentQuality.ts",
     "migrate:flashcards:dry-run": "tsx scripts/migrateFlashcardsFirestore.ts --dry-run",
     "migrate:flashcards:apply": "tsx scripts/migrateFlashcardsFirestore.ts --apply",

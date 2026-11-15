@@ -1,16 +1,27 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useRef, useState } from "react";
-import { Modal, Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from "react-native";
+import {
+  AccessibilityInfo,
+  findNodeHandle,
+  Modal,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+} from "react-native";
 
 import { ColorTokens, Spacing, Typography } from "../../../../constants/theme";
 import { Screen, ToolPageHeader } from "../../../ui/primitives";
 import { EkgLiveMonitor } from "./EkgLiveMonitor";
+import { createAnswerOptions, type RhythmGameDifficulty } from "./ekgRhythmGameLogic";
 import { RHYTHMS, getRhythm, type RhythmId } from "./rhythmModel";
 
 type Props = { onBack: () => void };
 type Mode = "rounds" | "timed";
 type Phase = "intro" | "playing" | "summary";
-type Difficulty = "behandler" | "paramediciner";
+type Difficulty = RhythmGameDifficulty;
 const ALL_RHYTHM_IDS = RHYTHMS.map((rhythm) => rhythm.id);
 const ROUND_LIMIT = 10;
 const DURATION = 60;
@@ -24,22 +35,15 @@ function shuffle<T>(source: readonly T[]): T[] {
   return items;
 }
 
-function pickOptions(correct: RhythmId, pool: readonly RhythmId[]): RhythmId[] {
-  const group = getRhythm(correct).group;
-  const others = pool.filter((id) => id !== correct);
-  const related = shuffle(others.filter((id) => getRhythm(id).group === group));
-  const rest = shuffle(others.filter((id) => getRhythm(id).group !== group));
-  return shuffle([correct, ...[...related, ...rest].slice(0, 3)]);
-}
-
-function ModeButton({ title, subtitle, primary, onPress }: {
-  title: string; subtitle: string; primary?: boolean; onPress: () => void;
+function ModeButton({ title, subtitle, equal, primary, onPress, testID }: {
+  title: string; subtitle: string; equal?: boolean; primary?: boolean; onPress: () => void; testID?: string;
 }) {
   return (
     <Pressable
       accessibilityRole="button"
       onPress={onPress}
-      style={({ pressed }) => [styles.modeButton, primary ? styles.modePrimary : styles.modeSecondary, pressed && styles.pressed]}
+      testID={testID}
+      style={({ pressed }) => [styles.modeButton, equal && styles.modeButtonEqual, primary ? styles.modePrimary : styles.modeSecondary, pressed && styles.pressed]}
     >
       <View style={styles.modeText}>
         <Text style={styles.modeTitle}>{title}</Text>
@@ -52,10 +56,14 @@ function ModeButton({ title, subtitle, primary, onPress }: {
 
 export function EkgRhythmGameScreen({ onBack }: Props) {
   const { width } = useWindowDimensions();
-  const compact = width < 620;
+  const narrow = width < 410;
+  const compactSetup = width < 430;
+  const wideAnswers = width >= 760;
   const [phase, setPhase] = useState<Phase>("intro");
-  const [difficulty, setDifficulty] = useState<Difficulty>("behandler");
+  const [difficulty, setDifficulty] = useState<Difficulty | null>(null);
   const [mode, setMode] = useState<Mode>("rounds");
+  const [setupMode, setSetupMode] = useState<Mode | null>(null);
+  const [setupVisible, setSetupVisible] = useState(false);
   const [rhythmId, setRhythmId] = useState<RhythmId>("sinus");
   const [seed, setSeed] = useState(1);
   const [round, setRound] = useState(1);
@@ -68,6 +76,16 @@ export function EkgRhythmGameScreen({ onBack }: Props) {
   const queue = useRef<RhythmId[]>([]);
   const deadline = useRef<number | null>(null);
   const feedbackOpenedAt = useRef<number | null>(null);
+  const setupHeading = useRef<View>(null);
+
+  useEffect(() => {
+    if (!setupVisible) return;
+    const timeout = setTimeout(() => {
+      const node = findNodeHandle(setupHeading.current);
+      if (node) AccessibilityInfo.setAccessibilityFocus(node);
+    }, 100);
+    return () => clearTimeout(timeout);
+  }, [setupVisible]);
 
   useEffect(() => {
     if (phase !== "playing" || mode !== "timed") return;
@@ -88,13 +106,14 @@ export function EkgRhythmGameScreen({ onBack }: Props) {
     return queue.current.shift()!;
   };
 
-  const start = (gameMode: Mode) => {
+  const start = (gameMode: Mode, gameDifficulty: Difficulty) => {
     const pool = ALL_RHYTHM_IDS;
     queue.current = shuffle(pool);
     const nextId = nextFromQueue(pool);
     deadline.current = gameMode === "timed" ? Date.now() + DURATION * 1000 : null;
     feedbackOpenedAt.current = null;
     setMode(gameMode);
+    setDifficulty(gameDifficulty);
     setRound(1);
     setCorrect(0);
     setAnswered(0);
@@ -102,9 +121,23 @@ export function EkgRhythmGameScreen({ onBack }: Props) {
     setSelected(null);
     setPaused(false);
     setRhythmId(nextId);
-    setOptions(difficulty === "behandler" ? pickOptions(nextId, pool) : pool);
+    setOptions(createAnswerOptions(nextId, gameDifficulty, pool));
     setSeed((value) => value + 1);
     setPhase("playing");
+  };
+
+  const chooseMode = (gameMode: Mode) => {
+    setSetupMode(gameMode);
+    setDifficulty(null);
+    setSetupVisible(true);
+  };
+
+  const closeSetup = () => setSetupVisible(false);
+
+  const startSelectedGame = () => {
+    if (!setupMode || !difficulty) return;
+    setSetupVisible(false);
+    start(setupMode, difficulty);
   };
 
   const answer = (choice: RhythmId) => {
@@ -126,7 +159,7 @@ export function EkgRhythmGameScreen({ onBack }: Props) {
     if (mode === "rounds" && round >= ROUND_LIMIT) { setPhase("summary"); return; }
     const nextId = nextFromQueue(active);
     setRhythmId(nextId);
-    setOptions(difficulty === "behandler" ? pickOptions(nextId, active) : active);
+    setOptions(createAnswerOptions(nextId, difficulty ?? "behandler", active));
     setSelected(null);
     setPaused(false);
     setRound((n) => n + 1);
@@ -147,8 +180,8 @@ export function EkgRhythmGameScreen({ onBack }: Props) {
         onPress={() => answer(id)}
         style={({ pressed }) => [
           styles.answer,
-          difficulty === "paramediciner" && !compact && styles.answerMany,
-          compact && styles.answerCompact,
+          difficulty === "paramediciner" && wideAnswers && styles.answerMany,
+          narrow && styles.answerCompact,
           right && styles.answerCorrect,
           wrong && styles.answerWrong,
           pressed && styles.pressed,
@@ -179,29 +212,9 @@ export function EkgRhythmGameScreen({ onBack }: Props) {
             <View style={styles.countPill}><Text style={styles.countText}>{active.length} rytmer</Text></View>
           </View>
           <EkgLiveMonitor rhythmId="sinus" seed={10} paused={false} />
-          <Text style={styles.selectorLabel}>Vælg sværhedsgrad</Text>
-          <View style={styles.levelBar}>
-            {(["behandler", "paramediciner"] as const).map((value) => (
-              <Pressable
-                key={value}
-                accessibilityRole="button"
-                accessibilityLabel={`${value === "behandler" ? "Behandler" : "Paramediciner"}, ${value === "behandler" ? "4" : RHYTHMS.length} svarmuligheder`}
-                accessibilityState={{ selected: difficulty === value }}
-                onPress={() => setDifficulty(value)}
-                style={[styles.levelButton, difficulty === value && styles.levelSelected]}
-              >
-                <Text style={[styles.levelText, difficulty === value && styles.levelSelectedText]}>
-                  {value === "behandler" ? "Behandler" : "Paramediciner"}
-                </Text>
-                <Text style={styles.levelHint}>
-                  {value === "behandler" ? "4 svarmuligheder" : `Alle ${RHYTHMS.length} rytmer`}
-                </Text>
-              </Pressable>
-            ))}
-          </View>
-          <View style={styles.modeStack}>
-            <ModeButton title="Spil 10 rytmer" subtitle="Uden tidspres" primary onPress={() => start("rounds")} />
-            <ModeButton title="60 sekunders udfordring" subtitle="Flest rigtige før tiden løber ud" onPress={() => start("timed")} />
+          <View style={[styles.modeGrid, compactSetup && styles.modeGridCompact]}>
+            <ModeButton title="10 rytmer" subtitle="Uden tidspres" equal onPress={() => chooseMode("rounds")} testID="rhythm-mode-rounds" />
+            <ModeButton title="60 sekunder" subtitle="Flest mulige rigtige" equal onPress={() => chooseMode("timed")} testID="rhythm-mode-timed" />
           </View>
           <Text style={styles.disclaimer}>Kurverne er skematiske og ikke klinisk validerede.</Text>
         </View>
@@ -230,13 +243,14 @@ export function EkgRhythmGameScreen({ onBack }: Props) {
                 nestedScrollEnabled
                 showsVerticalScrollIndicator
                 style={styles.optionScroll}
-                contentContainerStyle={[styles.answerGrid, compact && styles.answerGridCompact]}
+                contentContainerStyle={[styles.answerGrid, narrow && styles.answerGridCompact]}
+                testID="rhythm-answer-scroll"
               >
                 {answerButtons}
               </ScrollView>
             </>
           ) : (
-            <View style={[styles.answerGrid, compact && styles.answerGridCompact]}>
+            <View style={[styles.answerGrid, narrow && styles.answerGridCompact]}>
               {answerButtons}
             </View>
           )}
@@ -250,11 +264,77 @@ export function EkgRhythmGameScreen({ onBack }: Props) {
           <Text style={styles.bigScore}>{correct} <Text style={styles.bigScoreUnit}>/ {answered}</Text></Text>
           <Text style={styles.helper}>{difficulty === "behandler" ? "Behandler" : "Paramediciner"} · {scorePercent}% korrekte</Text>
           <View style={styles.modeStack}>
-            <ModeButton title="Spil igen" subtitle={mode === "rounds" ? "Ny runde med 10 rytmer" : "Ny runde på 60 sekunder"} primary onPress={() => start(mode)} />
+            <ModeButton title="Spil igen" subtitle={mode === "rounds" ? "Ny runde med 10 rytmer" : "Ny runde på 60 sekunder"} primary onPress={() => start(mode, difficulty ?? "behandler")} />
             <ModeButton title="Skift niveau eller spiltype" subtitle="Tilbage til start" onPress={() => setPhase("intro")} />
           </View>
         </View>
       ) : null}
+      <Modal
+        visible={phase === "intro" && setupVisible}
+        transparent
+        animationType="fade"
+        onRequestClose={closeSetup}
+      >
+        <Pressable
+          accessible={false}
+          onPress={closeSetup}
+          style={styles.setupOverlay}
+          testID="difficulty-modal-backdrop"
+        >
+          <Pressable
+            accessibilityViewIsModal
+            onPress={(event) => event.stopPropagation()}
+            style={styles.setupDialog}
+            testID="difficulty-modal"
+          >
+            <View style={styles.setupHeader}>
+              <View ref={setupHeading} accessible accessibilityRole="header" style={styles.setupTitleWrap}>
+                <Text style={styles.setupTitle}>Vælg sværhedsgrad</Text>
+                <Text style={styles.setupModeLabel}>{setupMode === "timed" ? "60 sekunder" : "10 rytmer"}</Text>
+              </View>
+              <Pressable
+                accessibilityLabel="Luk"
+                accessibilityRole="button"
+                hitSlop={8}
+                onPress={closeSetup}
+                style={styles.closeButton}
+              >
+                <Text style={styles.closeText}>×</Text>
+              </Pressable>
+            </View>
+            <View style={styles.levelBar}>
+              {(["behandler", "paramediciner"] as const).map((value) => (
+                <Pressable
+                  key={value}
+                  accessibilityRole="button"
+                  accessibilityLabel={`${value === "behandler" ? "Behandler" : "Paramediciner"}, ${value === "behandler" ? "4" : RHYTHMS.length} svarmuligheder`}
+                  accessibilityState={{ selected: difficulty === value }}
+                  onPress={() => setDifficulty(value)}
+                  style={[styles.levelButton, difficulty === value && styles.levelSelected]}
+                  testID={`difficulty-${value}`}
+                >
+                  <Text style={[styles.levelText, difficulty === value && styles.levelSelectedText]}>
+                    {value === "behandler" ? "Behandler" : "Paramediciner"}
+                  </Text>
+                  <Text style={styles.levelHint}>
+                    {value === "behandler" ? "4 svarmuligheder" : `Alle ${RHYTHMS.length} rytmer`}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
+            <Pressable
+              accessibilityRole="button"
+              accessibilityState={{ disabled: difficulty === null }}
+              disabled={difficulty === null}
+              onPress={startSelectedGame}
+              style={({ pressed }) => [styles.startButton, difficulty === null && styles.startButtonDisabled, pressed && styles.pressed]}
+              testID="difficulty-start"
+            >
+              <Text style={[styles.startButtonText, difficulty === null && styles.startButtonTextDisabled]}>Start spil</Text>
+            </Pressable>
+          </Pressable>
+        </Pressable>
+      </Modal>
       <Modal
         visible={phase === "playing" && selected !== null}
         transparent
@@ -297,7 +377,8 @@ const styles = StyleSheet.create({
   helper: { fontFamily: font, fontSize: 14, color: "#dae7e9", lineHeight: 20 },
   countPill: { backgroundColor: "rgba(8,39,48,0.75)", paddingHorizontal: 12, paddingVertical: 9, borderRadius: 100, borderWidth: 1, borderColor: ColorTokens.border.default },
   countText: { fontFamily: font, color: "#67efd4", fontSize: 12, fontWeight: "700" },
-  selectorLabel: { fontFamily: font, fontWeight: "700", color: "#d7e8e9", fontSize: 14, marginTop: 3 },
+  modeGrid: { flexDirection: "row", alignItems: "stretch", gap: 10, width: "100%" },
+  modeGridCompact: { flexDirection: "column" },
   levelBar: { flexDirection: "row", gap: 10 },
   levelButton: { flex: 1, minWidth: 0, minHeight: 64, alignItems: "center", justifyContent: "center", gap: 3, paddingHorizontal: 5, borderWidth: 1, borderColor: ColorTokens.border.default, borderRadius: 12, backgroundColor: "rgba(5,31,39,0.45)" },
   levelSelected: { borderColor: "#67efd4", backgroundColor: "rgba(35,147,151,0.25)" },
@@ -305,7 +386,8 @@ const styles = StyleSheet.create({
   levelSelectedText: { color: "#f7ffff" },
   levelHint: { fontFamily: font, color: "#b9d8da", fontSize: 11, textAlign: "center" },
   modeStack: { gap: 10, marginTop: 3 },
-  modeButton: { minHeight: 68, borderRadius: 14, paddingHorizontal: 16, paddingVertical: 11, flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 10, borderWidth: 1 },
+  modeButton: { minWidth: 0, minHeight: 68, borderRadius: 14, paddingHorizontal: 16, paddingVertical: 11, flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 10, borderWidth: 1 },
+  modeButtonEqual: { flex: 1 },
   modePrimary: { backgroundColor: "#0f9cae", borderColor: "#6af3dd" },
   modeSecondary: { backgroundColor: "rgba(5,31,39,0.68)", borderColor: ColorTokens.border.strong },
   modeText: { flex: 1, minWidth: 0, gap: 2 },
@@ -327,12 +409,24 @@ const styles = StyleSheet.create({
   answerGridCompact: { flexDirection: "column", alignItems: "stretch" },
   optionHint: { fontFamily: font, color: "#c2d6d8", fontSize: 12 },
   optionScroll: { width: "100%", maxHeight: 310 },
-  answer: { flexGrow: 1, flexBasis: "47%", minWidth: 0, minHeight: 55, justifyContent: "center", borderRadius: 12, borderWidth: 1, borderColor: "rgba(255,255,255,0.29)", backgroundColor: "rgba(4,29,37,0.69)", paddingHorizontal: 14, paddingVertical: 12 },
+  answer: { flexGrow: 1, flexBasis: "47%", minWidth: 0, minHeight: 44, justifyContent: "center", borderRadius: 10, borderWidth: 1, borderColor: "rgba(255,255,255,0.29)", backgroundColor: "rgba(4,29,37,0.69)", paddingHorizontal: 12, paddingVertical: 9 },
   answerMany: { flexBasis: "30%" },
   answerCompact: { flexGrow: 0, flexBasis: "auto", width: "100%" },
   answerCorrect: { backgroundColor: "rgba(41,169,119,0.30)", borderColor: "#67efd4" },
   answerWrong: { backgroundColor: "rgba(184,58,55,0.3)", borderColor: "#ff9c90" },
-  answerText: { fontFamily: font, fontSize: 15, fontWeight: "700", color: "#fff" },
+  answerText: { fontFamily: font, fontSize: 14, lineHeight: 18, fontWeight: "700", color: "#fff" },
+  setupOverlay: { flex: 1, alignItems: "center", justifyContent: "center", padding: 16, backgroundColor: "rgba(0, 13, 20, 0.76)" },
+  setupDialog: { width: "100%", maxWidth: 520, gap: 18, padding: 20, borderRadius: 18, borderWidth: 1, borderColor: "rgba(119,225,214,0.52)", backgroundColor: "#092c35" },
+  setupHeader: { flexDirection: "row", alignItems: "flex-start", justifyContent: "space-between", gap: 12 },
+  setupTitleWrap: { flex: 1, minWidth: 0, gap: 3 },
+  setupTitle: { fontFamily: font, color: "#fff", fontSize: 22, fontWeight: "800" },
+  setupModeLabel: { fontFamily: font, color: "#9fc8ca", fontSize: 13, fontWeight: "600" },
+  closeButton: { width: 44, height: 44, marginTop: -8, marginRight: -8, alignItems: "center", justifyContent: "center", borderRadius: 22 },
+  closeText: { fontFamily: font, color: "#d7e8e9", fontSize: 30, lineHeight: 32 },
+  startButton: { minHeight: 48, alignItems: "center", justifyContent: "center", borderRadius: 11, backgroundColor: "#1099a9" },
+  startButtonDisabled: { backgroundColor: "rgba(159,200,202,0.15)" },
+  startButtonText: { fontFamily: font, color: "#fff", fontSize: 15, fontWeight: "800" },
+  startButtonTextDisabled: { color: "#86a2a5" },
   resultOverlay: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "rgba(0, 13, 20, 0.80)", paddingHorizontal: 14, paddingVertical: 20 },
   resultDialog: { width: "100%", maxWidth: 460, maxHeight: "90%", overflow: "hidden", borderRadius: 18, borderWidth: 1, borderColor: "rgba(119,225,214,0.52)", backgroundColor: "#092c35" },
   resultBody: { padding: 20, gap: 12 },
