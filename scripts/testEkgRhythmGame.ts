@@ -33,6 +33,9 @@ for (const required of [
   "start(mode, difficulty ?? \"behandler\")",
   "rhythm-answer-scroll",
   "gameMode === \"timed\" ? Date.now() + DURATION * 1000 : null",
+  "const narrow = width < 350",
+  "const compactSetup = width < 350",
+  "backdropFilter: \"blur(3px)\"",
 ]) {
   assert.ok(screen.includes(required), `Manglende rytmespil-regression: ${required}`);
 }

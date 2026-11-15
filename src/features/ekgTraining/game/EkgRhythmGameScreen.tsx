@@ -4,11 +4,13 @@ import {
   AccessibilityInfo,
   findNodeHandle,
   Modal,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
   Text,
   View,
+  type ViewStyle,
   useWindowDimensions,
 } from "react-native";
 
@@ -56,8 +58,8 @@ function ModeButton({ title, subtitle, equal, primary, onPress, testID }: {
 
 export function EkgRhythmGameScreen({ onBack }: Props) {
   const { width } = useWindowDimensions();
-  const narrow = width < 410;
-  const compactSetup = width < 430;
+  const narrow = width < 350;
+  const compactSetup = width < 350;
   const wideAnswers = width >= 760;
   const [phase, setPhase] = useState<Phase>("intro");
   const [difficulty, setDifficulty] = useState<Difficulty | null>(null);
@@ -203,13 +205,9 @@ export function EkgRhythmGameScreen({ onBack }: Props) {
 
       {phase === "intro" ? (
         <View style={styles.startWrap}>
-          <View style={styles.heroRow}>
-            <View style={styles.heroText}>
-              <Text style={styles.overline}>EKG · RYTMEGENKENDELSE</Text>
-              <Text style={styles.heroTitle}>Klar til start?</Text>
-              <Text style={styles.helper}>Se rytmen. Vælg svaret. Få forklaringen.</Text>
-            </View>
-            <View style={styles.countPill}><Text style={styles.countText}>{active.length} rytmer</Text></View>
+          <View style={styles.heroText}>
+            <Text style={styles.overline}>EKG · RYTMEGENKENDELSE</Text>
+            <Text style={styles.heroTitle}>Klar til start?</Text>
           </View>
           <EkgLiveMonitor rhythmId="sinus" seed={10} paused={false} />
           <View style={[styles.modeGrid, compactSetup && styles.modeGridCompact]}>
@@ -278,7 +276,7 @@ export function EkgRhythmGameScreen({ onBack }: Props) {
         <Pressable
           accessible={false}
           onPress={closeSetup}
-          style={styles.setupOverlay}
+          style={[styles.setupOverlay, setupBackdropBlur]}
           testID="difficulty-modal-backdrop"
         >
           <Pressable
@@ -366,17 +364,19 @@ export function EkgRhythmGameScreen({ onBack }: Props) {
 }
 
 const font = Typography.families.sans;
+type WebBackdropStyle = ViewStyle & { backdropFilter?: string; WebkitBackdropFilter?: string };
+const setupBackdropBlur = Platform.select<WebBackdropStyle>({
+  web: { backdropFilter: "blur(3px)", WebkitBackdropFilter: "blur(3px)" },
+  default: {},
+});
 const styles = StyleSheet.create({
   page: { paddingBottom: Spacing.xl, gap: 12 },
   startWrap: { width: "100%", gap: 13 },
   gameWrap: { width: "100%", gap: 12 },
-  heroRow: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 10 },
   heroText: { flex: 1, minWidth: 0, gap: 3 },
   overline: { fontFamily: font, fontWeight: "800", color: "#67efd4", fontSize: 11, letterSpacing: 1.0 },
   heroTitle: { fontFamily: font, color: "#f8f9fa", fontSize: 29, fontWeight: "800" },
   helper: { fontFamily: font, fontSize: 14, color: "#dae7e9", lineHeight: 20 },
-  countPill: { backgroundColor: "rgba(8,39,48,0.75)", paddingHorizontal: 12, paddingVertical: 9, borderRadius: 100, borderWidth: 1, borderColor: ColorTokens.border.default },
-  countText: { fontFamily: font, color: "#67efd4", fontSize: 12, fontWeight: "700" },
   modeGrid: { flexDirection: "row", alignItems: "stretch", gap: 10, width: "100%" },
   modeGridCompact: { flexDirection: "column" },
   levelBar: { flexDirection: "row", gap: 10 },
