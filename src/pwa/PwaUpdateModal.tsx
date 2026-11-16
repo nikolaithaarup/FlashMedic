@@ -11,7 +11,7 @@ type Props = {
 export function PwaUpdateModal({ updating, failed, onUpdate, onLater }: Props) {
   return (
     <Modal visible transparent animationType="fade" onRequestClose={onLater}>
-      <View testID="flashmedic-update-modal" accessibilityViewIsModal style={styles.backdrop}>
+      <View testID="flashmedic-update-modal" accessibilityViewIsModal style={[styles.backdrop, { backdropFilter: "blur(12px)" } as never]}>
         <View style={styles.dialog}>
           <Text accessibilityRole="header" style={styles.title}>Ny version klar</Text>
           <Text style={styles.description}>
@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 24,
     backgroundColor: "rgba(3, 12, 18, 0.67)",
-    backdropFilter: "blur(12px)" as never,
   },
   dialog: {
     width: "100%",
