@@ -1,0 +1,60 @@
+name: Diagnose FlashMedic login
+
+on:
+  push:
+    branches:
+      - diagnostic/otp-production-20261116
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Test login proxy
+        run: npx tsx scripts/testSynapseEmailProxy.ts
+      - name: TypeScript check
+        run: npx tsc --noEmit
+      - name: Production endpoint diagnostics (invalid addresses only; no emails)
+        if: always()
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          const targets = [
+            ["Portal OTP", "https://portal.synapsestudio.dk/api/auth/flashmedic"],
+            ["FlashMedic proxy", "https://flashmedic.synapsestudio.dk/api/synapse-email"],
+          ];
+          for (const [name,url] of targets) {
+            try {
+              // Deliberately invalid: never creates a challenge or sends email.
+              const response = await fetch(url, {
+                method: "POST",
+                headers: {"Content-Type":"application/json"},
+                body: JSON.stringify({operation:"request",email:"not-an-email"}),
+                redirect:"manual",
+                signal:AbortSignal.timeout(15000),
+              });
+              const body = await response.text();
+              const code = (() => { try { return JSON.parse(body).error ?? "-"; } catch { return "<non-JSON>"; } })();
+              console.log(name + " HTTP " + response.status + " error " + code + " contentType " + response.headers.get("content-type"));
+              if (name === "Portal OTP" && response.status === 404 && code === "OTP_DISABLED") {
+                console.error("PORTAL_OTP_DISABLED: enable FlashMedic and email OTP in the Portal production project, with required configuration");
+              }
+              if (name === "FlashMedic proxy" && response.status === 200 && code === "<non-JSON>") {
+                console.error("PROXY_NOT_DEPLOYED: live site returns HTML instead of JSON");
+              }
+            } catch (error) {
+              console.error(name + " NETWORK_ERROR: " + String(error).slice(0,220));
+            }
+          }
+          NODE
