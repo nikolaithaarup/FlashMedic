@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Alert, Platform, Pressable, StyleSheet, Text, View } from "react-native";
 
 import { ColorTokens, Radii, Spacing, Typography } from "../../constants/theme";
+import { PwaUpdateModal } from "./PwaUpdateModal";
 
 type InstallPromptEvent = Event & {
   prompt(): Promise<void>;
@@ -16,12 +17,40 @@ function isStandalone() {
     Boolean((window.navigator as Navigator & { standalone?: boolean }).standalone);
 }
 
+function isHomeLocation() {
+  if (typeof window === "undefined") return false;
+  return (window.location.pathname === "/" || window.location.pathname === "/index.html") &&
+    (!window.location.hash || window.location.hash === "#/");
+}
+
 export function PwaManager() {
   const [online, setOnline] = useState(true);
   const [installPrompt, setInstallPrompt] = useState<InstallPromptEvent | null>(null);
   const [showInstall, setShowInstall] = useState(false);
   const [waitingWorker, setWaitingWorker] = useState<ServiceWorker | null>(null);
+  const [onHome, setOnHome] = useState(true);
+  const [dismissedWorker, setDismissedWorker] = useState<ServiceWorker | null>(null);
+  const [updating, setUpdating] = useState(false);
+  const [updateFailed, setUpdateFailed] = useState(false);
   const reloadForUpdateRef = useRef(false);
+
+  // The app's screen navigation uses hash URLs via history.pushState.
+  // Recheck the actual Home route so an active quiz is never obscured.
+  useEffect(() => {
+    if (Platform.OS !== "web") return;
+    const sync = () => setOnHome(isHomeLocation());
+    sync();
+    window.addEventListener("popstate", sync);
+    window.addEventListener("hashchange", sync);
+    window.addEventListener("pageshow", sync);
+    const timer = window.setInterval(sync, 1000);
+    return () => {
+      window.clearInterval(timer);
+      window.removeEventListener("popstate", sync);
+      window.removeEventListener("hashchange", sync);
+      window.removeEventListener("pageshow", sync);
+    };
+  }, []);
 
   useEffect(() => {
     if (Platform.OS !== "web") return;
@@ -108,7 +137,12 @@ export function PwaManager() {
       .catch((error) => console.warn("Service worker registration failed", error));
 
     const controllerChanged = () => {
-      if (reloadForUpdateRef.current) window.location.reload();
+      if (reloadForUpdateRef.current && isHomeLocation()) {
+        window.location.reload();
+      } else {
+        reloadForUpdateRef.current = false;
+        setUpdating(false);
+      }
     };
     navigator.serviceWorker.addEventListener("controllerchange", controllerChanged);
     const updateTimer = window.setInterval(() => void registration?.update(), 60 * 60 * 1000);
@@ -154,35 +188,68 @@ export function PwaManager() {
   };
 
   const activateUpdate = () => {
+    if (!waitingWorker || !onHome || !online || updating) return;
+    setUpdating(true);
+    setUpdateFailed(false);
     reloadForUpdateRef.current = true;
-    waitingWorker?.postMessage({ type: "SKIP_WAITING" });
+    try {
+      waitingWorker.postMessage({ type: "SKIP_WAITING" });
+    } catch {
+      reloadForUpdateRef.current = false;
+      setUpdating(false);
+      setUpdateFailed(true);
+      return;
+    }
+    // Do not leave the user trapped in a disabled update state on failure.
+    window.setTimeout(() => {
+      if (reloadForUpdateRef.current) {
+        reloadForUpdateRef.current = false;
+        setUpdating(false);
+        setUpdateFailed(true);
+      }
+    }, 10000);
   };
 
-  if (online && !waitingWorker && (!showInstall || isStandalone())) return null;
+  const deferUpdate = () => {
+    reloadForUpdateRef.current = false;
+    setUpdating(false);
+    setDismissedWorker(waitingWorker);
+  };
+
+  if (Platform.OS !== "web") return null;
+
+  const showUpdate = online && onHome && !!waitingWorker && dismissedWorker !== waitingWorker;
+  const showOtherBanner = !online || (showInstall && !isStandalone());
+  if (!showUpdate && !showOtherBanner) return null;
 
   return (
-    <View accessibilityLiveRegion="polite" style={styles.container}>
-      {!online ? (
-        <Text style={styles.message}>Offline · Fremgang gemmes på enheden.</Text>
-      ) : waitingWorker ? (
-        <>
-          <Text style={styles.message}>Ny version klar.</Text>
-          <Pressable accessibilityRole="button" onPress={activateUpdate} style={styles.action}>
-            <Text style={styles.actionText}>Opdatér nu</Text>
-          </Pressable>
-        </>
-      ) : (
-        <>
-          <Text style={styles.message}>Installér FlashMedic</Text>
-          <Pressable accessibilityRole="button" onPress={install} style={styles.action}>
-            <Text style={styles.actionText}>Installér</Text>
-          </Pressable>
-          <Pressable accessibilityLabel="Skjul installationsvejledning" onPress={dismissInstall} style={styles.dismiss}>
-            <Text style={styles.dismissText}>×</Text>
-          </Pressable>
-        </>
-      )}
-    </View>
+    <>
+      {showUpdate ? (
+        <PwaUpdateModal
+          updating={updating}
+          failed={updateFailed}
+          onUpdate={activateUpdate}
+          onLater={deferUpdate}
+        />
+      ) : null}
+      {!showUpdate && showOtherBanner ? (
+        <View accessibilityLiveRegion="polite" style={styles.container}>
+          {!online ? (
+            <Text style={styles.message}>Offline · Fremgang gemmes på enheden.</Text>
+          ) : (
+            <>
+              <Text style={styles.message}>Installér FlashMedic</Text>
+              <Pressable accessibilityRole="button" onPress={install} style={styles.action}>
+                <Text style={styles.actionText}>Installér</Text>
+              </Pressable>
+              <Pressable accessibilityLabel="Skjul installationsvejledning" onPress={dismissInstall} style={styles.dismiss}>
+                <Text style={styles.dismissText}>×</Text>
+              </Pressable>
+            </>
+          )}
+        </View>
+      ) : null}
+    </>
   );
 }
 
