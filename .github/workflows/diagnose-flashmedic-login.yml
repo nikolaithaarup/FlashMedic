@@ -25,36 +25,53 @@ jobs:
         run: npx tsx scripts/testSynapseEmailProxy.ts
       - name: TypeScript check
         run: npx tsc --noEmit
-      - name: Production endpoint diagnostics (invalid addresses only; no emails)
+      - name: Detailed production routing diagnostics (no emails)
         if: always()
         shell: bash
         run: |
           node --input-type=module <<'NODE'
           const targets = [
-            ["Portal OTP", "https://portal.synapsestudio.dk/api/auth/flashmedic"],
-            ["FlashMedic proxy", "https://flashmedic.synapsestudio.dk/api/synapse-email"],
+            ["Portal home", "https://portal.synapsestudio.dk/", "GET"],
+            ["Portal OTP", "https://portal.synapsestudio.dk/api/auth/flashmedic", "POST"],
+            ["FlashMedic home", "https://flashmedic.synapsestudio.dk/", "GET"],
+            ["FlashMedic old API", "https://flashmedic.synapsestudio.dk/api/weekly-score", "GET"],
+            ["FlashMedic new API", "https://flashmedic.synapsestudio.dk/api/synapse-email", "POST"],
           ];
-          for (const [name,url] of targets) {
+          for (const [name,url,method] of targets) {
             try {
-              // Deliberately invalid: never creates a challenge or sends email.
               const response = await fetch(url, {
-                method: "POST",
-                headers: {"Content-Type":"application/json"},
-                body: JSON.stringify({operation:"request",email:"not-an-email"}),
+                method,
+                ...(method === "POST" ? {
+                  headers: {"Content-Type":"application/json"},
+                  body:JSON.stringify({operation:"request",email:"not-an-email"}),
+                } : {}),
                 redirect:"manual",
                 signal:AbortSignal.timeout(15000),
               });
               const body = await response.text();
-              const code = (() => { try { return JSON.parse(body).error ?? "-"; } catch { return "<non-JSON>"; } })();
-              console.log(name + " HTTP " + response.status + " error " + code + " contentType " + response.headers.get("content-type"));
-              if (name === "Portal OTP" && response.status === 404 && code === "OTP_DISABLED") {
-                console.error("PORTAL_OTP_DISABLED: enable FlashMedic and email OTP in the Portal production project, with required configuration");
-              }
-              if (name === "FlashMedic proxy" && response.status === 200 && code === "<non-JSON>") {
-                console.error("PROXY_NOT_DEPLOYED: live site returns HTML instead of JSON");
-              }
+              let code = "<non-JSON>";
+              try { code = JSON.parse(body).error ?? "-"; } catch {}
+              const snippet = String(body).replace(/[\r\n]/g," ").slice(0,200);
+              console.log(JSON.stringify({
+                name,status:response.status,type:response.headers.get("content-type"),
+                server:response.headers.get("server"),
+                vercelError:response.headers.get("x-vercel-error"),
+                location:response.headers.get("location"),
+                code,bodyStart:snippet,
+              }));
             } catch (error) {
-              console.error(name + " NETWORK_ERROR: " + String(error).slice(0,220));
+              console.error(name + " NETWORK_ERROR: " + String(error).slice(0,200));
             }
           }
           NODE
+      - name: Check Vercel deploy secret availability (booleans only)
+        if: always()
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        shell: bash
+        run: |
+          for key in VERCEL_TOKEN VERCEL_ORG_ID VERCEL_PROJECT_ID; do
+            if [ -n "${!key}" ]; then echo "$key configured: yes"; else echo "$key configured: no"; fi
+          done
