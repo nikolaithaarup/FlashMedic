@@ -11,7 +11,7 @@ import {
   Typography,
 } from "../../../constants/theme";
 import { PrimaryButton } from "../../ui/primitives";
-import { requestSynapseCode, verifySynapseCode } from "../../services/synapseAuth";
+import { describeSynapseAuthError, requestSynapseCode, verifySynapseCode } from "../../services/synapseAuth";
 import { synchronizeProgress } from "../../sync/progressSync";
 
 type Props = {
@@ -43,8 +43,8 @@ export function SynapseEmailLogin({ onAuthenticated }: Props) {
     try {
       setChallengeToken(await requestSynapseCode(normalizedEmail));
       setMessage("Koden er på vej.");
-    } catch {
-      setMessage("Kunne ikke sende koden.");
+    } catch (error) {
+      setMessage(describeSynapseAuthError(error, "request"));
     } finally {
       setBusy(false);
     }
@@ -61,8 +61,8 @@ export function SynapseEmailLogin({ onAuthenticated }: Props) {
     try {
       const user = await verifySynapseCode(challengeToken, code);
       verifiedEmail = user.email ?? verifiedEmail;
-    } catch {
-      setMessage("Koden er ugyldig eller udløbet.");
+    } catch (error) {
+      setMessage(describeSynapseAuthError(error, "verify"));
       setBusy(false);
       return;
     }
