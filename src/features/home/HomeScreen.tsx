@@ -59,6 +59,7 @@ export default function HomeScreen({
   loadingCards,
   loadError,
   profileNickname,
+  profileIsAnonymous,
   onOpenProfile,
   onOpenWeeklyHome,
   onOpenWeeklyDev,
@@ -114,6 +115,25 @@ export default function HomeScreen({
           <View style={styles.hero}>
             <BrandLockup compact={isPhone} />
           </View>
+
+          {profileIsAnonymous ? (
+            <Pressable
+              accessibilityLabel="Log ind med e-mail og synkroniser din fremgang"
+              accessibilityRole="button"
+              onPress={onOpenProfile}
+              style={({ pressed }) => [
+                styles.guestLoginAction,
+                pressed && styles.profilePressed,
+              ]}
+            >
+              <Feather name="cloud" size={20} color={ColorTokens.accent.focus} />
+              <View style={styles.guestLoginCopy}>
+                <Text style={styles.guestLoginTitle}>Log ind med e-mail</Text>
+                <Text style={styles.guestLoginHint}>Gem din fremgang på tværs af enheder</Text>
+              </View>
+              <Feather name="chevron-right" size={20} color={ColorTokens.text.secondary} />
+            </Pressable>
+          ) : null}
 
           {loadingCards ? (
             <View style={styles.statusSurface}>
@@ -226,6 +246,32 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: 0,
     paddingBottom: Spacing.xs,
+  },
+  guestLoginAction: {
+    width: "100%",
+    maxWidth: 520,
+    alignSelf: "center",
+    minHeight: Interaction.minimumTouchTarget,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.sm,
+    paddingHorizontal: Spacing.sm,
+    paddingVertical: Spacing.sm,
+    borderBottomWidth: Borders.hairline,
+    borderBottomColor: ColorTokens.border.divider,
+    marginBottom: Spacing.sm,
+  },
+  guestLoginCopy: { flex: 1, minWidth: 0 },
+  guestLoginTitle: {
+    color: ColorTokens.text.primary,
+    fontSize: Typography.sizes.label,
+    lineHeight: Typography.lineHeights.label,
+    fontWeight: Typography.weights.semibold,
+  },
+  guestLoginHint: {
+    color: ColorTokens.text.secondary,
+    fontSize: Typography.sizes.caption,
+    lineHeight: Typography.lineHeights.caption,
   },
   trainingHeader: { marginTop: Spacing.xs, marginBottom: Spacing.sm },
   statusSurface: {

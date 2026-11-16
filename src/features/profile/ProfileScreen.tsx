@@ -194,6 +194,8 @@ export default function ProfileScreen({
       return;
     }
 
+    // A nickname is not an account upgrade. Keep the Firebase identity type.
+    const isAnonymous = auth.currentUser?.isAnonymous ?? profile?.isAnonymous ?? true;
     const updated: UserProfile = {
       userId: firebaseUid,
       nickname: name,
@@ -201,12 +203,12 @@ export default function ProfileScreen({
       role: profile?.role ?? null,
       gender: profile?.gender ?? null,
       region: profile?.region ?? null,
-      isAnonymous: false,
+      isAnonymous,
     };
     const toStore: StoredUserProfile = {
       userId: firebaseUid,
       nickname: name,
-      isAnonymous: false,
+      isAnonymous,
     };
     try {
       await saveStoredProfile(toStore);
@@ -225,7 +227,7 @@ export default function ProfileScreen({
   const resetLocalProfile = useCallback(() => {
     Alert.alert(
       "Fjern kaldenavn?",
-      "Dette erstatter dit lokale kaldenavn med et tilfældigt anonymt navn. Dit anonyme Firebase-ID og allerede indsendte ranglisteresultater slettes ikke.",
+      "Dette erstatter dit lokale kaldenavn med et tilfældigt navn. Din loginstatus og allerede indsendte ranglisteresultater ændres ikke.",
       [
         { text: "Annuller", style: "cancel" },
         {
@@ -233,6 +235,7 @@ export default function ProfileScreen({
           style: "destructive",
           onPress: async () => {
             const newNick = makeRandomAnonName();
+            const isAnonymous = auth.currentUser?.isAnonymous ?? profile?.isAnonymous ?? true;
             const next: UserProfile = {
               userId: firebaseUid,
               nickname: newNick,
@@ -240,13 +243,13 @@ export default function ProfileScreen({
               role: profile?.role ?? null,
               gender: profile?.gender ?? null,
               region: profile?.region ?? null,
-              isAnonymous: true,
+              isAnonymous,
             };
             try {
               const toStore: StoredUserProfile = {
                 userId: firebaseUid,
                 nickname: newNick,
-                isAnonymous: true,
+                isAnonymous,
               };
               if (firebaseUid) {
                 await updatePendingWeeklyNickname(firebaseUid, newNick);
@@ -328,6 +331,23 @@ export default function ProfileScreen({
         onBack={onBack}
         title="Min læring"
       />
+
+      {!signedInEmail ? (
+        <>
+          <Text style={styles.sectionLabel}>KONTO</Text>
+          <Card variant="subtle" style={styles.profileCard}>
+            <Text style={styles.cardTitle}>Log ind med e-mail</Text>
+            <Text style={styles.topicMeta}>Gem din fremgang, og fortsæt på andre enheder.</Text>
+            <SynapseEmailLogin
+              onAuthenticated={({ email, syncConfirmed }) => {
+                setSignedInEmail(email);
+                if (!syncConfirmed) Alert.alert("Logget ind", "Synkronisering afventer.");
+              }}
+            />
+            <Text style={styles.topicMeta}>Du kan også fortsætte som gæst.</Text>
+          </Card>
+        </>
+      ) : null}
 
       {syncNeedsAttention ? (
         <Card variant="subtle" style={styles.syncNotice}>
@@ -419,22 +439,6 @@ export default function ProfileScreen({
         </View>
       ) : null}
       </View>
-
-      {!signedInEmail ? (
-        <>
-          <Text style={styles.sectionLabel}>KONTO</Text>
-          <Card variant="subtle" style={styles.profileCard}>
-            <Text style={styles.cardTitle}>Fortsæt på andre enheder</Text>
-            <SynapseEmailLogin
-              onAuthenticated={({ email, syncConfirmed }) => {
-                setSignedInEmail(email);
-                if (!syncConfirmed) Alert.alert("Logget ind", "Synkronisering afventer.");
-              }}
-            />
-            <Text style={styles.topicMeta}>Som gæst gemmes fremgangen kun på denne enhed.</Text>
-          </Card>
-        </>
-      ) : null}
 
       <SecondaryButton
         label={settingsOpen ? "Skjul indstillinger" : "Konto og indstillinger"}

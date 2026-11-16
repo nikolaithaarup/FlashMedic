@@ -1504,7 +1504,7 @@ export default function Index() {
       loadingCards={loadingCards}
       loadError={loadError}
       profileNickname={profile?.nickname ?? null}
-      profileIsAnonymous={!!profile?.isAnonymous}
+      profileIsAnonymous={auth.currentUser?.isAnonymous ?? !!profile?.isAnonymous}
       classLabel={classLabel}
       appLogo={APP_LOGO}
       onOpenProfile={() => setScreen("profile")}
