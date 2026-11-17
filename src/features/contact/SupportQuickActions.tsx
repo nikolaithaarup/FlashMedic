@@ -5,14 +5,15 @@ type Props = {
   onEmail: () => void;
   onReport: () => void;
   onStudio: () => void;
+  onSibling: () => void;
 };
 
 /** Mirrors AmbuAssist's contact actions with FlashMedic's existing accent colour. */
-export function SupportQuickActions({ onEmail, onReport, onStudio }: Props) {
+export function SupportQuickActions({ onEmail, onReport, onStudio, onSibling }: Props) {
   return (
     <View testID="synapsestudio-support-identity" style={styles.container}>
       <View style={styles.brand}>
-        <Text style={styles.studio}>FlashMedic · SynapseStudio</Text>
+        <Text style={styles.studio}>SynapseStudio · FlashMedic</Text>
         <Text style={styles.creator}>Udviklet af Nikolai Louis Kleftås Thaarup</Text>
       </View>
       <Pressable
@@ -44,6 +45,9 @@ export function SupportQuickActions({ onEmail, onReport, onStudio }: Props) {
           <Text style={styles.secondaryText}>SynapseStudio</Text>
         </Pressable>
       </View>
+      <Pressable accessibilityRole="link" accessibilityLabel="AmbuAssist" onPress={onSibling} style={({ pressed }) => [styles.sibling, pressed && styles.pressed]}>
+        <Text style={styles.siblingText}>Også fra SynapseStudio: AmbuAssist  ›</Text>
+      </Pressable>
     </View>
   );
 }
@@ -51,8 +55,8 @@ export function SupportQuickActions({ onEmail, onReport, onStudio }: Props) {
 const styles = StyleSheet.create({
   container: { gap: Spacing.sm },
   brand: { gap: 4, marginBottom: 2 },
-  studio: { color: ColorTokens.accent.focus, fontSize: 13, fontWeight: "800" },
-  creator: { color: ColorTokens.text.secondary, fontSize: 14, lineHeight: 20 },
+  studio: { color: ColorTokens.accent.focus, fontSize: 14, fontWeight: "800" },
+  creator: { color: ColorTokens.text.secondary, fontSize: 12, lineHeight: 18 },
   primary: {
     minHeight: 52,
     borderRadius: Radii.control,
@@ -76,5 +80,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.sm,
   },
   secondaryText: { color: ColorTokens.text.primary, fontSize: 14, fontWeight: "800" },
+  sibling: { minHeight: 44, alignSelf: "flex-start", justifyContent: "center" },
+  siblingText: { color: ColorTokens.accent.focus, fontSize: 13, fontWeight: "800" },
   pressed: { opacity: Interaction.pressedOpacity, backgroundColor: ColorTokens.accent.selected },
 });
