@@ -32,8 +32,8 @@ export function BrandLockup({ compact = false, style }: BrandLockupProps) {
 
 const styles = StyleSheet.create({
   container: { width: "100%", alignItems: "center", gap: 0 },
-  mark: { width: 160, height: 80, overflow: "hidden" },
-  markCompact: { width: 136, height: 68, overflow: "hidden" },
-  wordmark: { width: "100%", maxWidth: 360, height: 48, marginTop: -3 },
-  wordmarkCompact: { width: "100%", maxWidth: 300, height: 40, marginTop: -3 },
+  mark: { width: 136, height: 68, overflow: "hidden" },
+  markCompact: { width: 112, height: 56, overflow: "hidden" },
+  wordmark: { width: "100%", maxWidth: 312, height: 43, marginTop: -4 },
+  wordmarkCompact: { width: "100%", maxWidth: 274, height: 38, marginTop: -4 },
 });
