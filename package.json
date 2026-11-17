@@ -20,7 +20,7 @@
     "validate:weekly-safety": "tsx scripts/validateWeeklySafety.ts",
     "validate:firestore-migration": "tsx scripts/validateFlashcardMigration.ts",
     "validate:learning": "tsx scripts/validateLearning.ts",
-    "validate:pwa": "tsx scripts/validatePwa.ts",
+    "validate:pwa": "node scripts/buildBrandIcons.mjs --flash && tsx scripts/validatePwa.ts",
     "validate:progress-sync": "tsx scripts/validateProgressSync.ts",
     "test:firestore-rules": "firebase emulators:exec --only firestore --project demo-flashmedic \"npx tsx scripts/testFirestoreRules.ts\"",
     "test:weekly-leaderboard": "tsx scripts/testWeeklyCompetition.ts",
