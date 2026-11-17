@@ -97,7 +97,7 @@ export default function HomeScreen({
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
         >
-          <View style={styles.profileRow}>
+          <View style={styles.hero}>
             <Pressable
               accessibilityLabel={`Åbn profil for ${profileNickname ?? "Profil"}`}
               accessibilityRole="button"
@@ -108,12 +108,12 @@ export default function HomeScreen({
                 pressed && styles.profilePressed,
               ]}
             >
-              <Feather name="user" size={22} color={ColorTokens.text.primary} />
+              <Feather name="user" size={19} color={ColorTokens.text.primary} />
             </Pressable>
-          </View>
-
-          <View style={styles.hero}>
             <BrandLockup compact={isPhone} />
+            <Text testID="flash-home-tagline" style={styles.tagline}>
+              Korte øvelser. Skarpere faglighed.
+            </Text>
           </View>
 
           {profileIsAnonymous ? (
@@ -187,7 +187,7 @@ export default function HomeScreen({
             />
           </View>
 
-          <SectionHeader label="MERE" />
+          <SectionHeader label="APP & SUPPORT" compact={isPhone} style={styles.secondaryHeader} />
 
           <View style={styles.supportList}>
             <NavigationCard
@@ -222,15 +222,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.md,
     paddingBottom: Spacing.xl,
   },
-  profileRow: {
-    minHeight: Interaction.minimumTouchTarget,
-    alignItems: "flex-end",
-    marginTop: Spacing.xs,
-    marginBottom: Spacing.sm,
-  },
   profileButton: {
-    width: Interaction.minimumTouchTarget,
-    height: Interaction.minimumTouchTarget,
+    position: "absolute",
+    right: 0,
+    top: 0,
+    zIndex: 2,
+    width: 42,
+    height: 42,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: Radii.control,
@@ -243,9 +241,19 @@ const styles = StyleSheet.create({
     transform: [{ scale: Interaction.controlPressedScale }],
   },
   hero: {
+    width: "100%",
     alignItems: "center",
     paddingTop: 0,
-    paddingBottom: Spacing.xs,
+    paddingBottom: 4,
+    gap: 0,
+  },
+  tagline: {
+    marginTop: -3,
+    textAlign: "center",
+    color: ColorTokens.text.secondary,
+    fontSize: 13,
+    lineHeight: 18,
+    fontWeight: "500",
   },
   guestLoginAction: {
     width: "100%",
@@ -273,7 +281,8 @@ const styles = StyleSheet.create({
     fontSize: Typography.sizes.caption,
     lineHeight: Typography.lineHeights.caption,
   },
-  trainingHeader: { marginTop: Spacing.xs, marginBottom: Spacing.sm },
+  trainingHeader: { marginTop: 12, marginBottom: 7 },
+  secondaryHeader: { marginTop: 15, marginBottom: 7 },
   statusSurface: {
     borderRadius: Radii.md,
     borderWidth: Borders.hairline,
@@ -290,7 +299,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     alignItems: "stretch",
-    gap: Spacing.sm,
+    gap: 7,
   },
   destinationCard: { minWidth: 0, flexGrow: 1, flexShrink: 1, minHeight: 52 },
   supportList: {
@@ -298,7 +307,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     alignItems: "stretch",
-    gap: Spacing.xs,
+    gap: 7,
   },
   supportCard: { minWidth: 0, flexGrow: 1, flexShrink: 1, minHeight: 52 },
   attribution: {
