@@ -2,6 +2,8 @@ import { StatusBar } from "expo-status-bar";
 import { Feather } from "@expo/vector-icons";
 import React from "react";
 import {
+  Image,
+  Linking,
   Platform,
   Pressable,
   ScrollView,
@@ -204,9 +206,22 @@ export default function HomeScreen({
             />
           </View>
 
-          <Text style={styles.attribution}>
-            Udviklet af Nikolai Louis Kleftås Thaarup
-          </Text>
+          <View testID="home-synapsestudio-footer" style={styles.attribution}>
+            <Text style={styles.partOf}>Part of</Text>
+            <Pressable
+              accessibilityRole="link"
+              accessibilityLabel="Besøg SynapseStudio"
+              hitSlop={8}
+              onPress={() => { void Linking.openURL("https://synapsestudio.dk"); }}
+              style={({ pressed }) => [styles.studioLink, pressed && { opacity: 0.75 }]}
+            >
+              <Image
+                source={require("../../../assets/synapsestudio-logo-white.png")}
+                resizeMode="contain"
+                style={styles.studioLogo}
+              />
+            </Pressable>
+          </View>
         </ScrollView>
       </ContentSafeArea>
     </Background>
@@ -311,10 +326,23 @@ const styles = StyleSheet.create({
   },
   supportCard: { minWidth: 0, flexGrow: 1, flexShrink: 1, minHeight: 52 },
   attribution: {
-    color: ColorTokens.text.secondary,
-    fontSize: Typography.sizes.caption,
-    textAlign: "center",
-    opacity: 0.7,
+    alignItems: "center",
+    gap: 8,
     marginTop: Spacing.xl,
   },
+  partOf: {
+    color: ColorTokens.text.secondary,
+    fontSize: 11,
+    lineHeight: 16,
+    letterSpacing: 1.1,
+    fontWeight: "600",
+    textAlign: "center",
+  },
+  studioLink: {
+    minHeight: 44,
+    minWidth: 164,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  studioLogo: { width: 164, height: 44 },
 });
