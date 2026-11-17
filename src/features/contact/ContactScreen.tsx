@@ -104,6 +104,7 @@ export function ContactScreen({
         onEmail={() => void openSupportEmail()}
         onReport={() => void openSupportEmail(true)}
         onStudio={() => void openExternalPage(STUDIO_URL, "SynapseStudio")}
+        onSibling={() => void openExternalPage("https://ambuassist.synapsestudio.dk", "AmbuAssist")}
       />
 
       <Text style={styles.notice}>Skriv gerne, hvad der ikke virker. Undlad patientoplysninger.</Text>
