@@ -75,6 +75,7 @@ import type {
   FlashcardTrainingMode,
 } from "../src/types/Learning";
 import HomeScreen from "../src/features/home/HomeScreen";
+import StartupSplash from "../src/ui/StartupSplash";
 import QuizScreen from "../src/features/quiz/QuizScreen";
 
 // ---------- Types ----------
@@ -256,6 +257,14 @@ export default function Index() {
   const [screen, setScreen] = useState<Screen>("home");
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [profileBootstrapReady, setProfileBootstrapReady] = useState(false);
+  // Remove the first-paint HTML splash only after the local profile is restored.
+  // An offline user must not be held behind a visual-only timer.
+  useEffect(() => {
+    if (Platform.OS === "web" && profileBootstrapReady) {
+      document.getElementById("synapse-startup")?.remove();
+    }
+  }, [profileBootstrapReady]);
+
   const historyReadyRef = useRef(false);
   const suppressHistoryPushRef = useRef(false);
   const historyDepthRef = useRef(0);
@@ -1185,7 +1194,7 @@ export default function Index() {
   // ---------- SCREENS ----------
   // Wait for Firebase and the stored profile before displaying any app route.
   if (!profileBootstrapReady) {
-    return <View style={{ flex: 1, backgroundColor: "#083f4f" }} />;
+    return <StartupSplash />;
   }
   // The app is intentionally usable as a guest, but that choice must be explicit.
   if (screen === "auth" || !profile) {
