@@ -106,7 +106,7 @@ export function ContactScreen({
         onStudio={() => void openExternalPage(STUDIO_URL, "SynapseStudio")}
       />
 
-      <Text style={styles.notice}>Beskriv gerne problemet kort. Send aldrig patientoplysninger.</Text>
+      <Text style={styles.notice}>Skriv gerne, hvad der ikke virker. Undlad patientoplysninger.</Text>
 
       <View style={styles.section}>
         <Pressable
@@ -117,7 +117,7 @@ export function ContactScreen({
           onPress={() => setShowDetails((value) => !value)}
           style={({ pressed }) => [styles.disclosure, pressed && styles.pressed]}
         >
-          <Text style={styles.disclosureText}>Tilføj detaljer (valgfrit)</Text>
+          <Text style={styles.disclosureText}>Skriv en besked (valgfrit)</Text>
           <Text style={styles.chevron}>{showDetails ? "⌄" : "›"}</Text>
         </Pressable>
         {showDetails ? (
@@ -166,8 +166,8 @@ export function ContactScreen({
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Om FlashMedic</Text>
-        <Text style={styles.description}>FlashMedic er til læring og træning, ikke til kliniske beslutninger.</Text>
+        <Text style={styles.sectionTitle}>Om appen</Text>
+        <Text style={styles.description}>FlashMedic er lavet af Nikolai / SynapseStudio til læring og repetition – ikke til kliniske beslutninger.</Text>
         <View style={styles.linkRow}>
           <Pressable
             testID="privacy-policy-link"
@@ -188,7 +188,7 @@ export function ContactScreen({
         </View>
       </View>
 
-      <Text selectable style={styles.footer}>SynapseStudio · FlashMedic v{appVersion} · {SUPPORT_EMAIL}</Text>
+      <Text selectable style={styles.footer}>SynapseStudio · FlashMedic v{appVersion}</Text>
     </Screen>
   );
 }
