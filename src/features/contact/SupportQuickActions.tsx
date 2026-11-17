@@ -12,7 +12,8 @@ export function SupportQuickActions({ onEmail, onReport, onStudio }: Props) {
   return (
     <View testID="synapsestudio-support-identity" style={styles.container}>
       <View style={styles.brand}>
-        <Text style={styles.studio}>FlashMedic · SynapseStudio</Text>
+        <Text style={styles.title}>Kontakt & support</Text>
+        <Text style={styles.studio}>SynapseStudio · FlashMedic</Text>
         <Text style={styles.creator}>Udviklet af Nikolai Louis Kleftås Thaarup</Text>
       </View>
       <Pressable
@@ -51,8 +52,9 @@ export function SupportQuickActions({ onEmail, onReport, onStudio }: Props) {
 const styles = StyleSheet.create({
   container: { gap: Spacing.sm },
   brand: { gap: 4, marginBottom: 2 },
-  studio: { color: ColorTokens.accent.focus, fontSize: 13, fontWeight: "800" },
-  creator: { color: ColorTokens.text.secondary, fontSize: 14, lineHeight: 20 },
+  title: { color: ColorTokens.text.primary, fontSize: 25, lineHeight: 31, fontWeight: "900" },
+  studio: { color: ColorTokens.accent.focus, fontSize: 14, fontWeight: "800" },
+  creator: { color: ColorTokens.text.secondary, fontSize: 12, lineHeight: 18 },
   primary: {
     minHeight: 52,
     borderRadius: Radii.control,
