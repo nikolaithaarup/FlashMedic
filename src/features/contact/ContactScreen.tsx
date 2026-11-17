@@ -3,24 +3,12 @@ import * as Device from "expo-device";
 import * as Linking from "expo-linking";
 import * as MailComposer from "expo-mail-composer";
 import { StatusBar } from "expo-status-bar";
-import React, { useMemo } from "react";
-import { Alert, Platform, StyleSheet, Text, TextInput } from "react-native";
+import React, { useMemo, useState } from "react";
+import { Alert, Platform, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
-import {
-  Borders,
-  ColorTokens,
-  Interaction,
-  Radii,
-  Spacing,
-  Typography,
-} from "../../../constants/theme";
-import {
-  Card,
-  PrimaryButton,
-  Screen,
-  SecondaryButton,
-  ToolPageHeader,
-} from "../../ui/primitives";
+import { Borders, ColorTokens, Interaction, Radii, Spacing, Typography } from "../../../constants/theme";
+import { Screen, ToolPageHeader } from "../../ui/primitives";
+import { SupportQuickActions } from "./SupportQuickActions";
 
 type Props = {
   headingFont: number;
@@ -35,6 +23,7 @@ type Props = {
 };
 
 const SUPPORT_EMAIL = "nikolai_91@live.com";
+const STUDIO_URL = "https://synapsestudio.dk";
 const PRIVACY_URL = "https://synapsestudio.dk/da/privacy";
 const DISCLAIMER_URL = "https://synapsestudio.dk/da/disclaimer";
 
@@ -47,39 +36,31 @@ export function ContactScreen({
   setContactMessage,
   onBack,
 }: Props) {
-  const appName = Constants.expoConfig?.name ?? "FlashMedic";
-  const appVersion = Constants.expoConfig?.version ?? "ukendt version";
+  const [showDetails, setShowDetails] = useState(false);
+  const appName = "FlashMedic";
+  const appVersion = Constants.expoConfig?.version ?? "–";
   const deviceInfo = useMemo(
-    () =>
-      [
-        Device.manufacturer,
-        Device.modelName,
-        Device.osName,
-        Device.osVersion,
-      ]
-        .filter(Boolean)
-        .join(" "),
+    () => [Device.manufacturer, Device.modelName, Device.osName, Device.osVersion]
+      .filter(Boolean).join(" "),
     [],
   );
 
-  const handleSend = async () => {
-    if (!contactMessage.trim()) {
-      Alert.alert("Fejl", "Skriv en besked først.");
-      return;
-    }
-
-    const subject = `[${appName}] Kontakt fra appen`;
+  const openSupportEmail = async (report = false) => {
+    const subject = report ? "[FlashMedic] Fejlrapport" : "[FlashMedic] Kontakt";
+    const reportedProblem = report
+      ? "Hvor i appen?\n\nHvad skete der?\n\nHvad forventede du?\n\n"
+      : "";
     const body = [
-      contactName.trim() ? `Navn: ${contactName.trim()}` : null,
-      contactEmail.trim() ? `E-mail: ${contactEmail.trim()}` : null,
+      "Hej Nikolai,",
       "",
-      contactMessage.trim(),
+      contactMessage.trim() || reportedProblem,
       "",
-      `${appName} · v${appVersion} · ${Platform.OS}`,
+      contactName.trim() ? "Navn: " + contactName.trim() : null,
+      contactEmail.trim() ? "Svar til: " + contactEmail.trim() : null,
+      "",
+      appName + " · v" + appVersion + " · " + Platform.OS,
       deviceInfo || null,
-    ]
-      .filter((line) => line !== null)
-      .join("\n");
+    ].filter((item) => item !== null).join("\n");
 
     try {
       if (await MailComposer.isAvailableAsync()) {
@@ -95,171 +76,161 @@ export function ContactScreen({
         }
         return;
       }
-
-      const mailtoUrl = `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      await Linking.openURL(mailtoUrl);
-      Alert.alert(
-        "E-mail åbnet",
-        "Send beskeden fra din e-mailapp. Din tekst bliver stående i FlashMedic, indtil du vender tilbage.",
-      );
+      const url = "mailto:" + SUPPORT_EMAIL + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+      await Linking.openURL(url);
+      // A mailto link only opens the mail client. It does not confirm delivery.
     } catch (error) {
       console.warn("Could not open support email", error);
-      Alert.alert(
-        "Kunne ikke åbne e-mail",
-        `Skriv direkte til ${SUPPORT_EMAIL}. Din besked er ikke blevet slettet.`,
-      );
+      Alert.alert("Kunne ikke åbne e-mail", "Du kan skrive direkte til " + SUPPORT_EMAIL + ". Din tekst er bevaret.");
     }
   };
 
-  const openExternalPage = async (url: string, pageName: string) => {
+  const openExternalPage = async (url: string, name: string) => {
     try {
       const supported = await Linking.canOpenURL(url);
-      if (!supported) throw new Error(`Unsupported URL: ${url}`);
+      if (!supported) throw new Error("URL not supported");
       await Linking.openURL(url);
-    } catch (error) {
-      console.warn(`Could not open ${pageName}`, error);
-      Alert.alert(
-        `Kunne ikke åbne ${pageName}`,
-        `Prøv igen, eller åbn siden manuelt:\n${url}`,
-      );
+    } catch {
+      Alert.alert("Kunne ikke åbne " + name, url);
     }
   };
 
   return (
-    <Screen>
+    <Screen contentContainerStyle={styles.content}>
       <StatusBar style="light" />
-      <ToolPageHeader
-        backLabel="Tilbage til forsiden"
-        onBack={onBack}
-        subtitle="Spørgsmål, ris og ros"
-        title="Kontakt os"
+      <ToolPageHeader title="Kontakt & support" backLabel="Tilbage" onBack={onBack} />
+
+      <SupportQuickActions
+        onEmail={() => void openSupportEmail()}
+        onReport={() => void openSupportEmail(true)}
+        onStudio={() => void openExternalPage(STUDIO_URL, "SynapseStudio")}
       />
 
-      <Card variant="subtle" style={styles.introCard}>
-        <Text style={styles.introTitle}>Hjælp med at gøre FlashMedic bedre</Text>
-        <Text style={styles.introText}>
-          Appen er udviklet af en ambulancebehandlerelev til elever og
-          færdiguddannede, der vil træne anatomi, medicin, EKG og mere.
-        </Text>
-        <Text style={styles.metaText}>
-          {appName} · v{appVersion} · {deviceInfo || "Ukendt enhed"} ({Platform.OS})
-        </Text>
-        <Text selectable style={styles.metaText}>
-          Support: {SUPPORT_EMAIL}
-        </Text>
-      </Card>
+      <Text style={styles.notice}>Beskriv gerne problemet kort. Send aldrig patientoplysninger.</Text>
 
-      <Text style={styles.sectionLabel}>OM FLASHMEDIC</Text>
-      <Card variant="subtle" style={styles.legalCard}>
-        <Text style={styles.introTitle}>Træning – ikke behandlingsgrundlag</Text>
-        <Text style={styles.introText}>
-          FlashMedic er et uddannelses- og træningsværktøj. Det erstatter ikke
-          formel uddannelse, klinisk vurdering, aktuelle retningslinjer eller
-          lokale protokoller. Indhold kan variere mellem regioner og
-          protokoller og må ikke bruges som eneste grundlag for
-          behandlingsbeslutninger.
-        </Text>
-        <SecondaryButton
-          label="Privatlivspolitik"
-          onPress={() => openExternalPage(PRIVACY_URL, "privatlivspolitikken")}
-          testID="privacy-policy-link"
-        />
-        <SecondaryButton
-          label="Ansvarsfraskrivelse"
-          onPress={() =>
-            openExternalPage(DISCLAIMER_URL, "ansvarsfraskrivelsen")
-          }
-          testID="disclaimer-link"
-        />
-      </Card>
+      <View style={styles.section}>
+        <Pressable
+          testID="flash-contact-details-toggle"
+          accessibilityRole="button"
+          accessibilityLabel="Tilføj detaljer"
+          accessibilityState={{ expanded: showDetails }}
+          onPress={() => setShowDetails((value) => !value)}
+          style={({ pressed }) => [styles.disclosure, pressed && styles.pressed]}
+        >
+          <Text style={styles.disclosureText}>Tilføj detaljer (valgfrit)</Text>
+          <Text style={styles.chevron}>{showDetails ? "⌄" : "›"}</Text>
+        </Pressable>
+        {showDetails ? (
+          <View style={styles.fields} testID="flash-contact-details">
+            <Text style={styles.label}>Navn</Text>
+            <TextInput
+              accessibilityLabel="Navn"
+              value={contactName}
+              onChangeText={setContactName}
+              placeholder="Valgfrit"
+              placeholderTextColor={ColorTokens.text.muted}
+              style={styles.input}
+            />
+            <Text style={styles.label}>E-mail til svar</Text>
+            <TextInput
+              accessibilityLabel="E-mail til svar"
+              value={contactEmail}
+              onChangeText={setContactEmail}
+              autoCapitalize="none"
+              keyboardType="email-address"
+              placeholder="Valgfrit"
+              placeholderTextColor={ColorTokens.text.muted}
+              style={styles.input}
+            />
+            <Text style={styles.label}>Besked</Text>
+            <TextInput
+              accessibilityLabel="Besked"
+              value={contactMessage}
+              onChangeText={setContactMessage}
+              multiline
+              textAlignVertical="top"
+              placeholder="Hvad vil du gerne fortælle?"
+              placeholderTextColor={ColorTokens.text.muted}
+              style={[styles.input, styles.messageInput]}
+            />
+            <Pressable
+              testID="flash-contact-send-details"
+              accessibilityRole="button"
+              onPress={() => void openSupportEmail()}
+              style={({ pressed }) => [styles.send, pressed && styles.pressed]}
+            >
+              <Text style={styles.sendText}>Skriv e-mail med detaljer</Text>
+            </Pressable>
+          </View>
+        ) : null}
+      </View>
 
-      <Text style={styles.sectionLabel}>DIN BESKED</Text>
-      <Card variant="subtle" style={styles.formCard}>
-        <Text style={styles.label}>Navn (valgfrit)</Text>
-        <TextInput
-          onChangeText={setContactName}
-          placeholder="Fx Nikolai"
-          placeholderTextColor={ColorTokens.text.muted}
-          style={styles.input}
-          value={contactName}
-        />
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Om FlashMedic</Text>
+        <Text style={styles.description}>FlashMedic er til læring og træning, ikke til kliniske beslutninger.</Text>
+        <View style={styles.linkRow}>
+          <Pressable
+            testID="privacy-policy-link"
+            accessibilityRole="link"
+            onPress={() => void openExternalPage(PRIVACY_URL, "privatlivspolitik")}
+            style={({ pressed }) => [styles.link, pressed && styles.pressed]}
+          >
+            <Text style={styles.linkText}>Privatliv</Text>
+          </Pressable>
+          <Pressable
+            testID="disclaimer-link"
+            accessibilityRole="link"
+            onPress={() => void openExternalPage(DISCLAIMER_URL, "ansvarsfraskrivelse")}
+            style={({ pressed }) => [styles.link, pressed && styles.pressed]}
+          >
+            <Text style={styles.linkText}>Ansvar og vilkår</Text>
+          </Pressable>
+        </View>
+      </View>
 
-        <Text style={styles.label}>E-mail (valgfri)</Text>
-        <TextInput
-          autoCapitalize="none"
-          keyboardType="email-address"
-          onChangeText={setContactEmail}
-          placeholder="Fx nikolai@example.com"
-          placeholderTextColor={ColorTokens.text.muted}
-          style={styles.input}
-          value={contactEmail}
-        />
-
-        <Text style={styles.label}>Besked</Text>
-        <TextInput
-          multiline
-          onChangeText={setContactMessage}
-          placeholder="Skriv din besked her…"
-          placeholderTextColor={ColorTokens.text.muted}
-          style={[styles.input, styles.messageInput]}
-          textAlignVertical="top"
-          value={contactMessage}
-        />
-
-        <PrimaryButton label="Send besked" onPress={handleSend} />
-      </Card>
+      <Text selectable style={styles.footer}>SynapseStudio · FlashMedic v{appVersion} · {SUPPORT_EMAIL}</Text>
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  introCard: { gap: Spacing.sm },
-  legalCard: { gap: Spacing.sm },
-  introTitle: {
-    color: ColorTokens.text.primary,
-    fontSize: Typography.sizes.cardTitle,
-    lineHeight: Typography.lineHeights.cardTitle,
-    fontWeight: Typography.weights.bold,
-  },
-  introText: {
-    color: ColorTokens.text.secondary,
-    fontSize: Typography.sizes.body,
-    lineHeight: Typography.lineHeights.body,
-  },
-  metaText: {
-    color: ColorTokens.text.muted,
-    fontSize: Typography.sizes.caption,
-    lineHeight: Typography.lineHeights.caption,
-  },
-  sectionLabel: {
-    color: ColorTokens.accent.muted,
-    fontSize: Typography.sizes.caption,
-    lineHeight: Typography.lineHeights.caption,
-    fontWeight: Typography.weights.heavy,
-    letterSpacing: 0.8,
-    marginTop: Spacing.xl,
-    marginBottom: Spacing.xs,
-  },
-  formCard: { gap: Spacing.sm, marginBottom: Spacing.lg },
-  label: {
-    color: ColorTokens.text.primary,
-    fontSize: Typography.sizes.label,
-    lineHeight: Typography.lineHeights.label,
-    fontWeight: Typography.weights.semibold,
-    marginTop: Spacing.xs,
-  },
+  content: { gap: Spacing.md, paddingBottom: Spacing.xxl },
+  notice: { color: ColorTokens.text.secondary, fontSize: 13, lineHeight: 19 },
+  section: { borderTopWidth: Borders.hairline, borderTopColor: ColorTokens.border.divider, paddingTop: Spacing.md, gap: 8 },
+  disclosure: { minHeight: 48, flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
+  disclosureText: { color: ColorTokens.text.primary, fontSize: 15, fontWeight: "800" },
+  chevron: { color: ColorTokens.accent.focus, fontSize: 20 },
+  fields: { gap: 8, paddingBottom: Spacing.sm },
+  label: { color: ColorTokens.text.secondary, fontSize: 13, fontWeight: "700" },
   input: {
     minHeight: Interaction.minimumTouchTarget,
-    borderRadius: Radii.md,
+    borderRadius: Radii.control,
     borderWidth: Borders.hairline,
     borderColor: ColorTokens.border.default,
     backgroundColor: ColorTokens.surface.inverse,
     color: ColorTokens.text.primary,
-    fontSize: Typography.sizes.body,
     paddingHorizontal: Spacing.md,
     paddingVertical: Spacing.sm,
+    fontSize: Typography.sizes.body,
   },
-  messageInput: { minHeight: 150 },
+  messageInput: { minHeight: 114 },
+  send: {
+    marginTop: Spacing.xs, minHeight: 50, backgroundColor: ColorTokens.accent.primary,
+    borderRadius: Radii.control, justifyContent: "center", alignItems: "center",
+  },
+  sendText: { color: ColorTokens.text.onAccent, fontWeight: "800", fontSize: 15 },
+  sectionTitle: { color: ColorTokens.text.primary, fontSize: 16, fontWeight: "800" },
+  description: { color: ColorTokens.text.secondary, fontSize: 14, lineHeight: 20 },
+  linkRow: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.sm },
+  link: {
+    minHeight: 44, flexGrow: 1, flexBasis: "45%",
+    borderWidth: Borders.hairline, borderColor: ColorTokens.border.default,
+    borderRadius: Radii.control, alignItems: "center", justifyContent: "center",
+    paddingHorizontal: Spacing.sm,
+  },
+  linkText: { color: ColorTokens.text.primary, fontWeight: "700", fontSize: 14 },
+  footer: { textAlign: "center", color: ColorTokens.text.secondary, fontSize: 12, marginTop: Spacing.xs },
+  pressed: { opacity: Interaction.pressedOpacity },
 });
 
 export default ContactScreen;
