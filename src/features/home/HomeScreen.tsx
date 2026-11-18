@@ -79,7 +79,32 @@ export default function HomeScreen({
   const layoutWidth = Platform.OS === "web" && availableWidth !== null ? availableWidth : width;
   const isPhone = layoutWidth < 700;
   const twoColumns = layoutWidth >= 900;
+  const [labelWidths, setLabelWidths] = React.useState<Record<string, number>>({});
+  const navigationLabels = [
+    "Flashcards", "Daily10", "Ugens udfordringer", "Lægemiddelregning",
+    "EKG-træning", "VGAS & CRP", "Statistik", "Kontakt",
+  ];
+  // Measure real label widths rather than estimating from character counts.
+  const longestLabel = Math.max(0, ...navigationLabels.map((label) => labelWidths[label] ?? 0));
+  const horizontalPadding = isPhone ? 20 : 28;
+  const availableMenuWidth = Math.max(0, layoutWidth - horizontalPadding * 2 - 24);
+  const webButtonWidth = Math.max(0, Math.min(
+    420,
+    twoColumns ? (availableMenuWidth - 7) / 2 : availableMenuWidth,
+    longestLabel > 0 ? Math.max(268, Math.ceil(longestLabel + 96)) : 290,
+  ));
+  const webMenuWidth = twoColumns ? webButtonWidth * 2 + 7 : webButtonWidth;
   const moduleWidth = twoColumns ? "48%" : "100%";
+  const cardWidth = Platform.OS === "web" ? webButtonWidth : moduleWidth;
+
+  const measureTitle = (title: string, measured: number) => {
+    if (measured <= 0) return;
+    setLabelWidths((current) =>
+      Math.abs((current[title] ?? 0) - measured) < 1
+        ? current
+        : { ...current, [title]: measured },
+    );
+  };
 
   return (
     <Background variant="home">
@@ -96,7 +121,7 @@ export default function HomeScreen({
         } : undefined}
       >
         <ScrollView
-          contentContainerStyle={styles.content}
+          contentContainerStyle={[styles.content, { paddingHorizontal: horizontalPadding, paddingTop: isPhone ? 8 : 12 }]}
           showsVerticalScrollIndicator={false}
         >
           <View style={styles.hero}>
@@ -147,44 +172,74 @@ export default function HomeScreen({
             </View>
           ) : null}
 
-          <SectionHeader
-            compact={isPhone}
-            label="TRÆNING"
-            style={styles.trainingHeader}
-          />
+          <View
+            testID="flash-home-menu"
+            style={{ width: Platform.OS === "web" ? webMenuWidth : "100%", maxWidth: "100%", alignSelf: "center" }}
+          >
+            {Platform.OS === "web" ? (
+              <View
+                testID="flash-home-label-measure"
+                pointerEvents="none"
+                accessibilityElementsHidden
+                importantForAccessibility="no-hide-descendants"
+                style={{ position: "absolute", left: 0, top: 0, opacity: 0, alignItems: "flex-start" }}
+              >
+                {navigationLabels.map((label) => (
+                  <Text
+                    key={label}
+                    numberOfLines={1}
+                    onLayout={(event) => measureTitle(label, event.nativeEvent.layout.width)}
+                    style={{
+                      alignSelf: "flex-start",
+                      color: ColorTokens.text.primary,
+                      fontSize: Typography.sizes.body,
+                      lineHeight: 22,
+                      fontWeight: Typography.weights.bold,
+                    }}
+                  >
+                    {label}
+                  </Text>
+                ))}
+              </View>
+            ) : null}
+            <SectionHeader
+              compact={isPhone}
+              label="TRÆNING"
+              style={styles.trainingHeader}
+            />
 
           <View style={styles.destinationList}>
             <NavigationCard
               onPress={onOpenFlashcardsHome}
-              style={[styles.destinationCard, { width: moduleWidth }]}
+              style={[styles.destinationCard, { width: cardWidth, flexGrow: Platform.OS === "web" ? 0 : 1 }]}
               title="Flashcards"
             />
             <NavigationCard
               disabled={dailyTenDisabled}
               onPress={onStartDailyTen}
-              style={[styles.destinationCard, { width: moduleWidth }]}
+              style={[styles.destinationCard, { width: cardWidth, flexGrow: Platform.OS === "web" ? 0 : 1 }]}
               title="Daily10"
             />
             <NavigationCard
               delayLongPress={onOpenWeeklyDev ? 800 : undefined}
               onLongPress={onOpenWeeklyDev}
               onPress={onOpenWeeklyHome}
-              style={[styles.destinationCard, { width: moduleWidth }]}
+              style={[styles.destinationCard, { width: cardWidth, flexGrow: Platform.OS === "web" ? 0 : 1 }]}
               title="Ugens udfordringer"
             />
             <NavigationCard
               onPress={onOpenDrugCalcHome}
-              style={[styles.destinationCard, { width: moduleWidth }]}
+              style={[styles.destinationCard, { width: cardWidth, flexGrow: Platform.OS === "web" ? 0 : 1 }]}
               title="Lægemiddelregning"
             />
             <NavigationCard
               onPress={onOpenEkgTraining}
-              style={[styles.destinationCard, { width: moduleWidth }]}
+              style={[styles.destinationCard, { width: cardWidth, flexGrow: Platform.OS === "web" ? 0 : 1 }]}
               title="EKG-træning"
             />
             <NavigationCard
               onPress={onOpenBloodGasTraining}
-              style={[styles.destinationCard, { width: moduleWidth }]}
+              style={[styles.destinationCard, { width: cardWidth, flexGrow: Platform.OS === "web" ? 0 : 1 }]}
               title="VGAS & CRP"
             />
           </View>
@@ -195,15 +250,16 @@ export default function HomeScreen({
             <NavigationCard
               onPress={onOpenStats}
               secondary
-              style={[styles.supportCard, { width: moduleWidth }]}
+              style={[styles.supportCard, { width: cardWidth, flexGrow: Platform.OS === "web" ? 0 : 1 }]}
               title="Statistik"
             />
             <NavigationCard
               onPress={onOpenContact}
               secondary
-              style={[styles.supportCard, { width: moduleWidth }]}
+              style={[styles.supportCard, { width: cardWidth, flexGrow: Platform.OS === "web" ? 0 : 1 }]}
               title="Kontakt"
             />
+          </View>
           </View>
 
           <View testID="home-synapsestudio-footer" style={styles.attribution}>
@@ -316,7 +372,7 @@ const styles = StyleSheet.create({
     alignItems: "stretch",
     gap: 7,
   },
-  destinationCard: { minWidth: 0, flexGrow: 1, flexShrink: 1, minHeight: 52 },
+  destinationCard: { minWidth: 0, flexShrink: 1, minHeight: 52 },
   supportList: {
     width: "100%",
     flexDirection: "row",
@@ -324,7 +380,7 @@ const styles = StyleSheet.create({
     alignItems: "stretch",
     gap: 7,
   },
-  supportCard: { minWidth: 0, flexGrow: 1, flexShrink: 1, minHeight: 52 },
+  supportCard: { minWidth: 0, flexShrink: 1, minHeight: 52 },
   attribution: {
     alignItems: "center",
     gap: 0,
