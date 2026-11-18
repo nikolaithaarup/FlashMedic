@@ -38,7 +38,7 @@ export default function Root({ children }: PropsWithChildren) {
   #synapse-startup .subtitle { margin: 9px 0 0; color: #e1e8e7;
     font-size: 14px; line-height: 21px; }
   #synapse-startup .loading { display: flex; flex-direction: column; align-items: center;
-    justify-content: center; gap: 4px; min-height: 82px; margin-top: 28px;
+    justify-content: center; gap: 4px; min-height: 96px; margin-top: 28px;
     color: #d3dcda; font-size: 13px; font-weight: 500; line-height: 19px; }
   #synapse-startup .studio-footer { display: flex; flex-direction: column;
     align-items: center; gap: 2px; margin-top: 46px; }
@@ -57,8 +57,8 @@ export default function Root({ children }: PropsWithChildren) {
             <h1 className="title">FlashMedic</h1>
             <p className="subtitle">Korte øvelser. Skarpere faglighed.</p>
             <div className="loading" role="status" aria-live="polite">
-              <svg className="synapse-ecg" width="236" height="52" viewBox="0 0 236 52" style={{ color: "#5EEAD4" }} aria-hidden="true" focusable="false">
-                <path className="synapse-ecg-guide" d="M 2 26 L 234 26" />
+              <svg className="synapse-ecg" width="236" height="68" viewBox="0 0 236 68" style={{ color: "#5EEAD4" }} aria-hidden="true" focusable="false">
+                <path className="synapse-ecg-guide" d="M 2 34 L 234 34" />
                 <path className="synapse-ecg-glow" d={ECG_PATH} pathLength={100} />
                 <path className="synapse-ecg-trace" d={ECG_PATH} pathLength={100} />
               </svg>
