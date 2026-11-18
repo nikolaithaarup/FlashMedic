@@ -238,6 +238,7 @@ const offlineFlashcards = hydrateCardImages(bundledFlashcards);
 // ---------- MAIN COMPONENT ----------
 
 export default function Index() {
+  const [minimumSplashElapsed, setMinimumSplashElapsed] = useState(Platform.OS !== "web");
   const [authReady, setAuthReady] = useState(false);
   const [, setAuthError] = useState<string | null>(null);
 
@@ -257,13 +258,20 @@ export default function Index() {
   const [screen, setScreen] = useState<Screen>("home");
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [profileBootstrapReady, setProfileBootstrapReady] = useState(false);
-  // Remove the first-paint HTML splash only after the local profile is restored.
-  // An offline user must not be held behind a visual-only timer.
+  // Give the FlashMedic welcome screen a calm, consistent minimum display time
+  // without cutting short genuinely slow profile restoration.
   useEffect(() => {
-    if (Platform.OS === "web" && profileBootstrapReady) {
+    if (Platform.OS !== "web") return;
+    const timer = window.setTimeout(() => setMinimumSplashElapsed(true), 1500);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  // Keep the first-paint HTML splash in place until both conditions are met.
+  useEffect(() => {
+    if (Platform.OS === "web" && profileBootstrapReady && minimumSplashElapsed) {
       document.getElementById("synapse-startup")?.remove();
     }
-  }, [profileBootstrapReady]);
+  }, [profileBootstrapReady, minimumSplashElapsed]);
 
   const historyReadyRef = useRef(false);
   const suppressHistoryPushRef = useRef(false);
@@ -1193,7 +1201,7 @@ export default function Index() {
 
   // ---------- SCREENS ----------
   // Wait for Firebase and the stored profile before displaying any app route.
-  if (!profileBootstrapReady) {
+  if (!profileBootstrapReady || !minimumSplashElapsed) {
     return <StartupSplash />;
   }
   // The app is intentionally usable as a guest, but that choice must be explicit.

@@ -2,8 +2,8 @@ import React from "react";
 import { ActivityIndicator, Image, Platform, StyleSheet, Text, View } from "react-native";
 
 /**
- * Matches the initial PWA HTML splash and only appears while real startup work
- * is pending. Never delay navigation just to display branding.
+ * Matches the initial PWA HTML splash. FlashMedic keeps the startup identity
+ * visible for at least 1.5 seconds while profile restoration completes.
  */
 export default function StartupSplash() {
   return (
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   studioFooter: {
     marginTop: 46,
     alignItems: "center",
-    gap: 10,
+    gap: 2,
   },
   partOf: {
     color: "#D3DCDA",

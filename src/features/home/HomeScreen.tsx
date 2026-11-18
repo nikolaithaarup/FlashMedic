@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
   hero: {
     width: "100%",
     alignItems: "center",
-    paddingTop: 0,
+    paddingTop: 14,
     paddingBottom: 4,
     gap: 0,
   },
@@ -327,7 +327,7 @@ const styles = StyleSheet.create({
   supportCard: { minWidth: 0, flexGrow: 1, flexShrink: 1, minHeight: 52 },
   attribution: {
     alignItems: "center",
-    gap: 8,
+    gap: 0,
     marginTop: Spacing.xl,
   },
   partOf: {
