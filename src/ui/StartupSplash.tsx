@@ -1,5 +1,6 @@
 import React from "react";
-import { ActivityIndicator, Image, Platform, StyleSheet, Text, View } from "react-native";
+import { Image, Platform, StyleSheet, Text, View } from "react-native";
+import EcgLoader from "./EcgLoader";
 
 /**
  * Matches the initial PWA HTML splash. FlashMedic keeps the startup identity
@@ -23,7 +24,7 @@ export default function StartupSplash() {
           accessibilityLabel="Indlæser…"
           style={styles.loading}
         >
-          <ActivityIndicator size="small" color="#5EEAD4" />
+          <EcgLoader color="#5EEAD4" />
           <Text style={styles.loadingText}>Indlæser…</Text>
         </View>
         <View style={styles.studioFooter} accessible accessibilityLabel="Part of Synapse Studio">
@@ -85,12 +86,12 @@ const styles = StyleSheet.create({
   },
   studioLogo: { width: 164, height: 44 },
   loading: {
-    flexDirection: "row",
+    flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    gap: 12,
-    marginTop: 34,
-    minHeight: 32,
+    gap: 4,
+    marginTop: 28,
+    minHeight: 82,
   },
   loadingText: {
     color: "#D3DCDA",

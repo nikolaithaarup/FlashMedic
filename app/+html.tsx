@@ -1,5 +1,6 @@
 import { ScrollViewStyleReset } from "expo-router/html";
 import type { PropsWithChildren } from "react";
+import { ECG_PATH, ECG_STYLES } from "../src/ui/ecgWave";
 
 export default function Root({ children }: PropsWithChildren) {
   return (
@@ -36,8 +37,8 @@ export default function Root({ children }: PropsWithChildren) {
     line-height: 39px; font-weight: 800; letter-spacing: -.6px; }
   #synapse-startup .subtitle { margin: 9px 0 0; color: #e1e8e7;
     font-size: 14px; line-height: 21px; }
-  #synapse-startup .loading { display: flex; flex-direction: row; align-items: center;
-    justify-content: center; gap: 12px; min-height: 32px; margin-top: 34px;
+  #synapse-startup .loading { display: flex; flex-direction: column; align-items: center;
+    justify-content: center; gap: 4px; min-height: 82px; margin-top: 28px;
     color: #d3dcda; font-size: 13px; font-weight: 500; line-height: 19px; }
   #synapse-startup .studio-footer { display: flex; flex-direction: column;
     align-items: center; gap: 2px; margin-top: 46px; }
@@ -45,13 +46,7 @@ export default function Root({ children }: PropsWithChildren) {
     font-weight: 600; line-height: 16px; letter-spacing: 1.1px; }
   #synapse-startup .studio-logo { display: block; width: 164px;
     height: auto; max-width: 75vw; }
-  #synapse-startup .spinner { display: block; width: 19px; height: 19px;
-    border: 2px solid rgba(255,255,255,.22); border-top-color: #5EEAD4;
-    border-radius: 50%; animation: synapse-startup-spin .85s linear infinite; }
-  @keyframes synapse-startup-spin { to { transform: rotate(360deg); } }
-  @media (prefers-reduced-motion: reduce) {
-    #synapse-startup .spinner { animation: none; }
-  }
+  ${ECG_STYLES}
 ` }} />
       </head>
       <body>
@@ -62,7 +57,11 @@ export default function Root({ children }: PropsWithChildren) {
             <h1 className="title">FlashMedic</h1>
             <p className="subtitle">Korte øvelser. Skarpere faglighed.</p>
             <div className="loading" role="status" aria-live="polite">
-              <span className="spinner" aria-hidden="true" />
+              <svg className="synapse-ecg" width="236" height="52" viewBox="0 0 236 52" style={{ color: "#5EEAD4" }} aria-hidden="true" focusable="false">
+                <path className="synapse-ecg-guide" d="M 2 26 L 234 26" />
+                <path className="synapse-ecg-glow" d={ECG_PATH} pathLength={100} />
+                <path className="synapse-ecg-trace" d={ECG_PATH} pathLength={100} />
+              </svg>
               <span>Indlæser…</span>
             </div>
             <div className="studio-footer" aria-label="Part of Synapse Studio">
