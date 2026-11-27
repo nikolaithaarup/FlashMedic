@@ -169,5 +169,5 @@ if(parseDrugNumber('0,25')!==.25)throw new Error('Danish decimal rejected');
 console.log(tested+' varied medication questions validated; '+[...formats].join(', '));
 
 import {syringeSpec,syringeGeometry,syringeTicks} from '../src/features/drugCalc/syringeGeometry';
-for(const capacity of [1,2,5,10] as const){const spec=syringeSpec(capacity);let last=-1;for(const tick of syringeTicks(spec)){const g=syringeGeometry(spec,tick.volume);if(g.piston<=last||Math.abs(g.fill-(g.piston-g.x0))>1e-8||g.rodEnd>320)throw new Error('Syringe geometry reversed or clipped');last=g.piston;}if(syringeGeometry(spec,0).fill!==0||syringeGeometry(spec,capacity).fill!==170)throw new Error('Incorrect syringe endpoint');}
+for(const capacity of [1,2,5,10] as const){const spec=syringeSpec(capacity);let last=-1;for(const tick of syringeTicks(spec)){const g=syringeGeometry(spec,tick.volume);if(g.piston<=last||Math.abs(g.fill-(g.piston-g.x0))>1e-8||g.rodEnd+3>320||g.rodEnd-3<g.x0+g.barrel+6)throw new Error('Syringe geometry reversed or clipped');last=g.piston;}if(syringeGeometry(spec,0).fill!==0||syringeGeometry(spec,capacity).fill!==130)throw new Error('Incorrect syringe endpoint');}
 console.log('Syringe geometry: four capacities, ordered graduations and full plunger travel passed.');
