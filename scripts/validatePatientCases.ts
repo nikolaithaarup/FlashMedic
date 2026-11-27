@@ -168,3 +168,6 @@ check(targetedCases.length===18,'Missing targeted cases');
 for(const c of targetedCases){check(c.steps.length===6&&c.steps.every(s=>s.kind!=='choice'),'Targeted question variety');check(patientCases.some(x=>x.id===c.id),'Targeted case missing');}
 check((kindCounts.choice??0)/n<.40,'Single-answer multiple choice share must remain below 40%');
 console.log('Targeted expansion: 18 cases, 108 questions; conventional MCQ share '+((kindCounts.choice??0)/n*100).toFixed(1)+'%.');
+
+check(targetedCases.every(c=>new Set(c.steps.map(s=>s.id)).size===c.steps.length),'Duplicate targeted exercise ID');
+check(targetedCases.flatMap(c=>c.steps).filter(s=>s.kind==='number').every(s=>s.answer>=0),'Numeric keypad inaccessible negative answer');

@@ -141,11 +141,11 @@ export const targetedCases:PatientCase[]=[
       {
         "id": "balance",
         "kind": "number",
-        "prompt": "I et forenklet væskeregnskab er indtag 700 ml og diarrétab 1200 ml. Hvad er nettobalancen?",
-        "answer": -500,
+        "prompt": "I et forenklet væskeregnskab er indtag 700 ml og diarrétab 1200 ml. Hvor stort er væskeunderskuddet?",
+        "answer": 500,
         "unit": "ml",
         "tolerance": 0.001,
-        "explanation": "700 − 1200 = −500 ml. Andre tab er ikke medregnet."
+        "explanation": "1200 − 700 = 500 ml. Andre tab er ikke medregnet."
       },
       {
         "id": "loss",
@@ -795,9 +795,25 @@ export const targetedCases:PatientCase[]=[
     "steps": [
       {
         "id": "gram",
-        "kind": "match",
-        "prompt": "Forbind struktur med bakterietype.",
-        "left": [
+        "kind": "classify",
+        "prompt": "Sortér cellevæggenes typiske strukturer.",
+        "correct": {
+          "0": "0",
+          "1": "1",
+          "2": "1"
+        },
+        "explanation": "Gram-negative bakterier har ydre membran og et tyndere peptidoglycanlag.",
+        "categories": [
+          {
+            "id": "0",
+            "text": "Gram-positiv"
+          },
+          {
+            "id": "1",
+            "text": "Gram-negativ"
+          }
+        ],
+        "items": [
           {
             "id": "0",
             "text": "Tykt peptidoglycanlag"
@@ -808,29 +824,9 @@ export const targetedCases:PatientCase[]=[
           },
           {
             "id": "2",
-            "text": "Tyndt peptidoglycanlag og ydre membran"
+            "text": "Tyndt peptidoglycanlag med ydre membran"
           }
-        ],
-        "right": [
-          {
-            "id": "0",
-            "text": "Gram-negativ cellevæg"
-          },
-          {
-            "id": "1",
-            "text": "Gram-negativt membrantræk"
-          },
-          {
-            "id": "2",
-            "text": "Gram-positiv cellevæg"
-          }
-        ],
-        "correct": {
-          "0": "2",
-          "1": "1",
-          "2": "0"
-        },
-        "explanation": "Gram-negative bakterier har ydre membran og et tyndere peptidoglycanlag."
+        ]
       },
       {
         "id": "targets",
@@ -1293,11 +1289,11 @@ export const targetedCases:PatientCase[]=[
       {
         "id": "balance",
         "kind": "number",
-        "prompt": "Patienten har drukket 1500 ml og haft 2400 ml urin. Beregn nettobalancen, uden andre tab.",
-        "answer": -900,
+        "prompt": "Patienten har drukket 1500 ml og haft 2400 ml urin. Hvor stort er væskeunderskuddet, uden andre tab?",
+        "answer": 900,
         "unit": "ml",
         "tolerance": 0.001,
-        "explanation": "1500 − 2400 = −900 ml."
+        "explanation": "2400 − 1500 = 900 ml."
       },
       {
         "id": "dehydration",
@@ -1593,11 +1589,11 @@ export const targetedCases:PatientCase[]=[
       {
         "id": "net",
         "kind": "number",
-        "prompt": "I en model er vandindtag 2,1 L og urinproduktion 3,6 L. Beregn nettobalancen i ml.",
-        "answer": -1500,
+        "prompt": "I en model er vandindtag 2,1 L og urinproduktion 3,6 L. Beregn størrelsen af væskeunderskuddet i ml.",
+        "answer": 1500,
         "unit": "ml",
         "tolerance": 0.001,
-        "explanation": "2,1 − 3,6 = −1,5 L = −1500 ml."
+        "explanation": "3,6 − 2,1 = 1,5 L = 1500 ml."
       },
       {
         "id": "drug",
@@ -2191,7 +2187,7 @@ export const targetedCases:PatientCase[]=[
         "explanation": "Hæmostase og oxygentransport påvirkes forskelligt ved blødning."
       },
       {
-        "id": "portal",
+        "id": "portal-name",
         "kind": "short",
         "prompt": "Hvad kaldes det venøse karsystem fra blandt andet tarm til lever?",
         "correct": "Portåresystemet",
@@ -3223,15 +3219,15 @@ export const targetedCases:PatientCase[]=[
       {
         "id": "errors",
         "kind": "classify",
-        "prompt": "Sortér de mulige regnefejl.",
+        "prompt": "Sortér mulige fejl i den beregnede eller klargjorte mængde.",
         "categories": [
           {
             "id": "0",
-            "text": "Øger beregnet mængde"
+            "text": "For stor"
           },
           {
             "id": "1",
-            "text": "Mindsker beregnet mængde"
+            "text": "For lille"
           }
         ],
         "items": [
