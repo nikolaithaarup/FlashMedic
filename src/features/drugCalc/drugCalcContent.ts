@@ -1,4 +1,5 @@
 // src/features/drugCalc/drugCalcContent.ts
+import { generateDrugVariant, type DrugExercise } from './drugCalcVariants';
 
 export type DrugCalcTopic =
   | "strength"
@@ -179,7 +180,7 @@ const THEORY_BASE: TheorySectionBase[] = [
     topic: "percentage",
     title: "Procent: glukose og NaCl",
     bullets: [
-      "X% betyder X gram pr. 100 mL.",
+      "Ved masse/volumen-procent betyder X% X gram pr. 100 mL.",
       "10% = 10 g / 100 mL = 0,1 g/mL.",
       "50% glukose = 50 g / 100 mL = 0,5 g/mL.",
       "Brug proportionalitet: g = (X/100) × mL.",
@@ -266,7 +267,7 @@ const THEORY_BASE: TheorySectionBase[] = [
     topic: "drops",
     title: "Dr: omregning mellem dr/min og mL/time",
     bullets: [
-      `Standard dråbesæt: ${DROPS_PER_ML} dr = 1 mL.`,
+      `I disse øvelser: ${DROPS_PER_ML} dr = 1 mL. Kontrollér altid dråbefaktoren på sættet.`,
       "mL/min = dr/min ÷ (dr/mL).",
       "mL/time = (mL/min) × 60.",
       "Omvendt: dr/min = (mL/time ÷ 60) × (dr/mL).",
@@ -470,6 +471,7 @@ export type DrugCalcQuestion = {
   roundingNote: string;
   answerDecimals: number;
   tolerance: number;
+  exercise?: DrugExercise;
 };
 
 type DrugCalcQuestionBase = Omit<
@@ -879,7 +881,7 @@ function generateBaseDrugCalcQuestion(
     }
 
     const doseMg = pick([50, 100, 200]);
-    const volumeMl = pick([10, 20, 50]);
+    const volumeMl = pick([10, 20, 50].filter(v=>v!==doseMg));
     const correctStrength = doseMg / volumeMl;
     const incorrectStrength = volumeMl / doseMg;
     return {
@@ -959,8 +961,10 @@ export function formatDrugAnswer(question: DrugCalcQuestion) {
 
 export function generateDrugCalcQuestion(
   selectedTopics: DrugCalcTopic[],
+  mode: 'mixed'|'classic'|'varied' = 'mixed',
 ): DrugCalcQuestion {
   const question = generateBaseDrugCalcQuestion(selectedTopics);
+  if(mode==='varied'||(mode==='mixed'&&Math.random()<.65))return generateDrugVariant(question.topic,question.id);
   const answerDecimals = getAnswerDecimals(question);
   const calculationSteps = question.explanation
     .split(" → ")

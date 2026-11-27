@@ -332,7 +332,7 @@ const styles = StyleSheet.create({
     fontWeight: Typography.weights.bold,
     textAlign: "left",
   },
-  backQuestion: { color: ColorTokens.text.secondary, marginBottom: Spacing.md },
+  backQuestion: { color: ColorTokens.text.secondary, fontStyle: "italic", marginBottom: Spacing.md },
   backImageLink: {minHeight:44,justifyContent:"center"},
   answerCard: { justifyContent: "center" },
   completionCard: { marginTop: Spacing.lg },

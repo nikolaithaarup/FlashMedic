@@ -147,3 +147,23 @@ for (const example of WORKED_EXAMPLES) {
 console.log(
   `Validated ${DRUG_TOPICS.length} medication topics, ${WORKED_EXAMPLES.length} worked examples, ${toleranceCases.length} tolerance cases, mixed practice, rounding, and learning metadata.`,
 );
+
+import {evaluateDrugResponse,parseDrugNumber} from '../src/features/drugCalc/drugCalcVariants';
+const formats=new Set<string>();let tested=0;
+for(const topic of DRUG_TOPICS)for(let i=0;i<80;i++){
+ const q=generateDrugCalcQuestion([topic.id],'varied');const ex=q.exercise;formats.add(ex?.kind??'number');
+ const raw=ex?.kind==='fields'||ex?.kind==='audit'?JSON.stringify({values:ex.fields.map(f=>String(f.answer)),choice:ex.kind==='audit'?ex.correctIndex:null}):String(q.correctAnswer);
+ if(evaluateDrugResponse(q,raw)!==true||evaluateDrugResponse(q,'')!==null)throw new Error('Varied response failed '+topic.id);
+ if(ex?.kind==='fields'||ex?.kind==='audit'){
+  const values=ex.fields.map(f=>String(f.answer));values[0]=String(ex.fields[0].answer+1);
+  if(evaluateDrugResponse(q,JSON.stringify({values,choice:ex.kind==='audit'?ex.correctIndex:null}))!==false)throw new Error('Partial error accepted');
+  if(ex.kind==='audit'&&evaluateDrugResponse(q,JSON.stringify({values:ex.fields.map(f=>String(f.answer)),choice:0}))!==false)throw new Error('Incorrect error line accepted');
+ }else if(ex?.kind==='dial'){
+  if(q.correctAnswer===ex.initial||evaluateDrugResponse(q,String(ex.initial))!==false||evaluateDrugResponse(q,String(ex.max+ex.increment))!==null)throw new Error('Invalid dial');
+ }else if(evaluateDrugResponse(q,String(q.correctAnswer+1))!==false)throw new Error('Incorrect reverse answer accepted');
+ tested++;
+}
+if(formats.size!==4)throw new Error('Missing exercise format');
+for(const bad of ['0x10','1e2','-1','Infinity','1,2.3',' '])if(parseDrugNumber(bad)!==null)throw new Error('Invalid numeric input accepted');
+if(parseDrugNumber('0,25')!==.25)throw new Error('Danish decimal rejected');
+console.log(tested+' varied medication questions validated; '+[...formats].join(', '));

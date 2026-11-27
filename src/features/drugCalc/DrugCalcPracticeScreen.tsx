@@ -1,6 +1,8 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useMemo, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Keyboard, StyleSheet, Text, View } from "react-native";
+import CaseScale from '../patientCases/CaseScale';
+import {evaluateDrugResponse,readDrugResponse,parseDrugNumber} from './drugCalcVariants';
 
 import {
   Borders,
@@ -18,6 +20,7 @@ import {
   ResultSummary,
   Screen,
   SecondaryButton,
+  SelectableChoice,
   Surface,
   ToolPageHeader,
 } from "../../ui/primitives";
@@ -72,6 +75,12 @@ export function DrugCalcPracticeScreen({
   const feedbackVisible = drugAnswerStatus !== "neutral" && currentDrugQuestion;
   const [topicsExpanded, setTopicsExpanded] = useState(false);
   const [feedbackExpanded, setFeedbackExpanded] = useState(false);
+  const [hintVisible,setHintVisible]=useState(false);
+  const exercise=currentDrugQuestion?.exercise;
+  const fields=exercise?.kind==='fields'||exercise?.kind==='audit'?exercise.fields:null;
+  const response=readDrugResponse(drugAnswer,fields?.length??0);
+  const changeField=(i:number,value:string)=>setDrugAnswer(JSON.stringify({...response,values:response.values.map((v,j)=>i===j?value:v)}));
+  const canSubmit=currentDrugQuestion!==null&&evaluateDrugResponse(currentDrugQuestion,drugAnswer)!==null;
   const selectionSummary = useMemo(() => {
     if (selectedTopics.length === 0) return "Alle emner";
     if (selectedTopics.length === 1) {
@@ -94,7 +103,7 @@ export function DrugCalcPracticeScreen({
   return (
     <Screen
       contentContainerStyle={styles.content}
-      key={feedbackVisible ? "feedback" : "question"}
+      keyboardAware
       scrollViewProps={{ keyboardShouldPersistTaps: "handled" }}
       testID="drug-calc-practice-screen"
     >
@@ -102,8 +111,7 @@ export function DrugCalcPracticeScreen({
       <ToolPageHeader
         backLabel="Tilbage til Lægemiddelregning"
         onBack={onBack}
-        subtitle="Træn ét eller flere regneemner."
-        title="Træn beregninger"
+          title="Træn beregninger"
       />
 
       <Accordion
@@ -137,13 +145,22 @@ export function DrugCalcPracticeScreen({
 
       {currentDrugQuestion ? (
         <>
+          <Surface elevated tone="elevated" style={styles.section}>
+            <Text style={styles.eyebrow}>OPGAVE</Text>
+            <Text style={styles.questionText}>{currentDrugQuestion.text}</Text>
+
+            {exercise?.kind==='audit'&&<View style={styles.compactStack}>{exercise.options.map((option,i)=><SelectableChoice key={i} label={option} state={feedbackVisible?(i===exercise.correctIndex?'correct':response.choice===i?'incorrect':'default'):response.choice===i?'selected':'default'} disabled={!!feedbackVisible} dimWhenDisabled={false} onPress={()=>setDrugAnswer(JSON.stringify({...response,choice:i}))}/>)}</View>}
+            {fields?fields.map((f,i)=><NumberInput key={i} label={f.label} unit={f.unit} value={response.values[i]} onChangeText={v=>changeField(i,v)} readOnly={!!feedbackVisible} inputProps={{placeholder:'Indtast tal',inputMode:'decimal'}} helperText={f.decimals===0?'Helt tal':undefined}/>):exercise?.kind==='dial'?<View style={styles.compactStack}>
+              <Text style={styles.detailLabel}>{exercise.label}</Text>
+              <Text style={styles.dialValue}>{(parseDrugNumber(drugAnswer)??exercise.initial).toLocaleString('da-DK')} {currentDrugQuestion.unit}</Text>
+              <View style={styles.dialTrack}><View style={[styles.dialFill,{width:`${Math.max(0,Math.min(100,(parseDrugNumber(drugAnswer)??exercise.initial)/exercise.max*100))}%`}]}/></View>
+              <CaseScale min={exercise.min} max={exercise.max} step={exercise.increment} value={parseDrugNumber(drugAnswer)??exercise.initial} onChange={v=>setDrugAnswer(String(v))} unit={currentDrugQuestion.unit} disabled={!!feedbackVisible}/>
+            </View>:<NumberInput clearable readOnly={!!feedbackVisible} helperText={currentDrugQuestion.roundingNote} inputProps={{placeholder:'Indtast tal',inputMode:'decimal'}} label="Dit svar" unit={currentDrugQuestion.unit} onChangeText={setDrugAnswer} value={drugAnswer}/>}
+            {!feedbackVisible&&currentDrugQuestion.hint&&<><SecondaryButton label={hintVisible?'Skjul hjælp':'Vis hjælp'} onPress={()=>setHintVisible(v=>!v)}/>{hintVisible&&<Text style={styles.bodyText}>{currentDrugQuestion.hint}</Text>}</>}
+            {!feedbackVisible&&<PrimaryButton disabled={!canSubmit} label="Tjek svar" onPress={()=>{Keyboard.dismiss();onCheckAnswer();}}/>}
+          </Surface>
           {feedbackVisible ? (
             <ResultSummary
-              message={
-                drugAnswerStatus === "correct"
-                  ? "Din beregning ligger inden for det accepterede svarinterval."
-                  : "Sammenlign dit svar med facit, og gennemgå beregningen."
-              }
               style={styles.section}
               title={
                 drugAnswerStatus === "correct"
@@ -153,12 +170,9 @@ export function DrugCalcPracticeScreen({
               tone={drugAnswerStatus === "correct" ? "success" : "danger"}
               value={`${formatDrugAnswer(currentDrugQuestion)} ${currentDrugQuestion.unit}`}
             >
+              {fields?.map((f,i)=><ResultRow key={i} label={f.label} value={f.answer.toLocaleString('da-DK',{maximumFractionDigits:f.decimals})+' '+f.unit}/>)}
+              {exercise?.kind==='audit'&&<ResultRow label="Første fejl" value={exercise.options[exercise.correctIndex]}/>}
               <ResultRow label="Formel" value={currentDrugQuestion.formula} />
-              <ResultRow
-                label="Afrunding"
-                last
-                value={currentDrugQuestion.roundingNote}
-              />
               <Accordion
                 expanded={feedbackExpanded}
                 onToggle={() => setFeedbackExpanded((current) => !current)}
@@ -189,35 +203,6 @@ export function DrugCalcPracticeScreen({
             </ResultSummary>
           ) : null}
 
-          <Surface elevated tone="elevated" style={styles.section}>
-            <Text style={styles.eyebrow}>OPGAVE</Text>
-            <Text style={styles.questionText}>{currentDrugQuestion.text}</Text>
-
-            <View style={styles.unitCallout}>
-              <Text style={styles.unitLabel}>SVARENHED</Text>
-              <Text style={styles.unitValue}>{currentDrugQuestion.unit}</Text>
-            </View>
-
-            {currentDrugQuestion.hint ? (
-              <DetailBlock label="Hjælp">{currentDrugQuestion.hint}</DetailBlock>
-            ) : null}
-
-            <NumberInput
-              clearable
-              helperText={currentDrugQuestion.roundingNote}
-              inputProps={{ placeholder: "Skriv kun tallet" }}
-              label={`Dit svar i ${currentDrugQuestion.unit}`}
-              onChangeText={setDrugAnswer}
-              unit={currentDrugQuestion.unit}
-              value={drugAnswer}
-            />
-
-            <PrimaryButton
-              disabled={!hasStarted || drugAnswer.trim().length === 0}
-              label="Tjek svar"
-              onPress={onCheckAnswer}
-            />
-          </Surface>
 
           {feedbackVisible ? (
             <View style={styles.buttonStack}>
@@ -225,6 +210,7 @@ export function DrugCalcPracticeScreen({
                 label="Næste opgave"
                 onPress={() => {
                   setFeedbackExpanded(false);
+                  setHintVisible(false);
                   onNextQuestion();
                 }}
               />
@@ -245,7 +231,8 @@ export default DrugCalcPracticeScreen;
 
 const styles = StyleSheet.create({
   content: { paddingBottom: Spacing.xxl },
-  section: { gap: Spacing.md, marginBottom: Spacing.md },
+  section: { gap: Spacing.sm, marginBottom: Spacing.sm },
+  compactStack:{gap:Spacing.sm},dialValue:{fontSize:Typography.sizes.sectionTitle,color:ColorTokens.accent.primary,fontWeight:'700',textAlign:'center'},dialTrack:{height:12,borderRadius:6,backgroundColor:ColorTokens.surface.default,overflow:'hidden'},dialFill:{height:'100%',backgroundColor:ColorTokens.accent.primary},
   eyebrow: {
     color: ColorTokens.accent.muted,
     fontFamily: Typography.families.sans,

@@ -15,8 +15,8 @@ import {
   type DrugCalcQuestion as DrugCalcQuestionV2,
   type DrugCalcTopic,
   generateDrugCalcQuestion,
-  isDrugAnswerCorrect,
 } from "../src/features/drugCalc/drugCalcContent";
+import {evaluateDrugResponse} from "../src/features/drugCalc/drugCalcVariants";
 
 import { ekgImageLookup } from "../src/data/ekg/imageLookup";
 import { bundledFlashcards } from "../src/data/bundledFlashcards";
@@ -1120,30 +1120,11 @@ export default function Index() {
       return;
     }
 
-    const normalized = drugAnswer.trim().replace(",", ".");
-
-    if (!normalized) {
-      Alert.alert("Manglende svar", "Skriv et svar først.");
+    const isCorrect = evaluateDrugResponse(currentDrugQuestion, drugAnswer);
+    if (isCorrect===null) {
+      Alert.alert("Manglende eller ugyldigt svar", "Udfyld alle felter med gyldige værdier.");
       return;
     }
-
-    const parsed = Number(normalized);
-
-    if (!Number.isFinite(parsed)) {
-      Alert.alert("Ugyldigt svar", "Skriv et gyldigt tal.");
-      return;
-    }
-
-    if (parsed < 0) {
-      Alert.alert("Ugyldigt svar", "Svaret kan ikke være negativt i denne opgave.");
-      return;
-    }
-
-    const isCorrect = isDrugAnswerCorrect(
-      parsed,
-      currentDrugQuestion.correctAnswer,
-      currentDrugQuestion.tolerance,
-    );
 
     setDrugAnswerStatus(isCorrect ? "correct" : "incorrect");
   };
