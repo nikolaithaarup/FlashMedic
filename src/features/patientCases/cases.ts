@@ -2,6 +2,7 @@ import { scienceCases } from './scienceCases';
 import { evolveCase } from './evolvingCases';
 import { extendToSix } from './caseFollowups';
 import { diversifyQuestions } from './interactiveQuestions';
+import { addVisualQuestions } from './visualQuestions';
 import type { Option, PatientCase } from './caseEngine';
 import { additionalCases } from './additionalCases';
 import { lupCases } from './lupCases';
@@ -42,4 +43,4 @@ const baseCases: PatientCase[]=[
  ...lupCases,
 ];
 
-export const patientCases = [...expandFamilies(baseCases), ...ecgCases, ...scienceCases].map(evolveCase).map(extendToSix).map(diversifyQuestions);
+export const patientCases = [...expandFamilies(baseCases), ...ecgCases, ...scienceCases].map(evolveCase).map(extendToSix).map(diversifyQuestions).map(addVisualQuestions);

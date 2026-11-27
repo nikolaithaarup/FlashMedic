@@ -10,6 +10,7 @@ import { Screen, ToolPageHeader } from '../../ui/primitives';
 import { patientCases } from './cases';
 import { type Answer, type PatientCase, type Step, correctText, grade, parseNumber, pickCase, ready, levels, subjects, assignPair, currentVitals, type Level } from './caseEngine';
 import CaseScale from './CaseScale';
+import {VisualExercise,ChainExercise} from './VisualExercise';
 import { danishWeekStart, weeklySchedule } from './weeklyCase';
 import { monthlyCase, monthEdition } from './monthlyCase';
 import { ekgImageLookup } from '../../data/ekg/imageLookup';
@@ -56,7 +57,8 @@ function Question({step,onNext,last}:{step:Step;onNext:(correct:boolean)=>void;l
    <Text style={s.meta}>{Object.keys(pairs).length}/{step.items.length} placeret</Text>
    {step.items.map(item=><View key={item.id} style={s.classifyRow}><Text style={s.rowTitle}>{item.text}</Text><View style={s.classifyChoices}>{step.categories.map(cat=>{const chosen=pairs[item.id]===cat.id;const good=submitted&&chosen&&step.correct[item.id]===cat.id;const bad=submitted&&chosen&&!good;return <Pressable key={cat.id} accessibilityRole="button" accessibilityState={{selected:chosen,disabled:submitted}} accessibilityLabel={item.text+': '+cat.text} disabled={submitted} onPress={()=>setAnswer({...pairs,[item.id]:cat.id})} style={({pressed})=>[s.classifyChoice,chosen&&s.selected,good&&{borderColor:C.semantic.success},bad&&{borderColor:C.semantic.warning},pressed&&s.pressed]}><Text style={[s.chipText,chosen&&s.activeText]}>{cat.text}</Text>{good&&<Feather name="check" size={14} color={C.semantic.success}/>}</Pressable>;})}</View></View>)}
   </View>}
-  {step.kind==='order'&&<View style={s.stack}><Text style={s.meta}>Tryk i den rigtige rækkefølge. Tryk igen for at fjerne.</Text>{list.map((id,i)=><Button key={id} label={`${i+1}. ${step.options.find(o=>o.id===id)?.text}`} selected disabled={submitted} onPress={()=>toggle(id)}/>)}{step.options.filter(o=>!list.includes(o.id)).map(o=><Button key={o.id} label={o.text} disabled={submitted} onPress={()=>toggle(o.id)}/>)}</View>}
+  {step.kind==='order'&&<ChainExercise step={step} selected={list} disabled={submitted} onChange={setAnswer}/>}
+  {(step.kind==='hotspot'||step.kind==='model'||step.kind==='clues')&&<VisualExercise step={step} answer={answer} submitted={submitted} onChange={setAnswer}/>}
   {submitted?<><View accessibilityLiveRegion="polite" style={[s.feedback,{borderColor:correct?C.semantic.success:C.semantic.warning}]}><Text style={[s.question,{color:correct?C.semantic.success:C.semantic.warning}]}>{correct?'Korrekt!':'Ikke helt'}</Text>{!correct&&<Text style={s.body}>Rigtigt svar: {correctText(step)}</Text>}<Text style={s.body}>{step.explanation}</Text></View><Button primary label={last?'Se resultat':'Næste spørgsmål'} onPress={()=>onNext(correct)}/></>:<Button primary label="Bekræft svar" disabled={!ready(step,answer)||Boolean(step.imageKey&&(!image||imageFailed))} onPress={()=>{Keyboard.dismiss();setSubmitted(true);}}/>}
  </View>;
 }

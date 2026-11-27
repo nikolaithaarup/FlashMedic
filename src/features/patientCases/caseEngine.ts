@@ -1,3 +1,4 @@
+import {diagrams,modelInfo,modelOutput,type DiagramId,type ModelId} from './visualModels';
 export type Option = { id: string; text: string };
 type Base = { id: string; prompt: string; update?: string; vitalsUpdate?: Record<string,string>; imageKey?: string; explanation: string };
 export type Step = Base & (
@@ -9,6 +10,9 @@ export type Step = Base & (
   | { kind: 'order'; options: Option[]; correct: string[] }
   | { kind: 'short'; correct: string; accepted: string[] }
   | { kind: 'classify'; items: Option[]; categories: Option[]; correct: Record<string,string> }
+  | { kind: 'hotspot'; diagram: DiagramId; correct: string }
+  | { kind: 'model'; model: ModelId; fixed: number; min: number; max: number; increment: number; initial: number; target: number; tolerance: number; correct: number }
+  | { kind: 'clues'; options: Option[]; correct: string[] }
 );
 export const levels = ['Elev','Behandler','Paramediciner'] as const;
 export type Level = typeof levels[number];
@@ -25,9 +29,11 @@ export const normalizeShortAnswer=(value:string)=>value.normalize('NFKC').toLoca
 export function ready(step: Step, answer: Answer): boolean {
   switch(step.kind) {
     case 'choice': return typeof answer === 'string' && step.options.some(o=>o.id===answer);
+    case 'hotspot': return typeof answer==='string' && diagrams[step.diagram].regions.some(r=>r.id===answer);
+    case 'model': return typeof answer==='number' && Number.isFinite(answer) && answer>=step.min && answer<=step.max && Math.abs((answer-step.min)/step.increment-Math.round((answer-step.min)/step.increment))<1e-8;
     case 'short': return typeof answer==='string' && normalizeShortAnswer(answer).length>0;
     case 'classify': return answer!==null && typeof answer==='object' && !Array.isArray(answer) && Object.keys(answer).length===step.items.length && step.items.every(item=>step.categories.some(cat=>cat.id===answer[item.id]));
-    case 'multi': return Array.isArray(answer) && answer.length>0 && new Set(answer).size===answer.length && answer.every(id=>step.options.some(o=>o.id===id));
+    case 'clues': case 'multi': return Array.isArray(answer) && answer.length>0 && new Set(answer).size===answer.length && answer.every(id=>step.options.some(o=>o.id===id));
     case 'order': return Array.isArray(answer) && answer.length===step.options.length && new Set(answer).size===answer.length && answer.every(id=>step.options.some(o=>o.id===id));
     case 'number': return typeof answer==='number' && Number.isFinite(answer);
     case 'scale': return typeof answer==='number' && Number.isFinite(answer) && answer>=step.min && answer<=step.max && Math.abs((answer-step.min)/step.step-Math.round((answer-step.min)/step.step))<1e-8;
@@ -37,10 +43,11 @@ export function ready(step: Step, answer: Answer): boolean {
 export function grade(step: Step, answer: Answer): boolean {
   if (!ready(step,answer)) return false;
   switch(step.kind) {
-    case 'choice': return answer===step.correct;
+    case 'choice': case 'hotspot': return answer===step.correct;
+    case 'model': return typeof answer==='number' && Math.abs(modelOutput(step.model,answer,step.fixed)-step.target)<=step.tolerance+1e-9;
     case 'short': return typeof answer==='string' && [step.correct,...step.accepted].some(value=>normalizeShortAnswer(value)===normalizeShortAnswer(answer));
     case 'classify': return Object.entries(step.correct).every(([key,value])=>(answer as Record<string,string>)[key]===value);
-    case 'multi': return Array.isArray(answer) && answer.length===step.correct.length && step.correct.every(x=>answer.includes(x));
+    case 'clues': case 'multi': return Array.isArray(answer) && answer.length===step.correct.length && step.correct.every(x=>answer.includes(x));
     case 'order': return Array.isArray(answer) && step.correct.every((x,i)=>x===answer[i]);
     case 'number': case 'scale': return typeof answer==='number' && Math.abs(answer-step.answer)<=step.tolerance+1e-9;
     case 'match': return Object.entries(step.correct).every(([k,v])=>(answer as Record<string,string>)[k]===v);
@@ -50,9 +57,11 @@ export function correctText(step: Step): string {
   const label=(options: Option[],id:string)=>options.find(x=>x.id===id)?.text??id;
   switch(step.kind) {
     case 'choice': return label(step.options,step.correct);
+    case 'hotspot': return diagrams[step.diagram].regions.find(r=>r.id===step.correct)?.label??step.correct;
+    case 'model': return step.correct.toLocaleString('da-DK')+' '+modelInfo[step.model].unit;
     case 'short': return step.correct;
     case 'classify': return step.items.map(item=>item.text+' → '+label(step.categories,step.correct[item.id])).join('\n');
-    case 'multi': return step.correct.map(id=>label(step.options,id)).join(' · ');
+    case 'clues': case 'multi': return step.correct.map(id=>label(step.options,id)).join(' · ');
     case 'order': return step.correct.map(id=>label(step.options,id)).join(' → ');
     case 'number': case 'scale': return `${step.answer.toLocaleString('da-DK')} ${step.unit}`;
     case 'match': return step.left.map(l=>`${l.text} → ${label(step.right,step.correct[l.id])}`).join('\n');
