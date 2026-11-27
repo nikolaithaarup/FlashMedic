@@ -134,3 +134,7 @@ check(modelOutput('halfLife',16,8)===25&&modelOutput('drugVolume',3,2)===6,'Phar
 import {subjectInteractionKeys} from '../src/features/patientCases/subjectInteractions';
 for(const key of subjectInteractionKeys){const [id,stepId]=key.split('/');const c=patientCases.find(x=>x.id===id);const step=c?.steps.find(x=>x.id===stepId);check(step&&step.kind!=='choice',`Unapplied subject exercise ${key}`);}
 console.log(`${subjectInteractionKeys.length} subject interactions verified; pharmacology models passed.`);
+
+for(let i=0;i<24;i++){const date=new Date(Date.UTC(2026,10+i,15,12));for(const c of patientCases){const rotated=monthlyCase(c,date);for(const step of c.steps){const next=rotated.steps.find(s=>s.id===step.id);check(next?.kind===step.kind,`Monthly question type drift: ${c.id}/${step.id}`);if(c.familyId?.startsWith('science-')&&!['index','balance','map','calcium'].includes(step.id))check(JSON.stringify(next)===JSON.stringify(step),`Monthly exercise overwritten: ${c.id}/${step.id}`);}}}
+check(modelOutput('flutterRate',2,300)===150,'Flutter conduction model');
+console.log('Monthly interactive formats preserved across 24 months; conduction model passed.');

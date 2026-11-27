@@ -1,6 +1,6 @@
 // Original simplified educational drawings. Coordinates use a 320 x 180 canvas.
 export type DiagramId='heart'|'airway'|'ecg'|'nephron'|'brain'|'skin'|'bacterium';
-export type ModelId='co'|'av'|'mv'|'coRate'|'avRate'|'halfLife'|'drugVolume';
+export type ModelId='co'|'av'|'mv'|'coRate'|'avRate'|'halfLife'|'drugVolume'|'flutterRate';
 type Point=[number,number];
 type Stroke={points:Point[];color:string;width:number};
 type Region={id:string;label:string;x:number;y:number};
@@ -57,6 +57,7 @@ export const modelInfo:Record<ModelId,{label:string;fixedLabel:string;fixedUnit:
  coRate:{label:'Puls',fixedLabel:'Slagvolumen',fixedUnit:' ml',unit:'/min',output:'Minutvolumen',formula:'CO = puls × slagvolumen / 1000'},
  avRate:{label:'RF',fixedLabel:'Tidalvolumen',fixedUnit:' ml',unit:'/min',output:'Alveolær ventilation',formula:'VA = RF × (tidalvolumen − 150 ml) / 1000'},
  halfLife:{label:'Tid',fixedLabel:'Halveringstid',fixedUnit:' timer',unit:'timer',output:'Tilbage',outputUnit:'%',formula:'100 × ½^(tid / halveringstid)'},
+ flutterRate:{label:'Overledning (n:1)',fixedLabel:'Atriefrekvens',fixedUnit:'/min',unit:':1',output:'Ventrikelfrekvens',outputUnit:'/min',formula:'Ventrikelfrekvens = atriefrekvens / n'},
  drugVolume:{label:'Volumen',fixedLabel:'Koncentration',fixedUnit:' mg/ml',unit:'ml',output:'Stofmængde',outputUnit:'mg',formula:'Mængde = koncentration × volumen'}
 };
-export function modelOutput(model:ModelId,value:number,fixed:number){if(model==='halfLife')return 100*Math.pow(.5,value/fixed);if(model==='drugVolume')return value*fixed;return model==='avRate'?value*Math.max(0,fixed-150)/1000:fixed*(model==='av'?Math.max(0,value-150):value)/1000;}
+export function modelOutput(model:ModelId,value:number,fixed:number){if(model==='flutterRate')return fixed/value;if(model==='halfLife')return 100*Math.pow(.5,value/fixed);if(model==='drugVolume')return value*fixed;return model==='avRate'?value*Math.max(0,fixed-150)/1000:fixed*(model==='av'?Math.max(0,value-150):value)/1000;}
