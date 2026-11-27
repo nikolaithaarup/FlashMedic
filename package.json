@@ -11,6 +11,7 @@
     "build:web": "node scripts/buildBrandIcons.mjs --flash && node scripts/assertVercelTarget.mjs && expo export --platform web --output-dir dist && node scripts/generateServiceWorker.mjs dist",
     "preview:web": "npx serve dist --listen 4173 --single",
     "validate:iso-week": "tsx scripts/validateIsoWeek.ts",
+    "validate:patient-cases": "tsx scripts/validatePatientCases.ts",
     "validate:drug-calc": "tsx scripts/validateDrugCalc.ts",
     "validate:ekg-image-drills": "tsx scripts/validateEkgImageDrills.ts",
     "validate:blood-gas": "tsx scripts/validateBloodGas.ts",

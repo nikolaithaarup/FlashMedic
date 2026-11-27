@@ -75,6 +75,7 @@ import type {
   FlashcardTrainingMode,
 } from "../src/types/Learning";
 import HomeScreen from "../src/features/home/HomeScreen";
+import PatientCasesScreen from "../src/features/patientCases/PatientCasesScreen";
 import StartupSplash from "../src/ui/StartupSplash";
 import QuizScreen from "../src/features/quiz/QuizScreen";
 
@@ -112,7 +113,8 @@ type Screen =
   | "bloodGasPatternTrainer"
   | "drugCalcHome"
   | "drugCalcPractice"
-  | "drugCalcTheory";
+  | "drugCalcTheory"
+  | "patientCases";
 
 const SCREEN_PATHS: Record<Screen, string> = {
   auth: "/#/welcome",
@@ -137,6 +139,7 @@ const SCREEN_PATHS: Record<Screen, string> = {
   drugCalcHome: "/#/drug-calculation",
   drugCalcPractice: "/#/drug-calculation/practice",
   drugCalcTheory: "/#/drug-calculation/theory",
+  patientCases: "/#/patient-cases",
 };
 
 const PATH_SCREENS = new Map(
@@ -405,6 +408,7 @@ export default function Index() {
           case "profile":
           case "contact":
           case "weeklyHome":
+          case "patientCases":
           case "drugCalcHome":
           case "ekgTrainingHome":
           case "bloodGasTrainingHome":
@@ -1420,6 +1424,10 @@ export default function Index() {
     );
   }
 
+  if (screen === "patientCases") {
+    return <PatientCasesScreen key={profile?.userId ?? "guest"} userId={profile?.userId ?? null} onBack={() => navigateBack("home")} />;
+  }
+
   if (screen === "drugCalcHome") {
     return (
       <DrugCalcHomeScreen
@@ -1531,6 +1539,7 @@ export default function Index() {
       dailyTenDisabled={loadingCards || dailyTenCards.length === 0}
       dailyTenCount={Math.min(DAILY_TEN_CARD_COUNT, dailyTenCards.length)}
       onOpenFlashcardsHome={() => setScreen("flashcardsHome")}
+      onOpenPatientCases={() => setScreen("patientCases")}
       onOpenDrugCalcHome={() => setScreen("drugCalcHome")}
       onOpenEkgTraining={() => setScreen("ekgTrainingHome")}
       onOpenBloodGasTraining={() => setScreen("bloodGasTrainingHome")}

@@ -45,6 +45,7 @@ type HomeScreenProps = {
   dailyTenDisabled: boolean;
   dailyTenCount: number;
   onOpenFlashcardsHome: () => void;
+  onOpenPatientCases: () => void;
   onOpenDrugCalcHome: () => void;
   onOpenEkgTraining: () => void;
   onOpenBloodGasTraining: () => void;
@@ -68,6 +69,7 @@ export default function HomeScreen({
   onStartDailyTen,
   dailyTenDisabled,
   onOpenFlashcardsHome,
+  onOpenPatientCases,
   onOpenDrugCalcHome,
   onOpenEkgTraining,
   onOpenBloodGasTraining,
@@ -82,7 +84,7 @@ export default function HomeScreen({
   const [labelWidths, setLabelWidths] = React.useState<Record<string, number>>({});
   const navigationLabels = [
     "Flashcards", "Daily10", "Ugens udfordringer", "Lægemiddelregning",
-    "EKG-træning", "VGAS & CRP", "Statistik", "Kontakt",
+    "EKG-træning", "VGAS & CRP", "Patientcases", "Statistik", "Kontakt",
   ];
   // Measure real label widths rather than estimating from character counts.
   const longestLabel = Math.max(0, ...navigationLabels.map((label) => labelWidths[label] ?? 0));
@@ -226,6 +228,11 @@ export default function HomeScreen({
               onPress={onOpenWeeklyHome}
               style={[styles.destinationCard, { width: cardWidth, flexGrow: Platform.OS === "web" ? 0 : 1 }]}
               title="Ugens udfordringer"
+            />
+            <NavigationCard
+              onPress={onOpenPatientCases}
+              style={[styles.destinationCard, { width: cardWidth, flexGrow: Platform.OS === "web" ? 0 : 1 }]}
+              title="Patientcases"
             />
             <NavigationCard
               onPress={onOpenDrugCalcHome}
