@@ -14,7 +14,7 @@ for(const id of weeklySchedule)check(patientCases.some(c=>c.id===id),`Unknown we
 check(featuredCase(patientCases,new Date('2026-11-29T22:59:59Z'))?.id==='cardiac-01','Sunday before Copenhagen rollover');
 check(featuredCase(patientCases,new Date('2026-11-29T23:00:00Z'))?.id==='sepsis-01','Monday Copenhagen rollover');
 check(danishWeekStart(new Date('2027-03-28T21:59:59Z'))!==danishWeekStart(new Date('2027-03-28T22:00:00Z')),'DST rollover');
-check(featuredCase(patientCases,new Date('2029-01-01T00:00:00Z'))===undefined,'Expired schedule must not repeat');
+check(featuredCase(patientCases,new Date(Date.UTC(2026,10,23+7*(weeklySchedule.length+1),12)))===undefined,'Expired schedule must not repeat');
 console.log('Curriculum tags, all levels, schedule and Copenhagen week boundaries passed.');
 for(const level of levels)console.log(`${level}: ${patientCases.filter(c=>c.difficulty===level).length}`);
 
@@ -162,3 +162,9 @@ check(microbiologyCases.length===9,'Missing microbiology variants');
 for(const c of microbiologyCases){check(c.steps.length===6&&c.steps.filter(s=>s.kind==='choice').length<=2,'Microbiology exercise mix');check(patientCases.some(x=>x.id===c.id),'Missing microbiology case');}
 for(const family of new Set(microbiologyCases.map(c=>c.familyId))){check(microbiologyCases.filter(c=>c.familyId===family).length===3,'Microbiology level coverage');}
 console.log('Nine microbiology cases, 54 varied exercises validated.');
+
+import {targetedCases} from '../src/features/patientCases/targetedCases';
+check(targetedCases.length===18,'Missing targeted cases');
+for(const c of targetedCases){check(c.steps.length===6&&c.steps.every(s=>s.kind!=='choice'),'Targeted question variety');check(patientCases.some(x=>x.id===c.id),'Targeted case missing');}
+check((kindCounts.choice??0)/n<.40,'Single-answer multiple choice share must remain below 40%');
+console.log('Targeted expansion: 18 cases, 108 questions; conventional MCQ share '+((kindCounts.choice??0)/n*100).toFixed(1)+'%.');

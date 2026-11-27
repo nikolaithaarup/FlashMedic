@@ -200,3 +200,6 @@ Object.assign(curriculumMap,scienceCurriculum);
 
 import { microbiologyCases } from './microbiologyCases';
 for(const c of microbiologyCases)curriculumMap[c.id]={page:35,topic:'Sundheds- og sygdomslære 2'};
+
+import {targetedCurriculum} from './targetedCases';
+Object.assign(curriculumMap,targetedCurriculum);

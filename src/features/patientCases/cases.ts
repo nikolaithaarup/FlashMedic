@@ -1,5 +1,6 @@
 import { scienceCases } from './scienceCases';
 import { microbiologyCases } from './microbiologyCases';
+import {targetedCases} from './targetedCases';
 import { evolveCase } from './evolvingCases';
 import { extendToSix } from './caseFollowups';
 import { diversifyQuestions } from './interactiveQuestions';
@@ -46,4 +47,4 @@ const baseCases: PatientCase[]=[
  ...lupCases,
 ];
 
-export const patientCases = [...expandFamilies(baseCases), ...ecgCases, ...scienceCases,...microbiologyCases].map(evolveCase).map(extendToSix).map(diversifyQuestions).map(addVisualQuestions).map(enrichSubjects).map(addRhythmFollowups);
+export const patientCases = [...expandFamilies(baseCases), ...ecgCases, ...scienceCases,...microbiologyCases,...targetedCases].map(evolveCase).map(extendToSix).map(diversifyQuestions).map(addVisualQuestions).map(enrichSubjects).map(addRhythmFollowups);
