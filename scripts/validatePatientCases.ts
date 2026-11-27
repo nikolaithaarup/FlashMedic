@@ -29,7 +29,7 @@ for(const id of Object.keys(familyVariants)){
  const family=patientCases.filter(c=>c.familyId===id);
  check(family.length===3&&new Set(family.map(c=>c.difficulty)).size===3,`Incomplete family ${id}`);
  check(new Set(family.map(c=>c.intro)).size===1&&new Set(family.map(c=>c.title)).size===1,`Inconsistent family ${id}`);
- const prompts=family.flatMap(c=>c.steps.map(s=>s.prompt));check(new Set(prompts).size===prompts.length,`Repeated prompt ${id}`);
+ const prompts=family.flatMap(c=>c.steps.filter(s=>!s.id.startsWith('followup-')).map(s=>s.prompt));check(new Set(prompts).size===prompts.length,`Repeated prompt ${id}`);
 }
 const p1=assignPair({},'0','1');const p2=assignPair(p1,'2','1');check(p2['0']===undefined&&p2['2']==='1','Matching failed to move pair');
 const p3=assignPair(p2,'2','0');check(p3['2']==='0'&&Object.keys(p3).length===1,'Matching failed to replace pair');
@@ -59,7 +59,7 @@ console.log(`${ecgCases.length} ECG cases; ${monthly} monthly case instantiation
 for(const id of ['ekg-af','ekg-flutter','ekg-block']){
  const family=ecgCases.filter(c=>c.familyId===id);check(family.length===3&&new Set(family.map(c=>c.difficulty)).size===3,`Incomplete ECG family ${id}`);
  check(new Set(family.map(c=>c.intro)).size===1&&new Set(family.map(c=>JSON.stringify(c.vitals))).size===1,`Inconsistent ECG family ${id}`);
- const prompts=family.flatMap(c=>c.steps.map(s=>s.prompt));check(new Set(prompts).size===prompts.length,`Repeated ECG family prompt ${id}`);
+ const prompts=family.flatMap(c=>c.steps.filter(s=>!s.id.startsWith('followup-')).map(s=>s.prompt));check(new Set(prompts).size===prompts.length,`Repeated ECG family prompt ${id}`);
 }
 console.log('All 12 three-level families validated (9 previous + 3 ECG).');
 
@@ -68,7 +68,7 @@ check(scienceCases.length===24&&scienceFamilyIds.length===8,'Unexpected science 
 for(const id of scienceFamilyIds){
  const family=scienceCases.filter(c=>c.familyId===id);check(family.length===3&&new Set(family.map(c=>c.difficulty)).size===3,'Missing science level');
  check(new Set(family.map(c=>c.intro)).size===1&&new Set(family.map(c=>JSON.stringify(c.vitals))).size===1,'Science family context mismatch');
- const prompts=family.flatMap(c=>c.steps.map(s=>s.prompt));check(new Set(prompts).size===prompts.length,'Repeated science prompt');
+ const prompts=family.flatMap(c=>c.steps.filter(s=>!s.id.startsWith('followup-')).map(s=>s.prompt));check(new Set(prompts).size===prompts.length,'Repeated science prompt');
 }
 const newEcgKeys=['ekg_img_svt_avnrt_1','ekg_img_tdp_hypokalaemia'];
 const newEcg=scienceCases.filter(c=>c.steps.some(s=>s.imageKey));
@@ -114,3 +114,6 @@ check(cardiacFlow.steps.length===8,'Cardiac flow missing');
 check(currentVitals(cardiacFlow,0).BT==='148/86 mmHg','Future vital leaked');
 check(currentVitals(cardiacFlow,6).BT==='122/74 mmHg'&&currentVitals(cardiacFlow,7).BT==='94/58 mmHg','Reassessment vital failed');
 console.log('Level library monthly completion and progressive vital updates validated.');
+
+for(const c of patientCases){check(c.steps.length>=6,`Case too short: ${c.id}`);check(new Set(c.steps.map(s=>s.prompt)).size===c.steps.length,`Repeated question in case ${c.id}`);}
+console.log('All cases have at least six distinct questions; monthly variants retain extended questions.');

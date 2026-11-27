@@ -144,5 +144,5 @@ export const scienceCases=build();
 export const scienceMonthlyIds=['science-pe','science-renal','science-calcium'] as const;
 export function scienceMonthlyCase(c:PatientCase,index:number,edition:string):PatientCase|undefined{
  if(!scienceMonthlyIds.some(id=>id===c.familyId))return undefined;
- const variant=build(index%6).find(v=>v.id===c.id);return variant?{...variant,edition}:undefined;
+ const variant=build(index%6).find(v=>v.id===c.id);return variant?{...c,...variant,steps:c.steps.map(step=>variant.steps.find(s=>s.id===step.id)??step),edition}:undefined;
 }

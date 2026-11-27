@@ -1,5 +1,6 @@
 import { scienceCases } from './scienceCases';
 import { evolveCase } from './evolvingCases';
+import { extendToSix } from './caseFollowups';
 import type { Option, PatientCase } from './caseEngine';
 import { additionalCases } from './additionalCases';
 import { lupCases } from './lupCases';
@@ -40,4 +41,4 @@ const baseCases: PatientCase[]=[
  ...lupCases,
 ];
 
-export const patientCases = [...expandFamilies(baseCases), ...ecgCases, ...scienceCases].map(evolveCase);
+export const patientCases = [...expandFamilies(baseCases), ...ecgCases, ...scienceCases].map(evolveCase).map(extendToSix);
