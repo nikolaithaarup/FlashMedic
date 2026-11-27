@@ -7,6 +7,8 @@ export type Step = Base & (
   | { kind: 'scale'; min: number; max: number; step: number; answer: number; tolerance: number; unit: string }
   | { kind: 'match'; left: Option[]; right: Option[]; correct: Record<string,string> }
   | { kind: 'order'; options: Option[]; correct: string[] }
+  | { kind: 'short'; correct: string; accepted: string[] }
+  | { kind: 'classify'; items: Option[]; categories: Option[]; correct: Record<string,string> }
 );
 export const levels = ['Elev','Behandler','Paramediciner'] as const;
 export type Level = typeof levels[number];
@@ -19,9 +21,12 @@ export const parseNumber = (value: string): number | null => {
   if (!/^[+-]?(?:\d+(?:[.,]\d+)?|[.,]\d+)$/.test(trimmed)) return null;
   const n = Number(trimmed.replace(',', '.')); return Number.isFinite(n) ? n : null;
 };
+export const normalizeShortAnswer=(value:string)=>value.normalize('NFKC').toLocaleLowerCase('da-DK').trim().replace(/[\s\-‐‑–—]+/g,' ').replace(/[.!?]+$/,'').trim();
 export function ready(step: Step, answer: Answer): boolean {
   switch(step.kind) {
     case 'choice': return typeof answer === 'string' && step.options.some(o=>o.id===answer);
+    case 'short': return typeof answer==='string' && normalizeShortAnswer(answer).length>0;
+    case 'classify': return answer!==null && typeof answer==='object' && !Array.isArray(answer) && Object.keys(answer).length===step.items.length && step.items.every(item=>step.categories.some(cat=>cat.id===answer[item.id]));
     case 'multi': return Array.isArray(answer) && answer.length>0 && new Set(answer).size===answer.length && answer.every(id=>step.options.some(o=>o.id===id));
     case 'order': return Array.isArray(answer) && answer.length===step.options.length && new Set(answer).size===answer.length && answer.every(id=>step.options.some(o=>o.id===id));
     case 'number': return typeof answer==='number' && Number.isFinite(answer);
@@ -33,6 +38,8 @@ export function grade(step: Step, answer: Answer): boolean {
   if (!ready(step,answer)) return false;
   switch(step.kind) {
     case 'choice': return answer===step.correct;
+    case 'short': return typeof answer==='string' && [step.correct,...step.accepted].some(value=>normalizeShortAnswer(value)===normalizeShortAnswer(answer));
+    case 'classify': return Object.entries(step.correct).every(([key,value])=>(answer as Record<string,string>)[key]===value);
     case 'multi': return Array.isArray(answer) && answer.length===step.correct.length && step.correct.every(x=>answer.includes(x));
     case 'order': return Array.isArray(answer) && step.correct.every((x,i)=>x===answer[i]);
     case 'number': case 'scale': return typeof answer==='number' && Math.abs(answer-step.answer)<=step.tolerance+1e-9;
@@ -43,6 +50,8 @@ export function correctText(step: Step): string {
   const label=(options: Option[],id:string)=>options.find(x=>x.id===id)?.text??id;
   switch(step.kind) {
     case 'choice': return label(step.options,step.correct);
+    case 'short': return step.correct;
+    case 'classify': return step.items.map(item=>item.text+' → '+label(step.categories,step.correct[item.id])).join('\n');
     case 'multi': return step.correct.map(id=>label(step.options,id)).join(' · ');
     case 'order': return step.correct.map(id=>label(step.options,id)).join(' → ');
     case 'number': case 'scale': return `${step.answer.toLocaleString('da-DK')} ${step.unit}`;
