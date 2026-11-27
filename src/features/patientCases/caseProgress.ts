@@ -23,3 +23,26 @@ export function summarizeProgress(pool:PatientCase[],progress:Progress){const re
 export function progressForMonth(progress:Progress,month:string):Progress{
  return Object.fromEntries(Object.entries(progress).filter(([,r])=>{const parts=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Copenhagen',year:'numeric',month:'2-digit'}).formatToParts(new Date(r.completedAt));const key=`${parts.find(p=>p.type==='year')?.value}-${parts.find(p=>p.type==='month')?.value}`;return (r.edition??key)===month;}));
 }
+
+export function subjectProgress(pool:PatientCase[],progress:Progress){
+ const names=Array.from(new Set(pool.flatMap(c=>c.subjects)));
+ return names.map(subject=>{
+  const cases=pool.filter(c=>c.subjects.includes(subject));
+  const records=cases.flatMap(c=>progress[c.id]?[progress[c.id]]:[]);
+  const answered=records.reduce((sum,r)=>sum+r.latest.total,0);
+  const correct=records.reduce((sum,r)=>sum+r.latest.correct,0);
+  return {subject,completed:records.length,total:cases.length,answered,accuracy:answered?Math.round(100*correct/answered):null};
+ }).sort((a,b)=>a.subject.localeCompare(b.subject,'da-DK'));
+}
+export function recommendedCase(pool:PatientCase[],progress:Progress,monthly:Progress,previous?:string):PatientCase|undefined{
+ const other=pool.filter(c=>c.id!==previous);const eligible=other.length?other:pool;
+ // Prioritize cases with errors in the latest recorded attempt; then unattempted
+ // or uncompleted monthly cases. Already-perfect current cases are last.
+ const score=(c:PatientCase)=>{
+  const r=progress[c.id];if(r&&r.latest.correct<r.latest.total)return r.latest.correct/r.latest.total;
+  if(!r)return 1;
+  if(!monthly[c.id])return 2;
+  return 3;
+ };
+ return [...eligible].sort((a,b)=>score(a)-score(b)||((progress[a.id]?.completedAt??'').localeCompare(progress[b.id]?.completedAt??''))||a.id.localeCompare(b.id))[0];
+}

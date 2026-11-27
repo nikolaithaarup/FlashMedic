@@ -45,6 +45,14 @@ export function monthlyCase(c:PatientCase,date=new Date()):PatientCase{
    if(step.id==='q4'&&step.kind==='scale')return {...step,prompt:`Estimér MAP fra ${bt} mmHg (SBP + 2 × DBP)/3.`,answer:map(s,d),explanation:`(${s} + 2 × ${d})/3 ≈ ${map(s,d)} mmHg. MAP er et estimat.`};return step;
   });return {...c,edition:key,vitals:{...c.vitals,BT:`${bt} mmHg`,Puls:`${hr}/min`},steps};
  }
+ if(family==='renal-01'){
+  const p=[{hr:112,s:98,d:66},{hr:108,s:102,d:68},{hr:118,s:94,d:62},{hr:116,s:96,d:64}][n];
+  return {...c,edition:key,vitals:{...c.vitals,Puls:p.hr+'/min',BT:p.s+'/'+p.d+' mmHg'}};
+ }
+ if(family==='ekg-flutter'||family==='ekg-block'){
+  const sets=family==='ekg-flutter'?[[122,78,19],[118,74,20],[126,80,18],[114,72,21]]:[[96,62,18],[92,60,20],[100,64,17],[94,58,19]];
+  const [s,d,rf]=sets[n];return {...c,edition:key,vitals:{...c.vitals,BT:s+'/'+d+' mmHg',RF:rf+'/min'}};
+ }
  if(family==='ekg-af'){
   const {s,d,rf}=afPresets[n];return {...c,edition:key,vitals:{...c.vitals,BT:`${s}/${d} mmHg`,RF:`${rf}/min`}};
  }
