@@ -48,9 +48,9 @@ function Question({step,onNext,last}:{step:Step;onNext:(correct:boolean)=>void;l
   {step.kind==='number'&&<View style={s.numberRow}><TextInput accessibilityLabel={`Svar i ${step.unit}`} style={s.input} keyboardType="decimal-pad" inputMode="decimal" autoCorrect={false} autoCapitalize="none" selectTextOnFocus={false} value={raw} placeholder="Indtast svar" placeholderTextColor={C.text.muted} editable={!submitted} onChangeText={v=>{setRaw(v);setAnswer(parseNumber(v));}}/><Text style={s.body}>{step.unit}</Text></View>}
   {step.kind==='scale'&&<CaseScale min={step.min} max={step.max} step={step.step} unit={step.unit} value={typeof answer==='number'?answer:null} disabled={submitted} onChange={setAnswer}/>}
   {step.kind==='match'&&<View style={s.stack}>
-   <View style={s.summaryRow}><Text style={s.meta}>Tryk på to felter for at danne et par.</Text><Text style={s.accent}>{Object.keys(pairs).length}/{step.left.length}</Text></View>
+   <View style={s.summaryRow}><Text style={s.meta}>Forbind felterne.</Text><Text style={s.accent}>{Object.keys(pairs).length}/{step.left.length}</Text></View>
    <View style={s.matchGrid}><View style={s.matchColumn}>{step.left.map(item=>renderTile(item,'left'))}</View><View style={s.matchColumn}>{step.right.map(item=>renderTile(item,'right'))}</View></View>
-   {!submitted&&Object.keys(pairs).length>0&&<View style={s.summaryRow}><Text style={s.caption}>Tryk på et par for at ændre det.</Text><Pressable accessibilityRole="button" onPress={()=>{setAnswer(null);setActive(null);setRightActive(null);}} style={s.smallAction}><Text style={s.link}>Nulstil</Text></Pressable></View>}
+   {!submitted&&Object.keys(pairs).length>0&&<View style={s.summaryRow}><Text style={s.caption}>Tryk på et par for at ophæve.</Text><Pressable accessibilityRole="button" onPress={()=>{setAnswer(null);setActive(null);setRightActive(null);}} style={s.smallAction}><Text style={s.link}>Nulstil</Text></Pressable></View>}
   </View>}
   {step.kind==='short'&&<TextInput accessibilityLabel="Skriv kort fagligt svar" style={s.input} value={raw} placeholder="Skriv svaret" placeholderTextColor={C.text.muted} editable={!submitted} autoCorrect={false} autoCapitalize="none" returnKeyType="done" onChangeText={v=>{setRaw(v);setAnswer(v);}}/>}
   {step.kind==='classify'&&<View style={s.stack}>
@@ -129,7 +129,7 @@ export default function PatientCasesScreen({onBack,userId=null}:{onBack:()=>void
   {curriculumMap[selected.id]&&<><Text style={s.accent}>LUP · EMNETILKNYTNING</Text><Text style={s.meta}>U/NORD, august 2024 · {curriculumMap[selected.id].topic}, s. {curriculumMap[selected.id].page}. </Text></>}<Text style={s.accent}>KILDER OG LÆSEFORSLAG</Text>{selected.sources.map(source=><Pressable key={source.url} accessibilityRole="link" onPress={()=>{void Linking.openURL(source.url).catch(()=>{});}}><Text style={s.link}>{source.title} ↗</Text></Pressable>)}
   </>}<Button primary label="Næste tilfældige case" onPress={()=>{const c=pickCase(pool,selected.id);if(c)start(c);}} disabled={!pool.length}/><Button label="Prøv igen" onPress={()=>start(selected,true)}/><Button label="Alle cases" onPress={back}/>
  </View>:<View style={s.stack}>
-  <View style={s.progressLabel}><Text style={s.accent}>{selected.category.toUpperCase()} · {selected.difficulty}</Text><Text style={s.meta}>{index+1} / {selected.steps.length}</Text></View><View accessibilityRole="progressbar" accessibilityValue={{min:0,max:selected.steps.length,now:index+1}} style={s.track}><View style={[s.fill,{width:`${(index+1)/selected.steps.length*100}%`}]}/></View>
+  <View style={s.progressLabel}><Text style={s.accent}>{selected.category.toUpperCase()}</Text><Text style={s.meta}>{index+1} / {selected.steps.length}</Text></View><View accessibilityRole="progressbar" accessibilityValue={{min:0,max:selected.steps.length,now:index+1}} style={s.track}><View style={[s.fill,{width:`${(index+1)/selected.steps.length*100}%`}]}/></View>
   <Text style={s.title}>{selected.title}</Text>
   <View style={s.caseLayout}><View style={s.contextPanel}>
   {(index===0||showContext)&&<Text style={s.body}>{selected.intro}</Text>}

@@ -1,6 +1,6 @@
 // Original simplified educational drawings. Coordinates use a 320 x 180 canvas.
-export type DiagramId='heart'|'airway'|'ecg'|'nephron'|'brain';
-export type ModelId='co'|'av'|'mv'|'coRate'|'avRate';
+export type DiagramId='heart'|'airway'|'ecg'|'nephron'|'brain'|'skin'|'bacterium';
+export type ModelId='co'|'av'|'mv'|'coRate'|'avRate'|'halfLife'|'drugVolume';
 type Point=[number,number];
 type Stroke={points:Point[];color:string;width:number};
 type Region={id:string;label:string;x:number;y:number};
@@ -9,6 +9,19 @@ const line=(color:string,width:number,points:Point[]):Stroke=>({color,width,poin
 const blue='#70B9ED',red='#F29C9B',teal='#5EEAD4',grey='#B7C8D3';
 const region=(id:string,label:string,x:number,y:number):Region=>({id,label,x,y});
 export const diagrams:Record<DiagramId,Diagram>={
+ skin:{caption:'Hud og underhud · skematisk tværsnit',strokes:[
+ line('#E9B994',3,[[20,20],[55,16],[90,20],[125,16],[160,20],[195,16],[230,20],[265,16],[300,20]]),
+ line('#E9B994',3,[[20,55],[300,55]]),line('#F29C9B',3,[[20,111],[300,111]]),
+ line(grey,2,[[20,20],[20,163],[300,163],[300,20]]),
+ line(red,3,[[38,99],[65,80],[96,99],[130,80],[161,99],[193,80],[224,99],[265,80],[289,99]]),
+ ...[45,95,145,195,245].map(x=>line('#F2CE78',3,[[x,125],[x+18,119],[x+36,125],[x+36,146],[x+18,153],[x,146],[x,125]]))],
+ regions:[region('epidermis','Epidermis',70,37),region('dermis','Dermis',160,84),region('subcutis','Subcutis',254,137)]},
+ bacterium:{caption:'Skematisk bakteriecelle · ikke i målestok',strokes:[
+ line('#70B9ED',5,[[82,24],[245,24],[274,40],[288,65],[288,115],[274,139],[245,155],[82,155],[52,140],[36,115],[36,65],[52,40],[82,24]]),
+ line('#5EEAD4',2,[[85,38],[242,38],[262,51],[274,72],[274,108],[262,129],[242,141],[85,141],[64,129],[50,108],[50,72],[64,51],[85,38]]),
+ line('#F2CE78',3,[[117,81],[138,61],[166,75],[184,57],[206,78],[186,105],[157,90],[137,115],[112,99],[117,81]]),
+ ...[[78,64],[91,104],[232,68],[240,112],[205,126],[110,48]].map(([x,y])=>line(grey,3,[[x-4,y],[x+4,y]]))],
+ regions:[region('wall','Cellevæg',82,24),region('dna','Bakterielt DNA',165,90),region('cytoplasm','Cytoplasma',247,114)]},
  heart:{caption:'Skematisk hjerte set forfra · patientens højre er til venstre',strokes:[
  line(blue,3,[[85,14],[85,45],[59,57],[51,80],[65,100],[110,103],[135,88],[135,54],[110,45],[85,45]]),
  line(blue,3,[[65,100],[54,122],[82,145],[140,163],[148,113],[110,103]]),
@@ -37,11 +50,13 @@ export const diagrams:Record<DiagramId,Diagram>={
  line(teal,2,[[150,22],[144,50],[151,75],[138,98]]),line(teal,2,[[55,103],[108,96],[149,106],[193,91],[238,81]]),line(grey,2,[[223,38],[214,64],[226,87],[214,136]])],
  regions:[region('frontal','Frontallap',84,63),region('parietal','Parietallap',182,55),region('temporal','Temporallap',142,120),region('occipital','Occipitallap',249,91)]}
 };
-export const modelInfo:Record<ModelId,{label:string;fixedLabel:string;fixedUnit:string;unit:string;output:string;formula:string}>={
+export const modelInfo:Record<ModelId,{label:string;fixedLabel:string;fixedUnit:string;unit:string;output:string;formula:string;outputUnit?:string}>={
  co:{label:'Slagvolumen',fixedLabel:'Puls',fixedUnit:'/min',unit:'ml',output:'Minutvolumen',formula:'CO = puls × slagvolumen / 1000'},
  av:{label:'Tidalvolumen',fixedLabel:'RF',fixedUnit:'/min',unit:'ml',output:'Alveolær ventilation',formula:'VA = RF × (tidalvolumen − 150 ml) / 1000'},
  mv:{label:'Tidalvolumen',fixedLabel:'RF',fixedUnit:'/min',unit:'ml',output:'Minutventilation',formula:'VE = RF × tidalvolumen / 1000'},
  coRate:{label:'Puls',fixedLabel:'Slagvolumen',fixedUnit:' ml',unit:'/min',output:'Minutvolumen',formula:'CO = puls × slagvolumen / 1000'},
- avRate:{label:'RF',fixedLabel:'Tidalvolumen',fixedUnit:' ml',unit:'/min',output:'Alveolær ventilation',formula:'VA = RF × (tidalvolumen − 150 ml) / 1000'}
+ avRate:{label:'RF',fixedLabel:'Tidalvolumen',fixedUnit:' ml',unit:'/min',output:'Alveolær ventilation',formula:'VA = RF × (tidalvolumen − 150 ml) / 1000'},
+ halfLife:{label:'Tid',fixedLabel:'Halveringstid',fixedUnit:' timer',unit:'timer',output:'Tilbage',outputUnit:'%',formula:'100 × ½^(tid / halveringstid)'},
+ drugVolume:{label:'Volumen',fixedLabel:'Koncentration',fixedUnit:' mg/ml',unit:'ml',output:'Stofmængde',outputUnit:'mg',formula:'Mængde = koncentration × volumen'}
 };
-export function modelOutput(model:ModelId,value:number,fixed:number){return model==='avRate'?value*Math.max(0,fixed-150)/1000:fixed*(model==='av'?Math.max(0,value-150):value)/1000;}
+export function modelOutput(model:ModelId,value:number,fixed:number){if(model==='halfLife')return 100*Math.pow(.5,value/fixed);if(model==='drugVolume')return value*fixed;return model==='avRate'?value*Math.max(0,fixed-150)/1000:fixed*(model==='av'?Math.max(0,value-150):value)/1000;}

@@ -129,3 +129,8 @@ console.log('Visual models, hotspot positions and clue scoring passed.');
 
 check(modelOutput('coRate',60,70)===4.2&&modelOutput('avRate',20,400)===5,'Adjustable rate formulas');
 const visualCounts:Record<string,number>={};for(const c of patientCases)for(const step of c.steps){if(['hotspot','model','clues'].includes(step.kind))visualCounts[step.kind]=(visualCounts[step.kind]??0)+1;}check((visualCounts.hotspot??0)>=8&&(visualCounts.model??0)>=5&&(visualCounts.clues??0)>=6,'Missing visual exercise coverage');console.log('Visual exercise distribution: '+JSON.stringify(visualCounts));
+
+check(modelOutput('halfLife',16,8)===25&&modelOutput('drugVolume',3,2)===6,'Pharmacology models');
+import {subjectInteractionKeys} from '../src/features/patientCases/subjectInteractions';
+for(const key of subjectInteractionKeys){const [id,stepId]=key.split('/');const c=patientCases.find(x=>x.id===id);const step=c?.steps.find(x=>x.id===stepId);check(step&&step.kind!=='choice',`Unapplied subject exercise ${key}`);}
+console.log(`${subjectInteractionKeys.length} subject interactions verified; pharmacology models passed.`);
