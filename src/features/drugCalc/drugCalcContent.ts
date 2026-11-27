@@ -1,5 +1,6 @@
 // src/features/drugCalc/drugCalcContent.ts
 import { generateDrugVariant, type DrugExercise } from './drugCalcVariants';
+import type {SyringeSpec} from './syringeGeometry';
 
 export type DrugCalcTopic =
   | "strength"
@@ -472,6 +473,7 @@ export type DrugCalcQuestion = {
   answerDecimals: number;
   tolerance: number;
   exercise?: DrugExercise;
+  syringe?: SyringeSpec & {volume:number};
 };
 
 type DrugCalcQuestionBase = Omit<

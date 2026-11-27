@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import React, { useMemo, useState } from "react";
 import { Keyboard, StyleSheet, Text, View } from "react-native";
 import CaseScale from '../patientCases/CaseScale';
+import SyringeExercise from './SyringeExercise';
 import {evaluateDrugResponse,readDrugResponse,parseDrugNumber} from './drugCalcVariants';
 
 import {
@@ -149,11 +150,11 @@ export function DrugCalcPracticeScreen({
             <Text style={styles.eyebrow}>OPGAVE</Text>
             <Text style={styles.questionText}>{currentDrugQuestion.text}</Text>
 
+            {currentDrugQuestion.syringe&&<SyringeExercise spec={currentDrugQuestion.syringe} value={currentDrugQuestion.syringe.volume} disabled readOnly/>}
             {exercise?.kind==='audit'&&<View style={styles.compactStack}>{exercise.options.map((option,i)=><SelectableChoice key={i} label={option} state={feedbackVisible?(i===exercise.correctIndex?'correct':response.choice===i?'incorrect':'default'):response.choice===i?'selected':'default'} disabled={!!feedbackVisible} dimWhenDisabled={false} onPress={()=>setDrugAnswer(JSON.stringify({...response,choice:i}))}/>)}</View>}
-            {fields?fields.map((f,i)=><NumberInput key={i} label={f.label} unit={f.unit} value={response.values[i]} onChangeText={v=>changeField(i,v)} readOnly={!!feedbackVisible} inputProps={{placeholder:'Indtast tal',inputMode:'decimal'}} helperText={f.decimals===0?'Helt tal':undefined}/>):exercise?.kind==='dial'?<View style={styles.compactStack}>
+            {fields?fields.map((f,i)=><NumberInput key={i} label={f.label} unit={f.unit} value={response.values[i]} onChangeText={v=>changeField(i,v)} readOnly={!!feedbackVisible} inputProps={{placeholder:'Indtast tal',inputMode:'decimal'}} helperText={f.decimals===0?'Helt tal':undefined}/>):exercise?.kind==='dial'&&exercise.device==='syringe'?<SyringeExercise spec={{capacity:exercise.max,increment:exercise.increment}} value={parseDrugNumber(drugAnswer)??exercise.initial} onChange={v=>setDrugAnswer(String(v))} disabled={!!feedbackVisible}/>:exercise?.kind==='dial'?<View style={styles.compactStack}>
               <Text style={styles.detailLabel}>{exercise.label}</Text>
-              <Text style={styles.dialValue}>{(parseDrugNumber(drugAnswer)??exercise.initial).toLocaleString('da-DK')} {currentDrugQuestion.unit}</Text>
-              <View style={styles.dialTrack}><View style={[styles.dialFill,{width:`${Math.max(0,Math.min(100,(parseDrugNumber(drugAnswer)??exercise.initial)/exercise.max*100))}%`}]}/></View>
+
               <CaseScale min={exercise.min} max={exercise.max} step={exercise.increment} value={parseDrugNumber(drugAnswer)??exercise.initial} onChange={v=>setDrugAnswer(String(v))} unit={currentDrugQuestion.unit} disabled={!!feedbackVisible}/>
             </View>:<NumberInput clearable readOnly={!!feedbackVisible} helperText={currentDrugQuestion.roundingNote} inputProps={{placeholder:'Indtast tal',inputMode:'decimal'}} label="Dit svar" unit={currentDrugQuestion.unit} onChangeText={setDrugAnswer} value={drugAnswer}/>}
             {!feedbackVisible&&currentDrugQuestion.hint&&<><SecondaryButton label={hintVisible?'Skjul hjælp':'Vis hjælp'} onPress={()=>setHintVisible(v=>!v)}/>{hintVisible&&<Text style={styles.bodyText}>{currentDrugQuestion.hint}</Text>}</>}
