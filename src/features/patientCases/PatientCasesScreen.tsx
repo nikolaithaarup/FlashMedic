@@ -2,7 +2,7 @@ import {useCaseProgress} from './useCaseProgress';
 import {filterProgress,progressFilters,summarizeProgress,progressForMonth,type ProgressFilter} from './caseProgress';
 import { curriculumMap } from './curriculumMap';
 import React, { useState } from 'react';
-import { Image, Linking, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Image, Keyboard, Linking, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Feather } from '@expo/vector-icons';
 import { ColorTokens as C, Spacing, Radii } from '../../../constants/theme';
@@ -29,7 +29,7 @@ function Question({step,onNext,last}:{step:Step;onNext:(correct:boolean)=>void;l
   {step.imageKey&&(image&&!imageFailed?<><Pressable accessibilityRole="button" accessibilityLabel="Åbn EKG i fuld skærm" onPress={()=>setZoom(true)} style={s.ecgFrame}><Image source={image} resizeMode="contain" style={s.ecgImage} accessibilityLabel="EKG til fortolkning" onError={()=>setImageFailed(true)}/><Text style={s.ecgHint}>Forstør EKG ↗</Text></Pressable>{zoom&&<FullscreenEkgImageModal visible imageSource={image} rotate={false} onClose={()=>setZoom(false)}/>}</>:<View style={s.update}><Text style={s.body}>EKG kunne ikke indlæses. Gå tilbage og prøv igen.</Text></View>)}
   <Text style={s.question}>{step.prompt}</Text>
   {(step.kind==='choice'||step.kind==='multi')&&step.options.map(o=><Button key={o.id} label={`${step.kind==='multi'?(list.includes(o.id)?'☑  ':'☐  '):''}${o.text}`} selected={step.kind==='choice'?answer===o.id:list.includes(o.id)} disabled={submitted} onPress={()=>step.kind==='choice'?setAnswer(o.id):toggle(o.id)}/>)}
-  {step.kind==='number'&&<View style={s.numberRow}><TextInput accessibilityLabel={`Svar i ${step.unit}`} style={s.input} keyboardType="decimal-pad" value={raw} placeholder="Indtast svar" placeholderTextColor={C.text.muted} editable={!submitted} onChangeText={v=>{setRaw(v);setAnswer(parseNumber(v));}}/><Text style={s.body}>{step.unit}</Text></View>}
+  {step.kind==='number'&&<View style={s.numberRow}><TextInput accessibilityLabel={`Svar i ${step.unit}`} style={s.input} keyboardType="decimal-pad" inputMode="decimal" autoCorrect={false} autoCapitalize="none" selectTextOnFocus={false} value={raw} placeholder="Indtast svar" placeholderTextColor={C.text.muted} editable={!submitted} onChangeText={v=>{setRaw(v);setAnswer(parseNumber(v));}}/><Text style={s.body}>{step.unit}</Text></View>}
   {step.kind==='scale'&&<CaseScale min={step.min} max={step.max} step={step.step} unit={step.unit} value={typeof answer==='number'?answer:null} disabled={submitted} onChange={setAnswer}/>}
   {step.kind==='match'&&<View style={s.stack}>
    <Text style={s.meta}>{Object.keys(pairs).length}/{step.left.length} par · Vælg et begreb, derefter dets match.</Text>
@@ -39,7 +39,7 @@ function Question({step,onNext,last}:{step:Step;onNext:(correct:boolean)=>void;l
    {!submitted&&<Pressable accessibilityRole="button" style={s.smallAction} onPress={()=>{setAnswer(null);setActive(step.left[0]?.id??null);}}><Text style={s.link}>Nulstil par</Text></Pressable>}
   </View>}
   {step.kind==='order'&&<View style={s.stack}><Text style={s.meta}>Tryk i den rigtige rækkefølge. Tryk igen for at fjerne.</Text>{list.map((id,i)=><Button key={id} label={`${i+1}. ${step.options.find(o=>o.id===id)?.text}`} selected disabled={submitted} onPress={()=>toggle(id)}/>)}{step.options.filter(o=>!list.includes(o.id)).map(o=><Button key={o.id} label={o.text} disabled={submitted} onPress={()=>toggle(o.id)}/>)}</View>}
-  {submitted?<><View accessibilityLiveRegion="polite" style={[s.feedback,{borderColor:correct?C.semantic.success:C.semantic.warning}]}><Text style={[s.question,{color:correct?C.semantic.success:C.semantic.warning}]}>{correct?'Korrekt!':'Ikke helt'}</Text>{!correct&&<Text style={s.body}>Rigtigt svar: {correctText(step)}</Text>}<Text style={s.body}>{step.explanation}</Text></View><Button primary label={last?'Se resultat':'Næste spørgsmål'} onPress={()=>onNext(correct)}/></>:<Button primary label="Bekræft svar" disabled={!ready(step,answer)||Boolean(step.imageKey&&(!image||imageFailed))} onPress={()=>setSubmitted(true)}/>}
+  {submitted?<><View accessibilityLiveRegion="polite" style={[s.feedback,{borderColor:correct?C.semantic.success:C.semantic.warning}]}><Text style={[s.question,{color:correct?C.semantic.success:C.semantic.warning}]}>{correct?'Korrekt!':'Ikke helt'}</Text>{!correct&&<Text style={s.body}>Rigtigt svar: {correctText(step)}</Text>}<Text style={s.body}>{step.explanation}</Text></View><Button primary label={last?'Se resultat':'Næste spørgsmål'} onPress={()=>onNext(correct)}/></>:<Button primary label="Bekræft svar" disabled={!ready(step,answer)||Boolean(step.imageKey&&(!image||imageFailed))} onPress={()=>{Keyboard.dismiss();setSubmitted(true);}}/>}
  </View>;
 }
 function Chip({label,onPress,selected=false,disabled=false,done=false}:{label:string;onPress:()=>void;selected?:boolean;disabled?:boolean;done?:boolean}){
@@ -72,7 +72,7 @@ export default function PatientCasesScreen({onBack,userId=null}:{onBack:()=>void
  const done=!!selected&&index>=selected.steps.length;
  const revealed=selected?.steps.slice(0,index+1).filter(step=>step.update)??[];
  const vitals=selected?currentVitals(selected,index):{};
- return <Screen key={selected?`${attempt}:${index}`:"library"} testID="patient-cases-screen" contentContainerStyle={s.container}><StatusBar style="light"/><ToolPageHeader title={difficulty??"Patientcases"} backLabel={selected?'Cases':difficulty?'Niveau':'Forside'} onBack={back}/>
+ return <Screen key={selected?`${attempt}:${index}`:"library"} testID="patient-cases-screen" keyboardAware contentContainerStyle={s.container}><StatusBar style="light"/><ToolPageHeader title={difficulty??"Patientcases"} backLabel={selected?'Cases':difficulty?'Niveau':'Forside'} onBack={back}/>
  {!difficulty?<View style={s.library}>
   <Text style={s.accent}>VÆLG NIVEAU</Text>
   {levels.map(level=>{const cases=patientCases.filter(c=>c.difficulty===level);const count=cases.filter(c=>monthlyProgress[c.id]).length;return <Pressable key={level} accessibilityRole="button" onPress={()=>{resetFilters();setDifficulty(level);}} style={({pressed})=>[s.levelChoice,pressed&&s.pressed]}><View style={s.grow}><Text style={s.question}>{level}</Text><Text style={s.caption}>{count}/{cases.length} gennemført</Text></View><Feather name="chevron-right" size={20} color={C.accent.focus}/></Pressable>;})}
@@ -89,7 +89,7 @@ export default function PatientCasesScreen({onBack,userId=null}:{onBack:()=>void
    {featured&&<Pressable accessibilityRole="button" accessibilityLabel={`Ugens case: ${featured.title}, ${featured.difficulty}`} disabled={status==='loading'} onPress={()=>start(featured)} style={({pressed})=>[s.quick,status==='loading'&&s.disabled,pressed&&s.pressed]}><Feather name="calendar" size={18} color={C.accent.focus}/><View style={s.grow}><Text style={s.rowTitle}>Ugens case</Text><Text style={s.caption} numberOfLines={1}>{featured.title}</Text></View><Feather name="chevron-right" size={16} color={C.text.secondary}/></Pressable>}
   </View>
   <View style={s.searchRow}>
-   <View style={s.searchField}><Feather name="search" size={18} color={C.text.secondary}/><TextInput accessibilityLabel="Søg i patientcases" value={query} onChangeText={setQuery} placeholder="Søg cases" placeholderTextColor={C.text.secondary} style={s.searchInput}/>{!!query&&<Pressable accessibilityRole="button" accessibilityLabel="Ryd søgning" onPress={()=>setQuery('')} style={s.iconAction}><Feather name="x" size={18} color={C.text.secondary}/></Pressable>}</View>
+   <View style={s.searchField}><Feather name="search" size={18} color={C.text.secondary}/><TextInput accessibilityLabel="Søg i patientcases" value={query} onChangeText={setQuery} autoCorrect={false} autoCapitalize="none" returnKeyType="search" placeholder="Søg cases" placeholderTextColor={C.text.secondary} style={s.searchInput}/>{!!query&&<Pressable accessibilityRole="button" accessibilityLabel="Ryd søgning" onPress={()=>setQuery('')} style={s.iconAction}><Feather name="x" size={18} color={C.text.secondary}/></Pressable>}</View>
    <Pressable accessibilityRole="button" accessibilityLabel="Filtre" accessibilityState={{expanded:showFilters}} onPress={()=>setShowFilters(v=>!v)} style={[s.filterAction,(showFilters||extraCount>0)&&s.selected]}><Feather name="sliders" size={17} color={C.accent.focus}/><Text style={s.chipText}>Filtre{extraCount>0?` (${extraCount})`:''}</Text></Pressable>
   </View>
   {showFilters&&<View style={s.filterPanel}>

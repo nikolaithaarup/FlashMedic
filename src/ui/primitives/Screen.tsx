@@ -1,5 +1,7 @@
 import React, { type ReactNode } from "react";
 import {
+  Keyboard,
+  TextInput,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -21,6 +23,7 @@ type ScreenProps = {
   scrollViewProps?: Omit<ScrollViewProps, "contentContainerStyle">;
   testID?: string;
   width?: "reading" | "wide";
+  keyboardAware?: boolean;
 };
 
 // Web horizontal/vertical insets are handled once by app/+html.tsx.
@@ -34,8 +37,77 @@ export function Screen({
   scrollViewProps,
   testID,
   width: contentWidth = "reading",
+  keyboardAware = false,
 }: ScreenProps) {
   const { width } = useWindowDimensions();
+  const scrollRef = React.useRef<ScrollView>(null);
+  const [keyboardSpace, setKeyboardSpace] = React.useState(0);
+  React.useEffect(() => {
+    if (!keyboardAware || !scroll) return;
+    if (Platform.OS !== "web") {
+      const reveal = () => {
+        const input = TextInput.State.currentlyFocusedInput();
+        if (input) scrollRef.current?.scrollResponderScrollNativeHandleToKeyboard(input, 24, true);
+      };
+      const show = Keyboard.addListener("keyboardDidShow", reveal);
+      const change = Keyboard.addListener("keyboardDidChangeFrame", reveal);
+      return () => { show.remove(); change.remove(); };
+    }
+    if (typeof window === "undefined" || typeof document === "undefined") return;
+    const viewport = window.visualViewport;
+    let frame = 0;
+    let timers: ReturnType<typeof setTimeout>[] = [];
+    const focused = () => {
+      const el = document.activeElement;
+      return el instanceof HTMLElement && el.matches("input, textarea") &&
+        el.closest('[data-testid="' + testID + '"]') ? el : null;
+    };
+    const reveal = () => {
+      const el = focused();
+      if (!el) { setKeyboardSpace(0); return; }
+      const top = viewport?.offsetTop ?? 0;
+      const height = viewport?.height ?? window.innerHeight;
+      const bottom = top + height;
+      const inset = Math.max(0, window.innerHeight - bottom);
+      setKeyboardSpace(inset > 60 ? inset + 64 : 0);
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        if (focused() !== el) return;
+        const rect = el.getBoundingClientRect();
+        if (rect.top < top + 12 || rect.bottom > bottom - 64) {
+          el.scrollIntoView({ block: "center", inline: "nearest", behavior: "auto" });
+          const overflow = el.getBoundingClientRect().bottom - bottom + 64;
+          if (overflow > 0) {
+            let parent = el.parentElement;
+            while (parent && parent !== document.body) {
+              if (/(auto|scroll)/.test(window.getComputedStyle(parent).overflowY) && parent.scrollHeight > parent.clientHeight) {
+                parent.scrollTop += overflow;
+                break;
+              }
+              parent = parent.parentElement;
+            }
+          }
+        }
+      });
+    };
+    const schedule = () => {
+      timers.forEach(clearTimeout);
+      reveal();
+      timers = [80, 260, 500].map(delay => setTimeout(reveal, delay));
+    };
+    document.addEventListener("focusin", schedule);
+    document.addEventListener("focusout", schedule);
+    viewport?.addEventListener("resize", schedule);
+    window.addEventListener("resize", schedule);
+    return () => {
+      document.removeEventListener("focusin", schedule);
+      document.removeEventListener("focusout", schedule);
+      viewport?.removeEventListener("resize", schedule);
+      window.removeEventListener("resize", schedule);
+      cancelAnimationFrame(frame);
+      timers.forEach(clearTimeout);
+    };
+  }, [keyboardAware, scroll, testID]);
   // On asymmetric foldable displays, the content width can be smaller
   // than the window width due to the right-hand safe-area inset.
   const [availableWidth, setAvailableWidth] = React.useState<number | null>(null);
@@ -67,9 +139,10 @@ export function Screen({
         >
           {scroll ? (
             <ScrollView
+              ref={scrollRef}
               automaticallyAdjustKeyboardInsets={Platform.OS === "ios"}
               contentInsetAdjustmentBehavior="automatic"
-              keyboardDismissMode={Platform.OS === "ios" ? "interactive" : "on-drag"}
+              keyboardDismissMode={keyboardAware ? "none" : Platform.OS === "ios" ? "interactive" : "on-drag"}
               keyboardShouldPersistTaps="handled"
               showsVerticalScrollIndicator={false}
               {...scrollViewProps}
@@ -77,6 +150,7 @@ export function Screen({
                 styles.content,
                 { maxWidth, paddingHorizontal: horizontalPadding },
                 contentContainerStyle,
+                keyboardAware && keyboardSpace > 0 ? { paddingBottom: keyboardSpace + Spacing.lg } : undefined,
               ]}
             >
               {children}
