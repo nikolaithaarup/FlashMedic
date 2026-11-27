@@ -23,7 +23,7 @@ function Button({label,onPress,selected=false,disabled=false,primary=false}:{lab
 }
 function Question({step,caseId,edition,onNext,last}:{step:Step;caseId:string;edition?:string;onNext:(correct:boolean)=>void;last:boolean}){
  const [answer,setAnswer]=useState<Answer>(null);const [raw,setRaw]=useState('');const [submitted,setSubmitted]=useState(false);const [active,setActive]=useState<string|null>(null);const [rightActive,setRightActive]=useState<string|null>(null);
- const [zoom,setZoom]=useState(false);const [imageFailed,setImageFailed]=useState(false);const [monitorPaused,setMonitorPaused]=useState(false);
+ const [zoom,setZoom]=useState(false);const [imageFailed,setImageFailed]=useState(false);const [monitorPaused,setMonitorPaused]=useState(()=>Platform.OS==='web'&&typeof window!=='undefined'&&typeof window.matchMedia==='function'&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);
  const rhythm=Platform.OS==='web'?liveRhythmForStep(caseId,step):undefined;
  const image=step.imageKey?ekgImageLookup[step.imageKey]:undefined;
  const list=Array.isArray(answer)?answer:[];const pairs=answer!==null&&typeof answer==='object'&&!Array.isArray(answer)?answer:{};

@@ -147,3 +147,12 @@ for(const item of liveSteps){const rhythm=getRhythm(item.id);const seed=caseRhyt
 for(const id of ['ekg-stemi-01','ekg-potassium-01']){const c=patientCases.find(c=>c.id===id)!;check(c.steps.some(s=>s.imageKey),'Diagnostic image lost');check(!c.steps.some(s=>liveRhythmForStep(c.id,s)),'Diagnostic image replaced with monitor');}
 for(const c of patientCases){for(const s of monthlyCase(c,new Date('2027-01-15T12:00:00Z')).steps)check(liveRhythmForStep(c.id,s)===liveRhythmForStep(c.id,c.steps.find(q=>q.id===s.id)!),'Monthly rhythm drift');}
 console.log(`${liveSteps.length} patientcase live ECG questions validated; diagnostic images retained.`);
+
+import {rhythmFollowupKeys} from '../src/features/patientCases/rhythmFollowups';
+import {readFileSync} from 'node:fs';
+const imageLookupSource=readFileSync('src/data/ekg/imageLookup.ts','utf8');
+for(const c of patientCases)for(const step of c.steps){if(step.imageKey)check(imageLookupSource.includes(step.imageKey+':'),`Missing image lookup ${c.id}/${step.id}`);}
+for(const key of rhythmFollowupKeys){const [id,stepId]=key.split('/');const c=patientCases.find(c=>c.id===id);check(c?.steps.some(s=>s.id===stepId),`Unapplied follow-up ${key}`);}
+const arrest=patientCases.find(c=>c.id==='arrest-01')!;check(arrest.steps.findIndex(s=>s.id==='organized-after-vf')===arrest.steps.findIndex(s=>s.id==='q2')+1,'Arrest timeline out of order');
+check(liveRhythmForStep(arrest.id,arrest.steps.find(s=>s.id==='q2')!)==='vf'&&liveRhythmForStep(arrest.id,arrest.steps.find(s=>s.id==='organized-after-vf')!)==='sinus_tachy','Arrest rhythm transition missing');
+console.log(`${rhythmFollowupKeys.length} clinical follow-ups and ECG image references passed.`);

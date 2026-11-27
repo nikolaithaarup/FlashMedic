@@ -15,7 +15,13 @@ const live:Record<string,RhythmId>={
  'science-svt-elev/rhythm':'svt',
  'science-svt-paramediciner/diff':'svt',
  'arrest-01/q2':'vf',
- 'pacing-01/q3':'paced_ventricular'
+ 'pacing-01/q3':'paced_ventricular',
+ 'ekg-flutter-behandler/flutter-variable':'flutter_variable',
+ 'ekg-block-behandler/mobitz-reference':'mobitz_i',
+ 'ekg-block-paramediciner/mobitz-reference':'mobitz_ii',
+ 'arrest-01/organized-after-vf':'sinus_tachy',
+ 'ekg-vt-01/post-conversion':'sinus_tachy',
+ 'trauma-01/compensation-strip':'sinus_tachy'
 };
 export const liveRhythmKeys=Object.keys(live);
 export function liveRhythmForStep(caseId:string,step:Step):RhythmId|undefined{

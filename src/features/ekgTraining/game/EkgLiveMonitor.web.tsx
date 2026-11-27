@@ -17,7 +17,7 @@ const HEIGHT = 230;
 
 export function EkgLiveMonitor({ rhythmId, seed, paused, compact = false }: Props) {
   const height = compact ? 132 : HEIGHT;
-  const windowSeconds = compact && (rhythmId === 'av_complete' || rhythmId === 'ventricular_escape' || rhythmId === 'av_two_one') ? 6.4 : WINDOW_SECONDS;
+  const windowSeconds = compact && ['av_complete','ventricular_escape','av_two_one','mobitz_i','mobitz_ii'].includes(rhythmId) ? 8 : WINDOW_SECONDS;
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const elapsedRef = useRef(0);
   const rhythm = getRhythm(rhythmId);
@@ -139,10 +139,16 @@ export function EkgLiveMonitor({ rhythmId, seed, paused, compact = false }: Prop
           setDisplayRate((old) => old === bpm ? old : bpm);
         }
       }
-      frame = window.requestAnimationFrame(render);
+      if (!paused) frame = window.requestAnimationFrame(render);
     };
     frame = window.requestAnimationFrame(render);
-    return () => window.cancelAnimationFrame(frame);
+    // A frozen monitor only redraws when its layout changes, rather than running
+    // animation frames continuously while the learner reads the explanation.
+    const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(() => {
+      if (paused) { window.cancelAnimationFrame(frame); frame = window.requestAnimationFrame(render); }
+    }) : undefined;
+    observer?.observe(canvas);
+    return () => { observer?.disconnect(); window.cancelAnimationFrame(frame); };
   }, [rhythm, seed, paused, compact, height, windowSeconds]);
 
   return (
