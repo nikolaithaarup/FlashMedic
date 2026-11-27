@@ -156,3 +156,9 @@ for(const key of rhythmFollowupKeys){const [id,stepId]=key.split('/');const c=pa
 const arrest=patientCases.find(c=>c.id==='arrest-01')!;check(arrest.steps.findIndex(s=>s.id==='organized-after-vf')===arrest.steps.findIndex(s=>s.id==='q2')+1,'Arrest timeline out of order');
 check(liveRhythmForStep(arrest.id,arrest.steps.find(s=>s.id==='q2')!)==='vf'&&liveRhythmForStep(arrest.id,arrest.steps.find(s=>s.id==='organized-after-vf')!)==='sinus_tachy','Arrest rhythm transition missing');
 console.log(`${rhythmFollowupKeys.length} clinical follow-ups and ECG image references passed.`);
+
+import {microbiologyCases} from '../src/features/patientCases/microbiologyCases';
+check(microbiologyCases.length===9,'Missing microbiology variants');
+for(const c of microbiologyCases){check(c.steps.length===6&&c.steps.filter(s=>s.kind==='choice').length<=2,'Microbiology exercise mix');check(patientCases.some(x=>x.id===c.id),'Missing microbiology case');}
+for(const family of new Set(microbiologyCases.map(c=>c.familyId))){check(microbiologyCases.filter(c=>c.familyId===family).length===3,'Microbiology level coverage');}
+console.log('Nine microbiology cases, 54 varied exercises validated.');

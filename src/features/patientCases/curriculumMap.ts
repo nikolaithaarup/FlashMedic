@@ -197,3 +197,6 @@ for(const c of ecgCases) curriculumMap[c.id]=c.id==='ekg-potassium-01'?{page:38,
 
 import { scienceCurriculum } from './scienceCases';
 Object.assign(curriculumMap,scienceCurriculum);
+
+import { microbiologyCases } from './microbiologyCases';
+for(const c of microbiologyCases)curriculumMap[c.id]={page:35,topic:'Sundheds- og sygdomslære 2'};

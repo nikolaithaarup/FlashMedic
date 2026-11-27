@@ -1,6 +1,7 @@
 import { Asset } from "expo-asset";
 import { StatusBar } from "expo-status-bar";
 import React, { useMemo, useState } from "react";
+import FlipCard from "../flashcards/components/FlipCard";
 import {
   Image,
   Pressable,
@@ -169,6 +170,7 @@ export default function QuizScreen({
           </View>
         </View>
 
+        <FlipCard key={`${currentCard.id}:${currentIndex}`} revealed={showAnswer} front={(
         <Surface elevated tone="elevated" style={styles.questionCard}>
           {currentCard.image ? (
             <Pressable
@@ -197,11 +199,10 @@ export default function QuizScreen({
             {currentCard.question}
           </Text>
         </Surface>
-
-        {showAnswer ? (
-          <>
-            <Text style={[styles.semanticLabel, styles.answerLabel]}>SVAR</Text>
-            <Surface tone="accent" style={styles.answerCard}>
+        )} back={(
+            <Surface tone="accent" style={[styles.questionCard,styles.answerCard]}>
+            <Text style={styles.semanticLabel}>SVAR</Text>
+            <Text style={[styles.backQuestion,{fontSize:metaFont}]}>{currentCard.question}</Text>
             <Text
               style={[
                 styles.answer,
@@ -210,9 +211,9 @@ export default function QuizScreen({
             >
               {currentCard.answer}
             </Text>
+            {currentCard.image ? <Pressable accessibilityRole="button" onPress={()=>setImageModalVisible(true)} style={styles.backImageLink}><Text style={styles.imageHint}>Se EKG-billede ↗</Text></Pressable> : null}
             </Surface>
-          </>
-        ) : null}
+        )}/>
 
         {completed ? (
           <ResultSummary
@@ -331,7 +332,8 @@ const styles = StyleSheet.create({
     fontWeight: Typography.weights.bold,
     textAlign: "left",
   },
-  answerLabel: { marginTop: Spacing.lg },
+  backQuestion: { color: ColorTokens.text.secondary, marginBottom: Spacing.md },
+  backImageLink: {minHeight:44,justifyContent:"center"},
   answerCard: { justifyContent: "center" },
   completionCard: { marginTop: Spacing.lg },
   answer: {
