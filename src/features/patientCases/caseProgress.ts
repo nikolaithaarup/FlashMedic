@@ -18,3 +18,8 @@ export function recordCompletion(progress:Progress,c:PatientCase,answers:boolean
 }
 export function filterProgress(pool:PatientCase[],progress:Progress,filter:ProgressFilter){return pool.filter(c=>filter==='Alle'||(filter==='Ikke gennemført'?!progress[c.id]:!!progress[c.id]&&progress[c.id].latest.correct<progress[c.id].latest.total));}
 export function summarizeProgress(pool:PatientCase[],progress:Progress){const records=pool.flatMap(c=>progress[c.id]?[progress[c.id]]:[]);const total=records.reduce((s,r)=>s+r.first.total,0);return {completed:records.length,total:pool.length,firstAccuracy:total?Math.round(records.reduce((s,r)=>s+r.first.correct,0)/total*100):null};}
+
+// Retain lifetime records but display only the current monthly edition as completed.
+export function progressForMonth(progress:Progress,month:string):Progress{
+ return Object.fromEntries(Object.entries(progress).filter(([,r])=>{const parts=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Copenhagen',year:'numeric',month:'2-digit'}).formatToParts(new Date(r.completedAt));const key=`${parts.find(p=>p.type==='year')?.value}-${parts.find(p=>p.type==='month')?.value}`;return (r.edition??key)===month;}));
+}

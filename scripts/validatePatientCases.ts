@@ -102,3 +102,15 @@ check(progressKey('one')!==progressKey('two'),'Account separation');
 let rejected=false;try{recordCompletion({},sample,[]);}catch{rejected=true;}check(rejected,'Incomplete case saved');
 rejected=false;try{decodeProgress('{"bad":{}}');}catch{rejected=true;}check(rejected,'Corrupt progress accepted');
 console.log('Progress: first/latest/best scores, repeat and unfinished filters, account keys and corrupt storage tests passed.');
+
+import {progressForMonth} from '../src/features/patientCases/caseProgress';
+import {currentVitals} from '../src/features/patientCases/caseEngine';
+check(Object.keys(progressForMonth(second,'2026-11')).length===1,'Current month completion missing');
+check(Object.keys(progressForMonth(second,'2026-12')).length===0,'Old month completion not reset');
+const crossMonth=recordCompletion({}, {...sample,edition:'2026-11'}, perfect,new Date('2026-12-01T00:01:00Z'));
+check(Object.keys(progressForMonth(crossMonth,'2026-12')).length===0,'Previous edition counted in new month');
+const cardiacFlow=patientCases.find(c=>c.id==='cardiac-01')!;
+check(cardiacFlow.steps.length===8,'Cardiac flow missing');
+check(currentVitals(cardiacFlow,0).BT==='148/86 mmHg','Future vital leaked');
+check(currentVitals(cardiacFlow,6).BT==='122/74 mmHg'&&currentVitals(cardiacFlow,7).BT==='94/58 mmHg','Reassessment vital failed');
+console.log('Level library monthly completion and progressive vital updates validated.');

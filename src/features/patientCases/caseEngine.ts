@@ -1,5 +1,5 @@
 export type Option = { id: string; text: string };
-type Base = { id: string; prompt: string; update?: string; imageKey?: string; explanation: string };
+type Base = { id: string; prompt: string; update?: string; vitalsUpdate?: Record<string,string>; imageKey?: string; explanation: string };
 export type Step = Base & (
   | { kind: 'choice'; options: Option[]; correct: string }
   | { kind: 'multi'; options: Option[]; correct: string[] }
@@ -58,3 +58,6 @@ export function pickCase(pool: PatientCase[], previous?:string, random=Math.rand
 export function assignPair(pairs:Record<string,string>, leftId:string, rightId:string):Record<string,string>{
  return {...Object.fromEntries(Object.entries(pairs).filter(([k,v])=>k!==leftId&&v!==rightId)),[leftId]:rightId};
 }
+
+// Apply only observations available at the current question, never future ones.
+export function currentVitals(c:PatientCase,index:number):Record<string,string>{return Object.assign({},c.vitals,...c.steps.slice(0,index+1).map(step=>step.vitalsUpdate??{}));}
