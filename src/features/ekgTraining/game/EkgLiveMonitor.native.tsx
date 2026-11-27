@@ -3,7 +3,7 @@ import { Text, View } from "react-native";
 import type { RhythmId } from "./rhythmModel";
 
 // Preserves native compilation. The moving Canvas monitor is PWA-only for this first release.
-export function EkgLiveMonitor(props: { rhythmId: RhythmId; seed: number; paused: boolean }) {
+export function EkgLiveMonitor(props: { rhythmId: RhythmId; seed: number; paused: boolean; compact?: boolean }) {
   void props;
   return (
     <View style={{ backgroundColor: "#061c25", borderRadius: 12, padding: 20 }}>

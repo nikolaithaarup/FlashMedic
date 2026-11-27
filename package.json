@@ -8,7 +8,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "build:web": "npm run validate:patient-cases && node scripts/buildBrandIcons.mjs --flash && node scripts/assertVercelTarget.mjs && expo export --platform web --output-dir dist && node scripts/generateServiceWorker.mjs dist",
+    "build:web": "npm run validate:patient-cases && npm run test:ekg-rhythm-game && node scripts/buildBrandIcons.mjs --flash && node scripts/assertVercelTarget.mjs && expo export --platform web --output-dir dist && node scripts/generateServiceWorker.mjs dist",
     "preview:web": "npx serve dist --listen 4173 --single",
     "validate:iso-week": "tsx scripts/validateIsoWeek.ts",
     "validate:patient-cases": "tsx scripts/validatePatientCases.ts",

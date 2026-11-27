@@ -5,4 +5,5 @@ export declare function EkgLiveMonitor(props: {
   rhythmId: RhythmId;
   seed: number;
   paused: boolean;
+  compact?: boolean;
 }): ReactElement;

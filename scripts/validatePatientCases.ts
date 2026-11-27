@@ -138,3 +138,12 @@ console.log(`${subjectInteractionKeys.length} subject interactions verified; pha
 for(let i=0;i<24;i++){const date=new Date(Date.UTC(2026,10+i,15,12));for(const c of patientCases){const rotated=monthlyCase(c,date);for(const step of c.steps){const next=rotated.steps.find(s=>s.id===step.id);check(next?.kind===step.kind,`Monthly question type drift: ${c.id}/${step.id}`);if(c.familyId?.startsWith('science-')&&!['index','balance','map','calcium'].includes(step.id))check(JSON.stringify(next)===JSON.stringify(step),`Monthly exercise overwritten: ${c.id}/${step.id}`);}}}
 check(modelOutput('flutterRate',2,300)===150,'Flutter conduction model');
 console.log('Monthly interactive formats preserved across 24 months; conduction model passed.');
+
+import {liveRhythmForStep,liveRhythmKeys,caseRhythmSeed} from '../src/features/patientCases/caseRhythms';
+import {getRhythm,createTimeline,ecgAmplitude} from '../src/features/ekgTraining/game/rhythmModel';
+const liveSteps=patientCases.flatMap(c=>c.steps.flatMap(step=>{const id=liveRhythmForStep(c.id,step);return id?[{key:c.id+'/'+step.id,id,step}]:[]}));
+check(liveSteps.length===liveRhythmKeys.length,'Live rhythm mapping drift');
+for(const item of liveSteps){const rhythm=getRhythm(item.id);const seed=caseRhythmSeed(item.key,item.step.id,'2026-11');const trace=createTimeline(rhythm,seed,-18,185);const extended=createTimeline(rhythm,seed,-18,370);check(JSON.stringify(trace.beats.filter(b=>b.time<180))===JSON.stringify(extended.beats.filter(b=>b.time<180)),'Extended timeline phase drift');check(Number.isFinite(ecgAmplitude(0,trace,rhythm)),'Invalid ECG waveform');}
+for(const id of ['ekg-stemi-01','ekg-potassium-01']){const c=patientCases.find(c=>c.id===id)!;check(c.steps.some(s=>s.imageKey),'Diagnostic image lost');check(!c.steps.some(s=>liveRhythmForStep(c.id,s)),'Diagnostic image replaced with monitor');}
+for(const c of patientCases){for(const s of monthlyCase(c,new Date('2027-01-15T12:00:00Z')).steps)check(liveRhythmForStep(c.id,s)===liveRhythmForStep(c.id,c.steps.find(q=>q.id===s.id)!),'Monthly rhythm drift');}
+console.log(`${liveSteps.length} patientcase live ECG questions validated; diagnostic images retained.`);

@@ -11,11 +11,13 @@ import {
   type RhythmId,
 } from "./rhythmModel";
 
-type Props = { rhythmId: RhythmId; seed: number; paused: boolean };
+type Props = { rhythmId: RhythmId; seed: number; paused: boolean; compact?: boolean };
 const WINDOW_SECONDS = 4.8;
 const HEIGHT = 230;
 
-export function EkgLiveMonitor({ rhythmId, seed, paused }: Props) {
+export function EkgLiveMonitor({ rhythmId, seed, paused, compact = false }: Props) {
+  const height = compact ? 132 : HEIGHT;
+  const windowSeconds = compact && (rhythmId === 'av_complete' || rhythmId === 'ventricular_escape' || rhythmId === 'av_two_one') ? 6.4 : WINDOW_SECONDS;
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const elapsedRef = useRef(0);
   const rhythm = getRhythm(rhythmId);
@@ -35,34 +37,46 @@ export function EkgLiveMonitor({ rhythmId, seed, paused }: Props) {
     let lastTick = 0;
     let lastPaint = 0;
     let lastRate = -1;
-    const trace = createTimeline(rhythm, seed);
+    // The game rounds are short; a patient case may be studied for much longer.
+    // Regenerate deterministically before the end of the timeline, preserving phase.
+    let traceEnd = Math.max(185, elapsedRef.current + 185);
+    let trace = createTimeline(rhythm, seed, -18, traceEnd);
+    let paintedWidth = 0;
     const assumed = rhythm.pulse === "assumed";
     const render = (timestamp: number) => {
       if (lastTick && !paused) elapsedRef.current += Math.min(0.08, Math.max(0, timestamp - lastTick) / 1000);
       lastTick = timestamp;
-      if (!lastPaint || timestamp - lastPaint >= 16) {
+      const widthNow = Math.max(1, canvas.clientWidth);
+      if (widthNow !== paintedWidth || !lastPaint || (!paused && timestamp - lastPaint >= 16)) {
+        paintedWidth = widthNow;
         lastPaint = timestamp;
         const width = Math.max(1, canvas.clientWidth);
         const dpr = Math.min(2, window.devicePixelRatio || 1);
         const pw = Math.round(width * dpr);
-        const ph = Math.round(HEIGHT * dpr);
+        const ph = Math.round(height * dpr);
         if (canvas.width !== pw || canvas.height !== ph) { canvas.width = pw; canvas.height = ph; }
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         ctx.fillStyle = "#061c25";
-        ctx.fillRect(0, 0, width, HEIGHT);
+        ctx.fillRect(0, 0, width, height);
         ctx.lineWidth = 0.75;
         ctx.strokeStyle = "rgba(75,159,167,0.20)";
         for (let x = 0; x <= width; x += 20) {
-          ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, HEIGHT); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, height); ctx.stroke();
         }
-        for (let y = 0; y <= HEIGHT; y += 20) {
+        for (let y = 0; y <= height; y += 20) {
           ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(width, y); ctx.stroke();
         }
-        ctx.strokeStyle = "rgba(255,255,255,0.15)";
-        ctx.beginPath(); ctx.moveTo(0, 151); ctx.lineTo(width, 151); ctx.stroke();
+        if (!compact) {
+          ctx.strokeStyle = "rgba(255,255,255,0.15)";
+          ctx.beginPath(); ctx.moveTo(0, 151); ctx.lineTo(width, 151); ctx.stroke();
+        }
 
         const end = elapsedRef.current;
-        const start = end - WINDOW_SECONDS;
+        if (end + 8 >= traceEnd) {
+          traceEnd = end + 185;
+          trace = createTimeline(rhythm, seed, -18, traceEnd);
+        }
+        const start = end - windowSeconds;
         const visible = {
           beats: trace.beats.filter((b) => b.time >= start - 1.2 && b.time <= end + 0.7),
           pTimes: trace.pTimes.filter((p) => p.time >= start - 0.2 && p.time <= end + 0.2),
@@ -73,7 +87,7 @@ export function EkgLiveMonitor({ rhythmId, seed, paused }: Props) {
           const steps = pulse ? pulseSteps : ecgSteps;
           const sampleTimes: number[] = [];
           for (let i = 0; i <= steps; i++) {
-            sampleTimes.push(start + (i / steps) * WINDOW_SECONDS);
+            sampleTimes.push(start + (i / steps) * windowSeconds);
           }
           if (!pulse) {
             // Preserve exact QRS extrema as they move between pixel coordinates.
@@ -88,9 +102,9 @@ export function EkgLiveMonitor({ rhythmId, seed, paused }: Props) {
           ctx.beginPath();
           for (let i = 0; i < sampleTimes.length; i++) {
             const t = sampleTimes[i];
-            const x = ((t - start) / WINDOW_SECONDS) * width;
+            const x = ((t - start) / windowSeconds) * width;
             const amplitude = pulse ? pulseAmplitude(t, visible, rhythm) : ecgAmplitude(t, visible, rhythm);
-            const y = pulse ? 210 - amplitude * 48 : 95 - amplitude * 68;
+            const y = pulse ? 210 - amplitude * 48 : compact ? 73 - amplitude * 56 : 95 - amplitude * 68;
             if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
           }
           ctx.strokeStyle = pulse ? "#5fb7ff" : "#67efd4";
@@ -107,16 +121,18 @@ export function EkgLiveMonitor({ rhythmId, seed, paused }: Props) {
         };
         ctx.save();
         ctx.beginPath();
-        ctx.rect(0, 0, width, 151);
+        ctx.rect(0, 0, width, compact ? height : 151);
         ctx.clip();
         paint(false);
         ctx.restore();
-        ctx.save();
-        ctx.beginPath();
-        ctx.rect(0, 152, width, HEIGHT - 152);
-        ctx.clip();
-        paint(true);
-        ctx.restore();
+        if (!compact) {
+          ctx.save();
+          ctx.beginPath();
+          ctx.rect(0, 152, width, height - 152);
+          ctx.clip();
+          paint(true);
+          ctx.restore();
+        }
         if (end - lastRate >= 1 && rhythm.baseBpm > 0) {
           lastRate = end;
           const bpm = approximateEcgRate(trace.beats, end, rhythm.baseBpm);
@@ -127,21 +143,21 @@ export function EkgLiveMonitor({ rhythmId, seed, paused }: Props) {
     };
     frame = window.requestAnimationFrame(render);
     return () => window.cancelAnimationFrame(frame);
-  }, [rhythm, seed, paused]);
+  }, [rhythm, seed, paused, compact, height, windowSeconds]);
 
   return (
     <View style={styles.frame}>
       <View style={styles.header}>
-        <Text style={styles.headerLabel}>EKG · AFLEDNING II</Text>
+        <Text style={styles.headerLabel}>{compact ? "EKG · SIMULERET AFLEDNING II" : "EKG · AFLEDNING II"}</Text>
         <Text style={styles.rate} accessibilityLabel={displayRate === null ? "Elektrisk frekvens ikke målelig" : `Elektrisk frekvens ${displayRate} per minut`}>
           {displayRate === null ? "—" : displayRate} <Text style={styles.unit}>/min</Text>
         </Text>
       </View>
       <canvas
         ref={canvasRef}
-        aria-label="Animeret, syntetisk afledning II og hypotetisk pulskurve"
+        aria-label={compact ? "Syntetisk enkeltkanals-EKG til rytmefortolkning" : "Animeret, syntetisk afledning II og hypotetisk pulskurve"}
         role="img"
-        style={{ display: "block", width: "100%", height: HEIGHT }}
+        style={{ display: "block", width: "100%", height }}
       />
     </View>
   );
