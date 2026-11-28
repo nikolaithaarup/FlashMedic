@@ -151,6 +151,7 @@ export function DrugCalcPracticeScreen({
           <Surface elevated tone="elevated" style={styles.section}>
             <Text style={styles.eyebrow}>{shortTopicNames[currentDrugQuestion.topic]} · {currentDrugQuestion.syringe?"Aflæs sprøjten":exercise?.kind==='fields'?"Flere trin":exercise?.kind==='audit'?"Find fejlen":exercise?.kind==='dial'?exercise.device==='syringe'?"Indstil sprøjten":"Indstil hastighed":"Beregn"}</Text>
             <Text style={styles.questionText}>{currentDrugQuestion.text}</Text>
+            {currentDrugQuestion.labelData&&<View style={styles.vialLabel}><Text style={styles.vialName}>{currentDrugQuestion.labelData.title}</Text><Text style={styles.vialStrength}>{currentDrugQuestion.labelData.strength}</Text><Text style={styles.vialDetail}>{currentDrugQuestion.labelData.detail}</Text></View>}
 
             {currentDrugQuestion.syringe&&<SyringeExercise spec={currentDrugQuestion.syringe} value={currentDrugQuestion.syringe.volume} disabled readOnly/>}
             {exercise?.kind==='audit'&&<View style={styles.compactStack}>{exercise.options.map((option,i)=><SelectableChoice key={i} label={option} state={feedbackVisible?(i===exercise.correctIndex?'correct':response.choice===i?'incorrect':'default'):response.choice===i?'selected':'default'} disabled={!!feedbackVisible} dimWhenDisabled={false} onPress={()=>setDrugAnswer(JSON.stringify({...response,choice:i}))}/>)}</View>}
@@ -225,6 +226,7 @@ export default DrugCalcPracticeScreen;
 const styles = StyleSheet.create({
   content: { paddingBottom: Spacing.xxl },
   worked:{gap:4,paddingVertical:6},
+  vialLabel:{alignSelf:"stretch",padding:12,borderRadius:8,backgroundColor:"#f8f9fa",borderLeftWidth:6,borderLeftColor:"#169b96",gap:3},vialName:{color:"#344851",fontSize:12,fontWeight:"700"},vialStrength:{color:"#172b33",fontSize:22,fontWeight:"700"},vialDetail:{color:"#344851",fontSize:14},
   section: { gap: Spacing.sm, marginBottom: Spacing.sm },
   compactStack:{gap:Spacing.sm},dialValue:{fontSize:Typography.sizes.sectionTitle,color:ColorTokens.accent.primary,fontWeight:'700',textAlign:'center'},dialTrack:{height:12,borderRadius:6,backgroundColor:ColorTokens.surface.default,overflow:'hidden'},dialFill:{height:'100%',backgroundColor:ColorTokens.accent.primary},
   eyebrow: {

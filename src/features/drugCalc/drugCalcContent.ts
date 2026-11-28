@@ -61,7 +61,7 @@ export const DRUG_TOPICS: { id: DrugCalcTopic; title: string; desc: string }[] =
     {
       id: "drops",
       title: "Dråber (dr/min, dr/mL)",
-      desc: `Dråbesæt: ${DROPS_PER_ML} dr pr. mL.`,
+      desc: "Beregn med den angivne dråbefaktor.",
     },
     {
       id: "infusion",
@@ -474,6 +474,7 @@ export type DrugCalcQuestion = {
   tolerance: number;
   exercise?: DrugExercise;
   syringe?: SyringeSpec & {volume:number};
+  labelData?: {title:string;strength:string;detail:string};
 };
 
 type DrugCalcQuestionBase = Omit<

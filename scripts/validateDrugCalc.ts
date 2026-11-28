@@ -179,3 +179,6 @@ if(menuIds.length!==DRUG_TOPICS.length||new Set(menuIds).size!==menuIds.length||
 const lum=(hex:string)=>{const rgb=hex.slice(1).match(/../g)!.map(x=>{const n=parseInt(x,16)/255;return n<=.04045?n/12.92:Math.pow((n+.055)/1.055,2.4)});return .2126*rgb[0]+.7152*rgb[1]+.0722*rgb[2]};
 for(const bg of [fieldColors.background,fieldColors.focused,fieldColors.readOnly,fieldColors.disabled])for(const fg of [fieldColors.text,fieldColors.muted]){const a=lum(bg),b=lum(fg);if((Math.max(a,b)+.05)/(Math.min(a,b)+.05)<4.5)throw new Error('Numeric field contrast below 4.5:1');}
 console.log('All 13 topics accessible; numeric input contrast validated.');
+
+for(const topic of ['strength','percentage','drops','time','errorCheck'] as const){const forms=new Set<string>();for(let i=0;i<100;i++){const q=generateDrugCalcQuestion([topic],'varied');forms.add(q.formula);if(q.labelData&&(!q.labelData.title||!q.labelData.strength||!q.labelData.detail))throw new Error('Incomplete label');}if(forms.size<2)throw new Error('Missing alternative for '+topic);}
+console.log('Five additional question families validated.');
