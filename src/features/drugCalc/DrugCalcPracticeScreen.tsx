@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useMemo, useState, useEffect } from "react";
 import {shortTopicNames} from "./drugCalcMenu";
-import { Keyboard, StyleSheet, Text, View } from "react-native";
+import { Keyboard, Pressable, StyleSheet, Text, View } from "react-native";
 import CaseScale from '../patientCases/CaseScale';
 import SyringeExercise from './SyringeExercise';
 import {evaluateDrugResponse,readDrugResponse,parseDrugNumber} from './drugCalcVariants';
@@ -149,7 +149,7 @@ export function DrugCalcPracticeScreen({
       {currentDrugQuestion ? (
         <>
           <Surface elevated tone="elevated" style={styles.section}>
-            <Text style={styles.eyebrow}>{shortTopicNames[currentDrugQuestion.topic]} · {currentDrugQuestion.syringe?"Aflæs sprøjten":exercise?.kind==='fields'?"Flere trin":exercise?.kind==='audit'?"Find fejlen":exercise?.kind==='dial'?exercise.device==='syringe'?"Indstil sprøjten":"Indstil hastighed":"Beregn"}</Text>
+            <Text style={styles.eyebrow}>{shortTopicNames[currentDrugQuestion.topic]} · {currentDrugQuestion.syringe?"Aflæs sprøjten":exercise?.kind==='fields'?"Flere trin":exercise?.kind==='audit'?"Find fejlen":exercise?.kind==='dial'?exercise.device==='syringe'?"Indstil sprøjten":exercise.device==='tablets'?"Vælg tabletter":exercise.device==='bags'?"Vælg poser":exercise.device==='wheel'?"Indstil drejehjulet":"Indstil hastighed":"Beregn"}</Text>
             <Text style={styles.questionText}>{currentDrugQuestion.text}</Text>
             {currentDrugQuestion.labelData&&<View style={styles.vialLabel}><Text style={styles.vialName}>{currentDrugQuestion.labelData.title}</Text><Text style={styles.vialStrength}>{currentDrugQuestion.labelData.strength}</Text><Text style={styles.vialDetail}>{currentDrugQuestion.labelData.detail}</Text></View>}
 
@@ -157,7 +157,7 @@ export function DrugCalcPracticeScreen({
             {exercise?.kind==='audit'&&<View style={styles.compactStack}>{exercise.options.map((option,i)=><SelectableChoice key={i} label={option} state={feedbackVisible?(i===exercise.correctIndex?'correct':response.choice===i?'incorrect':'default'):response.choice===i?'selected':'default'} disabled={!!feedbackVisible} dimWhenDisabled={false} onPress={()=>setDrugAnswer(JSON.stringify({...response,choice:i}))}/>)}</View>}
             {fields?fields.map((f,i)=><NumberInput key={i} label={f.label} unit={f.unit} value={response.values[i]} onChangeText={v=>changeField(i,v)} readOnly={!!feedbackVisible} inputProps={{placeholder:'Indtast tal',inputMode:'decimal'}} helperText={f.decimals===0?undefined:'Højst '+f.decimals+' decimal'+(f.decimals===1?'':'er')}/>):exercise?.kind==='dial'&&exercise.device==='syringe'?<SyringeExercise spec={{capacity:exercise.max,increment:exercise.increment}} value={parseDrugNumber(drugAnswer)??exercise.initial} onChange={v=>setDrugAnswer(String(v))} disabled={!!feedbackVisible}/>:exercise?.kind==='dial'?<View style={styles.compactStack}>
               <Text style={styles.detailLabel}>{exercise.label}</Text>
-
+              {(exercise.device==='tablets'||exercise.device==='bags'||exercise.device==='wheel')&&<VisualDial exercise={exercise} value={parseDrugNumber(drugAnswer)??exercise.initial} unit={currentDrugQuestion.unit} disabled={!!feedbackVisible} onChange={v=>setDrugAnswer(String(v))}/>}
               <CaseScale min={exercise.min} max={exercise.max} step={exercise.increment} value={parseDrugNumber(drugAnswer)??exercise.initial} onChange={v=>setDrugAnswer(String(v))} unit={currentDrugQuestion.unit} disabled={!!feedbackVisible}/>
             </View>:<NumberInput clearable readOnly={!!feedbackVisible} helperText={currentDrugQuestion.roundingNote} inputProps={{placeholder:'Indtast tal',inputMode:'decimal'}} label="Dit svar" unit={currentDrugQuestion.unit} onChangeText={setDrugAnswer} value={drugAnswer}/>}
             {!feedbackVisible&&currentDrugQuestion.hint&&<><SecondaryButton label={hintVisible?'Skjul hjælp':'Vis hjælp'} onPress={()=>setHintVisible(v=>!v)}/>{hintVisible&&<Text style={styles.bodyText}>{currentDrugQuestion.hint}</Text>}</>}
@@ -221,6 +221,28 @@ export function DrugCalcPracticeScreen({
   );
 }
 
+type VisualDialSpec = Extract<NonNullable<DrugCalcQuestion['exercise']>, {kind:'dial'}>;
+function VisualDial({exercise,value,unit,disabled,onChange}:{exercise:VisualDialSpec;value:number;unit:string;disabled:boolean;onChange:(n:number)=>void}){
+ const change=(delta:number)=>onChange(Math.round(Math.max(exercise.min,Math.min(exercise.max,value+delta))*1000)/1000);
+ const isTablets=exercise.device==='tablets';
+ const angle=-135+(value-exercise.min)/(exercise.max-exercise.min)*270;
+ return <View style={visual.wrap}>
+ {exercise.caption&&<Text style={visual.caption}>{exercise.caption}</Text>}
+ {exercise.device==='wheel'?<View style={visual.wheel}>
+   <View style={visual.rim}/>{Array.from({length:19},(_,i)=><View key={i} style={[visual.spoke,{transform:[{rotate:(-135+i*15)+'deg'}]}]}><View style={[visual.tick,i%3===0&&visual.majorTick]}/></View>)}
+   <View style={[visual.pointerArm,{transform:[{rotate:angle+'deg'}]}]}><View style={visual.pointer}/></View>
+   <View style={visual.hub}><Text style={visual.value}>{value.toLocaleString('da-DK')}</Text><Text style={visual.caption}>{unit}</Text></View>
+ </View>:<View style={visual.objects}>
+ {Array.from({length:Math.ceil(exercise.max)},(_,i)=>{const fill=Math.max(0,Math.min(1,value-i));return <Pressable key={i} disabled={disabled} accessibilityRole="button" accessibilityLabel={isTablets?'Tablet '+(i+1):'Pose '+(i+1)} accessibilityState={{selected:fill>0,disabled}} onPress={()=>onChange(isTablets?(fill===0?i+.5:fill===.5?i+1:i):fill>0?i:i+1)} style={visual.objectButton}>
+ {isTablets?<View style={visual.pill}><View style={[visual.pillHalf,fill>=.5&&visual.pillOn]}/><View style={[visual.pillHalf,fill===1&&visual.pillOn]}/></View>:<View style={visual.bagWrap}><View style={[visual.bag,fill>0&&visual.bagOn]}><Text style={[visual.bagText,fill>0&&visual.bagTextOn]}>500</Text><Text style={[visual.bagText,fill>0&&visual.bagTextOn]}>mL</Text></View><View style={visual.bagStem}/></View>}
+ </Pressable>;})}
+ </View>}
+ <View style={visual.controls}><Pressable accessibilityRole="button" accessibilityLabel="Mindsk" disabled={disabled||value<=exercise.min} onPress={()=>change(-exercise.increment)} style={[visual.adjust, (disabled||value<=exercise.min)&&visual.disabled]}><Text style={visual.adjustText}>−</Text></Pressable><Text style={visual.value}>{value.toLocaleString('da-DK')} {unit}</Text><Pressable accessibilityRole="button" accessibilityLabel="Øg" disabled={disabled||value>=exercise.max} onPress={()=>change(exercise.increment)} style={[visual.adjust,(disabled||value>=exercise.max)&&visual.disabled]}><Text style={visual.adjustText}>+</Text></Pressable></View>
+ </View>;
+}
+const visual=StyleSheet.create({
+ wrap:{gap:10,alignItems:'center',paddingVertical:8},caption:{color:ColorTokens.text.secondary,fontSize:13,textAlign:'center'},objects:{flexDirection:'row',flexWrap:'wrap',justifyContent:'center',gap:8},objectButton:{minWidth:44,minHeight:48,alignItems:'center',justifyContent:'center'},pill:{width:44,height:30,borderRadius:15,borderWidth:1,borderColor:'#819b9c',overflow:'hidden',flexDirection:'row',backgroundColor:'#23363c'},pillHalf:{flex:1,borderRightWidth:1,borderRightColor:'#819b9c'},pillOn:{backgroundColor:'#d9ece9'},bagWrap:{alignItems:'center',padding:2},bag:{width:46,height:64,borderRadius:8,borderWidth:1,borderColor:'#78999e',backgroundColor:'#21363d',justifyContent:'center',alignItems:'center'},bagOn:{backgroundColor:'#bce9e5',borderColor:'#5bd0c5'},bagStem:{width:8,height:7,backgroundColor:'#78999e',borderBottomLeftRadius:2,borderBottomRightRadius:2},bagText:{color:'#b4c7cc',fontSize:10,fontWeight:'700'},bagTextOn:{color:'#14353b'},controls:{flexDirection:'row',alignItems:'center',gap:16,justifyContent:'center'},adjust:{width:44,height:44,borderRadius:22,borderWidth:1,borderColor:'#5dbbb4',alignItems:'center',justifyContent:'center'},adjustText:{fontSize:26,color:ColorTokens.text.primary},disabled:{opacity:.35},value:{color:ColorTokens.text.primary,fontSize:22,fontWeight:'700',textAlign:'center'},wheel:{width:176,height:176,alignItems:'center',justifyContent:'center'},rim:{position:'absolute',width:162,height:162,borderRadius:81,borderWidth:2,borderColor:'#52757b',backgroundColor:'#14282f'},spoke:{position:'absolute',width:12,height:150,alignItems:'center'},tick:{width:2,height:7,backgroundColor:'#819b9c'},majorTick:{height:12,backgroundColor:'#d9ece9'},pointerArm:{position:'absolute',height:152,width:12,alignItems:'center'},pointer:{width:5,height:25,borderRadius:3,backgroundColor:'#50d1c4'},hub:{width:90,height:90,borderRadius:45,backgroundColor:'#21363d',alignItems:'center',justifyContent:'center'}
+});
 export default DrugCalcPracticeScreen;
 
 const styles = StyleSheet.create({

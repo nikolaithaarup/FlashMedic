@@ -969,7 +969,7 @@ export function generateDrugCalcQuestion(
   mode: 'mixed'|'classic'|'varied' = 'mixed',
 ): DrugCalcQuestion {
   const question = generateBaseDrugCalcQuestion(selectedTopics);
-  if(mode==='varied'||(mode==='mixed'&&Math.random()<.65))return generateDrugVariant(question.topic,question.id);
+  if(mode==='varied'||(mode==='mixed'&&Math.random()<.90))return generateDrugVariant(question.topic,question.id);
   const answerDecimals = getAnswerDecimals(question);
   const calculationSteps = question.explanation
     .split(" → ")

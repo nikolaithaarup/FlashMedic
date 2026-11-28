@@ -190,3 +190,19 @@ for(const topic of DRUG_TOPICS)for(const mode of ['classic','varied'] as const)f
  if(q.labelData&&/øvelse/i.test(q.labelData.title))throw new Error('Redundant label wording');
 }
 console.log('Danish question wording checked for all 13 topics in both generators.');
+
+const devices=new Set<string>();let reads=0,parkland=0,nacl=0,energy=0;
+for(const topic of ['volume','dose','tablets','infusion','multiStep'] as const)for(let i=0;i<300;i++){
+ const q=generateDrugCalcQuestion([topic],'varied');const e=q.exercise;
+ if(q.syringe&&q.unit==='mL')reads++;
+ if(e?.kind!=='dial')continue;
+ if(e.device)devices.add(e.device);
+ if(q.correctAnswer<=e.min||q.correctAnswer>e.max||Math.abs((q.correctAnswer-e.min)/e.increment-Math.round((q.correctAnswer-e.min)/e.increment))>1e-8)throw new Error('Unreachable device answer: '+q.text);
+ if(evaluateDrugResponse(q,String(q.correctAnswer))!==true||evaluateDrugResponse(q,String(e.initial))!==false)throw new Error('Invalid device grading');
+ if(e.device==='bags'&&q.text.includes('Parkland')){parkland++;const m=q.text.match(/Brandsår: (\d+) kg, (\d+) % TBSA.*givet (\d+) mL/);if(!m||Math.ceil((3*Number(m[1])*Number(m[2])/2-Number(m[3]))/500)!==q.correctAnswer)throw new Error('Parkland bag count');}
+ if(e.device==='bags'&&q.text.includes('NaCl'))nacl++;
+ if(e.device==='wheel'&&q.unit==='J')energy++;
+}
+for(const d of ['syringe','tablets','bags','wheel','pump'])if(!devices.has(d))throw new Error('Missing device '+d);
+if(!reads||!parkland||!nacl||!energy)throw new Error('Missing visual variant');
+console.log('Interactive device reachability and burn bag arithmetic validated.');
