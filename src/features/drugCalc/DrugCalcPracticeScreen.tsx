@@ -155,7 +155,7 @@ export function DrugCalcPracticeScreen({
 
             {currentDrugQuestion.syringe&&<SyringeExercise spec={currentDrugQuestion.syringe} value={currentDrugQuestion.syringe.volume} disabled readOnly/>}
             {exercise?.kind==='audit'&&<View style={styles.compactStack}>{exercise.options.map((option,i)=><SelectableChoice key={i} label={option} state={feedbackVisible?(i===exercise.correctIndex?'correct':response.choice===i?'incorrect':'default'):response.choice===i?'selected':'default'} disabled={!!feedbackVisible} dimWhenDisabled={false} onPress={()=>setDrugAnswer(JSON.stringify({...response,choice:i}))}/>)}</View>}
-            {fields?fields.map((f,i)=><NumberInput key={i} label={f.label} unit={f.unit} value={response.values[i]} onChangeText={v=>changeField(i,v)} readOnly={!!feedbackVisible} inputProps={{placeholder:'Indtast tal',inputMode:'decimal'}} helperText={f.decimals===0?'Helt tal':'Op til '+f.decimals+' decimaler'}/>):exercise?.kind==='dial'&&exercise.device==='syringe'?<SyringeExercise spec={{capacity:exercise.max,increment:exercise.increment}} value={parseDrugNumber(drugAnswer)??exercise.initial} onChange={v=>setDrugAnswer(String(v))} disabled={!!feedbackVisible}/>:exercise?.kind==='dial'?<View style={styles.compactStack}>
+            {fields?fields.map((f,i)=><NumberInput key={i} label={f.label} unit={f.unit} value={response.values[i]} onChangeText={v=>changeField(i,v)} readOnly={!!feedbackVisible} inputProps={{placeholder:'Indtast tal',inputMode:'decimal'}} helperText={f.decimals===0?undefined:'Højst '+f.decimals+' decimal'+(f.decimals===1?'':'er')}/>):exercise?.kind==='dial'&&exercise.device==='syringe'?<SyringeExercise spec={{capacity:exercise.max,increment:exercise.increment}} value={parseDrugNumber(drugAnswer)??exercise.initial} onChange={v=>setDrugAnswer(String(v))} disabled={!!feedbackVisible}/>:exercise?.kind==='dial'?<View style={styles.compactStack}>
               <Text style={styles.detailLabel}>{exercise.label}</Text>
 
               <CaseScale min={exercise.min} max={exercise.max} step={exercise.increment} value={parseDrugNumber(drugAnswer)??exercise.initial} onChange={v=>setDrugAnswer(String(v))} unit={currentDrugQuestion.unit} disabled={!!feedbackVisible}/>
@@ -182,14 +182,14 @@ export function DrugCalcPracticeScreen({
                 expanded={feedbackExpanded}
                 onToggle={() => setFeedbackExpanded((current) => !current)}
                 style={styles.feedbackDetails}
-                subtitle="Mellemregning, forklaring og kontrol"
-                title="Se hele gennemgangen"
+                subtitle="Typiske fejl og kontrol"
+                title="Mere om beregningen"
               >
                 <View style={styles.feedbackContent}>
                   <DetailBlock label="Typisk faldgrube">
                     {currentDrugQuestion.commonPitfall}
                   </DetailBlock>
-                  <DetailBlock label="Plausibilitetskontrol">
+                  <DetailBlock label="Kontrol af svaret">
                     {currentDrugQuestion.plausibilityCheck}
                   </DetailBlock>
                 </View>

@@ -543,7 +543,7 @@ function generateBaseDrugCalcQuestion(
       return {
         id: counter++,
         topic,
-        text: `I en teoretisk beregningsopgave er dosis ${doseUgPerKg} ug/kg ved en vægt på ${weight} kg.\nHvad er den beregnede totale dosis i ug?`,
+        text: `Patienten vejer ${weight} kg. Dosis er ${doseUgPerKg} µg/kg.\nHvor mange µg skal der gives?`,
         correctAnswer: total,
         unit: "ug",
         hint: "Total dosis = (ug/kg) × (kg).",
@@ -558,7 +558,7 @@ function generateBaseDrugCalcQuestion(
     return {
       id: counter++,
       topic,
-      text: `I en teoretisk beregningsopgave er dosis ${doseMgPerKg} mg/kg ved en vægt på ${weight} kg.\nHvad er den beregnede totale dosis i mg?`,
+      text: `Patienten vejer ${weight} kg. Dosis er ${doseMgPerKg} mg/kg.\nHvor mange mg skal der gives?`,
       correctAnswer: totalMg,
       unit: "mg",
       hint: "Total dosis = (mg/kg) × (kg).",
@@ -579,7 +579,7 @@ function generateBaseDrugCalcQuestion(
       return {
         id: counter++,
         topic,
-        text: `En træningsblanding indeholder ${mg} mg i et totalvolumen på ${ml} mL.\nHvad er styrken i mg/mL?`,
+        text: `En opløsning indeholder ${mg} mg i ${ml} mL.\nHvad er styrken i mg/mL?`,
         correctAnswer: strength,
         unit: "mg/mL",
         hint: "S = D / V.",
@@ -595,7 +595,7 @@ function generateBaseDrugCalcQuestion(
     return {
       id: counter++,
       topic,
-      text: `En træningsblanding indeholder ${mg} mg i et totalvolumen på ${ml} mL.\nHvad er styrken i mg/mL?`,
+      text: `En opløsning indeholder ${mg} mg i ${ml} mL.\nHvad er styrken i mg/mL?`,
       correctAnswer: strength,
       unit: "mg/mL",
       hint: "S = D / V.",
@@ -616,7 +616,7 @@ function generateBaseDrugCalcQuestion(
       return {
         id: counter++,
         topic,
-        text: `En opløsning har styrken ${strength} ug/mL. Den teoretisk beregnede dosis er ${target} ug.\nHvor mange mL svarer det til?`,
+        text: `Ordination: ${target} µg. Styrke: ${strength} µg/mL.\nHvor mange mL skal du trække op?`,
         correctAnswer: vol,
         unit: "mL",
         hint: "V = D / S.",
@@ -633,7 +633,7 @@ function generateBaseDrugCalcQuestion(
       return {
         id: counter++,
         topic,
-        text: `En opløsning har styrken ${strength} mg/mL. Den teoretisk beregnede dosis er ${target} mg.\nHvor mange mL svarer det til?`,
+        text: `Ordination: ${target} mg. Styrke: ${strength} mg/mL.\nHvor mange mL skal du trække op?`,
         correctAnswer: vol,
         unit: "mL",
         hint: "V = D / S.",
@@ -650,7 +650,7 @@ function generateBaseDrugCalcQuestion(
     return {
       id: counter++,
       topic,
-      text: `En opløsning har styrken ${strength} IE/mL. Den teoretisk beregnede dosis er ${target} IE.\nHvor mange mL svarer det til?`,
+      text: `Ordination: ${target} IE. Styrke: ${strength} IE/mL.\nHvor mange mL skal du trække op?`,
       correctAnswer: vol,
       unit: "mL",
       hint: "V = D / S.",
@@ -668,7 +668,7 @@ function generateBaseDrugCalcQuestion(
     return {
       id: counter++,
       topic,
-      text: `Du har glukose ${percent}%.\nHvor mange gram glukose er der i ${vol} mL?`,
+      text: `Hvor mange gram glukose indeholder ${vol} mL glukose ${percent} % (masse/volumen)?`,
       correctAnswer: grams,
       unit: "g",
       hint: "X% = X g pr. 100 mL. g = (X/100) × mL.",
@@ -734,7 +734,7 @@ function generateBaseDrugCalcQuestion(
     return {
       id: counter++,
       topic,
-      text: `Ordination: ${prescribedMg} mg. Hver tablet indeholder ${tabletStrength} mg.\nHvor mange tabletter svarer det til?`,
+      text: `Ordination: ${prescribedMg} mg. Tabletstyrke: ${tabletStrength} mg.\nHvor mange tabletter svarer dosis til?`,
       correctAnswer: tabletCount,
       unit: "tabletter",
       hint: "Antal tabletter = ordineret dosis ÷ styrke pr. tablet.",
@@ -752,7 +752,7 @@ function generateBaseDrugCalcQuestion(
     return {
       id: counter++,
       topic,
-      text: `${drugMg} mg lægemiddel fortyndes til et samlet volumen på ${totalMl} mL.\nHvad er slutstyrken?`,
+      text: `Du fortynder ${drugMg} mg til i alt ${totalMl} mL.\nHvad bliver styrken i mg/mL?`,
       correctAnswer: finalStrength,
       unit: "mg/mL",
       hint: "Slutstyrke = samlet stofmængde ÷ samlet volumen.",
@@ -773,7 +773,7 @@ function generateBaseDrugCalcQuestion(
       return {
         id: counter++,
         topic,
-        text: `Dråbefaktor = ${DROPS_PER_ML} dr/mL.\nInfusionen løber ${drMin} dr/min.\nHvad er hastigheden i mL/time?`,
+        text: `Dråbefaktor: ${DROPS_PER_ML} dr/mL. Du tæller ${drMin} dr/min.\nHvad er hastigheden i mL/time?`,
         correctAnswer: mlH,
         unit: "mL/time",
         hint: `mL/min = dr/min ÷ ${DROPS_PER_ML}. mL/time = mL/min × 60.`,
@@ -791,7 +791,7 @@ function generateBaseDrugCalcQuestion(
     return {
       id: counter++,
       topic,
-      text: `Dråbefaktor = ${DROPS_PER_ML} dr/mL.\nDu vil give ${mlH} mL/time.\nHvor mange dr/min er det?`,
+      text: `Infusionen skal løbe med ${mlH} mL/time. Dråbefaktor: ${DROPS_PER_ML} dr/mL.\nHvor mange dråber pr. minut?`,
       correctAnswer: drMin,
       unit: "dr/min",
       hint: `dr/min = (mL/time ÷ 60) × ${DROPS_PER_ML}.`,
@@ -811,7 +811,7 @@ function generateBaseDrugCalcQuestion(
     return {
       id: counter++,
       topic,
-      text: `En træningsblanding indeholder 50 mg i 50 mL (≈ ${strengthUgMl} ug/mL). Den teoretiske dosisrate er ${ugMin} ug/min.\nHvad er hastigheden i mL/time?`,
+      text: `Blandingen indeholder 50 mg i 50 mL. Ordination: ${ugMin} µg/min.\nHvad skal pumpen stå på i mL/time?`,
       correctAnswer: mlH,
       unit: "mL/time",
       hint: "V = D/S (i mL/min), gang derefter med 60.",
@@ -834,7 +834,7 @@ function generateBaseDrugCalcQuestion(
     return {
       id: counter++,
       topic,
-      text: `En ${cylinderLiters} L iltflaske viser ${pressureBar} bar. Flowet er ${flowLitersPerMinute} L/min.\nHvor mange minutter rækker flasken teoretisk?`,
+      text: `En ${cylinderLiters} L iltflaske viser ${pressureBar} bar. Flowet er ${flowLitersPerMinute} L/min.\nHvor længe rækker flasken beregningsmæssigt uden reserve?`,
       correctAnswer: durationMinutes,
       unit: "minutter",
       hint: "Varighed = (flaskestørrelse × tryk) ÷ flow.",
@@ -854,7 +854,7 @@ function generateBaseDrugCalcQuestion(
     return {
       id: counter++,
       topic,
-      text: `En teoretisk beregnet dosis er ${doseMgPerKg} mg/kg til en person på ${weight} kg. Styrken er ${strengthMgMl} mg/mL.\nHvor mange mL svarer den beregnede dosis til?`,
+      text: `Patienten vejer ${weight} kg. Ordination: ${doseMgPerKg} mg/kg. Styrke: ${strengthMgMl} mg/mL.\nHvor mange mL svarer dosis til?`,
       correctAnswer: volumeMl,
       unit: "mL",
       hint: "Beregn først total dosis i mg. Brug derefter V = D / S.",
@@ -874,7 +874,7 @@ function generateBaseDrugCalcQuestion(
       return {
         id: counter++,
         topic,
-        text: `En beregning siger: ${mg} mg = ${incorrectUg} ug.\nHvad er den korrekte omregning i ug?`,
+        text: `En kollega har skrevet ${mg} mg = ${incorrectUg} µg.\nRet svaret.`,
         correctAnswer: correctUg,
         unit: "ug",
         hint: "Kontrollér omregningsfaktoren mellem mg og ug.",
@@ -890,7 +890,7 @@ function generateBaseDrugCalcQuestion(
     return {
       id: counter++,
       topic,
-      text: `En blanding indeholder ${doseMg} mg i ${volumeMl} mL. En beregning angiver styrken som ${roundTo(incorrectStrength, 2)} mg/mL.\nHvad er den korrekte styrke?`,
+      text: `En blanding indeholder ${doseMg} mg i ${volumeMl} mL. En kollega får ${roundTo(incorrectStrength, 2)} mg/mL.\nHvad er den korrekte styrke?`,
       correctAnswer: correctStrength,
       unit: "mg/mL",
       hint: "Styrke er stofmængde divideret med volumen.",
@@ -907,7 +907,7 @@ function generateBaseDrugCalcQuestion(
   return {
     id: counter++,
     topic: "time",
-    text: `En infusion har ${totalMl} mL tilbage.\nDen løber med ${rateMlH} mL/time.\nHvor mange timer varer det?`,
+    text: `Der er ${totalMl} mL tilbage i infusionsposen. Hastigheden er ${rateMlH} mL/time.\nHvor mange timer er der tilbage?`,
     correctAnswer: hours,
     unit: "timer",
     hint: "Tid = volumen ÷ hastighed.",
@@ -948,12 +948,14 @@ function getAnswerDecimals(question: DrugCalcQuestionBase) {
   return 2;
 }
 
+function danishNumbers(text:string) { return text.replace(/(\d)\.(?=\d)/g, '$1,'); }
+
 function getRoundingNote(answerDecimals: number) {
   if (answerDecimals === 0) {
-    return "Angiv svaret som et helt tal. Afrund først efter hele beregningen.";
+    return "Afrund til helt tal.";
   }
   const decimalLabel = answerDecimals === 1 ? "én decimal" : `${answerDecimals} decimaler`;
-  return `Angiv svaret med ${decimalLabel}. Afrund først efter hele beregningen.`;
+  return `Afrund til ${decimalLabel}.`;
 }
 
 export function formatDrugAnswer(question: DrugCalcQuestion) {
@@ -976,8 +978,10 @@ export function generateDrugCalcQuestion(
 
   return {
     ...question,
+    text: danishNumbers(question.text),
+    explanation: danishNumbers(question.explanation),
     formula: FORMULA_BY_TOPIC[question.topic],
-    calculationSteps,
+    calculationSteps: calculationSteps.map(danishNumbers),
     commonPitfall: PITFALL_BY_TOPIC[question.topic],
     plausibilityCheck: PLAUSIBILITY_BY_TOPIC[question.topic],
     roundingNote: getRoundingNote(answerDecimals),

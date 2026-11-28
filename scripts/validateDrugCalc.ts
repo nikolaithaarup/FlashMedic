@@ -182,3 +182,11 @@ console.log('All 13 topics accessible; numeric input contrast validated.');
 
 for(const topic of ['strength','percentage','drops','time','errorCheck'] as const){const forms=new Set<string>();for(let i=0;i<100;i++){const q=generateDrugCalcQuestion([topic],'varied');forms.add(q.formula);if(q.labelData&&(!q.labelData.title||!q.labelData.strength||!q.labelData.detail))throw new Error('Incomplete label');}if(forms.size<2)throw new Error('Missing alternative for '+topic);}
 console.log('Five additional question families validated.');
+
+for(const topic of DRUG_TOPICS)for(const mode of ['classic','varied'] as const)for(let i=0;i<50;i++){
+ const q=generateDrugCalcQuestion([topic.id],mode);
+ if(/fiktiv|øvelses|træningsblanding|teoretisk beregningsopgave|regneordination/i.test(q.text))throw new Error('Redundant wording: '+q.text);
+ if(/\d\.\d/.test(q.text))throw new Error('Use Danish decimal comma: '+q.text);
+ if(q.labelData&&/øvelse/i.test(q.labelData.title))throw new Error('Redundant label wording');
+}
+console.log('Danish question wording checked for all 13 topics in both generators.');

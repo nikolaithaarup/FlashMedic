@@ -7,7 +7,7 @@ export default function SyringeExercise({spec,value,onChange,disabled=false,read
  const xAt=(clientX:number)=>{const r=svg.current?.getBoundingClientRect();return r&&r.width>0?(clientX-r.left)*320/r.width:0;};
  const active=!disabled&&!readOnly&&!!onChange;
  return <div style={{width:'100%',maxWidth:550,alignSelf:'center',color:'#e5e7eb'}}>
- <svg ref={svg} viewBox="0 0 320 90" width="100%" role={readOnly?'img':undefined} aria-label={readOnly?'Gradueret øvelsessprøjte. Aflæs stempelfronten.':'Øvelsessprøjte med spids til venstre og stempel til højre'} style={{display:'block',userSelect:'none'}}>
+ <svg ref={svg} viewBox="0 0 320 90" width="100%" role={readOnly?'img':undefined} aria-label={readOnly?'Gradueret sprøjte. Aflæs stempelfronten.':'Sprøjte med spids til venstre og stempel til højre'} style={{display:'block',userSelect:'none'}}>
  <rect x="3" y="52" width="10" height="6" rx="2" fill="#a7b5be"/><path d="M13 49 H24 L32 39 V71 L24 61 H13 Z" fill="#8598a5" stroke="#c6d4da"/>
  <rect x="32" y="35" width="136" height="40" rx="3" fill="#142d37" stroke="#9bb5c2" strokeWidth="1.2"/>
  <rect x={g.x0} y="37" width={g.fill} height="36" fill="#28b8ac" opacity=".58"/>
