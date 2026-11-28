@@ -171,3 +171,11 @@ console.log(tested+' varied medication questions validated; '+[...formats].join(
 import {syringeSpec,syringeGeometry,syringeTicks} from '../src/features/drugCalc/syringeGeometry';
 for(const capacity of [1,2,5,10] as const){const spec=syringeSpec(capacity);let last=-1;for(const tick of syringeTicks(spec)){const g=syringeGeometry(spec,tick.volume);if(g.piston<=last||Math.abs(g.fill-(g.piston-g.x0))>1e-8||g.rodEnd+3>320||g.rodEnd-3<g.x0+g.barrel+6)throw new Error('Syringe geometry reversed or clipped');last=g.piston;}if(syringeGeometry(spec,0).fill!==0||syringeGeometry(spec,capacity).fill!==130)throw new Error('Incorrect syringe endpoint');}
 console.log('Syringe geometry: four capacities, ordered graduations and full plunger travel passed.');
+
+import {drugTopicGroups,shortTopicNames} from '../src/features/drugCalc/drugCalcMenu';
+import {numericFieldColors as fieldColors} from '../src/ui/primitives/numericFieldColors';
+const menuIds=drugTopicGroups.flatMap(g=>g.topics);
+if(menuIds.length!==DRUG_TOPICS.length||new Set(menuIds).size!==menuIds.length||DRUG_TOPICS.some(t=>!menuIds.includes(t.id)||!shortTopicNames[t.id]))throw new Error('Drug menu does not cover all topics exactly once');
+const lum=(hex:string)=>{const rgb=hex.slice(1).match(/../g)!.map(x=>{const n=parseInt(x,16)/255;return n<=.04045?n/12.92:Math.pow((n+.055)/1.055,2.4)});return .2126*rgb[0]+.7152*rgb[1]+.0722*rgb[2]};
+for(const bg of [fieldColors.background,fieldColors.focused,fieldColors.readOnly,fieldColors.disabled])for(const fg of [fieldColors.text,fieldColors.muted]){const a=lum(bg),b=lum(fg);if((Math.max(a,b)+.05)/(Math.min(a,b)+.05)<4.5)throw new Error('Numeric field contrast below 4.5:1');}
+console.log('All 13 topics accessible; numeric input contrast validated.');

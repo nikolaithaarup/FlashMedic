@@ -1,4 +1,5 @@
 import React, { useId, useState } from "react";
+import {numericFieldColors as fieldColors} from "./numericFieldColors";
 import {
   Platform,
   Pressable,
@@ -85,7 +86,10 @@ export function NumberInput({
             setFocused(true);
             inputProps?.onFocus?.(event);
           }}
-          placeholderTextColor={ColorTokens.text.muted}
+          placeholderTextColor={fieldColors.muted}
+          selectionColor={fieldColors.focus}
+          autoCorrect={false}
+          autoCapitalize="none"
           style={styles.input}
           value={value}
         />
@@ -141,36 +145,35 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: Radii.control,
     borderWidth: Borders.hairline,
-    borderColor: ColorTokens.border.onSurface,
-    backgroundColor: ColorTokens.surface.default,
+    borderColor: fieldColors.border,
+    backgroundColor: fieldColors.background,
     paddingLeft: Spacing.md,
   },
   focused: {
-    borderColor: ColorTokens.accent.focus,
-    backgroundColor: ColorTokens.surface.toolElevated,
+    borderColor: fieldColors.focus,
+    backgroundColor: fieldColors.focused,
   },
   invalid: {
     borderColor: ColorTokens.semantic.danger,
   },
   disabled: {
-    opacity: Interaction.disabledOpacity,
-    backgroundColor: ColorTokens.interaction.disabledSurface,
+    backgroundColor: fieldColors.disabled,
   },
   readOnly: {
-    backgroundColor: ColorTokens.surface.toolElevated,
+    backgroundColor: fieldColors.readOnly,
   },
   input: {
     flex: 1,
     minWidth: 0,
     minHeight: Interaction.minimumTouchTarget,
-    color: ColorTokens.text.onSurface,
+    color: fieldColors.text,
     fontFamily: Typography.families.sans,
     fontSize: Typography.sizes.body,
     lineHeight: Typography.lineHeights.body,
     paddingVertical: Spacing.sm,
   },
   unit: {
-    color: ColorTokens.text.muted,
+    color: fieldColors.muted,
     fontFamily: Typography.families.sans,
     fontSize: Typography.sizes.body,
     lineHeight: Typography.lineHeights.body,
@@ -186,7 +189,7 @@ const styles = StyleSheet.create({
     opacity: Interaction.pressedOpacity,
   },
   clearLabel: {
-    color: ColorTokens.text.muted,
+    color: fieldColors.muted,
     fontSize: Typography.sizes.sectionTitle,
     lineHeight: Typography.lineHeights.sectionTitle,
   },

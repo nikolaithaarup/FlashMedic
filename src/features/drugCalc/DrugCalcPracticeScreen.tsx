@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
+import {shortTopicNames} from "./drugCalcMenu";
 import { Keyboard, StyleSheet, Text, View } from "react-native";
 import CaseScale from '../patientCases/CaseScale';
 import SyringeExercise from './SyringeExercise';
@@ -77,6 +78,7 @@ export function DrugCalcPracticeScreen({
   const [topicsExpanded, setTopicsExpanded] = useState(false);
   const [feedbackExpanded, setFeedbackExpanded] = useState(false);
   const [hintVisible,setHintVisible]=useState(false);
+  useEffect(()=>{setHintVisible(false);setFeedbackExpanded(false);},[currentDrugQuestion?.id]);
   const exercise=currentDrugQuestion?.exercise;
   const fields=exercise?.kind==='fields'||exercise?.kind==='audit'?exercise.fields:null;
   const response=readDrugResponse(drugAnswer,fields?.length??0);
@@ -127,7 +129,7 @@ export function DrugCalcPracticeScreen({
               {availableTopics.map((topic) => (
                 <Chip
                   key={topic.id}
-                  label={topic.title}
+                  label={shortTopicNames[topic.id]}
                   onPress={() => toggleTopic(topic.id)}
                   selected={selectedTopics.includes(topic.id)}
                 />
@@ -147,12 +149,12 @@ export function DrugCalcPracticeScreen({
       {currentDrugQuestion ? (
         <>
           <Surface elevated tone="elevated" style={styles.section}>
-            <Text style={styles.eyebrow}>OPGAVE</Text>
+            <Text style={styles.eyebrow}>{shortTopicNames[currentDrugQuestion.topic]} · {currentDrugQuestion.syringe?"Aflæs sprøjten":exercise?.kind==='fields'?"Flere trin":exercise?.kind==='audit'?"Find fejlen":exercise?.kind==='dial'?exercise.device==='syringe'?"Indstil sprøjten":"Indstil hastighed":"Beregn"}</Text>
             <Text style={styles.questionText}>{currentDrugQuestion.text}</Text>
 
             {currentDrugQuestion.syringe&&<SyringeExercise spec={currentDrugQuestion.syringe} value={currentDrugQuestion.syringe.volume} disabled readOnly/>}
             {exercise?.kind==='audit'&&<View style={styles.compactStack}>{exercise.options.map((option,i)=><SelectableChoice key={i} label={option} state={feedbackVisible?(i===exercise.correctIndex?'correct':response.choice===i?'incorrect':'default'):response.choice===i?'selected':'default'} disabled={!!feedbackVisible} dimWhenDisabled={false} onPress={()=>setDrugAnswer(JSON.stringify({...response,choice:i}))}/>)}</View>}
-            {fields?fields.map((f,i)=><NumberInput key={i} label={f.label} unit={f.unit} value={response.values[i]} onChangeText={v=>changeField(i,v)} readOnly={!!feedbackVisible} inputProps={{placeholder:'Indtast tal',inputMode:'decimal'}} helperText={f.decimals===0?'Helt tal':undefined}/>):exercise?.kind==='dial'&&exercise.device==='syringe'?<SyringeExercise spec={{capacity:exercise.max,increment:exercise.increment}} value={parseDrugNumber(drugAnswer)??exercise.initial} onChange={v=>setDrugAnswer(String(v))} disabled={!!feedbackVisible}/>:exercise?.kind==='dial'?<View style={styles.compactStack}>
+            {fields?fields.map((f,i)=><NumberInput key={i} label={f.label} unit={f.unit} value={response.values[i]} onChangeText={v=>changeField(i,v)} readOnly={!!feedbackVisible} inputProps={{placeholder:'Indtast tal',inputMode:'decimal'}} helperText={f.decimals===0?'Helt tal':'Op til '+f.decimals+' decimaler'}/>):exercise?.kind==='dial'&&exercise.device==='syringe'?<SyringeExercise spec={{capacity:exercise.max,increment:exercise.increment}} value={parseDrugNumber(drugAnswer)??exercise.initial} onChange={v=>setDrugAnswer(String(v))} disabled={!!feedbackVisible}/>:exercise?.kind==='dial'?<View style={styles.compactStack}>
               <Text style={styles.detailLabel}>{exercise.label}</Text>
 
               <CaseScale min={exercise.min} max={exercise.max} step={exercise.increment} value={parseDrugNumber(drugAnswer)??exercise.initial} onChange={v=>setDrugAnswer(String(v))} unit={currentDrugQuestion.unit} disabled={!!feedbackVisible}/>
@@ -172,6 +174,7 @@ export function DrugCalcPracticeScreen({
               value={`${formatDrugAnswer(currentDrugQuestion)} ${currentDrugQuestion.unit}`}
             >
               {fields?.map((f,i)=><ResultRow key={i} label={f.label} value={f.answer.toLocaleString('da-DK',{maximumFractionDigits:f.decimals})+' '+f.unit}/>)}
+              <View style={styles.worked}>{currentDrugQuestion.calculationSteps.map((step,i)=><Text key={i} style={styles.bodyText}>{step}</Text>)}</View>
               {exercise?.kind==='audit'&&<ResultRow label="Første fejl" value={exercise.options[exercise.correctIndex]}/>}
               <ResultRow label="Formel" value={currentDrugQuestion.formula} />
               <Accordion
@@ -182,17 +185,6 @@ export function DrugCalcPracticeScreen({
                 title="Se hele gennemgangen"
               >
                 <View style={styles.feedbackContent}>
-                  <View style={styles.detailBlock}>
-                    <Text style={styles.detailLabel}>Beregning trin for trin</Text>
-                    {currentDrugQuestion.calculationSteps.map((step, index) => (
-                      <Text key={`${step}-${index}`} style={styles.bodyText}>
-                        {index + 1}. {step}
-                      </Text>
-                    ))}
-                  </View>
-                  <DetailBlock label="Forklaring">
-                    {currentDrugQuestion.explanation}
-                  </DetailBlock>
                   <DetailBlock label="Typisk faldgrube">
                     {currentDrugQuestion.commonPitfall}
                   </DetailBlock>
@@ -232,6 +224,7 @@ export default DrugCalcPracticeScreen;
 
 const styles = StyleSheet.create({
   content: { paddingBottom: Spacing.xxl },
+  worked:{gap:4,paddingVertical:6},
   section: { gap: Spacing.sm, marginBottom: Spacing.sm },
   compactStack:{gap:Spacing.sm},dialValue:{fontSize:Typography.sizes.sectionTitle,color:ColorTokens.accent.primary,fontWeight:'700',textAlign:'center'},dialTrack:{height:12,borderRadius:6,backgroundColor:ColorTokens.surface.default,overflow:'hidden'},dialFill:{height:'100%',backgroundColor:ColorTokens.accent.primary},
   eyebrow: {
